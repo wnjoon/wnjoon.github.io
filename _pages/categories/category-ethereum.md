@@ -2,7 +2,7 @@
 title: "Ethereum"
 layout: archive
 permalink: categories/ethereum
-author_profile: false
+author_profile: true
 sidebar_main: true
 ---
 

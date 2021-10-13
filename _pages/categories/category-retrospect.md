@@ -2,7 +2,7 @@
 title: "회고"
 layout: archive
 permalink: categories/retrospect
-author_profile: false
+author_profile: true
 sidebar_main: true
 ---
 

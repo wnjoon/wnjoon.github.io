@@ -2,7 +2,7 @@
 title: "후기"
 layout: archive
 permalink: categories/review
-author_profile: false
+author_profile: true
 sidebar_main: true
 ---
 

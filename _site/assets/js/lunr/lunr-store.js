@@ -11,10 +11,28 @@ var store = [{
         "url": "http://localhost:4000/ethereum/erc/",
         "teaser": null
       },{
+        "title": "라이트닝 네트워크(Lightning Network)",
+        "excerpt":"라이트닝 네트워크 라이트닝 네트워크(lightning network)는 메인 체인의 블록 크기는 그대로 고정하되 블록체인 외부 네트워크를 활용하여 블록에 입력되는 거래 내역을 줄이는 방안으로, 오프체인이 라이트닝 네트워크를 기반으로 한다고 보면 된다. 비트코인에서의 예시 비트코인을 예로 들어보자. 하나의 블록에 수많은 거래들이 들어갈 경우, 자연스럽게 블록의 크기는 증가할 것이고 이에 블록을 만들기 위한 수수료 또한...","categories": ["Blockchain"],
+        "tags": ["Blockchain","Bitcoin","Offchain"],
+        "url": "http://localhost:4000/blockchain/lightning_network/",
+        "teaser": null
+      },{
+        "title": "HD(Hierarchical Deterministic) Wallet",
+        "excerpt":"HD wallet HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 BIP-32 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다. BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나...","categories": ["Wallet"],
+        "tags": ["Blockchain","Wallet","Golang"],
+        "url": "http://localhost:4000/wallet/hd_wallet/",
+        "teaser": null
+      },{
         "title": "시스템 설계와 규모 확장성",
         "excerpt":"📒 본 포스팅은 Cracking The Coding Interview의 시스템 설계 및 규모 확장성과 HiredInTech 내용을 학습한 후 작성하였습니다. 시스템 설계 방법 TinyURL(URL을 축소해서 이를 원래 URL과 매핑해주는 시스템)을 설계한다고 가정하자. 문제의 범위 한정하기: 내가 생각하는 시스템의 목적과 방향이 면접관과 일치하는지 확실히 해야 한다. 예를 들어 개개인이 축약된 URL을 직접 만들 수...","categories": ["System Design"],
         "tags": ["Architecture","System Design","Scalability"],
         "url": "http://localhost:4000/system%20design/system_design_and_scalability/",
+        "teaser": null
+      },{
+        "title": "디앱(DApp, Decentralized Application)",
+        "excerpt":"DApp 디앱(DApp)은 Decentralized Application의 약자로, 이더리움, 큐텀, 이오스와 같은 플랫폼 코인 위에서 동작하는 탈중앙화 분산 어플리케이션을 의미한다. 디앱에서 사용되는 암호화폐는 일반적으로 코인(coin)이 아닌 토큰(token)으로 불린다. 디앱에서 가장 많이 사용하는 블록체인 플랫폼은 이더리움으로, 그 다음을 이오스와 트론이 차지하고 있다. 블록체인 기반으로 돌아가는 어플리케이션이라는 디앱의 특성상, 디앱에서 상호작용하는 모든 데이터들은 해당 블록체인...","categories": ["Blockchain"],
+        "tags": ["Blockchain","DApp","Decentralized","Application"],
+        "url": "http://localhost:4000/blockchain/dapp/",
         "teaser": null
       },{
         "title": "Infura로 이더리움 테스트용 노드 만들기",
@@ -27,6 +45,12 @@ var store = [{
         "excerpt":"📒 본 포스팅은 Kate Matsudaira의 Scalable Web Architecture and Distributed Systems 내용을 학습한 후 작성하였습니다. 웹 분산 시스템 설계의 원리 확장 가능한 웹 사이트 또는 애플리케이션을 구축하고 운영한다는 것은, 기본적으로는 인터넷을 통해 원격의 리소스와 사용자를 연결하는 것이고 더 나아가 리소스 또는 해당 리소스에 접근할 수 있는 서버를 여러곳에 분산시켜 확장...","categories": ["System Design"],
         "tags": ["Architecture","System Design","Scalability"],
         "url": "http://localhost:4000/system%20design/scalable-web-architecture-and-distributed-systems/",
+        "teaser": null
+      },{
+        "title": "STAR 방식으로 설명하기",
+        "excerpt":"S.T.A.R 많은 기업에서 면접을 볼 때, STAR 방식으로 설명할 것을 강조한다. 간략하게 무엇인지 살펴보자. S : Situation Describe the situation that you were in or the task that you needed to accomplish. You must describe a specific event or situation, not a generalized description of what you have done in...","categories": ["Etc"],
+        "tags": ["Interview","Communication Skill"],
+        "url": "http://localhost:4000/etc/star_way/",
         "teaser": null
       },{
         "title": "에어팟 프로 맥스(Airpod Pro Max) 2달 사용기",

@@ -1,0 +1,36 @@
+I"+<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/wallet/hd_wallet/">HD(Hierarchical Deterministic) Wallet</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.06
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#wallet" class="page__taxonomy-item-category" rel="tag">Wallet</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#golang" class="page__taxonomy-item-tag" rel="tag">Golang</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#wallet" class="page__taxonomy-item-tag" rel="tag">Wallet</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

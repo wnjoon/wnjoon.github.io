@@ -2,7 +2,7 @@
 title: "System Design"
 layout: archive
 permalink: categories/system_design
-author_profile: false
+author_profile: true
 sidebar_main: true
 ---
 
