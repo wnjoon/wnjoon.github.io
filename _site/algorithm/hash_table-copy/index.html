@@ -1,0 +1,890 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+
+    <!--폰트 : "Cafe24Oneprettynight"-->
+    
+    <!--main.scss 조금이라도 빨리 로드 되길.. preload-->
+    <link rel="preload" as="style" href="/assets/css/main.css">
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>해시 테이블(Hash Table) - 월리의 탐구생활</title>
+<meta name="description" content="키-값(key-value) 구조를 통해 효율적인 탐색을 제공하는 해시 테이블 자료구조에 대해 알아본다. ">
+
+
+  <meta name="author" content="글쓰는 개발자 💻 ">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="월리의 탐구생활">
+<meta property="og:title" content="해시 테이블(Hash Table)">
+<meta property="og:url" content="http://localhost:4000/algorithm/hash_table-copy/">
+
+
+  <meta property="og:description" content="키-값(key-value) 구조를 통해 효율적인 탐색을 제공하는 해시 테이블 자료구조에 대해 알아본다. ">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-09-25T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-10-13T00:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/algorithm/hash_table-copy/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "월리",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="월리의 탐구생활 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+    <!-- 스크롤바 커스터마이징 -->
+    <style> 
+      ::-webkit-scrollbar{width: 16px;}
+      ::-webkit-scrollbar-track {background-color:#4b4f52; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb {background-color:#5e6265; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb:hover {background: #ffd24c;}
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment 
+      {
+          width:12px;height:12px;background:transparent;}
+      }  
+
+      
+    </style>
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          월리의 탐구생활
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/index.html">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">카테고리 Click</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#algorithm" itemprop="item"><span itemprop="name">Algorithm</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">해시 테이블(Hash Table)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">글쓰는 개발자 💻 </h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://wnjoon.github.io/resume/" rel="nofollow noopener noreferrer"><i class="far fa-address-card" aria-hidden="true"></i><span class="label">Resume</span></a></li>
+          
+        
+          
+            <li><a href="mailto:wnjoon@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/wnjoon" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  
+    
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">카테고리 Click</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">13</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+      </li>
+      <li>
+        <!-- 개발 -->
+        <span class="nav__sub-title">개발</span>
+            <!-- 개발/Algorithm -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/algorithm" class="">Algorithm (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/blockchain" class="">Blockchain (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Ethereum -->
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/ethereum" class="">ㄴ Ethereum (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Wallet -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/wallet" class="">ㄴ Wallet (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/System Design -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/system_design" class="">System Design (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Tools -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/tools" class="">개발 도구 (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!-- 일상 -->
+        <span class="nav__sub-title">일상</span>
+            <!-- 일상/잡학다식 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/etc" class="">잡학다식 (1)</a></li>
+                    
+                
+                    
+                
+            </ul>
+            <!-- 일상/후기 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/review" class="">후기 (1)</a></li>
+                    
+                
+            </ul>
+            <!-- 일상/회고 -->
+            <ul>
+                
+                    
+                        <li><a href="/categories/retrospect" class="">회고 (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+      </li>
+      <li>	
+            <br>      
+            <!-- 방문자 수 카운트하는 부분인데.. 뭔가 이상함.. 내가 테스트해보려 들어갔다나오는 모든 것도 카운트되어서 매우 부담스러움 -->
+            <!--<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwnjoon.github.io&count_bg=%2379C83D&title_bg=%23686868&icon=&icon_color=%23B4B4B4&title=visitors&edge_flat=true"/></a>-->
+      </li>
+  </ul>
+</nav>
+
+
+  
+
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="해시 테이블(Hash Table)">
+    <meta itemprop="description" content="키-값(key-value) 구조를 통해 효율적인 탐색을 제공하는 해시 테이블 자료구조에 대해 알아본다.">
+    <meta itemprop="datePublished" content="2021-09-25T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-10-13T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">해시 테이블(Hash Table)
+</h1>
+          
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-09-25T00:00:00+09:00">2021.09.25</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-13">2021.10.13</time></p>
+          
+          
+            
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#algorithm" class="page__taxonomy-item-category" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#data-structure" class="page__taxonomy-item-tag" rel="tag">Data Structure</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#해시-테이블">해시 테이블</a></li>
+  <li><a href="#연결-리스트linked-list를-이용한-해시-테이블-구현">연결 리스트(linked-list)를 이용한 해시 테이블 구현</a>
+    <ul>
+      <li><a href="#해시-테이블에서-값-찾기">해시 테이블에서 값 찾기</a></li>
+      <li><a href="#시간-복잡도">시간 복잡도</a></li>
+    </ul>
+  </li>
+  <li><a href="#다른-구현-방법">다른 구현 방법</a></li>
+  <li><a href="#참고자료">참고자료</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h2 id="해시-테이블">해시 테이블</h2>
+
+<p>해시 테이블은 효율적인 탐색을 위한 자료구조로서, 키(key)를 값(value)에 대응시킨 구조다.</p>
+
+<p><br /></p>
+
+<h2 id="연결-리스트linked-list를-이용한-해시-테이블-구현">연결 리스트(linked-list)를 이용한 해시 테이블 구현</h2>
+
+<p>해시 테이블을 구현하는 방법은 여러가지가 있지만, 앞으로 설명할 연결리스트 활용 방식이 가장 간단하면서도 흔하게 사용된다고 한다.<br />
+간단한 해시 테이블을 구현하기 위해, <u>연결리스트(linked list)와 해시코드 함수(hash code function)가 필요</u>하다. 해시 테이블에 사용되는 키는 문자열 또는 그 외에 어떤 자료형도 가능하지만, 일반적으로 int 또는 long이 된다.</p>
+
+<blockquote>
+  <p>엄밀히 표현하면, int보다는 long이 더 효율적일 수 있다. 키의 개수는 무한할 수 있는데 반해 int는 long보다 유한할 수 있기 때문이다.<br />
+참고로 자바에서는 int와 long 값의 범위가 아래와 같다. 물론 자바가 아니더라도 대부분 동일하다.</p>
+  <ul>
+    <li>int: 32bit (-2^31 ~ 2^31 - 1) / -2147483648 ~ 2147483647</li>
+    <li>long: 64bit (-2^63 ~ 2^63 - 1) / -9223372036854775808 ~ 9223372036854775807</li>
+  </ul>
+</blockquote>
+
+<p>구현 순서는 다음과 같다.</p>
+
+<ol>
+  <li>먼저 키의 해시 코드를 계산한다. 서로 다른 키가 같은 해시 코드를 가지는 경우도 간혹 존재하는데, int형으로 키를 생성할 경우 이러한 빈도수는 근소하게 증가할 수 있다.</li>
+  <li>배열의 인덱스를 계산한다. 배열의 인덱스는 hash(key) % array_length 방식으로 구할 수 있다. <u>모듈러 방식으로 구하기 때문에, 서로 다른 두 해시 코드가 같은 인덱스 값을 가질 수 있다.</u></li>
+  <li>배열의 각 인덱스에는 키-값으로 이루어진 연결리스트가 존재하는데, 해당 키-값을 배열의 각 인덱스에 저장(인덱스 내부에 있는 연결리스트에 연결)한다. 연결리스트는 충분히 발생할 수 있는 충돌에 대비하기 위해서 사용하는데, 여기서 충돌이란 두가지 경우에서 발생할 수 있는데, 서로 다른 두 개의 키가 같은 해시 코드를 가리키는 경우(1에서 나올 수 있는)와 서로 다른 두 개의 해시 코드가 같은 인덱스를 가리키는 경우(2에서 나올 수 있는)가 있다.</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="해시-테이블에서-값-찾기">해시 테이블에서 값 찾기</h3>
+
+<p>해시테이블에서 키에 상응하는 값을 찾는 과정은 아래와 같다.</p>
+
+<ol>
+  <li>주어진 키로부터 해시 코드를 계산한다.</li>
+  <li>해시코드를 이용하여 인덱스를 계산한다.</li>
+  <li>해당 키에 상응하는 값을 인덱스 내부에 있는 연결리스트에서 검색한다.</li>
+</ol>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrZSs4%2FbtrfVttdxfx%2Fc1qrGzyhrSCY6H90YTEpvk%2Fimg.png" alt="" /></p>
+
+<p><br /></p>
+
+<h3 id="시간-복잡도">시간 복잡도</h3>
+
+<p>만약 충돌의 발생 빈도가 높아지면, 키의 개수를 N이라고 할 때 최악의 경우 O(N)의 수행시간이 걸릴 수도 있다. 하지만 일반적으로 사용되는 ‘충돌을 최소화할 수 있도록 잘 구현된 해시’를 사용할 경우, 탐색 시간은 O(1)이 된다. 해당 키의 해시값에 대한 인덱스를 계산해서 해당 인덱스로 접근하는 1번의 과정만 존재하기 때문이다.</p>
+
+<p><br /></p>
+
+<h2 id="다른-구현-방법">다른 구현 방법</h2>
+
+<p>균형 이진 탐색 트리(balanced binary search tree)를 이용하면 탐색시간은 O(logN)이 된다. 수행시간은 조금 더 걸릴 수 있지만, 배열을 미리 할당하지 않음으로써 잠재적으로 적은 공간을 사용한다는 장점이 있다.</p>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li>Cracking The Coding Interview - 해시테이블</li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <p></p>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Algorithm</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <!--
+
+  <nav class="pagination">
+    
+      <a href="/system%20design/scalable-web-architecture-and-distributed-systems/" class="pagination--pager" title="확장 가능한 웹 아키텍처 및 분산 시스템
+">이전</a>
+    
+    
+      <a href="/etc/star_way/" class="pagination--pager" title="STAR 방식으로 설명하기
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+
+  <nav class="pagination_prev_next">
+    
+      <a href="/algorithm/time_complexity/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>시간복잡도(Time Complexity)</a>
+    
+    
+      <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
+    
+  </nav>
+
+
+
+<!--
+
+
+
+-->
+
+
+
+        <p></p>
+
+        <!-- archive 중간 광고 -->
+      
+      </section>
+      <footer class="page__meta">
+        
+        <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%ED%95%B4%EC%8B%9C+%ED%85%8C%EC%9D%B4%EB%B8%94%28Hash+Table%29%20http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fhash_table-copy%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fhash_table-copy%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fhash_table-copy%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      </footer>
+    </div>
+
+    
+
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+<!-- ansohxxn.github.io -->
+<!--<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6111782407607310"
+     data-ad-slot="5978510098"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>-->
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 월리. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <aside class="sidebar__top">
+      <a href="#site-nav"> <i class="fas fa-angle-double-up fa-2x"></i></a>
+    </aside>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'wnjoon/wnjoon.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+  </body>
+</html>

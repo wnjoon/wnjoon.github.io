@@ -1,0 +1,104 @@
+I"�<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/dapp/">디앱(DApp, Decentralized Application)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.09
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#application" class="page__taxonomy-item-tag" rel="tag">Application</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#dapp" class="page__taxonomy-item-tag" rel="tag">DApp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#decentralized" class="page__taxonomy-item-tag" rel="tag">Decentralized</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/lightning_network/">라이트닝 네트워크(Lightning Network)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#bitcoin" class="page__taxonomy-item-tag" rel="tag">Bitcoin</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#offchain" class="page__taxonomy-item-tag" rel="tag">Offchain</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/lightning_network/">라이트닝 네트워크(Lightning Network)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#bitcoin" class="page__taxonomy-item-tag" rel="tag">Bitcoin</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#offchain" class="page__taxonomy-item-tag" rel="tag">Offchain</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

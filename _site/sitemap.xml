@@ -9,7 +9,15 @@
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/algorithm/time_complexity/</loc>
+<lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/blockchain/lightning_network/</loc>
+<lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/tools/code-server/</loc>
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -33,6 +41,10 @@
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/algorithm/hash_table-copy/</loc>
+<lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/etc/star_way/</loc>
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
@@ -42,6 +54,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/categories/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/categories/algorithm</loc>
 </url>
 <url>
 <loc>http://localhost:4000/categories/blockchain</loc>
@@ -62,6 +77,9 @@
 <loc>http://localhost:4000/categories/system_design</loc>
 </url>
 <url>
+<loc>http://localhost:4000/categories/tools</loc>
+</url>
+<url>
 <loc>http://localhost:4000/categories/wallet</loc>
 </url>
 <url>
@@ -78,5 +96,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page3/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page4/</loc>
 </url>
 </urlset>

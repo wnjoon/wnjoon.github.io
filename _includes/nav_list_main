@@ -10,6 +10,14 @@
       <li>
         <!-- 개발 -->
         <span class="nav__sub-title">개발</span>
+            <!-- 개발/Algorithm -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Algorithm" %}
+                        <li><a href="/categories/algorithm" class="">Algorithm ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
             <!-- 개발/Blockchain -->
             <ul>
                 {% for category in site.categories %}
@@ -22,7 +30,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Ethereum" %}
-                        <li><a href="/categories/ethereum" class="">Ethereum ({{category[1].size}})</a></li>
+                        <li><a href="/categories/ethereum" class="">ㄴ Ethereum ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -30,7 +38,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Wallet" %}
-                        <li><a href="/categories/wallet" class="">Wallet ({{category[1].size}})</a></li>
+                        <li><a href="/categories/wallet" class="">ㄴ Wallet ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -39,6 +47,14 @@
                 {% for category in site.categories %}
                     {% if category[0] == "System Design" %}
                         <li><a href="/categories/system_design" class="">System Design ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <!-- 개발/Tools -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Tools" %}
+                        <li><a href="/categories/tools" class="">개발 도구 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

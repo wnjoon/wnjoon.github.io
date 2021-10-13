@@ -11,10 +11,22 @@ var store = [{
         "url": "http://localhost:4000/ethereum/erc/",
         "teaser": null
       },{
+        "title": "시간복잡도(Time Complexity)",
+        "excerpt":"Big O Big-O는 알고리즘의 효율성을 나타내는 지표로, 알고리즘이 이전보다 빨라졌는지 혹은 느려졌는지, 혹은 이전보다 메모리를 더 많이 사용하는지 적게 사용하는지의 등을 판단하는 기준이 된다. 알고리즘에 대한 결과를 판단할 때 가장 중요하게 사용되며, 개발자라면 꼭 알고 계산할 수 있어야 하는 부분이다. 시간 복잡도 시간복잡도로서의 Big-O는 접근적 실행시간(asymptotic runtime)을 나타내는 지표로 사용된다....","categories": ["Algorithm"],
+        "tags": ["Algorithm","Time Complexity","Big-O"],
+        "url": "http://localhost:4000/algorithm/time_complexity/",
+        "teaser": null
+      },{
         "title": "라이트닝 네트워크(Lightning Network)",
         "excerpt":"라이트닝 네트워크 라이트닝 네트워크(lightning network)는 메인 체인의 블록 크기는 그대로 고정하되 블록체인 외부 네트워크를 활용하여 블록에 입력되는 거래 내역을 줄이는 방안으로, 오프체인이 라이트닝 네트워크를 기반으로 한다고 보면 된다. 비트코인에서의 예시 비트코인을 예로 들어보자. 하나의 블록에 수많은 거래들이 들어갈 경우, 자연스럽게 블록의 크기는 증가할 것이고 이에 블록을 만들기 위한 수수료 또한...","categories": ["Blockchain"],
         "tags": ["Blockchain","Bitcoin","Offchain"],
         "url": "http://localhost:4000/blockchain/lightning_network/",
+        "teaser": null
+      },{
+        "title": "웹브라우저 형식의 VScode, code-server 구성하기",
+        "excerpt":"code-server 개발자들에게 가장 사랑받는 IDE가 무엇일까? 재미있는건 개발자들이 사랑한다고 해서 점유율이 높은건 아닌데, 기존에 많이 사용되었던 IDE일수록 기존에 있던 기능들을 deprecated 하기가 쉽지 않고 이를 통해 시스템이 점점 더 무거워지기 때문은 아닐까 생각된다. 개발자 입장에서는 가볍고, 확장성이 좋고, 단순한 IDE를 사랑할 수 밖에 없다. 내가 원하는 코드를 가벼운 환경에서 작성할...","categories": ["Tools"],
+        "tags": ["Tools","IDE","VScode","iPad"],
+        "url": "http://localhost:4000/tools/code-server/",
         "teaser": null
       },{
         "title": "HD(Hierarchical Deterministic) Wallet",
@@ -45,6 +57,12 @@ var store = [{
         "excerpt":"📒 본 포스팅은 Kate Matsudaira의 Scalable Web Architecture and Distributed Systems 내용을 학습한 후 작성하였습니다. 웹 분산 시스템 설계의 원리 확장 가능한 웹 사이트 또는 애플리케이션을 구축하고 운영한다는 것은, 기본적으로는 인터넷을 통해 원격의 리소스와 사용자를 연결하는 것이고 더 나아가 리소스 또는 해당 리소스에 접근할 수 있는 서버를 여러곳에 분산시켜 확장...","categories": ["System Design"],
         "tags": ["Architecture","System Design","Scalability"],
         "url": "http://localhost:4000/system%20design/scalable-web-architecture-and-distributed-systems/",
+        "teaser": null
+      },{
+        "title": "해시 테이블(Hash Table)",
+        "excerpt":"해시 테이블 해시 테이블은 효율적인 탐색을 위한 자료구조로서, 키(key)를 값(value)에 대응시킨 구조다. 연결 리스트(linked-list)를 이용한 해시 테이블 구현 해시 테이블을 구현하는 방법은 여러가지가 있지만, 앞으로 설명할 연결리스트 활용 방식이 가장 간단하면서도 흔하게 사용된다고 한다. 간단한 해시 테이블을 구현하기 위해, 연결리스트(linked list)와 해시코드 함수(hash code function)가 필요하다. 해시 테이블에 사용되는 키는...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Data Structure"],
+        "url": "http://localhost:4000/algorithm/hash_table-copy/",
         "teaser": null
       },{
         "title": "STAR 방식으로 설명하기",
