@@ -11,10 +11,22 @@ var store = [{
         "url": "http://localhost:4000/ethereum/erc/",
         "teaser": null
       },{
+        "title": "시스템 설계와 규모 확장성",
+        "excerpt":"📒 본 포스팅은 Cracking The Coding Interview의 시스템 설계 및 규모 확장성과 HiredInTech 내용을 학습한 후 작성하였습니다. 시스템 설계 방법 TinyURL(URL을 축소해서 이를 원래 URL과 매핑해주는 시스템)을 설계한다고 가정하자. 문제의 범위 한정하기: 내가 생각하는 시스템의 목적과 방향이 면접관과 일치하는지 확실히 해야 한다. 예를 들어 개개인이 축약된 URL을 직접 만들 수...","categories": ["System Design"],
+        "tags": ["Architecture","System Design","Scalability"],
+        "url": "http://localhost:4000/system%20design/system_design_and_scalability/",
+        "teaser": null
+      },{
         "title": "Infura로 이더리움 테스트용 노드 만들기",
         "excerpt":"Infura 일반적으로 디앱(DApp)를 개발할 때에는 로컬에서 Ganashe 또는 Truffle develop을 사용하거나 geth를 이용한 private network를 구성한다. 물론 디앱에 국한되지 않더라도 대부분의 앱 또한 로컬에서 개발 -&gt; 테스트 -&gt; 실제 환경과 유사한 개발환경에서 테스트 -&gt; 배포와 같은 순서를 갖는다. 디앱은 여기서 조금 다른 부분이 테스트넷 환경에서 실제로 구성된 노드에 직접 테스트해봐야...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum"],
         "url": "http://localhost:4000/ethereum/infura/",
+        "teaser": null
+      },{
+        "title": "확장 가능한 웹 아키텍처 및 분산 시스템",
+        "excerpt":"📒 본 포스팅은 Kate Matsudaira의 Scalable Web Architecture and Distributed Systems 내용을 학습한 후 작성하였습니다. 웹 분산 시스템 설계의 원리 확장 가능한 웹 사이트 또는 애플리케이션을 구축하고 운영한다는 것은, 기본적으로는 인터넷을 통해 원격의 리소스와 사용자를 연결하는 것이고 더 나아가 리소스 또는 해당 리소스에 접근할 수 있는 서버를 여러곳에 분산시켜 확장...","categories": ["System Design"],
+        "tags": ["Architecture","System Design","Scalability"],
+        "url": "http://localhost:4000/system%20design/scalable-web-architecture-and-distributed-systems/",
         "teaser": null
       },{
         "title": "에어팟 프로 맥스(Airpod Pro Max) 2달 사용기",

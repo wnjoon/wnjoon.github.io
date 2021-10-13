@@ -9,7 +9,15 @@
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/system%20design/system_design_and_scalability/</loc>
+<lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/ethereum/infura/</loc>
+<lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/system%20design/scalable-web-architecture-and-distributed-systems/</loc>
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -29,6 +37,9 @@
 <loc>http://localhost:4000/categories/review</loc>
 </url>
 <url>
+<loc>http://localhost:4000/categories/system_design</loc>
+</url>
+<url>
 <loc>http://localhost:4000/</loc>
 </url>
 <url>
@@ -36,5 +47,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/year-archive/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page2/</loc>
 </url>
 </urlset>
