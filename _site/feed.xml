@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-13T15:56:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html"> 월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 </name></author><entry><title type="html">에어팟 프로 맥스(Airpod Pro Max) 2달 사용기</title><link href="http://localhost:4000/review/airpodmax/" rel="alternate" type="text/html" title="에어팟 프로 맥스(Airpod Pro Max) 2달 사용기" /><published>2021-10-13T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/review/airpodmax</id><content type="html" xml:base="http://localhost:4000/review/airpodmax/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-13T16:06:48+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html"> 월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 💻 </name></author><entry><title type="html">에어팟 프로 맥스(Airpod Pro Max) 2달 사용기</title><link href="http://localhost:4000/review/airpodmax/" rel="alternate" type="text/html" title="에어팟 프로 맥스(Airpod Pro Max) 2달 사용기" /><published>2021-10-13T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/review/airpodmax</id><content type="html" xml:base="http://localhost:4000/review/airpodmax/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;받게-된-배경&quot;&gt;받(?)게 된 배경&lt;/h2&gt;
 
@@ -133,7 +133,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Review" /><category term="후기" /><category term="일상" /><summary type="html">진정한 앱등이인지 필터링한다는, 말이 많은 에어팟 프로 맥스를 사용해본 후기를 적어본다.</summary></entry><entry><title type="html">Infura로 이더리움 테스트용 노드 만들기</title><link href="http://localhost:4000/ethereum/infura/" rel="alternate" type="text/html" title="Infura로 이더리움 테스트용 노드 만들기" /><published>2021-09-15T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/infura</id><content type="html" xml:base="http://localhost:4000/ethereum/infura/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 💻 </name></author><category term="Review" /><category term="후기" /><category term="일상" /><summary type="html">진정한 앱등이인지 필터링한다는, 말이 많은 에어팟 프로 맥스를 사용해본 후기를 적어본다.</summary></entry><entry><title type="html">Infura로 이더리움 테스트용 노드 만들기</title><link href="http://localhost:4000/ethereum/infura/" rel="alternate" type="text/html" title="Infura로 이더리움 테스트용 노드 만들기" /><published>2021-09-15T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/infura</id><content type="html" xml:base="http://localhost:4000/ethereum/infura/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;infura&quot;&gt;Infura&lt;/h2&gt;
 
@@ -186,7 +186,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><summary type="html">Infura를 이용하여 간편하게 이더리움 테스트를 위한 노드를 만들어본다.</summary></entry><entry><title type="html">이더리움 표준(ERC)</title><link href="http://localhost:4000/ethereum/erc/" rel="alternate" type="text/html" title="이더리움 표준(ERC)" /><published>2021-05-12T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/erc</id><content type="html" xml:base="http://localhost:4000/ethereum/erc/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 💻 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><summary type="html">Infura를 이용하여 간편하게 이더리움 테스트를 위한 노드를 만들어본다.</summary></entry><entry><title type="html">이더리움 표준(ERC)</title><link href="http://localhost:4000/ethereum/erc/" rel="alternate" type="text/html" title="이더리움 표준(ERC)" /><published>2021-05-12T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/erc</id><content type="html" xml:base="http://localhost:4000/ethereum/erc/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;erc-20&quot;&gt;ERC-20&lt;/h2&gt;
 
@@ -231,7 +231,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="Protocol" /><summary type="html">이더리움 블록체인 네트워크에서 정한 표준 토큰 스펙인 ERC에 대해 알아본다.</summary></entry><entry><title type="html">회고록 - 2020년</title><link href="http://localhost:4000/retrospect/2020_retrospect/" rel="alternate" type="text/html" title="회고록 - 2020년" /><published>2021-01-14T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/retrospect/2020_retrospect</id><content type="html" xml:base="http://localhost:4000/retrospect/2020_retrospect/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 💻 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="Protocol" /><summary type="html">이더리움 블록체인 네트워크에서 정한 표준 토큰 스펙인 ERC에 대해 알아본다.</summary></entry><entry><title type="html">회고록 - 2020년</title><link href="http://localhost:4000/retrospect/2020_retrospect/" rel="alternate" type="text/html" title="회고록 - 2020년" /><published>2021-01-14T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/retrospect/2020_retrospect</id><content type="html" xml:base="http://localhost:4000/retrospect/2020_retrospect/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;개인&quot;&gt;개인&lt;/h2&gt;
 
@@ -288,4 +288,4 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Retrospect" /><category term="회고" /><category term="일상" /><summary type="html">2020년 한해의 나를 돌아본다.</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 💻 </name></author><category term="Retrospect" /><category term="회고" /><category term="일상" /><summary type="html">2020년 한해의 나를 돌아본다.</summary></entry></feed>

@@ -93,8 +93,8 @@ social:
 
 # Site Author
 author:
-  name             : "글쓰는 개발자 "
-  avatar           : "/assets/images/profile.png"
+  name             : "글쓰는 개발자 💻 "
+  # avatar           : "/assets/images/profile.png"
   bio              : ""
   #location         : "Seoul, South Korea"
   links:
