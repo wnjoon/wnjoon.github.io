@@ -134,7 +134,7 @@
   }
 
   img {
-    max-width: 180px;
+    max-width: 160px;
     border-radius: 10%;
 
     @include breakpoint($large) {
@@ -189,7 +189,7 @@
   }
 
   p {
-    font-family: $cute;
+    font-family: $common;
     margin-top: 1.6px;
     margin-bottom: 3px;
   }
