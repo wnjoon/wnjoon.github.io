@@ -1,8 +1,0 @@
-I"�<ul>
-  <li><code class="language-plaintext highlighter-rouge">Ctrl + Shift + P</code> 하여 📄Markdown.json 검색 (나는 <code class="language-plaintext highlighter-rouge">md</code> 확장자의 마크다운 파일들에서 사용할 것이기 때문에)
-    <ul>
-      <li>HTML 파일 에서 자동 완성을 사용할 것이라면 📄html.json 이런식으로 검색!</li>
-    </ul>
-  </li>
-</ul>
-:ET

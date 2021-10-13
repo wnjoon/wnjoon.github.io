@@ -19,18 +19,18 @@
 
 
         <!-- Template -->
-        <span class="nav__sub-title">TEMP</span>
+        <span class="nav__sub-title">일상</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Cpp" %}
-                        <li><a href="/categories/cpp" class="">C ++ ({{category[1].size}})</a></li>
+                    {% if category[0] == "Retrospect" %}
+                        <li><a href="/categories/retrospect" class="">회고 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "STL" %}
-                        <li><a href="/categories/stl" class="">C++ STL & 표준 ({{category[1].size}})</a></li>
+                    {% if category[0] == "Review" %}
+                        <li><a href="/categories/review" class="">후기 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

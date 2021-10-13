@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://localhost:4000/ethereum/infura/</loc>
+<loc>http://localhost:4000/retrospect/2020_retrospect/</loc>
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -9,13 +9,24 @@
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/ethereum/infura/</loc>
+<lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/review/airpodmax/</loc>
+<lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/categories/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/categories/algorithm-lesson-1</loc>
+<loc>http://localhost:4000/categories/ethereum</loc>
 </url>
 <url>
-<loc>http://localhost:4000/categories/ethereum</loc>
+<loc>http://localhost:4000/categories/retrospect</loc>
+</url>
+<url>
+<loc>http://localhost:4000/categories/review</loc>
 </url>
 <url>
 <loc>http://localhost:4000/</loc>

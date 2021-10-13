@@ -229,6 +229,12 @@
 <div itemscope itemtype="https://schema.org/Person">
 
   
+    <div class="author__avatar">
+      
+        <img src="/assets/images/profile.png" alt="" itemprop="image">
+      
+    </div>
+  
 
   <div class="author__content">
     
@@ -327,28 +333,44 @@
   <label for="ac-toc">카테고리 Click</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">2</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">4</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
       </li>
       <li>
         <span class="nav__sub-title">Blockchain</span>
             <ul>
                 
                     
+                
+                    
                         <li><a href="/categories/ethereum" class="">Ethereum (2)</a></li>
+                    
+                
                     
                 
             </ul>
 
 
         <!-- Template -->
-        <span class="nav__sub-title">TEMP</span>
+        <span class="nav__sub-title">일상</span>
             <ul>
+                
+                    
+                        <li><a href="/categories/retrospect" class="">회고 (1)</a></li>
+                    
+                
+                    
                 
                     
                 
             </ul>
             <ul>
                 
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/review" class="">후기 (1)</a></li>
                     
                 
             </ul>
@@ -436,11 +458,7 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
               <ul class="toc__menu">
-  <li><a href="#infura">Infura</a>
-    <ul>
-      <li><a href="#특징">특징</a></li>
-    </ul>
-  </li>
+  <li><a href="#infura">Infura</a></li>
   <li><a href="#infura-사용하기">Infura 사용하기</a>
     <ul>
       <li><a href="#1-회원가입">1. 회원가입</a></li>
@@ -456,7 +474,7 @@
         
         <p><br /></p>
 
-<h1 id="infura">Infura</h1>
+<h2 id="infura">Infura</h2>
 
 <p>일반적으로 디앱(DApp)를 개발할 때에는 로컬에서 Ganashe 또는 Truffle develop을 사용하거나 geth를 이용한 private network를 구성한다. 물론 디앱에 국한되지 않더라도 대부분의 앱 또한 로컬에서 개발 -&gt; 테스트 -&gt; 실제 환경과 유사한 개발환경에서 테스트 -&gt; 배포와 같은 순서를 갖는다. <br />
 디앱은 여기서 조금 다른 부분이 테스트넷 환경에서 실제로 구성된 노드에 직접 테스트해봐야 한다는 점이다. 물론 풀노드(full node)로 테스트할 수도 있지만, 저장 공간이나 시간부터 꽤 많은 비용과 관리가 들어가는 등 실제로 개발에 들어가는 공수보다 배꼽이 더 큰 경우가 생길 수 있다.<br />
@@ -465,8 +483,6 @@
 <blockquote>
   <p>Our suite of high availability APIs and Developer Tools <u>provide quick, reliable access to the Ethereum and IPFS networks</u> so you can focus on building and scaling next generation software.</p>
 </blockquote>
-
-<h2 id="특징">특징</h2>
 
 <p>Infura의 특징을 정리해보면 다음과 같다.</p>
 <ul>
@@ -478,21 +494,21 @@
 
 <p><br /></p>
 
-<h1 id="infura-사용하기">Infura 사용하기</h1>
+<h2 id="infura-사용하기">Infura 사용하기</h2>
 
-<h2 id="1-회원가입">1. 회원가입</h2>
+<h3 id="1-회원가입">1. 회원가입</h3>
 
 <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FNHn56%2Fbtre1bgLN0O%2FKNtO5p6MNQVoWuqiFx4Y6k%2Fimg.png" alt="" width="40%" height="40%" /></p>
 
 <p>딱히 복잡한게 없다. 그냥 이메일 주소랑 비밀번호만 입력하면 된다</p>
 
-<h2 id="2-프로젝트-생성">2. 프로젝트 생성</h2>
+<h3 id="2-프로젝트-생성">2. 프로젝트 생성</h3>
 
 <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUfHlw%2Fbtre7sOHSKs%2FqyZgxZq2lW9TU65YGYktm0%2Fimg.png" alt="" /></p>
 
 <p>Testnet이라는 프로젝트를 하나 만들고나면, 위와 같은 결과 화면을 볼 수 있다.</p>
 
-<h2 id="3-api-key-확인">3. API KEY 확인</h2>
+<h3 id="3-api-key-확인">3. API KEY 확인</h3>
 
 <p>필자는 요즘 Loom network에 대해 공부하고 있는데(이 포스팅을 작성하게 된 가장 큰 원인이기도 하다), 튜토리얼을 진행하려면 Infura에서 만든 노드의 API KEY를 Rinkeby에 연결하라고 했지만 어디에서도 API KEY가 보이지 않는다.</p>
 
@@ -502,7 +518,7 @@
 
 <p><br /></p>
 
-<h1 id="참고자료">참고자료</h1>
+<h2 id="참고자료">참고자료</h2>
 <ul>
   <li><a href="https://medium.com/@sungjoon.yoon/infura-사용해보기-24af9bf12c4c">Infura 사용해보기</a></li>
 </ul>
@@ -520,10 +536,11 @@
 
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">이전</a>
-    
-    
       <a href="/ethereum/erc/" class="pagination--pager" title="이더리움 표준(ERC)
+">이전</a>
+    
+    
+      <a href="/review/airpodmax/" class="pagination--pager" title="에어팟 프로 맥스(Airpod Pro Max) 2달 사용기
 ">다음</a>
     
   </nav>
@@ -532,8 +549,6 @@
 
 
 
-
-  
 
   
   	
@@ -546,10 +561,10 @@
 
   <nav class="pagination_prev_next">
     
-      <a href="#" class="pagination_prev_next--pager disabled-first-child">첫 번째 글입니다</a>
+      <a href="/ethereum/erc/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>이더리움 표준(ERC)</a>
     
     
-      <a href="/ethereum/erc/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>이더리움 표준(ERC)</a>
+      <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
     
   </nav>
 
