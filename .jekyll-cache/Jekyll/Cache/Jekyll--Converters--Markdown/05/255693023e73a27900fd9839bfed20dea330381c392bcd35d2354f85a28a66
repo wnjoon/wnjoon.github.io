@@ -1,0 +1,52 @@
+I"9<p><br /></p>
+
+<h1 id="infura">Infura</h1>
+
+<p>일반적으로 디앱(DApp)를 개발할 때에는 로컬에서 Ganashe 또는 Truffle develop을 사용하거나 geth를 이용한 private network를 구성한다. 물론 디앱에 국한되지 않더라도 대부분의 앱 또한 로컬에서 개발 -&gt; 테스트 -&gt; 실제 환경과 유사한 개발환경에서 테스트 -&gt; 배포와 같은 순서를 갖는다. <br />
+디앱은 여기서 조금 다른 부분이 테스트넷 환경에서 실제로 구성된 노드에 직접 테스트해봐야 한다는 점이다. 물론 풀노드(full node)로 테스트할 수도 있지만, 저장 공간이나 시간부터 꽤 많은 비용과 관리가 들어가는 등 실제로 개발에 들어가는 공수보다 배꼽이 더 큰 경우가 생길 수 있다.<br />
+이러한 번거로움을 해결할 수 있는 것이 Infura를 사용하는 것이다. Infura는 Consensys에 속한 프로젝트 중 하나로, Infura에서 제공하는 이더리움 노드를 사용함으로써 제품과 서비스에 대한 개발에만 집중할 수 있도록 한다. 이는 Infura가 갖고 있는 미션에서도 잘 표현된다.</p>
+
+<blockquote>
+  <p>Our suite of high availability APIs and Developer Tools <u>provide quick, reliable access to the Ethereum and IPFS networks</u> so you can focus on building and scaling next generation software.</p>
+</blockquote>
+
+<h2 id="특징">특징</h2>
+
+<p>Infura의 특징을 정리해보면 다음과 같다.</p>
+<ul>
+  <li>Accessubility : Minimal hardware requirements</li>
+  <li>Convenience : No waiting to sync and no installs</li>
+  <li>Redundancy : Either build into the gateway service or switch to new endpoint</li>
+  <li>Security : Signing without a web-connection</li>
+</ul>
+
+<h1 id="infura-사용하기">Infura 사용하기</h1>
+
+<h2 id="1-회원가입">1. 회원가입</h2>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FNHn56%2Fbtre1bgLN0O%2FKNtO5p6MNQVoWuqiFx4Y6k%2Fimg.png" alt="" width="10%" height="10%" />
+딱히 복잡한게 없다. 그냥 이메일 주소랑 비밀번호만 입력하면 된다</p>
+
+<p>ERC-20이 가지고 있는 토큰 손실에 대한 결함(트랜잭션이 무효가 되더라도 토큰이 보존되지 않고 사라지며, 회복이 불가능)을 수정한 표준이다. 추가로 다수의 토큰을 하나의 스마트계약을 통해 다른 지갑으로 보낼 수 있는 기능도 제공하는데, 이를 통해 기존에 다수의 토큰을 여러 번의 스마트계약으로 나누어 보낼 때보다 절반의 가스비로도 거래를 실행할 수 있게 되었다.</p>
+
+<h2 id="erc-721">ERC-721</h2>
+
+<p>NFT(Non-Fungible Token)용으로 구성되었으며, 개발자 또는 복수의 소유자들 사이에서 공유될 수 없는 토큰을 개발할 수 있도록 한다. dApp 기반의 게임에서 주로 사용되고 있다. 무제한 공급이 가능한 NFT의 특성상, 가치의 하락을 방지하기 위하여 대부분의 dApp에서는 전체 공급량을 제한하는 방식을 채택하고 있다.</p>
+
+<h2 id="erc-777">ERC-777</h2>
+
+<p>ERC-20과 ERC-223의 기능을 제공하면서, 모든 사람에게 스마트계약의 주소를 볼 수 있도록 하여 해당 스마트계약의 기능을 확인할 수 있도록 한다. 이러한 투명성은 스마트계약을 통해 이루어진 트랜잭션을 검증할 수 있도록 한다.</p>
+
+<h2 id="erc-998">ERC-998</h2>
+
+<p>ERC-721과 함께 사용되며, 다수의 토큰과 게임(앱) 내 통계와 캐릭터(데이터) 등을 한번에 전송할 수 있는 기능을 제공한다.</p>
+
+<h1 id="참고자료">참고자료</h1>
+<ul>
+  <li><a href="http://wiki.hash.kr/index.php/ERC-20">ERC-20 - 해시넷</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

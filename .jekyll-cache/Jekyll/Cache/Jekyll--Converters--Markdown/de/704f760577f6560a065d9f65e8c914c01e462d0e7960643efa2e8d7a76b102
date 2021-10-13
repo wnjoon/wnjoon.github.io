@@ -1,0 +1,256 @@
+I"�3<p class="notice--warning">인프런에 있는 황대희님의 <strong>언리얼 엔진4 3D 횡스크롤 게임 만들기</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<strong>언리얼 엔진 공식 문서</strong> <a href="https://docs.unrealengine.com/ko/index.html">https://docs.unrealengine.com/ko/index.html</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-2-블루프린트">Chapter 2. 블루프린트</h1>
+
+<h2 id="-블루프린트-소개">🔔 블루프린트 소개</h2>
+
+<blockquote>
+  <p>텍스트 기반인 기존 C++ 같은 스크립트와 달리 <u>노드 기반 비주얼 스크립트</u></p>
+</blockquote>
+
+<ul>
+  <li>블루프린트를 컴파일 하지 않으면 언리얼 에디터에 반영되지 않는다.</li>
+</ul>
+
+<h3 id="스크립팅">스크립팅</h3>
+
+<ul>
+  <li>오브젝트(액터)를 움직이게 할 수 있다. 이동도 시킬 수 있고 적이나 아이템을 생성 시킬 수도 있고 적이 죽으면 화면에서 사라지게 할 수도 있다. 그리고 특정 위치에 도달하면 스테이지가 클리어가 된다던지 하는 그런 처리들을 스크립트로 할 수 있다.</li>
+  <li>기존 텍스트 기반 C++ 스크립팅
+    <ul>
+      <li>텍스트 기반 한줄 한줄 명령어가 실행되는 방식으로 문법이 엄격하고 복잡하다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-레벨-블루프린트">🔔 레벨 블루프린트</h2>
+
+<blockquote>
+  <p>해당 레벨에서만 동작하는 블루프린트 !</p>
+</blockquote>
+
+<h3 id="예시-1-화면에-문자열-출력해보기">예시 1. 화면에 문자열 출력해보기</h3>
+
+<ul>
+  <li>레벨 블루 프린트 열기
+    <ul>
+      <li><img src="https://user-images.githubusercontent.com/42318591/92297135-05763100-ef77-11ea-95a2-7d874c3b889c.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+      <li>
+        <blockquote>
+          <p>레벨 블루 프린트는 <u>다른 레벨에선 동작하지 않고 해당 레벨에서만 동작하게 된다</u></p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>단축키
+    <ul>
+      <li>우클 👉 우클로 이동할 수 있다.</li>
+      <li>휠 👉 확대/축소</li>
+      <li>드래그로 여러 노드 동시 선택 가능</li>
+    </ul>
+  </li>
+  <li>노드 추가
+    <ul>
+      <li><strong>Event</strong> <code class="language-plaintext highlighter-rouge">BeginPlay</code>
+        <ul>
+          <li>게임이 실행되자마자 1회 실행</li>
+          <li>‘실행’ 버튼을 누른 상태로 드래그 하면 이 노드에 이어서 실행시킬 노드를 추가할 수 있다.
+            <ul>
+              <li><img src="https://user-images.githubusercontent.com/42318591/92302475-64ec3500-efa7-11ea-829f-6c4415264a3d.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>String</strong> <code class="language-plaintext highlighter-rouge">PrintString</code>
+        <ul>
+          <li>노드에 적힌 메세지를 (화면에선 “Hello World”) 화면에 출력한다.</li>
+          <li><img src="https://user-images.githubusercontent.com/42318591/92302545-260aaf00-efa8-11ea-91d5-55c673ab5830.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>컴파일 하고 실행
+    <ul>
+      <li>
+        <blockquote>
+          <p>반드시 컴파일이 먼저 되어야 블루프린트대로 실행된다.</p>
+        </blockquote>
+      </li>
+      <li>컴파일 하고 게임을 실행하면 게임이 시작되고 난 후 뷰포트 화면에 “Hello World”가 출력되는 것을 볼 수 있다.
+        <ul>
+          <li><img src="https://user-images.githubusercontent.com/42318591/92302545-260aaf00-efa8-11ea-91d5-55c673ab5830.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="예시-2-테이블-위아래로-움직여보기">예시 2. 테이블 위아래로 움직여보기</h3>
+
+<blockquote>
+  <p>테이블의 Transform을 z 축으로 위쪽으로 100 만큼 증가시켰다가 3 초후 다시 z = 0 으로</p>
+</blockquote>
+
+<ul>
+  <li>테이블이 움직일 수 있도록 <code class="language-plaintext highlighter-rouge">static</code>에서 <code class="language-plaintext highlighter-rouge">Movable</code> 상태로 바꿔주었다.</li>
+  <li>테이블을 클릭한 상태에서 블루프린트에서 우클을 누르면 테이블의 레퍼런스를 생성할 수 있는 옵션이 생긴다.
+    <ul>
+      <li><img src="https://user-images.githubusercontent.com/42318591/92303187-84865c00-efad-11ea-8162-28d7fb898f5c.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+      <li>이렇게 테이블 레퍼런스를 생성해주면 테이블을 블루프린트에서 다룰 수 있게 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92303107-d7abdf00-efac-11ea-8ae9-2c983a72674d.png" alt="image" width="100%" height="100%" class="align-center" /></p>
+
+<ul>
+  <li><strong>Transformation</strong> <code class="language-plaintext highlighter-rouge">SetActorLocation</code>
+    <ul>
+      <li><u>액터의 트랜스폼 위치를 지정한다</u></li>
+      <li><code class="language-plaintext highlighter-rouge">SetActorLocation</code> 노드의 <u>타겟</u>으로 Table 레퍼런스를 연결해준다.</li>
+      <li>z 축 값을 100 으로 설정한다.</li>
+    </ul>
+  </li>
+  <li><strong>Utilities</strong> <code class="language-plaintext highlighter-rouge">Delay</code>
+    <ul>
+      <li><u>지연 시간을 둔다</u></li>
+      <li>Duration 값을 3 으로 설정한다.</li>
+      <li><code class="language-plaintext highlighter-rouge">SetActorLocation</code> 노드의 다음 노드로 연결해주면 타겟인 테이블이 z 축 값을 100으로 3초 유지하게 된다.</li>
+    </ul>
+  </li>
+  <li><strong>Physics</strong> <code class="language-plaintext highlighter-rouge">Set Simulate Physics</code>
+    <ul>
+      <li><u>물리 효과를 적용한다</u></li>
+      <li>✨ 이 노드의 타겟은 <em>Static Mesh Component</em> 에만 적용할 수 있기 때문에 그냥 우클로 노드 추가하려고 하면 검색해도 안나온다.
+        <ul>
+          <li>꼭 <em>Static Mesh Component</em>인 테이블 레퍼런스 노드를 클릭한 후 테이블에 이어서 노드를 추가해야지만 검색이 된다.
+            <ul>
+              <li><img src="https://user-images.githubusercontent.com/42318591/92303320-9e746e80-efae-11ea-861a-e07865845601.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Delay</code>의 다음 노드로서 이어준다.</li>
+      <li>이제 3 초 지연시간 후에 타겟인 테이블은 물리 효과가 적용되어 중력을 받아 떨어질 것이다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-클래스-블루프린트">🔔 클래스 블루프린트</h2>
+
+<blockquote>
+  <p>마치 유니티에서의 <code class="language-plaintext highlighter-rouge">Prefab</code>과 같다.</p>
+</blockquote>
+
+<p>프리팹처럼 클래스 블루 프린트를 작성하여 미리 에셋으로 생성해둔 후, 뷰포트에 드래그 앤 드롭하여 오브젝트화 할 수 있다.</p>
+
+<ul>
+  <li>뷰포트에 현재 존재하고 있는 액터에 컴포넌트 추가하듯이(유니티에서 C# 스크립트 추가하듯이) 블루프린트를 추가할 수도 있고</li>
+  <li>프리팹(유니티)을 미리 만들어 두듯이 콘텐츠 브라우저에 블루프린트 클래스를 미리 생성해둘 수도 있다.</li>
+  <li>클래스 블루프린트 에디터의 디테일 패널과 언리얼 에디터의 디테일 패널은 다르다.
+    <ul>
+      <li>언리얼 에디터의 디테일 패널은 현재 그 레벨에서만 적용이 된다. 따라서 해당 동일한 액터를 다른 레벨에다가 배치를 하게 되면 기존에 디테일 패널에서 값을 설정했던게 다 날아간다.</li>
+      <li>클래스 블루프린트 에디터의 디테일 패널에서 설정한 사항들은 이 블루프린트를 가진 액터가 다른 레벨에 배치되도 그대로 적용이 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong>클래스</strong>는 <u>오브젝트별로 동작</u>하게 할 수 있으며 레벨 프린트와 다르게 여러개 생성할 수 있고 <u>다른 레벨에서도 쓸 수 있다.</u></p>
+</blockquote>
+
+<ul>
+  <li>추가하는 방법
+    <ul>
+      <li>콘텐츠 브라우저에서 우클 - 블루프린트 클래스 - 부모 클래스 선택
+        <ul>
+          <li>부모클래스
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">Actor</code>
+                <ul>
+                  <li>레벨에 배치될 수 있음</li>
+                  <li>캐릭터가 아닌 경우에 주로 쓴다. 장애물 같은.</li>
+                </ul>
+              </li>
+              <li><code class="language-plaintext highlighter-rouge">Character</code>
+                <ul>
+                  <li>레벨에 배치 될 수 있으며 이동도 할 수 있다.</li>
+                  <li>몬스터라던지 캐릭터라던지.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>이 방법은 프리팹을 미리 만들어두는 것과 같다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="예제">예제</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Actor</code> 부모 클래스의 클래스 블루프린트를 추가해주자.
+    <ul>
+      <li>이름은 “CubeBP”로 함</li>
+    </ul>
+  </li>
+  <li>더블 클릭해서 블루프린트 창을 띄운다.</li>
+  <li><code class="language-plaintext highlighter-rouge">큐브</code> 컴포넌트를 추가해서 큐브 모양을 입힌다.
+    <ul>
+      <li>꼭 큐브 아니라도 디테일 창의 Static Mesh 에서 여러가지 모양의 컴포넌트를 선택할 수 있다.
+        <ul>
+          <li><img src="https://user-images.githubusercontent.com/42318591/92304027-5c026000-efb5-11ea-96ab-b0440194b834.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>저장하고 “CubeBP” 이걸 뷰포트에 드래그 하여 배치할 수 있다.</li>
+  <li>“CubeBP”의 블루프린트 창에서 상단에 <u>이벤트 그래프</u> 창을 선택한다.
+    <ul>
+      <li><strong>클래스 블루프린트 같은 경우에는 다음과 같은 이벤트들이 미리 생성이 되어 있음</strong>
+        <ul>
+          <li><img src="https://user-images.githubusercontent.com/42318591/92304203-cc5db100-efb6-11ea-9f67-713175196bc0.png" alt="image" width="60%" height="60%" class="align-center" />
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">BeginPlay</code> 👉 게임이 시작되자마자 발생하는 이벤트</li>
+              <li><code class="language-plaintext highlighter-rouge">ActorBeginOverlap</code> 👉 오브젝트끼리 겹쳤을 때, 충돌했을 때 발생하는 이벤트</li>
+              <li><code class="language-plaintext highlighter-rouge">Event Tick</code> 👉 계속 매 프레임 호출이 된다. 마치 유니티의 <strong>Update</strong> 함수</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Event Tick</code> 이벤트에 <code class="language-plaintext highlighter-rouge">Print String</code> 노드를 연결해준다.
+    <ul>
+      <li><img src="https://user-images.githubusercontent.com/42318591/92304463-1ba4e100-efb9-11ea-9d82-7cd8548780be.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+    </ul>
+  </li>
+  <li>컴파일하고 플레이하면 “Hello”가 뷰포트 화면에 마구마구 엄청 많이 출력되는 것을 확인할 수 있다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Event Tick</code> 이벤트에 <code class="language-plaintext highlighter-rouge">AddActorWorldRotation</code> 노드를 연결해준다.
+    <ul>
+      <li>해당 큐브 클래스 레퍼런스를 타겟으로 하고 z 축으로 1 도로 설정하면 게속해서 큐브가 1도씩 z 축으로 회전하는 것을 볼 수 있다.
+        <ul>
+          <li><img src="https://user-images.githubusercontent.com/42318591/92304557-08464580-efba-11ea-845e-45595dff6755.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

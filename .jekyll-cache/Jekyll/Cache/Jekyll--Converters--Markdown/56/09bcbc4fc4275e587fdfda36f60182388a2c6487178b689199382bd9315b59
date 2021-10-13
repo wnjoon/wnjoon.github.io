@@ -1,0 +1,250 @@
+I"�G<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-4-소코반-게임-만들기--충돌-처리">Chapter 4. 소코반 게임 만들기 : 충돌 처리</h1>
+
+<h2 id="물리적으로-부딪치진-않았어도-어떤-이벤트가-발생하도록">물리적으로 부딪치진 않았어도 어떤 이벤트가 발생하도록.</h2>
+<p><u>ItemBox 오브젝트가 EndPoint 오브젝트에 물리적으로 닿으면 점수가 올라간다던지 등등 어떤 이벤트가 발생하도록</u> 해줄 것이다. 현재 EndPoint 오브젝트의 Collider 컴포넌터의 <code class="language-plaintext highlighter-rouge">Is Trigger</code> 속성 값이 True이기 때문에 EndPoint와 물리적으로 부딪치지는 않지만 그래도 EndPoint에 도달하면 어떤 이벤트가 발생할 수 있도록 할 것이다.</p>
+
+<h2 id="endpoint-오브젝트에-tag-붙이기">EndPoint 오브젝트에 Tag 붙이기</h2>
+<p><u>게임 오브젝트를 분류</u>하는 방법 중 하나. 오브젝트에 태그를 붙이면 특정 태그를 가진 오브젝트와 부딪쳤을 때 어떤 이벤트를 발생시키게끔 이런 식으로 연출할 수 있다.</p>
+
+<ul>
+  <li>EndPoint 오브젝트에 Tag를 붙여주자.
+    <ol>
+      <li>EndPoint의 InsPector창에서 오브젝트 이름 바로 아래 있는 Tag를 눌러준다.</li>
+      <li><code class="language-plaintext highlighter-rouge">Add Tag...</code>를 눌러 나만의 태그를 붙여줄 것이다.</li>
+      <li><code class="language-plaintext highlighter-rouge">+</code>을 눌러서 추가해준다. 이름은 “EndPoint”로.</li>
+      <li>다시 Inspector 창으로 돌아와서 EndPoint 오브젝트의 Tag를 “EndPoint”로 바꿔준다.</li>
+      <li>Apply all을 해주어 모든 EndPoint에 적용시킨다.</li>
+    </ol>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="itembox-가-endpoint와의-충돌을-처리할-수-있도록">ItemBox 가 EndPoint와의 충돌을 처리할 수 있도록</h2>
+
+<ul>
+  <li>“ItemBox” 라는 이름의 C#스크립트를 만들어 ItemBox 오브젝트에 붙인다.
+    <ul>
+      <li><em>cf) 그냥 ItemBox에다가 <code class="language-plaintext highlighter-rouge">Add Component</code>해서 이걸로 스크립트를 생성 후 붙여주는 방식도 있다. 스크립트도 컴포넌트니까!</em></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ItemBox</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"EndPoint"</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"엔드 포인트에 도달"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">void OnTriggerEnter(Collider other)</code>
+    <ul>
+      <li>On<u>Trigger</u>Enter : <code class="language-plaintext highlighter-rouge">Trigger</code>인 Collider와 충돌할 때 자동으로 실행된다.
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">Is Trigger</code>가 <u>체크된 Collider와 충돌하는 경우 발생되는 메세지</u>
+            <ul>
+              <li>즉 물리적 충돌은 일어나지 않고 뚫고 지나가지만 그래도 이벤트 발생은 시켜야 하는 경우.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><u>오브젝트끼리 충돌하면 유니티에서 OnTriggerEnter 메세지를</u> <strong><em><u>충돌한 오브젝트들</u></em></strong> 에게 브로드캐스팅 한다.
+        <ul>
+          <li>충돌한 두 오브젝트끼리는 서로 독립적이고 연관이 없으니 서로 충돌한 사실을 모르지만</li>
+          <li><u>두 오브젝트가 충돌하면 유니티에서 두 오브젝트에게 OnTriggerEnter 메세지를 뿌리므로</u> 두 오브젝트는 OnTriggerEnter 함수 안에 구현한 내용대로 충돌 처리를 한다.</li>
+        </ul>
+      </li>
+      <li>유니티는 충돌한 상대 오브젝트의 정보를<code class="language-plaintext highlighter-rouge">Collider</code>타입의 <code class="language-plaintext highlighter-rouge">other</code>가 참조하도록 넘겨준다.
+        <ul>
+          <li>충돌한 <u>상대 오브젝트에 붙어있는 Collider 컴포넌트</u>의 정보가 매개변수로 들어온다.
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">Collider</code> 컴포넌트 -&gt; <u>물리적 표면</u></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>EndPoint 오브젝트는 <code class="language-plaintext highlighter-rouge">Is Trigger</code>가 체크된 오브젝트이니 이 오브젝트와의 충돌을 처리하려면 이 함수를 써야한다.
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">Collider other</code>는 충돌한 EndPoint 오브젝트에 붙어 있는 Collider 컴포넌트 정보를 참조하게 된다.
+            <ul>
+              <li>유니티가 알아서 자동으로 이렇게 해줌
+                <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"EndPoint"</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"엔드 포인트에 도달"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">if(other.tag == "EndPoint")</code>
+        <ul>
+          <li>충돌한 그 Collider의 오브젝트 Tag가 “EndPoint”라면</li>
+          <li>즉 “EndPoint” 오브젝트와 충돌 했다면.</li>
+          <li><code class="language-plaintext highlighter-rouge">Trigger</code>인 다른 오브젝트들과 차별화 하여 딱 특정 오브젝트와의 충돌을 처리할 때 태그로 구별하면 좋다.</li>
+        </ul>
+      </li>
+      <li>이 스크립트가 ItemBox 오브젝트에 붙어있으니, ItemBox 오브젝트와 <code class="language-plaintext highlighter-rouge">Trigger Collider</code>를 갖고 있는 EndPoint 오브젝트가 충돌하면 “엔드 포인트에 도달” 메세지를 출력할 것.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="endpoint와-충돌시-itembox의-색깔이-바뀌도록">EndPoint와 충돌시 ItemBox의 색깔이 바뀌도록</h2>
+
+<ul>
+  <li>Mesh Renderer
+    <ul>
+      <li>오브젝트에게 그림을 그려주는 컴포넌트</li>
+      <li>마치 물감 같은 컴포넌트</li>
+      <li><strong><u>Material</u></strong>을 다룬다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ItemBox</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">Renderer</span> <span class="n">myRenderer</span><span class="p">;</span> <span class="c1">// 이 ItemBox에 붙어있는 Renderer 컴포넌트를 참조할 변수.</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 이 ItemBox에 붙어있는 Renderer 컴포넌트를 찾아 가져온다. private이라 유니티 슬롯이 안 열리니 GetComponent를 사용해야함.</span>
+        <span class="n">myRenderer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Renderer</span><span class="p">&gt;();</span> 
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>  <span class="c1">// Trigger를 가진 오브젝트(other)와 충돌시 </span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"EndPoint"</span><span class="p">)</span>  <span class="c1">// 충돌한 그 오브젝트의 태그가 "EndPoint"일시</span>
+        <span class="p">{</span>
+            <span class="n">myRenderer</span><span class="p">.</span><span class="n">material</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">red</span><span class="p">;</span> <span class="c1">// ItemBox의 material(물감)의 색깔을 빨간색으로 바꿔준다.</span>
+            <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"엔드 포인트에 도달"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="원래-itembox의-색깔-보존하기">원래 ItemBox의 색깔 보존하기</h2>
+<ul>
+  <li>EndPoint와의 <u>충돌 상태가 풀리면</u> 원래 색깔로 돌아가게 할 것이기 때문에 ItemBox의 원래 색을 보존해야 한다.</li>
+  <li>그 충돌 상태가 풀릴 때는 유니티가 <code class="language-plaintext highlighter-rouge">OnTriggerExit</code> 메세지를 뿌린다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">void OnTriggerExit(Collider other)</code>: Trigger인 오브젝트와 붙어있다가 떼어지는 순간 실행되는 함수
+        <ul>
+          <li>이 함수 안에 ItemBox가 EndPoint를 벗어나면 원래 색으로 돌아가게끔 구현 할 것이다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Enter</code> : 충돌 하는 순간</li>
+  <li><code class="language-plaintext highlighter-rouge">Exit</code> : 떼어지는 순간</li>
+  <li><code class="language-plaintext highlighter-rouge">Stay</code> : 충돌하는 동안, 붙어있는 동안</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ItemBox</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">Renderer</span> <span class="n">myRenderer</span><span class="p">;</span> 
+
+    <span class="k">public</span> <span class="n">Color</span> <span class="n">touchColor</span><span class="p">;</span> <span class="c1">// 충돌시 바뀔 색을 참조할 변수. public이라 유니티에서 언제든지 수정 가능</span>
+    <span class="k">private</span> <span class="n">Color</span> <span class="n">originalColor</span><span class="p">;</span> <span class="c1">// 원래 색을 참조할 변수. private이라 유니티에서 수정 불가능</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">myRenderer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Renderer</span><span class="p">&gt;();</span> 
+        <span class="n">originalColor</span> <span class="p">=</span> <span class="n">myRenderer</span><span class="p">.</span><span class="n">material</span><span class="p">.</span><span class="n">color</span><span class="p">;</span> <span class="c1">// Start()안에 해주므로써 게임 시작하자마자 원래색을 가져와 보존</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>  <span class="c1">// Enter는 충돌을 한 순간</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"EndPoint"</span><span class="p">)</span>  
+        <span class="p">{</span>
+            <span class="n">myRenderer</span><span class="p">.</span><span class="n">material</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">touchColor</span><span class="p">;</span> 
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">OnTriggerExit</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>  <span class="c1">// Exit는 떼어지는 순간</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"EndPoint"</span><span class="p">)</span>  
+        <span class="p">{</span>
+            <span class="n">myRenderer</span><span class="p">.</span><span class="n">material</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">originalColor</span><span class="p">;</span> <span class="c1">// 원래 색깔로 돌리기 </span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">OnTriggerStay</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>  <span class="c1">// Stay는 붙어있는 동안</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"EndPoint"</span><span class="p">)</span>  
+        <span class="p">{</span>
+            <span class="n">myRenderer</span><span class="p">.</span><span class="n">material</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">touchColor</span><span class="p">;</span> 
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="기타-등등">기타 등등</h2>
+
+<ul>
+  <li>ItemBox 너무 쉽게 밀려서 게임이 어려우니까 ItemBox의 <code class="language-plaintext highlighter-rouge">Rigidbody</code>에서 <code class="language-plaintext highlighter-rouge">Drag</code>를 10으로 높이자. 즉 마찰력을 높여 좀 뻑뻑하게 밀리게끔.</li>
+  <li>✨ 같은 종류의 Prefab인 모든 오브젝트들에게도 적용하려면 항상 뭐 변경할 때마다 “Apply all” 꼭 해주는 습관 들이기 ✨</li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

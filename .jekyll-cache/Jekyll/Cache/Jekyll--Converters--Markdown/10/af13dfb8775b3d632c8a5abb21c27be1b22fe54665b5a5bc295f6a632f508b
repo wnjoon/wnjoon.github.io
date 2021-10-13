@@ -1,0 +1,126 @@
+I"<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-8-c-프로그래밍--고급">Chapter 8. C# 프로그래밍 : 고급</h1>
+
+<p><br /></p>
+
+<h2 id="-제네릭">🔔 제네릭</h2>
+
+<blockquote>
+  <p>제네릭을 가져다 쓰는 경우는 많아도 직접 구현하는 경우는 잘 없다. 그래도 가볍게 배워보자.</p>
+</blockquote>
+
+<ul>
+  <li>동일한 함수로 매개변수나 리턴 타입을 다르게 하고 싶다면 오버로딩을 사용하여도 좋지만</li>
+  <li><code class="language-plaintext highlighter-rouge">제네릭</code>을 사용하면 <u>여러가지 타입을 한방에 대응할 수 있다.</u></li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="제네릭의-구현과-호출">제네릭의 구현과 호출</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">void</span> <span class="n">Print</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">inputMessage</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">inputMessage</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Print</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="m">30</span><span class="p">);</span>
+    <span class="n">Print</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="s">"Hello"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>구현
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&lt;T&gt;</code>꺽새 안에 <code class="language-plaintext highlighter-rouge">T</code>를 명시해준 후 제네릭 타입으로 할 부분들을 <code class="language-plaintext highlighter-rouge">T</code>로 대체해주면 된다.
+        <ul>
+          <li>꼭 <code class="language-plaintext highlighter-rouge">T</code>여야 할 필요는 없다. 가상의 타입을 <code class="language-plaintext highlighter-rouge">T</code>라고 부르기로 한 것일 뿐. 그러나 대체로 <code class="language-plaintext highlighter-rouge">T</code>를 많이 사용한다.</li>
+        </ul>
+      </li>
+      <li><em>public void Print&lt;T&gt;(T inputMessage)</em>
+        <ul>
+          <li>이 함수는 매개변수 <em>inputMessage</em>의 <u>자료형 타입을 다양하게 받을 수 있다.</u></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>호출
+    <ul>
+      <li><em>Print&lt;int&gt;(30);</em>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">T</code>에 <code class="language-plaintext highlighter-rouge">int</code>가 대입되며 매개변수의 자료형 타입을 int로 받았다.</li>
+        </ul>
+      </li>
+      <li><em>Print&lt;string&gt;(“Hello”);</em>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">T</code>에 <code class="language-plaintext highlighter-rouge">string</code>이 대입되며 매개변수의 자료형 타입을 string으로 받았다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="제네릭-클래스">제네릭 클래스</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Container</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+<span class="p">{</span>
+  <span class="k">public</span> <span class="n">T</span> <span class="p">[]</span> <span class="n">messages</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Container</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">container</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Container</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+    <span class="n">container</span><span class="p">.</span><span class="n">messages</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">string</span><span class="p">[</span><span class="m">3</span><span class="p">];</span>
+
+    <span class="n">container</span><span class="p">.</span><span class="n">messages</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="s">"Hello"</span><span class="p">;</span>
+    <span class="n">container</span><span class="p">.</span><span class="n">messages</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="s">"World"</span><span class="p">;</span>
+    <span class="n">container</span><span class="p">.</span><span class="n">messages</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="s">"Generic"</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">container</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+    <span class="p">{</span>
+      <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">messages</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="제네릭-예시">제네릭 예시</h3>
+
+<ul>
+  <li>GetComponent&lt;T&gt;();
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">T</code> 자리에 들어가는 타입의 컴포넌트 타입으로 오브젝트를 불러온다.</li>
+      <li>제네릭 함수</li>
+    </ul>
+  </li>
+  <li>List<string> list = ...
+</string>    <ul>
+      <li>string 타입의 List 만들기</li>
+      <li>제네릭 클래스</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="cf">cf</h3>
+
+<p><code class="language-plaintext highlighter-rouge">T</code>의 타입 범위를 한정해주는 C# 문법도 존재하지만 강의에서는 다루지 않았다.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

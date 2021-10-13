@@ -1,0 +1,27 @@
+I"f<ul class="toc__menu">
+  <li><a href="#chapter-8-c-프로그래밍--고급">Chapter 8. C# 프로그래밍 : 고급</a>
+    <ul>
+      <li><a href="#-이벤트">🔔 이벤트</a>
+        <ul>
+          <li><a href="#커플링">커플링</a></li>
+          <li><a href="#이벤트를-사용하는-이유">이벤트를 사용하는 이유</a></li>
+          <li><a href="#이벤트-용어">이벤트 용어</a></li>
+          <li><a href="#이벤트를-사용하지-않은-경우">이벤트를 사용하지 않은 경우</a>
+            <ul>
+              <li><a href="#boostercs">📜Booster.cs</a></li>
+              <li><a href="#charactercs">📜Character.cs</a></li>
+            </ul>
+          </li>
+          <li><a href="#이벤트-사용한-경우">이벤트 사용한 경우</a>
+            <ul>
+              <li><a href="#boostercs-1">📜Booster.cs</a></li>
+              <li><a href="#charactercs-1">📜Character.cs</a></li>
+            </ul>
+          </li>
+          <li><a href="#delegate와-event-키워드-차이">delegate와 event 키워드 차이</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

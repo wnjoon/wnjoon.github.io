@@ -1,0 +1,101 @@
+I"�<p class="notice--warning">인프런에 있는 황대희님의 <strong>언리얼 엔진4 3D 횡스크롤 게임 만들기</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<strong>언리얼 엔진 공식 문서</strong> <a href="https://docs.unrealengine.com/ko/index.html">https://docs.unrealengine.com/ko/index.html</a></p>
+
+<h1 id="보스-충돌체-작업">보스 충돌체 작업</h1>
+
+<h2 id="갈고리스킬-충돌체-평소엔-비활성화-공격시에만-활성화-하기">갈고리(스킬) 충돌체 평소엔 비활성화, 공격시에만 활성화 하기</h2>
+
+<blockquote>
+  <p>🚩 “mutant_Swiping_Montage”</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93655628-ab3d9b80-fa5f-11ea-8736-e41e3ce9a0ff.png" alt="image" /></p>
+
+<p>다른 플레이어, 몬스터, 그리고 보스의 기본 공격(punch)에서도 추가해주었던 것 처럼 스킬 애니메이션의 갈고리를 들어 공격을 시작하려는 시점과 떄리고 난 후 공격을 끝낸 시점에 <strong><em>OnCollStart_Skill1Attack</em></strong>, <strong><em>OnCollEnd_Skill1Attack</em></strong> 노티파이를 추가한다. 갈고리의 충돌 처리는 공격을 하는 중에만 이루어질 수 있도록 할 것이라 OnCollStart_Skill1Attack 이벤트가 일어날 땐 충돌체를 활성화 하고, OnCollEnd_Skill1Attack 이벤트가 일어날 땐 충돌체를 비활성화 한다.</p>
+
+<p><br /></p>
+
+<blockquote>
+  <p>🚩 “Boss1MonsterBP” 블루프린트 이벤트 그래프</p>
+</blockquote>
+
+<ul>
+  <li>커스텀 이벤트 추가하기
+    <ul>
+      <li>OnCollStart_Skill1Attack
+        <ul>
+          <li>갈고리 충돌체(<code class="language-plaintext highlighter-rouge">Capsule</code>)를 활성화 한다.</li>
+        </ul>
+      </li>
+      <li>OnCollEnd_Skill1Attack
+        <ul>
+          <li>갈고리 충돌체(<code class="language-plaintext highlighter-rouge">Capsule</code>)를 비활성화 한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93655342-c14a5c80-fa5d-11ea-8a65-c75b8593c65f.png" alt="image" /></p>
+
+<p><br /></p>
+
+<blockquote>
+  <p>🚩 “Boss1MonsterAnimBP” 애니메이션 블루프린트 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93655873-4c792180-fa61-11ea-904b-d9ee6b241be1.png" alt="image" /></p>
+
+<p>OnCollStart_Skill1Attack, OnCollEnd_Skill1Attack 노티파이 발생을 감지하고 “Boss1MonsterBP” 블루프린트의 동명의 커스텀 이벤트를 호출한다.</p>
+
+<p><br /></p>
+
+<h2 id="일반-공격도-character-태그가-붙은-충돌체에만-데미지가-적용되도록">일반 공격도 “Character” 태그가 붙은 충돌체에만 데미지가 적용되도록</h2>
+
+<blockquote>
+  <p>🚩 “Boss1MonsterBP” 블루프린트 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93656024-4f284680-fa62-11ea-96b4-cc3ff88f3011.png" alt="image" /></p>
+
+<p>스킬 공격 뿐만아니라 일반 공격으로 인해 데미지를 입힐 때도, “Character” 태그가 붙은 충돌체에만 데미지를 입힐 수 있도록 한다.</p>
+
+<p><br /></p>
+
+<h2 id="스킬-공격은-더-공격력이-세게-">스킬 공격은 더 공격력이 세게 !</h2>
+
+<blockquote>
+  <p>🚩 “Boss1MonsterBP” 블루프린트 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93656304-49cbfb80-fa64-11ea-82f8-c37668c04762.png" alt="image" /></p>
+
+<p>데미지를 줄 때, 스킬 공격은 <code class="language-plaintext highlighter-rouge">Skill1Atk</code>라는 float 변수를 따로 추가하여 이 변수로 데미지 양을 주었다. 스킬 답게 공격력은 90으로 설정하였다.</p>
+
+<p><br /></p>
+
+<h2 id="스킬-공격시-보스를-보라색으로-변하게-하기">스킬 공격시 보스를 보라색으로 변하게 하기</h2>
+
+<p>이전에 빨갛게 했던것과 마찬가지로, 보스의 Mesh의 Material에 색상 파라미터(Vector Parameter)를 주고 이의 인스턴스를 만들어 인스턴스는 보라색으로 해주자. 그냥 기존에 만들어두었던 빨간색 버전의 Material인 “mutant_M_Inst” 인스턴스를 복사하여 만들고 (이름은 “mutant_M_Inst2”) 보라색으로 설정해주자.</p>
+
+<blockquote>
+  <p>🚩 “Boss1MonsterBP” 블루프린트 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93656488-d3c89400-fa65-11ea-8d44-1f5c709e28f8.png" alt="image" /></p>
+
+<p>스킬 공격이 시작될 때 Material을 “mutant_M_Inst2”로 설정한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93656503-f3f85300-fa65-11ea-949f-c1c9002658ee.png" alt="image" /></p>
+
+<p>스킬 공격이 끝날 때 Material을 원래대로인 “mutant_M”으로 설정한다.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

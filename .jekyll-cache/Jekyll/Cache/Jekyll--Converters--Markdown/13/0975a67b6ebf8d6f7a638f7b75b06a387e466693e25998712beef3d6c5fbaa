@@ -1,0 +1,473 @@
+I"Ϡ<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-2-무기">Chapter 2. 무기</h1>
+<h1 id="총-피격-구현">총 피격 구현</h1>
+
+<p>총알이 맞는 곳의 피격 효과</p>
+
+<h2 id="-피격-위치-확인">🚖 피격 위치 확인</h2>
+
+<h3 id="guncontrollercs">📜GunController.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 추가한 멤버 변수</span>
+
+    <span class="k">private</span> <span class="n">RaycastHit</span> <span class="n">hitInfo</span><span class="p">;</span>  <span class="c1">// 총알의 충돌 정보</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Camera</span> <span class="n">theCam</span><span class="p">;</span>  <span class="c1">// 카메라 시점에서 정 중앙에 발사할 거라서</span>
+</code></pre></div></div>
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Shoot</span><span class="p">()</span>  <span class="c1">// 실제 발사 되는 과정</span>
+    <span class="p">{</span>
+        <span class="c1">// 발사 처리</span>
+        <span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span><span class="p">--;</span>
+        <span class="n">currentFireRate</span> <span class="p">=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fireRate</span><span class="p">;</span>  <span class="c1">// 연사 속도 재계산</span>
+        <span class="nf">PlaySE</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">fire_Sound</span><span class="p">);</span>
+        <span class="n">currentGun</span><span class="p">.</span><span class="n">muzzleFlash</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+
+        <span class="c1">// 피격 처리</span>
+        <span class="nf">Hit</span><span class="p">();</span>
+
+        <span class="c1">// 총기 반동 코루틴 실행</span>
+        <span class="nf">StopAllCoroutines</span><span class="p">();</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">RetroActionCoroutine</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Hit</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 카메라 월드 좌표!! (localPosition이 아님)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">theCam</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">theCam</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span> <span class="k">out</span> <span class="n">hitInfo</span><span class="p">,</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">range</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>플레이어 머리 위에 달려 있는 카메라로부터 RayCast를 쏴서 충돌 되는 지점을 총알이 맞은 곳이라고 할 것이다. 1 인칭 카메라이기 때문에 사실상 화면 정중앙에 총을 쏘게 되기 때문이다.</p>
+</blockquote>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">theCam</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Main Camera</code>를 이 변수에 할당해주자.</li>
+    </ul>
+  </li>
+  <li>Shoot()
+    <ul>
+      <li>발사 처리 후, 반동 처리 전, <em>Hit()</em> 함수 실행</li>
+    </ul>
+  </li>
+  <li>Hit()
+    <ul>
+      <li>👉 총알이 맞은 곳을 인지한다.
+        <ul>
+          <li>카메라 위치로부터 카메라의 앞 방향으로 Raycast를 공격 사정 거리인 <code class="language-plaintext highlighter-rouge">range</code> 거리만큼 쐈을 때 충돌 되는 것이 있다면 그 정보를 <code class="language-plaintext highlighter-rouge">hitInfo</code>에 담고 충돌 된 오브젝트의 이름을 출력!</li>
+          <li><u>theCam.transform.localPosition이 아닌, theCam.transform.position</u> 을 기준으로 한다. 즉, 카메라의 로컬 위치가 아닌 카메라의 월드 좌표 기준에서의 위치로부터 Raycast를 쏜다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-피격-이펙트-파티클-시스템">🚖 피격 이펙트 파티클 시스템</h2>
+
+<h3 id="파티클-시스템-만들기">파티클 시스템 만들기</h3>
+
+<p>피격 효과가 될 “Hit Effect” 이름의 파티클 시스템을 만든다.</p>
+
+<ul>
+  <li>메인 모듈
+    <ul>
+      <li>Duration - 1.0</li>
+      <li>Start Lifetime - 0.5</li>
+      <li>Start Speed - 15</li>
+      <li>Start Color - 색깔 지정</li>
+      <li>Loop 체크 해제</li>
+      <li>Play On Awake 체크 해둔다!!! 👉 이 파티클이 생성되자마자 바로 재생.</li>
+      <li><strong>Gravity Modifier</strong> - 0.4
+        <ul>
+          <li><u>중력의 영향을 받아</u> 파티클 입자가 생성 후 자연스레 떨어지게 된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Emission 모듈
+    <ul>
+      <li>Rate over Time - 0</li>
+      <li>Bursts 추가 - Count는 7로</li>
+    </ul>
+  </li>
+  <li>Shape 모듈 - 입자들이 방출되는 모양을 결정한다.
+    <ul>
+      <li>Angle - 70
+        <ul>
+          <li>파티클 입자가 더 넓게 튀도록</li>
+          <li>Cone 원뿔 꼭지점의 각도로, 각도가 0 이면 원기둥이 되고 90 이면 평면 원반이 된다.</li>
+        </ul>
+      </li>
+      <li>Radius - 0.0001 최소로 해줌. (원 뿔의 반지름)
+        <ul>
+          <li>가장 작은 거의 점에 가까운 반경 내에서 파티클들이 생성 되도록</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Color Over Lifetime
+    <ul>
+      <li>자연스럽게 사라지도록 수명 주기의 중간 즈음부터는 투명해지게 하였다.
+<img src="https://user-images.githubusercontent.com/42318591/94246002-143c7c00-ff56-11ea-865f-637d1a56ed9b.png" alt="image" width="40%" height="40%" class="align-center" /></li>
+    </ul>
+  </li>
+  <li>Size Over Lifetime
+    <ul>
+      <li>자연스럽게 작아지면서 사라지도록
+<img src="https://user-images.githubusercontent.com/42318591/94246067-2fa78700-ff56-11ea-969f-71bd73228eb5.png" alt="image" width="40%" height="40%" class="align-center" /></li>
+    </ul>
+  </li>
+  <li>Trails 모듈
+    <ul>
+      <li><u>잔상 남기기</u>
+        <ul>
+          <li>Ratio 는 1 로 설정
+            <ul>
+              <li>잔상을 남길 입자 비율</li>
+              <li>파티클 모든 입자에게 100 퍼 잔상을 생성한다.</li>
+              <li>만약 0.5 라면 입자 개수의 절반에 해당하는 랜덤한 입자들만 잔상을 생성한다.</li>
+            </ul>
+          </li>
+          <li>Lifetime 은 0.2 로 설정
+            <ul>
+              <li>잔상의 수명</li>
+            </ul>
+          </li>
+          <li>Minimum Vertex Distance는 기본값이 0.2
+            <ul>
+              <li>잔상이 어느 거리만큼 가야 Vertex 가 업데이트 될지를 나타내는 설정 값이다.</li>
+              <li>이 값이 작으면 작을 수록, 0 에 가까울 수록 자주 업데이트 되므로 잔상이 자연스럽다.</li>
+              <li>크면 클수록 잔상이 업데이트 되는 거리가 길어져 뚝뚝 끊길 것이다.</li>
+            </ul>
+          </li>
+          <li>Color Over LifeTime
+            <ul>
+              <li>잔상의 알파값을 0.5 로 해주어 점점 투명해지게 하였다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Renderer 모듈
+    <ul>
+      <li>Trails 모듈을 사용하기 위해 <strong>Trail Maerial</strong>을 설정해준다. - “Sprited Default”로 설정.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>이제 이 <code class="language-plaintext highlighter-rouge">Hit Effect</code> 파티클 시스템을 📂Assets/Prefabs 로 옮겨 프리팹화 시킨다.</p>
+</blockquote>
+
+<p>프리팹으로 만든 후 Hierarchy 에서는 지워준다. 총에게 피격 당한 위치에서 <code class="language-plaintext highlighter-rouge">Hit Effect</code> 프리팹을 오브젝트로 생성시킬 것이다.</p>
+
+<p><br /></p>
+
+<h3 id="guncontrollercs-1">📜GunController.cs</h3>
+
+<blockquote>
+  <p>피격시 프리팹화 해 두었던 <code class="language-plaintext highlighter-rouge">Hit Effect</code> 피격 파티클 시스템 생성하기</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 추가한 멤버 변수</span>
+
+<span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+<span class="k">private</span> <span class="n">GameObject</span> <span class="n">hitEffectPrefab</span><span class="p">;</span>
+</code></pre></div></div>
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Hit</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 카메라 월드 좌표!! (localPosition이 아님)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">theCam</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">theCam</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span> <span class="k">out</span> <span class="n">hitInfo</span><span class="p">,</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">range</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">GameObject</span> <span class="n">clone</span> <span class="p">=</span> <span class="nf">Instantiate</span><span class="p">(</span><span class="n">hitEffectPrefab</span><span class="p">,</span> <span class="n">hitInfo</span><span class="p">.</span><span class="n">point</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">normal</span><span class="p">));</span>
+            <span class="nf">Destroy</span><span class="p">(</span><span class="n">clone</span><span class="p">,</span> <span class="m">2f</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>카메라로부터 Raycast를 쐈을 때 충돌된게 있으면 <code class="language-plaintext highlighter-rouge">Hit Effect</code> 피격 파티클 시스템 프리팹을 생성한다.
+    <ul>
+      <li>피격된 위치에 <em>(hitInfo.point)</em></li>
+      <li>피격된 위치의 표면의 방향을 쳐다보는 방향으로 <em>(Quaternion.LookRotation(hitInfo.normal))</em></li>
+      <li><code class="language-plaintext highlighter-rouge">hitEffectPrefab</code>을 생성하여</li>
+      <li><code class="language-plaintext highlighter-rouge">clone</code> 변수에 할당 한다.</li>
+    </ul>
+  </li>
+  <li>게임 플레이 중 무한정 생성하다보면 메모리 부족 문제가 생길 수 있으므로 이 파티클 시스템은 2 초 뒤에 사라지게 한다.
+    <ul>
+      <li><em>Destroy(clone, 2f)</em></li>
+    </ul>
+  </li>
+  <li>파티클을 생성해주기만 하면 된다. <u>Play On Awake에 체크 해놨기 때문에 파티클이 생성되어 활성화되자마자 자동으로 재생될 것이다.</u> 따라서 Play()를 직접 실행시킬 필요는 없다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94249540-00474900-ff5b-11ea-844a-d46fc229d900.png" alt="image" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">Hit Effect</code> 프리팹을 <code class="language-plaintext highlighter-rouge">hitEffectPrefab</code>에 할당.</p>
+
+<p><br /></p>
+
+<h2 id="-여기까지-스크립트-정리">🚖 여기까지 스크립트 정리</h2>
+
+<h3 id="guncontrollercs-2">📜GunController.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GunController</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Gun</span> <span class="n">currentGun</span><span class="p">;</span> <span class="c1">// 현재 들고 있는 총. 📜Gun.cs 가 할당 됨.</span>
+
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">currentFireRate</span><span class="p">;</span> <span class="c1">// 이 값이 0 보다 큰 동안에는 총알이 발사 되지 않는다. 초기값은 연사 속도인 📜Gun.cs의 fireRate </span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="n">isReload</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>  <span class="c1">// 재장전 중인지. </span>
+    <span class="p">[</span><span class="n">HideInInspector</span><span class="p">]</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="n">isFineSightMode</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 정조준 중인지.</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Vector3</span> <span class="n">originPos</span><span class="p">;</span>  <span class="c1">// 원래 총의 위치(정조준 해제하면 나중에 돌아와야 하니까)</span>
+
+    <span class="k">private</span> <span class="n">AudioSource</span> <span class="n">audioSource</span><span class="p">;</span>  <span class="c1">// 발사 소리 재생기</span>
+
+    <span class="k">private</span> <span class="n">RaycastHit</span> <span class="n">hitInfo</span><span class="p">;</span>  <span class="c1">// 총알의 충돌 정보</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Camera</span> <span class="n">theCam</span><span class="p">;</span>  <span class="c1">// 카메라 시점에서 정 중앙에 발사할 거라서</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">GameObject</span> <span class="n">hitEffectPrefab</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">originPos</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">zero</span><span class="p">;</span>
+        <span class="n">audioSource</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">GunFireRateCalc</span><span class="p">();</span>
+        <span class="nf">TryFire</span><span class="p">();</span>
+        <span class="nf">TryReload</span><span class="p">();</span>
+        <span class="nf">TryFineSight</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">GunFireRateCalc</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">currentFireRate</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+            <span class="n">currentFireRate</span> <span class="p">-=</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">;</span>  <span class="c1">// 즉, 1 초에 1 씩 감소시킨다.</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">TryFire</span><span class="p">()</span>  <span class="c1">// 발사 입력을 받음</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetButton</span><span class="p">(</span><span class="s">"Fire1"</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="n">currentFireRate</span> <span class="p">&lt;=</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="p">!</span><span class="n">isReload</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nf">Fire</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Fire</span><span class="p">()</span>  <span class="c1">// 발사를 위한 과정</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="n">isReload</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+                <span class="nf">Shoot</span><span class="p">();</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="nf">CancelFineSight</span><span class="p">();</span>
+                <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">ReloadCoroutine</span><span class="p">());</span>
+            <span class="p">}</span>       
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Shoot</span><span class="p">()</span>  <span class="c1">// 실제 발사 되는 과정</span>
+    <span class="p">{</span>
+        <span class="c1">// 발사 처리</span>
+        <span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span><span class="p">--;</span>
+        <span class="n">currentFireRate</span> <span class="p">=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fireRate</span><span class="p">;</span>  <span class="c1">// 연사 속도 재계산</span>
+        <span class="nf">PlaySE</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">fire_Sound</span><span class="p">);</span>
+        <span class="n">currentGun</span><span class="p">.</span><span class="n">muzzleFlash</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+
+        <span class="c1">// 피격 처리</span>
+        <span class="nf">Hit</span><span class="p">();</span>
+
+        <span class="c1">// 총기 반동 코루틴 실행</span>
+        <span class="nf">StopAllCoroutines</span><span class="p">();</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">RetroActionCoroutine</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Hit</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 카메라 월드 좌표!! (localPosition이 아님)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">theCam</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">theCam</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span> <span class="k">out</span> <span class="n">hitInfo</span><span class="p">,</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">range</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">GameObject</span> <span class="n">clone</span> <span class="p">=</span> <span class="nf">Instantiate</span><span class="p">(</span><span class="n">hitEffectPrefab</span><span class="p">,</span> <span class="n">hitInfo</span><span class="p">.</span><span class="n">point</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">normal</span><span class="p">));</span>
+            <span class="nf">Destroy</span><span class="p">(</span><span class="n">clone</span><span class="p">,</span> <span class="m">2f</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">TryReload</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">R</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="p">!</span><span class="n">isReload</span> <span class="p">&amp;&amp;</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span> <span class="p">&lt;</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">reloadBulletCount</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nf">CancelFineSight</span><span class="p">();</span>
+            <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">ReloadCoroutine</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">IEnumerator</span> <span class="nf">ReloadCoroutine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">carryBulletCount</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">isReload</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="n">currentGun</span><span class="p">.</span><span class="n">anim</span><span class="p">.</span><span class="nf">SetTrigger</span><span class="p">(</span><span class="s">"Reload"</span><span class="p">);</span>
+
+            <span class="n">currentGun</span><span class="p">.</span><span class="n">carryBulletCount</span> <span class="p">+=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span><span class="p">;</span>
+            <span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+            <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">reloadTime</span><span class="p">);</span>  <span class="c1">// 재장전 애니메이션이 다 재생될 동안 대기</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">carryBulletCount</span> <span class="p">&gt;=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">reloadBulletCount</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span> <span class="p">=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">reloadBulletCount</span><span class="p">;</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">carryBulletCount</span> <span class="p">-=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">reloadBulletCount</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">currentBulletCount</span> <span class="p">=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">carryBulletCount</span><span class="p">;</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">carryBulletCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="n">isReload</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"소유한 총알이 없습니다."</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">TryFineSight</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetButtonDown</span><span class="p">(</span><span class="s">"Fire2"</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="p">!</span><span class="n">isReload</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nf">FineSight</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">CancelFineSight</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isFineSightMode</span><span class="p">)</span>
+            <span class="nf">FineSight</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">FineSight</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">isFineSightMode</span> <span class="p">=</span> <span class="p">!</span><span class="n">isFineSightMode</span><span class="p">;</span>
+        <span class="n">currentGun</span><span class="p">.</span><span class="n">anim</span><span class="p">.</span><span class="nf">SetBool</span><span class="p">(</span><span class="s">"FineSightMode"</span><span class="p">,</span> <span class="n">isFineSightMode</span><span class="p">);</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">isFineSightMode</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nf">StopAllCoroutines</span><span class="p">();</span>
+            <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">FineSightActivateCoroutine</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nf">StopAllCoroutines</span><span class="p">();</span>
+            <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">FineSightDeActivateCoroutine</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">IEnumerator</span> <span class="nf">FineSightActivateCoroutine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">!=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fineSightOriginPos</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">,</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fineSightOriginPos</span><span class="p">,</span> <span class="m">0.2f</span><span class="p">);</span>
+            <span class="k">yield</span> <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">IEnumerator</span> <span class="nf">FineSightDeActivateCoroutine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">!=</span> <span class="n">originPos</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">,</span> <span class="n">originPos</span><span class="p">,</span> <span class="m">0.2f</span><span class="p">);</span>
+            <span class="k">yield</span> <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">IEnumerator</span> <span class="nf">RetroActionCoroutine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Vector3</span> <span class="n">recoilBack</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">retroActionForce</span><span class="p">,</span> <span class="n">originPos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">originPos</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>     <span class="c1">// 정조준 안 했을 때의 최대 반동</span>
+        <span class="n">Vector3</span> <span class="n">retroActionRecoilBack</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">retroActionFineSightForce</span><span class="p">,</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fineSightOriginPos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fineSightOriginPos</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>  <span class="c1">// 정조준 했을 때의 최대 반동</span>
+
+        <span class="k">if</span><span class="p">(!</span><span class="n">isFineSightMode</span><span class="p">)</span>  <span class="c1">// 정조준이 아닌 상태</span>
+        <span class="p">{</span>
+            <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">originPos</span><span class="p">;</span>
+
+            <span class="c1">// 반동 시작</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">x</span> <span class="p">&lt;=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">retroActionForce</span> <span class="p">-</span> <span class="m">0.02f</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">,</span> <span class="n">recoilBack</span><span class="p">,</span> <span class="m">0.4f</span><span class="p">);</span>
+                <span class="k">yield</span> <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="c1">// 원위치</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">!=</span> <span class="n">originPos</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">,</span> <span class="n">originPos</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">);</span>
+                <span class="k">yield</span> <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>  <span class="c1">// 정조준 상태</span>
+        <span class="p">{</span>
+            <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fineSightOriginPos</span><span class="p">;</span>
+
+            <span class="c1">// 반동 시작</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">x</span> <span class="p">&lt;=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">retroActionFineSightForce</span> <span class="p">-</span> <span class="m">0.02f</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">,</span> <span class="n">retroActionRecoilBack</span><span class="p">,</span> <span class="m">0.4f</span><span class="p">);</span>
+                <span class="k">yield</span> <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="c1">// 원위치</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">!=</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fineSightOriginPos</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">currentGun</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">,</span> <span class="n">currentGun</span><span class="p">.</span><span class="n">fineSightOriginPos</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">);</span>
+                <span class="k">yield</span> <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">PlaySE</span><span class="p">(</span><span class="n">AudioClip</span> <span class="n">_clip</span><span class="p">)</span>  <span class="c1">// 발사 소리 재생</span>
+    <span class="p">{</span>
+        <span class="n">audioSource</span><span class="p">.</span><span class="n">clip</span> <span class="p">=</span> <span class="n">_clip</span><span class="p">;</span>
+        <span class="n">audioSource</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

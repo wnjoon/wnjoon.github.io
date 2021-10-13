@@ -1,0 +1,23 @@
+I"W<ul class="toc__menu">
+  <li><a href="#-c-라이브러리">👩‍🦰 C# 라이브러리</a>
+    <ul>
+      <li><a href="#-systemio">🌼 System.IO</a>
+        <ul>
+          <li><a href="#directory--디렉터리">Directory : 디렉터리</a>
+            <ul>
+              <li><a href="#directoryexistsstring">Directory.Exists(String)</a></li>
+              <li><a href="#directorycreatedirectorystring">Directory.CreateDirectory(String)</a></li>
+            </ul>
+          </li>
+          <li><a href="#file--파일-읽고-쓰기">File : 파일 읽고 쓰기</a>
+            <ul>
+              <li><a href="#filewritealltextstring-string">File.WriteAllText(String, String)</a></li>
+              <li><a href="#filereadalltextstring">File.ReadAllText(String)</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

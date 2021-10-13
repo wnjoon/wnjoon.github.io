@@ -1,0 +1,129 @@
+I""<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="-타이틀-메뉴-씬-만들기">🚀 타이틀 메뉴 씬 만들기</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102167741-5a103d00-3ed2-11eb-9f52-5b7c59f45120.png" alt="image" /></p>
+
+<p>기존에 내내 작업했던 “Sample” 씬의 이름을 <code class="language-plaintext highlighter-rouge">GameStage</code>로 변경하였고, 타이틀 메뉴 씬으로 쓸 새로운 씬 <code class="language-plaintext highlighter-rouge">GameTitle</code>을 생성해주었다. (우클 - Create - Scene)</p>
+
+<p><br /></p>
+
+<h2 id="-타이틀-메뉴-ui-만들기">🚀 타이틀 메뉴 UI 만들기</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102167870-9cd21500-3ed2-11eb-98d6-9bac23d09241.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102167995-cee37700-3ed2-11eb-8418-3ad746c94f36.png" alt="image" /></p>
+
+<ul>
+  <li>캔버스 (WorldSpace 모드)
+    <ul>
+      <li>패널 UI (검정색, 화면 다 덮을만큼 크게)
+        <ul>
+          <li>Title 텍스트</li>
+          <li>Start, Load, Exit 텍스트
+            <ul>
+              <li>버튼 컴포넌트 추가</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-카메라-맞추기">✈ 카메라 맞추기</h3>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102168017-da36a280-3ed2-11eb-97b5-018365137a4f.png" alt="image" /></p>
+
+<p>현재 씬 화면에 있는 상태 그대로를 메인 카메라가 찍게 하려면 메인 카메라 오브젝트를 누르고 <code class="language-plaintext highlighter-rouge">Ctrl+Shift+F</code> 단축키를 누르면 된다. 현재 씬에서 보고 있는 화면 그대로를 카메라가 찍게 된다.</p>
+
+<p><br /></p>
+
+<h3 id="-버튼-애니메이션">✈ 버튼 애니메이션</h3>
+
+<p>3 개의 버튼에 모두 똑같이 적용해준다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102168099-02260600-3ed3-11eb-85a9-c7228f2c0ef4.png" alt="image" /></p>
+
+<p>버튼의 Transition을 Color Tint 에서 <u>Animation</u>으로 바꾼다. 그러면 밑에 “Audo Generate Animation” 버튼이 생긴다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102168236-41eced80-3ed3-11eb-92b7-7006ab628dc8.png" alt="image" /></p>
+
+<p>이렇게 버튼에 자동으로 Animator 컴포넌트도 붙게 된다. 위에서 “Audo Generate Animation” 버튼을 통해 생성한 버튼 애니메이션 컨트롤러를 할당해준다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102168160-1a962080-3ed3-11eb-8563-0ba9c06f3196.png" alt="image" /></p>
+
+<p>“Audo Generate Animation” 버튼을 누르고 애니메이션 컨트롤러를 생성하면 자동으로 이렇게 “Pressed”, “Highlighted” 등등 버튼과 관련된 애니메이션 클립들과 위와 같은 내용의 컨트롤러를 자동으로 만들어준다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102168209-34376800-3ed3-11eb-80f9-8f9829caa9df.png" alt="image" /></p>
+
+<p>버튼에 커서를 올렸을 때인 “Highlighted” 애니메이션 클립을 녹화하여 만들자. 버튼에 커서를 올리면 자동으로 “Highlighted” 애니메이션 클립 재생이 되게끔 버튼 애니메이션 컨트롤러에 트랜지션이 짜여져 있다. 버튼에 커서를 올리면 10 프레임 때쯤 크기가 커진다. 애니메이션 재생으로 서서히 10프레임으로 갈 수록 커질 것이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102168304-5f21bc00-3ed3-11eb-9d20-7c7afc5ddd3e.png" alt="image" /></p>
+
+<p>버튼을 눌렀을 때인 “Pressed” 애니메이션 클립을 녹화하여 만들자. 버튼을 누르면 자동으로 “Pressed” 애니메이션 클립 재생이 되게끔 버튼 애니메이션 컨트롤러에 트랜지션이 짜여져 있다. 버튼을 누르면 15 프레임 때쯤 크기가 더 커지고 투명해진다.(알파값 0) 애니메이션 재생으로 서서히 15프레임으로 갈 수록 투명해지고 커질 것이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102168385-811b3e80-3ed3-11eb-8f4d-54d5e660df4d.png" alt="image" /></p>
+
+<p>애니메이션 클립들은 반복 재생을 해제해준다.</p>
+
+<p><br /></p>
+
+<h3 id="title">📜Title</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.SceneManagement</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Title</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">sceneName</span> <span class="p">=</span> <span class="s">"GameStage"</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ClickStart</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"로딩"</span><span class="p">);</span>
+        <span class="n">SceneManager</span><span class="p">.</span><span class="nf">LoadScene</span><span class="p">(</span><span class="n">sceneName</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ClickLoad</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"로드"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ClickExit</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"게임 종료"</span><span class="p">);</span>
+        <span class="n">Application</span><span class="p">.</span><span class="nf">Quit</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>“GameTitle” 타이틀 메뉴 씬의 <code class="language-plaintext highlighter-rouge">Canvas</code>에 붙인다.</p>
+</blockquote>
+
+<p>Start 버튼을 눌렀을 때 불러올 씬은 “GameStage” 씬. <code class="language-plaintext highlighter-rouge">SceneManager.LoadScene</code> 함수를 통해 씬의 이름을 넘겨주면 그 씬을 불러올 수 있다. <em>CLickLoad</em> 함수는 다음 포스트에서 구현.</p>
+
+<p><br /></p>
+
+<h2 id="-씬-빌드-세팅">🚀 씬 빌드 세팅</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102167601-13224780-3ed2-11eb-9703-c734b9e46073.png" alt="image" /></p>
+
+<p>File - Build Settings 에 빌드할 두 씬을 추가해준다. 꼭 추가해주어야 한다!!!</p>
+
+<p><img src="https://camo.githubusercontent.com/514df2639df7bd63124ff7d05479305e86583321a2de6a2ec915e5d71015d090/68747470733a2f2f706f737466696c65732e707374617469632e6e65742f4d6a41794d4445794d5456664d544d302f4d4441784e6a41344d4441304d544d334f446b772e696953436e454c6f4a5574513752344c6850353455506d6e396953443054647754674c3632466e7349484d672e79765a5543326650495366674f694b33787341504f395f56744141617a4c4c6a47714f716c6f4d4d683330672e4749462e736f6879756e655f616e2f4749465f323032302d31322d31355f2545432539382541342545442539422538345f31322d34382d31322e6769663f747970653d77373733" alt="image" /></p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

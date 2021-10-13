@@ -1,0 +1,35 @@
+I"<<p class="notice--warning">공부하면서 알게된 것만 정리합니다.😀</p>
+
+<h1 id="-navmeshhit">👩‍🦰 NavMeshHit</h1>
+
+<blockquote>
+  <p>NavMesh 샘플링의 결과를 담을 컨테이너. Raycast hit 과 비슷</p>
+</blockquote>
+
+<h2 id="-변수프로퍼티">🚀 변수/프로퍼티</h2>
+
+<h3 id="-normal">✈ normal</h3>
+
+<p>광선에 감지된 Collider의 노말 벡터 (충돌 표면의 방향벡터)</p>
+
+<p><br /></p>
+
+<h3 id="-distance">✈ distance</h3>
+
+<p>광선 발사 위치로부터 광선에 감지된 Collider까지의 거리</p>
+
+<p><br /></p>
+
+<h3 id="-position">✈ position</h3>
+
+<p>선에 감지된 Collider의 충돌 위치벡터</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

@@ -1,0 +1,291 @@
+I"p<p class="notice--warning">인프런에 있는 Rookiss님의 <strong>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part3: 유니티 엔진</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/MMORPG-유니티">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="chapter-13-미니-rpg-만들기">Chapter 13. 미니 RPG 만들기</h1>
+
+<h2 id="-몬스터-ai">🚀 몬스터 AI</h2>
+
+<ul>
+  <li>📜BaseController 👉 플레이어와 몬스터의 공통적인 속성과 기능 모음
+    <ul>
+      <li>📜PlayerController</li>
+      <li>📜MonsterController</li>
+    </ul>
+  </li>
+</ul>
+
+<p>📜MonsterController와 📜PlayerController의 공통적인 함수 및 멤버들은 📜BaseController로 옮겨주었음. 몬스터 애니메이션 컨트롤러의 애니메이션 클립의 이름들도 플레이어 애니메이션 컨트롤러와 동일하게.</p>
+
+<h3 id="monstercontroller">📜MonsterController</h3>
+
+<blockquote>
+  <p>몬스터 오브젝트에 붙여준다.</p>
+</blockquote>
+
+<p>📜PlayerController 와 상당수 비슷하다. 여기에 없는건 📜BaseController로부터 상속 받음.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.AI</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MonsterController</span> <span class="p">:</span> <span class="n">BaseController</span>
+<span class="p">{</span>
+    <span class="n">Stat</span> <span class="n">_stat</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="kt">float</span> <span class="n">_scanRange</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="kt">float</span> <span class="n">_attackRange</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Init</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_stat</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Stat</span><span class="p">&gt;();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">gameObject</span><span class="p">.</span><span class="n">GetComponentInChildren</span><span class="p">&lt;</span><span class="n">UI_HPBar</span><span class="p">&gt;()</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="n">Managers</span><span class="p">.</span><span class="n">UI</span><span class="p">.</span><span class="n">MakeWorldSpace</span><span class="p">&lt;</span><span class="n">UI_HPBar</span><span class="p">&gt;(</span><span class="n">transform</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>게임이 시작되면 <code class="language-plaintext highlighter-rouge">UI_HPBar</code>를 몬스터에게 붙인다.
+    <ul>
+      <li>📜BaseController로부터 이 <em>Init</em>을 실행시키는 <em>Start</em> 를 상속 받음</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">UpdateIdle</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"Monster UpdateIdle"</span><span class="p">);</span>
+
+        <span class="n">GameObject</span> <span class="n">player</span> <span class="p">=</span> <span class="n">GameObject</span><span class="p">.</span><span class="nf">FindGameObjectWithTag</span><span class="p">(</span><span class="s">"Player"</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">player</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="kt">float</span> <span class="n">distance</span> <span class="p">=</span> <span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">).</span><span class="n">magnitude</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">distance</span> <span class="p">&lt;=</span> <span class="n">_scanRange</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_lockTarget</span> <span class="p">=</span> <span class="n">player</span><span class="p">;</span>
+            <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Moving</span><span class="p">;</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>UpdateIdle</em> 👉 몬스터가 <code class="language-plaintext highlighter-rouge">Idle</code> 상태일 때 매프레임 실행할 일
+    <ul>
+      <li>“Player”태그를 가진 오브젝트를 찾아 <code class="language-plaintext highlighter-rouge">player</code>에 할당. 플레이어 오브젝트 찾기.
+        <ul>
+          <li>플레이어가 사정거리내에 존재하면 <code class="language-plaintext highlighter-rouge">_lockTarget</code>에 플레이어 오브젝트 할당하고 이제 플레이어 쫓아가야 하니까 상태를 <code class="language-plaintext highlighter-rouge">Moving</code>으로 변경</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">UpdateMoving</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"Monster UpdateMoving"</span><span class="p">);</span>
+
+        <span class="c1">// 플레이어가 내 사정거리보다 가까우면 공격</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_lockTarget</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_destPos</span> <span class="p">=</span> <span class="n">_lockTarget</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+            <span class="kt">float</span> <span class="n">distance</span> <span class="p">=</span> <span class="p">(</span><span class="n">_destPos</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">).</span><span class="n">magnitude</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">distance</span> <span class="p">&lt;=</span> <span class="n">_attackRange</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Skill</span><span class="p">;</span>
+                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 길 찾기 이동</span>
+        <span class="n">Vector3</span> <span class="n">dir</span> <span class="p">=</span> <span class="n">_destPos</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dir</span><span class="p">.</span><span class="n">magnitude</span> <span class="p">&lt;</span> <span class="m">0.1f</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">NavMeshAgent</span> <span class="n">nma</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">GetOrAddComponent</span><span class="p">&lt;</span><span class="n">NavMeshAgent</span><span class="p">&gt;();</span>
+            <span class="n">nma</span><span class="p">.</span><span class="nf">SetDestination</span><span class="p">(</span><span class="n">_destPos</span><span class="p">);</span>
+            <span class="n">nma</span><span class="p">.</span><span class="n">speed</span> <span class="p">=</span> <span class="n">_stat</span><span class="p">.</span><span class="n">MoveSpeed</span><span class="p">;</span>
+
+            <span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">Slerp</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">dir</span><span class="p">),</span> <span class="m">20</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>UpdateMoving</em> 👉 몬스터가 <code class="language-plaintext highlighter-rouge">Moving</code> 상태일 때 매프레임 실행할 일
+    <ul>
+      <li>‘시야’ 사정거리보다 가까우면 <em>UpdateIdle</em> 를 통해 <code class="language-plaintext highlighter-rouge">_lockTarget</code>에 플레이어 들어있는 상태
+        <ul>
+          <li>플레이어를 향해 <code class="language-plaintext highlighter-rouge">_destPos</code> 업뎃하고</li>
+          <li>플레이어가 ‘공격’ 사정거리보다 가까우면 공격. 그리고 길 찾을 필요 없으니 return</li>
+        </ul>
+      </li>
+      <li>길 찾기
+        <ul>
+          <li>도착했다면 <code class="language-plaintext highlighter-rouge">Idle</code> 상태로 돌아가기</li>
+          <li>아니라면 플레이어 향해 바라보며 쫓아가야 함..</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">UpdateSkill</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"Monster UpdateSkill"</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">_lockTarget</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Vector3</span> <span class="n">dir</span> <span class="p">=</span> <span class="n">_lockTarget</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+            <span class="n">Quaternion</span> <span class="n">quat</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">dir</span><span class="p">);</span>
+            <span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">,</span> <span class="n">quat</span><span class="p">,</span> <span class="m">20</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>UpdateSkill</em> 👉 몬스터가 <code class="language-plaintext highlighter-rouge">Skill</code> 상태일 때 매프레임 실행할 일
+    <ul>
+      <li>공격 중에 플레이어 바라보고 공격하게끔</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">void</span> <span class="nf">OnHitEvent</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"Monster OnHitEvent"</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">_lockTarget</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="c1">// 플레이어 타겟팅 중</span>
+        <span class="p">{</span>
+            <span class="c1">// 체력</span>
+            <span class="n">Stat</span> <span class="n">targetStat</span> <span class="p">=</span> <span class="n">_lockTarget</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Stat</span><span class="p">&gt;();</span>
+            <span class="kt">int</span> <span class="n">damage</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Max</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">_stat</span><span class="p">.</span><span class="n">Attack</span> <span class="p">-</span> <span class="n">targetStat</span><span class="p">.</span><span class="n">Defense</span><span class="p">);</span>
+            <span class="n">targetStat</span><span class="p">.</span><span class="n">Hp</span> <span class="p">-=</span> <span class="n">damage</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">targetStat</span><span class="p">.</span><span class="n">Hp</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kt">float</span> <span class="n">distance</span> <span class="p">=</span> <span class="p">(</span><span class="n">_lockTarget</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">).</span><span class="n">magnitude</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">_attackRange</span> <span class="p">&gt;=</span> <span class="n">distance</span><span class="p">)</span>
+                    <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Skill</span><span class="p">;</span>
+                <span class="k">else</span>
+                    <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Moving</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>  <span class="c1">// 플레이어 타겟팅 중이 아닐 땐</span>
+        <span class="p">{</span>
+            <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>OnHitEvent</em> 👉 몬스터의 공격 애니메이션 중 발생하는 이벤트
+    <ul>
+      <li>플레이어의 체력 깎기
+        <ul>
+          <li>플레이어가 아직 안 죽었다면
+            <ul>
+              <li>공격 사정거리 이내라면 다시 공격</li>
+              <li>아니라면 다시 쫓기</li>
+            </ul>
+          </li>
+          <li>플레이어가 죽었다면
+            <ul>
+              <li>정지</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-이동시-밀리는-현상">✈ 이동시 밀리는 현상</h3>
+
+<h4 id="monstercontroller--몬스터가-이동시-플레이어를-미는-현상">📜MonsterController : 몬스터가 이동시 플레이어를 미는 현상</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">UpdateMoving</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"Monster UpdateMoving"</span><span class="p">);</span>
+
+        <span class="c1">// 플레이어가 내 사정거리보다 가까우면 공격</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_lockTarget</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_destPos</span> <span class="p">=</span> <span class="n">_lockTarget</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+            <span class="kt">float</span> <span class="n">distance</span> <span class="p">=</span> <span class="p">(</span><span class="n">_destPos</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">).</span><span class="n">magnitude</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">distance</span> <span class="p">&lt;=</span> <span class="n">_attackRange</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">NavMeshAgent</span> <span class="n">nma</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">GetOrAddComponent</span><span class="p">&lt;</span><span class="n">NavMeshAgent</span><span class="p">&gt;();</span>
+                <span class="n">nma</span><span class="p">.</span><span class="nf">SetDestination</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+                <span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Skill</span><span class="p">;</span>
+                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            <span class="k">if</span> <span class="p">(</span><span class="n">distance</span> <span class="p">&lt;=</span> <span class="n">_attackRange</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">NavMeshAgent</span> <span class="n">nma</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">GetOrAddComponent</span><span class="p">&lt;</span><span class="n">NavMeshAgent</span><span class="p">&gt;();</span>
+                <span class="n">nma</span><span class="p">.</span><span class="nf">SetDestination</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>공격할 때도 계속 짧은 새 마다 플레이어를 쫓지 않도록(밀지 않도록), 공격 사정 거리 내에 있으면 그냥 제자리에 있도록 <code class="language-plaintext highlighter-rouge">nma.SetDestination(transform.position)</code></p>
+
+<p><br /></p>
+
+<h4 id="playercontroller--플레이어가-이동시-몬스터를-미는-현상">📜PlayerController : 플레이어가 이동시 몬스터를 미는 현상</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">UpdateMoving</span><span class="p">()</span>
+<span class="p">{</span>
+		<span class="c1">// 이동</span>
+		<span class="n">Vector3</span> <span class="n">dir</span> <span class="p">=</span> <span class="n">_destPos</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">dir</span><span class="p">.</span><span class="n">magnitude</span> <span class="p">&lt;</span> <span class="m">0.1f</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span>
+		<span class="p">{</span>
+			<span class="n">Debug</span><span class="p">.</span><span class="nf">DrawRay</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">up</span> <span class="p">*</span> <span class="m">0.5f</span><span class="p">,</span> <span class="n">dir</span><span class="p">.</span><span class="n">normalized</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="n">green</span><span class="p">);</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">up</span> <span class="p">*</span> <span class="m">0.5f</span><span class="p">,</span> <span class="n">dir</span><span class="p">,</span> <span class="m">1.0f</span><span class="p">,</span> <span class="n">LayerMask</span><span class="p">.</span><span class="nf">GetMask</span><span class="p">(</span><span class="s">"Block"</span><span class="p">)))</span>
+			<span class="p">{</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetMouseButton</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">==</span> <span class="k">false</span><span class="p">)</span> <span class="c1">//</span>
+					<span class="n">State</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">State</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+				<span class="k">return</span><span class="p">;</span>
+			<span class="p">}</span>
+
+			<span class="kt">float</span> <span class="n">moveDist</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">_stat</span><span class="p">.</span><span class="n">MoveSpeed</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">dir</span><span class="p">.</span><span class="n">magnitude</span><span class="p">);</span>
+			<span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+=</span> <span class="n">dir</span><span class="p">.</span><span class="n">normalized</span> <span class="p">*</span> <span class="n">moveDist</span><span class="p">;</span>
+			<span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">Slerp</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">dir</span><span class="p">),</span> <span class="m">20</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">NavMeshAgent</code>의 <em>nma.Move</em> 함수로 이동하지 않고 직접 플레이어의 위치를 업뎃시켜 해결하였다. <em>transform.position += dir.normalized * moveDist;</em></p>
+
+<p><u>NavMeshAgent를 붙여서 이동하는 방식은 기본적으로 Agent들은 서로 피해가도록 되어 있어 너무 인접하게 붙으면 의도치 않게 상대를 밀치기도 한다.</u> Obstacle Avoidance 속성 때문이다. 이를 해결하는 방법 중 하나는 NavMeshAgent 를 사용하지 않고 레이저를 쏴서 이동 가능한지를 확인 한 후 일반적인 플레이어 위치 세팅으로 이동을 하는 것이다. <em>-출처 : Rookiss님 답변-</em></p>
+
+<p><a href="https://stackoverflow.com/questions/23451983/how-to-avoid-two-navmeshagent-push-away-each-other-in-unity">https://stackoverflow.com/questions/23451983/how-to-avoid-two-navmeshagent-push-away-each-other-in-unity</a></p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

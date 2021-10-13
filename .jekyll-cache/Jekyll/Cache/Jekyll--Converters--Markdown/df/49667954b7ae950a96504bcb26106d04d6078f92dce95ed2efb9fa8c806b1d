@@ -1,0 +1,25 @@
+I"5<ul class="toc__menu">
+  <li><a href="#chapter-6-어메이징-볼링-게임-만들기">Chapter 6. 어메이징 볼링 게임 만들기</a>
+    <ul>
+      <li><a href="#-카메라-추적">🔔 카메라 추적</a>
+        <ul>
+          <li><a href="#main-camera-오브젝트">Main Camera 오브젝트</a></li>
+          <li><a href="#카메라가-비추려는-오브젝트와-카메라의-거리를-벌린-체로-추적">카메라가 비추려는 오브젝트와 카메라의 거리를 벌린 체로 추적</a>
+            <ul>
+              <li><a href="#문제-점">문제 점</a></li>
+              <li><a href="#해결-방안">해결 방안</a></li>
+            </ul>
+          </li>
+          <li><a href="#rig-과-main-camera-오브젝트-설정">Rig 과 Main Camera 오브젝트 설정</a></li>
+          <li><a href="#camfollowcs">📜CamFollow.cs</a>
+            <ul>
+              <li><a href="#-변수">🚍 변수</a></li>
+              <li><a href="#-함수">🚍 함수</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

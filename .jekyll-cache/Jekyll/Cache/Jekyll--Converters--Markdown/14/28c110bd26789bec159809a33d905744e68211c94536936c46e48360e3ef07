@@ -1,0 +1,84 @@
+I"�<p class="notice--warning">인프런에 있는 황대희님의 <strong>언리얼 엔진4 3D 횡스크롤 게임 만들기</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<strong>언리얼 엔진 공식 문서</strong> <a href="https://docs.unrealengine.com/ko/index.html">https://docs.unrealengine.com/ko/index.html</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-3-플레이어-캐릭터">Chapter 3. 플레이어 캐릭터</h1>
+
+<h2 id="-플레이어-캐릭터-모델링-다운로드">🔔 플레이어 캐릭터 모델링 다운로드</h2>
+
+<ul>
+  <li><a href="https://www.mixamo.com/#/">mixamo</a> 홈페이지 접속 후 가입</li>
+  <li>Characters 혹은 Browser Characters 클릭</li>
+  <li>원하는 모델을 클릭 후 다운로드
+    <ul>
+      <li>원하는 애니메이션도 같이 다운로드 받도록 하자.</li>
+    </ul>
+  </li>
+  <li>압축 풀기 이제 언리얼로 가져와보자.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-다운-받은-플레이어-캐릭터-모델링-언리얼로-가져오기-import">🔔 다운 받은 플레이어 캐릭터 모델링 언리얼로 가져오기 (Import)</h2>
+
+<h3 id="import">Import</h3>
+
+<ul>
+  <li>뼈대가 될 모델링 파일 1개(보통 용량이 가장큼)를 언리얼 에디터 📂콘텐츠 브라우저로 드래그 앤 드롭해주면 된다.
+    <ul>
+      <li>그럼 Import Option 메뉴 창이 뜰텐데
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">Use T0As Ref Pose</code>를 체크해주어야한다. 이 수업에서 쓰려는 모델은 T Pose 로 되어 있기 때문에 이걸 체크 안해주면 깨진다. Mixamo에서 T Pose로 다운로드 받았어서..</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>나머지 애니메이션 모델링들도 📂콘텐츠 브라우저로 드래그 앤 드롭해주면 된다.
+    <ul>
+      <li>그럼 Import Option 메뉴 창이 뜰텐데,
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">Skeleton</code>을 방금 위에서 Import 한 모델로 선택해준다. 애니메이션의 뼈대를 임포트한 3 D 모델로 설정해주는 과정.</li>
+          <li>Import all을 눌러 전부 가져 오기</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Save all 모두 저장을 눌러 전부 저장.</li>
+</ul>
+
+<h3 id="모델mesh를-액터에-적용">모델Mesh를 액터에 적용</h3>
+
+<blockquote>
+  <p>지난 강의까지 다루었던 “MoveCharBP” 액터에 모델을 적용할 것이다.</p>
+</blockquote>
+
+<ol>
+  <li>“MoveCharBP” 액터의 블루프린트 에디터를 열어주고 뷰포트.</li>
+  <li><code class="language-plaintext highlighter-rouge">Cube</code> Static Mesh 컴포넌트를 지운다.
+    <ul>
+      <li>이제 “MoveCharBP” 액터는 큐브 모양새가 아니다. 외관이 없어 투명 해짐.</li>
+    </ul>
+  </li>
+  <li>오른쪽 Detail 패널의 Mesh 에서 위에서 임포트한 모델을 선택해준다.
+    <ul>
+      <li>이제 해당 Mesh 컴포넌트가 생긴다.</li>
+    </ul>
+  </li>
+  <li>Mesh를 적절한 위치에 배치해준다.
+    <ul>
+      <li>이 수업에서 사용한 모델은 오른쪽을 보고 서있는 형태라서 앞을 보도록 <code class="language-plaintext highlighter-rouge">E</code> 키를 눌러 90도 회전해주었다.</li>
+    </ul>
+  </li>
+  <li>컴파일 후 저장</li>
+</ol>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

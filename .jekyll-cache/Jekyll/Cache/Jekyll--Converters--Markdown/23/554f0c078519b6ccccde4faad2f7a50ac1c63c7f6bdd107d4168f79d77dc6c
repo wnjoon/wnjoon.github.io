@@ -1,0 +1,25 @@
+I"@<ul class="toc__menu">
+  <li><a href="#chapter-7-c-프로그래밍--중급-22">Chapter 7. C# 프로그래밍 : 중급 (2/2)</a>
+    <ul>
+      <li><a href="#-오버라이드">🔔 오버라이드</a>
+        <ul>
+          <li><a href="#오버라이드란">오버라이드란?</a></li>
+          <li><a href="#virtual">virtual</a>
+            <ul>
+              <li><a href="#baserotatorh">📜BaseRotator.h</a></li>
+            </ul>
+          </li>
+          <li><a href="#override">override</a>
+            <ul>
+              <li><a href="#xrotatorh">📜XRotator.h</a></li>
+              <li><a href="#yrotatorh">📜YRotator.h</a></li>
+              <li><a href="#zrotatorh">📜ZRotator.h</a></li>
+            </ul>
+          </li>
+          <li><a href="#base">base</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

@@ -1,0 +1,68 @@
+I"�	<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/server1/ch1-1/">ch1-1. 멀티 쓰레드</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.25
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#server1" class="page__taxonomy-item-category" rel="tag">Server1</a>
+                    
+                    
+                    <a href="/tags/#csharp" class="page__taxonomy-item-tag" rel="tag">CSharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#server" class="page__taxonomy-item-tag" rel="tag">Server</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/server1/ch0/">ch0. 서버 개요 및 환경 설정</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.22
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#server1" class="page__taxonomy-item-category" rel="tag">Server1</a>
+                    
+                    
+                    <a href="/tags/#csharp" class="page__taxonomy-item-tag" rel="tag">CSharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#server" class="page__taxonomy-item-tag" rel="tag">Server</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

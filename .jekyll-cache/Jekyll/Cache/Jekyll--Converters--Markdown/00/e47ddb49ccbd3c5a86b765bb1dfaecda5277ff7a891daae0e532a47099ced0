@@ -1,0 +1,108 @@
+I"�$<p class="notice--warning">케이디님의 <strong>[유니티 강좌] 리듬 게임</strong> 유튜브 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.youtube.com/watch?v=eLdiOCWPfPc&amp;list=PLUZ5gNInsv_MCnum4bOQRI72LdGkIY3tY&amp;index=2&amp;t=231s">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="-데이터-세이브--로드">🚀 데이터 세이브 &amp; 로드</h2>
+
+<p>빈 오브젝트 <code class="language-plaintext highlighter-rouge">DataBase</code>를 만들고 거기에 📜DataBaseManager 를 붙임. 스테이지별로 점수를 저장할 것.</p>
+
+<h3 id="-databasemanager">📜 DataBaseManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">DataBaseManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span><span class="p">[]</span> <span class="n">score</span><span class="p">;</span>  <span class="c1">// 노래별 최고 점수들 이 배열에 저장</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">LoadScore</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SaveScore</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">score</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+            <span class="n">PlayerPrefs</span><span class="p">.</span><span class="nf">SetInt</span><span class="p">(</span><span class="s">"Score1"</span><span class="p">,</span> <span class="n">score</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">LoadScore</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">PlayerPrefs</span><span class="p">.</span><span class="nf">HasKey</span><span class="p">(</span><span class="s">"Score1"</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">score</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+                <span class="n">PlayerPrefs</span><span class="p">.</span><span class="nf">GetInt</span><span class="p">(</span><span class="s">"Score1"</span><span class="p">,</span> <span class="n">score</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="result">📜Result</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kt">int</span> <span class="n">currentSong</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SetCurrentSong</span><span class="p">(</span><span class="kt">int</span> <span class="n">p_songNum</span><span class="p">)</span> <span class="p">{</span> <span class="n">currentSong</span> <span class="p">=</span> <span class="n">p_songNum</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ShowResult</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//...</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">t_currentScore</span> <span class="p">&gt;</span> <span class="n">theData</span><span class="p">.</span><span class="n">score</span><span class="p">[</span><span class="n">currentSong</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">theData</span><span class="p">.</span><span class="n">score</span><span class="p">[</span><span class="n">currentSong</span><span class="p">]</span> <span class="p">=</span> <span class="n">t_currentScore</span><span class="p">;</span>
+            <span class="n">theData</span><span class="p">.</span><span class="nf">SaveScore</span><span class="p">();</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p>결과창을 띄울 때, 기존에 저장되어 있던 최고 점수 <em>theData.score[currentSong]</em> 보다 이번 게임에서의 점수 <em>t_currentScore</em> 가 더 높다면 데이터베이스에 저장한다!</p>
+
+<p><br /></p>
+
+<h3 id="-gamemanager">📜 GameManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">void</span> <span class="nf">GameStart</span><span class="p">(</span><span class="kt">int</span> <span class="n">p_songNum</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p_bpm</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//..</span>
+        <span class="n">result</span><span class="p">.</span><span class="nf">SetCurrentSong</span><span class="p">(</span><span class="n">p_songNum</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>게임이 시작되면 현재 노래가 뭔지 세팅</p>
+
+<p><br /></p>
+
+<h3 id="-stagemenu">📜 StageMenu</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnEnable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">theData</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="n">theData</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">DataBaseManager</span><span class="p">&gt;();</span>
+        <span class="nf">SettingSong</span><span class="p">();</span>
+        <span class="n">theResult</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">Result</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+    
+    <span class="k">void</span> <span class="nf">SettingSong</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">txtSongName</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="n">songList</span><span class="p">[</span><span class="n">currentSong</span><span class="p">].</span><span class="n">name</span><span class="p">;</span>
+        <span class="n">txtSongComposer</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="n">songList</span><span class="p">[</span><span class="n">currentSong</span><span class="p">].</span><span class="n">composer</span><span class="p">;</span>
+        <span class="n">txtSongScore</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">"{0:#,##0}"</span><span class="p">,</span> <span class="n">theData</span><span class="p">.</span><span class="n">score</span><span class="p">[</span><span class="n">currentSong</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>Start</em>를 <em>OnEnable</em> 로 변경하였다.
+    <ul>
+      <li>스테이지 메뉴는 게임이 시작되면 비활되었다가 게임이 끝나고 메인메뉴로 돌아가거나 하면 다시 활성화된다. 따라서 음악을 다시 세팅하기 위해선 <em>Start</em>보다 <em>OnEnable</em>이 적절하다.</li>
+    </ul>
+  </li>
+  <li>스테이지 메뉴에서 보이는 해당 음악의 점수를 DB에서 갖고 오기.</li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

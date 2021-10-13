@@ -1,0 +1,183 @@
+I"
+#<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Player Character</code>의 적용 사항들 오버라이딩 all 한번 해주기</li>
+</ul>
+
+<h2 id="-post-process">🔔 Post Process</h2>
+
+<blockquote>
+  <p>카메라에 <code class="language-plaintext highlighter-rouge">후처리(Post Processing)</code>를 구현하자 👉 <strong>영상미 구현</strong></p>
+</blockquote>
+
+<ul>
+  <li>게임 화면이 최종 출력되기 전에 카메라의 이미지 버퍼에 삽입하는 추가 처리.</li>
+  <li>어떤 엔진에서 하든 <u>가장 마지막 렌더링 단계에서 적용됨</u>
+    <ul>
+      <li>선택적으로 특정 오브젝트만 후처리 하는게 안됨</li>
+      <li>핸드폰으로 필터 씌워 사진찍을 때 하드웨어적으로 사진을 먼저 찍은 후 그 이후에 마지막에 필터를 씌워 영상 처리를 하는 원리와 같다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="post-processing-패키지"><code class="language-plaintext highlighter-rouge">Post Processing</code> 패키지</h3>
+
+<blockquote>
+  <p>유니티에서는 <code class="language-plaintext highlighter-rouge">Post Processing</code> 스택이 Package 패키지를 통해 제공이 된다.</p>
+</blockquote>
+
+<ul>
+  <li>강의자분께서 미리 <code class="language-plaintext highlighter-rouge">Post Processing</code> 패키지를 임포트 해두신 상태.
+    <ul>
+      <li>Window - Package Manager - Post Processing 에서 확인할 수 있다.</li>
+      <li>임포트를 하고 싶다면 Package Manager 에서 검색해서 설치하면 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="카메라-설정-변경하기">카메라 설정 변경하기</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Main Camera</code>의 Rendering Path 을 <strong>Deferred</strong>로 변경해준다.
+    <ul>
+      <li>Edit - Project Settings - Graphics 에서 Rendering Path 확인 가능</li>
+      <li><strong>Forward</strong>와 <strong>Deferred</strong>의 차이
+        <ul>
+          <li>라이팅을 연산하는 방식이 다르고 Rendering Path가 몇번 일어나냐는 차이</li>
+          <li><strong>Deferred</strong>가 품질이 더 좋다. 정확하며 구현 방식이 간단하고 성능이 가벼움. 개수 제약 없이 광원 표현 가능
+            <ul>
+              <li><strong>Forward</strong>은 연산량이 많다</li>
+            </ul>
+          </li>
+          <li>이 둘에 대한 더 자세한 차이는 나중에 조사해보자</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Main Camera</code>의 MSAA 를 <strong>Off</strong>로 변경해준다.
+    <ul>
+      <li>Rendering Path가 <strong>Deferred</strong> 일때는 MSAA가 동작하지 않기 때문에 그냥 꺼준다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="post-process-layer-컴포넌트-추가">Post Process Layer 컴포넌트 추가</h3>
+
+<blockquote>
+  <p>카메라에게 Post Process를 반영해줌</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92372932-99432b00-f138-11ea-91e9-25bffc9b7ecb.png" alt="image" width="50%" height="50%" class="align-center" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Main Camera</code>에 Post Processing Layer 컴포넌트를 추가해준다.</li>
+  <li>설정 그 자체를 가지고 있는 컴포넌트는 아니며 그저 카메라에 후처리를 반영해줄 뿐이다.</li>
+  <li>Trigger에 기본적으로 설정이 되어있는 <code class="language-plaintext highlighter-rouge">Main Camera</code>(자기 자신) 주변에 가까이 있는 Post Process Volume 오브젝트로부터 후처리 설정을 가져와서 자신이 붙어있는 <code class="language-plaintext highlighter-rouge">Main Camera</code> 카메라 오브젝트에게 이를 반영한다.</li>
+  <li>Layer를 지정해주면 해당 Layer에 대해서만 Post Process Volume 오브젝트로부터 후처리 설정을 가져온다.
+    <ul>
+      <li>미리 강의자 분께서 만들어둔 Layer인 “Post-Process” 로 레이어를 변경해준다.</li>
+    </ul>
+  </li>
+  <li>Anti-Allasing 의 Mode는 FXAA로 해준다.
+    <ul>
+      <li>성능 저하가 가장 적고 연산이 빠름</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="post-process-volume-오브젝트-추가">Post-Process Volume 오브젝트 추가</h3>
+
+<blockquote>
+  <p>Hierarchy - Create - 3D Object - Post-process Volume 추가</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92373231-f9d26800-f138-11ea-9854-c7a13111a9ef.png" alt="image" width="100%" height="100%" class="align-center" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Post-process Volume</code>의 Box Collider 컴포넌트
+    <ul>
+      <li>Post Process Layer 컴포넌트의 Trigger에 할당 된 것(<code class="language-plaintext highlighter-rouge">Main Camera</code>)이 충돌하게 되면 후처리 설정이 <code class="language-plaintext highlighter-rouge">Main Camera</code> 카메라 오브젝트에게 넘어가게 되는 원리다.</li>
+    </ul>
+  </li>
+  <li>IsGlobal 을 체크해준다.
+    <ul>
+      <li>체크해주면 카메라가 굳이 <code class="language-plaintext highlighter-rouge">Post-process Volume</code>의 Box Collider 영역에 도달하지 않아도 전체적으로 후처리 효과가 적용된다.</li>
+    </ul>
+  </li>
+  <li>Leyer를 Post-process로 변경
+    <ul>
+      <li>Post Process Layer 컴포넌트가 <code class="language-plaintext highlighter-rouge">Post-process Volume</code>를 감지할 수 있도록.</li>
+    </ul>
+  </li>
+  <li>Profile 옆에 New를 눌러 프로파일을 생성한다.
+    <ul>
+      <li>이 프로파일은 📂Assets/Scenes/Main_Profiles 에 저장된다.</li>
+    </ul>
+  </li>
+  <li>그러나 이렇게 생성된 프로파일을 사용하지 않고 강의자 분께서 미리 만들어둔 프로파일을 사용할 것임
+    <ul>
+      <li>프로파일은 <code class="language-plaintext highlighter-rouge">Main Profile</code> 선택
+        <ul>
+          <li>📂Assets/Post-process Profiles 에 있음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>하단에 Add Effect를 눌러서 여러가지 효과들을 추가
+    <ul>
+      <li>예를 들어
+        <ul>
+          <li>Bloom을 추가하면 오브젝트의 외곽선에 빛이 퍼지는 효과가 나타난다. 빛 산란 효과
+            <ul>
+              <li>Intensity 를 조절해보면 오브젝트 외곽선에 뽀샤시한 효과가 나타나는 것을 볼 수 있다!</li>
+            </ul>
+          </li>
+          <li>Color Grading을 추가하면 오브젝트의 색상들을 한쪽 색상으로 몰아줄 수 있다.
+            <ul>
+              <li>Tint에서 색상을 클릭하면 그 색상으로 오브젝트들의 색상이 변경되는 것을 볼 수 있다.</li>
+            </ul>
+          </li>
+          <li>Vignette 효과는 화면의 가장자리를 어둡게 해서 시네마틱한 효과를 준다.</li>
+          <li>Screen Space of Reflections 효과는 화면상에서 빛을 반사하는 그림을 화면에서 얻어냄</li>
+          <li>Depth of Field 효과는 초점이 맞지 않는 오브젝트는 흐려주게한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92375468-1a4ff180-f13c-11ea-9f20-a083a39287ea.png" alt="image" width="100%" height="100%" class="align-center" /></p>
+
+<p><br /></p>
+
+<h2 id="-최종-빌드">🔔 최종 빌드</h2>
+
+<h3 id="배경-음악-추가">배경 음악 추가</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Game Manager</code>에 Audio Source 컴포넌트를 추가한 후 Loop 를 체크, 그리고 Clip으로 “Music”을 선택한다.</p>
+
+<h3 id="진짜-최종-빌드">진짜 최종 빌드</h3>
+
+<blockquote>
+  <p>File - Build Settings 에서 빌드</p>
+</blockquote>
+
+<p>완강 했다. 끝!!</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

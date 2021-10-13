@@ -1,0 +1,128 @@
+I"X<p class="notice--warning">공부하면서 알게된 <u>Actor 정리</u></p>
+
+<hr />
+
+<blockquote>
+  <p>언리얼 공식 매뉴얼 <a href="https://docs.unrealengine.com/ko/index.html">https://docs.unrealengine.com/ko/index.html</a></p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93946289-d54ed080-fd73-11ea-9f8e-2651066093ae.png" alt="image" /></p>
+
+<h2 id="-actor">👩‍🦰 Actor</h2>
+
+<ul>
+  <li>레벨에 배치될 수 있는, 스폰 가능한 모든 것.
+    <ul>
+      <li>따라서 Transform이 없는 액터는 존재하지 않는다.</li>
+    </ul>
+  </li>
+  <li><u>캐릭터가 아닌 경우에 주로 쓴다.</u> 장애물 같은.</li>
+  <li>컴포넌트들로 구성이 되어 있다.
+    <ul>
+      <li><u>루트 컴포넌트</u>가 그 액터를 대표한다.
+        <ul>
+          <li>액터의 위치가 곧 루트 컴포넌트의 위치가 된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="흔한-actor-유형">흔한 Actor 유형</h3>
+
+<h4 id="static-mesh">Static Mesh</h4>
+
+<blockquote>
+  <p>움직임이 없는 고정된 메시</p>
+</blockquote>
+
+<ul>
+  <li>레벨의 지오메트리를 구성하는 가장 기본 단위.</li>
+  <li>보통 움직임이 없는 대부분의 배경 구조물에 사용된다.</li>
+</ul>
+
+<h4 id="player-start">Player Start</h4>
+
+<blockquote>
+  <p>플레이어가 스폰되는, 시작되는 위치를 나타내는 액터</p>
+</blockquote>
+
+<ul>
+  <li>기본적으로 투명하다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Player Start</code>가 없다면 플레이어는 월드 (0, 0, 0) 원점 위치에서 스폰된다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="특수한-actor-유형">특수한 Actor 유형</h3>
+
+<h4 id="-pawn">✨ Pawn</h4>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Actor</code>의 자식이다. <code class="language-plaintext highlighter-rouge">Actor</code>의 한 종류.</p>
+</blockquote>
+
+<ul>
+  <li>제어 가능한 게임 오브젝트로 플레이어나 AI 오브젝트에 사용된다.
+    <ul>
+      <li>움직일 수 있다.</li>
+      <li><u>충돌 처리</u>가 기본적으로 된다.</li>
+    </ul>
+  </li>
+  <li><u>컨트롤러 소유를 통해 플레이어 혹은 AI에 의해 움직인다</u>
+    <ul>
+      <li>컨트롤러는 폰을 빙의(Possess)하여 제어한다.
+        <ul>
+          <li>컨트롤러 중에서도 <em>플레이어 컨트롤러</em> 는 유저의 입력을 받아 그 입력을 사용하여 빙의 중인 폰 또는 캐릭터에게 감각을 전달하고  구동시키기 위한 좀 더 전문적인 컨트롤러다.</li>
+          <li><code class="language-plaintext highlighter-rouge">빙의(Possess)</code>
+            <ul>
+              <li>모든 폰은 플레이어가 조종할 수 있다. 그러나 플레이어는 이 중 하나만 조종이 가능하며 내가 원할 때 월드에 존재하는 폰들 중 하나를 내가 조종하는 것을 빙의라고 한다.
+                <ul>
+                  <li>빙의된 폰과 플레이어 컨트롤러로 소통한다.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>액터가 트랜스폼을 기본으로 가진다면 폰은 <u>Trnasform, Movement, Velocity, Input</u>을 기본적으로 가진다.</li>
+</ul>
+
+<h5 id="-character">✨ Character</h5>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Pawn</code>의 자식이다.</p>
+</blockquote>
+
+<ul>
+  <li>좀 더 복잡한 애니메이션을 처리하기 좋은 <code class="language-plaintext highlighter-rouge">Pawn</code></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-game-mode">👩‍🦰 Game Mode</h2>
+
+<blockquote>
+  <p>게임에 대한 기본 규칙들이 지정된다.</p>
+</blockquote>
+
+<ul>
+  <li>존재하는 플레이어와 관람자의 수는 물론, 허용된 플레이어와 관람자 최대 수</li>
+  <li>플레이어가 게임에 들어오는 방식, 스폰 위치 선택 규칙과 기타 스폰/리스폰 동작 포함 가능</li>
+  <li>게임 일시정지 가능 여부, 게임 일시정지 처리 방식</li>
+  <li>레벨간의 전환, 게임의 시네마틱 모드 시작 여부 포함</li>
+</ul>
+
+<p><u>게임 모드 블루프린트</u>를 사용하면, 레벨마다 게임 모드를 지정해줄 수 있다. 개발자가 직접 게임 모드 블루프린트를 생성하지 않으면 언리얼 엔진에 기본적으로 마련이 되어 있는 GameMode 블루프린트가 사용된다.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

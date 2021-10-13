@@ -1,0 +1,337 @@
+I"ll<p class="notice--warning">인프런에 있는 Rookiss님의 <strong>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part3: 유니티 엔진</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/MMORPG-유니티">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="chapter-13-미니-rpg-만들기">Chapter 13. 미니 RPG 만들기</h1>
+
+<h2 id="-destroy">🚀 Destroy</h2>
+
+<ul>
+  <li>오브젝트가 Destroy 될 때
+    <ul>
+      <li>오브젝트가 메모리 해제되면 유니티의 <code class="language-plaintext highlighter-rouge">Object</code>의 <code class="language-plaintext highlighter-rouge">==</code> 연산자 오버로딩으로 인하여 해제된 객체를 <code class="language-plaintext highlighter-rouge">== null</code> 비교 연산할 땐 그 객체를 참조하는 참조 변수들은 댕글링 포인터가 되는 것이 아닌 “null”이 되도록 처리된다.</li>
+      <li>해제된 오브젝트의 컴포넌트를 참조하는 것들을 잘 확인해야 한다. 크러쉬가 날테니까! 오브젝트가 해제되면 당연히 그 오브젝트의 컴포넌트들에도 참조할 수 없다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-형변환-연산-비용-줄이는-대안">✈ 형변환 연산 비용 줄이는 대안</h3>
+
+<p>📜GameManager 에서 오브젝트들을 스폰하고 디스폰하는 작업을 할 것이다. 근데 어떤 오브젝트를 스폰해야하는지를 알아야 한다. 그러면 📜BaseController 타입으로 업캐스팅해서 받는 방법도 있을테고(근데 이러면 상속이 아닌 자신만의 고유한 부분들은 호출 못하겠지..?) <em>GetComponent</em>로 📜PlayerController 혹은 📜MonsterController 가져오고 이런 방법도 있을 것이다. 근데 이런 방법들은 비싼 연산들이다보니 그냥 📜Define 에 스폰할 오브젝트들을 종류별로 정리한 <code class="language-plaintext highlighter-rouge">enum</code>을 정의하고 이를 받아서 어떤 오브젝트를 스폰해야 하는지 알면 성능상 더 좋을 것이다. 또 <code class="language-plaintext highlighter-rouge">enum</code>으로 정의하면 <code class="language-plaintext highlighter-rouge">switch</code>를 사용하기에도 좋다.</p>
+
+<h4 id="define">📜Define</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Define</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">enum</span> <span class="n">WorldObject</span>
+    <span class="p">{</span>
+        <span class="n">Unknown</span><span class="p">,</span>
+        <span class="n">Player</span><span class="p">,</span>
+        <span class="n">Monster</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Define.WorldObject.Player 이면 플레이어 오브젝트 스폰할 것</li>
+  <li>Define.WorldObject.Monster 이면 몬스터 오브젝트 스폰할 것</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="basecontroller">📜BaseController</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span> <span class="n">WorldObjectType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">protected</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Unknown</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>📜PlayerController,📜MonsterController은 <code class="language-plaintext highlighter-rouge">WorldObjectType</code>을 가짐.</p>
+
+<p><br /></p>
+
+<h4 id="monstercontroller">📜MonsterController</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Init</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">WorldObjectType</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Monster</span><span class="p">;</span>
+        <span class="n">_stat</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Stat</span><span class="p">&gt;();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">gameObject</span><span class="p">.</span><span class="n">GetComponentInChildren</span><span class="p">&lt;</span><span class="n">UI_HPBar</span><span class="p">&gt;()</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="n">Managers</span><span class="p">.</span><span class="n">UI</span><span class="p">.</span><span class="n">MakeWorldSpace</span><span class="p">&lt;</span><span class="n">UI_HPBar</span><span class="p">&gt;(</span><span class="n">transform</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><em>WorldObjectType = Define.WorldObject.Monster;</em></p>
+
+<p><br /></p>
+
+<h4 id="playercontroller">📜PlayerController</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Init</span><span class="p">()</span>
+    <span class="p">{</span>
+		<span class="n">WorldObjectType</span> <span class="p">=</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Player</span><span class="p">;</span>
+		<span class="n">_stat</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">PlayerStat</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<p><em>WorldObjectType = Define.WorldObject.Player;</em></p>
+
+<p><br /></p>
+
+<h3 id="-스폰-및-디스폰">✈ 스폰 및 디스폰</h3>
+
+<h4 id="gamemanager">📜GameManager</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GameManager</span>
+<span class="p">{</span>
+    <span class="c1">// int(ID) &lt;-&gt; GameObject : 게임 오브젝트를 ID로 들고 있기 </span>
+    <span class="c1">// 따라서 Dictionary가 적당. 근데 이건 온라인 게임은 아니니까 일단 HashSet 사용(Key없는 자료구조)</span>
+    <span class="n">GameObject</span> <span class="n">_player</span><span class="p">;</span>
+    <span class="n">HashSet</span><span class="p">&lt;</span><span class="n">GameObject</span><span class="p">&gt;</span> <span class="n">_monsters</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="p">&lt;</span><span class="n">GameObject</span><span class="p">&gt;();</span>
+
+    <span class="k">public</span> <span class="n">GameObject</span> <span class="nf">GetPlayer</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_player</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// 플레이어 리턴 함수</span>
+</code></pre></div></div>
+
+<p>스폰된 오브젝트들은 ID 같은 것으로 관리되는게 좋다. (서버에서는 이 ID로 통신한다고 한다.) 이 얘기는 즉 Key와 Value로 관리가 되야 한다는 의미이므로 Dictionaryr가 적당!</p>
+
+<p>근데 온라인 게임 만드는건 아니니까 싱글 게임에선 딱히 필요는 없고 해서 <code class="language-plaintext highlighter-rouge">HashSet</code> 사용</p>
+
+<ul>
+  <li>싱글 게임 이므로 플레이어는 1 명
+    <ul>
+      <li>플레이어 오브젝트 👉 1 개이므로 그냥 <code class="language-plaintext highlighter-rouge">_player</code>에서 관리</li>
+      <li>몬스터 오브젝트들 👉 <code class="language-plaintext highlighter-rouge">HashSet</code>에서 관리</li>
+    </ul>
+  </li>
+  <li><strong><em>HashSet</em></strong>
+    <ul>
+      <li>순서대로 저장되지 않는다.</li>
+      <li>중복이 허용되지 않는다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="n">GameObject</span> <span class="nf">Spawn</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span> <span class="n">type</span><span class="p">,</span> <span class="kt">string</span> <span class="n">path</span><span class="p">,</span> <span class="n">Transform</span> <span class="n">parent</span> <span class="p">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">GameObject</span> <span class="n">go</span> <span class="p">=</span> <span class="n">Managers</span><span class="p">.</span><span class="n">Resource</span><span class="p">.</span><span class="nf">Instantiate</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parent</span><span class="p">);</span>
+
+        <span class="k">switch</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">case</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Monster</span><span class="p">:</span>
+                <span class="n">_monsters</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">go</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Player</span><span class="p">:</span>
+                <span class="n">_player</span> <span class="p">=</span> <span class="n">go</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">go</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>스폰하기</p>
+</blockquote>
+
+<ul>
+  <li>오브젝트 Instantiate</li>
+  <li>👉 <code class="language-plaintext highlighter-rouge">enum</code>이여서 가능한 일
+    <ul>
+      <li>몬스터면
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">_monsters</code> HashSet 에 추가 캐싱</li>
+        </ul>
+      </li>
+      <li>플레이어면
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">_player</code>에 캐싱</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 오브젝트의 Define.WorldObject 값을 알려줌</span>
+    <span class="k">public</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span> <span class="nf">GetWorldObjectType</span><span class="p">(</span><span class="n">GameObject</span> <span class="n">go</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">BaseController</span> <span class="n">bc</span> <span class="p">=</span> <span class="n">go</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">BaseController</span><span class="p">&gt;();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bc</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Unknown</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">bc</span><span class="p">.</span><span class="n">WorldObjectType</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 디스폰</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Despawn</span><span class="p">(</span><span class="n">GameObject</span> <span class="n">go</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span> <span class="n">type</span> <span class="p">=</span> <span class="nf">GetWorldObjectType</span><span class="p">(</span><span class="n">go</span><span class="p">);</span>
+
+        <span class="k">switch</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">case</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Monster</span><span class="p">:</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">_monsters</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="n">go</span><span class="p">))</span>
+                        <span class="n">_monsters</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="n">go</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Player</span><span class="p">:</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">_player</span> <span class="p">==</span> <span class="n">go</span><span class="p">)</span>
+                        <span class="n">_player</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+                <span class="p">}</span>     
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">Managers</span><span class="p">.</span><span class="n">Resource</span><span class="p">.</span><span class="nf">Destroy</span><span class="p">(</span><span class="n">go</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Destroy 시키기 전에, 캐싱해놨던거 없애기 <code class="language-plaintext highlighter-rouge">null</code>처리
+    <ul>
+      <li>그냥 <em>Destroy</em>가 아니라 <em>Managers.Resource.Destroy(go)</em> 이기 때문에! 예전에 풀링 매니저 때 구현해놨던 오브젝트 풀링 처리가 된다.
+        <ul>
+          <li>풀링 하는 오브젝트면 진짜 Destroy 되는게 아닌 비활성화 됨!</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="managers">📜Managers</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GameManager</span> <span class="n">_game</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">GameManager</span><span class="p">();</span>
+<span class="k">public</span> <span class="k">static</span> <span class="n">GameManager</span> <span class="n">Game</span> <span class="p">{</span> <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Instance</span><span class="p">.</span><span class="n">_game</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span>
+    
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="gamescene">📜GameScene</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">GameScene</span> <span class="p">:</span> <span class="n">BaseScene</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Init</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//...</span>
+        <span class="n">GameObject</span> <span class="n">player</span> <span class="p">=</span> <span class="n">Managers</span><span class="p">.</span><span class="n">Game</span><span class="p">.</span><span class="nf">Spawn</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Player</span><span class="p">,</span> <span class="s">"UnityChan"</span><span class="p">);</span>
+        <span class="n">Camera</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">GetOrAddComponent</span><span class="p">&lt;</span><span class="n">CameraController</span><span class="p">&gt;().</span><span class="nf">SetPlayer</span><span class="p">(</span><span class="n">player</span><span class="p">);</span>
+        <span class="n">Managers</span><span class="p">.</span><span class="n">Game</span><span class="p">.</span><span class="nf">Spawn</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">WorldObject</span><span class="p">.</span><span class="n">Monster</span><span class="p">,</span> <span class="s">"Knight"</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>플레이어 스폰하기, 몬스터 스폰하기</p>
+
+<p><br /></p>
+
+<h4 id="monstercontroller-playercontroller">📜MonsterController, 📜PlayerController</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">void</span> <span class="nf">OnHitEvent</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_lockTarget</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 체력</span>
+            <span class="n">Stat</span> <span class="n">targetStat</span> <span class="p">=</span> <span class="n">_lockTarget</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Stat</span><span class="p">&gt;();</span>
+            <span class="kt">int</span> <span class="n">damage</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Max</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">_stat</span><span class="p">.</span><span class="n">Attack</span> <span class="p">-</span> <span class="n">targetStat</span><span class="p">.</span><span class="n">Defense</span><span class="p">);</span>
+            <span class="n">targetStat</span><span class="p">.</span><span class="n">Hp</span> <span class="p">-=</span> <span class="n">damage</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">targetStat</span><span class="p">.</span><span class="n">Hp</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span> 
+            <span class="p">{</span>
+                <span class="n">Managers</span><span class="p">.</span><span class="n">Game</span><span class="p">.</span><span class="nf">Despawn</span><span class="p">(</span><span class="n">targetStat</span><span class="p">.</span><span class="n">gameObject</span><span class="p">);</span>
+            <span class="p">}</span>
+</code></pre></div></div>
+
+<p>체력이 0 이하면 디스폰</p>
+
+<p><br /></p>
+
+<h3 id="-풀링으로-인한-비활성화-고려">✈ 풀링으로 인한 비활성화 고려</h3>
+
+<h4 id="extension">📜Extension</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Extension</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="nf">IsValid</span><span class="p">(</span><span class="k">this</span> <span class="n">GameObject</span> <span class="n">go</span><span class="p">)</span>
+    <span class="p">{</span>
+		<span class="k">return</span> <span class="n">go</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">&amp;&amp;</span> <span class="n">go</span><span class="p">.</span><span class="n">activeSelf</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>풀링하는 오브젝트들도 있기 때문에 <code class="language-plaintext highlighter-rouge">go != null</code>만 체크해주면 안되고 활성화 상태인지도 체크해주어야 하기 때문에 이런 확장메서드를 만들었다.</p>
+
+<p><br /></p>
+
+<h4 id="cameracontroller">📜CameraController</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">void</span> <span class="nf">SetPlayer</span><span class="p">(</span><span class="n">GameObject</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span> <span class="n">_player</span> <span class="p">=</span> <span class="n">player</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">LateUpdate</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_mode</span> <span class="p">==</span> <span class="n">Define</span><span class="p">.</span><span class="n">CameraMode</span><span class="p">.</span><span class="n">QuarterView</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_player</span><span class="p">.</span><span class="nf">IsValid</span><span class="p">()</span> <span class="p">==</span> <span class="k">false</span><span class="p">)</span> 
+                <span class="k">return</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">_player != null</code>만 해주면 안되고 활성화 상태인지도 체크해야한다. 플레이어 오브젝트는 풀링으로 관리되기 때문!</p>
+
+<p><br /></p>
+
+<h3 id="-hp-깎기">✈ Hp 깎기</h3>
+
+<p>공격 하는 주체가 직접 피해자가 자신의 HP를 깎는 함수를 호출하게 해주는 것이 좋다.</p>
+
+<ul>
+  <li>몬스터가 플레이어 공격할 때 👉 몬스터에서 플레이어 객체로부터 플레이어 본인의 HP 깎는 함수 호출</li>
+  <li>플레이어가 몬스터 공격할 때 👉 플레이어에서 몬스터 객체로부터 몬스터 본인의 HP 깎는 함수 호출</li>
+</ul>
+
+<h4 id="stat">📜Stat</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="nf">OnAttacked</span><span class="p">(</span><span class="n">Stat</span> <span class="n">_attacker</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">damage</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Max</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">_attacker</span><span class="p">.</span><span class="n">Attack</span> <span class="p">-</span> <span class="n">Defense</span><span class="p">);</span>
+        <span class="n">Hp</span> <span class="p">-=</span> <span class="n">damage</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Hp</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Hp</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="nf">OnDead</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">virtual</span> <span class="k">void</span> <span class="nf">OnDead</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Managers</span><span class="p">.</span><span class="n">Game</span><span class="p">.</span><span class="nf">Despawn</span><span class="p">(</span><span class="n">gameObject</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>HP 깎는 처리를 플레이어와 몬스터의 OnHitEvent 에서 하지 않고 📜Stat에서 해주기루..</p>
+
+<p><br /></p>
+
+<h4 id="monstercontroller-playercontroller-1">📜MonsterController, 📜PlayerController</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="k">void</span> <span class="nf">OnHitEvent</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">_lockTarget</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+			<span class="n">Stat</span> <span class="n">targetStat</span> <span class="p">=</span> <span class="n">_lockTarget</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Stat</span><span class="p">&gt;();</span>
+			<span class="n">targetStat</span><span class="p">.</span><span class="nf">OnAttacked</span><span class="p">(</span><span class="n">_stat</span><span class="p">);</span>
+		<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">_lockTarget</code> 상대방의 📜Stat 의 <em>OnAttacked</em> 호출. 내가 <code class="language-plaintext highlighter-rouge">_stat</code> 공격 주체. <code class="language-plaintext highlighter-rouge">targetStat</code>은 피해자.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

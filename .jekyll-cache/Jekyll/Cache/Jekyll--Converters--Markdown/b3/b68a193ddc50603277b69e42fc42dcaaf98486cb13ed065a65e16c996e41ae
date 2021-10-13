@@ -1,0 +1,1138 @@
+I"VX<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</h1>
+
+<h2 id="guncs">📜Gun.cs</h2>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Gun</code> 오브젝트에 붙인다.</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="c1">// 총을 구현한다</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Gun</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="c1">// 총의 상태를 표현하는데 사용할 타입을 선언한다</span>
+    <span class="k">public</span> <span class="k">enum</span> <span class="n">State</span>
+    <span class="p">{</span>
+        <span class="n">Ready</span><span class="p">,</span> <span class="c1">// 발사 준비됨</span>
+        <span class="n">Empty</span><span class="p">,</span> <span class="c1">// 탄창이 빔</span>
+        <span class="n">Reloading</span> <span class="c1">// 재장전 중</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="n">State</span> <span class="n">state</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// 현재 총의 상태</span>
+
+    <span class="k">private</span> <span class="n">PlayerShooter</span> <span class="n">gunHolder</span><span class="p">;</span>
+    <span class="k">private</span> <span class="n">LineRenderer</span> <span class="n">bulletLineRenderer</span><span class="p">;</span> <span class="c1">// 총알 궤적을 그리기 위한 렌더러</span>
+
+    <span class="k">private</span> <span class="n">AudioSource</span> <span class="n">gunAudioPlayer</span><span class="p">;</span> <span class="c1">// 총 소리 재생기</span>
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">shotClip</span><span class="p">;</span> <span class="c1">// 발사 소리</span>
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">reloadClip</span><span class="p">;</span> <span class="c1">// 재장전 소리</span>
+
+    <span class="k">public</span> <span class="n">ParticleSystem</span> <span class="n">muzzleFlashEffect</span><span class="p">;</span> <span class="c1">// 총구 화염 효과</span>
+    <span class="k">public</span> <span class="n">ParticleSystem</span> <span class="n">shellEjectEffect</span><span class="p">;</span> <span class="c1">// 탄피 배출 효과</span>
+
+    <span class="k">public</span> <span class="n">Transform</span> <span class="n">fireTransform</span><span class="p">;</span> <span class="c1">// 총알이 발사될 위치</span>
+    <span class="k">public</span> <span class="n">Transform</span> <span class="n">leftHandMount</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">damage</span> <span class="p">=</span> <span class="m">25</span><span class="p">;</span> <span class="c1">// 공격력</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">fireDistance</span> <span class="p">=</span> <span class="m">100f</span><span class="p">;</span> <span class="c1">// 사정거리</span>
+
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">ammoRemain</span> <span class="p">=</span> <span class="m">100</span><span class="p">;</span> <span class="c1">// 남은 전체 탄약</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">magAmmo</span><span class="p">;</span> <span class="c1">// 현재 탄창에 남아있는 탄약</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">magCapacity</span> <span class="p">=</span> <span class="m">30</span><span class="p">;</span> <span class="c1">// 탄창 용량</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">timeBetFire</span> <span class="p">=</span> <span class="m">0.12f</span><span class="p">;</span> <span class="c1">// 총알 발사 간격</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">reloadTime</span> <span class="p">=</span> <span class="m">1.8f</span><span class="p">;</span> <span class="c1">// 재장전 소요 시간</span>
+
+    <span class="p">[</span><span class="nf">Range</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">10f</span><span class="p">)]</span> <span class="k">public</span> <span class="kt">float</span> <span class="n">maxSpread</span> <span class="p">=</span> <span class="m">3f</span><span class="p">;</span>
+    <span class="p">[</span><span class="nf">Range</span><span class="p">(</span><span class="m">1f</span><span class="p">,</span> <span class="m">10f</span><span class="p">)]</span> <span class="k">public</span> <span class="kt">float</span> <span class="n">stability</span> <span class="p">=</span> <span class="m">1f</span><span class="p">;</span>
+    <span class="p">[</span><span class="nf">Range</span><span class="p">(</span><span class="m">0.01f</span><span class="p">,</span> <span class="m">3f</span><span class="p">)]</span> <span class="k">public</span> <span class="kt">float</span> <span class="n">restoreFromRecoilSpeed</span> <span class="p">=</span> <span class="m">2f</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">currentSpread</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">currentSpreadVelocity</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">lastFireTime</span><span class="p">;</span> <span class="c1">// 총을 마지막으로 발사한 시점</span>
+
+    <span class="k">private</span> <span class="n">LayerMask</span> <span class="n">excludeTarget</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Awake</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 사용할 컴포넌트들의 참조를 가져오기</span>
+        <span class="n">gunAudioPlayer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+        <span class="n">bulletLineRenderer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">LineRenderer</span><span class="p">&gt;();</span>
+
+        <span class="c1">// 사용할 점을 두개로 변경</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">positionCount</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+        <span class="c1">// 라인 렌더러를 비활성화</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Setup</span><span class="p">(</span><span class="n">PlayerShooter</span> <span class="n">gunHolder</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">gunHolder</span> <span class="p">=</span> <span class="n">gunHolder</span><span class="p">;</span>
+        <span class="n">excludeTarget</span> <span class="p">=</span> <span class="n">gunHolder</span><span class="p">.</span><span class="n">excludeTarget</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnEnable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">currentSpread</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="c1">// 현재 탄창을 가득채우기</span>
+        <span class="n">magAmmo</span> <span class="p">=</span> <span class="n">magCapacity</span><span class="p">;</span>
+        <span class="c1">// 총의 현재 상태를 총을 쏠 준비가 된 상태로 변경</span>
+        <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Ready</span><span class="p">;</span>
+        <span class="c1">// 마지막으로 총을 쏜 시점을 초기화</span>
+        <span class="n">lastFireTime</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnDisable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">StopAllCoroutines</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Fire</span><span class="p">(</span><span class="n">Vector3</span> <span class="n">aimTarget</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 현재 상태가 발사 가능한 상태</span>
+        <span class="c1">// &amp;&amp; 마지막 총 발사 시점에서 timeBetFire 이상의 시간이 지남</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="p">==</span> <span class="n">State</span><span class="p">.</span><span class="n">Ready</span>
+            <span class="p">&amp;&amp;</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span> <span class="p">&gt;=</span> <span class="n">lastFireTime</span> <span class="p">+</span> <span class="n">timeBetFire</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">xError</span> <span class="p">=</span> <span class="n">Utility</span><span class="p">.</span><span class="nf">GetRandomNormalDistribution</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="n">currentSpread</span><span class="p">);</span>
+            <span class="kt">var</span> <span class="n">yError</span> <span class="p">=</span> <span class="n">Utility</span><span class="p">.</span><span class="nf">GetRandomNormalDistribution</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="n">currentSpread</span><span class="p">);</span>
+
+
+            <span class="kt">var</span> <span class="n">fireDirection</span> <span class="p">=</span> <span class="n">aimTarget</span> <span class="p">-</span> <span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+
+            <span class="n">fireDirection</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">AngleAxis</span><span class="p">(</span><span class="n">yError</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">up</span><span class="p">)</span> <span class="p">*</span> <span class="n">fireDirection</span><span class="p">;</span>
+            <span class="n">fireDirection</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">AngleAxis</span><span class="p">(</span><span class="n">xError</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">right</span><span class="p">)</span> <span class="p">*</span> <span class="n">fireDirection</span><span class="p">;</span>
+
+            <span class="n">currentSpread</span> <span class="p">+=</span> <span class="m">1f</span> <span class="p">/</span> <span class="n">stability</span><span class="p">;</span>
+
+            <span class="c1">// 마지막 총 발사 시점을 갱신</span>
+            <span class="n">lastFireTime</span> <span class="p">=</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span><span class="p">;</span>
+            <span class="c1">// 실제 발사 처리 실행</span>
+            <span class="nf">Shot</span><span class="p">(</span><span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">fireDirection</span><span class="p">);</span>
+
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 실제 발사 처리</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Shot</span><span class="p">(</span><span class="n">Vector3</span> <span class="n">startPoint</span><span class="p">,</span> <span class="n">Vector3</span> <span class="n">direction</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 레이캐스트에 의한 충돌 정보를 저장하는 컨테이너</span>
+        <span class="n">RaycastHit</span> <span class="n">hit</span><span class="p">;</span>
+        <span class="c1">// 총알이 맞은 곳을 저장할 변수</span>
+        <span class="kt">var</span> <span class="n">hitPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">zero</span><span class="p">;</span>
+
+        <span class="c1">// 레이캐스트(시작지점, 방향, 충돌 정보 컨테이너, 사정거리)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">startPoint</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="k">out</span> <span class="n">hit</span><span class="p">,</span> <span class="n">fireDistance</span><span class="p">,</span> <span class="p">~</span><span class="n">excludeTarget</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// 레이가 어떤 물체와 충돌한 경우</span>
+
+            <span class="c1">// 충돌한 상대방으로부터 IDamageable 오브젝트를 가져오기 시도</span>
+            <span class="kt">var</span> <span class="n">target</span> <span class="p">=</span>
+                <span class="n">hit</span><span class="p">.</span><span class="n">collider</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">IDamageable</span><span class="p">&gt;();</span>
+
+            <span class="c1">// 상대방으로 부터 IDamageable 오브젝트를 가져오는데 성공했다면</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">DamageMessage</span> <span class="n">damageMessage</span><span class="p">;</span>
+
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">damager</span> <span class="p">=</span> <span class="n">gunHolder</span><span class="p">.</span><span class="n">gameObject</span><span class="p">;</span>
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">amount</span> <span class="p">=</span> <span class="n">damage</span><span class="p">;</span>
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">hitPoint</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">;</span>
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">hitNormal</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">normal</span><span class="p">;</span>
+
+                <span class="c1">// 상대방의 OnDamage 함수를 실행시켜서 상대방에게 데미지 주기</span>
+                <span class="n">target</span><span class="p">.</span><span class="nf">ApplyDamage</span><span class="p">(</span><span class="n">damageMessage</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">EffectManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">PlayHitEffect</span><span class="p">(</span><span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">,</span> <span class="n">hit</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">hit</span><span class="p">.</span><span class="n">transform</span><span class="p">);</span>
+            <span class="p">}</span>
+          <span class="c1">// 레이가 충돌한 위치 저장</span>
+            <span class="n">hitPosition</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="c1">// 레이가 다른 물체와 충돌하지 않았다면</span>
+            <span class="c1">// 총알이 최대 사정거리까지 날아갔을때의 위치를 충돌 위치로 사용</span>
+            <span class="n">hitPosition</span> <span class="p">=</span> <span class="n">startPoint</span> <span class="p">+</span> <span class="n">direction</span> <span class="p">*</span> <span class="n">fireDistance</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 발사 이펙트 재생 시작</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">ShotEffect</span><span class="p">(</span><span class="n">hitPosition</span><span class="p">));</span>
+
+        <span class="c1">// 남은 탄환의 수를 -1</span>
+        <span class="n">magAmmo</span><span class="p">--;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">magAmmo</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span>
+            <span class="c1">// 탄창에 남은 탄약이 없다면, 총의 현재 상태를 Empty으로 갱신</span>
+            <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 발사 이펙트와 소리를 재생하고 총알 궤적을 그린다</span>
+    <span class="k">private</span> <span class="n">IEnumerator</span> <span class="nf">ShotEffect</span><span class="p">(</span><span class="n">Vector3</span> <span class="n">hitPosition</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 총구 화염 효과 재생</span>
+        <span class="n">muzzleFlashEffect</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+        <span class="c1">// 탄피 배출 효과 재생</span>
+        <span class="n">shellEjectEffect</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+
+        <span class="c1">// 총격 소리 재생</span>
+        <span class="n">gunAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">shotClip</span><span class="p">);</span>
+
+        <span class="c1">// 선의 시작점은 총구의 위치</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="nf">SetPosition</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+        <span class="c1">// 선의 끝점은 입력으로 들어온 충돌 위치</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="nf">SetPosition</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">hitPosition</span><span class="p">);</span>
+        <span class="c1">// 라인 렌더러를 활성화하여 총알 궤적을 그린다</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">enabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="c1">// 0.03초 동안 잠시 처리를 대기</span>
+        <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="m">0.03f</span><span class="p">);</span>
+
+        <span class="c1">// 라인 렌더러를 비활성화하여 총알 궤적을 지운다</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 재장전 시도</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Reload</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="p">==</span> <span class="n">State</span><span class="p">.</span><span class="n">Reloading</span> <span class="p">||</span>
+            <span class="n">ammoRemain</span> <span class="p">&lt;=</span> <span class="m">0</span> <span class="p">||</span> <span class="n">magAmmo</span> <span class="p">&gt;=</span> <span class="n">magCapacity</span><span class="p">)</span>
+            <span class="c1">// 이미 재장전 중이거나, 남은 총알이 없거나</span>
+            <span class="c1">// 탄창에 총알이 이미 가득한 경우 재장전 할수 없다</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+
+        <span class="c1">// 재장전 처리 시작</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">ReloadRoutine</span><span class="p">());</span>
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 실제 재장전 처리를 진행</span>
+    <span class="k">private</span> <span class="n">IEnumerator</span> <span class="nf">ReloadRoutine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 현재 상태를 재장전 중 상태로 전환</span>
+        <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Reloading</span><span class="p">;</span>
+        <span class="c1">// 재장전 소리 재생</span>
+        <span class="n">gunAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">reloadClip</span><span class="p">);</span>
+
+        <span class="c1">// 재장전 소요 시간 만큼 처리를 쉬기</span>
+        <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="n">reloadTime</span><span class="p">);</span>
+
+        <span class="c1">// 탄창에 채울 탄약을 계산한다</span>
+        <span class="kt">var</span> <span class="n">ammoToFill</span> <span class="p">=</span> <span class="n">magCapacity</span> <span class="p">-</span> <span class="n">magAmmo</span><span class="p">;</span>
+
+        <span class="c1">// 탄창에 채워야할 탄약이 남은 탄약보다 많다면,</span>
+        <span class="c1">// 채워야할 탄약 수를 남은 탄약 수에 맞춰 줄인다</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ammoRemain</span> <span class="p">&lt;</span> <span class="n">ammoToFill</span><span class="p">)</span> <span class="n">ammoToFill</span> <span class="p">=</span> <span class="n">ammoRemain</span><span class="p">;</span>
+
+        <span class="c1">// 탄창을 채운다</span>
+        <span class="n">magAmmo</span> <span class="p">+=</span> <span class="n">ammoToFill</span><span class="p">;</span>
+        <span class="c1">// 남은 탄약에서, 탄창에 채운만큼 탄약을 뺸다</span>
+        <span class="n">ammoRemain</span> <span class="p">-=</span> <span class="n">ammoToFill</span><span class="p">;</span>
+
+        <span class="c1">// 총의 현재 상태를 발사 준비된 상태로 변경</span>
+        <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Ready</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">currentSpread</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">SmoothDamp</span><span class="p">(</span><span class="n">currentSpread</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="k">ref</span> <span class="n">currentSpreadVelocity</span><span class="p">,</span> <span class="m">1f</span> <span class="p">/</span> <span class="n">restoreFromRecoilSpeed</span><span class="p">);</span>
+        <span class="n">currentSpread</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">currentSpread</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="n">maxSpread</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="멤버-변수">멤버 변수</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">enum</span> <span class="n">State</span>
+    <span class="p">{</span>
+        <span class="n">Ready</span><span class="p">,</span> <span class="c1">// 발사 준비됨</span>
+        <span class="n">Empty</span><span class="p">,</span> <span class="c1">// 탄창이 빔</span>
+        <span class="n">Reloading</span> <span class="c1">// 재장전 중</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="n">State</span> <span class="n">state</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// 현재 총의 상태</span>
+
+    <span class="k">private</span> <span class="n">PlayerShooter</span> <span class="n">gunHolder</span><span class="p">;</span>
+    <span class="k">private</span> <span class="n">LineRenderer</span> <span class="n">bulletLineRenderer</span><span class="p">;</span> <span class="c1">// 총알 궤적을 그리기 위한 렌더러</span>
+
+    <span class="k">private</span> <span class="n">AudioSource</span> <span class="n">gunAudioPlayer</span><span class="p">;</span> <span class="c1">// 총 소리 재생기</span>
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">shotClip</span><span class="p">;</span> <span class="c1">// 발사 소리</span>
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">reloadClip</span><span class="p">;</span> <span class="c1">// 재장전 소리</span>
+
+    <span class="k">public</span> <span class="n">ParticleSystem</span> <span class="n">muzzleFlashEffect</span><span class="p">;</span> <span class="c1">// 총구 화염 효과</span>
+    <span class="k">public</span> <span class="n">ParticleSystem</span> <span class="n">shellEjectEffect</span><span class="p">;</span> <span class="c1">// 탄피 배출 효과</span>
+
+    <span class="k">public</span> <span class="n">Transform</span> <span class="n">fireTransform</span><span class="p">;</span> <span class="c1">// 총알이 발사될 위치</span>
+    <span class="k">public</span> <span class="n">Transform</span> <span class="n">leftHandMount</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">damage</span> <span class="p">=</span> <span class="m">25</span><span class="p">;</span> <span class="c1">// 공격력</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">fireDistance</span> <span class="p">=</span> <span class="m">100f</span><span class="p">;</span> <span class="c1">// 사정거리</span>
+
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">ammoRemain</span> <span class="p">=</span> <span class="m">100</span><span class="p">;</span> <span class="c1">// 남은 전체 탄약</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">magAmmo</span><span class="p">;</span> <span class="c1">// 현재 탄창에 남아있는 탄약</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">magCapacity</span> <span class="p">=</span> <span class="m">30</span><span class="p">;</span> <span class="c1">// 탄창 용량</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">timeBetFire</span> <span class="p">=</span> <span class="m">0.12f</span><span class="p">;</span> <span class="c1">// 총알 발사 간격</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">reloadTime</span> <span class="p">=</span> <span class="m">1.8f</span><span class="p">;</span> <span class="c1">// 재장전 소요 시간</span>
+
+    <span class="p">[</span><span class="nf">Range</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">10f</span><span class="p">)]</span> <span class="k">public</span> <span class="kt">float</span> <span class="n">maxSpread</span> <span class="p">=</span> <span class="m">3f</span><span class="p">;</span>
+    <span class="p">[</span><span class="nf">Range</span><span class="p">(</span><span class="m">1f</span><span class="p">,</span> <span class="m">10f</span><span class="p">)]</span> <span class="k">public</span> <span class="kt">float</span> <span class="n">stability</span> <span class="p">=</span> <span class="m">1f</span><span class="p">;</span>
+    <span class="p">[</span><span class="nf">Range</span><span class="p">(</span><span class="m">0.01f</span><span class="p">,</span> <span class="m">3f</span><span class="p">)]</span> <span class="k">public</span> <span class="kt">float</span> <span class="n">restoreFromRecoilSpeed</span> <span class="p">=</span> <span class="m">2f</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">currentSpread</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">currentSpreadVelocity</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">lastFireTime</span><span class="p">;</span> <span class="c1">// 총을 마지막으로 발사한 시점</span>
+
+    <span class="k">private</span> <span class="n">LayerMask</span> <span class="n">excludeTarget</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">state</code>
+    <ul>
+      <li>3 가지 상태
+        <ol>
+          <li><code class="language-plaintext highlighter-rouge">Ready</code> : 발사 준비 상태</li>
+          <li><code class="language-plaintext highlighter-rouge">Empty</code> : 탄창이 빈 상태</li>
+          <li><code class="language-plaintext highlighter-rouge">Reloading</code> : 재장전 중인 상태</li>
+        </ol>
+      </li>
+      <li>프로퍼티를 통하여 <em>get</em>은 public, <em>set</em>은 private으로 해두었다.
+        <ul>
+          <li>📜Gun 내부에서만 총의 상태 값을 변경할 수 있고 외부에서만 변경 불가능 하고 값을 불러오는 것만 가능하게끔.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">gunHolder</code>
+    <ul>
+      <li>총을 쏘는 주체인 <strong>Plyaer Shooer</strong> 타입</li>
+      <li>총의 주인이 누구인지 알려주는 역할을 한다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">bulletLineRenderer</code>
+    <ul>
+      <li><strong>LineRenderer</strong> 타입으로 총알 궤적을 그리기 위한 렌더러</li>
+    </ul>
+  </li>
+  <li>오디오 소스
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">gunAudioPlayer</code>
+        <ul>
+          <li><strong>AudioSource</strong> 타입으로 총 소리 재생기</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">shotClip</code>
+        <ul>
+          <li><strong>AudioClip</strong> 타입으로 발사 소리.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">reloadClip</code>
+        <ul>
+          <li><strong>AudioClip</strong> 타입으로 재장전 소리</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>파티클
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">muzzleFlashEffect</code>
+        <ul>
+          <li><strong>ParticleSystem</strong> 타입으로 총구 화염 파티클 효과</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">shellEjectEffect</code>
+        <ul>
+          <li><strong>ParticleSystem</strong> 타입으로 탄피 배출 효과 파티클 효과</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Transform
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">fireTransform</code>
+        <ul>
+          <li><strong>Transform</strong> 타입으로 총알이 발사될 위치</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">leftHandMount</code>
+        <ul>
+          <li><strong>Transform</strong> 타입으로 왼손의 위치</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>총 데이터
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">damage</code> 👉 총의 데미지</li>
+      <li><code class="language-plaintext highlighter-rouge">fireDistance</code> 👉 사정 거리. 총알 발사 체크를 할 거리.</li>
+    </ul>
+  </li>
+  <li>탄창 데이터
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ammoRemain</code> 👉 남은 전체! 총 탄약</li>
+      <li><code class="language-plaintext highlighter-rouge">magAmmo</code> 👉 현재 탄창에 남아있는 탄약</li>
+      <li><code class="language-plaintext highlighter-rouge">magCapacity</code> 👉 탄창 용량.</li>
+    </ul>
+  </li>
+  <li>총알 데이터
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">timeBetFire</code> 👉 총알 발사 사이의 간격. <u>적으면 적을 수록 빠르게 연사가 가능하다.</u></li>
+      <li><code class="language-plaintext highlighter-rouge">reloadTime</code> 👉 재장전 소요 시간</li>
+    </ul>
+  </li>
+  <li>탄 퍼짐
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">maxSpread</code> 👉 0 ~ 10 범위에서 결정되며 총알이 퍼지는 최대 범위를 결정. 이 값이 크면 클 수록 총알이 넓게 흩어진다.</li>
+      <li><code class="language-plaintext highlighter-rouge">stability</code> 👉 1 ~ 10 범위에서 결정되며 안정성, 즉 반동이 증가하는 속도. 높을 수록 반동이 증가하는 속도가 낮아져 안정성이 높아진다. 낮으면 낮을 수록 탄 퍼짐의 속도가 높아진다.</li>
+      <li><code class="language-plaintext highlighter-rouge">restoreFromRecoilSpeed</code> 👉 0.01 ~ 3 범위에서 결정되며 연사를 멈춘 후 탄 퍼짐이 0 이 되기까지 걸리는 시간. 회복 속도.</li>
+      <li><code class="language-plaintext highlighter-rouge">currentSpread</code> 👉 현재 탄 퍼짐의 정도값</li>
+      <li><code class="language-plaintext highlighter-rouge">currentSpreadVelocity</code> 👉 현재 탄 퍼짐의 반경이 실시간 변화량. smoothDamp 연산에 사용할 것.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">lastFireTime</code>
+    <ul>
+      <li>가장 최근에 발사가 이루어진 시점을 기록</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">excludeTarget</code>
+    <ul>
+      <li><strong>LayerMask</strong> 타입으로 <u>총알을 쏴서는 안되는 대상을 거르기 위한 Layer</u>
+        <ul>
+          <li>총알을 맞으면 안되는 대상들이 여기에 할당될 것.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="멤버-함수">멤버 함수</h3>
+
+<h4 id="private-void-awake">private void Awake()</h4>
+
+<blockquote>
+  <p>가장 먼저 실행되는 함수인만큼 <code class="language-plaintext highlighter-rouge">Gun</code> 게임 오브젝트로부터 필요한 컴포넌트들을 가져올 것</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Awake</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 사용할 컴포넌트들의 참조를 가져오기</span>
+        <span class="n">gunAudioPlayer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+        <span class="n">bulletLineRenderer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">LineRenderer</span><span class="p">&gt;();</span>
+
+        <span class="c1">// 사용할 점을 두개로 변경</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">positionCount</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+        <span class="c1">// 라인 렌더러를 비활성화</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>사용할 컴포넌트들의 참조를 가져오기</li>
+  <li>총알의 궤적을 그릴 선에 사용할 정점을 2 개로 한다.
+    <ul>
+      <li><strong>LineRenderer</strong> 의 <code class="language-plaintext highlighter-rouge">positionCount</code></li>
+      <li><u>선에 위치한 정점의 수</u>를 Set 하고 Get 할 수 있는 프로퍼티.</li>
+      <li>정점 1️⃣ 총구의 위치</li>
+      <li>정점 2️⃣ 총알이 닿은 위치</li>
+    </ul>
+  </li>
+  <li>총알의 궤적 그리는 것을 비활성화 해두고 시작</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="public-void-setupplayershooter-gunholder">public void Setup(PlayerShooter gunHolder)</h4>
+
+<blockquote>
+  <p>총 주인인 <code class="language-plaintext highlighter-rouge">PlayerShooter</code>측에서 실행할 함수라 <em>public</em>. <code class="language-plaintext highlighter-rouge">Gun</code> 게임 오브젝트의 컴포넌트들을 대상으로 총에 대해 초기화를 실행하는 메서드.</p>
+</blockquote>
+
+<ul>
+  <li>현재 총(<code class="language-plaintext highlighter-rouge">Gun</code>입장에서 나 자신)을 <u>쥐고있는 shooter가 누구인지</u> 알 수 있도록 초기화를 하는 처리가 들어감.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">void</span> <span class="nf">Setup</span><span class="p">(</span><span class="n">PlayerShooter</span> <span class="n">gunHolder</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">gunHolder</span> <span class="p">=</span> <span class="n">gunHolder</span><span class="p">;</span>
+        <span class="n">excludeTarget</span> <span class="p">=</span> <span class="n">gunHolder</span><span class="p">.</span><span class="n">excludeTarget</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>📜PlayerShooter 스크립트는 추후에 작성할 것!</li>
+  <li>인수로 📜PlayerShooter 를 받는다.</li>
+  <li><code class="language-plaintext highlighter-rouge">this.gunHolder = gunHolder;</code>
+    <ul>
+      <li>인수로 입력 받은 gunHolder를 자기 자신의 gunHolder로 지정.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">excludeTarget = gunHolder.excludeTarget;</code>
+    <ul>
+      <li>📜PlayerShooter 스크립트에도 <code class="language-plaintext highlighter-rouge">Player</code>가 <u>총을 쏘지 않을 대상</u>을 할당 할 <strong>LayerMask</strong> 타입의 <code class="language-plaintext highlighter-rouge">excludeTarget</code> 멤버 변수가 따로 들어가 있음.
+        <ul>
+          <li>이를 총의(📜Gun) <code class="language-plaintext highlighter-rouge">excludeTarget</code>에 할당.
+            <ul>
+              <li>📜PlayerShooter 에서 쏘지 않기로 결정된 대상들을 가져와서 할당</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-onenable">private void OnEnable()</h4>
+
+<blockquote>
+  <p>📜Gun스크립트(컴포넌트)가 활성화되는 순간마다 실행되는 이벤트 함수</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnEnable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">currentSpread</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        
+        <span class="n">magAmmo</span> <span class="p">=</span> <span class="n">magCapacity</span><span class="p">;</span>  <span class="c1">// 현재 탄창을 가득채우기</span>
+        <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Ready</span><span class="p">;</span> <span class="c1">// 총의 현재 상태를 총을 쏠 준비가 된 상태로 변경</span>
+        <span class="n">lastFireTime</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="c1">// 마지막으로 총을 쏜 시점을 초기화</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>총의 상태 초기화
+    <ul>
+      <li>탄창 가득 채우기</li>
+      <li>상태는 <code class="language-plaintext highlighter-rouge">Ready</code></li>
+      <li>마지막으로 총을 쏜 시점을 초기화</li>
+      <li>탄퍼짐 0</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-ondisable">private void OnDisable()</h4>
+
+<blockquote>
+  <p>📜Gun스크립트(컴포넌트)가 비활성화되는 순간마다 실행되는 이벤트 함수</p>
+</blockquote>
+
+<ul>
+  <li>현재 실행되고 있는 코루틴 함수들이 있다면 모조리 종료. <strong><em>StopAllCoroutines()</em></strong></li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnDisable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">StopAllCoroutines</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="public-bool-firevector3-aimtarget">public bool Fire(Vector3 aimTarget)</h4>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Gun</code> 클래스 외부에서 총을 사용해서 발사를 시도하는 메소드.</p>
+</blockquote>
+
+<ul>
+  <li><strong><em>Shot 함수</em></strong>를 안전하게 감싸는 역할
+    <ul>
+      <li><strong><em>Shot 함수</em></strong> 는 private으로서 실제로 발사를 처리하는 함수</li>
+    </ul>
+  </li>
+  <li>
+    <p>발사 성공하면 true 리턴 실패하면 false 리턴</p>
+  </li>
+  <li>발사 하려면 현재 상태가 발사 가능한 상태인지를 체크 해야 함
+    <ul>
+      <li>조건 1️⃣ <code class="language-plaintext highlighter-rouge">Ready</code> 상태여야 함</li>
+      <li>조건 2️⃣ 현재 시간이 마지막 총 발사 시점에서 발사 간격을 더한 시간보다 많이 지나 있어야 함</li>
+    </ul>
+  </li>
+  <li>실제로 발사를 처리하는 함수인 <strong>Shot</strong> 을 실행시키려면 1️⃣발사 위치, 2️⃣발사 방향을 넘겨야 함
+    <ul>
+      <li>발사 방향 <code class="language-plaintext highlighter-rouge">fireDirection</code> 구하기
+        <ul>
+          <li>발사 방향 = 목표 지점 - 시작 지점 <code class="language-plaintext highlighter-rouge">var fireDirection = aimTarget - fireTransform.position;</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>마지막으로 총을 발사한 시점을 현재 시간으로 갱신</li>
+  <li>실제 발사 처리 실행 👉 <strong>Shot</strong> 함수 실행</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="p">==</span> <span class="n">State</span><span class="p">.</span><span class="n">Ready</span>
+            <span class="p">&amp;&amp;</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span> <span class="p">&gt;=</span> <span class="n">lastFireTime</span> <span class="p">+</span> <span class="n">timeBetFire</span><span class="p">)</span>
+        <span class="p">{</span>
+
+            <span class="kt">var</span> <span class="n">fireDirection</span> <span class="p">=</span> <span class="n">aimTarget</span> <span class="p">-</span> <span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+
+            <span class="n">lastFireTime</span> <span class="p">=</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span><span class="p">;</span> <span class="c1">// 마지막 총 발사 시점을 갱신</span>
+            
+            <span class="nf">Shot</span><span class="p">(</span><span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">fireDirection</span><span class="p">);</span> <span class="c1">// 실제 발사 처리 실행</span>
+
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>위와 같이만 구현하면
+    <ul>
+      <li>총알은 무조건 조준한 방향으로만 날아가게 된다.</li>
+      <li><u>총 연사와 그로 인한 반동에 의한 정확도 하락 &amp; 탄퍼짐이 구현되지 않음</u></li>
+    </ul>
+  </li>
+  <li>👉 <code class="language-plaintext highlighter-rouge">fireDirection</code>에 적절한 오차 값을 더해서 탄 퍼짐을 구현해야 한다.</li>
+</ul>
+
+<h5 id="utilitycs">📜Utility.cs</h5>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/90242380-e26ccb80-de67-11ea-80dc-5e4f94deb8c8.png" alt="image" width="70%" height="70%" class="align-center" /></p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.AI</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Utility</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Vector3</span> <span class="nf">GetRandomPointOnNavMesh</span><span class="p">(</span><span class="n">Vector3</span> <span class="n">center</span><span class="p">,</span> <span class="kt">float</span> <span class="n">distance</span><span class="p">,</span> <span class="kt">int</span> <span class="n">areaMask</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">randomPos</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="n">insideUnitSphere</span> <span class="p">*</span> <span class="n">distance</span> <span class="p">+</span> <span class="n">center</span><span class="p">;</span>
+        
+        <span class="n">NavMeshHit</span> <span class="n">hit</span><span class="p">;</span>
+        
+        <span class="n">NavMesh</span><span class="p">.</span><span class="nf">SamplePosition</span><span class="p">(</span><span class="n">randomPos</span><span class="p">,</span> <span class="k">out</span> <span class="n">hit</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">areaMask</span><span class="p">);</span>
+        
+        <span class="k">return</span> <span class="n">hit</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">float</span> <span class="nf">GetRandomNormalDistribution</span><span class="p">(</span><span class="kt">float</span> <span class="n">mean</span><span class="p">,</span> <span class="kt">float</span> <span class="n">standard</span><span class="p">)</span>  <span class="c1">// 정규 분포로 부터 랜덤값을 가져오는 함수 </span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">x1</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">x2</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">mean</span> <span class="p">+</span> <span class="n">standard</span> <span class="p">*</span> <span class="p">(</span><span class="n">Mathf</span><span class="p">.</span><span class="nf">Sqrt</span><span class="p">(-</span><span class="m">2.0f</span> <span class="p">*</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">x1</span><span class="p">))</span> <span class="p">*</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Sin</span><span class="p">(</span><span class="m">2.0f</span> <span class="p">*</span> <span class="n">Mathf</span><span class="p">.</span><span class="n">PI</span> <span class="p">*</span> <span class="n">x2</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>표준 정규 분포도
+    <ul>
+      <li>평균에 가까울 수록 출현 확률이 높아지고</li>
+      <li>평균에서 멀어질 수록 출현 확률이 낮아진다.</li>
+      <li>표준 편차가 클 수록 곡선이 완만해지며 평균에서 멀어져도 출현 확률이 높아진다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="탄퍼짐-구현하기--정규분포도-사용">탄퍼짐 구현하기 👉 정규분포도 사용</h5>
+
+<blockquote>
+  <p>정규 분포도로부터 <u>원래 조준했던 위치가 출현할 확률이 가장 높고</u>, <u>원래 조준했던 위치에서 먼 위치일 수록 출현 확률이 낮은</u> 랜덤 값을 생성한다.</p>
+</blockquote>
+
+<ul>
+  <li>원래 조준했던 위치에 가깝게 나올 확률이 높은 랜덤값들을 생성할 수 있다.
+    <ul>
+      <li>📜Utility.cs 에 정규분포로부터 랜덤값을 가져오는 함수 <strong><em>GetRandomNormalDistribution</em></strong>를 구현해놨고 이 함수를 사용하면 된다.
+        <ul>
+          <li>인수 👉 평균 <code class="language-plaintext highlighter-rouge">mean</code>, 표준편차 <code class="language-plaintext highlighter-rouge">standard</code></li>
+          <li>정규 분포 공식을 사용함
+            <ul>
+              <li>인수로 넘기는 <code class="language-plaintext highlighter-rouge">mean</code>이 0 이면 ‘표준 정규 분포’
+                <ul>
+                  <li>0 에 가까운 값이 가장 많이 출현하게 된다.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Utility.GetRandomNormalDistribution(0f, currentSpread);</code>
+        <ul>
+          <li>표준편차로 <code class="language-plaintext highlighter-rouge">currentSpread</code>를 넣어서 탄퍼짐이 심하면 심할 수록 <code class="language-plaintext highlighter-rouge">mean</code>인 0 에서 먼 값이 출현할 확률도 높아지게끔 한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Fire</span><span class="p">(</span><span class="n">Vector3</span> <span class="n">aimTarget</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 현재 상태가 발사 가능한 상태</span>
+        <span class="c1">// &amp;&amp; 마지막 총 발사 시점에서 timeBetFire 이상의 시간이 지남</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="p">==</span> <span class="n">State</span><span class="p">.</span><span class="n">Ready</span>
+            <span class="p">&amp;&amp;</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span> <span class="p">&gt;=</span> <span class="n">lastFireTime</span> <span class="p">+</span> <span class="n">timeBetFire</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">xError</span> <span class="p">=</span> <span class="n">Utility</span><span class="p">.</span><span class="nf">GetRandomNormalDistribution</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="n">currentSpread</span><span class="p">);</span>
+            <span class="kt">var</span> <span class="n">yError</span> <span class="p">=</span> <span class="n">Utility</span><span class="p">.</span><span class="nf">GetRandomNormalDistribution</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="n">currentSpread</span><span class="p">);</span>
+
+
+            <span class="kt">var</span> <span class="n">fireDirection</span> <span class="p">=</span> <span class="n">aimTarget</span> <span class="p">-</span> <span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+
+            <span class="n">fireDirection</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">AngleAxis</span><span class="p">(</span><span class="n">yError</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">up</span><span class="p">)</span> <span class="p">*</span> <span class="n">fireDirection</span><span class="p">;</span>
+            <span class="n">fireDirection</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">AngleAxis</span><span class="p">(</span><span class="n">xError</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">right</span><span class="p">)</span> <span class="p">*</span> <span class="n">fireDirection</span><span class="p">;</span>
+
+            <span class="n">currentSpread</span> <span class="p">+=</span> <span class="m">1f</span> <span class="p">/</span> <span class="n">stability</span><span class="p">;</span>
+
+            <span class="c1">// 마지막 총 발사 시점을 갱신</span>
+            <span class="n">lastFireTime</span> <span class="p">=</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span><span class="p">;</span>
+            <span class="c1">// 실제 발사 처리 실행</span>
+            <span class="nf">Shot</span><span class="p">(</span><span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">fireDirection</span><span class="p">);</span>
+
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>정규 분포에 의한 오차 생성. <u>탄퍼짐이 심하면 심할 수록 0 에서 부터 먼 값의 난수가 발생할 확률이 올라간다.</u></p>
+</blockquote>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">xError</code> 👉 X 방향쪽의 랜덤 오차</li>
+  <li><code class="language-plaintext highlighter-rouge">yError</code> 👉 Y 방향쪽의 랜덤 오차</li>
+  <li>위에서 구한 랜덤 오차에 따라서 <code class="language-plaintext highlighter-rouge">fireDirection</code> 방향 회전시켜 움직여주기
+    <ul>
+      <li>원래 총알이 향하던 방향인 <code class="language-plaintext highlighter-rouge">fireDirection</code>에서 오차만큼 회전시킨다.
+        <ul>
+          <li><u>쿼터니언 X 벡터</u> : 벡터를 해당 쿼터니언값만큼 회전한 결과가 나온다.</li>
+          <li>y 방향 회전 👉 위쪽으로 <code class="language-plaintext highlighter-rouge">yError</code> 각도만큼 회전한 결과인 쿼터니언에 <code class="language-plaintext highlighter-rouge">fireDirection</code>을 곱한다.
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">fireDirection = Quaternion.AngleAxis(yError, Vector3.up) * fireDirection;</code></li>
+            </ul>
+          </li>
+          <li>x 방향 회전 👉 오른쪽으로 <code class="language-plaintext highlighter-rouge">xError</code> 각도만큼 회전한 결과인 쿼터니언에 <code class="language-plaintext highlighter-rouge">fireDirection</code>을 곱한다.
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">fireDirection = Quaternion.AngleAxis(xError, Vector3.right) * fireDirection;</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">currentSpread += 1f / stability;</code>
+    <ul>
+      <li>한번 발사하고나면 탄퍼짐이 더 심해지도록 <code class="language-plaintext highlighter-rouge">1/안정성</code> 만큼 증가시킨다.
+        <ul>
+          <li>안정성이 낮을 수록 탄퍼짐 정도가 빠르게 증가할 것이고</li>
+          <li>안정성이 높을 수록 탄퍼짐 정도가 느리게 증가할 것이다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-shotvector3-startpoint-vector3-direction">private void Shot(Vector3 startPoint, Vector3 direction)</h4>
+
+<blockquote>
+  <p>총 발사를 실제로 처리.</p>
+</blockquote>
+
+<ul>
+  <li>1️⃣ 발사 시작 지점, 2️⃣ 총이 날아가는 방향을 인수로 받음</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 실제 발사 처리</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Shot</span><span class="p">(</span><span class="n">Vector3</span> <span class="n">startPoint</span><span class="p">,</span> <span class="n">Vector3</span> <span class="n">direction</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 레이캐스트에 의한 충돌 정보를 저장하는 컨테이너</span>
+        <span class="n">RaycastHit</span> <span class="n">hit</span><span class="p">;</span>
+        <span class="c1">// 총알이 맞은 곳을 저장할 변수</span>
+        <span class="kt">var</span> <span class="n">hitPosition</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">zero</span><span class="p">;</span>
+
+        <span class="c1">// 레이캐스트(시작지점, 방향, 충돌 정보 컨테이너, 사정거리)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">startPoint</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="k">out</span> <span class="n">hit</span><span class="p">,</span> <span class="n">fireDistance</span><span class="p">,</span> <span class="p">~</span><span class="n">excludeTarget</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// 레이가 어떤 물체와 충돌한 경우</span>
+
+            <span class="c1">// 충돌한 상대방으로부터 IDamageable 오브젝트를 가져오기 시도</span>
+            <span class="kt">var</span> <span class="n">target</span> <span class="p">=</span>
+                <span class="n">hit</span><span class="p">.</span><span class="n">collider</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">IDamageable</span><span class="p">&gt;();</span>
+
+            <span class="c1">// 상대방으로 부터 IDamageable 오브젝트를 가져오는데 성공했다면</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">DamageMessage</span> <span class="n">damageMessage</span><span class="p">;</span>
+
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">damager</span> <span class="p">=</span> <span class="n">gunHolder</span><span class="p">.</span><span class="n">gameObject</span><span class="p">;</span>
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">amount</span> <span class="p">=</span> <span class="n">damage</span><span class="p">;</span>
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">hitPoint</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">;</span>
+                <span class="n">damageMessage</span><span class="p">.</span><span class="n">hitNormal</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">normal</span><span class="p">;</span>
+
+                <span class="c1">// 상대방의 OnDamage 함수를 실행시켜서 상대방에게 데미지 주기</span>
+                <span class="n">target</span><span class="p">.</span><span class="nf">ApplyDamage</span><span class="p">(</span><span class="n">damageMessage</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">EffectManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">PlayHitEffect</span><span class="p">(</span><span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">,</span> <span class="n">hit</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">hit</span><span class="p">.</span><span class="n">transform</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="c1">// 레이가 충돌한 위치 저장</span>
+            <span class="n">hitPosition</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="c1">// 레이가 다른 물체와 충돌하지 않았다면</span>
+            <span class="c1">// 총알이 최대 사정거리까지 날아갔을때의 위치를 충돌 위치로 사용</span>
+            <span class="n">hitPosition</span> <span class="p">=</span> <span class="n">startPoint</span> <span class="p">+</span> <span class="n">direction</span> <span class="p">*</span> <span class="n">fireDistance</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 발사 이펙트 재생 시작</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">ShotEffect</span><span class="p">(</span><span class="n">hitPosition</span><span class="p">));</span>
+
+        <span class="c1">// 남은 탄환의 수를 -1</span>
+        <span class="n">magAmmo</span><span class="p">--;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">magAmmo</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span>
+            <span class="c1">// 탄창에 남은 탄약이 없다면, 총의 현재 상태를 Empty으로 갱신</span>
+            <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>RaycastHit <code class="language-plaintext highlighter-rouge">hit</code>
+    <ul>
+      <li>레이캐스트에 의한 충돌 정보를 저장하는 컨테이너</li>
+      <li><u>레이캐스트로 총알이 물체에 맞았는지를 체크할 것</u></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">hitPosition</code>
+    <ul>
+      <li>총알이 맞은 위치 벡터</li>
+    </ul>
+  </li>
+  <li><strong>if (Physics.Raycast(startPoint, direction, out hit, fireDistance, ~excludeTarget))</strong>
+    <ul>
+      <li>인수 👉 시작점, 방향, 충돌 정보를 저장할 <code class="language-plaintext highlighter-rouge">hit</code>, 레이 캐스트 사정거리, <code class="language-plaintext highlighter-rouge">~</code>을 붙여 특정 대상의 레이어 마스크는 제외
+        <ul>
+          <li>감지할 레이어에 <code class="language-plaintext highlighter-rouge">~</code>을 붙이면 이 레이어가 붙은 것들은 레이 캐스트 처리에서 제외하라는 뜻</li>
+        </ul>
+      </li>
+      <li>1️⃣ <u>레이 캐스트 성공했다면 `hit`에 그 충돌 정보들을 저장한 후 true 리턴 </u>
+        <ul>
+          <li>총의 데미지를 받을 수 있는 오브젝트 인지를 검사해야 함
+            <ul>
+              <li>var <code class="language-plaintext highlighter-rouge">target</code> = hit.collider.GetComponent&lt;IDamageable&gt;();
+                <ul>
+                  <li><code class="language-plaintext highlighter-rouge">IDamageable</code> 타입의 오브젝트이라면 데미지를 받을 수 있는 타입이라는뜻.
+                    <ul>
+                      <li><code class="language-plaintext highlighter-rouge">if (target != null)</code> 즉 <u>데미지를 받을 수 있는 타입이라면</u>
+                        <ul>
+                          <li>데미지 메세지 생성
+                            <ul>
+                              <li>DamageMessage <code class="language-plaintext highlighter-rouge">damageMessage</code></li>
+                              <li>클래스가 아닌 구조체라서 new 사용할 필요 없음</li>
+                            </ul>
+                          </li>
+                          <li>데미지를 주는 사람은 <code class="language-plaintext highlighter-rouge">gunHolder.gameObject</code></li>
+                          <li>데미지 양은 <code class="language-plaintext highlighter-rouge">damage</code></li>
+                          <li>타격이 가해진 위치는 <code class="language-plaintext highlighter-rouge">hit.point</code></li>
+                          <li>타격이 가해진 방향은 <code class="language-plaintext highlighter-rouge">hit.normal</code></li>
+                          <li><code class="language-plaintext highlighter-rouge">target</code>에 데미지 주기  <code class="language-plaintext highlighter-rouge">target.ApplyDamage(damageMessage);</code>
+                            <ul>
+                              <li><u>이 ApplyDamage 함수에서 파티클 효과를 재생할 것이다</u></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><u>데미지를 받을 수 없는 타입이라면</u>
+                        <ul>
+                          <li>직접 여기서 파티클 프리팹을 생성 하고 재생하는 📜EffectManager.cs 스크립트(싱글톤이라 클래스 이름으로 바로 접근 가능)의 함수 실행
+                            <ul>
+                              <li><em>EffectManager.Instance.PlayHitEffect(hit.point, hit.normal, hit.transform);</em></li>
+                              <li><a href="http://127.0.0.1:4000/unity%20lesson%201/chapter11-12/">📜EffectManager.cs 포스트 참고</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>레이가 충돌한 위치 저장
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">hitPosition</code> = hit.point;</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>2️⃣ <code class="language-plaintext highlighter-rouge">else</code> 👉 레이 캐스트 충돌이 일어나지 않았다면
+        <ul>
+          <li>총알이 최대 사정거리까지 날아갔을때의 위치를 충돌 위치로 사용.
+            <ul>
+              <li>즉 뭐 별다른 충돌이 일어나지 않았다면 총알은 발사 지점으로부터 날아간 방향으로의 최대 사정 거리 위치에서 파티클 효과를 재생할 것이다.</li>
+              <li><code class="language-plaintext highlighter-rouge">hitPosition</code> = startPoint + direction * fireDistance</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>발사 이펙트 재생 시작
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">hitPosition</code>을 <strong>StartCoroutine</strong> 함수의 인수로 넘겨 실행
+        <ul>
+          <li>파티클 효과 + 총격 소리 재생 + 총알 궤적 그리기</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>발사했으니 탄환 수 업뎃
+    <ul>
+      <li>탄환 개수 1 감소</li>
+      <li>탄환 개수가 0 에 도달했다면 총의 현재 상태를 <code class="language-plaintext highlighter-rouge">Empty</code>으로 갱신</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-ienumerator-shoteffectvector3-hitposition">private IEnumerator ShotEffect(Vector3 hitPosition)</h4>
+
+<blockquote>
+  <p>총알이 맞은 지점을 인수로 받아 총알과 관련된 Effect 재생하는 코루틴 함수(지연시간을 들여서 이루어짐)</p>
+</blockquote>
+
+<blockquote>
+  <p>파티클 효과 + 총격 소리 재생 + 총알 궤적 그리기</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="n">IEnumerator</span> <span class="nf">ShotEffect</span><span class="p">(</span><span class="n">Vector3</span> <span class="n">hitPosition</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 총구 화염 효과 재생</span>
+        <span class="n">muzzleFlashEffect</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+        <span class="c1">// 탄피 배출 효과 재생</span>
+        <span class="n">shellEjectEffect</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+
+        <span class="c1">// 총격 소리 재생</span>
+        <span class="n">gunAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">shotClip</span><span class="p">);</span>
+
+        <span class="c1">// 선의 시작점은 총구의 위치</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="nf">SetPosition</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">fireTransform</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+        <span class="c1">// 선의 끝점은 입력으로 들어온 충돌 위치</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="nf">SetPosition</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">hitPosition</span><span class="p">);</span>
+        <span class="c1">// 라인 렌더러를 활성화하여 총알 궤적을 그린다</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">enabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="c1">// 0.03초 동안 잠시 처리를 대기</span>
+        <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="m">0.03f</span><span class="p">);</span>
+
+        <span class="c1">// 라인 렌더러를 비활성화하여 총알 궤적을 지운다</span>
+        <span class="n">bulletLineRenderer</span><span class="p">.</span><span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>발사시 두 파티클 효과를 재생시킨다.</li>
+  <li>총격 소리를 1회 재생한다.
+    <ul>
+      <li>발사 소리인 <code class="language-plaintext highlighter-rouge">shotClip</code> 클립 할당
+        <ul>
+          <li><strong>AudioSource</strong>의 <strong>PLayOneShot</strong> 함수
+            <ul>
+              <li>그냥 <strong>Play()</strong>함수와의 차이점
+                <ul>
+                  <li>미리 <code class="language-plaintext highlighter-rouge">clip</code>이 오디오 소스에 할당이 되어 있어 이를 재생만 하면 되는 Plqy()와는 달리 PlayOneShot은 재생할 클립을 직접 인수로 넣어주어야 한다.</li>
+                  <li>Plqy()는 소리 중첩이 되지 않기 때문에 직전 소리를 중지한 후 재생한다. 반면에 PlayOneShot은 소리 중첩이 된다. 발사 소리같이 연달아 재생되는 소리 같은 경우에는 Play() 함수는 부적합.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>선의 정점은 현재 2 개 (위에서 <code class="language-plaintext highlighter-rouge">positionCount</code>로 설정 했었음
+    <ul>
+      <li>인덱스 0, 1 인 정점이 2 개
+        <ul>
+          <li>첫번째 정점, 즉 선의 시작점이 되는 총구의 위치인 <code class="language-plaintext highlighter-rouge">fireTransform.position</code>로 설정</li>
+          <li>두번째 정점, 즉 인수로 받은 총알의 충돌 위치인 <code class="language-plaintext highlighter-rouge">hitPosition</code>로 설정</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>짧은 시간동안 탄알 궤도 그림 👉 총알궤도가 번쩍이는 효과
+    <ul>
+      <li>잠시동안 총알 궤적을 그린 채로 다시 대기하고 다시 총알 궤적을 지운다.
+        <ul>
+          <li>1️⃣총알 궤적 활성화 해서 그리고 2️⃣0.03초 대기 하고 3️⃣비활성화
+            <ul>
+              <li>대기를 안해주면 활성화되자마자 바로 비활성화 되기 때문에 총알이 그려졌는지도 알 수가 없다. 그려지기도 전에 비활성화 되서..</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="public-bool-reload">public bool Reload()</h4>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Gun</code> 클래스 외부에서 재장전을 시도하는 public 메소드</p>
+</blockquote>
+
+<ul>
+  <li>재장전 성공시 true, 실패시 false 리턴</li>
+  <li>실제 재장전 처리는 private한 코루틴 함수인 <strong><em>ReloadRoutine()</em></strong> 에서 할 것.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Reload</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="p">==</span> <span class="n">State</span><span class="p">.</span><span class="n">Reloading</span> <span class="p">||</span>
+            <span class="n">ammoRemain</span> <span class="p">&lt;=</span> <span class="m">0</span> <span class="p">||</span> <span class="n">magAmmo</span> <span class="p">&gt;=</span> <span class="n">magCapacity</span><span class="p">)</span>
+            <span class="c1">// 이미 재장전 중이거나, 남은 총알이 없거나</span>
+            <span class="c1">// 탄창에 총알이 이미 가득한 경우 재장전 할수 없다</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+
+        <span class="c1">// 재장전 처리 시작</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">ReloadRoutine</span><span class="p">());</span>
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>재장전이 가능한 경우를 검사해야 함
+    <ul>
+      <li>재장전을 할 수 없는 경우
+        <ol>
+          <li>이미 재장전 중이거나</li>
+          <li>남은 총알이 없거나</li>
+          <li>탄창에 총알이 이미 가득한 경우</li>
+        </ol>
+      </li>
+      <li>재장전을 할 수 있는 상태일 때만 실제 재장전 처리를 하는 <strong>ReloadRoutine() 함수</strong> 실행</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-ienumerator-reloadroutine">private IEnumerator ReloadRoutine()</h4>
+
+<blockquote>
+  <p>실제 재장전 처리.</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="n">IEnumerator</span> <span class="nf">ReloadRoutine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 현재 상태를 재장전 중 상태로 전환</span>
+        <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Reloading</span><span class="p">;</span>
+        <span class="c1">// 재장전 소리 재생</span>
+        <span class="n">gunAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">reloadClip</span><span class="p">);</span>
+
+        <span class="c1">// 재장전 소요 시간 만큼 처리를 쉬기</span>
+        <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="n">reloadTime</span><span class="p">);</span>
+
+        <span class="c1">// 탄창에 채울 탄약을 계산한다</span>
+        <span class="kt">var</span> <span class="n">ammoToFill</span> <span class="p">=</span> <span class="n">magCapacity</span> <span class="p">-</span> <span class="n">magAmmo</span><span class="p">;</span>
+
+        <span class="c1">// 탄창에 채워야할 탄약이 남은 탄약보다 많다면,</span>
+        <span class="c1">// 채워야할 탄약 수를 남은 탄약 수에 맞춰 줄인다</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ammoRemain</span> <span class="p">&lt;</span> <span class="n">ammoToFill</span><span class="p">)</span> <span class="n">ammoToFill</span> <span class="p">=</span> <span class="n">ammoRemain</span><span class="p">;</span>
+
+        <span class="c1">// 탄창을 채운다</span>
+        <span class="n">magAmmo</span> <span class="p">+=</span> <span class="n">ammoToFill</span><span class="p">;</span>
+        <span class="c1">// 남은 탄약에서, 탄창에 채운만큼 탄약을 뺸다</span>
+        <span class="n">ammoRemain</span> <span class="p">-=</span> <span class="n">ammoToFill</span><span class="p">;</span>
+
+        <span class="c1">// 총의 현재 상태를 발사 준비된 상태로 변경</span>
+        <span class="n">state</span> <span class="p">=</span> <span class="n">State</span><span class="p">.</span><span class="n">Ready</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>현재 상태를 재장전 중 상태로 전환 <code class="language-plaintext highlighter-rouge">Reloading</code>
+    <ul>
+      <li>재장전 도중에 발사하거나 재장전 도중에 또 재장전 하는 것을 막기 위하여 상태 변경</li>
+    </ul>
+  </li>
+  <li>재장전 소리 재생</li>
+  <li>재장전 소요 시간 만큼 대기 시간 가지기</li>
+  <li>탄창에 채울 탄약을 계산한다
+    <ul>
+      <li>탄창에 채워야할 탄약이 남은 탄약보다 많다면, 채워야할 탄약 수를 남은 탄약 수에 맞춰 줄인다</li>
+    </ul>
+  </li>
+  <li>탄창을 채운다.</li>
+  <li>남은 탄약에서, 탄창에 채운만큼 탄약을 뺸다</li>
+  <li>총의 현재 상태를 발사 준비된 상태로 변경 <code class="language-plaintext highlighter-rouge">Ready</code></li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-update">private void Update()</h4>
+
+<blockquote>
+  <p>현재 <strong>탄 퍼짐(반동)</strong> 값을 상태에 따라 매 프레임마다 갱신</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">currentSpread</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">SmoothDamp</span><span class="p">(</span><span class="n">currentSpread</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="k">ref</span> <span class="n">currentSpreadVelocity</span><span class="p">,</span> <span class="m">1f</span> <span class="p">/</span> <span class="n">restoreFromRecoilSpeed</span><span class="p">);</span>
+        <span class="n">currentSpread</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">currentSpread</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="n">maxSpread</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">currentSpread</code> 증가는 <strong>Fire</strong> 함수에서 이루어 진다.</li>
+  <li><u>가만히 있는 상태라면 `currentSpread`를 0 으로 서서히 스무스하게 초기화 해야 한다.</u>
+    <ul>
+      <li><strong>Mathf.Clamp</strong> 를 통하여 <code class="language-plaintext highlighter-rouge">currentSpread</code> 가 <code class="language-plaintext highlighter-rouge">maxSpread</code>를 넘기지 못하도록 한다.
+        <ul>
+          <li>아무리 반동이 누적이 되더라도 매 프레임마다 <code class="language-plaintext highlighter-rouge">currentSpread</code>가 <code class="language-plaintext highlighter-rouge">maxSpread</code>를 넘기지 못하도록 막아 준다.</li>
+        </ul>
+      </li>
+      <li><strong>Mathf.SmoothDamp</strong> 를 통하여 <code class="language-plaintext highlighter-rouge">currentSpread</code>가 <u>✨증가하는 것과 별개로</u> <u>매 프레임마다 스무스 하게 0 에 가까워 지게 만들어야 한다.</u>
+        <ul>
+          <li>지연 시간으로는 <code class="language-plaintext highlighter-rouge">1 / restoreFromRecoilSpeed</code>
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">restoreFromRecoilSpeed</code> 가 높으면 높을 수록 지연 시간이 줄어들어서 빠르게 탄퍼짐이 0 에 도달 함.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="gun-컴포넌트-설정">Gun 컴포넌트 설정</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/90249900-3b436080-de76-11ea-9885-a8a2c7ad1edb.png" alt="image" width="60%" height="60%" class="align-center" /></p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

@@ -1,0 +1,96 @@
+I"X<p class="notice--warning">공부하면서 알게된 것만 정리합니다.😀</p>
+
+<h1 id="-layermask">👩‍🦰 LayerMask</h1>
+
+<ul>
+  <li>LayerMask 는 32 비트의 <code class="language-plaintext highlighter-rouge">int</code>형이다.
+    <ul>
+      <li>비트 플래그로, 비트로 각각의 아이템을 상징하며 구분된다.
+        <ul>
+          <li>예
+            <ul>
+              <li>몬스터 레이어는 000000000000000000000000<u>1</u>000000 👉 8 번 레이어 (1 « 8)</li>
+              <li>NPC 레이어는  0000000000000000000000000000<u>1</u>00 👉 3 번 레이어 (1 « 3)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>따라서 LayerMask는 위와 같이 32 개까지만 만들 수 있다.</li>
+      <li><code class="language-plaintext highlighter-rouge">LeyerMask</code> 내에 연산자 오버로딩과 <code class="language-plaintext highlighter-rouge">int</code>로의 변환이 다 구현이 되어 있기 때문에 <code class="language-plaintext highlighter-rouge">LayerMask</code>라는 이름으로 편하게 접근할 수 있는 것 뿐이다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">public LayerMask a;</code> 해주면 유니티에서 Layer 를 선택할 수 있는 드롭다운 슬롯이 열린다.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            <span class="kt">int</span> <span class="n">mask</span> <span class="p">=</span> <span class="p">(</span><span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="m">8</span><span class="p">)</span> <span class="p">|</span> <span class="p">(</span><span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="m">9</span><span class="p">);</span> <span class="c1">// 8 번 레이어 + 9 번 레이어</span>
+
+            <span class="n">RaycastHit</span> <span class="n">hit</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="k">out</span> <span class="n">hit</span><span class="p">,</span> <span class="m">100.0f</span><span class="p">,</span> <span class="n">mask</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">hit</span><span class="p">.</span><span class="n">collider</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+            <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>(1 « 8) **</td>
+          <td>** (1 « 9) 👉 000000000000000000000000<u>11</u>0000000</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>즉 8번 레이어 혹은(<code class="language-plaintext highlighter-rouge">or</code>) 9 번 레이어(사진에선 “Monster”와 “Wall”)를 가진 오브젝트들에 대해서만 Raycasting이 진행된다.</li>
+    </ul>
+  </li>
+  <li>이처럼 비트 플래그를 활용한 비트 연산으로 Layer를 지정할 수 있다.</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>(1 « 8) **</td>
+          <td>** (1 « 9) 은 십진수로 변환하면 768 이므로 <code class="language-plaintext highlighter-rouge">int mask = 768;</code> 도 가능하다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="-함수">🚀 함수</h2>
+
+<h3 id="-layermaskgetmask">✈ LayerMask.GetMask</h3>
+
+<blockquote>
+  <p>public static int GetMask(params string[] layerNames);</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            <span class="n">LayerMask</span> <span class="n">mask</span> <span class="p">=</span> <span class="n">LayerMask</span><span class="p">.</span><span class="nf">GetMask</span><span class="p">(</span><span class="s">"Monster"</span><span class="p">)</span> <span class="p">|</span> <span class="n">LayerMask</span><span class="p">.</span><span class="nf">GetMask</span><span class="p">(</span><span class="s">"Wall"</span><span class="p">)/</span>
+            <span class="c1">// int mask = (1 &lt;&lt; 8) | (1 &lt;&lt; 9); 와 동일</span>
+
+            <span class="n">RaycastHit</span> <span class="n">hit</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="k">out</span> <span class="n">hit</span><span class="p">,</span> <span class="m">100.0f</span><span class="p">,</span> <span class="n">mask</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">hit1</span><span class="p">.</span><span class="n">collider</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+            <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>LayerMask.GetMask(string)</em>
+    <ul>
+      <li>해당 문자열로 저장된 LayerMask 즉, <code class="language-plaintext highlighter-rouge">int</code> 크기의 비트를 가져오게 된다.</li>
+      <li>이처럼 함수를 사용해 편하게 레이어 이름으로 지정한 문자열로 비트를 가져올 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

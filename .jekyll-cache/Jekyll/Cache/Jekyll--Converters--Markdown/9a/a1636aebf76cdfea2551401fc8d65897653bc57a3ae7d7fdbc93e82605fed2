@@ -1,0 +1,35 @@
+I"<ul class="toc__menu">
+  <li><a href="#chapter-5-인벤토리">Chapter 5. 인벤토리</a>
+    <ul>
+      <li><a href="#-인벤토리-영역을-벗어난-곳에-드롭하면-아이템이-버려지도록">🚖 인벤토리 영역을 벗어난 곳에 드롭하면 아이템이 버려지도록</a>
+        <ul>
+          <li><a href="#slotcs">📜Slot.cs</a>
+            <ul>
+              <li><a href="#rect">Rect</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#-아이템-버릴-때-버릴-갯수-입력-필드">🚖 아이템 버릴 때 버릴 갯수 입력 필드</a>
+        <ul>
+          <li><a href="#inputfield-ui-만들기">InputField UI 만들기</a></li>
+          <li><a href="#inputnumbercs">📜InputNumber.cs</a>
+            <ul>
+              <li><a href="#call--입력-필드-불러오기">Call()  입력 필드 불러오기</a></li>
+              <li><a href="#ok--입력한-갯수만큼-아이템-버리는-실제-처리를-시작">OK()  입력한 갯수만큼 아이템 버리는 실제 처리를 시작</a></li>
+              <li><a href="#cancel--입력-필드-닫기">Cancel()  입력 필드 닫기</a></li>
+            </ul>
+          </li>
+          <li><a href="#slotcs-1">📜Slot.cs</a></li>
+        </ul>
+      </li>
+      <li><a href="#-다른-아이템들-설정">🚔 다른 아이템들 설정</a>
+        <ul>
+          <li><a href="#grasscs">📜Grass.cs</a></li>
+          <li><a href="#inputnumbercs-1">📜InputNumber.cs</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

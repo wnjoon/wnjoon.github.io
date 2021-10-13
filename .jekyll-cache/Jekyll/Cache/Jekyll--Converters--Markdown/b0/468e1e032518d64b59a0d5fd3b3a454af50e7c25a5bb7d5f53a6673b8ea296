@@ -1,0 +1,15 @@
+I"<ul class="toc__menu">
+  <li><a href="#chapter-8-c-프로그래밍--고급">Chapter 8. C# 프로그래밍 : 고급</a>
+    <ul>
+      <li><a href="#-제네릭">🔔 제네릭</a>
+        <ul>
+          <li><a href="#제네릭의-구현과-호출">제네릭의 구현과 호출</a></li>
+          <li><a href="#제네릭-클래스">제네릭 클래스</a></li>
+          <li><a href="#제네릭-예시">제네릭 예시</a></li>
+          <li><a href="#cf">cf</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

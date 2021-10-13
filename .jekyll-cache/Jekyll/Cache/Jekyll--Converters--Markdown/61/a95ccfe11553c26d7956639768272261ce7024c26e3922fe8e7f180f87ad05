@@ -1,0 +1,182 @@
+I"[C<p class="notice--warning">인프런에 있는 Rookiss님의 <strong>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part3: 유니티 엔진</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/MMORPG-유니티">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="chapter-6-애니메이터">Chapter 6. 애니메이터</h1>
+
+<h2 id="-state-디자인-패턴">🚖 State 디자인 패턴</h2>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">isFalling</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">isJumping</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">isSkillCasting</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">isSkillChanneling</span><span class="p">;</span>
+
+<span class="k">if</span><span class="p">(</span><span class="n">isJumping</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">isSkillChanneling</span> <span class="p">&amp;&amp;</span> <span class="n">isFalling</span><span class="p">)</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">isSkillCasting</span><span class="p">)</span>
+        <span class="p">{</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이런식으로 <code class="language-plaintext highlighter-rouge">bool</code>타입의 상태 flag 변수를 여러개 사용하면 너무 복잡하다. <code class="language-plaintext highlighter-rouge">if - else</code>문이 너무 많아진다. 상태 flag 변수가 적은 갯수라면 괜찮지만 규모가 큰 게임일 수록 많이 필요하기 때문에 적합하지 않다.</p>
+
+<blockquote>
+  <p>해결 방법 👉 <strong>State 패턴 사용하기!</strong></p>
+</blockquote>
+
+<p><br /></p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PlayerController</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">wait_run_ratio</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="kt">float</span> <span class="n">_speed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+
+    <span class="n">Vector3</span> <span class="n">_destPos</span><span class="p">;</span>  <span class="c1">// 목적지</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Managers</span><span class="p">.</span><span class="n">Input</span><span class="p">.</span><span class="n">MouseAction</span> <span class="p">-=</span> <span class="n">OnMouseClicked</span><span class="p">;</span>
+        <span class="n">Managers</span><span class="p">.</span><span class="n">Input</span><span class="p">.</span><span class="n">MouseAction</span> <span class="p">+=</span> <span class="n">OnMouseClicked</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">enum</span> <span class="n">PlayerState</span>
+    <span class="p">{</span>
+        <span class="n">Die</span><span class="p">,</span>
+        <span class="n">Moving</span><span class="p">,</span>
+        <span class="n">Idle</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">PlayerState</span> <span class="n">_state</span> <span class="p">=</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">_state</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Die</span><span class="p">:</span>
+                <span class="nf">UpdateDie</span><span class="p">();</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Moving</span><span class="p">:</span>
+                <span class="nf">UpdateMoving</span><span class="p">();</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Idle</span><span class="p">:</span>
+                <span class="nf">UpdateIdle</span><span class="p">();</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">UpdateDie</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 아무것도 못함</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">UpdateMoving</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Vector3</span> <span class="n">dir</span> <span class="p">=</span> <span class="n">_destPos</span> <span class="p">-</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dir</span><span class="p">.</span><span class="n">magnitude</span> <span class="p">&lt;</span> <span class="m">0.0001f</span><span class="p">)</span>  <span class="c1">// 도착함</span>
+        <span class="p">{</span>
+            <span class="n">_state</span> <span class="p">=</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>   <span class="c1">// 도착 X </span>
+        <span class="p">{</span>
+            <span class="kt">float</span> <span class="n">moveDist</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">_speed</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">dir</span><span class="p">.</span><span class="n">magnitude</span><span class="p">);</span>
+            <span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">dir</span><span class="p">.</span><span class="n">normalized</span> <span class="p">*</span> <span class="n">moveDist</span><span class="p">;</span>
+
+            <span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">Slerp</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">dir</span><span class="p">),</span> <span class="m">10</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+            <span class="n">transform</span><span class="p">.</span><span class="nf">LookAt</span><span class="p">(</span><span class="n">_destPos</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 애니메이션</span>
+        <span class="n">wait_run_ratio</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">wait_run_ratio</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">10.0f</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+        <span class="n">Animator</span> <span class="n">anim</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;();</span>
+        <span class="n">anim</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"wait_run_ratio"</span><span class="p">,</span> <span class="n">wait_run_ratio</span><span class="p">);</span>
+        <span class="n">anim</span><span class="p">.</span><span class="nf">Play</span><span class="p">(</span><span class="s">"WAIT_RUN"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">UpdateIdle</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 애니메이션</span>
+        <span class="n">wait_run_ratio</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">wait_run_ratio</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">10.0f</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+        <span class="n">Animator</span> <span class="n">anim</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;();</span>
+        <span class="n">anim</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"wait_run_ratio"</span><span class="p">,</span> <span class="n">wait_run_ratio</span><span class="p">);</span>
+        <span class="n">anim</span><span class="p">.</span><span class="nf">Play</span><span class="p">(</span><span class="s">"WAIT_RUN"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">OnMouseClicked</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span> <span class="n">evt</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_state</span> <span class="p">==</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Die</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">evt</span> <span class="p">!=</span> <span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">Click</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="n">Ray</span> <span class="n">ray</span> <span class="p">=</span> <span class="n">Camera</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="nf">ScreenPointToRay</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="n">mousePosition</span><span class="p">);</span> 
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">DrawRay</span><span class="p">(</span><span class="n">Camera</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">ray</span><span class="p">.</span><span class="n">direction</span> <span class="p">*</span> <span class="m">100.0f</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="n">red</span><span class="p">,</span> <span class="m">1.0f</span><span class="p">);</span>
+
+        <span class="n">RaycastHit</span> <span class="n">hit</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="k">out</span> <span class="n">hit</span><span class="p">,</span> <span class="m">100.0f</span><span class="p">,</span> <span class="n">LayerMask</span><span class="p">.</span><span class="nf">GetMask</span><span class="p">(</span><span class="s">"Wall"</span><span class="p">)))</span>
+        <span class="p">{</span>
+            <span class="n">_destPos</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">;</span>
+            <span class="n">_state</span> <span class="p">=</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Moving</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">_state</span> <span class="p">==</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Die</span><span class="p">)</span>
+
+<span class="c1">//...</span>
+
+        <span class="k">switch</span> <span class="p">(</span><span class="n">_state</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Die</span><span class="p">:</span>
+                <span class="nf">UpdateDie</span><span class="p">();</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Moving</span><span class="p">:</span>
+                <span class="nf">UpdateMoving</span><span class="p">();</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Idle</span><span class="p">:</span>
+                <span class="nf">UpdateIdle</span><span class="p">();</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">enum</code>으로 상태들을 정의하고, <code class="language-plaintext highlighter-rouge">if-else</code>문 혹은 <code class="language-plaintext highlighter-rouge">switch</code>문 사용하기!</p>
+</blockquote>
+
+<ul>
+  <li>대신 <code class="language-plaintext highlighter-rouge">bool</code> 상태 플래그 변수와는 다르게 <u>동시에 두가지 상태를 가질 순 없음.</u> 👉 이와 같은 특성 때문에 여러 동작이 꼬일 일이 없음. 동작 별로 분리해서 만들 수 있다는 장점.
+    <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">isJumping</span> <span class="p">&amp;&amp;</span> <span class="n">isAttacking</span>  <span class="c1">// 👉 가능</span>
+
+<span class="n">_state</span> <span class="p">==</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Jump</span> <span class="p">&amp;&amp;</span> <span class="n">_state</span> <span class="p">==</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Attack</span>  <span class="c1">// 👉 불가능</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

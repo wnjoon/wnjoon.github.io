@@ -1,0 +1,404 @@
+I"qY<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-8-c-프로그래밍--고급">Chapter 8. C# 프로그래밍 : 고급</h1>
+
+<p><br /></p>
+
+<h2 id="-유니티-이벤트">🔔 유니티 이벤트</h2>
+
+<h3 id="유니티-이벤트란-unity-event">유니티 이벤트란? Unity Event</h3>
+
+<blockquote>
+  <p><strong>C #</strong> 의 <code class="language-plaintext highlighter-rouge">delegate</code>와 <code class="language-plaintext highlighter-rouge">event</code> 기능을 <u>사용하기 쉽게 유니티에서 제공하는 것</u></p>
+</blockquote>
+
+<p>이 포스트에서 <code class="language-plaintext highlighter-rouge">유니티 이벤트</code>에 대해 먼저 공부하여 이벤트에 대해 이해하고 나서, 다음, 다다음 포스트에서 <code class="language-plaintext highlighter-rouge">delegate</code>와 <code class="language-plaintext highlighter-rouge">event</code>에 대해 공부하려고 한다.</p>
+
+<p><br /></p>
+
+<h3 id="이벤트란-event">이벤트란? Event</h3>
+
+<ul>
+  <li>어떤 이벤트가 발생하면 그 <u>이벤트에 등록해 둔 모든 함수들이 자동으로 발동</u>된다.</li>
+  <li>이벤트를 발생시키는 측도, 이벤트에 등록되있는 함수들도 <u>서로에게 관심이 없다.</u>
+    <ul>
+      <li>등록되있는 함수들은 언제 발동될지, 어떻게 발동될지 관심이 없다.</li>
+      <li>이벤트를 발생시키는 측도 자신에게 어떤 함수들이 등록되어있는지 관심이 없다.</li>
+    </ul>
+  </li>
+  <li>코드들이 스파게티처럼 엮이지 않아 <u>코드가 간결해진다.</u></li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="이벤트를-사용하지-않은-경우">이벤트를 사용하지 않은 경우</h3>
+
+<ul>
+  <li>📜PlayerHelath에서 플레이어가 죽었음을 감지했을 때 일어나는 상황
+    1. “You Die!” 텍스트를 화면에 띄움
+    <ul>
+      <li>📜 UIManager
+        <ol>
+          <li>도전 과제가 해제되었다는 메세지를 화면에 출력</li>
+        </ol>
+      </li>
+      <li>📜AchivementSystem
+        <ol>
+          <li>플레이어가 죽으면 5초 뒤에 게임을 재시작시킨다.</li>
+        </ol>
+      </li>
+      <li>📜GameManger</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="시작하기에-앞서">시작하기에 앞서</h4>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/85940160-ba77e600-b955-11ea-9bc0-56d92cc7b11f.png" alt="image" width="40%" height="40%" class="align-center" /></p>
+
+<ol>
+  <li>에셋 스토어에서 “Standard Assets” 이라는 에셋을 Import 하였다.</li>
+  <li>Characters - ThirdPersonCharacter - Prefabs - 🟦ThirdPersonConttroller
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ThirdPersonConttroller</code> 프리팹을 Hierarchy 창에 옮겨 오브젝트화 시켰다.</li>
+      <li>미리 WASD 로 플레이어 오브젝트를 조작할 수 있게끔 구현이 되어 있다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Plane</code> 오브젝트를 만들어 플레이어가 서 있을 바닥을 만들어 주었다.</li>
+  <li><code class="language-plaintext highlighter-rouge">RedZone</code> 이라는 이름의 큐브 오브젝트를 만든 후
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Plane</code>보다 아래에 위치하게 한 후 스케일 툴로 크기를 늘려 준다.</li>
+      <li><code class="language-plaintext highlighter-rouge">Plane</code>바닥으로부터 떨어져 이 곳에 닿으면 플레이어가 죽고 게임이 재시작 되게끔 만들 것이다.</li>
+      <li>Collider 컴포넌트에서 Is Trigger에 체크 해준다. (레드존에 닿으면 죽게끔 충돌 처리를 해주어야 하기 때문에)</li>
+    </ul>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h4 id="uimanagercs">📜UIManager.cs</h4>
+
+<ol>
+  <li>UI - Text를 만들어 준 후 이름을 <code class="language-plaintext highlighter-rouge">Player State Text</code>로 바꿔준다.
+    <ul>
+      <li>플레이어가 죽으면 이 텍스트를 화면에 띄울 것.</li>
+    </ul>
+  </li>
+  <li>앵커 프리셋을 Alt키 누르고 stretch - stretch 로 해주고</li>
+  <li>가운데, 중앙 정렬</li>
+  <li>Best Fit에 체크해준다.</li>
+</ol>
+
+<ul>
+  <li>📜UIManager.cs 를 Canvas에 붙여준다.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.UI</span><span class="p">;</span>  <span class="c1">// ⭐⭐⭐</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">UIManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Text</span> <span class="n">playerStateText</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnPlayerDead</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">playerStateText</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">"You Die!"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong><em>OnPlayerDead()</em></strong>
+    <ul>
+      <li>플레이어가 죽으면 “You Die!” 메세지를 화면에 띄운다.</li>
+      <li>📜PlayerHealth.cs 에서 플레이어가 죽었을 때 실행시킬 것이다.</li>
+    </ul>
+  </li>
+  <li><em>playerStateText</em> 슬롯에 <code class="language-plaintext highlighter-rouge">Player State Text</code>을 넣어준다.</li>
+</ul>
+
+<h4 id="achivementsystemcs">📜AchivementSystem.cs</h4>
+
+<ol>
+  <li>기존 Canvas 안에 또 다른 UI - Text를 만들어준 후 이름을 <code class="language-plaintext highlighter-rouge">Achivement Text</code>로 해준다.</li>
+  <li>앵커 프리셋을 Alt키 누르고 stretch - stretch 로 해주고</li>
+  <li>오른쪽, 상단 정렬</li>
+  <li>Best Fit에 체크해준다.</li>
+</ol>
+
+<ul>
+  <li>📜AchivementSystem.cs 를 Canvas에 붙여준다.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.UI</span><span class="p">;</span>  <span class="c1">// ⭐⭐⭐</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">AchivementSystem</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Text</span> <span class="n">achivementText</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">UnLockAchivement</span><span class="p">(</span><span class="kt">string</span> <span class="n">title</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"도전과제 해제! "</span> <span class="p">+</span> <span class="n">title</span><span class="p">);</span>
+        <span class="n">achivementText</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">"도전과제 해제: "</span> <span class="p">+</span> <span class="n">title</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<ul>
+  <li><strong><em>UnLockAchivement(string title)</em></strong>
+    <ul>
+      <li>플레이어가 죽으면 도전 과제가 해제되었다는 메세지를 화면에 출력하게 할 것.</li>
+      <li>📜PlayerHealth.cs 에서 플레이어가 죽었을 때 실행시킬 것이다.</li>
+    </ul>
+  </li>
+  <li><em>achivementText</em> 슬롯에 <code class="language-plaintext highlighter-rouge">Achivement Text</code>을 넣어준다.</li>
+</ul>
+
+<h4 id="gamemanagercs">📜GameManager.cs</h4>
+
+<ul>
+  <li>플레이어가 죽으면 5초 뒤에 게임을 재시작 시킨다.</li>
+  <li>📜GameManager.cs를 <code class="language-plaintext highlighter-rouge">GameManager</code>라는 이름의 빈 오브젝트를 만들어 여기에 붙여준다.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.SceneManagement</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GameManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnPlayerDead</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">Invoke</span><span class="p">(</span><span class="s">"Restart"</span><span class="p">,</span> <span class="m">5f</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Restart</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">SceneManager</span><span class="p">.</span><span class="nf">LoadScene</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<ul>
+  <li><em>OnPlayerDead()</em>
+    <ul>
+      <li>플레이어가 죽으면 5초 뒤에 <em>Restart()</em> 함수를 발동시킨다.</li>
+      <li>📜PlayerHealth.cs 에서 플레이어가 죽었을 때 실행시킬 것이다.</li>
+    </ul>
+  </li>
+  <li><em>Restart()</em>
+    <ul>
+      <li>5초 뒤에 게임을 재시작한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="playerhealthcs">📜PlayerHealth.cs</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ThirdPersonConttroller</code> 오브젝트에 붙여준다.
+    <ul>
+      <li>플레이어가 <code class="language-plaintext highlighter-rouge">RedZone</code>에 닿으면 죽게끔 만드는 처리를 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PlayerHealth</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">UIManager</span> <span class="n">uiManager</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">AchivementSystem</span> <span class="n">achivementSystem</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">GameManager</span> <span class="n">gameManager</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Dead</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">uiManager</span><span class="p">.</span><span class="nf">OnPlayerDead</span><span class="p">();</span>
+        <span class="n">achivementSystem</span><span class="p">.</span><span class="nf">UnLockAchivement</span><span class="p">(</span><span class="s">"뉴턴의 법칙"</span><span class="p">);</span>
+        <span class="n">gameManager</span><span class="p">.</span><span class="nf">OnPlayerDead</span><span class="p">();</span>
+
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"죽었다!"</span><span class="p">);</span>
+        <span class="nf">Destroy</span><span class="p">(</span><span class="n">gameObject</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nf">Dead</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong><em>OnTriggerEnter</em></strong> 이벤트가 발생하면, 즉 플레이어가 죽으면
+    <ul>
+      <li><strong><em>Dead()</em></strong> 함수 실행
+        <ul>
+          <li>📜UIManager - “You Die!” 텍스트를 화면에 띄움</li>
+          <li>📜AchivementSystem - 도전 과제가 해제되었다는 메세지를 화면에 출력</li>
+          <li>📜GameManger - 플레이어가 죽으면 5초 뒤에 게임을 재시작시킨다.</li>
+          <li><em>Destroy(gameObject);</em> : 플레이어 오브젝트를 파괴한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>(uiManager, achivementSystem, gameManager)</em> 각 슬롯에 각 스크립트들이 붙은 오브젝트들을 드래그 앤 드롭해준다.</li>
+</ul>
+
+<h5 id="유니티-이벤트를-사용하는-이유">유니티 이벤트를 사용하는 이유</h5>
+
+<ul>
+  <li>⚡<strong>문제점</strong>⚡
+    <ul>
+      <li>실행시키는 측, 실행 되는 측 <u>둘다 서로를 알고 있고 연결되어 있어야 한다는게 문제점.</u>
+        <ul>
+          <li>📜PlayerHealth.cs 은 📜UIManager, 📜AchivementSystem, 📜GameManger 이 3개를 다 알고 있어야 한다.
+            <ul>
+              <li>각 3개 스크립트를 참조할 수 있는 변수를 선언하고 <em>(uiManager, achivementSystem, gameManager)</em></li>
+              <li>유니티 슬롯에 각 3개의 스크립트가 붙어있는 오브젝트들을 죄다 드래그 앤 드롭 해주어야 함</li>
+            </ul>
+          </li>
+          <li>그러나 📜AchivementSystem 는 보통 게임 제작이 완료된 후에 만든다.  📜PlayerHealth.cs 을 쓸 때에는 📜AchivementSystem 에 대한 정보를 모를 수 있다.</li>
+          <li>📜PlayerHealth.cs 은 딱 플레이어의 체력에 관한 내용만 들어가는게 좋은데 📜UIManager, 📜AchivementSystem, 📜GameManger 등등 <u>여러 다른 오브젝트들까지 다 알고 있어야 함.</u></li>
+          <li>플레이어와 관련된 기능이 추가될 때마다 📜PlayerHealth.cs 에 <u>또 참조할 수 있는 변수를 추가해야 한다.</u></li>
+          <li>따라서 <strong>스파게티 코드</strong>가 될 확률이 높다.
+            <ul>
+              <li>코드가 점점 복잡해지고</li>
+              <li>서로의 코드에 영향을 많이 받게 된다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>이벤트가 발생할시 실행되야 할 함수가 많다면 일일이 노가다로 유니티 슬롯에서 다 드래그 앤 드롭 해주어야 하는 불편이 따른다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="유니티-이벤트를-사용한-경우">유니티 이벤트를 사용한 경우</h3>
+
+<p><code class="language-plaintext highlighter-rouge">using UnityEngine.Events</code> 를 해주어야 한다.</p>
+
+<h4 id="유니티-이벤트-원리">유니티 이벤트 원리</h4>
+
+<blockquote>
+  <p>실행 시키는 이벤트 측, 실행 되는 측. 둘 다 서로를 모른다. 그저 이벤트에 등록해놔서 발동되는 것일 뿐.</p>
+</blockquote>
+
+<ul>
+  <li>실행시키는 측, 실행 되는 측 <u>둘다 서로를 몰라도</u> 이벤트에 등록만 되어 있다면 <u>알아서 실행된다.</u></li>
+  <li>따라섯 스파게티처럼 연결될 필요가 없어 코드가 훨씬 깔끔해진다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/85942044-c23d8780-b961-11ea-9fe3-85d12252849a.png" alt="image" width="70%" height="70%" class="align-center" /></p>
+
+<ul>
+  <li>플레이어가 죽는 이벤트인 📜PlayerHealth.cs 의 <strong><em>Dead()</em></strong> 이벤트에
+    <ul>
+      <li>플레이어가 죽으면 동시에 발동시킬 📜UIManager, 📜AchivementSystem, 📜GameManger 의 각 함수를 <u>등록한다.</u></li>
+    </ul>
+  </li>
+  <li>📜PlayerHealth.cs 과 📜UIManager, 📜AchivementSystem, 📜GameManger 는 서로에 대해 몰라도 된다. <u>서로에 대해 참조하고 있을 필요가 전혀 없다.</u>
+    <ul>
+      <li>플레이어가 죽은 후 발동시킬 함수를 가진 오브젝트(스크립트)들을 유니티 슬롯에 일일이 넣어줄 필요도 없고</li>
+      <li>플레이어가 죽은 후 발동시킬 스크립트가 추가되더라도 또 참조 변수를 새로 선언해줄 필요가 없다.
+        <ul>
+          <li>그저 이벤트에 추가 등록해주면 될 뿐이다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>📜PlayerHealth.cs 의 입장 : 난 너희들이 누군지 모르지만  <strong><em>Dead()</em></strong> 이벤트에 등록되 있다면 <strong><em>Dead()</em></strong> 가 실행될 때 알아서 실행 되세요.</li>
+</ul>
+
+<h4 id="playerhealthcs-1">📜PlayerHealth.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.Events</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PlayerHealth</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">UnityEvent</span> <span class="n">onPlayerDead</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Dead</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">onPlayerDead</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">();</span>
+
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"죽었다!"</span><span class="p">);</span>
+        <span class="nf">Destroy</span><span class="p">(</span><span class="n">gameObject</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nf">Dead</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>using UnityEngine.Events;</em>
+    <ul>
+      <li>유니티 이벤트를 사용하기 위해선 필수</li>
+    </ul>
+  </li>
+  <li><em>public UnityEvent <code class="language-plaintext highlighter-rouge">onPlayerDead</code></em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">onPlayerDead</code>라는 이벤트를 선언했다.</li>
+    </ul>
+  </li>
+  <li><em>onPlayerDead.Invoke();</em>
+    <ul>
+      <li><em>Dead()</em> 함수 내부에서 <code class="language-plaintext highlighter-rouge">onPlayerDead</code> 이벤트를 발동시킨다.</li>
+      <li><code class="language-plaintext highlighter-rouge">onPlayerDead</code> <u>이벤트에 등록된 타 스크립트의 모든 함수들이 발동된다.</u></li>
+    </ul>
+  </li>
+  <li><u>코드가 훨씬 간결해졌다!</u>
+    <ul>
+      <li>실행할 함수를 가진 타 스크립트들을 참조하고 일일이 함수를 실행해 줄 필요가 없어졌으므로.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="유니티-이벤트-등록하기">유니티 이벤트 등록하기</h4>
+
+<p>이벤트가 발동 할 시 <u>실행될 함수 명단</u> 등록</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/85942393-ef8b3500-b963-11ea-96b9-9f60223eb026.png" alt="image" width="70%" height="70%" class="align-center" /></p>
+
+<ol>
+  <li>플레이어가 죽는 이벤트가 발생할시 실행시킬 함수가 속해 있는 스크립트가 붙은 오브젝트들을 드래그 앤 드롭 해준다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">GameManager</code> - 📜GameManger</li>
+      <li><code class="language-plaintext highlighter-rouge">Canvas</code> - 📜UIManager, 📜AchivementSystem</li>
+    </ul>
+  </li>
+  <li>실행할 함수를 드롭 다운에서 선택해준다.</li>
+  <li>“뉴턴의 법칙”에서 볼 수 있듯 매개변수가 있는, 입력이 필요한 함수들은 여기에 인수로 넘길 입력 내용도 같이 적어줄 수 있다.</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/85942556-ecdd0f80-b964-11ea-9805-9e014f4ffd0d.png" alt="image" width="70%" height="70%" class="align-center" /></p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

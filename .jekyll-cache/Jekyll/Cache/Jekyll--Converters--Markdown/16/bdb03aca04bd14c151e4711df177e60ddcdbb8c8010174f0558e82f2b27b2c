@@ -1,0 +1,24 @@
+I"m<ul class="toc__menu">
+  <li><a href="#chapter-2-무기">Chapter 2. 무기</a></li>
+  <li><a href="#총-피격-구현">총 피격 구현</a>
+    <ul>
+      <li><a href="#-피격-위치-확인">🚖 피격 위치 확인</a>
+        <ul>
+          <li><a href="#guncontrollercs">📜GunController.cs</a></li>
+        </ul>
+      </li>
+      <li><a href="#-피격-이펙트-파티클-시스템">🚖 피격 이펙트 파티클 시스템</a>
+        <ul>
+          <li><a href="#파티클-시스템-만들기">파티클 시스템 만들기</a></li>
+          <li><a href="#guncontrollercs-1">📜GunController.cs</a></li>
+        </ul>
+      </li>
+      <li><a href="#-여기까지-스크립트-정리">🚖 여기까지 스크립트 정리</a>
+        <ul>
+          <li><a href="#guncontrollercs-2">📜GunController.cs</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

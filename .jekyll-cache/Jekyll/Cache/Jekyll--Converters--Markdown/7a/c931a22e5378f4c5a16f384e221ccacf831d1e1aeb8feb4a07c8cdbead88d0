@@ -1,0 +1,180 @@
+I"0<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="생존킷--게임-매니저로-커서-감추기">생존킷 : 게임 매니저로 커서 감추기</h1>
+
+<p>게임매니저로 효율적으로 크래프트 UI, 인벤토리 UI, 생존 킷(컴퓨터) 화면 UI 등등 게임 속 여러 창들을 활성화 할 때만 커서가 활성화 될 수 있도록 하자.</p>
+
+<h2 id="gamamanager">📜GamaManager</h2>
+
+<blockquote>
+  <p>빈 오브젝트 <code class="language-plaintext highlighter-rouge">GameManager</code> 만들고 거기에 붙이기</p>
+</blockquote>
+
+<p>싱글톤으로 만들어도 좋을 것 같다.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GameManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">canPlayerMove</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span> <span class="c1">// 플레이어의 움직임 제어</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">isOpenInventory</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 인벤토리 활성화</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">isOpenCraftManual</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 건축 메뉴 활성화</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">isOnComputer</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 생존킷 컴퓨터 화면 활성화</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Cursor</span><span class="p">.</span><span class="n">lockState</span> <span class="p">=</span> <span class="n">CursorLockMode</span><span class="p">.</span><span class="n">Locked</span><span class="p">;</span>
+        <span class="n">Cursor</span><span class="p">.</span><span class="n">visible</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isOpenInventory</span> <span class="p">||</span> <span class="n">isOpenCraftManual</span> <span class="p">||</span> <span class="n">isOnComputer</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Cursor</span><span class="p">.</span><span class="n">lockState</span> <span class="p">=</span> <span class="n">CursorLockMode</span><span class="p">.</span><span class="n">None</span><span class="p">;</span>
+            <span class="n">Cursor</span><span class="p">.</span><span class="n">visible</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+            <span class="n">canPlayerMove</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+            
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">Cursor</span><span class="p">.</span><span class="n">lockState</span> <span class="p">=</span> <span class="n">CursorLockMode</span><span class="p">.</span><span class="n">Locked</span><span class="p">;</span>
+            <span class="n">Cursor</span><span class="p">.</span><span class="n">visible</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+            <span class="n">canPlayerMove</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+            
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>3 가지 <code class="language-plaintext highlighter-rouge">static</code> 변수 (외부에서 그냥 GamaManger 클래스 이름으로 접근 가능)
+    <ul>
+      <li>인벤토리, 건축 메뉴, 컴퓨터 화면 등등 이런 게임 내의 창들의 상태</li>
+      <li>활성화 되면 외부에서 true 로 바꾼다.</li>
+    </ul>
+  </li>
+  <li><em>Start</em>
+    <ul>
+      <li>전체적으로 게임이 시작되자마자 커서를 잠근고 안보이게 한다.</li>
+    </ul>
+  </li>
+  <li><em>Update</em>
+    <ul>
+      <li>매 프레임마다 창들이 활성화 됐는지 검사한다.
+        <ul>
+          <li>하나라도 활성화 되어 있다면 커서를 활성화하고 플레이어의 움직임을 제한한다.
+            <ul>
+              <li>📜PlayerController 에서 <code class="language-plaintext highlighter-rouge">canPlayerMove</code>가 false 이면 플레이어가 움직이지 못하도록 한다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>비활성화 됐다면 그 반대
+        <ul>
+          <li>커서 비활성화, 플레이어 움직임 활성화</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="playercontroller">📜PlayerController</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>  
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isActivated</span> <span class="p">&amp;&amp;</span> <span class="n">GameManager</span><span class="p">.</span><span class="n">canPlayerMove</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nf">IsGround</span><span class="p">();</span>
+            <span class="nf">TryJump</span><span class="p">();</span>
+            <span class="nf">TryRun</span><span class="p">();</span>
+            <span class="nf">TryCrouch</span><span class="p">();</span>
+            <span class="nf">Move</span><span class="p">();</span>
+            <span class="nf">MoveCheck</span><span class="p">();</span>
+            <span class="nf">CameraRotation</span><span class="p">();</span>
+            <span class="nf">CharacterRotation</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">canPlayerMove</code> 값이 true 일 때만 플레이어가 움직일 수 있도록 한다.</p>
+
+<p><br /></p>
+
+<h3 id="inventory">📜Inventory</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">OpenInventory</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GameManager</span><span class="p">.</span><span class="n">isOpenInventory</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">go_InventoryBase</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">CloseInventory</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GameManager</span><span class="p">.</span><span class="n">isOpenInventory</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">go_InventoryBase</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="craftmanual">📜CraftManual</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">OpenWindow</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GameManager</span><span class="p">.</span><span class="n">isOpenCraftManual</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="n">isActivated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">go_BaseUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">CloseWindow</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GameManager</span><span class="p">.</span><span class="n">isOpenCraftManual</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+        <span class="n">isActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">go_BaseUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="computerkit">📜ComputerKit</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">void</span> <span class="nf">PowerOn</span><span class="p">()</span> <span class="c1">// 📜ActionController 에서 호출</span>
+    <span class="p">{</span>
+        <span class="n">GameManager</span><span class="p">.</span><span class="n">isOnComputer</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="n">isPowerOn</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">go_BaseUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">PowerOff</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GameManager</span><span class="p">.</span><span class="n">isOnComputer</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+        <span class="n">theToolTip</span><span class="p">.</span><span class="nf">HideToolTip</span><span class="p">();</span>
+        <span class="n">isPowerOn</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">go_BaseUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><em>Start</em> 함수에서 커서 잠궈줬던건 지워졌다. 게임 매니저에서 해주니까!</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

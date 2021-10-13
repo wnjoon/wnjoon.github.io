@@ -1,0 +1,23 @@
+I"I<ul class="toc__menu">
+  <li><a href="#chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</a>
+    <ul>
+      <li><a href="#-플레이어-캐릭터-모델-준비">🔔 플레이어 캐릭터 모델 준비</a></li>
+      <li><a href="#-플레이어-캐릭터에-달릴-3인칭-카메라-만들기">🔔 플레이어 캐릭터에 달릴 ‘3인칭 카메라’ 만들기</a>
+        <ul>
+          <li><a href="#시네머신-카메라-종류">시네머신 카메라 종류</a></li>
+          <li><a href="#brain-camera-설정하기">Brain Camera 설정하기</a></li>
+          <li><a href="#virtual-camera-만들기--free-look">Virtual Camera 만들기 : Free Look</a>
+            <ul>
+              <li><a href="#추적할-대상-할당해주기">추적할 대상 할당해주기</a></li>
+              <li><a href="#virtual-camera의-그리드-라인의-의미">Virtual Camera의 그리드 라인의 의미</a></li>
+            </ul>
+          </li>
+          <li><a href="#freelook-카메라의-공전-궤도">Freelook 카메라의 공전 궤도</a></li>
+          <li><a href="#freelook-카메라-컴포넌트-파라미터-수정">Freelook 카메라 컴포넌트 파라미터 수정</a></li>
+          <li><a href="#카메라-콜라이더">카메라 콜라이더</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

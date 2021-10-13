@@ -1,0 +1,186 @@
+I")<p class="notice--warning">공부하면서 알게된 것만 정리합니다.😀</p>
+
+<h1 id="-quaternion">👩‍🦰 Quaternion</h1>
+
+<blockquote>
+  <p>쿼터니언과 관련된 함수들 집합. <code class="language-plaintext highlighter-rouge">3차원 회전</code>을 위한 함수.</p>
+</blockquote>
+
+<h2 id="-변수프로퍼티">🚀 변수/프로퍼티</h2>
+
+<h3 id="-eulerangles">✈ eulerAngles</h3>
+
+<ul>
+  <li>쿼터니언을 오일러각으로 변환시킨다. 즉 Vector3로 변환한다.
+    <ul>
+      <li>Quaternion.Euler(Vector3)와 반대.</li>
+    </ul>
+  </li>
+  <li>오일러 각도의 회전 값을 나타내며 Vector3 를 사용해 회전 값을 설정할 수 있다.</li>
+  <li>📢 주의 사항
+    <ul>
+      <li>밑에 코드와 같이 절대적인 회전 Vector3 값으로 설정하는 것이 아닌, 이만큼 더 회전해라! 하는 델타 값 의미로 <code class="language-plaintext highlighter-rouge">eulerAngles</code>에 Vector3를 더하고 빼주는건 안된다.</li>
+      <li><u>오일러 각도는 360도를 넘어가면 값의 계산에 실패하기 때문에</u> <code class="language-plaintext highlighter-rouge">eulerAngles</code>를 얼만큼 더 회전할지의 델타 회전값으로 <code class="language-plaintext highlighter-rouge">+=</code> 사용하는 것은 권장하지 않는다.
+        <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">transform</span><span class="p">.</span><span class="n">eulerAngles</span> <span class="p">+=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(</span><span class="m">0.0f</span><span class="p">,</span> <span class="n">_yAngle</span><span class="p">,</span> <span class="m">0.0f</span><span class="p">);</span>  <span class="c1">// '+=' ❌❌❌</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>월드 좌표 회전값</li>
+  <li>x, y, z 방향으로 얼마큼 회전 할 것인지</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-localeulerangles">✈ localEulerAngles</h3>
+
+<ul>
+  <li>쿼터니언을 오일러각으로 변환시킨다. 즉 Vector3로 변환한다.</li>
+  <li>로컬 회전값</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-identity">✈ identity</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">static</code> 프로퍼티다.</li>
+  <li>0도, 0도, 0도로 회전한 쿼터니언 값.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-함수">🚀 함수</h2>
+
+<h3 id="-euler">✈ Euler</h3>
+
+<blockquote>
+  <p>public static Quaternion Euler(float x, float y, float z);</p>
+</blockquote>
+
+<ul>
+  <li>매개변수로 받은 Vector3를 Quaternion타입으로 변환하여 리턴해주는 함수</li>
+</ul>
+
+<p>인수로 받은 Vector3 를 쿼터니언으로 변환하고 이를 리턴해준다. Euler() 함수로 Vector3를 쿼터니언으로 변환하면, 쿼터니언 타입은 <code class="language-plaintext highlighter-rouge">transform.rotation</code>에 할당이 가능해진다.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">Euler</span><span class="p">(</span><span class="k">new</span> <span class="nf">Vector3</span><span class="p">(</span><span class="m">0.0f</span><span class="p">,</span> <span class="n">_yAngle</span><span class="p">,</span> <span class="m">0.0f</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="-lookrotation">✈ LookRotation</h3>
+
+<blockquote>
+  <p>public static Quaternion LookRotation(Vector3 forward, Vector3 upwards = Vector3.up);</p>
+</blockquote>
+
+<ul>
+  <li>벡터를 매개변수로 넣어주면 오브젝트가 그 벡터의 방향을 쳐다보게끔 자기 자신의 방향을 회전한다.</li>
+  <li>현재 위치좌표에서 매개변수로 들어온 <u>벡터만큼 더한 목적지 위치 좌표를 바라보게</u> 된다.
+    <ul>
+      <li>따라서 <code class="language-plaintext highlighter-rouge">벡터의 뺄셈</code>으로 <code class="language-plaintext highlighter-rouge">목적지 위치좌표 - 출발지 위치좌표</code> 해주어 필요한 방향과 거리를 나타낼 벡터를 구해주는 것이 좋다. 그리고 매개변수로 넘기기.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>우리가 원하는 방향을 쳐다 보는 회전 값을 쿼터니언으로 리턴한다. Vector3를 인수로 넘기면 인수로 넘긴 Vector3의 방향을 쳐다보는 회전값(쿼터니언)을 리턴한다.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKey</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">S</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">Vector3</span><span class="p">.</span><span class="n">back</span><span class="p">);</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">S</code>키를 누르면 Vector3.back 방향을 바라보는 회전 상태를 쿼터니언으로 반환한다. 이를 <code class="language-plaintext highlighter-rouge">transform.rotation</code>으로 설정하면 그 방향으로 오브젝트가 회전할 것이다.</p>
+
+<p><br /></p>
+
+<h3 id="-lerp">✈ Lerp</h3>
+
+<blockquote>
+  <p>public static Quaternion Lerp(Quaternion a, Quaternion b, float t);</p>
+</blockquote>
+
+<ul>
+  <li>두 개의 회전 값(Vector3)을 정하면 float 비율만큼의 적당한 회전값을 리턴</li>
+  <li><code class="language-plaintext highlighter-rouge">Quaternion.Lerp(aRotation, bRotation, 0.5f);</code></li>
+  <li><code class="language-plaintext highlighter-rouge">0.5f</code>면 딱 중간</li>
+  <li><code class="language-plaintext highlighter-rouge">1.0f</code>면 bRotation을 그대로 따름</li>
+  <li><code class="language-plaintext highlighter-rouge">0.0f</code>면 aRotation을 그대로 따름</li>
+  <li><code class="language-plaintext highlighter-rouge">0.2f</code>면 aRotation에 좀 더 가깝게 회전</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-slerp">✈ Slerp</h3>
+
+<blockquote>
+  <p>public static Quaternion Slerp(Quaternion a, Quaternion b, float t);</p>
+</blockquote>
+
+<p>A 에서 B 까지 0.0 ~ 1.0 퍼센트 비율로 보간. Lerp 와 같다!</p>
+
+<ul>
+  <li>🎈 Lerp 와의 차이점
+    <ul>
+      <li>Lerp
+        <ul>
+          <li>선형 보간법</li>
+        </ul>
+      </li>
+      <li><strong>Slerp</strong>
+        <ul>
+          <li>구면 선형 보간법</li>
+          <li><u>회전이나 방향을 보간할 때 주로 쓰인다.</u></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Lerp와 마찬가지로 좀 더 부드럽게 회전시킬 수 있다. A 벡터와 B 벡터 사이를 <code class="language-plaintext highlighter-rouge">t</code> 퍼센트로 보간한 결과를 쿼터니언으로 리턴한다.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">Slerp</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">LookRotation</span><span class="p">(</span><span class="n">Vector3</span><span class="p">.</span><span class="n">forward</span><span class="p">),</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span> <span class="p">*</span> <span class="n">speed</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="-angleaxis">✈ AngleAxis</h3>
+
+<blockquote>
+  <p>public static Quaternion AngleAxis(float angle, Vector3 axis);</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/91792755-40175b00-ec51-11ea-84b5-5537a296cdc3.png" alt="image" /></p>
+
+<ul>
+  <li>축 axis 주위를 angle 만큼 회전한 rotation을 생성하고 리턴한다.
+    <ul>
+      <li>예를 들어 중심 축이 되는 <code class="language-plaintext highlighter-rouge">axis</code>가 y 축이라면 회전 값이 y 값은 변하지않고 x, z 값만 변한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-rotatetowards">✈ RotateTowards</h3>
+
+<blockquote>
+  <p>public static Quaternion RotateTowards(Quaternion from, Quaternion to, float maxDegreesDelta);</p>
+</blockquote>
+
+<p>현재의 쿼터니언 회전값 <code class="language-plaintext highlighter-rouge">from</code>에서 목표 회전값 <code class="language-plaintext highlighter-rouge">to</code>까지 <code class="language-plaintext highlighter-rouge">maxDegreesDelta</code>의 속도로 회전한 결과인 <strong>Quaternion 를 리턴</strong>한다.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">realCube</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">RotateTowards</span><span class="p">(</span><span class="n">realCube</span><span class="p">.</span><span class="n">rotation</span><span class="p">,</span> <span class="n">destRot</span><span class="p">,</span> <span class="n">spinSpeed</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+</code></pre></div></div>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

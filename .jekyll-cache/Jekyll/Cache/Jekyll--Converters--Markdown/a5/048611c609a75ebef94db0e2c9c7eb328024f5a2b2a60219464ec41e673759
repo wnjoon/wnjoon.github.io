@@ -1,0 +1,663 @@
+I"P�<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="chapter-5-인벤토리">Chapter 5. 인벤토리</h1>
+
+<p><br /></p>
+
+<h2 id="-인벤토리-영역을-벗어난-곳에-드롭하면-아이템이-버려지도록">🚖 인벤토리 영역을 벗어난 곳에 드롭하면 아이템이 버려지도록</h2>
+
+<ul>
+  <li>아이템 버리려면
+    <ul>
+      <li>버리려는 아이템이 있는 슬롯을 인벤토리 바깥 영역으로 드래그 앤 드롭</li>
+      <li>바깥 영역으로 드롭 하면
+        <ul>
+          <li>아이템 몇 개를 버릴건지 숫자를 작성할 수 있는 Input Field 를 띄운다.</li>
+        </ul>
+      </li>
+      <li>갯수를 입력하면
+        <ul>
+          <li>아이템 오브젝트들이 버려진 갯수 만큼 플레이어의 앞에서 생성된다.</li>
+          <li>해당 슬롯의 아이템 갯수는 버려진 갯수만큼 차감된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="slotcs">📜Slot.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 마우스 드래그가 끝났을 때 발생하는 이벤트</span>
+    <span class="k">private</span> <span class="n">Rect</span> <span class="n">baseRect</span><span class="p">;</span>  <span class="c1">// Inventory_Base 이미지의 Rect 정보 받아 옴.</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">baseRect</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">RectTransform</span><span class="p">&gt;().</span><span class="n">rect</span><span class="p">;</span>
+        <span class="n">theWeaponManager</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">WeaponManager</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnEndDrag</span><span class="p">(</span><span class="n">PointerEventData</span> <span class="n">eventData</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">x</span> <span class="p">&lt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">xMin</span> 
+            <span class="p">||</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">x</span> <span class="p">&gt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">xMax</span>
+            <span class="p">||</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">y</span> <span class="p">&lt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">yMin</span>
+            <span class="p">||</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">y</span> <span class="p">&gt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">yMax</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nf">Instantiate</span><span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">item</span><span class="p">.</span><span class="n">itemPrefab</span><span class="p">,</span> 
+                <span class="n">theWeaponManager</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">theWeaponManager</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span>
+                <span class="n">Quaternion</span><span class="p">.</span><span class="n">identity</span><span class="p">);</span>
+            <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="nf">ClearSlot</span><span class="p">();</span>
+
+        <span class="p">}</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>슬롯이 인벤토리 영역이 아닌 곳에 드롭 됐다면 아이템을 버리는 것으로 간주하여 처리해야 한다.</p>
+</blockquote>
+
+<ul>
+  <li>📜Slot.cs이 붙는 <code class="language-plaintext highlighter-rouge">Slot</code>은 프리팹이며 게임 플레이 중에 생성되므로 [SerializeField]를 사용하지 않고 FIndObjectOfType을 통해 <code class="language-plaintext highlighter-rouge">baseRect</code>를 초기화 해주었다.
+    <ul>
+      <li>RectTransform 에서 <code class="language-plaintext highlighter-rouge">Rect</code> 가져옴.</li>
+    </ul>
+  </li>
+  <li><em>OnEndDrag(PointerEventData eventData)</em>
+    <ul>
+      <li>드래그가 끝나면, 마우스 드래그 대상이 되었던 슬롯에서 호출</li>
+      <li>드래그가 끝난 위치가 인벤토리 베이스 이미지를 벗어난 곳이라면 아이템 버리는 처리를 해야 함</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="rect">Rect</h4>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95005851-2e521a80-0638-11eb-88ec-3063af8f9c37.png" alt="image" /></p>
+
+<ul>
+  <li>RectTransform 은 Rect 를 가진다.</li>
+  <li>인벤토리 베이스 이미지의 2 D 사각형 정보를 <code class="language-plaintext highlighter-rouge">Rect</code>로 가져 온다.
+    <ul>
+      <li>2 D 사각형으로서의 넓이, 높이 등등의 정보가 담겨 있다.</li>
+      <li><code class="language-plaintext highlighter-rouge">Rect</code>에서는 왼쪽 상단을 x, y 시작점으로 본다.</li>
+    </ul>
+  </li>
+  <li>다음과 같은 조건일 때, 아이템을 버리고자 한다고 본다.
+    <ul>
+      <li>드래그가 끝났을 때의 슬롯의 위치의 <code class="language-plaintext highlighter-rouge">x</code> 좌표가 인벤토리 베이스 이미지의 왼쪽 상단 (<code class="language-plaintext highlighter-rouge">xMin</code>)을 더 왼쪽으로 벗어났을 때</li>
+      <li>OR 드래그가 끝났을 때의 슬롯의 위치의 <code class="language-plaintext highlighter-rouge">x</code> 좌표가 인벤토리 베이스 이미지의 오른쪽 상단 (<code class="language-plaintext highlighter-rouge">xMax</code>)을 더 오른쪽으로 벗어났을 때</li>
+      <li>OR 드래그가 끝났을 때의 슬롯의 위치의 <code class="language-plaintext highlighter-rouge">y</code> 좌표가 인벤토리 베이스 이미지의 왼쪽 상단 (<code class="language-plaintext highlighter-rouge">yMin</code>)을 위쪽으로 벗어났을 때</li>
+      <li>OR 드래그가 끝났을 때의 슬롯의 위치의 <code class="language-plaintext highlighter-rouge">y</code> 좌표가 인벤토리 베이스 이미지의 왼쪽 하단 (<code class="language-plaintext highlighter-rouge">yMax</code>)을 더 아래쪽으로 벗어났을 때</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">xMin</code>은 앵커(원점)을 기준으로 <code class="language-plaintext highlighter-rouge">width/2</code> 만큼 왼쪽으로 떨어진 곳의 x 좌표라고 할 수 있겠다.
+    <ul>
+      <li>원점이 중앙이라면 <code class="language-plaintext highlighter-rouge">xMin</code>은 음수가 된다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">xMax</code>은 앵커(원점)을 기준으로 <code class="language-plaintext highlighter-rouge">width/2</code> 만큼 오른쪽으로 떨어진 곳의 x 좌표라고 할 수 있겠다.</li>
+  <li><code class="language-plaintext highlighter-rouge">yMin</code>은 앵커(원점)을 기준으로 <code class="language-plaintext highlighter-rouge">height/2</code> 만큼 위쪽으로 떨어진 곳의 y 좌표라고 할 수 있겠다.
+    <ul>
+      <li>원점이 중앙이라면 <code class="language-plaintext highlighter-rouge">yMin</code>은 음수가 된다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">yMax</code>은 앵커(원점)을 기준으로 <code class="language-plaintext highlighter-rouge">height/2</code> 만큼 아래쪽으로 떨어진 곳의 x 좌표라고 할 수 있겠다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-아이템-버릴-때-버릴-갯수-입력-필드">🚖 아이템 버릴 때 버릴 갯수 입력 필드</h2>
+
+<h3 id="inputfield-ui-만들기">InputField UI 만들기</h3>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95004779-ce08ac00-062a-11eb-9c57-2df3141f7364.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95005840-0a8ed480-0638-11eb-8820-e1e62c13bd9c.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">InputNumber</code> 빈 오브젝트. 📜InputNumber.cs 붙일 예정
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">InputField</code> 👉 Input Field UI
+        <ul>
+          <li>아이템을 버리고자 할 때만 활성화 되기 위해 <u>비활성화를 디폴트로.</u></li>
+          <li>Placeholder
+            <ul>
+              <li>“Enter text…” 처럼 입력하기 전에 미리 필드에 쓰여지며, 실제 입력을 시작하면 없어지는 텍스트.</li>
+            </ul>
+          </li>
+          <li>Text
+            <ul>
+              <li>필드에 실제로 사용자가 입력한 Text가 들어감</li>
+              <li><strong>버리고자 하는 아이템의 갯수를 입력</strong></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">OK Button</code> 👉 Button UI
+        <ul>
+          <li>갯수 입력 후 OK 버튼 누르면 아이템 버리는 실제 처리가 이루어지도록.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Cancel Button</code> 👉 Cancel UI
+        <ul>
+          <li>X 버튼</li>
+          <li>입력 필드 닫음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="inputnumbercs">📜InputNumber.cs</h3>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">InputNumber</code>에 붙인다.</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.UI</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">InputNumber</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="kt">bool</span> <span class="n">activated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Text</span> <span class="n">text_Preview</span><span class="p">;</span>  
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Text</span> <span class="n">text_Input</span><span class="p">;</span>  
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">InputField</span> <span class="n">if_text</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">GameObject</span> <span class="n">go_Base</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">ActionController</span> <span class="n">thePlayer</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">activated</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Return</span><span class="p">))</span>
+                <span class="nf">OK</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Escape</span><span class="p">))</span>
+                <span class="nf">Cancel</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Call</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">go_Base</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+        <span class="n">activated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">if_text</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+        <span class="n">text_Preview</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">itemCount</span><span class="p">.</span><span class="nf">ToString</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Cancel</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">activated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+        <span class="n">go_Base</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OK</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">text_Input</span><span class="p">.</span><span class="n">text</span> <span class="p">!=</span> <span class="s">""</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nf">CheckNumber</span><span class="p">(</span><span class="n">text_Input</span><span class="p">.</span><span class="n">text</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">num</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="n">text_Input</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="p">&gt;</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">itemCount</span><span class="p">)</span>
+                    <span class="n">num</span> <span class="p">=</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">itemCount</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+                <span class="n">num</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+            <span class="n">num</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="n">text_Preview</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">DropItemCorountine</span><span class="p">(</span><span class="n">num</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="n">IEnumerator</span> <span class="nf">DropItemCorountine</span><span class="p">(</span><span class="kt">int</span> <span class="n">_num</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_num</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="nf">Instantiate</span><span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">item</span><span class="p">.</span><span class="n">itemPrefab</span><span class="p">,</span>
+                <span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span>
+                <span class="n">Quaternion</span><span class="p">.</span><span class="n">identity</span><span class="p">);</span>
+            <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="nf">SetSlotCount</span><span class="p">(-</span><span class="m">1</span><span class="p">);</span>
+            <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="m">0.05f</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+        <span class="n">go_Base</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+        <span class="n">activated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="nf">CheckNumber</span><span class="p">(</span><span class="kt">string</span> <span class="n">_argString</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">char</span><span class="p">[]</span> <span class="n">_tempCharArray</span> <span class="p">=</span> <span class="n">_argString</span><span class="p">.</span><span class="nf">ToCharArray</span><span class="p">();</span>
+        <span class="kt">bool</span> <span class="n">isNumber</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_tempCharArray</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_tempCharArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&gt;=</span> <span class="m">48</span> <span class="p">&amp;&amp;</span> <span class="n">_tempCharArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&lt;=</span> <span class="m">57</span><span class="p">)</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="n">isNumber</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">isNumber</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">activated</code> : 입력 필드가 활성화 되있을 때 True, 비활성화 상태일 때 False</li>
+  <li><code class="language-plaintext highlighter-rouge">text_Preview</code> : Placeholder 의 텍스트. <strong>드롭된 아이템의 갯수</strong>가 표시되도록 할 것이다.
+    <ul>
+      <li>👉 사용자가 별다른 입력을 하지 않으면 해당 슬롯에 있던 아이템 갯수만큼 전부 다 버려지도록.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">text_Input</code> : 사용자가 실제로 입력한 문자열이 들어갈 텍스트.</li>
+  <li><code class="language-plaintext highlighter-rouge">if_text</code> :  Input Field 의 텍스트를 참조하기 위해 Input Field 타입으로 선언.
+    <ul>
+      <li>입력 필드가 활성화 되면 기존에 사용자가 썼었던 텍스트는 지우고 공백으로 초기화 해야 한다.</li>
+      <li><code class="language-plaintext highlighter-rouge">text_Input</code>를 “” 공백으로 만드는 방법도 있지만 입력 필드 컴포넌트의 <code class="language-plaintext highlighter-rouge">text</code> 속성을 자식인 <code class="language-plaintext highlighter-rouge">Text</code> 에게 덮어 씌우는 방식이기 때문에, Text인 <code class="language-plaintext highlighter-rouge">text_Input</code>를 “” 공백으로 바꿔도 입력 필드 컴포넌트의 <code class="language-plaintext highlighter-rouge">text</code> 속성에는 사용자가 이 전에 입력했던 값이 남아 있으므로 여전히 사용자가 이 전에 입력했던 값이 <code class="language-plaintext highlighter-rouge">Text</code> 에게 덮어 씌워져 불러와지게 된다.</li>
+      <li>따라서 텍스트 초기화를 입력 필드의 자식인 <code class="language-plaintext highlighter-rouge">Text</code>에서 하지 않고  입력 필드 컴포넌트의 <code class="language-plaintext highlighter-rouge">text</code> 속성 값을 초기화 하기 위해 <code class="language-plaintext highlighter-rouge">Input Field</code> 타입으로 불러 온 것이다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95006353-a7ed0700-063e-11eb-8396-e03cb364dcd1.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">go_Base</code> : <code class="language-plaintext highlighter-rouge">Input Field</code> 입력 필드 UI 오브젝트가 할당 될 것. 입력 필드 활성화/비활성화를 위해 GameObject로 불러 옴.</li>
+  <li><code class="language-plaintext highlighter-rouge">thePlayer</code> : 카메라의 앞에서 버린 아이템을 생성하기 위해 📜ActionController.cs 참조</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="call--입력-필드-불러오기">Call()  입력 필드 불러오기</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">void</span> <span class="nf">Call</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">go_Base</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+        <span class="n">activated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">if_text</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+        <span class="n">text_Preview</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">itemCount</span><span class="p">.</span><span class="nf">ToString</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>이 함수는 슬롯의 드래그가 끝날 때, 즉 📜Slot.cs 의 <em>OnEndDrag</em> 에서 호출될 것이다.</p>
+</blockquote>
+
+<ul>
+  <li>입력 필드 활성화</li>
+  <li><code class="language-plaintext highlighter-rouge">activate</code> True 설정
+    <ul>
+      <li>입력 필드 활성화 먼저 해주고난 후에 해주어야 런타임 에러 안남</li>
+      <li><em>Update</em> 함수에서 <code class="language-plaintext highlighter-rouge">activate</code> 값이 사용하여 입력 필드 조작을 할거라서</li>
+    </ul>
+  </li>
+  <li>입력 필드의 텍스트 공백으로 초기화
+    <ul>
+      <li>이전에 한번 버린적 있다면 입력했던게 남아 있을테니</li>
+    </ul>
+  </li>
+  <li>Placeholder의 텍스트를 드래그 된 슬롯의 아이템 갯수로 한다.
+    <ul>
+      <li>별다른 입력이 없다면 해당 슬롯의 아이템을 모두 버리도록 하기 위해</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="ok--입력한-갯수만큼-아이템-버리는-실제-처리를-시작">OK()  입력한 갯수만큼 아이템 버리는 실제 처리를 시작</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OK</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">text_Input</span><span class="p">.</span><span class="n">text</span> <span class="p">!=</span> <span class="s">""</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nf">CheckNumber</span><span class="p">(</span><span class="n">text_Input</span><span class="p">.</span><span class="n">text</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">num</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="n">text_Input</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="p">&gt;</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">itemCount</span><span class="p">)</span>
+                    <span class="n">num</span> <span class="p">=</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">itemCount</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+                <span class="n">num</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+            <span class="n">num</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="n">text_Preview</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">DropItemCorountine</span><span class="p">(</span><span class="n">num</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="n">IEnumerator</span> <span class="nf">DropItemCorountine</span><span class="p">(</span><span class="kt">int</span> <span class="n">_num</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_num</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="nf">Instantiate</span><span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">item</span><span class="p">.</span><span class="n">itemPrefab</span><span class="p">,</span>
+                <span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span>
+                <span class="n">Quaternion</span><span class="p">.</span><span class="n">identity</span><span class="p">);</span>
+            <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="nf">SetSlotCount</span><span class="p">(-</span><span class="m">1</span><span class="p">);</span>
+            <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="m">0.05f</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+        <span class="n">go_Base</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+        <span class="n">activated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="nf">CheckNumber</span><span class="p">(</span><span class="kt">string</span> <span class="n">_argString</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">char</span><span class="p">[]</span> <span class="n">_tempCharArray</span> <span class="p">=</span> <span class="n">_argString</span><span class="p">.</span><span class="nf">ToCharArray</span><span class="p">();</span>
+        <span class="kt">bool</span> <span class="n">isNumber</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_tempCharArray</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_tempCharArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&gt;=</span> <span class="m">48</span> <span class="p">&amp;&amp;</span> <span class="n">_tempCharArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&lt;=</span> <span class="m">57</span><span class="p">)</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="n">isNumber</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">isNumber</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">activated</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Return</span><span class="p">))</span>
+                <span class="nf">OK</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Escape</span><span class="p">))</span>
+                <span class="nf">Cancel</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+</code></pre></div></div>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">OK Button</code>의 이벤트 함수에 📜InputNumber.cs의 <em>public void OK()</em> 함수 등록</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95005980-b553c280-0639-11eb-892d-dbc14c6835fc.png" alt="image" /></p>
+
+<ul>
+  <li><em>OK()</em> 👉 OK 버튼 누르면 활성화
+    <ul>
+      <li>사용자가 입력한 텍스트가 있다면
+        <ul>
+          <li>전부 숫자라면
+            <ul>
+              <li>그대로 그 입력한 수만큼 버리도록 한다.</li>
+              <li>단, 드래그 된 슬롯의 아이템 갯수를 초과한다면 드래그 된 슬롯의 아이템 갯수만큼 버리도록 한다.</li>
+            </ul>
+          </li>
+          <li>숫자 문자 섞여있거나 문자라면
+            <ul>
+              <li>1 개만 버리도록 한다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>사용자가 입력한 텍스트가 없다면
+        <ul>
+          <li>별다른 입력이 없다면 해당 슬롯의 아이템을 모두 버리도록 드래그 된 슬롯의 아이템 갯수로 했었던 Placeholder의 텍스트만큼 버린다.</li>
+        </ul>
+      </li>
+      <li>실제로 아이템을 입력한 갯수만큼 버리는 <em>DropItemCorountine(int _num)</em> 함수를 실행한다.</li>
+    </ul>
+  </li>
+  <li><em>CheckNumber(string _argString)</em> 👉 텍스트에 문자가 섞여있다면 false, 전부 숫자라면 true 리턴
+    <ul>
+      <li>인수로 받은 텍스트를 <code class="language-plaintext highlighter-rouge">char</code> 타입의 문자열 배열로 변환하고 한글자 한글자 검사한다.
+        <ul>
+          <li>아스키 코드가 47 ~ 57 사이의 문자면 숫자라는 의미</li>
+          <li>아니라면 문자라는 의미</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>DropItemCorountine(int _num)</em>
+    <ul>
+      <li>입력한 아이템 갯수만큼
+        <ul>
+          <li>아이템 프리팹을 실제로 생성한다. 카메라보다 조금 앞에.
+            <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span>
+</code></pre></div>            </div>
+          </li>
+          <li>드래그 된 슬롯의 아이템 갯수를 1 만큼씩 줄인다. (입력한 아이템 갯수만큼 반복)</li>
+          <li>0.05 초씩 대기</li>
+        </ul>
+      </li>
+      <li>드래그 된 슬롯 참조 초기화</li>
+      <li>입력 필드 비활성화</li>
+      <li><code class="language-plaintext highlighter-rouge">activate</code> False 설정</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="cancel--입력-필드-닫기">Cancel()  입력 필드 닫기</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">activated</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Return</span><span class="p">))</span>
+                <span class="nf">OK</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Escape</span><span class="p">))</span>
+                <span class="nf">Cancel</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Cancel</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">activated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+        <span class="n">go_Base</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Cancel Button</code>의 이벤트 함수에 📜InputNumber.cs의 <em>public void Candel()</em> 함수 등록</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95005991-e03e1680-0639-11eb-8658-ac7ac479f155.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">activate</code> False 설정</li>
+  <li>드래그 했던 슬롯의 색상을 다시 투명하게</li>
+  <li>입력 필드 비활성화</li>
+  <li>드래그 했던 슬롯을 참조하던 <code class="language-plaintext highlighter-rouge">dragSlot</code> 초기화</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95005981-bf75c100-0639-11eb-8969-7d4f430eb9df.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h3 id="slotcs-1">📜Slot.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="n">InputNumber</span> <span class="n">theInputNumber</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">baseRect</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">RectTransform</span><span class="p">&gt;().</span><span class="n">rect</span><span class="p">;</span>
+        <span class="n">theWeaponManager</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">WeaponManager</span><span class="p">&gt;();</span>
+        <span class="n">theInputNumber</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">InputNumber</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 마우스 드래그가 끝났을 때 발생하는 이벤트</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnEndDrag</span><span class="p">(</span><span class="n">PointerEventData</span> <span class="n">eventData</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">x</span> <span class="p">&lt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">xMin</span> 
+            <span class="p">||</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">x</span> <span class="p">&gt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">xMax</span>
+            <span class="p">||</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">y</span> <span class="p">&lt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">yMin</span>
+            <span class="p">||</span> <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localPosition</span><span class="p">.</span><span class="n">y</span> <span class="p">&gt;</span> <span class="n">baseRect</span><span class="p">.</span><span class="n">yMax</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+                <span class="n">theInputNumber</span><span class="p">.</span><span class="nf">Call</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+            <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>드래그를 끝낸 <code class="language-plaintext highlighter-rouge">DragSlot</code>의 위치가 인벤토리 베이스 이미지를 벗어났다면
+    <ul>
+      <li>또한 <code class="language-plaintext highlighter-rouge">DragSlot</code>에서 참조하는 슬롯이 존재 한다면
+        <ul>
+          <li>인풋 필드를 활성화 하기 위해 📜InputNumber.cs 의 <em>Call()</em> 호출</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>드래그를 끝낸 <code class="language-plaintext highlighter-rouge">DragSlot</code>의 위치가 인벤토리 베이스 이미지를 벗어나지 않았다면
+    <ul>
+      <li>드롭 위치 대상이 된 슬롯에서 <em>OnDrop</em> 을 호출해 자리를 맞바꾸는 처리를 마친 후</li>
+      <li><code class="language-plaintext highlighter-rouge">DragSlot</code>은 초기화 한다.</li>
+      <li>이미지 불투명하게</li>
+      <li>드래그 대상이 된 슬롯에 대한 참조 끊음</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-다른-아이템들-설정">🚔 다른 아이템들 설정</h2>
+
+<blockquote>
+  <p>나뭇가지, 통나무 아이템으로 등록하기</p>
+</blockquote>
+
+<ul>
+  <li>이름 뒤에 Item 붙여주기</li>
+  <li>태그 레이어 모두 <code class="language-plaintext highlighter-rouge">Item</code></li>
+  <li>📜ItemPickUp.cs 붙이기
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Item</code> (ScritableObject) 각각 만들고 할당</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>풀 설정</p>
+</blockquote>
+
+<ul>
+  <li>풀을 벨 땐 따로 아이템을 생성하지 않고 자동으로 풀을 베자마자 인벤토리에 풀 아이템이 들어오도록 한다.</li>
+  <li>인벤토리의 풀을 버릴 떈 버려진 아이템으로 생성되지 않고 그냥 날라가도록 한다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95006869-ecc76c80-0643-11eb-8db4-176c974aa8da.png" alt="image" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">Leaf</code> 아이템은 풀을 베면 인벤토리에 생성되며, 딱히 아이템 오브젝트로선 존재하지 않도록 할 것이라서 <code class="language-plaintext highlighter-rouge">itemPrefab</code>은 None 이다.</p>
+
+<p><br /></p>
+
+<h3 id="grasscs">📜Grass.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Item</span> <span class="n">item_leaf</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="kt">int</span> <span class="n">leafCount</span><span class="p">;</span>
+    <span class="k">private</span> <span class="n">Inventory</span> <span class="n">theInventory</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">rigidbodys</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">GetComponentsInChildren</span><span class="p">&lt;</span><span class="n">Rigidbody</span><span class="p">&gt;();</span>
+        <span class="n">boxColiders</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">GetComponentsInChildren</span><span class="p">&lt;</span><span class="n">BoxCollider</span><span class="p">&gt;();</span>
+        <span class="n">theInventory</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">Inventory</span><span class="p">&gt;();</span>  
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Destruction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">theInventory</span><span class="p">.</span><span class="nf">AcquireItem</span><span class="p">(</span><span class="n">item_leaf</span><span class="p">,</span> <span class="n">leafCount</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">rigidbodys</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">rigidbodys</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">useGravity</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="n">rigidbodys</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">AddExplosionForce</span><span class="p">(</span><span class="n">explosionForce</span><span class="p">,</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span> <span class="c1">// 제자리에서 중력받아 그냥 떨어지는게 아니라 폭발 효과를 줌 (폭발 세기, 폭발 위치, 폭발 반경)</span>
+            <span class="n">boxColiders</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">enabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nf">Destroy</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">gameObject</span><span class="p">,</span> <span class="n">destroyTime</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Grass</code>는 프리팹이므로 <code class="language-plaintext highlighter-rouge">Grass</code> 영역이 아닌 📜Inventory.cs 를 참조하기 위해선 [SerializeField]보단 게임 시작 후 FindObjectOfType 로 찾아주었다.</li>
+  <li>풀 파괴시 <em>Destruction()</em>
+    <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">theInventory</span><span class="p">.</span><span class="nf">AcquireItem</span><span class="p">(</span><span class="n">item_leaf</span><span class="p">,</span> <span class="n">leafCount</span><span class="p">);</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>풀은 파괴하자마자 자동으로 인벤토리에 들어가도록 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95006897-42037e00-0644-11eb-825a-c04dfdcc68ba.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">item_leaf</code>에는 <code class="language-plaintext highlighter-rouge">Leaf</code> 아이템 할당</li>
+  <li><code class="language-plaintext highlighter-rouge">leafCount</code> 을 3 으로 하면 풀 파괴할 때마다 인벤토리에 3 개씩 들어가게 된다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="inputnumbercs-1">📜InputNumber.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">IEnumerator</span> <span class="nf">DropItemCorountine</span><span class="p">(</span><span class="kt">int</span> <span class="n">_num</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_num</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">item</span><span class="p">.</span><span class="n">itemPrefab</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nf">Instantiate</span><span class="p">(</span><span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="n">item</span><span class="p">.</span><span class="n">itemPrefab</span><span class="p">,</span>
+                            <span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">thePlayer</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span>
+                            <span class="n">Quaternion</span><span class="p">.</span><span class="n">identity</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span><span class="p">.</span><span class="nf">SetSlotCount</span><span class="p">(-</span><span class="m">1</span><span class="p">);</span>
+            <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="m">0.05f</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="n">DragSlot</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">dragSlot</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+        <span class="n">go_Base</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+        <span class="n">activated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Leaf</code> 아이템은 예외적으로 <code class="language-plaintext highlighter-rouge">itemPrefab</code>이 없기 때문에 이를 위해 런타임 오류를 방지하기 위하여 <em>f(DragSlot.instance.dragSlot.item.itemPrefab != null)</em> 인 경우에만 아이템 프리팹을 생성하도록 하였다.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

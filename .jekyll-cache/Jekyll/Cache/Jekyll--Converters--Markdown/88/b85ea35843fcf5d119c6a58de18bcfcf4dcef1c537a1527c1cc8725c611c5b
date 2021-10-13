@@ -1,0 +1,42 @@
+I"i<h2 id="gitignore-이란">.gitignore 이란?</h2>
+<p>Github 원격 서버에 로컬 프로젝트를 올릴 때 불필요한 로그 파일들은 업데이트 하지 않도록 <u>무시할 파일들 목록</u>을 만드는 것.</p>
+
+<h2 id="gitignore-파일-만들기">.gitignore 파일 만들기</h2>
+
+<p><code class="language-plaintext highlighter-rouge">.gitignore</code> 파일은 보통 레포지토리 생성시에 <code class="language-plaintext highlighter-rouge">Add .gitignore</code>을 선택하면 자동으로 추가 되기 때문에 보통 가지고 있겠지만 만약에 없다면!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch .gitignore
+</code></pre></div></div>
+
+<p><u>Git Bash</u>에 들어가 <code class="language-plaintext highlighter-rouge">.git</code>이 있는 <u>내 git 프로젝트의 루트 디렉터리</u>에 <code class="language-plaintext highlighter-rouge">cd</code> 명령어를 통해 들어간 후 위와 같은 명령어를 실행해 <code class="language-plaintext highlighter-rouge">.gitignore</code> 파일을 만들어준다. 사실 메모장으로 만드는 방법도 있지만 “.txt”가 뒤에 붙을 우려 때문에 이 방법을 더 추천한다. <code class="language-plaintext highlighter-rouge">.gitignore</code>은 반드시 루트 디렉터리에 있어야 한다.</p>
+
+<p><br /></p>
+
+<h2 id="gitignore에-들어갈-내용-추가하기">.gitignore에 들어갈 내용 추가하기</h2>
+
+<blockquote>
+  <p>gitignore.io <a href="https://www.toptal.com/developers/gitignore">https://www.toptal.com/developers/gitignore</a></p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/84847138-5880cc00-b08b-11ea-9a3b-96fc003b51e8.png" alt="image" width="70%" height="70%" class="align-center" /></p>
+
+<p>위 사이트에 들어가면 프로젝트 언어, 툴별로 <code class="language-plaintext highlighter-rouge">.gitignore</code>에 추가할 내용들을 생성할 수 있다. UE4와 C++을 사용하는 프로젝트라면 UE4와 C++를 검색하여 추가해준 후 <code class="language-plaintext highlighter-rouge">생성</code>을 눌러주면 된다. 생성을 눌러준 후 나오는 텍스트들이 바로 <code class="language-plaintext highlighter-rouge">.gitignore</code>에 추가해야 할 내용이다. 복사하여 <code class="language-plaintext highlighter-rouge">.gitignore</code>파일에 붙여넣기 해주자.</p>
+
+<p><br /></p>
+
+<h2 id="gitignore-파일-push-해주기">.gitignore 파일 push 해주기</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add .gitignore
+git commit -m "커밋 메세지"
+git push
+</code></pre></div></div>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

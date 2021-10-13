@@ -1,0 +1,351 @@
+I",P<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-7-c-프로그래밍-중급-22">Chapter 7. C# 프로그래밍: 중급 (2/2)</h1>
+
+<p><br /></p>
+
+<h2 id="-프로퍼티">🔔 프로퍼티</h2>
+
+<blockquote>
+  <p>함수처럼 동작하지만 실은 <code class="language-plaintext highlighter-rouge">변수</code>이다. 바깥에서 보면 변수지만 안에 특수한 처리를 끼워넣을 수 있다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="변수에-특수한-처리를-아무-것도-하지-않은-경우">변수에 특수한 처리를 아무 것도 하지 않은 경우</h3>
+
+<ul>
+  <li>📜PointManager.cs
+    <ul>
+      <li>점수를 관리하는 매니저 스크립트.</li>
+      <li>멤버 변수인 <em>point(점수)</em> 점수가 아래와 같은 <u>조건을 만족하도록 어떤 함수 처리를 해주어야 한다.</u>
+        <ol>
+          <li>점수가 음수이면 안된다.</li>
+          <li>점수가 너무 큰 수여도 안된다.</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="pointmanagercs">📜PointManager.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PointManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">point</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="testcs">📜Test.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Test</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">PointManager</span> <span class="n">pointManager</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">pointManager</span><span class="p">.</span><span class="n">point</span> <span class="p">=</span> <span class="p">-</span><span class="m">100</span><span class="p">;</span>  
+        <span class="n">pointManager</span><span class="p">.</span><span class="n">point</span> <span class="p">=</span> <span class="m">99999</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">public</code>한 변수일 경우 <em>point</em> 값이 이렇게 올바르지 못한 값(음수, 너무 큰 수)으로 덮어 씌워질 우려가 있다.</p>
+
+<p><br /></p>
+
+<h3 id="private과-함수를-사용한-처리"><code class="language-plaintext highlighter-rouge">private</code>과 함수를 사용한 처리</h3>
+
+<p>함수`를 사용하여 변수에 어떤 특수한 조건 처리를 해줄 수 있다.</p>
+
+<h4 id="pointmanagercs-1">📜PointManager.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PointManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="kt">int</span> <span class="n">point</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SetPoint</span><span class="p">(</span><span class="kt">int</span> <span class="n">newPoint</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">newPoint</span> <span class="p">&lt;</span> <span class="m">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">point</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">newPoint</span> <span class="p">&gt;</span> <span class="m">10000</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">point</span> <span class="p">=</span> <span class="m">10000</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">point</span> <span class="p">=</span> <span class="n">newPoint</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">int</span> <span class="nf">GetPoint</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">point</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<ul>
+  <li><em>point</em>를 <code class="language-plaintext highlighter-rouge">private</code>으로 바꿔준 후 함수로 조건을 처리한다.</li>
+  <li><em>함수</em>
+    <ul>
+      <li><em>SetPoint</em>
+        <ul>
+          <li>음수인 점수는 0으로</li>
+          <li>10000을 넘는 점수는 10000으로</li>
+          <li>음수도 10000도 아닌 점수는 인수로 들어온 값으로 바꿔준다.</li>
+        </ul>
+      </li>
+      <li><em>GetPoint</em>
+        <ul>
+          <li>점수를 출력 후 리턴</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>이렇게 <code class="language-plaintext highlighter-rouge">함수</code>를 사용하여 <em>point</em> 변수에 어떤 특수한 조건 처리를 해줄 수 있다.</li>
+</ul>
+
+<h4 id="testcs-1">📜Test.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Test</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">PointManager</span> <span class="n">pointManager</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">pointManager</span><span class="p">.</span><span class="nf">SetPoint</span><span class="p">(</span><span class="m">99999</span><span class="p">);</span>  <span class="c1">// 함수 호출</span>
+        <span class="kt">int</span> <span class="n">myPoint</span> <span class="p">=</span> <span class="n">pointManager</span><span class="p">.</span><span class="nf">GetPoint</span><span class="p">();</span>  <span class="c1">// 함수 호출 </span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"현재 점수: "</span> <span class="p">+</span> <span class="n">myPoint</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>위와 같이 99999를 인수로 넘겨도 함수의 처리를 통하여 10000으로 대입된다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="프로퍼티를-사용하여-처리한-경우">프로퍼티를 사용하여 처리한 경우</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">함수</code>는 코드가 길어지고 복잡하다.</li>
+  <li>그러나 <code class="language-plaintext highlighter-rouge">프로퍼티</code>는 간결하다.
+    <ul>
+      <li><u>바깥에서는 변수처럼 사용</u>하는데</li>
+      <li><u>내부에서는 함수처럼 동작</u>하여 겉으로 보기에 간결하다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="pointmanagercs-2">📜PointManager.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PointManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">point</span>
+    <span class="p">{</span>
+        <span class="k">get</span>  <span class="c1">// int a = point;  내부적으로 get이 발동 됨</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">m_point</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">set</span>  <span class="c1">// point = 100;   내부적으로 set이 발동 됨</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">value</span> <span class="p">&lt;</span> <span class="m">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">m_point</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">m_point</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">m_point</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>프로퍼티는 <code class="language-plaintext highlighter-rouge">get</code>과 <code class="language-plaintext highlighter-rouge">set</code>으로 동작한다.</p>
+</blockquote>
+
+<ul>
+  <li><em>point</em>를 <code class="language-plaintext highlighter-rouge">public</code>으로 다시 바꿔주고 <code class="language-plaintext highlighter-rouge">프로퍼티</code>를 적용해보자.</li>
+  <li><em>point</em> 는 <code class="language-plaintext highlighter-rouge">프로퍼티</code>를 적용한 변수
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">get</code>
+        <ul>
+          <li><em>Debug.Log(<code class="language-plaintext highlighter-rouge">point</code>)</em> 처럼 <em>point</em>를 리턴 받을 때 실행된다.</li>
+          <li>예를들어 <em>a = <code class="language-plaintext highlighter-rouge">point</code></em> 이렇게 a 라는 변수에 point 값을 대입할 때 point가 리턴되는데</li>
+          <li>이때, <u>겉으론 단순 변수끼리의 대입처럼 보이더라도 내부적으로</u> <em>point</em>의 <code class="language-plaintext highlighter-rouge">get</code>이 실행된다.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">set</code>
+        <ul>
+          <li><em>point</em> 값을 초기화 하거나 변경할 때 실행된다.</li>
+          <li>예를들어 <em><code class="language-plaintext highlighter-rouge">point</code> = 100</em> 이렇게 point 변수에 100의 값을 대입할 때</li>
+          <li>이때, <u>겉으론 단순 변수끼리의 대입처럼 보이더라도 내부적으로</u> <em>point</em>의 <code class="language-plaintext highlighter-rouge">set</code>이 실행된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>m_point</em> 는 멤버 변수</li>
+</ul>
+
+<h4 id="testcs-2">📜Test.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Test</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">PointManager</span> <span class="n">pointManager</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">pointManager</span><span class="p">.</span><span class="n">point</span> <span class="p">=</span> <span class="p">-</span><span class="m">100</span><span class="p">;</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"현재 점수 "</span> <span class="p">+</span> <span class="n">pointManager</span><span class="p">.</span><span class="n">point</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>pointManager.point = -100;</em>
+    <ul>
+      <li><em>point</em> 값을 바꿔 준다.</li>
+      <li><u>겉으론 단순 변수끼리의 대입처럼 보이더라도 내부적으로</u> <em>point</em>의 <code class="language-plaintext highlighter-rouge">set</code>이 실행된다.</li>
+      <li><code class="language-plaintext highlighter-rouge">set</code>의 처리로, 음수 -100 값을 넣어지만 0으로 대입된다.</li>
+    </ul>
+  </li>
+  <li><em>Debug.Log(“현재 점수 “ + pointManager.point);</em>
+    <ul>
+      <li><em>point</em> 를 리턴한다.</li>
+      <li><u>겉으론 단순 변수끼리의 대입처럼 보이더라도 내부적으로</u> <em>point</em>의 <code class="language-plaintext highlighter-rouge">get</code>이 실행된다.</li>
+      <li><code class="language-plaintext highlighter-rouge">get</code>의 처리로, <em>point</em>를 출력하고 리턴한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="get-set-중-하나만-사용할-경우">get, set 중 하나만 사용할 경우</h3>
+
+<ul>
+  <li>프로퍼티 변수가 public이더라도
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">get</code>만 사용할 경우
+        <ul>
+          <li>리턴만 받을 수 있고 <u>값을 바꿀 수는 없다.</u></li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">set</code>만 사용할 경우
+        <ul>
+          <li>값만 바꿀 수 있고 <u>리턴 받을 수는 없다.</u></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="monstermanagercs">📜MonsterManager.cs</h4>
+
+<p><u>모든 몬스터 오브젝트의 개수</u> <em>count</em> 를 알려주는 역할을 하는 매니지먼트.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MonsterManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">count</span>
+    <span class="p">{</span>
+        <span class="k">get</span>
+        <span class="p">{</span>
+            <span class="n">Monster</span><span class="p">[]</span> <span class="n">monsters</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">Monster</span><span class="p">&gt;();</span>
+
+            <span class="k">return</span> <span class="n">monsters</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">get</code>
+    <ul>
+      <li>몬스터 오브젝트들을 리스트로 가져오고</li>
+      <li>그 리스트의 길이를 리턴하면 바로 몬스터 오브젝트의 개수가 된다.</li>
+      <li>실시간으로 몬스터의 개수를 알려준다.</li>
+    </ul>
+  </li>
+  <li>프로퍼티 <code class="language-plaintext highlighter-rouge">count</code>는 현재 <code class="language-plaintext highlighter-rouge">get</code>만 사용하고 있다.</li>
+</ul>
+
+<h4 id="testcs-3">📜Test.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Test</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">MonsterManager</span> <span class="n">monsterManager</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">monsterManager</span><span class="p">.</span><span class="n">count</span><span class="p">);</span>
+        <span class="c1">// monsterManager.count = 2; ⚡ 에러!</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>Debug.Log(monsterManager.count);</em>
+    <ul>
+      <li><em>count</em> 변수가 리턴되면서 몬스터의 개수를 출력한다.</li>
+    </ul>
+  </li>
+  <li>public임에도 불구하고 <code class="language-plaintext highlighter-rouge">set</code>은 설정되어 있지 않기 때문에 <em>count</em> 의 값을 바꾸려 하면 에러가 난다.</li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

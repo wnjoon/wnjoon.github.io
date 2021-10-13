@@ -1,0 +1,440 @@
+I"��<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="-단순한-트랩-만들기">🚀 단순한 트랩 만들기</h2>
+
+<h3 id="트랩-오브젝트">트랩 오브젝트</h3>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102032906-65456900-3dfd-11eb-91b9-19e0277c4c16.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102033637-49db5d80-3dff-11eb-9564-83f8d6cdb5b3.png" alt="image" /></p>
+
+<p>이 3 가지 오브젝트를 조합해서 트랩을 만든다. Rigidbody 를 붙여줄 때 중력과 물리를 꺼준다. 고기에 Trigger 충돌이 발동하면 나무와 나뭇가지의 중력과 물리를 활성화하여 쓰러지게 할 것이다.</p>
+
+<ul>
+  <li>네모 나무, 나뭇가지
+    <ul>
+      <li>Box Collider</li>
+      <li>Rigidbody (Use Gravity 해제, Is Kinematic 체크)</li>
+    </ul>
+  </li>
+  <li>전체 <code class="language-plaintext highlighter-rouge">SimpleTrap</code> 부모 오브젝트에게 Box Collider 붙이고 Is Trigger체크. 고기 쪽에 붙인다.
+    <ul>
+      <li>레이어는 “Building”</li>
+      <li>AudioSource 를 붙인다.</li>
+      <li>📜SimpleTrap 이 붙을 것</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="simpletrap">📜SimpleTrap</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SimpleTrap</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">Rigidbody</span><span class="p">[]</span> <span class="n">rigid</span><span class="p">;</span> <span class="c1">// Twig, Board 의 Rigidbody 가지고 올 것</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">GameObject</span> <span class="n">go_Meat</span><span class="p">;</span>  <span class="c1">// 트랩에 걸리면 고기가 사라지게</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="kt">int</span> <span class="n">damage</span><span class="p">;</span> <span class="c1">// 플레이어에게 입힐 데미지</span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="n">isActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 트랩이 발동되면 true</span>
+
+    <span class="k">private</span> <span class="n">AudioSource</span> <span class="n">theAudio</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">AudioClip</span> <span class="n">sound_Activate</span><span class="p">;</span> <span class="c1">// 트랩 발동 사운드</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">rigid</span> <span class="p">=</span> <span class="n">GetComponentsInChildren</span><span class="p">&lt;</span><span class="n">Rigidbody</span><span class="p">&gt;();</span>
+        <span class="n">theAudio</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="n">isActivated</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">!=</span> <span class="s">"Untagged"</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">isActivated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                <span class="n">theAudio</span><span class="p">.</span><span class="n">clip</span> <span class="p">=</span> <span class="n">sound_Activate</span><span class="p">;</span>
+                <span class="n">theAudio</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+
+                <span class="nf">Destroy</span><span class="p">(</span><span class="n">go_Meat</span><span class="p">);</span>
+
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">rigid</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+                <span class="p">{</span>
+                    <span class="n">rigid</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">useGravity</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                    <span class="n">rigid</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">isKinematic</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">name</span> <span class="p">==</span> <span class="s">"Player"</span><span class="p">)</span>
+                    <span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">StatusController</span><span class="p">&gt;().</span><span class="nf">DecreaseHP</span><span class="p">(</span><span class="n">damage</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>Terrain 의 태그는 “Untagged”이다. 이 태그가 아닌 플레이어, 동물AI 등등 모든 것이 닿으면
+    <ul>
+      <li>트랩 사운드 재생</li>
+      <li>고기 없애기</li>
+      <li>Twig와 Board의 중력, 물리 활성화하여 넘어지게 하기</li>
+      <li>플레이어의 데미지 입히기</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102033692-67102c00-3dff-11eb-8482-706ea5a0c2d3.png" alt="image" /></p>
+
+<p>플레이어가 고기에 닿으면 트랩의 중력과 물리가 발동하여 무너지게 되고 플레이어의 체력이 깎이게 된다.</p>
+
+<p><br /></p>
+
+<h2 id="-좀-더-심화적인-트랩-만들기">🚀 좀 더 심화적인 트랩 만들기</h2>
+
+<h3 id="-트랩-오브젝트">✈ 트랩 오브젝트</h3>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102042899-58813f00-3e16-11eb-8536-8cb14e80c602.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102043030-ba41a900-3e16-11eb-812a-77e4d97de448.png" alt="image" /></p>
+
+<p>가장 밑에있는 나뭇 가지에 플레이어가 닿으면 연필 같이 생긴 나무가 떨어지고 이 나무에 맞으면 데미지를 입게 할 것이다! 데미지는 지속 데미지는 아니고 딱 한번만 입는다.</p>
+
+<ul>
+  <li>부모 <code class="language-plaintext highlighter-rouge">DeadTrap</code>
+    <ul>
+      <li>태그 “Trap”, 레이어 “Building”</li>
+      <li>📜DeapTrap 불일 것</li>
+      <li>Box Collider 2 개 (📜DeamTrap 에서 가져올 것)
+        <ul>
+          <li>하나는 가운데
+            <ul>
+              <li>메인 카메라의 Raycast 충돌을 받아 액션 텍스트 띄울 것</li>
+            </ul>
+          </li>
+          <li>다른 하나는 얇은 나뭇 가지 있는 바닥
+            <ul>
+              <li>이 곳에 겹치면 트랩이 발동하게 할것
+                <ul>
+                  <li><code class="language-plaintext highlighter-rouge">IsTrigger</code> 체크</li>
+                </ul>
+              </li>
+              <li>메인 카메라의 Raycast 충돌을 받아 액션 텍스트 띄울 것</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Animator</li>
+      <li>Audio Source</li>
+    </ul>
+  </li>
+  <li>플레이어가 부딪치면 관통 안되고 밀려날 수 있도록 모든 자식 오브젝트들에게 Box Collider 붙여주기
+    <ul>
+      <li>단, 플레이어가 맞아서 데미지를 입힐 저 연필 모양의 나무(<code class="language-plaintext highlighter-rouge">WoodWall</code>)는 <code class="language-plaintext highlighter-rouge">IsTrigger</code>가 체크된 Box Collider 를 한번 기존 Box Collider 바깥에 입혀지도록 하나 더 추가해준다.</li>
+      <li>📜TrapDamage 붙일 것
+        <ul>
+          <li>OnTriggerEnter 이벤트시 플레이어에게 데미지 입히는 처리</li>
+        </ul>
+      </li>
+      <li>Rigidbody
+        <ul>
+          <li>플레이어가 맞으면 튕겨나가도록 질량을 1000으로 무겁게</li>
+          <li>중력 끄고 물리 처리 끄고</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-트랩-애니메이션">✈ 트랩 애니메이션</h3>
+
+<h4 id="트랩-애니메이션-클립">트랩 애니메이션 클립</h4>
+
+<h5 id="트랩이-활성화-될-때">트랩이 활성화 될 때</h5>
+
+<p><img src="https://camo.githubusercontent.com/65145dbc39c066db537c175d6805b0f16f328122a7deb04b21b65423d7113d2e/68747470733a2f2f706f737466696c65732e707374617469632e6e65742f4d6a41794d4445794d5452664d5445322f4d4441784e6a41334f54497a4d5451774f4455302e48546a686f5f53746630574b4e5741584e36777277445f566c3152453731776c6c705f494e58706c4f654d672e6c7576445632366d2d4c7450676a59437351795a69465f5a7a4770564f76654a43656f67464b6c69724f30672e4749462e736f6879756e655f616e2f4749465f323032302d31322d31345f2545432539382541342545442539422538345f322d31372d34352e6769663f747970653d77373733" alt="image" /></p>
+
+<ul>
+  <li>“DeadTrap_Activate” 애니메이션 클립
+    <ul>
+      <li>트랩이 활성화되면 다음과 같은 애니메이션이 재생될 수 있도록 녹화하여 키들을 만들었다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="트랩이-비활성화-상태일-떄">트랩이 비활성화 상태일 떄</h5>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102045769-2f17e180-3e1d-11eb-8b4b-bff74902f2ab.png" alt="image" /></p>
+
+<ul>
+  <li>“DeadTrap_Deactivate” 애니메이션 클립
+    <ul>
+      <li>그냥 정지해있을 때.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="트랩-애니메이션-컨트롤러">트랩 애니메이션 컨트롤러</h4>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102045815-51116400-3e1d-11eb-8d38-f517b9e947b8.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DeadTrap</code>의 Animator 컴포넌트의 컨트롤러에 할당해준다.</li>
+  <li>Trigger 파라미터를 위와 같이 추가해준다.</li>
+  <li>각 Trigger가 발동할 때 해당 Transition이 일어나도록 한다.
+    <ul>
+      <li>Has Exit Time 은 체크 해제. 그냥 애니메이션 재생이 끝나면 즉각 끝내도록!</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-트랩-작동시키기">✈ 트랩 작동시키기</h3>
+
+<h4 id="deadtrap">📜DeadTrap</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">DeadTrap</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">Animator</span> <span class="n">anim</span><span class="p">;</span>
+    <span class="k">private</span> <span class="n">AudioSource</span> <span class="n">theAudio</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="n">isActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">AudioClip</span> <span class="n">sound_Activate</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">TrapDamage</span> <span class="n">theTrapDamage</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">anim</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;();</span>
+        <span class="n">theAudio</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="n">isActivated</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">!=</span> <span class="s">"Untagged"</span> <span class="p">&amp;&amp;</span> <span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">!=</span> <span class="s">"Trap"</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nf">StartCoroutine</span><span class="p">(</span><span class="n">theTrapDamage</span><span class="p">.</span><span class="nf">ActivatedTrapCoroutine</span><span class="p">());</span>
+                <span class="n">isActivated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                <span class="n">anim</span><span class="p">.</span><span class="nf">SetTrigger</span><span class="p">(</span><span class="s">"Activate"</span><span class="p">);</span>
+                <span class="n">theAudio</span><span class="p">.</span><span class="n">clip</span> <span class="p">=</span> <span class="n">sound_Activate</span><span class="p">;</span>
+                <span class="n">theAudio</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">DeadTrap</code>에 붙는다. 아랫 나뭇 가지를 밟으면 트랩을 작동시킨다.</p>
+</blockquote>
+
+<ul>
+  <li><em>OnTriggerEnter</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">DeadTrap</code>의 Box Collider 중 하나인 얇은 나뭇가지 부분! 그 부분은 <code class="language-plaintext highlighter-rouge">Is Trigger</code>가 체크되어 있으며, 그 부분을 밟으면 트랩이 작동되게 할 것이다.
+        <ul>
+          <li>밟은 대상이 지형이 아니고(“Untagged”) 자기 자신이 아니라면(“Trap”)
+            <ul>
+              <li>밑에 후술할 📜TrapDamage 의 <em>ActivatedTrapCoroutine</em> 실행하여 데미지 입히는 처리
+                <ul>
+                  <li><code class="language-plaintext highlighter-rouge">isActivated</code> true로 해야 데미지를 입을 수 있다.</li>
+                </ul>
+              </li>
+              <li>트랩 애니메이션 재생</li>
+              <li>트랩 활성 효과음 재생</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102045848-6090ad00-3e1d-11eb-9460-a5ec49bd122d.png" alt="image" /></p>
+
+<p>📜TrapDamage 가 붙어있는 <code class="language-plaintext highlighter-rouge">WoodWall</code> 활당.</p>
+
+<p><br /></p>
+
+<h4 id="trapdamage">📜TrapDamage</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">TrapDamage</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="kt">int</span> <span class="n">damage</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="kt">float</span> <span class="n">finishTime</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="n">isHurt</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// false 일 때만 데미지 입게</span>
+    <span class="k">private</span> <span class="kt">bool</span> <span class="n">isActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">IEnumerator</span> <span class="nf">ActivatedTrapCoroutine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">isActivated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+        <span class="k">yield</span> <span class="k">return</span> <span class="k">new</span> <span class="nf">WaitForSeconds</span><span class="p">(</span><span class="n">finishTime</span><span class="p">);</span>
+        <span class="n">isActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">isHurt</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isActivated</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(!</span><span class="n">isHurt</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">isHurt</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">name</span> <span class="p">==</span> <span class="s">"Player"</span><span class="p">)</span>
+                    <span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">StatusController</span><span class="p">&gt;().</span><span class="nf">DecreaseHP</span><span class="p">(</span><span class="n">damage</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">WoodWall</code>에 붙는다. 움직이는 이 오브젝트와 충돌이 일어나야만 데미지를 입게 할 것이다.</p>
+</blockquote>
+
+<ul>
+  <li>트랩이 활성화되면 📜DeadTrap에서 <em>ActivatedTrapCoroutine</em>을 실행하여 <code class="language-plaintext highlighter-rouge">isActivated</code>가 True가 된다. 그리고 <code class="language-plaintext highlighter-rouge">finishTime</code> 이 시간동안 대기를 한 후 다시 <code class="language-plaintext highlighter-rouge">isActivated</code>을 False로 만든다.
+    <ul>
+      <li>따라서 이렇게 트랩이 활성화 된 후 <code class="language-plaintext highlighter-rouge">finishTime</code> 이 시간동안에만 <code class="language-plaintext highlighter-rouge">WoodWall</code>와 충돌 <em>OnTriggerEnter</em> 이 일어날 때 데미지를 입을 수 있게 된다.</li>
+      <li>그리고 <code class="language-plaintext highlighter-rouge">isHurt</code>를 통해 <code class="language-plaintext highlighter-rouge">finishTime</code>시간 당 1 회만 입을 수 있다.</li>
+      <li>코루틴 함수는 병렬적으로 실행이 되기 떄문에 <em>ActivatedTrapCoroutine</em> 실행 중에, 즉 대기 시간을 기다리는 중에 <em>OnTriggerEnter</em> 가 실행 될 수 있다.</li>
+    </ul>
+  </li>
+  <li>플레이어의 데미지 깎기</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/102045879-6e463280-3e1d-11eb-9d23-bed2212da5e9.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h3 id="-트랩의-작동이-끝나고나면-재설치">✈ 트랩의 작동이 끝나고나면 재설치</h3>
+
+<h4 id="deadtrap-1">📜DeadTrap</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">GetIsActivated</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">isActivated</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ReInstall</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">isActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">anim</span><span class="p">.</span><span class="nf">SetTrigger</span><span class="p">(</span><span class="s">"Deactivate"</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>재설치 할 수 있도록 함수 만듬. “Deactivate” 애니메이션 재생. 단, 재설치는 <code class="language-plaintext highlighter-rouge">isActivated</code>가 True 인 상태에서만 이루어져야 한다.</p>
+
+<p><br /></p>
+
+<h4 id="actioncontroller">📜ActionController</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">TryAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">E</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="nf">CheckAction</span><span class="p">();</span>
+            <span class="nf">CanPickUp</span><span class="p">();</span>
+            <span class="nf">CanMeat</span><span class="p">();</span>
+            <span class="nf">CanDropFire</span><span class="p">();</span>
+            <span class="nf">CanComputerPowerOn</span><span class="p">();</span>
+            <span class="nf">CanArchemyTableOpen</span><span class="p">();</span>
+            <span class="nf">CanReInstallTrap</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">CheckAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">transform</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span> <span class="k">out</span> <span class="n">hitInfo</span><span class="p">,</span> <span class="n">range</span><span class="p">,</span> <span class="n">layerMask</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"Item"</span><span class="p">)</span>
+                <span class="nf">ItemInfoAppear</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"Weak_Animal"</span><span class="p">)</span>
+                <span class="nf">MeatInfoAppear</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"Fire"</span><span class="p">)</span>
+                <span class="nf">FireInfoAppear</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"Computer"</span><span class="p">)</span>
+                <span class="nf">ComputerInfoAppear</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"ArchemyTable"</span><span class="p">)</span>
+                <span class="nf">ArchemyInfoAppear</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"Trap"</span><span class="p">)</span>
+                <span class="nf">TrapInfoAppear</span><span class="p">();</span>
+            <span class="k">else</span>
+                <span class="nf">InfoDisappear</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+            <span class="nf">InfoDisappear</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">TrapInfoAppear</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">DeadTrap</span><span class="p">&gt;().</span><span class="nf">GetIsActivated</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="nf">Reset</span><span class="p">();</span>
+            <span class="n">lookActivatedTrap</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="n">actionText</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+            <span class="n">actionText</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">"함정 재설치 "</span> <span class="p">+</span> <span class="s">"&lt;color=yellow&gt;"</span> <span class="p">+</span> <span class="s">"(E)"</span> <span class="p">+</span> <span class="s">"&lt;/color&gt;"</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">InfoDisappear</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">pickupActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">dissolveActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">firedLookActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">lookComputer</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">lookArchemyTable</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">lookActivatedTrap</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">actionText</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">CanReInstallTrap</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lookActivatedTrap</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">DeadTrap</span><span class="p">&gt;().</span><span class="nf">ReInstall</span><span class="p">();</span>
+                <span class="nf">InfoDisappear</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>트랩 활성화 후 <code class="language-plaintext highlighter-rouge">DeadTrap</code>(레이어 “Building”이며 <code class="language-plaintext highlighter-rouge">layerMask</code>에는 이 레이어가 등록 되어 있음)의 Box Collider 를 쳐다보면 액션 텍스트 활성화, 그리고나서 <code class="language-plaintext highlighter-rouge">E</code> 누르면 재설치 하게끔.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

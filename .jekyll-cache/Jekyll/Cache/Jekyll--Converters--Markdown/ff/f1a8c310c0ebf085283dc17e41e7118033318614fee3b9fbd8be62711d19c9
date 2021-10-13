@@ -1,0 +1,109 @@
+I"�)<p class="notice--warning">케이디님의 <strong>[유니티 강좌] 리듬 게임</strong> 유튜브 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.youtube.com/watch?v=eLdiOCWPfPc&amp;list=PLUZ5gNInsv_MCnum4bOQRI72LdGkIY3tY&amp;index=2&amp;t=231s">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="-audio-manager">🚀 Audio Manager</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/105036275-9d486780-5a9f-11eb-9421-c2c25281cc61.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">BGMPlayer</code> 👉 Audio Source 1개</li>
+  <li><code class="language-plaintext highlighter-rouge">SFXPlayer</code> 👉 Audio Source 8개</li>
+</ul>
+
+<p>BGM 은 게임 당 하나의 BGM 만 재생되는 반면, 효과음은 동시에 여러개가 재생될 수 있으며 1 회성으로 재생이 된다. 그래서 오브젝트들 마다 효과음을 위한 AudioSource 들을 붙여주기보다는 하나의 <code class="language-plaintext highlighter-rouge">Audio Manager</code> 오브젝트를 static 싱글톤으로 사용하고 거기에 Audio Source를 미리 여러개 붙여놓고 효과음 재생할 때마다 <code class="language-plaintext highlighter-rouge">SFXPlayer</code> 싱글톤 오브젝트의 재생 중이지 않은 Audio Source에서 재생을 시키는 것이다. 아직 재생 중이지 않은 Audio Source 를 빌려서 이를 통해 효과음 재생. Audio SOurce들을 오브젝트 풀링처럼 활용하는 느낌이다.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="p">[</span><span class="n">System</span><span class="p">.</span><span class="n">Serializable</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Sound</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">clip</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">AudioManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">AudioManager</span> <span class="n">instance</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">Sound</span><span class="p">[]</span> <span class="n">sfx</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">Sound</span><span class="p">[]</span> <span class="n">bgm</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">AudioSource</span> <span class="n">bgmPlayer</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">AudioSource</span><span class="p">[]</span> <span class="n">sfxPlayer</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">instance</span> <span class="p">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">PlayBGM</span><span class="p">(</span><span class="kt">string</span> <span class="n">p_bgmName</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">bgm</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">p_bgmName</span> <span class="p">==</span> <span class="n">bgm</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">bgmPlayer</span><span class="p">.</span><span class="n">clip</span> <span class="p">=</span> <span class="n">bgm</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">clip</span><span class="p">;</span>
+                <span class="n">bgmPlayer</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">StopBGM</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">bgmPlayer</span><span class="p">.</span><span class="nf">Stop</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">PlaySFX</span><span class="p">(</span><span class="kt">string</span> <span class="n">p_sfxName</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">sfx</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">p_sfxName</span> <span class="p">==</span> <span class="n">sfx</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&lt;</span> <span class="n">sfxPlayer</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">j</span><span class="p">++)</span>
+                <span class="p">{</span>
+                    <span class="c1">// SFXPlayer에서 재생 중이지 않은 Audio Source를 발견했다면 </span>
+                    <span class="k">if</span> <span class="p">(!</span><span class="n">sfxPlayer</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">isPlaying</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="n">sfxPlayer</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">clip</span> <span class="p">=</span> <span class="n">sfx</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">clip</span><span class="p">;</span>
+                        <span class="n">sfxPlayer</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="nf">Play</span><span class="p">();</span>
+                        <span class="k">return</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"모든 오디오 플레이어가 재생중입니다."</span><span class="p">);</span>
+                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">p_sfxName</span> <span class="p">+</span> <span class="s">" 이름의 효과음이 없습니다."</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/105037216-ffee3300-5aa0-11eb-9538-5bb31f08119f.png" alt="image" /></p>
+
+<h3 id="-재생">✈ 재생</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AudioManager</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="nf">PlayBGM</span><span class="p">(</span><span class="s">"BGM0"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>싱글톤 호출!</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AudioManager</span> <span class="n">theAudio</span><span class="p">;</span>
+<span class="n">theAudio</span> <span class="p">=</span> <span class="n">AudioManager</span><span class="p">.</span><span class="n">instance</span><span class="p">;</span>
+<span class="n">theAudio</span><span class="p">.</span><span class="nf">PlaySFX</span><span class="p">(</span><span class="s">"Clap"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>호출이 잦을 예정이라면 미리 캐싱해두기</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

@@ -1,0 +1,245 @@
+I"{\<p class="notice--warning">케이디님의 <strong>[유니티 강좌] 리듬 게임</strong> 유튜브 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.youtube.com/watch?v=eLdiOCWPfPc&amp;list=PLUZ5gNInsv_MCnum4bOQRI72LdGkIY3tY&amp;index=2&amp;t=231s">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="-스테이지-구현">🚀 스테이지 구현</h2>
+
+<p>납작한 큐브 만들어서 텍스처 입히기</p>
+
+<h3 id="-머테리얼에-텍스처-입히기">✈ 머테리얼에 텍스처 입히기</h3>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104877599-891c4180-599d-11eb-93e1-ccfbaabac9bf.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104877658-a51fe300-599d-11eb-9203-aaf1ab9a926c.png" alt="image" /></p>
+
+<p>머테리얼에 텍스처를 입히려면 머테리얼의 <code class="language-plaintext highlighter-rouge">Albedo</code> 왼쪽에 있는 조그마한 네모에 텍스처 파일을 드래그 앤 드롭 하면 된다. 이 머테리얼을 큐브에 입혀 플레이트 프리팹을 만든다.</p>
+
+<p><br /></p>
+
+<h3 id="-gird-and-snap-settings">✈ Gird and Snap Settings</h3>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104877752-e0221680-599d-11eb-909e-06bd16ecb22f.png" alt="image" /></p>
+
+<p>오브젝트를 정밀하게 말고 어떤 단위로 딱딱 이동시키려면 <code class="language-plaintext highlighter-rouge">Ctrl</code>을 누른 상태에서 오브젝트를 이동시키면 된다. (이걸 Snap 이라고 하는 것 같다.) 위 플레이트의 길이는 1 이기 때문에 플레이트 오브젝트들을 옮겨서 배치하려고 할 떄 <code class="language-plaintext highlighter-rouge">Ctrl</code>을 누른 상태에서 1 씩 이동되게끔 하고 싶다면</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104877871-28d9cf80-599e-11eb-8123-04c457dde7be.png" alt="image" /></p>
+
+<p>Edit - Grid and Snap Settings 에서 Move 부분을 1 로 설정해주면 된다. 이제 스냅으로 오브젝트를 이동시킬 때 1 단위로 움직이게 하기 떄문에 배치하기가 편해진다.</p>
+
+<p><br /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104877954-56267d80-599e-11eb-96c3-088dee700817.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Stage</code> 👉 📜StageManager
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Stage1</code>, <code class="language-plaintext highlighter-rouge">Stage2</code>… 👉 📜Stage (Stage 들)
+        <ul>
+          <li>각 스테이지에 속한 <code class="language-plaintext highlighter-rouge">Plate</code>들 👉📜BasicPlate, 태그도 “BasicPlate”</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-스테이지-스크립트">🚀 스테이지 스크립트</h2>
+
+<p><br /></p>
+
+<h3 id="basicplate">📜BasicPlate</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">BasicPlate</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="n">flag</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이미 밟았던 플레이트라면 <code class="language-plaintext highlighter-rouge">false</code>로 바꿀 것.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104878642-abaf5a00-599f-11eb-9520-b6c4619bdb08.png" alt="image" /></p>
+
+<p>첫 번째 플레이트는 시작 플레이트니까 <code class="language-plaintext highlighter-rouge">false</code>로.</p>
+
+<p><br /></p>
+
+<h3 id="stage">📜Stage</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Stage</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Transform</span><span class="p">[]</span> <span class="n">plates</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>한 스테이지마다 저장해둘 “게임 중 밟으면 활성화 상태로 바꿀” 플레이트들 <code class="language-plaintext highlighter-rouge">plated</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104878597-99352080-599f-11eb-91a9-3b0ea8626561.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h3 id="-stagemanager">📜 StageManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">StageManager</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">GameObject</span> <span class="n">stage</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="n">Transform</span><span class="p">[]</span> <span class="n">stagePlates</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="kt">float</span> <span class="n">offsetY</span> <span class="p">=</span> <span class="p">-</span><span class="m">3</span><span class="p">;</span>    <span class="c1">// 플레이트 활성화시 밑에서 올라오게 할거라..</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="kt">float</span> <span class="n">plateSpeed</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span> <span class="c1">// 플레이트 활성화시 올라오는 속도</span>
+
+    <span class="kt">int</span> <span class="n">stepCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">totalPlateCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="c1">// stepCount가 stagePlates.Length를 넘으면 안된다.(배열 인덱스 범위 초과 에러 막기 위해)</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">stagePlates</span> <span class="p">=</span> <span class="n">stage</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Stage</span><span class="p">&gt;().</span><span class="n">plates</span><span class="p">;</span>
+        <span class="n">totalPlateCount</span> <span class="p">=</span> <span class="n">stagePlates</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+
+        <span class="c1">// 플레이트들 밑에서 올라오면서 활성화 되도록 offset 만큼 밑에 위치하도록 세팅 (현재 비활성화 상태)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">totalPlateCount</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">stagePlates</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">position</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(</span><span class="n">stagePlates</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">position</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> 
+                                                  <span class="n">stagePlates</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">position</span><span class="p">.</span><span class="n">y</span> <span class="p">+</span> <span class="n">offsetY</span><span class="p">,</span> 
+                                                  <span class="n">stagePlates</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">position</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ShowNextPlate</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">stepCount</span> <span class="p">&lt;</span> <span class="n">totalPlateCount</span><span class="p">)</span>
+            <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">MovePlateCo</span><span class="p">(</span><span class="n">stepCount</span><span class="p">++));</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 플레이트를 활성화 하고 코루틴으로 천천히 부드럽게 위로 올라 오게 함</span>
+    <span class="n">IEnumerator</span> <span class="nf">MovePlateCo</span><span class="p">(</span><span class="kt">int</span> <span class="n">p_num</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">gameObject</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+        <span class="n">Vector3</span> <span class="n">t_destPos</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(</span><span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">position</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+                                        <span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">position</span><span class="p">.</span><span class="n">y</span> <span class="p">-</span> <span class="n">offsetY</span><span class="p">,</span>
+                                        <span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">position</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">Vector3</span><span class="p">.</span><span class="nf">SqrMagnitude</span><span class="p">(</span><span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">position</span> <span class="p">-</span> <span class="n">t_destPos</span><span class="p">)</span> <span class="p">&gt;=</span> <span class="m">0.001f</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">position</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">position</span><span class="p">,</span> <span class="n">t_destPos</span><span class="p">,</span> <span class="n">plateSpeed</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+            <span class="k">yield</span> <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">stagePlates</span><span class="p">[</span><span class="n">p_num</span><span class="p">].</span><span class="n">position</span> <span class="p">=</span> <span class="n">t_destPos</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104878681-b833b280-599f-11eb-96a9-4b0901e786f0.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h3 id="-playercontroller">📜 PlayerController</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="n">Vector3</span> <span class="n">destPos</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">();</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">A</span><span class="p">)</span> <span class="p">||</span> <span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">D</span><span class="p">)</span> <span class="p">||</span>
+            <span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">W</span><span class="p">)</span> <span class="p">||</span> <span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">S</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">canMove</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nf">Calc</span><span class="p">();</span>
+
+                <span class="c1">// 판정 체크 : Perfect, Cool, Good, Bad 일 때만 True</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">theTimingManager</span><span class="p">.</span><span class="nf">CheckTiming</span><span class="p">())</span>
+                <span class="p">{</span>
+                    <span class="nf">StartAction</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Calc</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 큐브의 x축 -&gt; 위 아래   큐브의 z축 -&gt; 오른쪽, 왼쪽</span>
+        <span class="n">dir</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetAxisRaw</span><span class="p">(</span><span class="s">"Vertical"</span><span class="p">),</span> <span class="m">0</span><span class="p">,</span> <span class="n">Input</span><span class="p">.</span><span class="nf">GetAxisRaw</span><span class="p">(</span><span class="s">"Horizontal"</span><span class="p">));</span>
+
+        <span class="c1">// 이동 목표값 게산</span>
+        <span class="n">destPos</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(-</span><span class="n">dir</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">dir</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>
+
+        <span class="c1">// 회전 목표값 계산</span>
+        <span class="n">rotDir</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(-</span><span class="n">dir</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="p">-</span><span class="n">dir</span><span class="p">.</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">fakeCube</span><span class="p">.</span><span class="nf">RotateAround</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">rotDir</span><span class="p">,</span> <span class="n">spinSpeed</span><span class="p">);</span> <span class="c1">//공전</span>
+        <span class="n">destRot</span> <span class="p">=</span> <span class="n">fakeCube</span><span class="p">.</span><span class="n">rotation</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">StartAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">MoveCo</span><span class="p">());</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">SpinCo</span><span class="p">());</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="nf">RecoilCo</span><span class="p">());</span>
+        <span class="nf">StartCoroutine</span><span class="p">(</span><span class="n">theCam</span><span class="p">.</span><span class="nf">ZoomCam</span><span class="p">());</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="-timingmanager">📜 TimingManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">StageManager</span> <span class="n">theStage</span><span class="p">;</span>
+    <span class="n">PlayerController</span> <span class="n">thePlayer</span><span class="p">;</span>
+
+    <span class="n">theStage</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">StageManager</span><span class="p">&gt;();</span>
+    <span class="n">thePlayer</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">PlayerController</span><span class="p">&gt;();</span>
+
+    <span class="c1">// 이 함수가 True 를 리턴할 때 플레이트를 활성화 하고 점수를 증가시킬 것!</span>
+    <span class="c1">// 플레이어의 목표 위치에 이미 플레이트가 있다면(Raycast 걸리는게 BasicPlate라면) flag 를 True 로 만들고 true 리턴.</span>
+    <span class="kt">bool</span> <span class="nf">CheckCanNextPlate</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">thePlayer</span><span class="p">.</span><span class="n">destPos</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">down</span><span class="p">,</span> <span class="k">out</span> <span class="n">RaycastHit</span> <span class="n">t_hitInfo</span><span class="p">,</span> <span class="m">1.1f</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">t_hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="nf">CompareTag</span><span class="p">(</span><span class="s">"BasicPlate"</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">BasicPlate</span> <span class="n">t_plate</span> <span class="p">=</span> <span class="n">t_hitInfo</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">BasicPlate</span><span class="p">&gt;();</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">t_plate</span><span class="p">.</span><span class="n">flag</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">t_plate</span><span class="p">.</span><span class="n">flag</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+                    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CheckTiming</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//...</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="nf">CheckCanNextPlate</span><span class="p">())</span>
+                    <span class="p">{</span>
+                        <span class="n">theScoreManager</span><span class="p">.</span><span class="nf">IncreaseScore</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>  <span class="c1">// 점수 증가</span>
+                        <span class="n">theStage</span><span class="p">.</span><span class="nf">ShowNextPlate</span><span class="p">();</span> <span class="c1">// 다음 플레이트 호출</span>
+                        <span class="n">theEffect</span><span class="p">.</span><span class="nf">JudgementEffect</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span>
+                    <span class="p">{</span>
+                        <span class="c1">// Normal 이미지 뜨게끔. 점수 반영도 X</span>
+                        <span class="n">theEffect</span><span class="p">.</span><span class="nf">JudgementEffect</span><span class="p">(</span><span class="m">5</span><span class="p">);</span>
+                    <span class="p">}</span>
+                        
+                    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

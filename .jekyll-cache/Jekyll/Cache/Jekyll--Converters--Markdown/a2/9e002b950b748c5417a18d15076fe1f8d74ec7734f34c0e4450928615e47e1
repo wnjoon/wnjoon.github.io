@@ -1,0 +1,1958 @@
+I"0-<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories['a b c'] 이런식으로! -->
+
+<hr />
+
+<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀 언제든지 다시 참고할 수 있도록, 지식 공유보단 개인적인 복습을 목적으로 포스팅하였습니다. 저는 이 강의로 유니티를 처음 접하였는데 기초부터 차근 차근 설명을 잘 해주셔서 이해에 많은 도움이 되었습니다. 정말 좋은 강의이니 강력 추천합니다! (광고 아니에여..☆) <br /> <a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 보러가기!</a></p>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-22/">Unity Chapter 11-22. 좀비 TPS 게임 만들기 : 영상미 Post Process, 최종 빌드</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.09.07
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-21/">Unity Chapter 11-21. 좀비 TPS 게임 만들기 : Enemy Spawner</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.09.07
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-20/">Unity Chapter 11-20. 좀비 TPS 게임 만들기 : Player Controller</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.09.07
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-19/">Unity Chapter 11-19. 좀비 TPS 게임 만들기 : Item Spawner</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.09.07
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-18/">Unity Chapter 11-18. 좀비 TPS 게임 만들기 : Item</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.09.07
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-17/">Unity Chapter 11-17. 좀비 TPS 게임 만들기 : Game Manager</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.09.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-16/">Unity Chapter 11-16. 좀비 TPS 게임 만들기 : Enemy</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-15/">Unity Chapter 11-15. 좀비 TPS 게임 만들기 : 좀비 AI 만들기 준비</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.17
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-14/">Unity Chapter 11-14. 좀비 TPS 게임 만들기 : Player Health</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.17
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-13/">Unity Chapter 11-13. 좀비 TPS 게임 만들기 : Living Entity</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-12/">Unity Chapter 11-12. 좀비 TPS 게임 만들기 : 파티클 시스템</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-11/">Unity Chapter 11-11. 좀비 TPS 게임 만들기 : UI 매니저와 크로스헤어</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-10/">Unity Chapter 11-10. 좀비 TPS 게임 만들기 : PlayerShooter</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-9/">Unity Chapter 11-9. 좀비 TPS 게임 만들기 : Gun</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.08.14
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-8/">Unity Chapter 11-8. 좀비 TPS 게임 만들기 : Gun 게임 오브젝트 준비</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-7/">Unity Chapter 11-7. 좀비 TPS 게임 만들기 : IDamageable + DamageMessage</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-6/">Unity Chapter 11-6. 좀비 TPS 게임 만들기 : Player Movement</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-5/">Unity Chapter 11-5. 좀비 TPS 게임 만들기 : Player Input, Player 컴포넌트들</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-4/">Unity Chapter 11-4. 좀비 TPS 게임 만들기 : Player Animation</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-3/">Unity Chapter 11-3. 좀비 TPS 게임 만들기 : 시네머신, 카메라</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.09
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-2/">Unity Chapter 11-2. 좀비 TPS 게임 만들기 : Lighting</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.09
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter11-1/">Unity Chapter 11-1. 좀비 TPS 게임 만들기 : 프로젝트 구성, 패키지 매니저</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.09
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter10-5/">Unity Chapter 10-5. UGUI : 이벤트 시스템 + UI 인터랙션 원리</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.09
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter10-4/">Unity Chapter 10-4. UGUI : 레이아웃 컴포넌트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.09
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter10-3/">Unity Chapter 10-3. UGUI : 인터랙션 컴포넌트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.07
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter10-2/">Unity Chapter 10-2. UGUI : 비주얼 컴포넌트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.07
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter10-1/">Unity Chapter 10-1. UGUI : 캔버스, RectTransform, 앵커, 피벗, 포지션</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.06
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter9-3/">Unity Chapter 9-3. 애니메이션 : 애니메이터 레이어, 마스크, IK</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter9-2/">Unity Chapter 9-2. 애니메이션 : 트랜지션, 블랜드 트리, 루트 모션, 아바타</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter9-1/">Unity Chapter 9-1. 애니메이션 : 클립, 컨트롤러, FSM, 파라미터</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.07.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter8-6/">Unity Chapter 8-6. C# 프로그래밍 [고급] : 제네릭</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.29
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter8-5/">Unity Chapter 8-5. C# 프로그래밍 [고급] : 람다 함수</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter8-4/">Unity Chapter 8-4. C# 프로그래밍 [고급] : 액션</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter8-3/">Unity Chapter 8-3. C# 프로그래밍 [고급] : 이벤트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter8-2/">Unity Chapter 8-2. C# 프로그래밍 [고급] : 델리게이트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter8-1/">Unity Chapter 8-1. C# 프로그래밍 [고급] : 유니티 이벤트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter7-7/">Unity Chapter 7-7. C# 프로그래밍 [중급] (2/2) : 프로퍼티</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter7-6/">Unity Chapter 7-6. C# 프로그래밍 [중급] (2/2) : 추상 클래스</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter7-5/">Unity Chapter 7-5. C# 프로그래밍 [중급] (2/2) : 인터페이스</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter7-4/">Unity Chapter 7-4. C# 프로그래밍 [중급] (2/2) : 오버라이드</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.26
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter7-3/">Unity Chapter 7-3. C# 프로그래밍 [중급] (2/2) : 다형성</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.26
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter7-2/">Unity Chapter 7-2. C# 프로그래밍 [중급] (2/2) : 상속</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.26
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter7-1/">Unity Chapter 7-1. C# 프로그래밍 [중급] (2/2) : 레이캐스트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.25
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter6-6/">Unity Chapter 6-6. 어메이징 볼링 게임 만들기 : 게임 매니저, 오디오, 최종 빌드</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.19
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter6-5/">Unity Chapter 6-5. 어메이징 볼링 게임 만들기 : 카메라 추적</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter6-4/">Unity Chapter 6-4. 어메이징 볼링 게임 만들기 : 랜덤 오브젝트 생성기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter6-3/">Unity Chapter 6-3. 어메이징 볼링 게임 만들기 : 파워 슬라이더, 볼 슈터</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter6-2/">Unity Chapter 6-2. 어메이징 볼링 게임 만들기 : 프롭, 데미지 시스템</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.17
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter6-1/">Unity Chapter 6-1. 어메이징 볼링 게임 만들기 : 회전 포신, 포탄</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.17
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-8/">Unity Chapter 5-8. C# 프로그래밍 [중급] (1/2) : 코루틴 함수</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.17
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-7/">Unity Chapter 5-7. C# 프로그래밍 [중급] (1/2) : 싱글톤</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#design-pattern" class="page__taxonomy-item-tag" rel="tag">Design Pattern</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-6/">Unity Chapter 5-6. C# 프로그래밍 [중급] (1/2) : 리스트</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-5/">Unity Chapter 5-5. C# 프로그래밍 [중급] (1/2) : static</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-4/">Unity Chapter 5-4. C# 프로그래밍 [중급] (1/2) : Instantiate</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-3/">Unity Chapter 5-3. C# 프로그래밍 [중급] (1/2) : 회전과 쿼터니언</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#math" class="page__taxonomy-item-tag" rel="tag">Math</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-2/">Unity Chapter 5-2. C# 프로그래밍 [중급] (1/2) : 평행 이동</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#math" class="page__taxonomy-item-tag" rel="tag">Math</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter5-1/">Unity Chapter 5-1. C# 프로그래밍 [중급] (1/2) : 벡터</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#math" class="page__taxonomy-item-tag" rel="tag">Math</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter4-6/">Unity Chapter 4-6. 소코반 게임 만들기 : 게임 매니저, 승리 UI, 최종 빌드</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter4-5/">Unity Chapter 4-5. 소코반 게임 만들기 : 충돌 처리</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.14
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter4-4/">Unity Chapter 4-4. 소코반 게임 만들기 : 회전과 시간 간격</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.14
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter4-3/">Unity Chapter 4-3. 소코반 게임 만들기 : 레벨 디자인</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.14
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter4-2/">Unity Chapter 4-2. 소코반 게임 만들기 : 플레이어 조작</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.13
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter4-1/">Unity Chapter 4-1. 소코반 게임 만들기 : 초기 씬 구성</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.13
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter3/">Unity Chapter 3. C# 프로그래밍 [기본]</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.13
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#c-sharp" class="page__taxonomy-item-tag" rel="tag">C Sharp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter2/">Unity Chapter 2. 게임 엔진의 원리</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.12
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%201/chapter1/">Unity Chapter 1. 유니티 준비하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.06.12
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-1" class="page__taxonomy-item-category" rel="tag">Unity Lesson 1</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

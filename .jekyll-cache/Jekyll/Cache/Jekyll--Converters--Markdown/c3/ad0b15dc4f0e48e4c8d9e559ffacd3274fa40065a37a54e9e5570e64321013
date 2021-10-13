@@ -1,0 +1,144 @@
+I"�<p class="notice--warning">인프런에 있는 황대희님의 <strong>언리얼 엔진4 3D 횡스크롤 게임 만들기</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<strong>언리얼 엔진 공식 문서</strong> <a href="https://docs.unrealengine.com/ko/index.html">https://docs.unrealengine.com/ko/index.html</a></p>
+
+<h1 id="미션-실패">미션 실패</h1>
+
+<h2 id="-미션-실패-위젯-만들기">🔔 미션 실패 위젯 만들기</h2>
+
+<p>“MissionFailed” 이름의 위젯 블루프린트 만들기.</p>
+
+<blockquote>
+  <p>🚩 “MissionFailed” <em>위젯 블루프린트</em> 디자이너 모드</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94219536-07059a00-ff22-11ea-9943-e74554b0cfa2.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h2 id="-미션-실패-위젯-띄우기">🔔 미션 실패 위젯 띄우기</h2>
+
+<p>플레이어가 죽으면 미션 실패 위젯이 뜨도록 한다.</p>
+
+<blockquote>
+  <p>🚩 “DefaultPlayGameMode” <em>게임 모드 블루프린트</em> 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94220820-c8251380-ff24-11ea-8a46-2dcf8a9017b4.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94220845-d7a45c80-ff24-11ea-9a1b-adfbe358ef26.png" alt="image" /></p>
+
+<ul>
+  <li>보스가 죽으면 Stage Clear 처리와 위젯을 띄워야 하고</li>
+  <li>보스가 죽지 않았는데 플레이어가 죽었다면 Mission Failed 처리와 미션 실패 위젯을 띄워야 한다.
+    <ul>
+      <li>“MoveCharBP”의 <code class="language-plaintext highlighter-rouge">IsDeath</code>가 True 면 <code class="language-plaintext highlighter-rouge">CurGamePlayState</code> 값을 PlayerHeroDeath 로 설정한다.</li>
+      <li>이어서 미션 실패  “MissionFailed” 위젯을 생성후 화면에 띄운 후 마우스 커서를 보이게 하고 플레이어에 대한 입력을 비활성화 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-미션-실패-위젯-버튼-이벤트-처리">🔔 미션 실패 위젯 버튼 이벤트 처리</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94321724-67044b00-ffcb-11ea-89e6-ac6351afc75e.png" alt="image" /></p>
+
+<blockquote>
+  <p>🚩 “MissionFailed” <em>위젯 블루프린트</em> 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94321965-16412200-ffcc-11ea-9f1a-193a1e40c678.png" alt="image" /></p>
+
+<ul>
+  <li>Main Menu 버튼을 누르면
+    <ul>
+      <li>“Main Menu” 레벨을 연다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94322790-6325f800-ffce-11ea-9bee-34bb728a8f7c.png" alt="image" /></p>
+
+<ul>
+  <li>Stage Select 버튼을 누르면
+    <ul>
+      <li>“SideeScrollGameInstance” 게임인스턴스 블루프린트의 <em>Show Stage Select Widget</em> 함수를 실행시킨다.
+        <ul>
+          <li>이 함수는 스테이지 선택 위젯을 보여주는 함수다.</li>
+          <li>이 함수의 파라미터로 <code class="language-plaintext highlighter-rouge">IsShow</code>는 체크해 넘겨 준다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94322797-7042e700-ffce-11ea-8bdd-73cd2e7f617b.png" alt="image" /></p>
+
+<ul>
+  <li>Retry 버튼을 누르면
+    <ul>
+      <li>현재 스테이지 레벨을 열어야 한다.
+        <ul>
+          <li>“Stage” + “<code class="language-plaintext highlighter-rouge">EnterStage</code>“(현재 진행 중인 스테이지 번호 정수)
+            <ul>
+              <li>이렇게 문자열을 만들어 이를 Open Level에 넘겨준다.</li>
+              <li>Build String 노드는 정수를 문자열로서 기존 문자열에 붙여 새로운 문자열을 만들어주는 역할을 한다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-스테이지-클리어-위젯-버튼-이벤트-처리">🔔 스테이지 클리어 위젯 버튼 이벤트 처리</h2>
+
+<blockquote>
+  <p>🚩 “StageClear” <em>위젯 블루프린트</em> 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94322845-a4b6a300-ffce-11ea-87f8-c6dc7a1bd2e1.png" alt="image" /></p>
+
+<ul>
+  <li>Main Menu 버튼을 누르면
+    <ul>
+      <li>“Main Menu” 레벨을 연다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94322839-9bc5d180-ffce-11ea-8749-e8c79cfaaca5.png" alt="image" /></p>
+
+<ul>
+  <li>Next 버튼을 누르면
+    <ul>
+      <li>다음 레벨을 열어야 하므로 (“Stage” + <code class="language-plaintext highlighter-rouge">EnterStage</code> + 1) 이름의 레벨을 열어야 한다. 현재 있는 스테이지의 다음 스테이지 !
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">EnterStage</code>에 1 을 더해서 문자열을 만든다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94322877-c0ba4480-ffce-11ea-8ffe-a596b5f77d78.png" alt="image" /></p>
+
+<ul>
+  <li>Retry 버튼을 누르면
+    <ul>
+      <li>현재 스테이지 레벨을 열어야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

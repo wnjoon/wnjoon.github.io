@@ -1,0 +1,16 @@
+I"'<ul class="toc__menu">
+  <li><a href="#chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</a>
+    <ul>
+      <li><a href="#rotatorcs">📜Rotator.cs</a></li>
+      <li><a href="#iitemcs">📜IItem.cs</a>
+        <ul>
+          <li><a href="#ammopackcs">📜AmmoPack.cs</a></li>
+          <li><a href="#coincs">📜Coin.cs</a></li>
+          <li><a href="#healthpackcs">📜HealthPack.cs</a></li>
+        </ul>
+      </li>
+      <li><a href="#-컴포넌트-설정">🔔 컴포넌트 설정</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

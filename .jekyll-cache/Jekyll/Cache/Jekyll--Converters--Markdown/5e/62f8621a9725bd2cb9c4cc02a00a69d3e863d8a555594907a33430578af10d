@@ -1,0 +1,126 @@
+I"�.<p class="notice--warning">케이디님의 <strong>[유니티 강좌] 리듬 게임</strong> 유튜브 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.youtube.com/watch?v=eLdiOCWPfPc&amp;list=PLUZ5gNInsv_MCnum4bOQRI72LdGkIY3tY&amp;index=2&amp;t=231s">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="-골인-지점">🚀 골인 지점</h2>
+
+<p>큐브가 골인 지점에 도달하면 게임이 종료되도록 한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104881474-b1f40500-59a4-11eb-997d-9889a0ca41c6.png" alt="image" /></p>
+
+<p>플레이어 큐브가 이 골드 플레이트에 닿으면 게임이 끝난 것으로 간주할 것이기 떄문에 1️⃣빵빠레 효과음이 울리고 2️⃣더 이상 플레이어를 움직일 수 없게 하며 3️⃣노트도 더 이상 생성되면 안된다.</p>
+
+<p>골드 플레이트에 박스 콜라이더를 붙이는데 그 바운드 크기를 좀 작게 한다. 딱 맞는 크기로 해버리면 플레이어 큐브가 닿자마자 게임이 종료되니까 좀 작게.. 그리고 AudioSource도 붙여준다. 마찬가지로 비활하고 <code class="language-plaintext highlighter-rouge">plated</code> 배열의 원소로 넣어줌.</p>
+
+<p><br /></p>
+
+<h3 id="-playercontrollsd">📜 PlayerControllsd</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">s_canPressKey</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>  <span class="c1">// 이 값이 false면 큐브를 움직일 수 없도록(이동 회전 반동 시키는 StartAction 호출 불가)</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">A</span><span class="p">)</span> <span class="p">||</span> <span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">D</span><span class="p">)</span> <span class="p">||</span>
+            <span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">W</span><span class="p">)</span> <span class="p">||</span> <span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">S</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">canMove</span> <span class="p">&amp;&amp;</span> <span class="n">s_canPressKey</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nf">Calc</span><span class="p">();</span>
+
+                <span class="c1">// 판정 체크 : Perfect, Cool, Good, Bad 일 때만 True</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">theTimingManager</span><span class="p">.</span><span class="nf">CheckTiming</span><span class="p">())</span>
+                <span class="p">{</span>
+                    <span class="nf">StartAction</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="-notemanager">📜 NoteManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">noteActive</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">RemoveNote</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">noteActive</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">theTimingManager</span><span class="p">.</span><span class="n">boxNoteList</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">theTimingManager</span><span class="p">.</span><span class="n">boxNoteList</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+            <span class="n">ObjectPool</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">noteQueue</span><span class="p">.</span><span class="nf">Enqueue</span><span class="p">(</span><span class="n">theTimingManager</span><span class="p">.</span><span class="n">boxNoteList</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">noteActive</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">currentTime</span> <span class="p">+=</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentTime</span> <span class="p">&gt;=</span> <span class="m">60d</span> <span class="p">/</span> <span class="n">bpm</span><span class="p">)</span> <span class="c1">// 60/bpm = 한 비트당 시간 (120bpm이라면 한 비트당 소요 시간은 0.5초)</span>
+            <span class="p">{</span>
+                <span class="n">GameObject</span> <span class="n">t_note</span> <span class="p">=</span> <span class="n">ObjectPool</span><span class="p">.</span><span class="n">instance</span><span class="p">.</span><span class="n">noteQueue</span><span class="p">.</span><span class="nf">Dequeue</span><span class="p">();</span>
+                <span class="n">t_note</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">=</span> <span class="n">tfNoteAppear</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+                <span class="n">t_note</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">localScale</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Vector3</span><span class="p">(</span><span class="m">1f</span><span class="p">,</span> <span class="m">1f</span><span class="p">,</span> <span class="m">0f</span><span class="p">);</span>
+                <span class="n">t_note</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+
+                <span class="n">theTimingManager</span><span class="p">.</span><span class="n">boxNoteList</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">t_note</span><span class="p">);</span>
+                <span class="n">currentTime</span> <span class="p">-=</span> <span class="m">60d</span> <span class="p">/</span> <span class="n">bpm</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>     
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>노트 생성은 <code class="language-plaintext highlighter-rouge">noteActive</code> 이 true 일 때만 이루어지도록.</li>
+  <li><code class="language-plaintext highlighter-rouge">noteActive</code>을 false로 만들고 <em>RemoveNote</em> 모든 노트들을 비활 하고 오브젝트 풀에 도로 넣기</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="goalplate">📜GoalPlate</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GoalPlate</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="n">AudioSource</span> <span class="n">theAudio</span><span class="p">;</span>
+    <span class="n">NoteManager</span> <span class="n">theNote</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">theAudio</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+        <span class="n">theNote</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">NoteManager</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="nf">CompareTag</span><span class="p">(</span><span class="s">"Player"</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">theAudio</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span> <span class="c1">// 효과음 재생</span>
+            <span class="n">PlayerController</span><span class="p">.</span><span class="n">s_canPressKey</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 이동 막기</span>
+            <span class="n">theNote</span><span class="p">.</span><span class="nf">RemoveNote</span><span class="p">();</span> <span class="c1">// 노트 생성 중지</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>골드플레이트가 플레이어와 충돌하면 게임이 종료되도록 처리. 📜NoteManager의 <em>RemoveNote</em> 호출하여 노트 생성 막기.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/104881504-c20be480-59a4-11eb-835e-c17663b96d30.png" alt="image" /></p>
+
+<p><em>OnTriggerEnter</em> 이벤트가 발생할 수 있도록 플레이어 오브젝트에게 Rigidbody 를 붙여주고 Collider 의 IsTrigger를 체크해준다. 그리고 태그도 “Player”로 설정.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

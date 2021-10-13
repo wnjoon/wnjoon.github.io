@@ -1,0 +1,457 @@
+I"Ō<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</h1>
+
+<h2 id="enemyspawnercs">📜EnemySpawner.cs</h2>
+
+<blockquote>
+  <p>📂Assets/Prefabs 에 있는 🟦Spawner 를 Hierarchy 창에 옮겨주자. 이 <code class="language-plaintext highlighter-rouge">Spawner</code>에 📜EnemySpawner.cs가 미리 붙어있다.</p>
+</blockquote>
+
+<ul>
+  <li>🟦Spawner
+    <ul>
+      <li>빈 게임 오브젝트 5 개가 자식으로 붙어있다.
+        <ul>
+          <li><u>이 5 개 오브젝트들이 각각 좀비가 스폰될 위치들을 미리 지정해둔 것들이다</u></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="c1">// 적 게임 오브젝트를 주기적으로 생성</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">EnemySpawner</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Enemy</span><span class="p">&gt;</span> <span class="n">enemies</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Enemy</span><span class="p">&gt;();</span> <span class="c1">// 생성된 적들을 담는 리스트</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">damageMax</span> <span class="p">=</span> <span class="m">40f</span><span class="p">;</span> <span class="c1">// 최대 공격력</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">damageMin</span> <span class="p">=</span> <span class="m">20f</span><span class="p">;</span> <span class="c1">// 최소 공격력</span>
+    <span class="k">public</span> <span class="n">Enemy</span> <span class="n">enemyPrefab</span><span class="p">;</span> <span class="c1">// 생성할 적 AI</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">healthMax</span> <span class="p">=</span> <span class="m">200f</span><span class="p">;</span> <span class="c1">// 최대 체력</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">healthMin</span> <span class="p">=</span> <span class="m">100f</span><span class="p">;</span> <span class="c1">// 최소 체력</span>
+
+    <span class="k">public</span> <span class="n">Transform</span><span class="p">[]</span> <span class="n">spawnPoints</span><span class="p">;</span> <span class="c1">// 적 AI를 소환할 위치들</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">speedMax</span> <span class="p">=</span> <span class="m">12f</span><span class="p">;</span> <span class="c1">// 최대 속도</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">speedMin</span> <span class="p">=</span> <span class="m">3f</span><span class="p">;</span> <span class="c1">// 최소 속도</span>
+
+    <span class="k">public</span> <span class="n">Color</span> <span class="n">strongEnemyColor</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">red</span><span class="p">;</span> <span class="c1">// 강한 적 AI가 가지게 될 피부색</span>
+    <span class="k">private</span> <span class="kt">int</span> <span class="n">wave</span><span class="p">;</span> <span class="c1">// 현재 웨이브</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 게임 오버 상태일때는 생성하지 않음</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">GameManager</span><span class="p">.</span><span class="n">Instance</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">&amp;&amp;</span> <span class="n">GameManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="n">isGameover</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+        <span class="c1">// 적을 모두 물리친 경우 다음 스폰 실행</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">enemies</span><span class="p">.</span><span class="n">Count</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span> <span class="nf">SpawnWave</span><span class="p">();</span>
+
+        <span class="c1">// UI 갱신</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 웨이브 정보를 UI로 표시</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">UpdateUI</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 현재 웨이브와 남은 적의 수 표시</span>
+        <span class="n">UIManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">UpdateWaveText</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">enemies</span><span class="p">.</span><span class="n">Count</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 현재 웨이브에 맞춰 적을 생성</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">SpawnWave</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 웨이브 1 증가</span>
+        <span class="n">wave</span><span class="p">++;</span>
+
+        <span class="c1">// 현재 웨이브 * 1.5에 반올림 한 개수 만큼 적을 생성</span>
+        <span class="kt">var</span> <span class="n">spawnCount</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">RoundToInt</span><span class="p">(</span><span class="n">wave</span> <span class="p">*</span> <span class="m">5f</span><span class="p">);</span>
+
+        <span class="c1">// spawnCount 만큼 적을 생성</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">spawnCount</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="c1">// 적의 세기를 0%에서 100% 사이에서 랜덤 결정</span>
+            <span class="kt">var</span> <span class="n">enemyIntensity</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+            <span class="c1">// 적 생성 처리 실행</span>
+            <span class="nf">CreateEnemy</span><span class="p">(</span><span class="n">enemyIntensity</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 적을 생성하고 생성한 적에게 추적할 대상을 할당</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">CreateEnemy</span><span class="p">(</span><span class="kt">float</span> <span class="n">intensity</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// intensity를 기반으로 적의 능력치 결정</span>
+        <span class="kt">var</span> <span class="n">health</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">healthMin</span><span class="p">,</span> <span class="n">healthMax</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">damage</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">damageMin</span><span class="p">,</span> <span class="n">damageMax</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">speed</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">speedMin</span><span class="p">,</span> <span class="n">speedMax</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+
+        <span class="c1">// intensity를 기반으로 하얀색과 enemyStrength 사이에서 적의 피부색 결정</span>
+        <span class="kt">var</span> <span class="n">skinColor</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">white</span><span class="p">,</span> <span class="n">strongEnemyColor</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+
+        <span class="c1">// 생성할 위치를 랜덤으로 결정</span>
+        <span class="kt">var</span> <span class="n">spawnPoint</span> <span class="p">=</span> <span class="n">spawnPoints</span><span class="p">[</span><span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">spawnPoints</span><span class="p">.</span><span class="n">Length</span><span class="p">)];</span>
+
+        <span class="c1">// 적 프리팹으로부터 적 생성</span>
+        <span class="kt">var</span> <span class="n">enemy</span> <span class="p">=</span> <span class="nf">Instantiate</span><span class="p">(</span><span class="n">enemyPrefab</span><span class="p">,</span> <span class="n">spawnPoint</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">spawnPoint</span><span class="p">.</span><span class="n">rotation</span><span class="p">);</span>
+
+        <span class="c1">// 생성한 적의 능력치와 추적 대상 설정</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="nf">Setup</span><span class="p">(</span><span class="n">health</span><span class="p">,</span> <span class="n">damage</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">speed</span> <span class="p">*</span> <span class="m">0.3f</span><span class="p">,</span> <span class="n">skinColor</span><span class="p">);</span>
+
+        <span class="c1">// 생성된 적을 리스트에 추가</span>
+        <span class="n">enemies</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">enemy</span><span class="p">);</span>
+
+        <span class="c1">// 적의 onDeath 이벤트에 익명 메서드 등록</span>
+        <span class="c1">// 사망한 적을 리스트에서 제거</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="n">OnDeath</span> <span class="p">+=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="n">enemies</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">);</span>
+        <span class="c1">// 사망한 적을 10 초 뒤에 파괴</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="n">OnDeath</span> <span class="p">+=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nf">Destroy</span><span class="p">(</span><span class="n">enemy</span><span class="p">.</span><span class="n">gameObject</span><span class="p">,</span> <span class="m">10f</span><span class="p">);</span>
+        <span class="c1">// 적 사망시 점수 상승</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="n">OnDeath</span> <span class="p">+=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="n">GameManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">AddScore</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="멤버-변수">멤버 변수</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Enemy</span><span class="p">&gt;</span> <span class="n">enemies</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Enemy</span><span class="p">&gt;();</span> <span class="c1">// 생성된 적들을 담는 리스트</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">damageMax</span> <span class="p">=</span> <span class="m">40f</span><span class="p">;</span> <span class="c1">// 최대 공격력</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">damageMin</span> <span class="p">=</span> <span class="m">20f</span><span class="p">;</span> <span class="c1">// 최소 공격력</span>
+    <span class="k">public</span> <span class="n">Enemy</span> <span class="n">enemyPrefab</span><span class="p">;</span> <span class="c1">// 생성할 적 AI</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">healthMax</span> <span class="p">=</span> <span class="m">200f</span><span class="p">;</span> <span class="c1">// 최대 체력</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">healthMin</span> <span class="p">=</span> <span class="m">100f</span><span class="p">;</span> <span class="c1">// 최소 체력</span>
+
+    <span class="k">public</span> <span class="n">Transform</span><span class="p">[]</span> <span class="n">spawnPoints</span><span class="p">;</span> <span class="c1">// 적 AI를 소환할 위치들</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">speedMax</span> <span class="p">=</span> <span class="m">12f</span><span class="p">;</span> <span class="c1">// 최대 속도</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">speedMin</span> <span class="p">=</span> <span class="m">3f</span><span class="p">;</span> <span class="c1">// 최소 속도</span>
+
+    <span class="k">public</span> <span class="n">Color</span> <span class="n">strongEnemyColor</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">red</span><span class="p">;</span> <span class="c1">// 강한 적 AI가 가지게 될 피부색</span>
+    <span class="k">private</span> <span class="kt">int</span> <span class="n">wave</span><span class="p">;</span> <span class="c1">// 현재 웨이브</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">enemies</code>
+    <ul>
+      <li>생성된 적들을 담는 리스트. 실행 중 동적으로 담긴다.
+        <ul>
+          <li>밑에 후술할 <strong>CreateEnemy</strong> 함수를 사용하여 적 한명 한명을 생성 후 리스트에 추가할 것!</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">readonly</code>, 즉 런타임 상수이기 때문에 한번 리스트 원소들이 정해지면 즉 초기화 되고 나면 바꿀 수 없다. 그 이후엔 덮어 쓸 수 없음.
+        <ul>
+          <li><a href="https://ansohxxn.github.io/c%20sharp/readonly/">이 포스트</a> 참고</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">damageMax</code>, <code class="language-plaintext highlighter-rouge">damageMin</code>
+    <ul>
+      <li>공격력 범위</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">enemyPrefab</code>
+    <ul>
+      <li>오브젝트로 생성할 좀비(AI) 프리팹을 여기에 할당할 것임</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">healthMax</code>, <code class="language-plaintext highlighter-rouge">healthMin</code>
+    <ul>
+      <li>체력 범위</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">spawnPoints</code> 배열
+    <ul>
+      <li>좀비(AI)를 소환할 Transform들 (위치, 회전, 크기)</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">speedMax</code>, <code class="language-plaintext highlighter-rouge">speedMin</code>
+    <ul>
+      <li>속도 범위</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">strongEnemyColor</code>
+    <ul>
+      <li>가장 강한 좀비가 가지게 될 피부색.</li>
+      <li>빨간색으로 초기화 되어 있다.
+        <ul>
+          <li><strong>강할 수록 빨간색에 가깝게 할 것이다.</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">wave</code>
+    <ul>
+      <li>현재 웨이브</li>
+      <li>이 값이 늘어나면 늘어날 수록 더 많은 양의 좀비가 스폰되게끔.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="멤버-함수">멤버 함수</h3>
+
+<h4 id="private-void-update">private void Update()</h4>
+
+<blockquote>
+  <p>현재 상태에 따라서 좀비를 스폰</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 게임 오버 상태일때는 생성하지 않음</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">GameManager</span><span class="p">.</span><span class="n">Instance</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">&amp;&amp;</span> <span class="n">GameManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="n">isGameover</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+        <span class="c1">// 적을 모두 물리친 경우 다음 스폰 실행</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">enemies</span><span class="p">.</span><span class="n">Count</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span> <span class="nf">SpawnWave</span><span class="p">();</span>
+
+        <span class="c1">// UI 갱신</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>게임 매니저 싱글톤이 존재하고 동시에 게임 오버 상태라면
+    <ul>
+      <li>좀비 스폰 처리를 실행하지 않고 바로 <code class="language-plaintext highlighter-rouge">return</code></li>
+      <li>즉, 게임 오버 상태가 아닐 때만 좀비를 스폰한다.</li>
+    </ul>
+  </li>
+  <li>적을 모두 물리친 경우에는 다음 스폰을 실행한다.
+    <ul>
+      <li>적이 다 죽어야지만 다음 wave로 넘어감</li>
+      <li><em>if (enemies.Count &lt;= 0) SpawnWave();</em>
+        <ul>
+          <li>밑에 후술할 <strong>SpawnWave()</strong> 함수 실행</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>매 프레임마다 UI 갱신
+    <ul>
+      <li>밑에 후술할 <strong>UpdateUI()</strong> 함수 실행</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-updateui">private void UpdateUI()</h4>
+
+<blockquote>
+  <p>현재의 웨이브 정보를 UI로 표시</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 웨이브 정보를 UI로 표시</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">UpdateUI</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 현재 웨이브와 남은 적의 수 표시</span>
+        <span class="n">UIManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">UpdateWaveText</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">enemies</span><span class="p">.</span><span class="n">Count</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>📜UIManager 싱글톤을 사용하여 현재 웨이브와 남은 적의 수 UI 갱신</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-spawnwave">private void SpawnWave()</h4>
+
+<blockquote>
+  <p>현재 웨이브에 따라 실제로 여러 좀비들을 웨이브 무더기로 스폰</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 현재 웨이브에 맞춰 적을 생성</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">SpawnWave</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 웨이브 1 증가</span>
+        <span class="n">wave</span><span class="p">++;</span>
+
+        <span class="c1">// 현재 웨이브 * 5 에 반올림 한 개수 만큼 적을 생성</span>
+        <span class="kt">var</span> <span class="n">spawnCount</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">RoundToInt</span><span class="p">(</span><span class="n">wave</span> <span class="p">*</span> <span class="m">5f</span><span class="p">);</span>
+
+        <span class="c1">// spawnCount 만큼 적을 생성</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">spawnCount</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="c1">// 적의 세기를 0%에서 100% 사이에서 랜덤 결정</span>
+            <span class="kt">var</span> <span class="n">enemyIntensity</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+            <span class="c1">// 적 생성 처리 실행</span>
+            <span class="nf">CreateEnemy</span><span class="p">(</span><span class="n">enemyIntensity</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">wave</code> 1 증가시킴</li>
+  <li>현재 웨이브를 5 곱한 개수로 좀비를 스폰할 것이다. 생성할 좀비 수인 <code class="language-plaintext highlighter-rouge">spawnCount</code> 결정
+    <ul>
+      <li>반올림 해주는 이유는 뭐 5.5 같은 소수점 있는 실수를 곱할 때 사용하려고!</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">spawnCount</code> 만큼 적을 생성
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">enemyIntensity</code> 생설할 적의 능력치. 0 % ~ 100 % 사이에서 랜덤하게 결정.
+        <ul>
+          <li>0 % 일 때는 최소값인 <code class="language-plaintext highlighter-rouge">damageMin</code>, <code class="language-plaintext highlighter-rouge">healthMin</code>, <code class="language-plaintext highlighter-rouge">speedMin</code> 등이 사용될 것이다.</li>
+          <li>100 % 일 때는 최대값인 <code class="language-plaintext highlighter-rouge">damageMax</code>, <code class="language-plaintext highlighter-rouge">healthMax</code>, <code class="language-plaintext highlighter-rouge">speedMax</code> 등이 사용될 것이다.</li>
+        </ul>
+      </li>
+      <li>좀비 한명 한명을 밑에 후술할 <strong>CreateEnemy</strong> 함수로 생성해준다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-createenemyfloat-intensity">private void CreateEnemy(float intensity)</h4>
+
+<blockquote>
+  <p>좀비 한명 한명을 생성하는 함수.</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 적을 생성하고 생성한 적에게 추적할 대상을 할당</span>
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">CreateEnemy</span><span class="p">(</span><span class="kt">float</span> <span class="n">intensity</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// intensity를 기반으로 적의 능력치 결정</span>
+        <span class="kt">var</span> <span class="n">health</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">healthMin</span><span class="p">,</span> <span class="n">healthMax</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">damage</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">damageMin</span><span class="p">,</span> <span class="n">damageMax</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">speed</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">speedMin</span><span class="p">,</span> <span class="n">speedMax</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+
+        <span class="c1">// intensity를 기반으로 하얀색과 enemyStrength 사이에서 적의 피부색 결정</span>
+        <span class="kt">var</span> <span class="n">skinColor</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="nf">Lerp</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">white</span><span class="p">,</span> <span class="n">strongEnemyColor</span><span class="p">,</span> <span class="n">intensity</span><span class="p">);</span>
+
+        <span class="c1">// 생성할 위치를 랜덤으로 결정</span>
+        <span class="kt">var</span> <span class="n">spawnPoint</span> <span class="p">=</span> <span class="n">spawnPoints</span><span class="p">[</span><span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">spawnPoints</span><span class="p">.</span><span class="n">Length</span><span class="p">)];</span>
+
+        <span class="c1">// 적 프리팹으로부터 적 생성</span>
+        <span class="kt">var</span> <span class="n">enemy</span> <span class="p">=</span> <span class="nf">Instantiate</span><span class="p">(</span><span class="n">enemyPrefab</span><span class="p">,</span> <span class="n">spawnPoint</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">spawnPoint</span><span class="p">.</span><span class="n">rotation</span><span class="p">);</span>
+
+        <span class="c1">// 생성한 적의 능력치와 추적 대상 설정</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="nf">Setup</span><span class="p">(</span><span class="n">health</span><span class="p">,</span> <span class="n">damage</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">speed</span> <span class="p">*</span> <span class="m">0.3f</span><span class="p">,</span> <span class="n">skinColor</span><span class="p">);</span>
+
+        <span class="c1">// 생성된 적을 리스트에 추가</span>
+        <span class="n">enemies</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">enemy</span><span class="p">);</span>
+
+        <span class="c1">// 적의 onDeath 이벤트에 익명 메서드 등록</span>
+        <span class="c1">// 사망한 적을 리스트에서 제거</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="n">OnDeath</span> <span class="p">+=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="n">enemies</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="n">enemy</span><span class="p">);</span>
+        <span class="c1">// 사망한 적을 10 초 뒤에 파괴</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="n">OnDeath</span> <span class="p">+=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nf">Destroy</span><span class="p">(</span><span class="n">enemy</span><span class="p">.</span><span class="n">gameObject</span><span class="p">,</span> <span class="m">10f</span><span class="p">);</span>
+        <span class="c1">// 적 사망시 점수 상승</span>
+        <span class="n">enemy</span><span class="p">.</span><span class="n">OnDeath</span> <span class="p">+=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="n">GameManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">AddScore</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>인수 <code class="language-plaintext highlighter-rouge">intensity</code>
+    <ul>
+      <li>0 % 면 좀비의 능력치가 최소. 크면 클수록 <strong>좀비의 능력치</strong>가 크다는 것을 의미.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">intensity</code>를 기반으로
+    <ul>
+      <li>적의 능력치 결정
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">health</code> 👉 체력 범위의 <code class="language-plaintext highlighter-rouge">intensity</code> 만큼의 값</li>
+          <li><code class="language-plaintext highlighter-rouge">damage</code> 👉 공격력 범위의 <code class="language-plaintext highlighter-rouge">intensity</code> 만큼의 값</li>
+          <li><code class="language-plaintext highlighter-rouge">speed</code> 👉 속도 범위의 <code class="language-plaintext highlighter-rouge">intensity</code> 만큼의 값</li>
+        </ul>
+      </li>
+      <li>적의 색깔 결정
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">skinColor</code> 👉 색깔 범위(하얀색, 빨간색 사이)의 <code class="language-plaintext highlighter-rouge">intensity</code> 만큼의 값</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>좀비를 생성할 위치를 랜덤으로 결정
+    <ul>
+      <li>좀비들을 소환할 각각의 랜덤한 Transform들이 담겨있는 <code class="language-plaintext highlighter-rouge">spawnPoints</code> 배열에서 랜덤한 원소를 뽑아 <code class="language-plaintext highlighter-rouge">spawnPoint</code>에 할당</li>
+    </ul>
+  </li>
+  <li>프리팹으로부터 좀비를 생성
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">enemy</code> = <em>Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);</em></li>
+    </ul>
+  </li>
+  <li>생성한 적에게 능력치와 추적 대상 부여해주기
+    <ul>
+      <li><em>enemy.Setup(health, damage, speed, speed * 0.3f, skinColor);</em>
+        <ul>
+          <li>📜Enemy.cs의 <strong>Setup</strong> 함수</li>
+          <li>추적 속도는 속도의 30 퍼센트</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>생성된 이 좀비를 리스트에 추가
+    <ul>
+      <li><em>enemies.Add(enemy);</em></li>
+    </ul>
+  </li>
+  <li>생성한 좀비가 나중에 사망했을 때의 처리를 위하여 📜LivingEntity 라면 공통적으로 가지고 있는 <code class="language-plaintext highlighter-rouge">OnDeath</code> 이벤트에 사망시 실행할 함수들을 미리 등록해둠. 함수 이름, 즉 함수 포인터로 등록을 해야 하기 때문에 실행할 처리들을 람다 함수로 묶어 등록해주었다. <strong>람다 함수는 함수 포인터로 많이 쓰임</strong>
+    <ul>
+      <li>사망한 좀비를 리스트에서 제거
+        <ul>
+          <li><em>enemies.Remove(enemy);</em> 를 수행하는 익명 메서드(람다 함수)를 <code class="language-plaintext highlighter-rouge">OnDeath</code> 이벤트에 등록
+            <ul>
+              <li>List 의 내장함수인 Remove</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>사망한 좀비를 10 초 뒤에 파괴
+        <ul>
+          <li><em>Destroy(enemy.gameObject, 10f);</em> 를 수행하는 익명 메서드(람다 함수)를 <code class="language-plaintext highlighter-rouge">OnDeath</code> 이벤트에 등록</li>
+        </ul>
+      </li>
+      <li>좀비 사망시 점수가 100점만큼 상승하도록
+        <ul>
+          <li><em>GameManager.Instance.AddScore(100);</em> 를 수행하는 익명 메서드(람다 함수)를 <code class="language-plaintext highlighter-rouge">OnDeath</code> 이벤트에 등록</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-컴포넌트-설정">🔔 컴포넌트 설정</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Zombie</code> 오브젝트를 📂Assets/Prefabs 에 옮겨 프리팹으로 만든 후 Hierarcy와 Scene에 존재해있는 <code class="language-plaintext highlighter-rouge">Zombie</code> 오브젝트는 삭제하자
+    <ul>
+      <li>프리팹으로 옮기기전 Overrides all 꼭 해주기</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">enemyPrefab</code>에 🟦Zombie 프리팹 넣어주기
+    <ul>
+      <li><img src="https://user-images.githubusercontent.com/42318591/92362653-43b45180-f12b-11ea-93bf-98020e033853.png" alt="image" width="50%" height="50%" class="align-center" /></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

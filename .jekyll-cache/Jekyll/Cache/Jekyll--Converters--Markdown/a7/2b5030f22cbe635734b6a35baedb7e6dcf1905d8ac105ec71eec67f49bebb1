@@ -1,0 +1,21 @@
+I"X<ul class="toc__menu">
+  <li><a href="#chapter-7-c-프로그래밍--중급-22">Chapter 7. C# 프로그래밍 : 중급 (2/2)</a>
+    <ul>
+      <li><a href="#-추상-클래스-abstract-class">🔔 추상 클래스 abstract class</a>
+        <ul>
+          <li><a href="#추상-클래스란">추상 클래스란?</a></li>
+          <li><a href="#abstract-키워드">abstract 키워드</a>
+            <ul>
+              <li><a href="#abstract와-virtual의-차이점">abstract와 virtual의 차이점</a></li>
+            </ul>
+          </li>
+          <li><a href="#basemonstercs--추상클래스">📜BaseMonster.cs  (추상클래스)</a></li>
+          <li><a href="#goblincs">📜Goblin.cs</a></li>
+          <li><a href="#orccs">📜Orc.cs</a></li>
+          <li><a href="#testcs">📜Test.cs</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

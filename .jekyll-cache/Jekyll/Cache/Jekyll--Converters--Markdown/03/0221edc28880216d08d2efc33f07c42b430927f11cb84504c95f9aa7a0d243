@@ -1,0 +1,26 @@
+I"<ul class="toc__menu">
+  <li><a href="#chapter-3-파괴-가능한-환경들">Chapter 3. 파괴 가능한 환경들</a></li>
+  <li><a href="#광석-채굴">광석 채굴</a>
+    <ul>
+      <li><a href="#-바위-오브젝트-추가">🚖 바위 오브젝트 추가</a></li>
+      <li><a href="#-바위-채굴하기">🚖 바위 채굴하기</a>
+        <ul>
+          <li><a href="#rockcs">📜Rock.cs</a></li>
+          <li><a href="#pickaxecontrollercs">📜PickaxeController.cs</a></li>
+        </ul>
+      </li>
+      <li><a href="#-바위-때릴-때-마다-이펙트-효과-주기">🚖 바위 때릴 때 마다 이펙트 효과 주기</a>
+        <ul>
+          <li><a href="#rockcs-1">📜Rock.cs</a></li>
+        </ul>
+      </li>
+      <li><a href="#-바위-때릴-때-파괴시-사운드-재생">🚖 바위 때릴 때, 파괴시 사운드 재생</a>
+        <ul>
+          <li><a href="#rockcs-2">📜Rock.cs</a></li>
+        </ul>
+      </li>
+      <li><a href="#-rock-프리팹화">🚖 Rock 프리팹화</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

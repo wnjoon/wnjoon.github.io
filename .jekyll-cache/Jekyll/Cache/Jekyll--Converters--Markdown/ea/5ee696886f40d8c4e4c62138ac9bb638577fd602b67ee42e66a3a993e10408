@@ -1,0 +1,364 @@
+I"^W<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</h1>
+
+<h2 id="playerhealthcs">📜PlayerHealth.cs</h2>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Player Character</code>에 붙여준다.</p>
+</blockquote>
+
+<ul>
+  <li>플레이어 캐릭터의 <u>생명체로서의 동작</u>을 담당
+    <ul>
+      <li><u>LivingEntity를 상속 받아 상속 받은 생명체로서의 기본 동작 그 위에 플레이어 캐릭터만의 동작을 구현할 것이다.</u>
+        <ul>
+          <li>LivingEntity 위에서 확장만 하면 됨</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="c1">// UI 관련 코드</span>
+
+<span class="c1">// 플레이어 캐릭터의 생명체로서의 동작을 담당</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PlayerHealth</span> <span class="p">:</span> <span class="n">LivingEntity</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">Animator</span> <span class="n">animator</span><span class="p">;</span>  
+    <span class="k">private</span> <span class="n">AudioSource</span> <span class="n">playerAudioPlayer</span><span class="p">;</span> <span class="c1">// 플레이어 소리 재생기</span>
+
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">deathClip</span><span class="p">;</span> <span class="c1">// 사망 소리</span>
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">hitClip</span><span class="p">;</span> <span class="c1">// 피격 소리</span>
+
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Awake</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 사용할 컴포넌트를 가져오기</span>
+        <span class="n">playerAudioPlayer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+        <span class="n">animator</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnEnable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// LivingEntity의 OnEnable() 실행 (상태 초기화)</span>
+        <span class="k">base</span><span class="p">.</span><span class="nf">OnEnable</span><span class="p">();</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 체력 회복</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">RestoreHealth</span><span class="p">(</span><span class="kt">float</span> <span class="n">newHealth</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// LivingEntity의 RestoreHealth() 실행 (체력 증가)</span>
+        <span class="k">base</span><span class="p">.</span><span class="nf">RestoreHealth</span><span class="p">(</span><span class="n">newHealth</span><span class="p">);</span>
+        <span class="c1">// 체력 갱신</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">UpdateUI</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">UIManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">UpdateHealthText</span><span class="p">(</span><span class="n">dead</span> <span class="p">?</span> <span class="m">0f</span> <span class="p">:</span> <span class="n">health</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 데미지 처리</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">ApplyDamage</span><span class="p">(</span><span class="n">DamageMessage</span> <span class="n">damageMessage</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="k">base</span><span class="p">.</span><span class="nf">ApplyDamage</span><span class="p">(</span><span class="n">damageMessage</span><span class="p">))</span> <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+
+        <span class="n">EffectManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">PlayHitEffect</span><span class="p">(</span><span class="n">damageMessage</span><span class="p">.</span><span class="n">hitPoint</span><span class="p">,</span> <span class="n">damageMessage</span><span class="p">.</span><span class="n">hitNormal</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">EffectManager</span><span class="p">.</span><span class="n">EffectType</span><span class="p">.</span><span class="n">Flesh</span><span class="p">);</span>
+        <span class="n">playerAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">hitClip</span><span class="p">);</span>
+
+        <span class="c1">// LivingEntity의 OnDamage() 실행(데미지 적용)</span>
+        <span class="c1">// 갱신된 체력을 체력 슬라이더에 반영</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 사망 처리</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Die</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// LivingEntity의 Die() 실행(사망 적용)</span>
+        <span class="k">base</span><span class="p">.</span><span class="nf">Die</span><span class="p">();</span>
+
+        <span class="c1">// 체력 슬라이더 비활성화</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+        <span class="c1">// 사망음 재생</span>
+        <span class="n">playerAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">deathClip</span><span class="p">);</span>
+        <span class="c1">// 애니메이터의 Die 트리거를 발동시켜 사망 애니메이션 재생</span>
+        <span class="n">animator</span><span class="p">.</span><span class="nf">SetTrigger</span><span class="p">(</span><span class="s">"Die"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="멤버-변수">멤버 변수</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="n">Animator</span> <span class="n">animator</span><span class="p">;</span>  
+    <span class="k">private</span> <span class="n">AudioSource</span> <span class="n">playerAudioPlayer</span><span class="p">;</span> <span class="c1">// 플레이어 소리 재생기</span>
+
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">deathClip</span><span class="p">;</span> <span class="c1">// 사망 소리</span>
+    <span class="k">public</span> <span class="n">AudioClip</span> <span class="n">hitClip</span><span class="p">;</span> <span class="c1">// 피격 소리</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">animator</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Player Character</code>의 애니메이터 컴포넌트 정보를 가져온다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">playerAudioPlayer</code> 플레이어 소리 재생기</li>
+  <li><code class="language-plaintext highlighter-rouge">deathClip</code> 사망 소리</li>
+  <li><code class="language-plaintext highlighter-rouge">hitClip</code> 피격 소리</li>
+</ul>
+
+<h4 id="상속-받은-멤버-변수">상속 받은 멤버 변수</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="kt">float</span> <span class="n">startingHealth</span> <span class="p">=</span> <span class="m">100f</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">health</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">protected</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">bool</span> <span class="n">dead</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">protected</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    
+    <span class="k">public</span> <span class="k">event</span> <span class="n">Action</span> <span class="n">OnDeath</span><span class="p">;</span>
+    
+    <span class="k">private</span> <span class="k">const</span> <span class="kt">float</span> <span class="n">minTimeBetDamaged</span> <span class="p">=</span> <span class="m">0.1f</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">lastDamagedTime</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="kt">bool</span> <span class="n">IsInvulnerabe</span>
+</code></pre></div></div>
+
+<ul>
+  <li>LivingEntity로부터 상속받은 위 멤버 변수들도 가지고 있다는 것에 유념하기</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="멤버-함수">멤버 함수</h3>
+
+<blockquote>
+  <p>부모 클래스 <code class="language-plaintext highlighter-rouge">LivingEntity</code>의 가상 함수들을 오버라이딩 하고 있다.</p>
+</blockquote>
+
+<h4 id="private-void-awake">private void Awake()</h4>
+
+<blockquote>
+  <p>사용할 컴포넌트를 가져오기. <code class="language-plaintext highlighter-rouge">playerAudioPlayer</code>, <code class="language-plaintext highlighter-rouge">animator</code></p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Awake</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 사용할 컴포넌트를 가져오기</span>
+        <span class="n">playerAudioPlayer</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+        <span class="n">animator</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="protected-override-void-onenable">protected override void OnEnable()</h4>
+
+<blockquote>
+  <p>상태 초기화 + UI 갱신(초기 체력)</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnEnable</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// LivingEntity의 OnEnable() 실행 (상태 초기화)</span>
+        <span class="k">base</span><span class="p">.</span><span class="nf">OnEnable</span><span class="p">();</span>  
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>base.OnEnable();</em>
+    <ul>
+      <li>LivingEntity 의 OnEnable() 함수 실행</li>
+      <li>모든 생명체들이 공통으로, 이 스크립트가 활성화 되면 체력을 초기화 하는 등등 이런 처리들을 담당.</li>
+    </ul>
+  </li>
+  <li><em>UpdateUI();</em>
+    <ul>
+      <li>그 다음 <u>📜PlayerHealth 만의 함수인 UpdateUI() 함수를 실행하여 플레이어만의 UI 를 갱신</u>
+        <ul>
+          <li>여기서 📜UIManager의 UpdateHealthText 함수에 체력을 인수로 넘겨 체력 UI 갱신하는 역할을 할 것</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="public-override-void-restorehealthfloat-newhealth">public override void RestoreHealth(float newHealth)</h4>
+
+<blockquote>
+  <p>상태 초기화 + UI 갱신(회복된 체력)</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">RestoreHealth</span><span class="p">(</span><span class="kt">float</span> <span class="n">newHealth</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// LivingEntity의 RestoreHealth() 실행 (체력 증가)</span>
+        <span class="k">base</span><span class="p">.</span><span class="nf">RestoreHealth</span><span class="p">(</span><span class="n">newHealth</span><span class="p">);</span>
+        <span class="c1">// 체력 갱신</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>base.RestoreHealth(newHealth);</em>
+    <ul>
+      <li>LivingEntity 의 RestoreHealth(newHealth) 함수 실행</li>
+      <li>체력 갱신시 모든 생명체들이 공통으로 행하는 처리를 먼저 실행한 후</li>
+    </ul>
+  </li>
+  <li><em>UpdateUI()</em>
+    <ul>
+      <li>그 다음 <u>📜PlayerHealth 만의 함수인 UpdateUI() 함수를 실행하여 플레이어만의 UI 를 갱신</u>
+        <ul>
+          <li>여기서 📜UIManager의 UpdateHealthText 함수에 체력을 인수로 넘겨 체력 UI 갱신하는 역할을 할 것</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="private-void-updateui">private void UpdateUI()</h4>
+
+<blockquote>
+  <p>📜PlayerHealth 만의 함수로서 <u>플레이어 체력의 UI를 갱신</u></p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">UpdateUI</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">UIManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">UpdateHealthText</span><span class="p">(</span><span class="n">dead</span> <span class="p">?</span> <span class="m">0f</span> <span class="p">:</span> <span class="n">health</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>📜UIManager 는 싱글톤이자 UI에 관한 모든 요소를 얘가 담당하고 있다.</li>
+  <li>📜UIManager의 UpdateHealthText 함수에 체력을 인수로 넘겨 체력 UI 갱신
+    <ul>
+      <li>사망 상태면 0 을 넘기고 아니면 현재 체력을 넘김
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">dead</code>는 LivingEntity의 멤버 변수이므로 자식으로서 물려받아 사용이 가능.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="public-override-bool-applydamagedamagemessage-damagemessage">public override bool ApplyDamage(DamageMessage damageMessage)</h4>
+
+<blockquote>
+  <p>데미지 입은 처리(파티클 효과, 소리 재생) + UI 갱신(갱신된 체력 반영)</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">ApplyDamage</span><span class="p">(</span><span class="n">DamageMessage</span> <span class="n">damageMessage</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="k">base</span><span class="p">.</span><span class="nf">ApplyDamage</span><span class="p">(</span><span class="n">damageMessage</span><span class="p">))</span> <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+
+        <span class="n">EffectManager</span><span class="p">.</span><span class="n">Instance</span><span class="p">.</span><span class="nf">PlayHitEffect</span><span class="p">(</span><span class="n">damageMessage</span><span class="p">.</span><span class="n">hitPoint</span><span class="p">,</span> <span class="n">damageMessage</span><span class="p">.</span><span class="n">hitNormal</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">EffectManager</span><span class="p">.</span><span class="n">EffectType</span><span class="p">.</span><span class="n">Flesh</span><span class="p">);</span>
+        <span class="n">playerAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">hitClip</span><span class="p">);</span>
+
+        <span class="c1">// LivingEntity의 OnDamage() 실행(데미지 적용)</span>
+        <span class="c1">// 갱신된 체력을 체력 슬라이더에 반영</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>데미지를 입는데 성공하지 못했다면 실행하지 않고 false
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">base.ApplyDamage(damageMessage)</code> 을 실행하므로
+        <ul>
+          <li>데미지 입은 만큼 이 함수 내부에서 체력이 깎이게 된다.</li>
+          <li>이 함수 내부에서 죽으면 Die() 함수도 호출한다.
+            <ul>
+              <li>virtual - override 관계이니 만큼 이때의 Die()는 📜PlayerHelath의 오버라이딩된 Die()를 호출</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>데미지를 입는데 성공 했다면
+    <ul>
+      <li><u>Player 만의</u> 파티클 효과 재생
+        <ul>
+          <li>Flesh 파티클 재생(피튀는 효과)</li>
+        </ul>
+      </li>
+      <li><u>Player 만의</u> 피격 소리 재생</li>
+    </ul>
+  </li>
+  <li>깎인 체력을 반영하기 위한 UI 갱신</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="public-override-void-die">public override void Die()</h4>
+
+<blockquote>
+  <p>사망처리 + UI 갱신</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Die</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// LivingEntity의 Die() 실행(사망 적용)</span>
+        <span class="k">base</span><span class="p">.</span><span class="nf">Die</span><span class="p">();</span>
+
+        <span class="c1">// 체력 슬라이더 비활성화</span>
+        <span class="nf">UpdateUI</span><span class="p">();</span>
+        <span class="c1">// 사망음 재생</span>
+        <span class="n">playerAudioPlayer</span><span class="p">.</span><span class="nf">PlayOneShot</span><span class="p">(</span><span class="n">deathClip</span><span class="p">);</span>
+        <span class="c1">// 애니메이터의 Die 트리거를 발동시켜 사망 애니메이션 재생</span>
+        <span class="n">animator</span><span class="p">.</span><span class="nf">SetTrigger</span><span class="p">(</span><span class="s">"Die"</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">base.Die();</code>
+    <ul>
+      <li>OnDeath 액션 이벤트를 실행하고</li>
+      <li><code class="language-plaintext highlighter-rouge">dead = true</code> 로 상태를 변경한다.</li>
+    </ul>
+  </li>
+  <li>UpdateUI();
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">dead = true</code> 가 되었으므로 체력 0 으로 넘겨질 것이다.</li>
+    </ul>
+  </li>
+  <li>사망 소리 재생</li>
+  <li>사망 애니메이션을 재생시킬 트리거 업데이트</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="컴포넌트-설정">컴포넌트 설정</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/90351864-89c24c00-e07c-11ea-97f6-4b9a8345a239.png" alt="image" width="60%" height="60%" class="align-center" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">deathClip</code>, <code class="language-plaintext highlighter-rouge">HitClip</code>에 오디오 클립을 위와같이 추가해준다.</li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

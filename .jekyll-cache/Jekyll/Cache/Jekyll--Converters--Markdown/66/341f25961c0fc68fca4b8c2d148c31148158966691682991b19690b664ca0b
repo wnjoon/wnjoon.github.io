@@ -1,0 +1,204 @@
+I"	"<p class="notice--warning">공부하면서 알게된 것만 정리합니다.😀</p>
+
+<h1 id="-animator">👩‍🦰 Animator</h1>
+
+<p>상태 머신으로 짜여진 애니메이션 컨트롤러를 재생시키는 컴포넌트</p>
+
+<h2 id="-변수프로퍼티">🚀 변수/프로퍼티</h2>
+
+<h3 id="-applyrootmotion">✈ applyRootMotion</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">true</code>로 해주면 루트 모션을 켜준다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-함수">🚀 함수</h2>
+
+<h3 id="-play">✈ Play</h3>
+
+<blockquote>
+  <p>public void Play(string stateName, int layer = -1, float normalizedTime = float.NegativeInfinity);</p>
+</blockquote>
+
+<blockquote>
+  <p>public void Play(int stateNameHash, int layer = -1, float normalizedTime = float.NegativeInfinity);</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">anim</span><span class="p">.</span><span class="nf">Play</span><span class="p">(</span><span class="s">"WAIT"</span><span class="p">);</span>
+<span class="n">anim</span><span class="p">.</span><span class="nf">Play</span><span class="p">(</span><span class="s">"RUN"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>해당 애니메이션 <code class="language-plaintext highlighter-rouge">state</code>를 그대로 재생시킴.</p>
+
+<p><br /></p>
+
+<h3 id="-crossfade">✈ CrossFade</h3>
+
+<blockquote>
+  <p>public void CrossFade(int stateHashName, float normalizedTransitionDuration, int layer = -1, float normalizedTimeOffset = 0.0f, float normalizedTransitionTime = 0.0f);</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">anim</span><span class="p">.</span><span class="nf">CrossFade</span><span class="p">(</span><span class="s">"RUN"</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">);</span>
+<span class="n">anim</span><span class="p">.</span><span class="nf">CrossFade</span><span class="p">(</span><span class="s">"ATTACK"</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">,</span> <span class="p">-</span><span class="m">1</span><span class="p">,</span> <span class="m">0f</span><span class="p">);</span> <span class="c1">// layer -1 , 반복 재생.(0초로 돌아감)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>anim.CrossFade</em>
+    <ul>
+      <li><em>anim.Play</em> 를 부드럽게 하는 것이라고 보면 된다. 부드럽고 자연스럽게 블렌딩되듯 애니메이션이 재생된다.
+        <ul>
+          <li><em>anim.Play</em>를 사용하면 재생할 애니메이션 클립이 바뀔 때 뚝뚝 끊기듯이 바뀌어 부자연스럽다. <em>anim.CrossFade</em> 는 애니메이션이 아주 자연스럽게 바뀌게 된다.</li>
+        </ul>
+      </li>
+      <li>첫 번째 인수 : 재생할 클립 이름</li>
+      <li>두 번째 인수 : 지연 시간 (다음 애니메이션으로 바뀌는데 걸리는 fade 시간)
+        <ul>
+          <li>0.1f 라면 바뀔 애니메이션의 10 %는 부드럽게 애니메이션이 이어지는데 쓴다.</li>
+        </ul>
+      </li>
+      <li>세 번째 인수 : layer. 애니메이션 레이어</li>
+      <li>네 번째 인수(normalizedTimeOffset) : 애니메이션의 재생 시작 시점 (0~1 비율)
+        <ul>
+          <li>0.0f 로 세팅하면 다시 처음으로 돌아가 재생한다.</li>
+          <li>클립의 <code class="language-plaintext highlighter-rouge">Loop Time</code>이 체크되어 있지 않더라도 이렇게 코드로 반복 재생 시킬 수 있다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/94799473-228b0c00-041e-11eb-89f1-9ae3994abffa.png" alt="image" /></p>
+
+<p>인수로 들어간 애니메이션 클립을 재생시킨다.(애니메이터 컨트롤러의 재생 시킬 상태의 이름)</p>
+
+<p><br /></p>
+
+<h3 id="-파라미터-관련--setfloat-setbool-setinteger-settrigger">✈ 파라미터 관련 : SetFloat, SetBool, SetInteger, SetTrigger</h3>
+
+<blockquote>
+  <p>public void SetInteger(string name, int value); public void SetInteger(int id, int value);</p>
+</blockquote>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">SetFloat("파라미터 이름", float값)</code> : 해당 파라미터에 인수로 넘긴 float 값을 준다. 그러면 이 조건에 맞는 애니메이션 트랜지션이 알아서 발동한다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">SetFloat("파라미터 이름", 값, 지연 시간, 시간간격)</code>
+        <ul>
+          <li>ex) <strong>SetFloat(“Horizontal Move”, moveInput.x * animationSpeedPercent, 0.05f, Time.deltaTime);</strong>
+            <ul>
+              <li>이전에 설정한 파라미터 값에서 방금 설정한 파라미터 값으로 0.05초의 지연시간을 거쳐 이 <code class="language-plaintext highlighter-rouge">Time.deltaTime</code> 시간 간격동안 부드럽게 변경해주도록 한다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">SetBool</code>, <code class="language-plaintext highlighter-rouge">SetInt</code>도 사용법 마찬가지</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>public void SetTrigger(string name);  public void SetTrigger(int id);</p>
+</blockquote>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">SetTrigger("파라미터 이름")</code> : Trigger 타입인 해당 파라미터를 발동시킨다. 그러면 이 Trigger를 가진 애니메이션 트랜지션이 알아서 발동한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-파라미터-관련--getfloat-getbool-getintger">✈ 파라미터 관련 : GetFloat, GetBool, GetIntger</h3>
+
+<blockquote>
+  <p>public float GetFloat(string name); public float GetFloat(int id);</p>
+</blockquote>
+
+<p>인수는 애니메이션 파라미터가 된다. 인수에 해당하는 애니메이션 파라미터의 값을 가져 온다.</p>
+
+<p><br /></p>
+
+<h3 id="-ik-관련--setikpositionweight">✈ IK 관련 : SetIKPositionWeight</h3>
+
+<blockquote>
+  <p>public void SetIKPositionWeight(AvatarIKGoal goal, float value);</p>
+</blockquote>
+
+<ul>
+  <li>관절 꺾을 대상과 함께 Position면에 있어 IK의 우선순위를 결정한다.</li>
+  <li>float 값이 1.0에 가까울수록 IK가 더 강하게 적용됨</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-ik-관련--setikrotationnweight">✈ IK 관련 : SetIKRotationnWeight</h3>
+
+<blockquote>
+  <p>public void SetIKRotationWeight(AvatarIKGoal goal, float value);</p>
+</blockquote>
+
+<ul>
+  <li>관절 꺾을 대상과 함께 Rotation면에 있어 IK의 우선순위를 결정한다.</li>
+  <li>float 값이 1.0에 가까울수록 IK가 더 강하게 적용됨</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-ik-관련--setlookatweight">✈ IK 관련 : SetLookAtWeight</h3>
+
+<blockquote>
+  <p>public void SetLookAtWeight(float weight, float bodyWeight = 0.0f, float headWeight = 1.0f, float eyesWeight = 0.0f, float clampWeight = 0.5f);</p>
+</blockquote>
+
+<ul>
+  <li>시선 처리</li>
+  <li>float 값이 1.0에 가까울수록 IK가 더 강하게 적용됨</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-ik-관련--setikposition">✈ IK 관련 : SetIKPosition</h3>
+
+<blockquote>
+  <p>public void SetIKPosition(AvatarIKGoal goal, Vector3 goalPosition);</p>
+</blockquote>
+
+<ul>
+  <li>Position면에 있어 관절 꺾을 대상과 중심이 되는 위치</li>
+  <li>해당 위치를 중심으로 해당 아바타의 관절을 꺾어 이동시킴</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-ik-관련--setikrotation">✈ IK 관련 : SetIKRotation</h3>
+
+<blockquote>
+  <p>public void SetIKRotation(AvatarIKGoal goal, Quaternion goalRotation);</p>
+</blockquote>
+
+<ul>
+  <li>Rotation면에 있어 관절 꺾을 대상과 중심이 되는 위치</li>
+  <li>해당 위치를 중심으로 해당 아바타의 관절을 꺾어 회전시킴</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="-ik-관련--setlookatposition">✈ IK 관련 : SetLookAtPosition</h3>
+
+<blockquote>
+  <p>public void SetLookAtPosition(Vector3 lookAtPosition);</p>
+</blockquote>
+
+<ul>
+  <li><strong>시선</strong>을 해당 타겟의 위치로 이동시킨다.</li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

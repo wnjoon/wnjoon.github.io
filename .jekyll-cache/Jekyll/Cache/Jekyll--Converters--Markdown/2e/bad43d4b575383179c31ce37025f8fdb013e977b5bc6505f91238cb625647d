@@ -1,0 +1,191 @@
+I",&<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-4-소코반-게임-만들기--초기-씬-구성">Chapter 4. 소코반 게임 만들기 : 초기 씬 구성</h1>
+<ul>
+  <li>씬을 새로 만들면 오브젝트가 기본으로 있는 <code class="language-plaintext highlighter-rouge">main camera</code>와 <code class="language-plaintext highlighter-rouge">directional light</code>밖에 없는 상태.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="맵-바닥에-색깔-입히기">맵 바닥에 색깔 입히기</h2>
+<ol>
+  <li>맵 바닥을 만들어 주자
+    <ul>
+      <li>Hierarchy 창에서 create - 3D object - plane</li>
+      <li>만들어진 plane 오브젝트를 더블 클릭하여 씬 카메라가 plane 오브젝트를 비추게 하자.</li>
+    </ul>
+  </li>
+  <li>바닥에 색깔이 되어 줄 <code class="language-plaintext highlighter-rouge">Material</code>을 만든다.
+    <ul>
+      <li>Project 창의 <code class="language-plaintext highlighter-rouge">/Assets</code> 폴더에 마우스 우클 - create - Material 을 하여 Material을 만들어 준다. 이름은 Plane이라고 해주자.</li>
+    </ul>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Material</code>
+        <ul>
+          <li>마치 <u>물감</u>같은 것.</li>
+          <li>오브젝트에 붙여주면 오브젝트의 표면의 색을 결정해준다.</li>
+          <li><u>쉐이더(빛에 의한 표면)</u>랑 <u>텍스처(그림 파일)</u>가 합쳐진 것.</li>
+        </ul>
+      </li>
+      <li>Inspector 창에서 방금 만든 Plane 이름의 Material 색상을 바꿔준다.
+        <ul>
+          <li>색은 Albedo 속성에서 바꿈.</li>
+          <li>smoothness 속성은 표면의 반들 반들 정도</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>만든 Material을 드래그 해서 오브젝트에 드롭해주면 색이 입혀진다.</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="플레이어가-될-구-만들기">플레이어가 될 ‘구’ 만들기</h2>
+
+<ol>
+  <li>‘구’ 오브젝트 생성
+    <ul>
+      <li>Hierarchy 창에서 create - 3D object - sphere</li>
+      <li>이름은 Player로 바꿔주자.</li>
+    </ul>
+    <ul>
+      <li>이름은 Inspector 창에서도 바꿀 수 있다.</li>
+    </ul>
+  </li>
+  <li>‘구’가 ‘plane’에 절반 묻혀있는 이유
+    <ul>
+      <li>구 오브젝트의 좌표 기준이 구의 중앙에 있기 때문에.</li>
+    </ul>
+  </li>
+  <li>plsne 오브젝트의 transform 컴포넌트에서 y.position을 -0.5로 설정해준다. 바닥을 좀 내려서 반쯤 묻혀있는 구를 보이게 해주자.</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="오브젝트에-물리-기능-넣기--rigidbody">오브젝트에 물리 기능 넣기 : Rigidbody</h2>
+<ul>
+  <li>플레이 버튼을 누르면 중력에 의해 오브젝트가 떨어지게 만드려면 Rigidbody 컴포넌트를 붙여주면 된다.</li>
+  <li>Add Component에서 Rigidbody를 검색</li>
+  <li><u>이 컴포넌트가 붙어있는 것만으로도 오브젝트에 물리 기능이 추가되는 셈이다.</u></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="collider-컴포넌트">Collider 컴포넌트</h2>
+<ul>
+  <li>오브젝트를 생성하면 기본으로 붙어있는 디폴트 컴포넌트다.</li>
+  <li>구 오브젝트에 Rigidbody를 붙여주고 플레이를 누르면 중력을 받아 밑으로 떨어지면서 <u>Plane에 부딪쳐 더 이상 떨어지지 않고 Plane에 붙어있게 되는데 이는 Collider 컴포넌트 때문이다</u></li>
+  <li><u>물리적으로 오브젝트끼리 충돌이 일어났을 때를 감지</u>하고 이를 처리하는 컴포넌트다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="플레이어를-위한-c-스크립트-작성하기">플레이어를 위한 C# 스크립트 작성하기</h2>
+
+<ul>
+  <li>구 오브젝트가 어떤 동작을 하게 할 컴포넌트(스크립트)를 작성해보자.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">/assets</code>에 create - c# script</li>
+      <li><u>script 파일의 이름은 반드시 **대문자**로 시작하여야 한다.</u>
+        <ul>
+          <li>클래스는 무조건 대문자로 시작하자고 프로그래머들끼리 한 약속임</li>
+          <li>변수나 함수는 소문자로 시작하기</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<ol>
+  <li>스크립트 작성 후 적용할 오브젝트에 붙여준다.</li>
+  <li>오브젝트에 실존하여 붙어있는 컴포넌트를 해당 변수 슬롯에 드래그해 붙여준다.
+    <ul>
+      <li>단 스크립트 내에 실존하는 컴포넌트를 참조할 변수가 <code class="language-plaintext highlighter-rouge">public</code>이어야 함.</li>
+    </ul>
+    <ul>
+      <li><strong><em>public이 아닌 변수들</em></strong> 은 유니티 인터페이스에서 슬롯이 열리지 않는다. 안 보임.</li>
+      <li><strong><em>public인 변수들</em></strong> 은 유니티 인터페이스 안에서도 슬롯을 통해 값을 수정할 수 있다.</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Player</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">speed</span> <span class="p">=</span> <span class="m">10f</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">Rigidbody</span> <span class="n">playerRigidbody</span><span class="p">;</span> 
+
+    <span class="c1">// Start is called before the first frame update</span>
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">playerRigidbody</span><span class="p">.</span><span class="nf">AddForce</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span> <span class="c1">// 게임이 시작되면 (Start()) y방향으로 10 만큼의 힘을 준다. 플레이어 오브젝트가 하늘로 승천할 것..</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Update is called once per frame</span>
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">public Rigidbody playerRigidbody;</code>
+    <ul>
+      <li>추상적인 전체 Rigidbody 컴포넌트가 아닌 진짜 구 오브젝트에 현재 붙어있는 Rigidbody 컴포넌트를 가리킴</li>
+      <li>슬롯을 통해 실존하는 현재 붙어있는 컴포넌트를 여기 드롭해줄 것이다.
+        <ul>
+          <li>public으로 선언해야 유니티에서 드래그 앤 드롭을 할 수 있다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="이-챕터에서-새로-알게된-컴포넌트들-정리">이 챕터에서 새로 알게된 <u>컴포넌트</u>들 정리</h3>
+<ul>
+  <li><strong><em>Transform</em></strong>
+    <ul>
+      <li>오브젝트를 생성하면 기본으로 붙어있는 디폴트 컴포넌트다.</li>
+      <li>오브젝트의 <code class="language-plaintext highlighter-rouge">position</code>, <code class="language-plaintext highlighter-rouge">rotation</code>, <code class="language-plaintext highlighter-rouge">scale</code> 즉 위치, 회전, 크기를 담당한다.</li>
+      <li>톱니 바퀴 버튼을 누른 후 Reset을 누르면 오브젝트 위치가 원점으로 돌아간다.</li>
+    </ul>
+  </li>
+  <li><strong><em>Collider</em></strong> 컴포넌트
+    <ul>
+      <li>오브젝트를 생성하면 기본으로 붙어있는 디폴트 컴포넌트다.</li>
+      <li>구 오브젝트에 Rigidbody를 붙여주고 플레이를 누르면 중력을 받아 밑으로 떨어지면서 <u>Plane에 부딪쳐 더 이상 떨어지지 않는데 이는 Collider 컴포넌트 때문이다</u></li>
+      <li><u>물리적으로 오브젝트끼리 충돌이 일어났을 때를 감지</u>하고 이를 처리하는 컴포넌트다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="이-챕터에서-새로-알게된-unity-engine제공-집합">이 챕터에서 새로 알게된 <u>Unity Engine</u>제공 집합</h3>
+
+<ul>
+  <li><strong><em>Mathf</em></strong>
+    <ul>
+      <li>수학과 관련된 함수들 제공</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

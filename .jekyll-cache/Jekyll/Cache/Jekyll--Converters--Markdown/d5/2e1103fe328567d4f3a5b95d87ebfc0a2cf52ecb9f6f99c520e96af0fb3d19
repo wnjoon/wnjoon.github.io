@@ -1,0 +1,15 @@
+I"o<ul class="toc__menu">
+  <li><a href="#chapter-5-c-프로그래밍--중급-12">Chapter 5. C# 프로그래밍 : 중급 (1/2)</a>
+    <ul>
+      <li><a href="#-인스턴스화--instantiate">🔔 인스턴스화 : Instantiate</a>
+        <ul>
+          <li><a href="#-spawnercs">📜 Spawner.cs</a></li>
+          <li><a href="#prefab-사용하기">Prefab 사용하기</a></li>
+          <li><a href="#instantiate에-옵션주기">Instantiate에 옵션주기</a></li>
+          <li><a href="#찍어낸-오브젝트-리턴-받기">찍어낸 오브젝트 리턴 받기</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

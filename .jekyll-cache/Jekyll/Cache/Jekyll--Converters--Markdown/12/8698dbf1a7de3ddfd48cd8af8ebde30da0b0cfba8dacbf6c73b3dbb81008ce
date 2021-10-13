@@ -1,0 +1,339 @@
+I"9<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-1-캐릭터-움직이기--지형-제작">Chapter 1. 캐릭터 움직이기 &amp; 지형 제작</h1>
+<h1 id="지형-제작">지형 제작</h1>
+
+<blockquote>
+  <p>Hierarchy - Create - 3D Object - <strong><u>Terrain</u></strong></p>
+</blockquote>
+
+<p>이렇게 <strong>Terrain</strong>을 만들면 아주 큰 개활지가 생긴다. 이렇게 유니티에서는 직접 개발자가 지형을 제작할 수 있는 툴을 제공한다. Terrain은 피봇(중심점) 위치가 중심점이 아님 모서리 (0, 0, 0) 기준으로 찍혀 있는게 디폴트 상태다.</p>
+
+<h2 id="️-terrain-컴포넌트-소개">🙋‍♀️ Terrain 컴포넌트 소개</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93543475-a4972180-f996-11ea-9cde-6bb7ee543722.png" alt="image" /></p>
+
+<p>Terrain을 3D 오브젝트로 생성하면 자동으로 Terrain 컴포넌트가 붙게 된다.</p>
+
+<h3 id="두-번째-탭---paint-terrain">두 번째 탭 - Paint Terrain</h3>
+
+<h4 id="raise-or-loser-terrain">Raise or Loser Terrain</h4>
+
+<blockquote>
+  <p>지형의 고도 높이고 낮추기</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93543555-d60fed00-f996-11ea-9143-8a3be12ee7f0.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93431318-f724ff00-f8fe-11ea-853b-5c5870c31ea2.png" alt="image" /></p>
+
+<ul>
+  <li>브러쉬를 선택한 후 Terrain 오브젝트에 좌클릭하면 지형의 높이가 높아진다!</li>
+  <li><code class="language-plaintext highlighter-rouge">Shift</code>를 누른채 좌클릭하면 처음 지형으로 돌아간다.</li>
+  <li>낮게 하고 싶은 지형이 있다면 다른 지형들의 높이를 올려주면 된다.</li>
+  <li><em>Opacity</em>로 강도를 조절할 수 있다.(천천히 올라간다.)</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="paint-holes">Paint Holes</h4>
+
+<blockquote>
+  <p>지형 Terrain에 구멍을 낼 수 있다.</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93560815-f010f600-f9bd-11ea-9350-e73f5dfc41e0.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h4 id="set-height">Set Height</h4>
+
+<blockquote>
+  <p>Terrain의 높이를 제한하거나 설정한다. 👉 완만하고 평평한 높이를 구현하기에 적절하다.</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93548696-b7afee80-f9a2-11ea-9306-9516a5b18422.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93549066-7d931c80-f9a3-11ea-9fa0-c3c27bf77cea.png" alt="image" /></p>
+
+<ul>
+  <li>예륻 들어 <em>Height</em> 값을 10 으로 하면 아무리 brush로 지형의 고도를 높여도 10 까지만 높아진다.
+    <ul>
+      <li>완만하고 평평한 고원같이 높이가 올라간 것을 볼 수 있다.</li>
+      <li>즉, 높이가 최대 10으로 고정된다. 10을 넘을 수 없다.</li>
+    </ul>
+  </li>
+  <li><em>Flatten All</em> 을 누르면 전체 Terrain의 높이가 현재 설정되어 있는 Height 값으로 설정되며 전체적으로 평평해진다.
+    <ul>
+      <li>즉, 예륻 들어 <em>Height</em> 값을 10 으로 되있다면 Terrain 오브젝트의 Y 위치 값이 10이 된다. 그리고 평평해진다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="smooth-height">Smooth Height</h4>
+
+<blockquote>
+  <p>Terrain 지형을 부드럽고 매끄럽게 만든다. 뾰족뾰족한 부분을 스무스하게 만들어준다.</p>
+</blockquote>
+
+<p>높낮이를 줄이기 보단 인근 영역과 비슷하게 맞추어 부드럽게 만들고 급겹한 변화가 덜 나타나게 한다.</p>
+
+<p><br /></p>
+
+<h4 id="paint-texture">Paint Texture</h4>
+
+<blockquote>
+  <p>Terrain 에 풀, 눈, 모래 같은 텍스처를 그린다.</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93569544-a7146e00-f9cc-11ea-9e37-dd5eaf7cfc98.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93569571-af6ca900-f9cc-11ea-9767-e3d6b7d3e0d9.png" alt="image" /></p>
+
+<ul>
+  <li>텍스처 파일을 Tile로서 붙인다. 직접 텍스처를 Terrain에 그릴 수도 있다.
+    <ul>
+      <li>텍스처는 포토샵이나 어피니티 포토 등, 기타 툴을 이용해서 2의 n승 사이즈의 PNG 파일로 쉽게 만들 수 있다.</li>
+    </ul>
+  </li>
+  <li>텍스처 추가하기
+    <ul>
+      <li><strong>Create Layer</strong> 로 원하는 텍스처 PNG 파일로 텍스처 레이어를 추가할 수 있다.</li>
+    </ul>
+  </li>
+  <li>Metalic 으로 광택 정도를 나타낼 수 있고 Smoothness 를 올려주면 빛이 강조가 된다. (전체적으로 빛이 고루게 퍼진다.)</li>
+  <li>O</li>
+  <li>Tiling Setting 로 텍스처가 반복되어 삽입될 Tile의 해상도를 설정할 수 있다.
+    <ul>
+      <li>Tile 의 해상도가 클 수록 텍스처가 확대되어 반복 될 것이고 해상도가 작을 수록 텍스처가 촘촘하게, 작게 반복될 것이다.</li>
+    </ul>
+  </li>
+  <li>Opacity 값이 높을 수록 브러쉬로 칠하는 텍스처 레이어가 강한 강도로 그려지고, 낮을 수록 흐리게 그려진다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93570534-1f2f6380-f9ce-11ea-9396-67c8c0e1cc19.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93570679-556ce300-f9ce-11ea-94a6-32178934970d.png" alt="image" /></p>
+
+<p>돌 표면의 텍스처 파일로, 바위 표면을 나타낼 텍서츠 레이어를 추가로 만든 뒤, 텍스처를 Terrain 표면에 그려주었다.</p>
+
+<p><u>텍스처 레이어는 📂Assets/Texture 에 저장된다.</u> 생성했던 레이어를 <strong>Add Layer</strong>로 불러올 수 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93571198-125f3f80-f9cf-11ea-8664-ebbd8e88d590.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93571218-18552080-f9cf-11ea-8db1-3bb6b716f3ac.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h3 id="세-번째-탭---paint-trees">세 번째 탭 - Paint Trees</h3>
+
+<blockquote>
+  <p>Terrain 위에 나무를 추가할 수 있다.</p>
+</blockquote>
+
+<h4 id="나무-오브젝트-만들기">나무 오브젝트 만들기</h4>
+
+<blockquote>
+  <p>Hierarchy - Create - 3D Object - <strong><u>Tree</u></strong></p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93571726-d4aee680-f9cf-11ea-98e3-d7d5c5a0af82.png" alt="image" /></p>
+
+<p>Tree 오브젝트를 처음 생성하면 이렇게 생겼다!</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93571919-13dd3780-f9d0-11ea-9aa5-c8a472dc5260.png" alt="image" /></p>
+
+<ul>
+  <li><em>Tree Seed</em>
+    <ul>
+      <li>나무의 키와 뻗는 방향 꺾인 방향 등등을 랜덤하게 지정하는 Seed.</li>
+    </ul>
+  </li>
+  <li><em>Area Spread</em>
+    <ul>
+      <li>해당 나무의 영역. 나무들끼리 이 영역은 중첩되지 않는다. 이 영역이 좁을 수록 나무들끼리 서로 촘촘하게 있을 수 있다.</li>
+    </ul>
+  </li>
+  <li><em>LOD Quaility</em>
+    <ul>
+      <li>
+        <blockquote>
+          <p><code class="language-plaintext highlighter-rouge">LOD</code> 👉 <em>Level of Detail</em> 의 약자로, 시스템 부하를 줄이기 위해 만들어진 최적화 기술이다. <u>해당 오브젝트가 카메라와 거리가 멀어질 수록 디테일을 낮춘다.</u></p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li><em>Ambient Occlusion</em>
+    <ul>
+      <li>체크하면, 카메라에 해당 Tree 오브젝트가 안보일 때, 모든 기능을 꺼지게 만든다.</li>
+      <li>나무가 카메라 화면에 안나올 땐, 바람에 흔들린다거나 하는 효과를 줄 필요가 없다.</li>
+      <li>성능상 유리해지니 딱히 이유가 없으면 체크 상태로 두자.</li>
+    </ul>
+  </li>
+  <li><em>AO Density</em>
+    <ul>
+      <li><em>Ambient Occlusion</em>을 정도를 설정. 카메라에 안보일 때 기능을 얼만큼 끌지.</li>
+    </ul>
+  </li>
+  <li><em>Material</em>
+    <ul>
+      <li>나무 기둥의 Material.</li>
+      <li>색깔, 명암, 질감 등등을 입힐 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="나뭇가지-추가하기">나뭇가지 추가하기</h5>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93575157-3e30f400-f9d4-11ea-8485-901e54a34880.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93575206-54d74b00-f9d4-11ea-87a2-32d43cc73018.png" alt="image" /></p>
+
+<p>맨 밑의 아이콘은 이 하나의 Tree 오브젝트 전체를 선택하는 아이콘이다. 사진 상 중간에 있는 아이콘은 나무의 가운데 기둥인데 이를 클릭하고 나뭇가지를 추가하니 이 기둥을 부모로 하는 나뭇가지가 위와 같이 추가되었다. 진짜 알고리즘에서 배우는 Tree 자료구조와 같다!</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93578037-c5cc3200-f9d7-11ea-954c-f9c1c48ff853.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93578061-ccf34000-f9d7-11ea-8041-644bfbca71cf.png" alt="image" /></p>
+
+<ul>
+  <li>원하는 나뭇 가지 노드를 클릭한 후
+    <ul>
+      <li><em>Frequency</em>
+        <ul>
+          <li>해당 나뭇 가지의 개수</li>
+          <li>두번재 나뭇가지 노드의 Frequency를 10 으로 설정해서 10 개의 나뭇가지가 생겨났다.</li>
+        </ul>
+      </li>
+      <li><em>Seek Sun</em>
+        <ul>
+          <li>해당 나뭇 가지 모양을 하늘로 치솟게 한다.
+            <ul>
+              <li>정도를 높게할수록 수직에 가까워진다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><em>Length</em>
+        <ul>
+          <li>나뭇 가지의 길이</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="잎-추가하기">잎 추가하기</h5>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93578925-d92bcd00-f9d8-11ea-80b4-296d9b08519d.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93578951-dfba4480-f9d8-11ea-8288-6530572e2207.png" alt="image" /></p>
+
+<ul>
+  <li>마찬가지로 <em>Frequency</em>로 잎의 부모가 되는 나뭇가지의 노드로부터 피어난 잎의 개수를 조절할 수 있다.</li>
+  <li><em>Geometry Mode</em> 에서 잎의 모양을 지정할 수 있다.
+    <ul>
+      <li><em>Plane</em> - 평평한 모양</li>
+      <li><em>Cross</em> - 십자가 모양</li>
+      <li><em>Mesh</em> - 원하는 Mesh 잎 모양을 할당할 수 있다.</li>
+    </ul>
+  </li>
+  <li><em>size</em> 에서 잎의 사이즈를 조정할 수 있다.
+    <ul>
+      <li>사진과 같이 구간을 지정해두면 해당 구간 내에서 랜덤한 사이즈 값을 가지게 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="프리팹화-하기">프리팹화 하기</h5>
+
+<blockquote>
+  <p>그냥 오브젝트를 📂Assets 폴더에 드래그 앤 드롭하면 된다.</p>
+</blockquote>
+
+<ul>
+  <li>이제 찍어낼 수 있는 나무 프리팹이 생성되었다.</li>
+  <li>이제 이 생성한 나무 프리팹을 Terrain의 <strong>Paint Trees</strong> 에 가져와보자.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="terrain에-나무-그리기">Terrain에 나무 그리기</h4>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93579729-cb2a7c00-f9d9-11ea-85fe-8d3ab6f8916f.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93580350-a84c9780-f9da-11ea-90de-59fa6928bd8e.png" alt="image" /></p>
+
+<p>위와 같이 Edit Trees 를 클릭하여 만들어둔 나무 프리팹을 추가한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93581442-22315080-f9dc-11ea-8158-36e031ab28bd.png" alt="image" /></p>
+
+<p>브러쉬로 Terrain 위에 프리팹으로 할당한 나무를 이렇게 그릴 수 있다! <em>density</em>로 밀도를 높이면 브러쉬질 할 때마다 나무가 더 많이 추가된다. <em>Tree Height</em>의 범위를 조절해주면 맵 크기에 맞게 배치할 수 있다.</p>
+
+<p><br /></p>
+
+<h3 id="네-번째-탭---paint-details">네 번째 탭 - Paint Details</h3>
+
+<blockquote>
+  <p>풀이나 흙 같은 Terrain 의 디테일한 부분을 설정할 수 있다.</p>
+</blockquote>
+
+<ul>
+  <li>풀 텍스처 추가하기
+    <ul>
+      <li>Edit Details - Add Grass Texture</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93584785-c1f0dd80-f9e0-11ea-8c9e-8d08ea13f60f.png" alt="image" /></p>
+
+<p>풀의 텍스처 PNG 이미지를 할당하면 해당 이미지로 풀 텍스처를 표현할 수 있다. 풀 하나 하나의 최대 최소 크기도 지정할 수 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93585392-b18d3280-f9e1-11ea-9cd8-8ae131e1fa38.png" alt="image" /></p>
+
+<p>이미 그려진 풀은 <code class="language-plaintext highlighter-rouge">Shift</code> 누르고 그리면 다시 지울 수 있다.</p>
+
+<p><br /></p>
+
+<h3 id="다섯-번째-탭---terrain-settings">다섯 번째 탭 - Terrain Settings</h3>
+
+<ul>
+  <li><u>⚙️ Terrain Setings</u> 기능 예시
+    <ul>
+      <li>Terrain의 해상도 크기 조절
+        <ul>
+          <li>현재 Terrain Width와 Length를 100, 100으로 해둠</li>
+        </ul>
+      </li>
+      <li>바람의 세기</li>
+      <li>바람에 의한 풀의 세기</li>
+      <li>거리에 따른 디테일 표현</li>
+      <li>그림자</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/93965708-c5e47d00-fd9d-11ea-839c-42d71131ab23.png" alt="image" /></p>
+
+<p>만들어 본 맵에 플레이어를 배치 시켜 보았다. 😀</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

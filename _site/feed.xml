@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-13T13:38:14+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html"> 월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>{&quot;links&quot;=&gt;[{&quot;label&quot;=&gt;&quot;Resume&quot;, &quot;icon&quot;=&gt;&quot;far fa-address-card&quot;, &quot;url&quot;=&gt;&quot;https://wnjoon.github.io/resume/&quot;}, {&quot;label&quot;=&gt;&quot;Email&quot;, &quot;icon&quot;=&gt;&quot;fas fa-fw fa-envelope-square&quot;, &quot;url&quot;=&gt;&quot;mailto:wnjoon@gmail.com&quot;}, {&quot;label&quot;=&gt;&quot;GitHub&quot;, &quot;icon&quot;=&gt;&quot;fab fa-fw fa-github&quot;, &quot;url&quot;=&gt;&quot;https://github.com/wnjoon&quot;}]}</name></author><entry><title type="html">이더리움 표준(ERC)</title><link href="http://localhost:4000/ethereum/erc/" rel="alternate" type="text/html" title="이더리움 표준(ERC)" /><published>2021-10-13T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/erc</id><content type="html" xml:base="http://localhost:4000/ethereum/erc/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;erc-20&quot;&gt;ERC-20&lt;/h1&gt;
+
+&lt;p&gt;Ethereum Request for Comment 20의 약자로, 이더리움 네트워크를 관리하는 단체인 EIPs(Ethereum Improvement Proposals)에서 관리하는 공식 프로토콜이다.&lt;br /&gt;
+이더리움 블록체인 네트워크에서 정한 표준 토큰 스펙이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;만들어진-배경&quot;&gt;만들어진 배경&lt;/h2&gt;
+
+&lt;p&gt;ERC-20은 이더리움 네트워크 상에서 유통되는 토큰의 호환성을 보장하기 위하여 제작되었다. 실제로 대다수의 암호화폐(토큰)가 이더리움 기반으로 생성되었고, 이러한 토큰은 자체 메인넷을 출시하면서 다른 이더리움 기반 네트워크들과 완전히 독립된다.&lt;br /&gt;
+이렇게 서로 다른 메인넷을 구성하지만, 이더리움 기반이라는 공통된 성격을 지닌 토큰 간 교환을 위해 ERC-20이 제안되었다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이더리움 기반의 모든 토큰은 기본적으로 ERC-20을 적용해야 하며, &lt;u&gt;ERC-20이 적용된 모든 암호화폐는 기본적으로 스마트계약(smart contract)이 가능하도록 구현&lt;/u&gt;된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;기타-이더리움-표준&quot;&gt;기타 이더리움 표준&lt;/h1&gt;
+
+&lt;h2 id=&quot;erc-223&quot;&gt;ERC-223&lt;/h2&gt;
+
+&lt;p&gt;ERC-20이 가지고 있는 토큰 손실에 대한 결함(트랜잭션이 무효가 되더라도 토큰이 보존되지 않고 사라지며, 회복이 불가능)을 수정한 표준이다. 추가로 다수의 토큰을 하나의 스마트계약을 통해 다른 지갑으로 보낼 수 있는 기능도 제공하는데, 이를 통해 기존에 다수의 토큰을 여러 번의 스마트계약으로 나누어 보낼 때보다 절반의 가스비로도 거래를 실행할 수 있게 되었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;erc-721&quot;&gt;ERC-721&lt;/h2&gt;
+
+&lt;p&gt;NFT(Non-Fungible Token)용으로 구성되었으며, 개발자 또는 복수의 소유자들 사이에서 공유될 수 없는 토큰을 개발할 수 있도록 한다. dApp 기반의 게임에서 주로 사용되고 있다. 무제한 공급이 가능한 NFT의 특성상, 가치의 하락을 방지하기 위하여 대부분의 dApp에서는 전체 공급량을 제한하는 방식을 채택하고 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;erc-777&quot;&gt;ERC-777&lt;/h2&gt;
+
+&lt;p&gt;ERC-20과 ERC-223의 기능을 제공하면서, 모든 사람에게 스마트계약의 주소를 볼 수 있도록 하여 해당 스마트계약의 기능을 확인할 수 있도록 한다. 이러한 투명성은 스마트계약을 통해 이루어진 트랜잭션을 검증할 수 있도록 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;erc-998&quot;&gt;ERC-998&lt;/h2&gt;
+
+&lt;p&gt;ERC-721과 함께 사용되며, 다수의 토큰과 게임(앱) 내 통계와 캐릭터(데이터) 등을 한번에 전송할 수 있는 기능을 제공한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;참고자료&quot;&gt;참고자료&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://wiki.hash.kr/index.php/ERC-20&quot;&gt;ERC-20 - 해시넷&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>{&quot;links&quot;=&gt;[{&quot;label&quot;=&gt;&quot;Resume&quot;, &quot;icon&quot;=&gt;&quot;far fa-address-card&quot;, &quot;url&quot;=&gt;&quot;https://wnjoon.github.io/resume/&quot;}, {&quot;label&quot;=&gt;&quot;Email&quot;, &quot;icon&quot;=&gt;&quot;fas fa-fw fa-envelope-square&quot;, &quot;url&quot;=&gt;&quot;mailto:wnjoon@gmail.com&quot;}, {&quot;label&quot;=&gt;&quot;GitHub&quot;, &quot;icon&quot;=&gt;&quot;fab fa-fw fa-github&quot;, &quot;url&quot;=&gt;&quot;https://github.com/wnjoon&quot;}]}</name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="Protocol" /><summary type="html">이더리움 블록체인 네트워크에서 정한 표준 토큰 스펙인 ERC에 대해 알아본다.</summary></entry><entry><title type="html">Infura로 이더리움 테스트용 노드 만들기</title><link href="http://localhost:4000/ethereum/infura/" rel="alternate" type="text/html" title="Infura로 이더리움 테스트용 노드 만들기" /><published>2021-09-15T00:00:00+09:00</published><updated>2021-10-13T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/infura</id><content type="html" xml:base="http://localhost:4000/ethereum/infura/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;infura&quot;&gt;Infura&lt;/h1&gt;
+
+&lt;p&gt;일반적으로 디앱(DApp)를 개발할 때에는 로컬에서 Ganashe 또는 Truffle develop을 사용하거나 geth를 이용한 private network를 구성한다. 물론 디앱에 국한되지 않더라도 대부분의 앱 또한 로컬에서 개발 -&amp;gt; 테스트 -&amp;gt; 실제 환경과 유사한 개발환경에서 테스트 -&amp;gt; 배포와 같은 순서를 갖는다. &lt;br /&gt;
+디앱은 여기서 조금 다른 부분이 테스트넷 환경에서 실제로 구성된 노드에 직접 테스트해봐야 한다는 점이다. 물론 풀노드(full node)로 테스트할 수도 있지만, 저장 공간이나 시간부터 꽤 많은 비용과 관리가 들어가는 등 실제로 개발에 들어가는 공수보다 배꼽이 더 큰 경우가 생길 수 있다.&lt;br /&gt;
+이러한 번거로움을 해결할 수 있는 것이 Infura를 사용하는 것이다. Infura는 Consensys에 속한 프로젝트 중 하나로, Infura에서 제공하는 이더리움 노드를 사용함으로써 제품과 서비스에 대한 개발에만 집중할 수 있도록 한다. 이는 Infura가 갖고 있는 미션에서도 잘 표현된다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Our suite of high availability APIs and Developer Tools &lt;u&gt;provide quick, reliable access to the Ethereum and IPFS networks&lt;/u&gt; so you can focus on building and scaling next generation software.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;특징&quot;&gt;특징&lt;/h2&gt;
+
+&lt;p&gt;Infura의 특징을 정리해보면 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Accessubility : Minimal hardware requirements&lt;/li&gt;
+  &lt;li&gt;Convenience : No waiting to sync and no installs&lt;/li&gt;
+  &lt;li&gt;Redundancy : Either build into the gateway service or switch to new endpoint&lt;/li&gt;
+  &lt;li&gt;Security : Signing without a web-connection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;infura-사용하기&quot;&gt;Infura 사용하기&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-회원가입&quot;&gt;1. 회원가입&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FNHn56%2Fbtre1bgLN0O%2FKNtO5p6MNQVoWuqiFx4Y6k%2Fimg.png&quot; alt=&quot;&quot; width=&quot;40%&quot; height=&quot;40%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;딱히 복잡한게 없다. 그냥 이메일 주소랑 비밀번호만 입력하면 된다&lt;/p&gt;
+
+&lt;h2 id=&quot;2-프로젝트-생성&quot;&gt;2. 프로젝트 생성&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUfHlw%2Fbtre7sOHSKs%2FqyZgxZq2lW9TU65YGYktm0%2Fimg.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Testnet이라는 프로젝트를 하나 만들고나면, 위와 같은 결과 화면을 볼 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;3-api-key-확인&quot;&gt;3. API KEY 확인&lt;/h2&gt;
+
+&lt;p&gt;필자는 요즘 Loom network에 대해 공부하고 있는데(이 포스팅을 작성하게 된 가장 큰 원인이기도 하다), 튜토리얼을 진행하려면 Infura에서 만든 노드의 API KEY를 Rinkeby에 연결하라고 했지만 어디에서도 API KEY가 보이지 않는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FZZu7t%2Fbtre1aCd15g%2Fh8QY2tVMM0zqUXM7lsXsK0%2Fimg.png&quot; alt=&quot;&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림에서 ENDPOINTS에 해당하는 다음 URL이 API KEY를 나타내는 내용이다. 이 중 /v3/ 이후의 내용이 API KEY라고 보면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;참고자료&quot;&gt;참고자료&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@sungjoon.yoon/infura-사용해보기-24af9bf12c4c&quot;&gt;Infura 사용해보기&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;</content><author><name>{&quot;links&quot;=&gt;[{&quot;label&quot;=&gt;&quot;Resume&quot;, &quot;icon&quot;=&gt;&quot;far fa-address-card&quot;, &quot;url&quot;=&gt;&quot;https://wnjoon.github.io/resume/&quot;}, {&quot;label&quot;=&gt;&quot;Email&quot;, &quot;icon&quot;=&gt;&quot;fas fa-fw fa-envelope-square&quot;, &quot;url&quot;=&gt;&quot;mailto:wnjoon@gmail.com&quot;}, {&quot;label&quot;=&gt;&quot;GitHub&quot;, &quot;icon&quot;=&gt;&quot;fab fa-fw fa-github&quot;, &quot;url&quot;=&gt;&quot;https://github.com/wnjoon&quot;}]}</name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><summary type="html">Infura를 이용하여 간편하게 이더리움 테스트를 위한 노드를 만들어본다.</summary></entry></feed>

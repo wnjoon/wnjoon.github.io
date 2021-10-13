@@ -1,0 +1,27 @@
+I"<ul class="toc__menu">
+  <li><a href="#chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</a>
+    <ul>
+      <li><a href="#playerhealthcs">📜PlayerHealth.cs</a>
+        <ul>
+          <li><a href="#멤버-변수">멤버 변수</a>
+            <ul>
+              <li><a href="#상속-받은-멤버-변수">상속 받은 멤버 변수</a></li>
+            </ul>
+          </li>
+          <li><a href="#멤버-함수">멤버 함수</a>
+            <ul>
+              <li><a href="#private-void-awake">private void Awake()</a></li>
+              <li><a href="#protected-override-void-onenable">protected override void OnEnable()</a></li>
+              <li><a href="#public-override-void-restorehealthfloat-newhealth">public override void RestoreHealth(float newHealth)</a></li>
+              <li><a href="#private-void-updateui">private void UpdateUI()</a></li>
+              <li><a href="#public-override-bool-applydamagedamagemessage-damagemessage">public override bool ApplyDamage(DamageMessage damageMessage)</a></li>
+              <li><a href="#public-override-void-die">public override void Die()</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#컴포넌트-설정">컴포넌트 설정</a></li>
+    </ul>
+  </li>
+</ul>
+:ET

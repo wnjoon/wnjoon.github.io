@@ -1,0 +1,243 @@
+I"	6<p class="notice--warning">인프런에 있는 황대희님의 <strong>언리얼 엔진4 3D 횡스크롤 게임 만들기</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<strong>언리얼 엔진 공식 문서</strong> <a href="https://docs.unrealengine.com/ko/index.html">https://docs.unrealengine.com/ko/index.html</a></p>
+
+<h1 id="공격-충돌-처리">공격 충돌 처리</h1>
+
+<p>캐릭터의 칼에 충돌을 감지 할 수 있는 Collision을 달아서 향후 데미지 처리 같은 것을 할 수 있도로 하자.</p>
+
+<h2 id="-칼에-collision충돌체-붙이기">🔔 칼에 Collision(충돌체) 붙이기</h2>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 블루프린트 에디터</p>
+</blockquote>
+
+<ul>
+  <li>“MoveCharBP”의 컴포넌트 추가 👉 <code class="language-plaintext highlighter-rouge">Capsule Collision</code> 선택
+    <ul>
+      <li>이를 “MoveCharBP”의 Mesh 하위에 넣어준다.</li>
+      <li>노란색 캡슐이 바로 방금 추가한 <code class="language-plaintext highlighter-rouge">Capsule Collision</code>이다.
+        <ul>
+          <li><img src="https://user-images.githubusercontent.com/42318591/92991183-054cd700-f51d-11ea-9f94-5e0ec0e95b68.png" alt="image" width="30%" height="30%" class="align-center" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 블루프린트의 디테일 패널</p>
+</blockquote>
+
+<p>칼의 뼈대에 이 <code class="language-plaintext highlighter-rouge">Capsule Collision</code>을 붙여주어야 한다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Capsule</code> 컴포넌트 선택
+    <ul>
+      <li><strong>소켓 - 부모 소켓 - Right Hand</strong> 해주면 오른 손에 <code class="language-plaintext highlighter-rouge">Capsule Collision</code>가 붙게 된다. <u>오른 손 뼈대에 붙어서 이제 오른손 뼈대의 애니메이션을 따라다니게 된다.</u>트랜스폼 값을 조정하여 아래와 같이 만들었다.
+        <ul>
+          <li><img src="https://user-images.githubusercontent.com/42318591/92991231-683e6e00-f51d-11ea-84c5-a310ba706114.png" alt="image" width="50%" height="50%" class="align-center" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Capsule Collision</code>을 세밀하게 칼에 붙여주어야 하기 때문에 편리하게 하기 위하여 애니메이션을 잠시 꺼두도록 하자.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Mesh</code> 컴포넌트 선택
+        <ul>
+          <li><strong>Animation - Animtation Mode - Use Animation Asset</strong></li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Capsule Collision</code> 컴포넌트 선택
+        <ul>
+          <li>스냅 버튼 끄고 회전, 크기, 위치를 칼에 알맞게 세밀하게 조정해보자.
+            <ul>
+              <li><img src="https://user-images.githubusercontent.com/42318591/92993126-7646bb80-f52a-11ea-848e-bfe26cf032c5.png" alt="image" width="60%" height="60%" class="align-center" /></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Mesh</code> 컴포넌트 선택 👉 애니메이션 다시 키기
+        <ul>
+          <li><strong>Animation - Animtation Mode - Use Animation Blueprint</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-collision-설정">🔔 Collision 설정</h2>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 블루프린트의 디테일 패널. <code class="language-plaintext highlighter-rouge">Capsule</code> 선택.</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92993325-a773bb80-f52b-11ea-82d8-9e7125c72cbd.png" alt="image" width="40%" height="40%" class="align-center" /></p>
+
+<ul>
+  <li>칼이 튕겨나가지 않고 관통되도록 모두 <code class="language-plaintext highlighter-rouge">겹침</code>(Overlap)으로 설정해주었다.
+    <ul>
+      <li><strong>무시</strong> 👉 충돌 처리가 되지 않는다.</li>
+      <li><strong>겹침</strong> 👉 충돌 처리가 되긴 하나 물리적으로 충돌하는 효과가 발생하지 않고 관통한다.</li>
+      <li><strong>블록</strong> 👉 충돌 처리도 되며 물리적으로 충돌하는 효과가 발생한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="-충돌-처리-이벤트">🔔 충돌 처리 이벤트</h2>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 블루프린트의 디테일 패널. <code class="language-plaintext highlighter-rouge">Capsule</code> 선택.</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92993452-aee79480-f52c-11ea-8d56-f741c2e2b4e4.png" alt="image" /></p>
+
+<p>“MoveCharBP”의 Capsule Collision 컴포넌트를 선택한 상태에서 디테일 패널의 Event 에서 <code class="language-plaintext highlighter-rouge">On Component Begin Overlap</code> 이벤트를 <code class="language-plaintext highlighter-rouge">+</code>를 눌러 이벤트 그래프에 추가해주자.</p>
+
+<p><br /></p>
+
+<h3 id="자기-자신과는-충돌-처리를-하지-않게끔">자기 자신과는 충돌 처리를 하지 않게끔</h3>
+
+<p>자기 자신이 붙어 있는 “MoveCharBP” 캐릭터(액터) 자체에도 Collision이 붙어 있기 때문에 애니메이션이 이루어 지면서 칼의 Collision이 “MoveCharBP”의 Collision과 충돌하는 경우가 생긴다. 칼의 충돌 처리에선 자기 자신인 “MoveCharBP”과의 충돌은 제외해야 한다.</p>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 블루프린트의 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92993880-6500ad80-f530-11ea-9220-950eff837884.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">On Component Begin Overlap</code>
+    <ul>
+      <li>해당 컴포넌트(칼에 붙어있는 <code class="language-plaintext highlighter-rouge">Capsule</code>)에 어떤 액터가 닿아서 충돌이 일어났을 때 자동으로 실행되는 이벤트</li>
+      <li><strong>Other Actor</strong> 👉 충돌한 액터가 리턴된다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">self</code>
+    <ul>
+      <li>자기 자신 액터 (“MoveCharBP”)</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Get Display Name</code>
+    <ul>
+      <li>입력 받은 오브젝트의 이름을 string으로 리턴한다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Print String</code>
+    <ul>
+      <li>입력 받은 string을 화면에 출력한다.</li>
+    </ul>
+  </li>
+  <li><em>충돌한 오브젝트가 자기 자신(“MoveCharBP”)이 아닐 경우에만(Branch False) Print String 노드를 실행한다.</em></li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92993806-99279e80-f52f-11ea-85c1-635ea1b6d044.png" alt="image" /></p>
+
+<p>실험을 해보기 위해 하얀 큐브를 추가했다. 큐브에 “CollisionTestBP”라는 이름의 블루프린트를 추가했고 충돌 처리가 일어나도록 하기 위하여 블루프린트 에디터에서 Box Collision을 추가해 준 상태다. 큐브와 충돌하자 큐브의 이름이 잘 출력되는 것을 볼 수 있다. 자기 자신은 “MoveCharBP”은 출력되지 않는다.</p>
+
+<p><br /></p>
+
+<h3 id="공격-애니메이션이-동작할-때만-충돌-처리를-하게끔">공격 애니메이션이 동작할 때만 충돌 처리를 하게끔</h3>
+
+<p>공격 애니메이션 중에서 칼을 휘두르기 시작하는 애니메이션을 재생할 즈음에 노티파이로 이벤트를 발생시킨다. 이 이벤트가 발생했을 때만 충돌 처리가 이루어지게끔 한다. 공격 애니메이션이 동작할 때만 충돌 처리가 이루어지도록 하기 위해서! 그리고 칼을 다 휘두른 즈음에는 이제 충돌 처리가 이루어지지 않게끔 막아야 한다.</p>
+
+<blockquote>
+  <p>🚩 “sword_and_shield_slash_Montage” 몽타주 (공격 애니메이션 몽타주)</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92994361-7ea3f400-f534-11ea-8688-b4b77510154e.png" alt="image" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">OnCollStart_Attack</code>
+    <ul>
+      <li>👉 칼을 휘두르기 시작할 즈음 발생하는 이벤트</li>
+      <li>이때 칼의 충돌 처리가 허용되게 할 것이다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">OnCollEnd_Attack</code>
+    <ul>
+      <li>👉 칼을 휘두르는 애니메이션이 끝나갈 때 즈음 발생하는 이벤트</li>
+      <li>이때 칼의 충돌 처리를 막아둘 것이다.</li>
+    </ul>
+  </li>
+  <li><u>몽타주의 노티파이 이벤트들은 '애니메이션 블루프린트'에서만 직접적으로 받을 수 있다</u>
+    <ul>
+      <li>애니메이션 블루프린트에서 이 이벤트를 감지하고 이를 “MoveCharBP”의 커스텀 이벤트인 <code class="language-plaintext highlighter-rouge">OnCollStart_Attack</code>, <code class="language-plaintext highlighter-rouge">OnCollEnd_Attack</code>가 발생 하도록 전해주어야 한다.
+        <ul>
+          <li>“MoveCharBP”의 <code class="language-plaintext highlighter-rouge">OnCollStart_Attack</code>와 몽타주에서 노티파이 한 <code class="language-plaintext highlighter-rouge">OnCollStart_Attack</code>은 별개의 이벤트임. 이름이 같을 뿐.</li>
+          <li>이 둘의 중재를 몽타주 노티파이 이벤트를 직접 받을 수 있는 애니메이션 블루프린트에서 해야함.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92994506-a8a9e600-f535-11ea-8a4c-942934728eb1.png" alt="image" /></p>
+
+<ul>
+  <li>커스텀 이벤트 두개를 만들고 이름을 각각 <code class="language-plaintext highlighter-rouge">OnCollStart_Attack</code>, <code class="language-plaintext highlighter-rouge">OnCollEnd_Attack</code>로 설정</li>
+</ul>
+
+<blockquote>
+  <p>🚩 “CharAnimBP”(애니메이션 블루프린트)의 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92994568-62a15200-f536-11ea-9ad2-53bf556b3af0.png" alt="image" /></p>
+
+<ul>
+  <li>노티파이에 추가했던 그 이벤트 <code class="language-plaintext highlighter-rouge">OnCollStart_Attack</code>이 발생하면 “MoveCharBP”의 <code class="language-plaintext highlighter-rouge">OnCollStart_Attack</code> 이벤트를 호출한다.</li>
+  <li>노티파이에 추가했던 그 이벤트 <code class="language-plaintext highlighter-rouge">OnCollEnd_Attack</code>이 발생하면 “MoveCharBP”의 <code class="language-plaintext highlighter-rouge">OnCollEnd_Attack</code> 이벤트를 호출한다.</li>
+</ul>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92994823-a6955680-f538-11ea-8326-31f0d84b8712.png" alt="image" /></p>
+
+<p>*커스텀 이벤트 OnCollStart_Attack가 발생하면 Collision 컴포넌트가 <u>Enable</u> 되고, 커스텀 이벤트 OnCollEnd_Attack가 발생하면 Collision 컴포넌트가 <u>Disable</u> 되게 한다. <code class="language-plaintext highlighter-rouge">Capsule</code>은 현재 붙어 있는 <code class="language-plaintext highlighter-rouge">Collision Capsule</code>을 드래그 해온 것이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92994828-b90f9000-f538-11ea-8f99-39e751509b34.png" alt="image" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">Capsule</code>을 클릭한 후 디테일 패널에서 Collision의 디폴트 상태는 “No Collision”으로 해주자. 칼 휘두를 때만 Collision을 enable 시킬 거라서.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92994847-0be94780-f539-11ea-94e9-1ffcbd940114.png" alt="image" /></p>
+
+<p>cf) 이 배경 맵에 충돌 Collider가 붙어있는 Triger 어쩌고..인 오브젝트들이 있어서 삭제해주었다.</p>
+
+<p><br /></p>
+
+<h3 id="칼에-닿은-물체는-삭제되도록-하기">칼에 닿은 물체는 삭제되도록 하기</h3>
+
+<blockquote>
+  <p>🚩 “MoveCharBP”의 이벤트 그래프</p>
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/92994951-ec9eea00-f539-11ea-8e13-800971e0d1a0.png" alt="image" /></p>
+
+<ul>
+  <li>실행 핀 와이어의 흐름
+    <ul>
+      <li>충돌이 발생했고 (<code class="language-plaintext highlighter-rouge">On Component Begin Overlap</code> 👉 Branch)</li>
+      <li>충돌한 오브젝트가 자기 자신인 “MoveCharBP”가 아니라면 충돌한 그 물체(Ohter Actor)를 삭제하고 (Branch 👉 <code class="language-plaintext highlighter-rouge">DestroyActor</code>)</li>
+      <li>충돌한 물체(Other Actor)의 이름을 화면에 출력한다. (<code class="language-plaintext highlighter-rouge">DestroyActor</code> 👉 PrintString)</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

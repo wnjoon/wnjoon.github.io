@@ -1,0 +1,166 @@
+I"$2<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="chapter-8-모닥-불에-고기-굽기">Chapter 8. 모닥 불에 고기 굽기</h1>
+
+<h1 id="불에-닿으면-옮겨-붙게-하기">불에 닿으면 옮겨 붙게 하기</h1>
+
+<h2 id="-플레이어에게-옮겨-붙을-불-프리팹">🚖 플레이어에게 옮겨 붙을 불 프리팹</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95708481-5fb19280-0c97-11eb-89c4-af094036e5c8.png" alt="image" /></p>
+
+<ul>
+  <li>이름은 <code class="language-plaintext highlighter-rouge">Burn Effect Prefab</code></li>
+  <li>모닥 불 프리팹인 <code class="language-plaintext highlighter-rouge">Flame</code> 파티클 시스템과 거의 비슷하므로 일단 복사해서 만들어 주었다.
+    <ul>
+      <li>검은 연기 <code class="language-plaintext highlighter-rouge">Smog</code>는 지웠다.</li>
+      <li>컴포넌트로 붙은 Collider 와 📜Fire.cs 는 제거했다.</li>
+      <li>Emission 에서 방출되는 입자를 좀 적게 해주었다. 모닥불과는 다르게 좀 약한 규모의 불이므로.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="burncs">📜Burn.cs</h2>
+
+<blockquote>
+  <p><u>플레이어에게 옮겨 붙는 불.</u> <code class="language-plaintext highlighter-rouge">Player</code>에게 붙인다.</p>
+</blockquote>
+
+<ul>
+  <li>플레이어에게 옮겨 붙은 불은 플레이어에게 일정 시간동안 데미지를 준 후 사라진다.</li>
+  <li>옮겨 붙는 불은 플레이어를 따라다녀야 하므로 플레이어에게 옮겨 붙는 불 프리팹을 따로 만들어, 플레이어가 불에 닿으면 플레이어의 자식으로 태어나게 해야 한다.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Burn</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="kt">bool</span> <span class="n">isBurning</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="kt">int</span> <span class="n">damage</span><span class="p">;</span>  <span class="c1">// 옮겨 붙은 불의 데미지</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="kt">float</span> <span class="n">damageTime</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">currentDamageTime</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="kt">float</span> <span class="n">durationTime</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">float</span> <span class="n">currentDurationTime</span><span class="p">;</span>
+
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">GameObject</span> <span class="n">flame_prefab</span><span class="p">;</span>  <span class="c1">// 불 붙으면 프리팹 생성</span>
+    <span class="k">private</span> <span class="n">GameObject</span> <span class="n">go_tempFlame</span><span class="p">;</span>  <span class="c1">// 붙은 불 프리팹을 Instantiate 해서 이 곳에 담을 것. (파괴시킬 거라 담아두는게 필요)</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">StartBurning</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(!</span><span class="n">isBurning</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">go_tempFlame</span> <span class="p">=</span> <span class="nf">Instantiate</span><span class="p">(</span><span class="n">flame_prefab</span><span class="p">,</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="nf">Euler</span><span class="p">(</span><span class="k">new</span> <span class="nf">Vector3</span><span class="p">(-</span><span class="m">90f</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">0f</span><span class="p">)));</span>
+            <span class="n">go_tempFlame</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="nf">SetParent</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">isBurning</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">currentDurationTime</span> <span class="p">=</span> <span class="n">durationTime</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isBurning</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nf">ElapseTime</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">ElapseTime</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isBurning</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">currentDurationTime</span> <span class="p">-=</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentDurationTime</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span>
+                <span class="nf">Off</span><span class="p">();</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentDamageTime</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+                <span class="n">currentDamageTime</span> <span class="p">-=</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentDamageTime</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span>
+                <span class="nf">Damage</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Damage</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">currentDamageTime</span> <span class="p">=</span> <span class="n">damageTime</span><span class="p">;</span>
+        <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">StatusController</span><span class="p">&gt;().</span><span class="nf">DecreaseHP</span><span class="p">(</span><span class="n">damage</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Off</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">isBurning</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="nf">Destroy</span><span class="p">(</span><span class="n">go_tempFlame</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li><em>StartBurning()</em> 👉 플레이어게 붙을 불 생성
+    <ul>
+      <li>플레이어가 모닥불과 충돌했을 때인 📜Fire의 <em>OnTriggerStay(Collider other)</em> 에서 호출 시킬 것이므로 public</li>
+      <li>이미 불이 붙어 있을 때 또 붙게 하면 안되므로 <code class="language-plaintext highlighter-rouge">!isBurning</code> 상태일 때만 프리팹을 생성하도록 한다.
+        <ul>
+          <li>불 입자들은 하늘 위로 날아가야 하므로 회전갑은 X : -90 으로 준다.</li>
+          <li>태어날 위치는 플레이어인 <code class="language-plaintext highlighter-rouge">transform.position</code></li>
+        </ul>
+      </li>
+      <li>플레이어를 따라다닐 수 있도록 플레이어를 불의 부모로 설정한다.</li>
+    </ul>
+  </li>
+  <li>이미 불이 붙어 있을때 또 불 붙게 하거나 추가 데미지를 가하면 안되므로 <code class="language-plaintext highlighter-rouge">isBurning</code> 필요</li>
+  <li>나머지는 📜Fire.cs 와 비슷.</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">StatusController</span><span class="p">&gt;().</span><span class="nf">DecreaseHP</span><span class="p">(</span><span class="n">damage</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>이 코드 때문에 📜StatusController.cs 를 📜Burn.cs 과 같게 <code class="language-plaintext highlighter-rouge">Player</code>에 붙는 것으로 옮겨 주었다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95708747-fda55d00-0c97-11eb-8bb8-97f5df301724.png" alt="image" /></p>
+
+<ul>
+  <li>옮겨 붙은 불은 0.5 초 마다 2 의 데미지를 주며 3 초 뒤에 사라진다.</li>
+  <li>📜StatusController.cs 를 <code class="language-plaintext highlighter-rouge">Player</code>에 옮김.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="firecs">📜Fire.cs</h2>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnTriggerStay</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">isFire</span> <span class="p">&amp;&amp;</span> <span class="n">other</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">"Player"</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentDamageTime</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">other</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Burn</span><span class="p">&gt;().</span><span class="nf">StartBurning</span><span class="p">();</span>
+                <span class="n">thePlayerStatus</span><span class="p">.</span><span class="nf">DecreaseHP</span><span class="p">(</span><span class="n">damage</span><span class="p">);</span>
+                <span class="n">currentDamageTime</span> <span class="p">=</span> <span class="n">damageTime</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/95713584-bcb24600-0ca1-11eb-8301-ea75d92491a3.png" alt="image" /></p>
+
+<p>플레이어에게 불이 붙은 것을 확인할 수 있다.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

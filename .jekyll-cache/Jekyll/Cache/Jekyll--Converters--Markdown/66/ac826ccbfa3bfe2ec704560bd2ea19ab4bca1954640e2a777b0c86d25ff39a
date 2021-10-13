@@ -1,0 +1,22 @@
+I"8<ul class="toc__menu">
+  <li><a href="#-input">👩‍🦰 Input</a>
+    <ul>
+      <li><a href="#-변수프로퍼티">🚀 변수/프로퍼티</a>
+        <ul>
+          <li><a href="#-mouseposition">✈ mousePosition</a></li>
+          <li><a href="#-anykey">✈ anyKey</a></li>
+          <li><a href="#-keycode">✈ KeyCode</a></li>
+        </ul>
+      </li>
+      <li><a href="#-함수">🚀 함수</a>
+        <ul>
+          <li><a href="#-getkey-getkeyup-getkeydown">✈ GetKey, GetKeyUp, GetKeyDown</a></li>
+          <li><a href="#-getmousebutton-getmousebuttonup-getmousebuttondown">✈ GetMouseButton, GetMouseButtonUp, GetMouseButtonDown</a></li>
+          <li><a href="#-getaxis">✈ GetAxis</a></li>
+          <li><a href="#-getaxisraw">✈ GetAxisRaw</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

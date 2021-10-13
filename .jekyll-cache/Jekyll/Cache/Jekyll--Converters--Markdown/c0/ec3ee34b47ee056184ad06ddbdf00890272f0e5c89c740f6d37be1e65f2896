@@ -1,0 +1,19 @@
+I":<ul class="toc__menu">
+  <li><a href="#chapter-6-어메이징-볼링-게임-만들기">Chapter 6. 어메이징 볼링 게임 만들기</a>
+    <ul>
+      <li><a href="#프롭들-만들기">프롭들 만들기</a>
+        <ul>
+          <li><a href="#-propcs-의-역할">📜 Prop.cs 의 역할</a></li>
+          <li><a href="#프롭의-파티클-효과--효과음">프롭의 파티클 효과 &amp; 효과음</a></li>
+        </ul>
+      </li>
+      <li><a href="#데미지-시스템">데미지 시스템</a>
+        <ul>
+          <li><a href="#layer를-사용하여-폭발-반경안에-있는-prop들-구별">Layer를 사용하여 폭발 반경안에 있는 Prop들 구별</a></li>
+          <li><a href="#-ballcs--데미지-계산">📜 Ball.cs : 데미지 계산</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

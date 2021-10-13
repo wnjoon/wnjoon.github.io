@@ -1,0 +1,32 @@
+I"�<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ue4error/01/">UE4 프로젝트 열 때 Project could not be compiled. try rebuilding from source manually</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.12.02
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ue4error" class="page__taxonomy-item-category" rel="tag">UE4error</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ue4" class="page__taxonomy-item-tag" rel="tag">UE4</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

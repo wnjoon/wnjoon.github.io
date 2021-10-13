@@ -1,0 +1,329 @@
+I":I<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-7-c-프로그래밍--중급-22">Chapter 7. C# 프로그래밍 : 중급 (2/2)</h1>
+
+<p><br /></p>
+
+<h2 id="-상속">🔔 상속</h2>
+
+<h3 id="상속이란">상속이란?</h3>
+
+<blockquote>
+  <p>베이스가 되는 클래스<em>(부모)</em>를 <u>가져와서</u> 그 위에 나만의 클래스를 <code class="language-plaintext highlighter-rouge">확장</code>해서 만드는 것.</p>
+</blockquote>
+
+<ul>
+  <li>A 클래스를 B, C, D 클래스가 상속 받는다면 B, C, D는 A의 기능들을 공통적으로 가지고 있게 된다.</li>
+  <li>어떤 <u>공통적인 기능</u>들은 부모클래스로 추상화해놓고 이를 여러 자식 클래스에서 상속받아 자신 만의 기능들을 추가로 덧붙이는 방식</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="상속과-다형성의-장점">상속과 다형성의 장점</h3>
+<ul>
+  <li>코드를 재활용 할 수 있다.</li>
+  <li>구조를 간결하게 할 수 있다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="부모클래스-상속받는-방법--monobehaviour">부모클래스 상속받는 방법 &amp; MonoBehaviour</h3>
+
+<ul>
+  <li>
+    <p>클래스 이름 뒤에 <code class="language-plaintext highlighter-rouge">:</code> 콜론과 함께 파생할 부모클래스의 이름을 써주면 된다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">MonoBehaviour</code>는</p>
+    <ul>
+      <li>유니티에서 C# 스크립트를 만들 때 기본으로 붙는 부모클래스
+        <ul>
+          <li>이 <code class="language-plaintext highlighter-rouge">MonoBehaviour</code>이 가지고 있는 기능들을 기반으로 하여 본인만의 기능들을 쌓아올린다.</li>
+        </ul>
+      </li>
+      <li><u>모든 컴포넌트들이 기본으로 가지는 기능</u>들을 담고 있다.
+        <ul>
+          <li>오브젝트에 붙을 수 있다던지 유니티 엔진과 메세지를 주고 받는다던지 <em>(ex. void Update, Start함수)</em> 등등 모든 유니티의 컴포넌트들이 가지는 기본 기능</li>
+        </ul>
+      </li>
+      <li>c# 스크립트는 <code class="language-plaintext highlighter-rouge">MonoBehaviour</code>를 상속 받아야지만  <code class="language-plaintext highlighter-rouge">MonoBehaviour</code>의 편의 기능들을 가질 수 있다.
+        <ul>
+          <li>예를 들면 스크립트를 컴포넌트로서 오브젝트에 붙일 수 있고 유니티 엔진과 메세지 기반의 상호작용을 할 수 있는 등등</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="animalh">📜Animal.h</h3>
+
+<blockquote>
+  <p>📜 <strong>class Animal</strong> : 동물이 가지는 기초적이고 공통적인 데이터와 기능들이 들어가야 한다. <em>ex) name, weight, age, 몸무게와 나이가 늘어나면 속도가 줄어드는 기능 등등</em></p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Animal</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">weight</span><span class="p">;</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Print</span><span class="p">()</span> 
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">name</span> <span class="p">+</span> <span class="s">"| 몸무게: "</span> <span class="p">+</span> <span class="n">weight</span> <span class="p">+</span> <span class="s">"| 나이 "</span> <span class="p">+</span> <span class="n">age</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">float</span> <span class="nf">GetSpeed</span><span class="p">()</span> 
+    <span class="p">{</span>
+        <span class="kt">float</span> <span class="n">speed</span> <span class="p">=</span> <span class="m">100f</span> <span class="p">/</span> <span class="p">(</span><span class="n">weight</span> <span class="p">*</span> <span class="n">age</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">speed</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Dog</span> <span class="p">:</span> <span class="n">Animal</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Hunt</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kt">float</span> <span class="n">speed</span> <span class="p">=</span> <span class="nf">GetSpeed</span><span class="p">();</span>  <span class="c1">// 사용가능</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">speed</span> <span class="p">+</span> <span class="s">" 의 속도로 달려가서 사냥했다."</span><span class="p">);</span>
+
+        <span class="n">weight</span> <span class="p">=</span> <span class="n">weight</span> <span class="p">+</span> <span class="m">10f</span><span class="p">;</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"사냥 후 몸무게가 늘어 "</span> <span class="p">+</span> <span class="n">weight</span> <span class="p">+</span> <span class="s">"몸무게가 되었다."</span><span class="p">);</span> 
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 샌드박스 디자인패턴 : 미리 필요한 기능들은 미리 부모클래스에 싹다 모아놓고 자식클래스에서 마구잡이로 그것들을 조합해서 자신만의 기능을 만드는 것</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Cat</span><span class="p">:</span> <span class="n">Animal</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Stealth</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"숨었다"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">MonoBehaviour</code>는 상속받지 않게 <em>: MonoBehaviour</em> 은 지워주었다.
+    <ul>
+      <li>이제 📜Animal.h 는 다른 오브젝트에 붙일 수 없고 우리가 사용해 온 그 <em>Update(), Start(), OnTriggerEnter()</em> 같은 이벤트 함수들을 사용할 수 없게 된다.</li>
+    </ul>
+  </li>
+  <li><strong><em>class <u>Animal</u></em></strong>
+    <ul>
+      <li><strong>Animal의 데이터(멤버변수)</strong>
+        <ul>
+          <li>name</li>
+          <li>weight</li>
+          <li>age</li>
+        </ul>
+      </li>
+      <li><strong>Animal의 기능(멤버함수)</strong>
+        <ul>
+          <li><em>public void Print()</em>
+            <ul>
+              <li>Animal 객체의 데이터(멤버변수)들을 출력해준다.</li>
+            </ul>
+          </li>
+          <li><em>public float GetSpeed()</em>
+            <ul>
+              <li>속도를 리턴</li>
+              <li>몸무게와 나이가 늘어날 수록 속도는 줄어든다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong><em>class <u>Dog</u></em></strong>
+    <ul>
+      <li><u>Animal 클래스를 상속받는다.</u>
+        <ul>
+          <li>Animal의 데이터와 기능들을 모두 그대로 물려 받아 사용할 수 있다.</li>
+          <li>Animal로부터 물려 받은 데이터와 기능들과 함께 Dog 만이 가지는 기능을 확장할 수 있다.</li>
+        </ul>
+      </li>
+      <li><strong>Dog의 데이터(멤버변수)</strong>
+        <ul>
+          <li>name  <em>(Animal로부터 물려받음)</em></li>
+          <li>weight <em>(Animal로부터 물려받음)</em></li>
+          <li>age <em>(Animal로부터 물려받음)</em></li>
+        </ul>
+      </li>
+      <li><strong>Dog의 기능(멤버함수)</strong>
+        <ul>
+          <li><em>public void Print()</em>
+            <ul>
+              <li><em>(Animal로부터 물려받음)</em></li>
+            </ul>
+          </li>
+          <li><em>public float GetSpeed()</em>
+            <ul>
+              <li><em>(Animal로부터 물려받음)</em></li>
+            </ul>
+          </li>
+          <li>🖐 <em>public void Hunt()</em>
+            <ul>
+              <li>Dog만이 가지는 기능이다.</li>
+              <li>사냥 기능 : 속도를 출력하고 몸무게를 늘리고 출력함</li>
+              <li>Animal 로부터 물려받은 GetSpeed()와 weight을 사용할 수 있다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong><em>class <u>Cat</u></em></strong>
+    <ul>
+      <li><u>Animal 클래스를 상속받는다.</u>
+        <ul>
+          <li>Animal의 데이터와 기능들을 모두 그대로 물려 받아 사용할 수 있다.</li>
+          <li>Animal로부터 물려 받은 데이터와 기능들과 함께 Cat 만이 가지는 기능을 확장할 수 있다.</li>
+        </ul>
+      </li>
+      <li><strong>Cat의 데이터(멤버변수)</strong>
+        <ul>
+          <li>name  <em>(Animal로부터 물려받음)</em></li>
+          <li>weight <em>(Animal로부터 물려받음)</em></li>
+          <li>age <em>(Animal로부터 물려받음)</em></li>
+        </ul>
+      </li>
+      <li><strong>Cat의 기능(멤버함수)</strong>
+        <ul>
+          <li><em>public void Print()</em>
+            <ul>
+              <li><em>(Animal로부터 물려받음)</em></li>
+            </ul>
+          </li>
+          <li><em>public float GetSpeed()</em>
+            <ul>
+              <li><em>(Animal로부터 물려받음)</em></li>
+            </ul>
+          </li>
+          <li>🖐 <em>public void Stealth()</em>
+            <ul>
+              <li>Cat만이 가지는 기능이다.</li>
+              <li>숨는 기능</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="testh">📜Test.h</h3>
+
+<ul>
+  <li><em>빈 오브젝트에 📜Test.h를 붙이고 유니티에서 실행해보자</em>
+    <ul>
+      <li>📜Animal.h 는 현재 <code class="language-plaintext highlighter-rouge">MonoBehaviour</code>를 상속받지 않아 다른 오브젝트에 붙일 수 없음</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Test</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Cat</span> <span class="n">nate</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Cat</span><span class="p">();</span> <span class="c1">// 고양이 객체</span>
+        <span class="n">nate</span><span class="p">.</span><span class="n">name</span> <span class="p">=</span> <span class="s">"Nate"</span><span class="p">;</span>
+        <span class="n">nate</span><span class="p">.</span><span class="n">weight</span> <span class="p">=</span> <span class="m">1.5f</span><span class="p">;</span>
+        <span class="n">nate</span><span class="p">.</span><span class="n">age</span> <span class="p">=</span> <span class="m">3</span><span class="p">;</span>
+
+        <span class="n">Dog</span> <span class="n">jack</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Dog</span><span class="p">();</span> <span class="c1">// 강아지 객체</span>
+        <span class="n">jack</span><span class="p">.</span><span class="n">name</span> <span class="p">=</span> <span class="s">"Jack"</span><span class="p">;</span>
+        <span class="n">jack</span><span class="p">.</span><span class="n">weight</span> <span class="p">=</span> <span class="m">5f</span><span class="p">;</span>
+        <span class="n">jack</span><span class="p">.</span><span class="n">age</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+
+        <span class="n">nate</span><span class="p">.</span><span class="nf">Stealth</span><span class="p">();</span>
+        <span class="n">nate</span><span class="p">.</span><span class="nf">Print</span><span class="p">();</span>  <span class="c1">// 부모인 Animal로부터 물려받은 기능 </span>
+
+        <span class="n">jack</span><span class="p">.</span><span class="nf">Hunt</span><span class="p">();</span>
+        <span class="n">jack</span><span class="p">.</span><span class="nf">Print</span><span class="p">();</span>  <span class="c1">// 부모인 Animal로부터 물려받은 기능 </span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="cf-샌드박스-디자인-패턴">cf. 샌드박스 디자인 패턴</h3>
+
+<p><code class="language-plaintext highlighter-rouge">샌드박스</code> : 필요한 기능들은 미리 부모클래스에 싹다 모아놓고 자식클래스에서 마구잡이로 그것들을 조합해서 자신만의 기능을 만드는 디자인 패턴</p>
+
+<p><br /></p>
+
+<h3 id="접근-지정자-public-private-protected">접근 지정자 public, private, protected</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">public</code>이 붙은 멤버 변수와 멤버 함수는 자식이든 외부에서든 접근이 가능하다.</li>
+  <li><code class="language-plaintext highlighter-rouge">private</code>이 붙은 멤버 변수와 멤버 함수는 외부는 물론이고 <u>자식 클래스에서도 접근이 불가능</u>하다.
+    <ul>
+      <li>상속시 자식에게 물려주기 싫은 멤버들은 <code class="language-plaintext highlighter-rouge">private</code>으로 하는 것이 좋다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">protected</code>가 붙은 멤버 변수와 멤버 함수는 <u>외부에서는 접근이 불가능하지만 자식 클래스 내에서는 접근이 가능</u>하다.
+    <ul>
+      <li>상속시 자식이 접근할 수 있게 그대로 물려주고 싶긴 하지만 외부에선 접근 못하게 하고 싶은 멤버들은 <code class="language-plaintext highlighter-rouge">protected</code>으로 하는 것이 좋다.</li>
+      <li>외부에서 접근을 못하게 한다는 것은 객체로 접근하는 것도 포함이다.
+        <ul>
+          <li>부모클래스의 멤버 함수인 A()는
+            <ul>
+              <li>잘 물려주어 자식 <u>클래스 내에서</u>는 물려받은 멤버 함수로서 접근, 사용이 가능하지만</li>
+              <li>부모 클래스로 부모타입 객체를 생성하여 <u>객체를 통해 접근하려 할 때는 접근이 불가능하다.</u></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Parent</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="kt">int</span> <span class="nf">A</span><span class="p">()</span>  <span class="c1">// Parent 클래스의 A() 멤버 함수는 protected 이다.</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Child</span> <span class="p">:</span> <span class="n">Parent</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">B</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">A</span><span class="p">();</span>  <span class="c1">// 자식인 Child에서 상속되었는데 protected이므로 접근 및 사용 가능.</span>
+
+        <span class="n">Parent</span> <span class="n">p</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">A</span><span class="p">();</span> <span class="c1">// 에러! ⚡ 다만 외부에서는 사용 불가능. </span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="접근-지정자를-사용하는-이유">접근 지정자를 사용하는 이유</h4>
+
+<p>코드를 바깥에서 봤을 때 적절히 숨겨놓으면 <u>간결</u>해지기 때문. 성능과는 거리가 멀고 단지 인간적인 개념에서 사용한다.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

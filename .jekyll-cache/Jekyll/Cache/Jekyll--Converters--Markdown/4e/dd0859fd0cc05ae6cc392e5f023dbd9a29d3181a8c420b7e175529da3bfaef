@@ -1,0 +1,204 @@
+I"~E<p class="notice--warning">케이디님의 <strong>[유니티 강좌] 리듬 게임</strong> 유튜브 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.youtube.com/watch?v=eLdiOCWPfPc&amp;list=PLUZ5gNInsv_MCnum4bOQRI72LdGkIY3tY&amp;index=2&amp;t=231s">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="-결과-ui">🚀 결과 UI</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/105003876-8d685d80-5a76-11eb-97da-d57dad685177.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/105003826-7de91480-5a76-11eb-9d08-5299080037ee.png" alt="image" /></p>
+
+<h3 id="timingmanager">📜TimingManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="p">[]</span> <span class="n">judgementRecord</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="m">5</span><span class="p">];</span>
+
+    <span class="k">public</span> <span class="kt">int</span><span class="p">[]</span> <span class="nf">GetJudgementRecord</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">judgementRecord</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">MissRecord</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">judgementRecord</span><span class="p">[</span><span class="m">4</span><span class="p">]++;</span>  <span class="c1">// Miss의 판정 기록</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CheckTiming</span><span class="p">()</span>
+    <span class="p">{</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="nf">CheckCanNextPlate</span><span class="p">())</span>
+                    <span class="p">{</span>
+                        <span class="n">theScoreManager</span><span class="p">.</span><span class="nf">IncreaseScore</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>  <span class="c1">// 점수 증가</span>
+                        <span class="n">theStage</span><span class="p">.</span><span class="nf">ShowNextPlate</span><span class="p">();</span> <span class="c1">// 다음 플레이트 호출</span>
+                        <span class="n">theEffect</span><span class="p">.</span><span class="nf">JudgementEffect</span><span class="p">(</span><span class="n">j</span><span class="p">);</span> <span class="c1">// 판정 연출</span>
+                        <span class="n">judgementRecord</span><span class="p">[</span><span class="n">j</span><span class="p">]++;</span>  <span class="c1">// 판정 기록</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span>
+                    <span class="p">{</span>
+                        <span class="n">theEffect</span><span class="p">.</span><span class="nf">JudgementEffect</span><span class="p">(</span><span class="m">5</span><span class="p">);</span>
+                    <span class="p">}</span>
+                        
+                    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Miss</span>
+        <span class="n">theCombo</span><span class="p">.</span><span class="nf">ResetCombo</span><span class="p">();</span>
+        <span class="n">theEffect</span><span class="p">.</span><span class="nf">JudgementEffect</span><span class="p">(</span><span class="n">timingBoxs</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+        <span class="nf">MissRecord</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">judgementRecord</code>
+    <ul>
+      <li>인덱스별로, 즉 Perfect, Cool, Good, Bad, Miss 별로 횟수를 전부 기록해야 한다. 그래야 결과 UI 에 띄울 수 있다!</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="scoremanager">📜ScoreManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="kt">int</span> <span class="nf">GetCurrentScore</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">currentSrore</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="combomanager">📜ComboManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kt">int</span> <span class="n">currentCombo</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">maxCombo</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">IncreaseCombo</span><span class="p">(</span><span class="kt">int</span> <span class="n">p_num</span> <span class="p">=</span> <span class="m">1</span><span class="p">)</span>
+    <span class="p">{</span>
+       <span class="c1">//...</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">maxCombo</span> <span class="p">&lt;</span> <span class="n">currentCombo</span><span class="p">)</span>
+            <span class="n">maxCombo</span> <span class="p">=</span> <span class="n">currentCombo</span><span class="p">;</span>
+        <span class="c1">//...</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">int</span> <span class="nf">GetMaxCombo</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">maxCombo</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>최대 콤보를 기록해야 한다.</p>
+
+<p><br /></p>
+
+<h3 id="result">📜Result</h3>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Result</code>에 붙인다.</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.UI</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Result</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">GameObject</span> <span class="n">goUI</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">Text</span><span class="p">[]</span> <span class="n">txtCount</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">Text</span> <span class="n">txtCoin</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">Text</span> <span class="n">txtScore</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="n">Text</span> <span class="n">txtMaxCombo</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+
+    <span class="n">ScoreManager</span> <span class="n">theScore</span><span class="p">;</span>
+    <span class="n">ComboManager</span> <span class="n">theCombo</span><span class="p">;</span>
+    <span class="n">TimingManager</span> <span class="n">theTiming</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">theScore</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">ScoreManager</span><span class="p">&gt;();</span>
+        <span class="n">theCombo</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">ComboManager</span><span class="p">&gt;();</span>
+        <span class="n">theTiming</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">TimingManager</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ShowResult</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 결과 UI 활상화</span>
+        <span class="n">goUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+
+        <span class="c1">// 초기화</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">txtCount</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+            <span class="n">txtCount</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span> <span class="p">=</span> <span class="s">"0"</span><span class="p">;</span>
+        <span class="n">txtCoin</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">"0"</span><span class="p">;</span>
+        <span class="n">txtScore</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">"0"</span><span class="p">;</span>
+        <span class="n">txtMaxCombo</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">"0"</span><span class="p">;</span>
+
+        <span class="c1">// 점수들 가져오기</span>
+        <span class="kt">int</span><span class="p">[]</span> <span class="n">t_judgement</span> <span class="p">=</span> <span class="n">theTiming</span><span class="p">.</span><span class="nf">GetJudgementRecord</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">t_currentScore</span> <span class="p">=</span> <span class="n">theScore</span><span class="p">.</span><span class="nf">GetCurrentScore</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">t_maxCombo</span> <span class="p">=</span> <span class="n">theCombo</span><span class="p">.</span><span class="nf">GetMaxCombo</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">t_coin</span> <span class="p">=</span> <span class="p">(</span><span class="n">t_currentScore</span> <span class="p">/</span> <span class="m">50</span><span class="p">);</span>
+
+        <span class="c1">// 텍스트 세팅 (가져온 것들로)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">txtCount</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">txtCount</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">"{0:#,##0}"</span><span class="p">,</span> <span class="n">t_judgement</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">txtScore</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">"{0:#,##0}"</span><span class="p">,</span> <span class="n">t_currentScore</span><span class="p">);</span>
+        <span class="n">txtMaxCombo</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">"{0:#,##0}"</span><span class="p">,</span> <span class="n">t_maxCombo</span><span class="p">);</span>
+        <span class="n">txtCoin</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">"{0:#,##0}"</span><span class="p">,</span> <span class="n">t_coin</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/105003995-b2f56700-5a76-11eb-8e93-2af7a0feb494.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h3 id="goalplate">📜GoalPlate</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Result</span> <span class="n">theResult</span><span class="p">;</span>
+<span class="n">theResult</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">Result</span><span class="p">&gt;();</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="nf">CompareTag</span><span class="p">(</span><span class="s">"Player"</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">theAudio</span><span class="p">.</span><span class="nf">Play</span><span class="p">();</span>
+            <span class="n">PlayerController</span><span class="p">.</span><span class="n">s_canPressKey</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="n">theNote</span><span class="p">.</span><span class="nf">RemoveNote</span><span class="p">();</span>
+            <span class="n">theResult</span><span class="p">.</span><span class="nf">ShowResult</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>목표 지점에 도달했을 때 결과 UI 띄우기 <em>theResult.ShowResult();</em></p>
+
+<p><br /></p>
+
+<h3 id="notemanager">📜NoteManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">OnTriggerExit2D</span><span class="p">(</span><span class="n">Collider2D</span> <span class="n">collision</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">collision</span><span class="p">.</span><span class="nf">CompareTag</span><span class="p">(</span><span class="s">"Note"</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">collision</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Note</span><span class="p">&gt;().</span><span class="nf">GetNoteFlag</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="n">theTimingManager</span><span class="p">.</span><span class="nf">MissRecord</span><span class="p">();</span>
+                <span class="n">theEffect</span><span class="p">.</span><span class="nf">JudgementEffect</span><span class="p">(</span><span class="m">4</span><span class="p">);</span>
+                <span class="n">theCombo</span><span class="p">.</span><span class="nf">ResetCombo</span><span class="p">();</span>
+            <span class="p">}</span>
+</code></pre></div></div>
+
+<p>노트를 완전히 놓쳐버렸을 때 Miss 횟수를 카운팅 할 수 있도록 <em>theTimingManager.MissRecord();</em></p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

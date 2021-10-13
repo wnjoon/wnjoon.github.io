@@ -1,0 +1,196 @@
+I"y;<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="생존-킷--툴팁-생성">생존 킷 : 툴팁 생성</h1>
+
+<p>슬롯 버튼에 마우스 커서를 갖다 대면 이 아이템의 이름과 필요한 재료 아이템들이 툴팁으로 나오게 할 것이다.</p>
+
+<h2 id="-tooltip-ui-만들기">🚀 ToolTip UI 만들기</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101772142-51181800-3b2e-11eb-9e5c-555a0038b5b0.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101772119-49f10a00-3b2e-11eb-9d29-2877ea8aa7f0.png" alt="image" /></p>
+
+<ul>
+  <li>컴퓨터의 화면으로 쓰는 캔버스의 자식으로 <code class="language-plaintext highlighter-rouge">Tool Tip Base</code> 이미지를 추가해준다. 툴팁 배경이미지이다. 또 그의 자식들로 커서를 올린 해당 슬롯 아이템의 이름과 제작에 필요한 재료들과 설명을 보여줄 3 개의 텍스트를 추가한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Tool Tip Base</code>는 비활성화 해놓도록 한다. 커서를 올릴 때만 보여야 하기 때문이다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Tool Tip Base</code> 이미지와 3 개의 텍스트들의 <code class="language-plaintext highlighter-rouge">Raycast Target</code>을 전부 해제해준다.
+    <ul>
+      <li>커서를 올린 슬롯에서 마우스 이벤트를 감지한 후 툴팁을 활성화 하도록 할 것인데, 이게 체크 되어 있다면 툴팁 이미지와 3 개의 텍스트들이 <strong>슬롯을 가로막아 Raycast를 대신 받아서 아이템 슬롯의 마우스 이벤트 발동을 방해힐 수 있기 때문이다.</strong>
+        <ul>
+          <li>툴팁은 슬롯들보다 Hierarchy 상에서 더 밑에 있으므로 더 위에 렌더링 되기 떄문.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="computertooltip">📜ComputerToolTip</h2>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.UI</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ComputerToolTip</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">GameObject</span> <span class="n">go_BaseUI</span><span class="p">;</span> <span class="c1">// 툴팁 UI</span>
+    
+    <span class="c1">// 툴팁에 필요한 3 개의 텍스트</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">Text</span> <span class="n">kitName</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">Text</span> <span class="n">kitDescription</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">Text</span> <span class="n">kitNeedItem</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ShowToolTip</span><span class="p">(</span><span class="kt">string</span> <span class="n">_kitName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_kitDescription</span><span class="p">,</span> <span class="kt">string</span><span class="p">[]</span> <span class="n">_needItem</span><span class="p">,</span> <span class="kt">int</span> <span class="p">[]</span> <span class="n">_needItemNumber</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">go_BaseUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+        <span class="n">kitName</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="n">_kitName</span><span class="p">;</span>
+        <span class="n">kitDescription</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="n">_kitDescription</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_needItem</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">kitNeedItem</span><span class="p">.</span><span class="n">text</span> <span class="p">+=</span> <span class="n">_needItem</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">kitNeedItem</span><span class="p">.</span><span class="n">text</span> <span class="p">+=</span> <span class="s">" x "</span> <span class="p">+</span> <span class="n">_needItemNumber</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">ToString</span><span class="p">()</span> <span class="p">+</span> <span class="s">"\n"</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">HideToolTip</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">go_BaseUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+        <span class="n">kitName</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+        <span class="n">kitDescription</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+        <span class="n">kitNeedItem</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>Canvas 에 붙는다. <code class="language-plaintext highlighter-rouge">Tool Tip Base</code>는 평소 비활성화가 디폴트 상태이기 때문에 <code class="language-plaintext highlighter-rouge">Tool Tip Base</code>에 붙이면 동작하지 않는다.</p>
+</blockquote>
+
+<ul>
+  <li><em>ShowToolTip</em> 👉 툴팁 활성화
+    <ul>
+      <li>해당 슬롯의 아이템 정보들을 📜ComputerKit 에서 알 수 있으므로 📜ComputerKit 에서 또 <em>ShowToolTip</em> 함수를 만들어 이 안에서 호출시킬 것이다.</li>
+      <li><code class="language-plaintext highlighter-rouge">Tool Tip Base</code>를 활성화하고 그 아래 텍스트들을 설정한다.
+        <ul>
+          <li>_needItem 의 경우 재료가 여러개 있을 수 있기 때문에 for 문 돌려 텍스트에 append 시킨다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>HideToolTip</em> 👉 툴팁 비활성화
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Tool Tip Base</code> 비활, 텍스트들 빈 문자열로 초기화</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101772270-7dcc2f80-3b2e-11eb-8a51-b672a1bd9d88.png" alt="image" /></p>
+
+<p>캔버스에 스크립트 붙이고 툴팁 이미지와 텍스트들 할당.</p>
+
+<p><br /></p>
+
+<h2 id="computerkit">📜ComputerKit</h2>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">ComputerToolTip</span> <span class="n">theToolTip</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ShowToolTip</span><span class="p">(</span><span class="kt">int</span> <span class="n">_buttonNum</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">theToolTip</span><span class="p">.</span><span class="nf">ShowToolTip</span><span class="p">(</span><span class="n">kits</span><span class="p">[</span><span class="n">_buttonNum</span><span class="p">].</span><span class="n">kitName</span><span class="p">,</span> <span class="n">kits</span><span class="p">[</span><span class="n">_buttonNum</span><span class="p">].</span><span class="n">kitDescription</span><span class="p">,</span> <span class="n">kits</span><span class="p">[</span><span class="n">_buttonNum</span><span class="p">].</span><span class="n">needItemName</span><span class="p">,</span> <span class="n">kits</span><span class="p">[</span><span class="n">_buttonNum</span><span class="p">].</span><span class="n">needItemNumber</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">HideToolTip</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">theToolTip</span><span class="p">.</span><span class="nf">HideToolTip</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>ShowToolTip</em>, <em>HideToolTip</em>
+    <ul>
+      <li>📜ComputerToolTip의 함수 호출하여 툴팁 활성화, 비활성화</li>
+      <li>또 이 함수들은 📜ComputerButton 를 통해 호출될 것이다.
+        <ul>
+          <li>6개의 슬롯들에 붙는 📜ComputerButton 안에서 슬롯 안에(어떤 슬롯이냐는 <code class="language-plaintext highlighter-rouge">_buttonNum</code>로 감지) 들어 온 마우스 커서 이벤트를 감지하여 📜ComputerKit의 <em>ShowToolTip</em>, <em>HideToolTip</em> 함수를 호출하게 할 것이다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101772458-b9ff9000-3b2e-11eb-81f5-7e37c881ae86.png" alt="image" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">theToolTip</code>에 📜ComputerToolTip 가 붙어있는 Canvas 할당.</p>
+
+<p><br /></p>
+
+<h2 id="computerbutton">📜ComputerButton</h2>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine.EventSystems</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ComputerButton</span> <span class="p">:</span> <span class="n">MonoBehaviour</span><span class="p">,</span> <span class="n">IPointerEnterHandler</span><span class="p">,</span> <span class="n">IPointerExitHandler</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="n">ComputerKit</span> <span class="n">theComputer</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span> <span class="k">private</span> <span class="kt">int</span> <span class="n">buttonNum</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnPointerEnter</span><span class="p">(</span><span class="n">PointerEventData</span> <span class="n">eventData</span><span class="p">)</span> <span class="c1">// 마우스가 슬롯 안에 들어갔을 때</span>
+    <span class="p">{</span>
+        <span class="n">theComputer</span><span class="p">.</span><span class="nf">ShowToolTip</span><span class="p">(</span><span class="n">buttonNum</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnPointerExit</span><span class="p">(</span><span class="n">PointerEventData</span> <span class="n">eventData</span><span class="p">)</span> <span class="c1">// 마우스가 슬롯에서 빠져 나갔을 때</span>
+    <span class="p">{</span>
+        <span class="n">theComputer</span><span class="p">.</span><span class="nf">HideToolTip</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>6 개의 슬롯에 붙을 수 있다. 우선 아이템은 하나만 쓰고 있기 때문에 첫번째 슬롯에만 붙여준다.</p>
+</blockquote>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">buttonNum</code> 슬롯 버튼. 예를 들어 첫 번째 슬롯의 경우 0 을 할당.</li>
+  <li>마우스 커서 이벤트 인터페이스를 상속 받고 오버라이딩한다.
+    <ul>
+      <li>마우스 커서가 이 스크립트가 붙어있는 슬롯 안에 들어왔을 때
+        <ul>
+          <li>툴팁 활성화 (📜ComputerKit의 <em>ShowToolTip</em> 호출)</li>
+        </ul>
+      </li>
+      <li>마우스 커서가 이 스크립트가 붙어있는 슬롯 안에서 나갔을 때
+        <ul>
+          <li>툴팁 비활성화 (📜ComputerKit의 <em>HideToolTip</em> 호출)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101772522-cf74ba00-3b2e-11eb-8e53-9ecbc86159d2.png" alt="image" /></p>
+
+<p>첫 번째 슬롯의 경우 <code class="language-plaintext highlighter-rouge">buttonNum</code> 값은 <code class="language-plaintext highlighter-rouge">0</code></p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101772854-4c079880-3b2f-11eb-8fd9-c7122a967af5.png" alt="image" /></p>
+
+<p>이렇게 슬롯에 커서를 갖다대니 슬롯의 아이템 정보가 툴팁으로 뜬다.</p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

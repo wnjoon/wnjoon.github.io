@@ -1,0 +1,247 @@
+I"�X<p class="notice--warning">인프런에 있는 Rookiss님의 <strong>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part3: 유니티 엔진</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/MMORPG-유니티">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="chapter-13-미니-rpg-만들기">Chapter 13. 미니 RPG 만들기</h1>
+
+<h2 id="-타겟팅-락온">🚀 타겟팅 락온</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Cursor.Auto</code>로 하면 녹화에 커서가 안잡혀서 <code class="language-plaintext highlighter-rouge">Cursor.ForceSoftware</code>로 잠시 바꾸고 녹화했더니 커서가 짱 크다..</p>
+
+<p><img src="https://camo.githubusercontent.com/5a020b406068fc8d1e63712847622ac6eef8c517f0db33051778d0f5f423530b/68747470733a2f2f706f737466696c65732e707374617469632e6e65742f4d6a41794d5441784d544a664e5459672f4d4441784e6a45774d7a63334f5441314e7a55302e71426e7a79454b395865635946347158786d6b655271517363566f42484b636c623379466c51665f434e45672e6c427179794e57306746444a363032546c4f353975326c4e62546b56524c426b786a4b47446771584a3545672e4749462e736f6879756e655f616e2f637572332e6769663f747970653d77373733" alt="image" /></p>
+
+<p>목적지가 땅으로 찍혀있던 상태라면 마우스를 꾹 누르고 있는 상태에서 마우스를 움직이면 플레이어가 그 커서의 방향으로 따라서 계속 이동한다.</p>
+
+<p><img src="https://camo.githubusercontent.com/3315780b291ffe9ba244cb2276cdfded3b304f211ee7a4add01c99dc3f2744ce/68747470733a2f2f706f737466696c65732e707374617469632e6e65742f4d6a41794d5441784d544a664d6a6b782f4d4441784e6a45774d7a63334e444d354d6a49792e577869584f3942613046744b443755506a434968547349795f4c4f6336725f69472d6e4165383077674959672e47754b6459416476786633454a754a725647376f6b58725f745f397949326632353633425f366f537a4638672e4749462e736f6879756e655f616e2f637572322e6769663f747970653d77373733" alt="image" /></p>
+
+<p>그러나 목적지가 보스로 찍혀있느 상태라면 마우스를 누르고 마우스를 움직여도 플레이어는 이에 반응하지 않고 보스로 달려간다.</p>
+
+<p>마우스를 안 누르고 있던 상태에서 처음 누른(<code class="language-plaintext highlighter-rouge">PointDown</code>) 곳이 목적지가 된다는 사실.</p>
+
+<p><br /></p>
+
+<h3 id="define">📜Define</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">enum</span> <span class="n">MouseEvent</span>
+    <span class="p">{</span>
+        <span class="n">Press</span><span class="p">,</span>
+        <span class="n">PointerDown</span><span class="p">,</span>  <span class="c1">// 마우스 뗀 상태에서 처음 눌렀을 때</span>
+        <span class="n">PointerUp</span><span class="p">,</span>  <span class="c1">// 마우스 누르고 있던 상태에서 처음 뗏을 때</span>
+        <span class="n">Click</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Press</code> : 누르는 동안</li>
+  <li><code class="language-plaintext highlighter-rouge">PointerDown</code> : 안 누르고 있던 상태에서 처음으로 눌렀을 때</li>
+  <li><code class="language-plaintext highlighter-rouge">PointerUp</code> : 0.2초 이상 꾹 누르고 있던 상태에서 처음으로 뗏을 때
+    <ul>
+      <li>꽤 누르고 있다가 뗐을 때</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Click</code> : 0.2초 이하로 누르고 있던 상태에서 처음으로 뗏을 때
+    <ul>
+      <li>말 그대로 클릭 수준. 찰나만 누르고 뗐을 떄</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="inputmanager">📜InputManager</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">InputManager</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Action</span> <span class="n">KeyAction</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">Action</span><span class="p">&lt;</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">&gt;</span> <span class="n">MouseAction</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+
+    <span class="kt">bool</span> <span class="n">_pressed</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">_pressedTime</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnUpdate</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">EventSystem</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="nf">IsPointerOverGameObject</span><span class="p">())</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="n">anyKey</span> <span class="p">&amp;&amp;</span> <span class="n">KeyAction</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+				<span class="n">KeyAction</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">MouseAction</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetMouseButton</span><span class="p">(</span><span class="m">0</span><span class="p">))</span> <span class="c1">// PointerDown -&gt; Press</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(!</span><span class="n">_pressed</span><span class="p">)</span> <span class="c1">// 한번도 눌렀던적이 없었는데 클릭 들어온거면 </span>
+                <span class="p">{</span>
+                    <span class="n">MouseAction</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">PointerDown</span><span class="p">);</span>
+                    <span class="n">_pressedTime</span> <span class="p">=</span> <span class="n">Time</span><span class="p">.</span><span class="n">time</span><span class="p">;</span> <span class="c1">// start 이후 경과 시간 (구분만 할 수 있으면 됨)</span>
+                <span class="p">}</span>
+                <span class="n">MouseAction</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">Press</span><span class="p">);</span> <span class="c1">// 비효율적일 수 있음(이벤트 발생)</span>
+                <span class="n">_pressed</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="c1">// Click(금방 뗏을 때) -&gt; PointerUp(좀 오래 눌려있다가 뗏을 때)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">_pressed</span><span class="p">)</span>  <span class="c1">// 클릭 이벤트는 안들어왔는데 눌린 상태였었다면</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">Time</span><span class="p">.</span><span class="n">time</span> <span class="p">&lt;</span> <span class="n">_pressedTime</span> <span class="p">+</span> <span class="m">0.2f</span><span class="p">)</span> <span class="c1">// 0.2초 내에 뗐을때</span>
+                        <span class="n">MouseAction</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">Click</span><span class="p">);</span>
+                    <span class="n">MouseAction</span><span class="p">.</span><span class="nf">Invoke</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">PointerUp</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">_pressed</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+                <span class="n">_pressedTime</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">MouseAction</code> : <em>Define.MouseEvent</em> 을 인수로 받는 함수만 등록 가능한 액션. 📜PlayerController에서 이 인수가 무엇인지에 따라 다르게 동작하도록 할 것.</li>
+  <li><code class="language-plaintext highlighter-rouge">_pressedTime</code> : Click 과 PointerUp 을 구분하기 위해 누르는 시간을 샐 것이다. 0.2 초 이하로 누르면 Click, 0.2 초 이상으로 누르면 PointerUp 로 인식되게끔.</li>
+  <li>마우스 클릭 발생 ⭕ <em>if (Input.GetMouseButton(0))</em>
+    <ul>
+      <li><em>if (!_pressed)</em> 👉 한번도 눌렀던적이 없었는데 클릭 들어온거면 <code class="language-plaintext highlighter-rouge">PointerDown</code>
+        <ul>
+          <li>이제부터 누르는 동안의 시간인 <code class="language-plaintext highlighter-rouge">_pressedTime</code> 타이밍을 시작해야 한다. <code class="language-plaintext highlighter-rouge">Time.time</code>은 Start() 함수 시작 후 실행 시간이다. 현재 플레이한 초 단위의 시간이라고 생각하면 될 것 같다. <em>Time.time &lt; _pressedTime + 0.2f</em> 로 0.2초 이상 눌렀는지 아닌지를 비교하는데 쓸거라 Time.time 이용한 것이다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>마우스 클릭 발생 ❌
+    <ul>
+      <li><em>if (_pressed)</em> 👉 방금까지 누르고 있더 상태였다면
+        <ul>
+          <li>누른지 0.2초 이내 <code class="language-plaintext highlighter-rouge">Click</code></li>
+          <li>누른지 0.2초 이상 <code class="language-plaintext highlighter-rouge">PointerUp</code></li>
+          <li><code class="language-plaintext highlighter-rouge">_pressed</code>와 <code class="language-plaintext highlighter-rouge">_pressedTime</code> 리셋</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>누르는 동안엔 <em>MouseAction.Invoke(Define.MouseEvent.Press);</em> 로 인해 매 프레임마다 이벤트를 발생시킬 수 있으니 성능상 비효율적일 수도 있다. Update문에서 <em>Input.GetMouseButton</em></p>
+
+<p><br /></p>
+
+<h3 id="playercontroller">📜PlayerController</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="k">void</span> <span class="nf">UpdateMoving</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="c1">// ...</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">up</span> <span class="p">*</span> <span class="m">0.5f</span><span class="p">,</span> <span class="n">dir</span><span class="p">,</span> <span class="m">1.0f</span><span class="p">,</span> <span class="n">LayerMask</span><span class="p">.</span><span class="nf">GetMask</span><span class="p">(</span><span class="s">"Block"</span><span class="p">)))</span>
+			<span class="p">{</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetMouseButton</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">==</span> <span class="k">false</span><span class="p">)</span> <span class="c1">//</span>
+					<span class="n">State</span> <span class="p">=</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Idle</span><span class="p">;</span>
+				<span class="k">return</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+
+<p>마우스를 꾹 누르고 있는 상태면 (그러니까 <em>Input.GetMouseButton(0)</em>가 <code class="language-plaintext highlighter-rouge">true</code> 이면) 커서가 “Block”에 있더라도 달리는 상태를 유지하도록 한다.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="kt">int</span> <span class="n">_mask</span> <span class="p">=</span> <span class="p">(</span><span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Define</span><span class="p">.</span><span class="n">Layer</span><span class="p">.</span><span class="n">Ground</span><span class="p">)</span> <span class="p">|</span> <span class="p">(</span><span class="m">1</span> <span class="p">&lt;&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Define</span><span class="p">.</span><span class="n">Layer</span><span class="p">.</span><span class="n">Monster</span><span class="p">);</span>
+
+    <span class="n">GameObject</span> <span class="n">_lockTarget</span><span class="p">;</span>
+
+	<span class="k">void</span> <span class="nf">OnMouseEvent</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span> <span class="n">evt</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">switch</span> <span class="p">(</span><span class="n">State</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Idle</span><span class="p">:</span>
+				<span class="nf">OnMouseEvent_IdleRun</span><span class="p">(</span><span class="n">evt</span><span class="p">);</span>
+				<span class="k">break</span><span class="p">;</span>
+			<span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Moving</span><span class="p">:</span>
+				<span class="nf">OnMouseEvent_IdleRun</span><span class="p">(</span><span class="n">evt</span><span class="p">);</span>
+				<span class="k">break</span><span class="p">;</span>
+			<span class="k">case</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Skill</span><span class="p">:</span>
+				<span class="p">{</span>
+					<span class="k">if</span> <span class="p">(</span><span class="n">evt</span> <span class="p">==</span> <span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">PointerUp</span><span class="p">)</span>
+						<span class="n">_stopSkill</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+				<span class="p">}</span>
+				<span class="k">break</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">void</span> <span class="nf">OnMouseEvent_IdleRun</span><span class="p">(</span><span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span> <span class="n">evt</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">RaycastHit</span> <span class="n">hit</span><span class="p">;</span>
+		<span class="n">Ray</span> <span class="n">ray</span> <span class="p">=</span> <span class="n">Camera</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="nf">ScreenPointToRay</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="n">mousePosition</span><span class="p">);</span>
+		<span class="kt">bool</span> <span class="n">raycastHit</span> <span class="p">=</span> <span class="n">Physics</span><span class="p">.</span><span class="nf">Raycast</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="k">out</span> <span class="n">hit</span><span class="p">,</span> <span class="m">100.0f</span><span class="p">,</span> <span class="n">_mask</span><span class="p">);</span>
+
+		<span class="k">switch</span> <span class="p">(</span><span class="n">evt</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">case</span> <span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">PointerDown</span><span class="p">:</span> <span class="c1">// 처음으로 누른 순간</span>
+				<span class="p">{</span>
+					<span class="k">if</span> <span class="p">(</span><span class="n">raycastHit</span><span class="p">)</span>
+					<span class="p">{</span>
+						<span class="c1">// 몬스터 클릭했든 아니든 클릭한 곳으로 이동은 해야.</span>
+						<span class="n">_destPos</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">;</span>
+						<span class="n">State</span> <span class="p">=</span> <span class="n">PlayerState</span><span class="p">.</span><span class="n">Moving</span><span class="p">;</span>
+
+						<span class="k">if</span> <span class="p">(</span><span class="n">hit</span><span class="p">.</span><span class="n">collider</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">layer</span> <span class="p">==</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Define</span><span class="p">.</span><span class="n">Layer</span><span class="p">.</span><span class="n">Monster</span><span class="p">)</span> <span class="c1">// 몬스터 타겟</span>
+							<span class="n">_lockTarget</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">collider</span><span class="p">.</span><span class="n">gameObject</span><span class="p">;</span> <span class="c1">// 몬스터 저장</span>
+						<span class="k">else</span>  <span class="c1">// 몬스터 타겟이 아닐 때</span>
+							<span class="n">_lockTarget</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+				<span class="k">break</span><span class="p">;</span>
+			<span class="k">case</span> <span class="n">Define</span><span class="p">.</span><span class="n">MouseEvent</span><span class="p">.</span><span class="n">Press</span><span class="p">:</span>  <span class="c1">// 누르는 동안</span>
+				<span class="p">{</span>
+					<span class="k">if</span> <span class="p">(</span><span class="n">_lockTarget</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+						<span class="n">_destPos</span> <span class="p">=</span> <span class="n">_lockTarget</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span> <span class="c1">// 누르는 동안에도 몬스터를 따라가야</span>
+                    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">raycastHit</span><span class="p">)</span>
+                        <span class="n">_destPos</span> <span class="p">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">point</span><span class="p">;</span>  <span class="c1">// 누르는 쪽으로!</span>
+				<span class="p">}</span>
+				<span class="k">break</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PointerDown</code>일 때 (처음 누른 순간)
+    <ul>
+      <li><em>if (raycastHit)</em> 몬스터 혹은 땅에 화면클릭 Raycast 가 충돌했을 때
+        <ul>
+          <li>클릭한 곳으로 이동해야 한다. <code class="language-plaintext highlighter-rouge">_destPos</code>, <code class="language-plaintext highlighter-rouge">State</code> 업데이트
+            <ul>
+              <li>몬스터를 클릭했을 때
+                <ul>
+                  <li><code class="language-plaintext highlighter-rouge">_lockTarget</code>에 몬스터 오브젝트 저장</li>
+                </ul>
+              </li>
+              <li>땅 클릭했을 때
+                <ul>
+                  <li><code class="language-plaintext highlighter-rouge">_lockTarget</code> null</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Press</code>일 때 (누르는 동안)
+    <ul>
+      <li>몬스터 타겟인 상태라면 <em>if (_lockTarget != null)</em>
+        <ul>
+          <li>누르고 있는 동안에도 몬스터를 향해 가야한다. (위 gif 참고)</li>
+        </ul>
+      </li>
+      <li>땅 타겟인 상태라면
+        <ul>
+          <li>누르고 있는 동안이더라도 커서가 향하는 곳으로 가야 한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

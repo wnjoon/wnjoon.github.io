@@ -1,0 +1,221 @@
+I"b/<p class="notice--warning">인프런에 있는 이제민님의 <strong>레트로의 유니티 C# 게임 프로그래밍 에센스</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B2%8C%EC%9E%84-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%97%90%EC%84%BC%EC%8A%A4">🌜 [레트로의 유니티 C# 게임 프로그래밍 에센스] 강의 들으러 가기!</a></p>
+
+<p><br /></p>
+
+<h1 id="chapter-7-c-프로그래밍--중급-22">Chapter 7. C# 프로그래밍 : 중급 (2/2)</h1>
+
+<p><br /></p>
+
+<h2 id="-추상-클래스-abstract-class">🔔 추상 클래스 abstract class</h2>
+
+<h3 id="추상-클래스란">추상 클래스란?</h3>
+
+<ul>
+  <li>일반 클래스와 인터페이스의 중간 정도
+    <ul>
+      <li><em>인터페이스</em> 같은 면
+        <ul>
+          <li>모든 자식들이 반드시 오버라이딩해야 하는 함수 껍데기 (프로토타입)을 가지고 있다.</li>
+          <li>따라서 <u>추상클래스 스크립트는 컴포넌트로서 오브젝트에 붙일 수 없다.</u></li>
+        </ul>
+      </li>
+      <li><em>일반 클래스</em> 같은 면
+        <ul>
+          <li>인터페이스와 다르게 어느 정도 실제 <u>구현 부분도 포함할 수 있다.</u>
+            <ul>
+              <li>멤버 변수도 가질 수 있고 멤버 함수를 바디까지 구현할 수 있다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="abstract-키워드"><code class="language-plaintext highlighter-rouge">abstract</code> 키워드</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">abstract</code> 키워드를 <strong><em>클래스</em></strong> 이름 앞에 붙이면 추상 클래스가 된다.</li>
+  <li><code class="language-plaintext highlighter-rouge">abstract</code>를 <strong><em>함수</em></strong> 이름 앞에 붙이면 이 함수는 껍데기 뿐이므로 반드시 자식 클래스에서 오버라이딩 해야 한다는 의미다.
+    <ul>
+      <li>함수의 프로토타입만 작성한다.</li>
+    </ul>
+
+    <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">BaseMonster</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+  <span class="p">{</span>
+      <span class="k">public</span> <span class="k">abstract</span> <span class="k">void</span> <span class="nf">Attack</span><span class="p">();</span>
+  <span class="p">}</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="abstract와-virtual의-차이점"><code class="language-plaintext highlighter-rouge">abstract</code>와 <code class="language-plaintext highlighter-rouge">virtual</code>의 차이점</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">virtual</code>은 <code class="language-plaintext highlighter-rouge">{}</code> 중괄호, 즉 함수의 바디를 가진다.
+    <ul>
+      <li>자식 클래스가 이 함수를 오버라이딩 하도록 권장할 뿐</li>
+      <li>자식 클래스가 이 함수를 오버라이딩 하지 않으면 부모가 정의한 바디 내용대로 실행된다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">abstract</code>은 함수의 바디를 가지지 않는다. 프로토타입 뿐.
+    <ul>
+      <li>모든 자식 클래스에서 이 함수를 <u>반드시 오버라이딩 하도록 강제한다.</u></li>
+      <li>오버라이딩 하지 않으면 에러 남.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="basemonstercs--추상클래스">📜BaseMonster.cs  (추상클래스)</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">BaseMonster</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">damage</span> <span class="p">=</span> <span class="m">100f</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="nf">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Space</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="nf">Attack</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">abstract</span> <span class="k">void</span> <span class="nf">Attack</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>추상클래스는 보다시피 멤버 변수(<em>damage</em>)도 가질 수 있고 구현된 함수(<em>void update()</em>)도 가질 수 있다.</li>
+  <li>자식 클래스에서 <code class="language-plaintext highlighter-rouge">abstract</code>함수인 <em>Attack()</em> 함수를 반드시 오버라이딩 해야한다.</li>
+</ul>
+
+<h3 id="goblincs">📜Goblin.cs</h3>
+<ul>
+  <li>📜BaseMonster를 상속 받는다.
+    <ul>
+      <li><em>public class Goblin : BaseMonster</em></li>
+      <li><em>멤버 변수</em>
+        <ul>
+          <li><em>public float damage = 100f;</em>  <strong>(상속 받음)</strong></li>
+        </ul>
+      </li>
+      <li><em>멤버 함수</em>
+        <ul>
+          <li><em>void Update()</em>  <strong>(상속 받음)</strong>
+            <ul>
+              <li>스페이스바 누르면 공격</li>
+            </ul>
+          </li>
+          <li><em>public abstract void Attack();</em>  <strong>오버라이딩</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Goblin</span> <span class="p">:</span> <span class="n">BaseMonster</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Attack</span><span class="p">()</span>  <span class="c1">// 오버라이딩</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"한 캐릭터를 공격했다. 공격력: "</span> <span class="p">+</span> <span class="n">damage</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="orccs">📜Orc.cs</h3>
+
+<ul>
+  <li>📜BaseMonster를 상속 받는다.
+    <ul>
+      <li><em>public class Orc : BaseMonster</em></li>
+      <li><em>멤버 변수</em>
+        <ul>
+          <li><em>public float damage = 100f;</em>  <strong>(상속 받음)</strong></li>
+        </ul>
+      </li>
+      <li><em>멤버 함수</em>
+        <ul>
+          <li><em>void Update()</em>  <strong>(상속 받음)</strong>
+            <ul>
+              <li>스페이스바 누르면 공격</li>
+            </ul>
+          </li>
+          <li><em>public abstract void Attack();</em>  <strong>오버라이딩</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Orc</span> <span class="p">:</span> <span class="n">BaseMonster</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Attack</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">"광격 공격을 했다. 공격력: "</span> <span class="p">+</span> <span class="n">damage</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>📜Goblin과 📜Orc를 각각 오브젝트에 붙여주면 같은 <code class="language-plaintext highlighter-rouge">Attack()</code>이라고 둘이 다르게 동작하는 것을 볼 수 있다.</p>
+</blockquote>
+
+<h3 id="testcs">📜Test.cs</h3>
+
+<p>다형성을 사용하여 📜BaseMonster 타입으로 자식들을 한방에 관리해보자.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Test</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="n">BaseMonster</span><span class="p">[]</span> <span class="n">monsters</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="n">monsters</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">Debug</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="n">monsters</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">gameObject</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>public BaseMonster[] monsters;</em>
+    <ul>
+      <li>부모 타입(추상클래스)인 <code class="language-plaintext highlighter-rouge">BaseMonster</code> 하나로 자식 클래스(📜Goblin과 📜Orc)에 접근할 수 있게 되었다.</li>
+      <li>유니티에서 슬롯에 📜Goblin과 📜Orc 스크립트가 붙어있는 오브젝트를 드래그 앤 드롭하여 넣어주기.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

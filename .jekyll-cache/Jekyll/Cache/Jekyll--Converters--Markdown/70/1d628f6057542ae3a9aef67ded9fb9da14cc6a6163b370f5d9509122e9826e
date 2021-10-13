@@ -1,0 +1,32 @@
+I"&<ul class="toc__menu">
+  <li><a href="#chapter-11-좀비-tps-게임-만들기">Chapter 11. 좀비 TPS 게임 만들기</a>
+    <ul>
+      <li><a href="#hud">HUD</a>
+        <ul>
+          <li><a href="#구성-ui-요소들">구성 UI 요소들</a></li>
+        </ul>
+      </li>
+      <li><a href="#uimanagercs">📜UIManager.cs</a>
+        <ul>
+          <li><a href="#싱글톤-구현">싱글톤 구현</a></li>
+          <li><a href="#uhd-canvas를-구성하는-자식들인-ui-요소들">UHD Canvas를 구성하는 자식들인 UI 요소들</a></li>
+          <li><a href="#멤버-함수">멤버 함수</a></li>
+        </ul>
+      </li>
+      <li><a href="#crosshaircs">📜Crosshair.cs</a>
+        <ul>
+          <li><a href="#멤버-변수">멤버 변수</a></li>
+          <li><a href="#멤버-함수-1">멤버 함수</a>
+            <ul>
+              <li><a href="#private-void-awake">private void Awake()</a></li>
+              <li><a href="#setactivecrosshairbool-active">SetActiveCrosshair(bool active)</a></li>
+              <li><a href="#public-void-updatepositionvector3-worldpoint">public void UpdatePosition(Vector3 worldPoint)</a></li>
+              <li><a href="#private-void-update">private void Update()</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

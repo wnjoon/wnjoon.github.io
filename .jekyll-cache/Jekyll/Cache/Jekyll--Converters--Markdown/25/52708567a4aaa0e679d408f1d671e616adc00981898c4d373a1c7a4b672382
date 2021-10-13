@@ -1,0 +1,23 @@
+I"�<ul class="toc__menu">
+  <li><a href="#몬스터-데미지-처리">몬스터 데미지 처리</a>
+    <ul>
+      <li><a href="#-몬스터-블루프린트-생성">🔔 몬스터 블루프린트 생성</a></li>
+      <li><a href="#-몬스터-데미지-처리">🔔 몬스터 데미지 처리</a>
+        <ul>
+          <li><a href="#movecharbp이-칼로-공격했을-때-데미지-발생하게-하기">“MoveCharBP”이 칼로 공격했을 때 데미지 발생하게 하기</a></li>
+          <li><a href="#데미지-받으면-hp-깎고-죽으면-쓰러져-있는-애니메이션-장면만-반복-재생">데미지 받으면 HP 깎고 죽으면 쓰러져 있는 애니메이션 장면만 반복 재생</a>
+            <ul>
+              <li><a href="#애님-몽타주-섹션으로-루프-재생">애님 몽타주 ‘섹션’으로 루프 재생</a></li>
+            </ul>
+          </li>
+          <li><a href="#데미지-입을-때-몬스터를-빨간색으로-변하게-하기">데미지 입을 때 몬스터를 빨간색으로 변하게 하기</a>
+            <ul>
+              <li><a href="#material과-material-innstance">Material과 Material Innstance</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

@@ -1,0 +1,426 @@
+I"`?<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories['a b c'] 이런식으로! -->
+
+<hr />
+
+<p class="notice--warning">유튜브에 있는 케이디님의 <strong>[유니티 강좌] 리듬 게임</strong> 유튜브 강의를 듣고 정리한 필기입니다. 😀 언제든지 다시 참고할 수 있도록, 지식 공유보단 개인적인 복습을 목적으로 포스팅하였습니다. <br /> <a href="https://www.youtube.com/watch?v=eLdiOCWPfPc&amp;list=PLUZ5gNInsv_MCnum4bOQRI72LdGkIY3tY&amp;index=2&amp;t=231s">🌜 강의 들으러 가기 Click</a></p>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch15/">Ch 15. 데이터 세이브 &amp; 로드</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.20
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch14/">Ch 14. 음악 교체 (+ Ignore Raycast Graphics, Script Execution Order)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.20
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch13/">Ch 13. 메뉴 구현 &amp; 게임 리셋</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.20
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch12/">Ch 12. 오디오 매니저(풀링 개념)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.19
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch11/">Ch 11. 체력과 쉴드</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.19
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch10/">Ch 10. 낭떠러지 추락</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.19
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch9/">Ch 9. 결과 UI, 점수 계산</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch8/">Ch 8. 골인 지점</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch7/">Ch 7. 스테이지 구현(+ Snap Settings)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch6/">Ch 6. 카메라 액션</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch5/">Ch 5. 큐브(플레이어)의 움직임, 회전, 반동</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch4/">Ch 4. 점수 + 콤보 시스템</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch3/">Ch 3. 노트 오브젝트 풀링</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.12.22
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch2/">Ch 2. 판정 이펙트 효과</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.12.22
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/unity%20lesson%204/ch1/">Ch 1. 노트 만들기, 노트 판정</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2020.12.21
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#unity-lesson-4" class="page__taxonomy-item-category" rel="tag">Unity Lesson 4</a>
+                    
+                    
+                    <a href="/tags/#game-engine" class="page__taxonomy-item-tag" rel="tag">Game Engine</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#unity" class="page__taxonomy-item-tag" rel="tag">Unity</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

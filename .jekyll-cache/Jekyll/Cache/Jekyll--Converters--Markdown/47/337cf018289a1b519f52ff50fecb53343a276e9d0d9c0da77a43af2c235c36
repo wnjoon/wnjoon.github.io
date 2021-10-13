@@ -1,0 +1,373 @@
+I"KY<p class="notice--warning">인프런에 있는 Rookiss님의 <strong>[C#과 유니티로 만드는 MMORPG 게임 개발 시리즈] Part3: 유니티 엔진</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/MMORPG-유니티">🌜 강의 들으러 가기 Click</a></p>
+
+<h2 id="️-게임-매니저">🙋‍♀️ 게임 매니저</h2>
+
+<ul>
+  <li><u>전역으로 게임 전체를 관리하는 스크립트</u>로 만든 것.</li>
+  <li>사실 게임 매니저는 컴포넌트로서 어떤 오브젝트에 꼭 붙어야 하는 이유는 없지만 실체는 없지만 Scene에 존재하긴 하는 빈 오브젝트를 만들어서 매니저 스크립트를 컴포넌트로서 붙이고 사용하는 것을 권장한다.
+    <ul>
+      <li>매니저 스크립트를 붙일 용도의 빈 오브젝트를 만들자.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="️-싱글톤">🙋‍♀️ 싱글톤</h2>
+
+<h3 id="게임-매니저-스크립트가-붙은-오브젝트-가져오기">게임 매니저 스크립트가 붙은 오브젝트 가져오기</h3>
+
+<blockquote>
+  <p>현재 “@Managers” 라는 빈 오브젝트에 게임 매니저로 쓸 Managers 라는 C# 스크립트를 붙여준 상태.</p>
+</blockquote>
+
+<h4 id="playercs">📜Player.cs</h4>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Player</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GameObject</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">GameObject</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">"@Managers"</span><span class="p">);</span>
+        <span class="n">Managers</span> <span class="n">mag</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">obj</code> 👉 현재 씬에 존재하는 오브젝트(GameObject)들 中에서 이름이 “@Managers”인 오브젝트.
+    <ul>
+      <li>Find 함수
+        <ul>
+          <li>GameObject 타입의 함수로서 클래스 함수라 <em>GameObject.Find(String)</em> 식으로 사용 된다. 현재 씬에서 인수와 일치하는 이름을 가진 오브젝트를 찾아 리턴해준다.</li>
+          <li>단, 활성화 되어있는(Active) 오브젝트들 중에서만 찾아준다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">mag</code> 👉 <code class="language-plaintext highlighter-rouge">obj</code> 오브젝트의 Managers 컴포넌트를 <code class="language-plaintext highlighter-rouge">mag</code>에 담았다.
+    <ul>
+      <li>C# 스크립트도 컴포넌트다.</li>
+      <li>즉, @Managers 오브젝트의 Managers 스크립트를 참조하게 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="싱글톤-구현하기">싱글톤 구현하기</h3>
+
+<blockquote>
+  <p>게임 매니저는 게임 전반을 관리하기 때문에 게임 매니저 스크립트는 딱 하나만 static으로 만들어 두고 여러 곳에서 이 동일한 인스턴스를 참조한다.</p>
+</blockquote>
+
+<ul>
+  <li>게임 매니저 오브젝트의 스크립트 컴포넌트를 여러 곳에서 공유할 수 있도록 <code class="language-plaintext highlighter-rouge">static</code> 으로 만들어 둔다.</li>
+  <li>단 하나만 존재하는 이 게임 매니저 컴포넌트를 리턴 받을 수 있는 <code class="language-plaintext highlighter-rouge">static</code> 함수를 만들어 둔다.
+    <ul>
+      <li>다른 곳에서 사용할 수 있도록 <em>public</em>이어야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="첫번째-방법">첫번째 방법</h4>
+
+<h5 id="managerscs">📜Managers.cs</h5>
+
+<blockquote>
+  <p>게임 매니저로서 동작할 스크립트</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Managers</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="n">Managers</span> <span class="n">Instance</span><span class="p">;</span>  <span class="c1">// 유일성이 보장된다.</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Managers</span> <span class="nf">GetInstance</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Instance</span><span class="p">;</span> <span class="p">}</span>  <span class="c1">// 유일한 매니저를 갖고 온다.</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">GameObject</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">GameObject</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">"@Managers"</span><span class="p">);</span>
+        <span class="n">Instance</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>   <span class="c1">// Instance에 스크립트를 할당하는 곳</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>싱글톤으로 만들 대상은 “@Managers” 오브젝트에 붙어 있는 📜Managers.cs
+    <ul>
+      <li>여러 곳에서 동일한 인스턴스에 대해 공유할 수 있도록 <code class="language-plaintext highlighter-rouge">static</code>으로 선언한다.
+        <ul>
+          <li><em>static Managers Instance</em></li>
+        </ul>
+      </li>
+      <li>여러 곳에서 동일한 인스턴스를 리턴받아 사용할 수 있도록 이 인스턴스를 리턴하는 <code class="language-plaintext highlighter-rouge">static</code> public 함수를 만들어둔다.
+        <ul>
+          <li>클래스 함수가 되므로 다른 여러 곳에서 <code class="language-plaintext highlighter-rouge">클래스이름.GetInstance()</code> 로 사용할 수 있게 된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Instance에 📜Managers.cs 할당하는 것을 딱 한군데에서만 해주면 단 하나만 존재하는게 보장된다.
+    <ul>
+      <li>📜Managers.cs에서 할당해준다.
+        <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">GameObject</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">GameObject</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">"@Managers"</span><span class="p">);</span>
+    <span class="n">Instance</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>   <span class="c1">// Instance에 스크립트를 할당하는 곳 </span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="playercs-1">📜Player.cs</h5>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Player</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Managers</span> <span class="n">mag</span> <span class="p">=</span> <span class="n">Managers</span><span class="p">.</span><span class="nf">GetInstance</span><span class="p">();</span>  <span class="c1">// Instance 리턴 받아 사용</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>“@Managers” 오브젝트에 붙어 있는 📜Managers.cs가 할당 되어 있는 Instance를 가져와 사용하면 된다.
+    <ul>
+      <li><em>Managers.GetInstance()</em></li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="이-방법의-문제점">이 방법의 문제점</h5>
+
+<ul>
+  <li>만약 @Managers 오브젝트가 없다면 <code class="language-plaintext highlighter-rouge">ob</code>j가 null이 된다.
+    <ul>
+      <li>이런 경우 코드롤 통하여 @Managers 오브젝트를 만들어 주자.</li>
+    </ul>
+  </li>
+  <li>@Managers가 있긴 있어도 📜Managers.cs 가 붙어있지 않다면 <code class="language-plaintext highlighter-rouge">Instance</code> 가 null이 된다.
+    <ul>
+      <li>이런 경우 코드롤 통하여 @Managers 오브젝트에 📜Managers.cs 컴포넌트를 붙여주자.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="두-번째-방법--개선">두 번째 방법 : 개선</h4>
+
+<h5 id="managerscs-1">📜Managers.cs</h5>
+
+<blockquote>
+  <p>게임 매니저로서 동작할 스크립트</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Managers</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="n">Managers</span> <span class="n">Instance</span><span class="p">;</span>  <span class="c1">// 유일성이 보장된다.</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Managers</span> <span class="nf">GetInstance</span><span class="p">()</span> <span class="c1">// 유일한 매니저를 갖고 온다.</span>
+    <span class="p">{</span>
+        <span class="nf">Init</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">Instance</span><span class="p">;</span>
+    <span class="p">}</span>  
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">Init</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Init</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Instance</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">GameObject</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">GameObject</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">"@Managers"</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">obj</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameObject</span> <span class="p">{</span> <span class="n">name</span> <span class="p">=</span> <span class="s">"@Managers"</span> <span class="p">};</span>
+                <span class="n">obj</span><span class="p">.</span><span class="n">AddComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>
+            <span class="p">}</span>
+
+            <span class="nf">DontDestroyOnLoad</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+            <span class="n">Instance</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>GetInstance()</em>, <em>Start()</em> 두 함수에서 <strong><em>Init()</em></strong>을 호출하는 이유
+    <ul>
+      <li>📜Managers.cs의 <em>Start()</em> 함수가 실행되기도 전에 다른 스크립트에서 게임 매니저 <code class="language-plaintext highlighter-rouge">Instance</code>를 사용해야 할 일이 생긴다면 먼저 그 곳에서 <code class="language-plaintext highlighter-rouge">Instance</code>를 만들어 두도록 하기 위하여.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Instance</code>가 아직 없다면 만들자. 있다면 다음과 같은 과정을 무시하고 지나가면 된다. 👉 <em>if (Instance == null)</em>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Instance</code>가 단 하나만 존재할 수 있도록 보장이 된다.</li>
+      <li><code class="language-plaintext highlighter-rouge">Instance</code> 만들기
+        <ul>
+          <li>@Managers라는 오브젝트가 없다면 👉 <em>if (obj == null)</em>
+            <ul>
+              <li>직접 만들고 📜Managers.cs 컴포넌트도 붙여주자.
+                <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">obj</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameObject</span> <span class="p">{</span> <span class="n">name</span> <span class="p">=</span> <span class="s">"@Managers"</span> <span class="p">};</span>
+<span class="n">obj</span><span class="p">.</span><span class="n">AddComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>
+</code></pre></div>                </div>
+              </li>
+            </ul>
+          </li>
+          <li>“@Managers” 오브젝트가 씬이 변경되도 삭제되지 않고 유지 되도록 안전 장치를 걸어주자. 👉 <em>DontDestroyOnLoad(obj)</em></li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">Instance</code>에 “@Managers” 오브젝트에 붙어 있는 📜Managers.cs 가져오기</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="playercs-2">📜Player.cs</h5>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Player</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Managers</span> <span class="n">mag</span> <span class="p">=</span> <span class="n">Managers</span><span class="p">.</span><span class="nf">GetInstance</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="세-번째-방법--프로퍼티-사용">세 번째 방법 : 프로퍼티 사용</h4>
+
+<h5 id="managerscs-2">📜Managers.cs</h5>
+
+<blockquote>
+  <p>게임 매니저로서 동작할 스크립트</p>
+</blockquote>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Managers</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="n">Managers</span> <span class="n">s_instace</span><span class="p">;</span>  
+    <span class="k">public</span> <span class="k">static</span> <span class="n">Managers</span> <span class="n">Instance</span>
+    <span class="p">{</span>
+        <span class="k">get</span>
+        <span class="p">{</span>
+            <span class="nf">Init</span><span class="p">();</span>
+            <span class="k">return</span> <span class="n">s_instace</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">Init</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Init</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s_instace</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">GameObject</span> <span class="n">obj</span> <span class="p">=</span> <span class="n">GameObject</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="s">"@Managers"</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">obj</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameObject</span> <span class="p">{</span> <span class="n">name</span> <span class="p">=</span> <span class="s">"@Managers"</span> <span class="p">};</span>
+                <span class="n">obj</span><span class="p">.</span><span class="n">AddComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>
+            <span class="p">}</span>
+
+            <span class="nf">DontDestroyOnLoad</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+            <span class="n">s_instace</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Managers</span><span class="p">&gt;();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><em>GetInstance()</em> 함수를 프로퍼티로 바꿔주었다.</p>
+
+<h5 id="playercs-3">📜Player.cs</h5>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Player</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Managers</span> <span class="n">mag</span> <span class="p">=</span> <span class="n">Managers</span><span class="p">.</span><span class="n">Instance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>Managers mag = <strong>Managers.Instance</strong></li>
+</ul>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

@@ -1,0 +1,329 @@
+I"�}<p class="notice--warning">인프런에 있는 케이디님의 <strong>[유니티 3D] 실전! 생존게임 만들기 - Advanced</strong> 강의를 듣고 정리한 필기입니다. 😀<br />
+<a href="https://www.inflearn.com/course/unity-2#">🌜 강의 들으러 가기 Click</a></p>
+
+<h1 id="건축-시스템">건축 시스템</h1>
+
+<h2 id="-건축-ui-필요한-아이템-텍스트">🚀 건축 UI 필요한 아이템 텍스트</h2>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101590418-b6d0ab00-3a2d-11eb-98ce-e101ec153033.png" alt="image" /></p>
+
+<p>이런식으로 해당 슬롯의 건축물을 건축하기 위해서 필요한 아이템을 표시해줄 것이다. 텍스트 UI 를 슬롯들에 추가해준다.</p>
+
+<h3 id="craftmanualcs">📜CraftManual.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">System</span><span class="p">.</span><span class="n">Serializable</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Craft</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">craftName</span><span class="p">;</span> <span class="c1">// 이름</span>
+    <span class="k">public</span> <span class="n">Sprite</span> <span class="n">craftImage</span><span class="p">;</span> <span class="c1">// 이미지</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">craftDescription</span><span class="p">;</span> <span class="c1">// 설명</span>
+    <span class="k">public</span> <span class="kt">string</span><span class="p">[]</span> <span class="n">craftNeedItem</span><span class="p">;</span>  <span class="c1">// 필요한 아이템</span>
+    <span class="k">public</span> <span class="kt">int</span><span class="p">[]</span> <span class="n">craftNeedItemCount</span><span class="p">;</span> <span class="c1">// 필요한 아이템의 개수</span>
+    <span class="k">public</span> <span class="n">GameObject</span> <span class="n">go_prefab</span><span class="p">;</span> <span class="c1">// 실제 설치 될 프리팹</span>
+    <span class="k">public</span> <span class="n">GameObject</span> <span class="n">go_PreviewPrefab</span><span class="p">;</span> <span class="c1">// 미리 보기 프리팹</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">CraftManual</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">SerializeField</span><span class="p">]</span>
+    <span class="k">private</span> <span class="n">Text</span><span class="p">[]</span> <span class="n">text_SlotNeedItem</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>필요한 아이템 텍스트도 추가해주자. 필요한 아이템은 여러개일 수 있기 때문에 배열로 선언한다.</p>
+
+<ul>
+  <li>필요한 아이템 <code class="language-plaintext highlighter-rouge">craftNeedItem</code> 배열</li>
+  <li>필요한 아이템의 개수 <code class="language-plaintext highlighter-rouge">craftNeedItemCount</code> 배열
+    <ul>
+      <li>craftNeedItemCount[i]은 craftNeedItem[i] 아이템의 갯수가 들어간다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>이 텍스트를 표시할 4 개의 텍스트 UI 오브젝트들도 배열로 추가해주자.</p>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101601904-952cef00-3a40-11eb-9f58-8efe95bc8056.png" alt="image" /></p>
+
+<ul>
+  <li>모닥불 건축시 Leaf 3 개, Log 2 개 필요</li>
+  <li>토대 건축시 Log 2 개 필요</li>
+  <li>기둥 건축시 Log 1 개 필요</li>
+</ul>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">ClearSlot</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">go_Slots</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">image_Slot</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">sprite</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+            <span class="n">text_SlotName</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+            <span class="n">text_SlotDescription</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+            <span class="n">text_SlotNeedItem</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span> <span class="p">=</span> <span class="s">""</span><span class="p">;</span>
+            <span class="n">go_Slots</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">TabSlotSetting</span><span class="p">(</span><span class="n">Craft</span><span class="p">[]</span> <span class="n">_craft_tab</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nf">ClearSlot</span><span class="p">();</span>
+
+        <span class="n">craft_SelectedTab</span> <span class="p">=</span> <span class="n">_craft_tab</span><span class="p">;</span>
+
+        <span class="kt">int</span> <span class="n">startSlotNumber</span> <span class="p">=</span> <span class="p">(</span><span class="n">page</span> <span class="p">-</span> <span class="m">1</span><span class="p">)</span> <span class="p">*</span> <span class="n">go_Slots</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="c1">// 4 의 배수</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">startSlotNumber</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">craft_SelectedTab</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="p">==</span> <span class="n">page</span> <span class="p">*</span> <span class="n">go_Slots</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span> <span class="c1">// 슬롯 4 개 초과하지 않도록</span>
+                <span class="k">break</span><span class="p">;</span>
+
+            <span class="n">go_Slots</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+
+            <span class="n">image_Slot</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="n">sprite</span> <span class="p">=</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftImage</span><span class="p">;</span>
+            <span class="n">text_SlotName</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="n">text</span> <span class="p">=</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftName</span><span class="p">;</span>
+            <span class="n">text_SlotDescription</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="n">text</span> <span class="p">=</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftDescription</span><span class="p">;</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&lt;</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">j</span><span class="p">++)</span>
+            <span class="p">{</span>
+                <span class="n">text_SlotNeedItem</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="n">text</span> <span class="p">+=</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="n">text_SlotNeedItem</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="n">text</span> <span class="p">+=</span> <span class="s">" x "</span> <span class="p">+</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftNeedItemCount</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">+</span> <span class="s">"\n"</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>ClearSlot()</em>
+    <ul>
+      <li>아이템 설명 텍스트 <code class="language-plaintext highlighter-rouge">text_SlotNeedItem</code></li>
+    </ul>
+  </li>
+  <li><em>TabSlotSetting(Craft[] _craft_tab)</em>
+    <ul>
+      <li>건축물을 지을 때 필요한 아이템이 여러개일 수 있기 때문에 <code class="language-plaintext highlighter-rouge">text_SlotNeedItem</code>에 텍스트 문자열 설정시 for문으로 돌려야 한다.
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>아이템이 3 개라면
+
+통나무 x 10
+나뭇가지 x 5
+나뭇잎 x 2
+
+이렇게 3 줄로 나뉜 하나의 텍스트로서 들어가야 함.
+</code></pre></div>        </div>
+        <div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">j</span> <span class="p">&lt;</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">j</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">text_SlotNeedItem</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="n">text</span> <span class="p">+=</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">text_SlotNeedItem</span><span class="p">[</span><span class="n">i</span> <span class="p">-</span> <span class="n">startSlotNumber</span><span class="p">].</span><span class="n">text</span> <span class="p">+=</span> <span class="s">" x "</span> <span class="p">+</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">craftNeedItemCount</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">+</span> <span class="s">"\n"</span><span class="p">;</span> <span class="c1">// 한 줄 띄우기</span>
+        <span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101590521-eda6c100-3a2d-11eb-8939-e17b6dbbfac9.png" alt="image" /></p>
+
+<p>4 개의 필요한 아이템 텍스트 UI 오브젝트도 <code class="language-plaintext highlighter-rouge">text_SlotNeedItem</code> 배열에 할당해주기</p>
+
+<p><br /></p>
+
+<h2 id="-건축-아이템-소모-처리">🚀 건축 아이템 소모 처리</h2>
+
+<p>건축하면 그 건축할 때 소모되는 아이템을 인벤토리 혹은 퀵슬롯에 있는 아이템에서 차감해주어야 한다. 따라서 📜Inventory.cs 에서 public 함수를 만들어 적절하게 이를 호출할 수 있도록 함</p>
+
+<h3 id="inventorycs">📜Inventory.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="kt">int</span> <span class="nf">GetItemCount</span><span class="p">(</span><span class="kt">string</span> <span class="n">_itemName</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">temp</span> <span class="p">=</span> <span class="nf">SearchSlotItem</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">_itemName</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">temp</span> <span class="p">!=</span> <span class="m">0</span> <span class="p">?</span> <span class="n">temp</span> <span class="p">:</span> <span class="nf">SearchSlotItem</span><span class="p">(</span><span class="n">quickSlots</span><span class="p">,</span> <span class="n">_itemName</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="kt">int</span> <span class="nf">SearchSlotItem</span><span class="p">(</span><span class="n">Slot</span><span class="p">[]</span> <span class="n">_slots</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_itemName</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_slots</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_slots</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">item</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">_itemName</span> <span class="p">==</span> <span class="n">_slots</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">item</span><span class="p">.</span><span class="n">itemName</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">_slots</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">itemCount</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="m">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SetItemCount</span><span class="p">(</span><span class="kt">string</span> <span class="n">_itemName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_itemCount</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="nf">ItemCountAdjust</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">_itemName</span><span class="p">,</span> <span class="n">_itemCount</span><span class="p">))</span>
+            <span class="nf">ItemCountAdjust</span><span class="p">(</span><span class="n">quickSlots</span><span class="p">,</span> <span class="n">_itemName</span><span class="p">,</span> <span class="n">_itemCount</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="nf">ItemCountAdjust</span><span class="p">(</span><span class="n">Slot</span><span class="p">[]</span> <span class="n">_slots</span><span class="p">,</span> <span class="kt">string</span> <span class="n">_itemName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_itemCount</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_slots</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_slots</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">item</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">_itemName</span> <span class="p">==</span> <span class="n">_slots</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">item</span><span class="p">.</span><span class="n">itemName</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">_slots</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">SetSlotCount</span><span class="p">(-</span><span class="n">_itemCount</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 인벤토리에 없어서 퀵슬롯에서 빼야 됨</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>먼저 현재 인벤토리 혹은 퀵슬롯에서 가지고 있는 아이템 갯수가 해당 건축물에 필요한 아이템 갯수보다 작으면 프리뷰를 생성하지 못하게 해야 한다. 즉 건축 슬롯 눌러도 건축 되지 않게끔 해야 한다. 따라서 인수로 받은 아이템이 현재 인벤토리 혹은 퀵슬롯에 몇개 있는지 확인해야 한다.
+    <ul>
+      <li><em>GetItemCount</em>
+        <ul>
+          <li>인수로 받은 아이템 이름과 일치하는 아이템이 인벤토리 혹은 퀵슬롯에 있다면 그 갯수를 리턴한다. 없다면 0 리턴
+            <ul>
+              <li>인벤토리 슬롯들에서 검사를 진행하고 <em>SearchSlotItem(slots, _itemName)</em></li>
+              <li>없다면 <em>SearchSlotItem(quickSlots, _itemName)</em> 퀵슬롯 슬롯들에서 한번 더 검사 진행</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><em>SearchSlotItem</em>
+        <ul>
+          <li>인수로 받은 슬롯 배열에서 인수로 받은 이름과 일치하는 아이템을 찾는다.</li>
+          <li>찾았다면 그 아이템의 현재 갯수 리턴</li>
+          <li>없다면 0 리턴</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>건축물을 지었다면 인벤토리 혹은 퀵슬롯에서 보유중인 아이템 갯수에서 차감 처리를 해야 한다. 건축에 쓰인 갯수만큼!
+    <ul>
+      <li><em>SetItemCount</em>
+        <ul>
+          <li>인벤토리 슬롯들에서 검사를 진행하고 <em>ItemCountAdjust(slots, _itemName, _itemCount)</em> 없다면 <em>ItemCountAdjust(quickSlots, _itemName, _itemCount)</em> 퀵슬롯 슬롯들에서 한번 더 검사 진행</li>
+        </ul>
+      </li>
+      <li><em>ItemCountAdjust</em>
+        <ul>
+          <li>인수로 받은 슬롯 배열에서 인수로 받은 이름과 일치하는 아이템을 찾는다.</li>
+          <li>찾았다면 그 아이템의 보유 갯수를 인수로 받은 <code class="language-plaintext highlighter-rouge">_itemCount</code> 만큼 차감하고 true 리턴</li>
+          <li>못 찾았다면 false 리턴</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="craftmanualcs-1">📜CraftManual.cs</h3>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 필요한 컴포넌트</span>
+    <span class="k">private</span> <span class="n">Inventory</span> <span class="n">theInventory</span><span class="p">;</span>
+
+    <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">theInventory</span> <span class="p">=</span> <span class="n">FindObjectOfType</span><span class="p">&lt;</span><span class="n">Inventory</span><span class="p">&gt;();</span>
+
+        <span class="n">tabNumber</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="n">page</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+        <span class="nf">TabSlotSetting</span><span class="p">(</span><span class="n">craft_fire</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>📜Inventory 를 컴포넌트로 가져온다. 위에서 만든 public 함수들을 사용하기 위해서.</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">void</span> <span class="nf">SlotClick</span><span class="p">(</span><span class="kt">int</span> <span class="n">_slotNumber</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">selectedSlotNumber</span> <span class="p">=</span> <span class="n">_slotNumber</span> <span class="p">+</span> <span class="p">(</span><span class="n">page</span> <span class="p">-</span> <span class="m">1</span><span class="p">)</span> <span class="p">*</span> <span class="n">go_Slots</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(!</span><span class="nf">CheckIngredient</span><span class="p">())</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="n">go_Preview</span> <span class="p">=</span> <span class="nf">Instantiate</span><span class="p">(</span><span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">go_PreviewPrefab</span><span class="p">,</span> <span class="n">tf_Player</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">tf_Player</span><span class="p">.</span><span class="n">forward</span><span class="p">,</span> <span class="n">Quaternion</span><span class="p">.</span><span class="n">identity</span><span class="p">);</span>
+        <span class="n">go_Prefab</span> <span class="p">=</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">go_prefab</span><span class="p">;</span>
+        <span class="n">isPreviewActivated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+        <span class="n">go_BaseUI</span><span class="p">.</span><span class="nf">SetActive</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="kt">bool</span> <span class="nf">CheckIngredient</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">theInventory</span><span class="p">.</span><span class="nf">GetItemCount</span><span class="p">(</span><span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">&lt;</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">craftNeedItemCount</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">UseIngredient</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+        <span class="p">{</span>
+            <span class="n">theInventory</span><span class="p">.</span><span class="nf">SetItemCount</span><span class="p">(</span><span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">craftNeedItem</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">craft_SelectedTab</span><span class="p">[</span><span class="n">selectedSlotNumber</span><span class="p">].</span><span class="n">craftNeedItemCount</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Build</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">isPreviewActivated</span> <span class="p">&amp;&amp;</span> <span class="n">go_Preview</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">PreviewObject</span><span class="p">&gt;().</span><span class="nf">isBuildable</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="nf">UseIngredient</span><span class="p">();</span>
+
+            <span class="nf">Instantiate</span><span class="p">(</span><span class="n">go_Prefab</span><span class="p">,</span> <span class="n">go_Preview</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">go_Preview</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span><span class="p">);</span>
+            <span class="nf">Destroy</span><span class="p">(</span><span class="n">go_Preview</span><span class="p">);</span>
+            <span class="n">isActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="n">isPreviewActivated</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="n">go_Preview</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+            <span class="n">go_Prefab</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>SlotClick</em>
+    <ul>
+      <li>현재 보유 아이템으로 클릭한 슬롯의 건축물을 지을 수 없다면 프리뷰를 짓지 못한다. <code class="language-plaintext highlighter-rouge">if (!CheckIngredient()) return;</code></li>
+    </ul>
+  </li>
+  <li><em>CheckIngredient()</em>
+    <ul>
+      <li>현재 선택된 탭의 선택된 슬롯이 필요한 아이템들은 여러개가 있을 수 있으므로 for문 돌려 다 검사
+        <ul>
+          <li>아이템 하나라도 갯수 모자르면 건축 못한다.</li>
+          <li>현재 선택된 탭의 선택된 슬롯이 필요한 아이템의 갯수보다 현재 보유 중인 아이템 갯수가 더 작으면 건축하지 못한다. false 리턴
+            <ul>
+              <li>📜Inventory의 <em>GetItemCount</em> 함수 사용</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>UseIngredient()</em>
+    <ul>
+      <li>건축시 실제 건축물에 필요한 아이템들의 인벤토리or퀵슬롯 차감 처리.
+        <ul>
+          <li>📜Inventory의 <em>SetItemCount</em> 함수 사용</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>Build()</em>
+    <ul>
+      <li>건축시 <em>UseIngredient()</em> 호출하여 아이템 차감</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/42318591/101590673-39f20100-3a2e-11eb-99be-c4a87064a410.png" alt="image" /></p>
+
+<hr />
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🌜 개인 공부 기록용 블로그입니다. 오류나 틀린 부분이 있을 경우 
+언제든지 댓글 혹은 메일로 지적해주시면 감사하겠습니다! 😄
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+:ET

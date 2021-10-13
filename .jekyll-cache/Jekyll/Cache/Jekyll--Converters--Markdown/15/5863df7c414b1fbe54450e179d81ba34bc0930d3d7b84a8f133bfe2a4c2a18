@@ -1,0 +1,34 @@
+I"Q<ul class="toc__menu">
+  <li><a href="#chapter-6-어메이징-볼링-게임-만들기">Chapter 6. 어메이징 볼링 게임 만들기</a>
+    <ul>
+      <li><a href="#-게임-매니저">🔔 게임 매니저</a>
+        <ul>
+          <li><a href="#ui-만들기">UI 만들기</a></li>
+          <li><a href="#한-라운드의-구성">한 라운드의 구성</a></li>
+          <li><a href="#-gamemanagercs">📜 GameManager.cs</a>
+            <ul>
+              <li><a href="#-변수">🚖 변수</a></li>
+              <li><a href="#-함수">🚖 함수</a></li>
+            </ul>
+          </li>
+          <li><a href="#-propcs">📜 Prop.cs</a></li>
+          <li><a href="#-ballcs">📜 Ball.cs</a></li>
+          <li><a href="#ballshottercs">📜BallShotter.cs</a></li>
+          <li><a href="#unityevent">UnityEvent</a>
+            <ul>
+              <li><a href="#gamemanagercs">📜GameManager.cs</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#-오디오-믹싱">🔔 오디오 믹싱</a>
+        <ul>
+          <li><a href="#배경음악">배경음악</a></li>
+          <li><a href="#효과음이-나올-때는-배경음악-크기-줄이기">효과음이 나올 때는 배경음악 크기 줄이기</a></li>
+        </ul>
+      </li>
+      <li><a href="#-빌드">🔔 빌드</a></li>
+    </ul>
+  </li>
+</ul>
+:ET
