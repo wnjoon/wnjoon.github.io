@@ -67,7 +67,7 @@ var store = [{
       },{
         "title": "STAR 방식으로 설명하기",
         "excerpt":"S.T.A.R 많은 기업에서 면접을 볼 때, STAR 방식으로 설명할 것을 강조한다. 간략하게 무엇인지 살펴보자. S : Situation Describe the situation that you were in or the task that you needed to accomplish. You must describe a specific event or situation, not a generalized description of what you have done in...","categories": ["Etc"],
-        "tags": ["Interview","Communication Skill"],
+        "tags": ["Interview","Communication Skill","EN"],
         "url": "http://localhost:4000/etc/star_way/",
         "teaser": null
       },{

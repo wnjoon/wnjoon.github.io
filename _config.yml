@@ -93,9 +93,9 @@ social:
 
 # Site Author
 author:
-  name             : "글쓰는 개발자 💻 "
-  # avatar           : "/assets/images/profile.png"
-  bio              : ""
+  name             : "글쓰는 개발자 "
+  avatar           : "/assets/images/profile.png"
+  bio              : "#TIL #하루키법칙 #기록"
   #location         : "Seoul, South Korea"
   links:
     - label: "Resume"
