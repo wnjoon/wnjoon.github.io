@@ -1,0 +1,30 @@
+I"<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<!--% assign posts = site.categories['Algorithm Lesson 1'] %}-->
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/retrospect/2020_retrospect/">회고록 - 2020년</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.01.14
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#retrospect" class="page__taxonomy-item-category" rel="tag">Retrospect</a>
+                    
+                    
+                    <a href="/tags/#%ED%9A%8C%EA%B3%A0" class="page__taxonomy-item-tag" rel="tag">회고</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

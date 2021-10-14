@@ -48,7 +48,7 @@
 
 
 
-  <meta property="article:modified_time" content="2021-10-13T00:00:00+09:00">
+  <meta property="article:modified_time" content="2021-10-14T00:00:00+09:00">
 
 
 
@@ -584,7 +584,7 @@
     <meta itemprop="headline" content="Infura로 이더리움 테스트용 노드 만들기">
     <meta itemprop="description" content="Infura를 이용하여 간편하게 이더리움 테스트를 위한 노드를 만들어본다.">
     <meta itemprop="datePublished" content="2021-09-15T00:00:00+09:00">
-    <meta itemprop="dateModified" content="2021-10-13T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-10-14T00:00:00+09:00">
 
     <div class="page__inner-wrap">
       
@@ -592,7 +592,7 @@
           <h1 id="page-title" class="page__title" itemprop="headline">Infura로 이더리움 테스트용 노드 만들기
 </h1>
           
-            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-09-15T00:00:00+09:00">2021.09.15</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-13">2021.10.13</time></p>
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-09-15T00:00:00+09:00">2021.09.15</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-14">2021.10.14</time></p>
           
           
             
@@ -684,13 +684,15 @@
 
 <h3 id="1-회원가입">1. 회원가입</h3>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FNHn56%2Fbtre1bgLN0O%2FKNtO5p6MNQVoWuqiFx4Y6k%2Fimg.png" alt="" width="40%" height="40%" /></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FNHn56%2Fbtre1bgLN0O%2FKNtO5p6MNQVoWuqiFx4Y6k%2Fimg.png" alt="" width="40%" height="40%" /><br />
+<em>&lt;그림 1: Infura 홈페이지에서 회원 가입하기&gt;</em></p>
 
 <p>딱히 복잡한게 없다. 그냥 이메일 주소랑 비밀번호만 입력하면 된다</p>
 
 <h3 id="2-프로젝트-생성">2. 프로젝트 생성</h3>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUfHlw%2Fbtre7sOHSKs%2FqyZgxZq2lW9TU65YGYktm0%2Fimg.png" alt="" /></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUfHlw%2Fbtre7sOHSKs%2FqyZgxZq2lW9TU65YGYktm0%2Fimg.png" alt="" /><br />
+<em>&lt;그림 2: Infura에서 testnet이라는 이름의 프로젝트를 생성한 결과&gt;</em></p>
 
 <p>Testnet이라는 프로젝트를 하나 만들고나면, 위와 같은 결과 화면을 볼 수 있다.</p>
 
@@ -698,7 +700,8 @@
 
 <p>필자는 요즘 Loom network에 대해 공부하고 있는데(이 포스팅을 작성하게 된 가장 큰 원인이기도 하다), 튜토리얼을 진행하려면 Infura에서 만든 노드의 API KEY를 Rinkeby에 연결하라고 했지만 어디에서도 API KEY가 보이지 않는다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FZZu7t%2Fbtre1aCd15g%2Fh8QY2tVMM0zqUXM7lsXsK0%2Fimg.png" alt="" width="50%" height="50%" /></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FZZu7t%2Fbtre1aCd15g%2Fh8QY2tVMM0zqUXM7lsXsK0%2Fimg.png" alt="" width="50%" height="50%" /><br />
+<em>&lt;그림 3: Testnet 프로젝트에 접근할 수 있는 API 키&gt;</em></p>
 
 <p>위 그림에서 ENDPOINTS에 해당하는 다음 URL이 API KEY를 나타내는 내용이다. 이 중 /v3/ 이후의 내용이 API KEY라고 보면 된다.</p>
 
