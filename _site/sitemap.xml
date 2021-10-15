@@ -37,6 +37,10 @@
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/algorithm/graph(dfs,bfs)/</loc>
+<lastmod>2021-10-15T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/ethereum/infura/</loc>
 <lastmod>2021-10-14T00:00:00+09:00</lastmod>
 </url>
@@ -111,5 +115,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page4/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page5/</loc>
 </url>
 </urlset>

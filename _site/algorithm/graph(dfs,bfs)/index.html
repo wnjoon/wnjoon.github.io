@@ -22,29 +22,33 @@
 
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>System Design - 월리의 탐구생활</title>
-<meta name="description" content="최대한 많이 기억하기 위해 기록하는 장소 ">
+<!-- begin _includes/seo.html --><title>그래프(Graph)와 탐색(DFS, BFS) 방법 - 월리의 탐구생활</title>
+<meta name="description" content="그래프와 그래프의 탐색 방법인 BFS, DFS에 대해서 알아본다. ">
 
 
   <meta name="author" content="글쓰는 개발자 ">
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="월리의 탐구생활">
-<meta property="og:title" content="System Design">
-<meta property="og:url" content="http://localhost:4000/categories/system_design">
+<meta property="og:title" content="그래프(Graph)와 탐색(DFS, BFS) 방법">
+<meta property="og:url" content="http://localhost:4000/algorithm/graph(dfs,bfs)/">
 
 
-  <meta property="og:description" content="최대한 많이 기억하기 위해 기록하는 장소 ">
-
-
-
+  <meta property="og:description" content="그래프와 그래프의 탐색 방법인 BFS, DFS에 대해서 알아본다. ">
 
 
 
 
 
+
+
+  <meta property="article:published_time" content="2021-09-15T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-10-15T00:00:00+09:00">
 
 
 
@@ -53,7 +57,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/categories/system_design">
+<link rel="canonical" href="http://localhost:4000/algorithm/graph(dfs,bfs)/">
 
 
 
@@ -135,7 +139,7 @@
     </style>
   </head>
 
-  <body class="layout--archive wide">
+  <body class="layout--single wide">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -201,7 +205,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories" itemprop="item"><span itemprop="name">Categories</span></a>
+          <a href="/categories/#algorithm" itemprop="item"><span itemprop="name">Algorithm</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -209,7 +213,7 @@
     
       
       
-        <li class="current">System Design</li>
+        <li class="current">그래프(Graph)와 탐색(DFS, BFS) 방법</li>
       
     
   </ol>
@@ -576,80 +580,271 @@
 
 
 
-  <div class="archive">
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="그래프(Graph)와 탐색(DFS, BFS) 방법">
+    <meta itemprop="description" content="그래프와 그래프의 탐색 방법인 BFS, DFS에 대해서 알아본다.">
+    <meta itemprop="datePublished" content="2021-09-15T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-10-15T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">그래프(Graph)와 탐색(DFS, BFS) 방법
+</h1>
+          
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-09-15T00:00:00+09:00">2021.09.15</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-15">2021.10.15</time></p>
+          
+          
+            
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
     
-      <h1 id="page-title" class="page__title">System Design</h1>
+      
+      
+      <a href="/categories/#algorithm" class="page__taxonomy-item-category" rel="tag">Algorithm</a>
     
-    <!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+    </span>
+  </p>
 
-<hr />
 
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/system%20design/scalable-web-architecture-and-distributed-systems/">확장 가능한 웹 아키텍처 및 분산 시스템</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.24
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#bfs" class="page__taxonomy-item-tag" rel="tag">BFS</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#dfs" class="page__taxonomy-item-tag" rel="tag">DFS</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#graph" class="page__taxonomy-item-tag" rel="tag">Graph</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#queue" class="page__taxonomy-item-tag" rel="tag">Queue</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#recursive" class="page__taxonomy-item-tag" rel="tag">Recursive</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#searching" class="page__taxonomy-item-tag" rel="tag">Searching</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
         
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#system-design" class="page__taxonomy-item-category" rel="tag">System Design</a>
-                    
-                    
-                    <a href="/tags/#architecture" class="page__taxonomy-item-tag" rel="tag">Architecture</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#scalability" class="page__taxonomy-item-tag" rel="tag">Scalability</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#system-design" class="page__taxonomy-item-tag" rel="tag">System Design</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
-</div>
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#그래프graph">그래프(Graph)</a></li>
+  <li><a href="#탐색">탐색</a>
+    <ul>
+      <li><a href="#dfsdepth-first-search">DFS(Depth-First Search)</a></li>
+      <li><a href="#bfsbreadth-first-search">BFS(Breadth-First Search)</a></li>
+    </ul>
+  </li>
+  <li><a href="#참고자료">참고자료</a></li>
+</ul>
 
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/system%20design/system_design_and_scalability/">시스템 설계와 규모 확장성</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.07
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
+            </nav>
+          </aside>
         
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#system-design" class="page__taxonomy-item-category" rel="tag">System Design</a>
-                    
-                    
-                    <a href="/tags/#architecture" class="page__taxonomy-item-tag" rel="tag">Architecture</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#scalability" class="page__taxonomy-item-tag" rel="tag">Scalability</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#system-design" class="page__taxonomy-item-tag" rel="tag">System Design</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
+        <p><br /></p>
+
+<h2 id="그래프graph">그래프(Graph)</h2>
+
+<p>그래프는 노드와 노드를 연결하는 간선(edge)의 모음이다. 트리와 헷갈리는 경우가 가끔 있는데, 트리는 그래프의 한 종류다.<br />
+하지만 모든 그래프가 트리라고 볼 수는 없다. 트리와 그래프는 사이클의 유무로 결정되는데, <u>트리는 사이클이 없는 하나의 연결된 그래프(connected graph)</u>이다.</p>
+
+<p>그래프의 특징을 정리해보면 다음과 같다.</p>
+<ul>
+  <li>그래프는 방향성이 있을 수도, 혹은 없을 수도 있다. 방향성이 있다면 일방통행, 없다면 양방통행이다.</li>
+  <li>그래프는 여러 개의 고립된 그래프(isolated subgraphs)들로 구성될 수 있다. 노드와 노드 사이에 경로가 존재한다면, 연결 그래프라고 표현한다.</li>
+  <li>그래프에는 사이클이 존재할 수도, 혹은 없을 수도 있다. 사이클이 없는 그래프는 비순환 그래프(acyclic graph)라고 표현한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="탐색">탐색</h2>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbF2qFL%2Fbtrfc7qkp7P%2FAsJnzmkeLxhanBcMXKQ3g0%2Fimg.png" alt="" /><br />
+<em>@그림 1: DFS와 BFS 각각에 따른 그래프 탐색 순서</em></p>
+
+<h3 id="dfsdepth-first-search">DFS(Depth-First Search)</h3>
+
+<p>깊이 우선 탐색이라고 부르며, 특정 노드로부터 시작하여 다음 분기(branch)로 넘어가기 전에 해당 분기에 대한 모든 조건을 탐색하는 방법을 말한다.<br />
+주로 그래프에서 모든 노드를 빠짐없이 탐색하고자 할 때 사용한다. 재귀(Recursive) 방식으로 구현하는데, 주의해야할 사항은 어떤 노드를 방문했고 아직 방문하지 않았는지에 대한 여부를 꼭 기록해두어야 한다. 그렇지 않으면 프로그램의 종료 시점을 체크할 수 없기 때문에 무한루프가 될 가능성이 크다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">dfsSearch</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="n">visit</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+
+        <span class="c1">// 방문 여부 체크</span>
+        <span class="n">node</span><span class="o">.</span><span class="na">visited</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>    
+        
+        <span class="k">for</span> <span class="nf">each</span> <span class="o">(</span><span class="nc">Node</span> <span class="n">n</span> <span class="n">in</span> <span class="n">node</span><span class="o">.</span><span class="na">adjacent</span><span class="o">)</span> <span class="o">{</span>
+        	<span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">.</span><span class="na">visited</span> <span class="o">==</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+            	<span class="n">dfsSearch</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="bfsbreadth-first-search">BFS(Breadth-First Search)</h3>
+
+<p>넓이 우선 탐색이라고 부르며, 특정 노드로부터 시작해서 인접한 노드를 먼저 모두 탐색하는 방식이다.<br />
+두 노드간 최단 경로를 탐색하거나 혹은 임의의 노드로 갈 수 있는 최적의 경로를 확인하고 싶을 때 사용한다. 큐(Queue)를 이용하여 구현되는데, DFS와 동일하게 어떤 노드를 방문했는지에 대해 꼭 기록해두어야 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">bfsSearch</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Queue</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Queue</span><span class="o">();</span>
+    <span class="n">node</span><span class="o">.</span><span class="na">marked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+    <span class="c1">// 인접한 노드를 큐에 삽입</span>
+    <span class="c1">// 큐는 삽입 순서대로 실행되기 때문에, 인접한 노드부터 우선 검색한다.</span>
+    <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>	
+    
+    <span class="k">while</span> <span class="o">(!</span><span class="n">queue</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+
+        <span class="c1">// 큐에서 노드 가져오기</span>
+    	<span class="n">node</span> <span class="n">r</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">dequeue</span><span class="o">();</span>	
+        <span class="n">visit</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+        <span class="n">foreach</span><span class="o">(</span><span class="nc">Node</span> <span class="n">n</span> <span class="n">in</span> <span class="n">r</span><span class="o">.</span><span class="na">adjacent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">.</span><span class="na">marked</span> <span class="o">==</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+            	
+                <span class="c1">// 방문 여부 체크</span>
+                <span class="n">n</span><span class="o">.</span><span class="na">marked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li>Cracking The Coding Test - 그래프</li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <p></p>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Algorithm</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <!--
+
+  <nav class="pagination">
+    
+      <a href="/blockchain/dapp/" class="pagination--pager" title="디앱(DApp, Decentralized Application)
+">이전</a>
+    
+    
+      <a href="/ethereum/infura/" class="pagination--pager" title="Infura로 이더리움 테스트용 노드 만들기
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+
+  <nav class="pagination_prev_next">
+    
+      <a href="/algorithm/time_complexity/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>시간복잡도(Time Complexity)</a>
+    
+    
+      <a href="/algorithm/hash_table-copy/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>해시 테이블(Hash Table)</a>
+    
+  </nav>
+
+
+
+<!--
+
+
+
+-->
+
+
+
+        <p></p>
+
+        <!-- archive 중간 광고 -->
+      
+      </section>
+      <footer class="page__meta">
+        
+        <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EA%B7%B8%EB%9E%98%ED%94%84%28Graph%29%EC%99%80+%ED%83%90%EC%83%89%28DFS%2C+BFS%29+%EB%B0%A9%EB%B2%95%20http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fgraph%28dfs%2Cbfs%29%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fgraph%28dfs%2Cbfs%29%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fgraph%28dfs%2Cbfs%29%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      </footer>
+    </div>
+
+    
+
+  </article>
+
+  
+  
 </div>
 
-  </div>
-</div>
     </div>
 
     
@@ -701,8 +896,37 @@
 
 
 
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'wnjoon/wnjoon.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
 
 
+
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 
 
   </body>

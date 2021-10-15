@@ -53,6 +53,12 @@ var store = [{
         "url": "http://localhost:4000/blockchain/dapp/",
         "teaser": null
       },{
+        "title": "그래프(Graph)와 탐색(DFS, BFS) 방법",
+        "excerpt":"그래프(Graph) 그래프는 노드와 노드를 연결하는 간선(edge)의 모음이다. 트리와 헷갈리는 경우가 가끔 있는데, 트리는 그래프의 한 종류다. 하지만 모든 그래프가 트리라고 볼 수는 없다. 트리와 그래프는 사이클의 유무로 결정되는데, 트리는 사이클이 없는 하나의 연결된 그래프(connected graph)이다. 그래프의 특징을 정리해보면 다음과 같다. 그래프는 방향성이 있을 수도, 혹은 없을 수도 있다. 방향성이 있다면...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Graph","DFS","BFS","Searching","Recursive","Queue"],
+        "url": "http://localhost:4000/algorithm/graph(dfs,bfs)/",
+        "teaser": null
+      },{
         "title": "Infura로 이더리움 테스트용 노드 만들기",
         "excerpt":"Infura 일반적으로 디앱(DApp)를 개발할 때에는 로컬에서 Ganashe 또는 Truffle develop을 사용하거나 geth를 이용한 private network를 구성한다. 물론 디앱에 국한되지 않더라도 대부분의 앱 또한 로컬에서 개발 -&gt; 테스트 -&gt; 실제 환경과 유사한 개발환경에서 테스트 -&gt; 배포와 같은 순서를 갖는다. 디앱은 여기서 조금 다른 부분이 테스트넷 환경에서 실제로 구성된 노드에 직접 테스트해봐야...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum"],
@@ -73,7 +79,7 @@ var store = [{
       },{
         "title": "해시 테이블(Hash Table)",
         "excerpt":"해시 테이블 해시 테이블은 효율적인 탐색을 위한 자료구조로서, 키(key)를 값(value)에 대응시킨 구조다. 연결 리스트(linked-list)를 이용한 해시 테이블 구현 해시 테이블을 구현하는 방법은 여러가지가 있지만, 앞으로 설명할 연결리스트 활용 방식이 가장 간단하면서도 흔하게 사용된다고 한다. 간단한 해시 테이블을 구현하기 위해, 연결리스트(linked list)와 해시코드 함수(hash code function)가 필요하다. 해시 테이블에 사용되는 키는...","categories": ["Algorithm"],
-        "tags": ["Algorithm","Data Structure"],
+        "tags": ["Algorithm","Data Structure","Hashing"],
         "url": "http://localhost:4000/algorithm/hash_table-copy/",
         "teaser": null
       },{
@@ -91,7 +97,7 @@ var store = [{
       },{
         "title": "정렬(Sorting)",
         "excerpt":"배열 vs 리스트 정렬을 구현하는 방식은 크게 배열을 이용하거나 리스트를 이용하는 두가지 방법이 존재한다. 배열: 구현이 용이함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요함. 리스트: 구현이 복잡함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요하지 않음. 본 포스팅에서는 각 정렬의 구현 방식을 일반적으로 사용되는 ‘배열(array)’로 진행한다. Quick...","categories": ["Algorithm"],
-        "tags": ["Algorithm","Sorting"],
+        "tags": ["Algorithm","Sorting","Recursive"],
         "url": "http://localhost:4000/algorithm/sorting/",
         "teaser": null
       }]

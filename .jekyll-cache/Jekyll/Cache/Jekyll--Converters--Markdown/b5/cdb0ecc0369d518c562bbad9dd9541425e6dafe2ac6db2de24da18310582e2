@@ -1,4 +1,4 @@
-I"B<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+I"O<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
 
 <hr />
 
@@ -18,6 +18,10 @@
                     
                     
                     <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#recursive" class="page__taxonomy-item-tag" rel="tag">Recursive</a><span class="sep"> </span>
                 
                     
                     
@@ -49,7 +53,59 @@
                 
                     
                     
-                    <a href="/tags/#data-structure" class="page__taxonomy-item-tag" rel="tag">Data Structure</a>
+                    <a href="/tags/#data-structure" class="page__taxonomy-item-tag" rel="tag">Data Structure</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#hashing" class="page__taxonomy-item-tag" rel="tag">Hashing</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/algorithm/graph(dfs,bfs)/">그래프(Graph)와 탐색(DFS, BFS) 방법</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#algorithm" class="page__taxonomy-item-category" rel="tag">Algorithm</a>
+                    
+                    
+                    <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#bfs" class="page__taxonomy-item-tag" rel="tag">BFS</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#dfs" class="page__taxonomy-item-tag" rel="tag">DFS</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#graph" class="page__taxonomy-item-tag" rel="tag">Graph</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#queue" class="page__taxonomy-item-tag" rel="tag">Queue</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#recursive" class="page__taxonomy-item-tag" rel="tag">Recursive</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#searching" class="page__taxonomy-item-tag" rel="tag">Searching</a>
                 
             </span>
         </span>
