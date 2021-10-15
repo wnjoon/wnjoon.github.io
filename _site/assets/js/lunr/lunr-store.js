@@ -41,6 +41,12 @@ var store = [{
         "url": "http://localhost:4000/kubernetes/service/",
         "teaser": null
       },{
+        "title": "Volume - emptyDir, hostPath, PV/PVC",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 볼륨(Volume)의 필요성 컨테이너로 이루어진 파드는 서비스 때 언급한 것과 마찬가지로 생성과 삭제가 매우 빈번하게 이루어지는 단위이다. 문제는 파드가 삭제되면 파드 내 컨테이너에 저장되어 있던 데이터 또한 삭제된다는 것이다. 이를 방지하기 위해 쿠버네티스에서는 다양한 방법으로...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
+        "url": "http://localhost:4000/kubernetes/volume/",
+        "teaser": null
+      },{
         "title": "HD(Hierarchical Deterministic) Wallet",
         "excerpt":"HD wallet HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 BIP-32 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다. BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나...","categories": ["Blockchain"],
         "tags": ["Blockchain","Wallet","Golang","Bitcoin","Ethereum"],
