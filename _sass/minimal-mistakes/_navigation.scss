@@ -525,9 +525,9 @@
   display: block;
   margin: 0.5rem 0;
   padding: 0.25rem 0;
-  font-size: $type-size-3;
-  font-family: $serif;
-  color: mix(rgb(142, 142, 142),$primary-color,35%);
+  font-size: $nav-sub-cat-size;
+  font-family: $common;
+  color: mix(rgb(0, 0, 0),$primary-color,35%);
   border-bottom: 1px solid $border-color;
 }
 

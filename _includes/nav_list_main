@@ -18,14 +18,6 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <!-- 개발/Architecture -->
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "Architecture" %}
-                        <li><a href="/categories/architecture" class="">Architecture ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
             <!-- 개발/Blockchain -->
             <ul>
                 {% for category in site.categories %}
@@ -39,6 +31,22 @@
                 {% for category in site.categories %}
                     {% if category[0] == "Ethereum" %}
                         <li><a href="/categories/ethereum" class="">Ethereum ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <!-- 개발/Kubernetes -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Kubernetes" %}
+                        <li><a href="/categories/kubernetes" class="">Kubernetes ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <!-- 개발/Network -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Network" %}
+                        <li><a href="/categories/network" class="">Network ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

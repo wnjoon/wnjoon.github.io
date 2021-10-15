@@ -35,6 +35,12 @@ var store = [{
         "url": "http://localhost:4000/tools/code-server/",
         "teaser": null
       },{
+        "title": "Service - ClusterIP, NodePort, LoadBalancer",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 서비스(Service)의 필요성 서비스의 필요성을 알기 위해서는 쿠버네티스의 기본 사상에 대해 알아야 한다. 쿠버네티스는 1개 이상의 컨테이너로 구성된 파드(Pod)로 동작한다. 쿠버네티스에서 파드란 언제든지 없어지고 생겨날 수 있는 유동적인 존재이다. 배달의민족에서 할인권을 배포하는 이벤트를 진행했다고 가정하자....","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
+        "url": "http://localhost:4000/kubernetes/service/",
+        "teaser": null
+      },{
         "title": "HD(Hierarchical Deterministic) Wallet",
         "excerpt":"HD wallet HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 BIP-32 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다. BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나...","categories": ["Blockchain"],
         "tags": ["Blockchain","Wallet","Golang","Bitcoin","Ethereum"],
@@ -66,9 +72,9 @@ var store = [{
         "teaser": null
       },{
         "title": "CDN(Content Delivery Network)",
-        "excerpt":"CDN(Content Delivery Network) 엣지 컴퓨팅(Edge Computing)의 한 방식으로, 웹 어플리케이션 또는 스트리밍 서비스에서의 각종 컨텐츠를 빠르게 전송하기 위해 전 세계에 분산된 서버를 구성하는 플랫폼이다. 마치 각 지역마다 물류센터가 있어서 빠르게 택배를 제공받는 방식과 같은데, 중앙 클라우드 서버 외에 각 지역마다(전 세계적으로) 분산된 서버를 전진배치 시켜서 이 곳에서 먼저 빠르게 컨텐츠를...","categories": ["Architecture"],
-        "tags": ["Architecture","Network"],
-        "url": "http://localhost:4000/architecture/cdn/",
+        "excerpt":"CDN(Content Delivery Network) 엣지 컴퓨팅(Edge Computing)의 한 방식으로, 웹 어플리케이션 또는 스트리밍 서비스에서의 각종 컨텐츠를 빠르게 전송하기 위해 전 세계에 분산된 서버를 구성하는 플랫폼이다. 마치 각 지역마다 물류센터가 있어서 빠르게 택배를 제공받는 방식과 같은데, 중앙 클라우드 서버 외에 각 지역마다(전 세계적으로) 분산된 서버를 전진배치 시켜서 이 곳에서 먼저 빠르게 컨텐츠를...","categories": ["Network"],
+        "tags": ["Network","Cloud","Edge","Distributed Computing"],
+        "url": "http://localhost:4000/network/cdn/",
         "teaser": null
       },{
         "title": "확장 가능한 웹 아키텍처 및 분산 시스템",

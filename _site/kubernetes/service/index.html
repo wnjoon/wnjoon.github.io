@@ -22,8 +22,8 @@
 
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>CDN(Content Delivery Network) - 월리의 탐구생활</title>
-<meta name="description" content="클라우드 환경에서 빠른 속도로 컨텐츠를 제공하기 위한 방식인 CDN에 대하여 알아본다. ">
+<!-- begin _includes/seo.html --><title>Service - ClusterIP, NodePort, LoadBalancer - 월리의 탐구생활</title>
+<meta name="description" content="쿠버네티스의 Service와 세부 종류인 ClusterIP, NodePort, LoadBalancer에 대해 알아본다. ">
 
 
   <meta name="author" content="글쓰는 개발자 ">
@@ -32,19 +32,19 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="월리의 탐구생활">
-<meta property="og:title" content="CDN(Content Delivery Network)">
-<meta property="og:url" content="http://localhost:4000/architecture/cdn/">
+<meta property="og:title" content="Service - ClusterIP, NodePort, LoadBalancer">
+<meta property="og:url" content="http://localhost:4000/kubernetes/service/">
 
 
-  <meta property="og:description" content="클라우드 환경에서 빠른 속도로 컨텐츠를 제공하기 위한 방식인 CDN에 대하여 알아본다. ">
-
-
-
+  <meta property="og:description" content="쿠버네티스의 Service와 세부 종류인 ClusterIP, NodePort, LoadBalancer에 대해 알아본다. ">
 
 
 
 
-  <meta property="article:published_time" content="2021-09-18T00:00:00+09:00">
+
+
+
+  <meta property="article:published_time" content="2021-08-01T00:00:00+09:00">
 
 
 
@@ -57,7 +57,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/architecture/cdn/">
+<link rel="canonical" href="http://localhost:4000/kubernetes/service/">
 
 
 
@@ -168,6 +168,8 @@
               <a href="/index.html">Home</a>
             </li><li class="masthead__menu-item">
               <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
             </li></ul>
         
         <button class="greedy-nav__toggle hidden" type="button">
@@ -205,7 +207,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#architecture" itemprop="item"><span itemprop="name">Architecture</span></a>
+          <a href="/categories/#kubernetes" itemprop="item"><span itemprop="name">Kubernetes</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -213,7 +215,7 @@
     
       
       
-        <li class="current">CDN(Content Delivery Network)</li>
+        <li class="current">Service - ClusterIP, NodePort, LoadBalancer</li>
       
     
   </ol>
@@ -340,7 +342,7 @@
   <label for="ac-toc">카테고리 Click</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">17</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">18</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
       </li>
       <li>
         <!-- 개발 -->
@@ -368,28 +370,6 @@
                 
                     
                 
-            </ul>
-            <!-- 개발/Architecture -->
-            <ul>
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                        <li><a href="/categories/architecture" class="">Architecture (1)</a></li>
-                    
-                
-                    
-                
                     
                 
             </ul>
@@ -404,6 +384,8 @@
                 
                     
                         <li><a href="/categories/blockchain" class="">Blockchain (3)</a></li>
+                    
+                
                     
                 
                     
@@ -440,9 +422,65 @@
                 
                     
                 
+                    
+                
+            </ul>
+            <!-- 개발/Kubernetes -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/kubernetes" class="">Kubernetes (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Network -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/network" class="">Network (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
             </ul>
             <!-- 개발/System Design -->
             <ul>
+                
+                    
                 
                     
                 
@@ -488,11 +526,15 @@
                 
                     
                 
+                    
+                
             </ul>
         <!-- 일상 -->
         <span class="nav__sub-title">일상</span>
             <!-- 일상/잡학다식 -->
             <ul>
+                
+                    
                 
                     
                 
@@ -517,6 +559,8 @@
             </ul>
             <!-- 일상/후기 -->
             <ul>
+                
+                    
                 
                     
                 
@@ -562,6 +606,8 @@
                 
                     
                 
+                    
+                
             </ul>
       </li>
       <li>	
@@ -581,18 +627,18 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="CDN(Content Delivery Network)">
-    <meta itemprop="description" content="클라우드 환경에서 빠른 속도로 컨텐츠를 제공하기 위한 방식인 CDN에 대하여 알아본다.">
-    <meta itemprop="datePublished" content="2021-09-18T00:00:00+09:00">
+    <meta itemprop="headline" content="Service - ClusterIP, NodePort, LoadBalancer">
+    <meta itemprop="description" content="쿠버네티스의 Service와 세부 종류인 ClusterIP, NodePort, LoadBalancer에 대해 알아본다.">
+    <meta itemprop="datePublished" content="2021-08-01T00:00:00+09:00">
     <meta itemprop="dateModified" content="2021-10-15T00:00:00+09:00">
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">CDN(Content Delivery Network)
+          <h1 id="page-title" class="page__title" itemprop="headline">Service - ClusterIP, NodePort, LoadBalancer
 </h1>
           
-            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-09-18T00:00:00+09:00">2021.09.18</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-15">2021.10.15</time></p>
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-08-01T00:00:00+09:00">2021.08.01</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-15">2021.10.15</time></p>
           
           
             
@@ -608,7 +654,7 @@
     
       
       
-      <a href="/categories/#architecture" class="page__taxonomy-item-category" rel="tag">Architecture</a>
+      <a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
     
     </span>
   </p>
@@ -625,11 +671,19 @@
     
       
       
+      <a href="/tags/#distributed-computing" class="page__taxonomy-item-tag" rel="tag">Distributed Computing</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
+    
+      
+      
       <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
     
       
       
-      <a href="/tags/#architecture" class="page__taxonomy-item-tag" rel="tag">Architecture</a>
+      <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a>
     
     </span>
   </p>
@@ -644,21 +698,10 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
               <ul class="toc__menu">
-  <li><a href="#cdncontent-delivery-network">CDN(Content Delivery Network)</a></li>
-  <li><a href="#엣지edge-컴퓨팅">엣지(Edge) 컴퓨팅</a>
-    <ul>
-      <li><a href="#등장-배경">등장 배경</a></li>
-      <li><a href="#기술적-특징">기술적 특징</a>
-        <ul>
-          <li><a href="#1-분산-처리distributed-system">1. 분산 처리(Distributed System)</a></li>
-          <li><a href="#2-빠른-속도latency">2. 빠른 속도(Latency)</a></li>
-          <li><a href="#3-데이터-부하">3. 데이터 부하</a></li>
-          <li><a href="#4-보안">4. 보안</a></li>
-        </ul>
-      </li>
-      <li><a href="#엣지와-클라우드-차이점">엣지와 클라우드 차이점</a></li>
-    </ul>
-  </li>
+  <li><a href="#서비스service의-필요성">서비스(Service)의 필요성</a></li>
+  <li><a href="#clusterip">ClusterIP</a></li>
+  <li><a href="#nodeport">NodePort</a></li>
+  <li><a href="#loadbalancer">LoadBalancer</a></li>
   <li><a href="#참고자료">참고자료</a></li>
 </ul>
 
@@ -667,82 +710,62 @@
         
         <p><br /></p>
 
-<h2 id="cdncontent-delivery-network">CDN(Content Delivery Network)</h2>
+<blockquote>
+  <p>📒 본 포스팅은 인프런에서 제공하는 강의 <a href="https://www.inflearn.com/course/쿠버네티스-기초/dashboard">‘대세는 쿠버네티스 [초급~중급] - 김태민’</a>를 본 후 내용을 정리하고 있습니다.</p>
+</blockquote>
 
-<p>엣지 컴퓨팅(Edge Computing)의 한 방식으로, 웹 어플리케이션 또는 스트리밍 서비스에서의 각종 컨텐츠를 빠르게 전송하기 위해 전 세계에 분산된 서버를 구성하는 플랫폼이다. 마치 각 지역마다 물류센터가 있어서 빠르게 택배를 제공받는 방식과 같은데, 중앙 클라우드 서버 외에 각 지역마다(전 세계적으로) 분산된 서버를 전진배치 시켜서 이 곳에서 먼저 빠르게 컨텐츠를 전송해준다.</p>
+<h2 id="서비스service의-필요성">서비스(Service)의 필요성</h2>
 
-<p><img src="https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2012/11/05143244/how-cdn-works-760x475.png" alt="" /><br />
-<em>@그림 1: CDN은 위처럼 여러 지역에서 접근성 향상을 위해 구성된다 - highchart</em></p>
-
-<p>사실 CDN이 점점 발전함에 따라 엣지 컴퓨팅이 발전했다고 볼 수 있는데, 초기에는 지역적으로 분산된 컨텐츠 캐싱(Caching)을 위한 네트워크 구성이 전부였던 방식에서 <u>컨텐츠 사용량이 높아짐에 따라 점점 분산망을 활용한 네트워크 가속 서비스를 제공하고, 최근에는 분산된 각 서버의 성능이 향상됨에 따라 중앙에서 처리되던 서비스를 엣지 서버에서 직접 처리할 수 있게 되면서 엣지 컴퓨팅이라는 용어가 발전</u>하게 되었다.</p>
+<p>서비스의 필요성을 알기 위해서는 쿠버네티스의 기본 사상에 대해 알아야 한다. 쿠버네티스는 1개 이상의 컨테이너로 구성된 파드(Pod)로 동작한다.<br />
+쿠버네티스에서 파드란 <u>언제든지 없어지고 생겨날 수 있는 유동적인 존재</u>이다. 배달의민족에서 할인권을 배포하는 이벤트를 진행했다고 가정하자. 갑자기 급증하는 수많은 트래픽을 감당하기 위한 수많은 서버가 이벤트 기간 동안 필요할 것이다. 그리고 그 서버들에는 트래픽을 받아서 처리할 수 있는 어플리케이션이 들어가야 할 것이다. 이러한 어플리케이션은 컨테이너 형태로 배포되고, 추가된 서버에 설치된 각 어플리케이션을 쿠버네티스로 효과적으로 관리하기 위해 컨테이너를 파드로 관리할 것이다.<br />
+여기서 파드는 ‘할인권 배포 이벤트 기간’이 지나면 자연스럽게 소멸될 것이다. 이렇듯 파드는 특정 업무에 따라 손쉽게 생겨나기도 없어지기도 한다. 문제는 이러한 파드의 유동성만큼 파드의 접근성도 유동적이게 된다면 쿠버네티스를 이용한 관리가 꽤나 복잡해질 것이다. 새로운 파드가 생겨날때마다 일일이 파드에 접근하는 경로를 수정해야 한다면 얼마나 버거울지 상상만해도 끔찍하다.<br />
+쿠버네티스에서는 이러한 불편함을 해소하기 위해 ‘서비스(Service)’라는 오브젝트를 사용한다. 서비스라는 별도의 오브젝트가 쿠버네티스 안에서 운영되며, <u>설정된 라벨에 해당하는 파드에 언제든지 접근할 수 있도록 한다.</u> 이러한 서비스 방식에는 총 3가지가 존재한다.</p>
 
 <p><br /></p>
 
-<h2 id="엣지edge-컴퓨팅">엣지(Edge) 컴퓨팅</h2>
+<h2 id="clusterip">ClusterIP</h2>
 
-<p>엣지 영역(가장 말단 영역) 또는 해당 영역과 근접한 거리에 있는 서버에서 컴퓨팅이 수행되는 방식으로, <u>기존에 사용되던 클라우드 컴퓨팅 방식보다 지역적으로 가까운 서버에서 보다 빠른 속도로 컨텐츠를 제공</u>한다는 점에서 차이를 갖는다.</p>
+<blockquote>
+  <p>범위: 내부망 안에 있는 쿠버네티스 클러스터에서만 가능!</p>
+</blockquote>
 
-<h3 id="등장-배경">등장 배경</h3>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FHa60c%2FbtraNx2EEpq%2FzKjsKsOPZUKPKgaLNk4JTk%2Fimg.png" alt="" /><br />
+<em>@그림 1: ClusterIP 예시 그림</em></p>
 
-<p>프로세서 가격의 하락으로 인한 엣지 컴퓨팅 서버 제작의 용이성이 큰 몫을 했다고 본다. 적은 비용으로 좋은 프로세서를 사용하고 이를 통해 연산량을 대폭 증가시킴으로써, 고성능 컴퓨터에서만 사용 가능하던 AI 연산 등을 엣지 장비에서 처리할 수 있게 되었기 때문이다.</p>
+<p>ClusterIP는 <u>'쿠버네티스 클러스터로 구성된 노드 내에서만 해당 파드로 접근'</u>할 수 있도록 하는 서비스다. 위의 그림과 같이 서비스는 Master노드와 두개의 Worker노드에서만 Pod1과 Pod2에 접근할 수 있도록 한다. 기본적으로 파드는 20번대, 서비스는 10번대의 IP를 생성과정에 자동으로 부여한다.<br />
+ClusterIP는 서버에 접근할 수 있는 권한이 있는, 내부관리자만 접근이 가능한 파드를 구성하고자 할 때 사용한다. 같은 내부망이라도 해도 쿠버네티스 클러스터에 접근하지 못한다면 서비스를 이용하여 파드로 접근할 수 없다.</p>
 
-<h3 id="기술적-특징">기술적 특징</h3>
+<p><br /></p>
 
-<h4 id="1-분산-처리distributed-system">1. 분산 처리(Distributed System)</h4>
+<h2 id="nodeport">NodePort</h2>
 
-<p>중앙 데이터 센터(클라우드 서버)에 데이터의 처리와 연산이 집중되어 있는 클라우드 컴퓨팅과 다르게, 엣지 컴퓨팅은 서버 뿐만 아니라 위치적으로도 분산되어 있는 서버에서 데이터를 처리할 수 있다. 이를 통해 내외부에서 발생 가능한 장애로부터 훨씬 유연한 대처가 가능하다.</p>
+<blockquote>
+  <p>범위: 내부망 안에만 있으면 가능!</p>
+</blockquote>
 
-<h4 id="2-빠른-속도latency">2. 빠른 속도(Latency)</h4>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbDetKy%2FbtraNxn1oMG%2FL1lzeT1sjNnLfrSYXEMLyk%2Fimg.png" alt="" /><br />
+<em>@그림 2: NodePort 예시 그림</em></p>
 
-<p>데이터의 생성과 처리에 접근하는 서버가 로컬 기지국 또는 상대적으로 가까운 위치에 존재하기 때문에, 응답과 대기시간을 확연하게 줄일 수 있다.</p>
+<p>NodePort는 ClusterIP에서 더 나아가 <u>내부망 안에만 있다면 서비스 호출이 가능</u>하도록 하는 서비스이다. NodePort는 30000 ~ 32767번 사이의 포트를 제공하는데, 사용자는 해당 포트를 이용하여 파드에 접근할 수 있다. 주로 내부망에서 개발된 내용을 검증하거나 시연하는 용도로 사용된다.</p>
 
-<h4 id="3-데이터-부하">3. 데이터 부하</h4>
+<p><br /></p>
 
-<p>빠른 속도와 연관된 이야기인데, 데이터를 처리하고 가져오는데 걸리는 시간이 상대적으로 빠르기 때문에 대역폭 사용량 또한 감소한다.</p>
+<h2 id="loadbalancer">LoadBalancer</h2>
 
-<h4 id="4-보안">4. 보안</h4>
+<blockquote>
+  <p>범위: 외부망에서도 가능!</p>
+</blockquote>
 
-<p>데이터 센터 하나에서 모든 데이터를 관리하는 것이 아니다보니, 보안 계층이 한 층 더 추가되는 개념으로 보일 수 있다. 엣지 컴퓨팅의 특성을 두고 클라우드 컴퓨팅의 서버 데이터 센터가 로컬 기지국으로 확산되는 개념이라고 보는 사람들도 있지만, 어찌되었든 계층적으로 보았을 때 클라우드 컴퓨팅의 데이터 처리와 일부 컴퓨팅 성능을 엣지 컴퓨팅이 보조한다고 보는 것이 더 맞는 접근이라고 본다.<br />
-결국 데이터의 저장과 보존 공간이 더욱 분산됨에 따라, 해킹’해야만 하는’ 위치가 늘어나는 꼴이 된다. 더 많은 곳을 해킹해야 하는 입장에서 보면 보안이 더 강화되었다고 볼 수 있고, 혹은 DDoS와 같은 네트워크 공격 또는 오류가 발생하더라도 또 다른 엣지 플랫폼에서 동일한 서비스를 그대로 제공할 수 있다는 점에서 높은 유지보수성을 갖는다고 볼 수 있다.</p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbY95G5%2FbtraL2PlmqJ%2FaNv2MVAK4h0OZhkvx2WA2k%2Fimg.png" alt="" /><br />
+<em>@그림 3: LoadBalancer 예시 그림</em></p>
 
-<h3 id="엣지와-클라우드-차이점">엣지와 클라우드 차이점</h3>
-
-<p><img src="https://img.kr.news.samsung.com/kr/wp-content/uploads/2017/05/%EC%97%A3%EC%A7%80%EC%BB%B4%ED%93%A8%ED%8C%85-02.jpg" alt="" /><br />
-<em>@그림 2: 엣지 컴퓨팅과 클라우드 컴퓨팅의 차이 - 삼성 뉴스룸</em></p>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>구분</strong></th>
-      <th><strong>클라우드 컴퓨팅</strong></th>
-      <th><strong>엣지 컴퓨팅</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>처리<br />위치</td>
-      <td>데이터를 처리하고 연산하는 데이터센터가 사용자(단말기)로부터 멀리 떨어져 있음</td>
-      <td>데이터를 처리하고 생성하는 장치(서버)가 사용자(단말기)와 가까운 로컬 기지국에 있음</td>
-    </tr>
-    <tr>
-      <td>처리<br />방식</td>
-      <td>중앙 데이터 센터와 사용자(단말기)가 직접 통신</td>
-      <td>사용자(단말기)와 가까이 위치한 로컬 기지국의 엣지 데이터 센터가 주로 소통하고, 추가적인 작업 혹은 결과물의 저장 등을 위해 로컬 기지국과 중앙 데이터 센터가 통신</td>
-    </tr>
-    <tr>
-      <td>처리<br />범위</td>
-      <td>단순 데이터 전송, 저장</td>
-      <td>데이터 전송 및 저장 뿐만 아니라 컴퓨팅 능력이 필요한 처리 과정 수행</td>
-    </tr>
-  </tbody>
-</table>
+<p>클라우드 서비스와 같이 <u>외부망에서 내부로 접근</u>하는 경우에 사용된다. 그림과 같이 LoadBalancer 타입의 서버를 외부망에, NodePort를 내부망에 구성하여 외부망에 있는 사용자가 LoadBalancer를 통해 내부망의 NodePort에 접근하고 이후 NodePort를 통해 파드로 접근할 수 있도록 구성한다. LoadBalancer는 클라우드 서비스 제공자를 통해서만 IP를 생성할 수 있으며, 사용자는 해당 IP를 통해서 내부망에 있는 쿠버네티스 클러스터에 접근할 수 있다.</p>
 
 <p><br /></p>
 
 <h2 id="참고자료">참고자료</h2>
 <ul>
-  <li><a href="https://medium.com/@sungjoon.yoon/infura-사용해보기-24af9bf12c4c">엣지 컴퓨팅, 클라우드 컴퓨팅 시대의 새 장(場) 열다 - 삼성뉴스룸</a></li>
-  <li><a href="https://www.highcharts.com/blog/news/50-codehighchartscom-moves-to-cdn/">Hotlink your Highcharts files from our CDN</a></li>
+  <li><a href="https://www.inflearn.com/course/쿠버네티스-기초/dashboard">대세는 쿠버네티스 [초급~중급] - 김태민</a></li>
 </ul>
 
 <p><br /></p>
@@ -755,16 +778,16 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         
         <p></p>
-        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Architecture</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Kubernetes</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
         <!--
 
   <nav class="pagination">
     
-      <a href="/ethereum/infura/" class="pagination--pager" title="Infura로 이더리움 테스트용 노드 만들기
+      <a href="/tools/code-server/" class="pagination--pager" title="웹브라우저 형식의 VScode, code-server 구성하기
 ">이전</a>
     
     
-      <a href="/system%20design/scalable-web-architecture-and-distributed-systems/" class="pagination--pager" title="확장 가능한 웹 아키텍처 및 분산 시스템
+      <a href="/blockchain/hd_wallet/" class="pagination--pager" title="HD(Hierarchical Deterministic) Wallet
 ">다음</a>
     
   </nav>
@@ -808,11 +831,11 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=CDN%28Content+Delivery+Network%29%20http%3A%2F%2Flocalhost%3A4000%2Farchitecture%2Fcdn%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Service+-+ClusterIP%2C+NodePort%2C+LoadBalancer%20http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fservice%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Farchitecture%2Fcdn%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fservice%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Farchitecture%2Fcdn%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fservice%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
       </footer>
