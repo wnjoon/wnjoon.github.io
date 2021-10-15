@@ -1,0 +1,96 @@
+I"`<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/infura/">Infura로 이더리움 테스트용 노드 만들기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/ethereum_bible1_inflearn/">[강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/erc/">이더리움 표준(ERC)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.05.12
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#protocol" class="page__taxonomy-item-tag" rel="tag">Protocol</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

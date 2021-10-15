@@ -5,6 +5,12 @@ var store = [{
         "url": "http://localhost:4000/retrospect/2020_retrospect/",
         "teaser": null
       },{
+        "title": "[강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 무료 강의 ‘이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여’를 본 후 내용을 정리하였습니다. 이더리움의 사상이나 만들어진 배경은 생략하고, 기술적인 관점에서만 정리하였습니다. 이더리움 아키텍처(Architecture) 이더리움의 아키텍처를 정확하게 알기 위해, 기존의 웹 어플리케이션(서버-클라이언트) 아키텍처를 비교해본다. @그림 1: 서버-클라이언트 구조의 웹 어플리케이션 아키텍처 사용자는 웹브라우저를 통해 HTML,...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","강의 정리"],
+        "url": "http://localhost:4000/ethereum/ethereum_bible1_inflearn/",
+        "teaser": null
+      },{
         "title": "이더리움 표준(ERC)",
         "excerpt":"ERC-20 Ethereum Request for Comment 20의 약자로, 이더리움 네트워크를 관리하는 단체인 EIPs(Ethereum Improvement Proposals)에서 관리하는 공식 프로토콜이다. 이더리움 블록체인 네트워크에서 정한 표준 토큰 스펙이다. 만들어진 배경 ERC-20은 이더리움 네트워크 상에서 유통되는 토큰의 호환성을 보장하기 위하여 제작되었다. 실제로 대다수의 암호화폐(토큰)가 이더리움 기반으로 생성되었고, 이러한 토큰은 자체 메인넷을 출시하면서 다른 이더리움 기반...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum","Protocol"],
@@ -75,5 +81,11 @@ var store = [{
         "excerpt":"받(?)게 된 배경 몇달 전 생일이었다. 생일 3달전부터 아내가 갖고싶은게 없느냐 물었는데, 생각보다 물욕이 없어서 그런가 딱히 생각나는게 없었다. 10년도 훨씬 넘은, 아빠에게 물려받은 전기면도기를 바꿔주겠다고 했는데, 정말 오랜 세월동안 작동한 녀석 치고는 아직도 끄떡없어서 바꾸기가 애매했다. 그러던 중, 정말 아무 의미없이 던진 한마디에 내 선물이 급 정해졌다. 사실 정해졌다기보다는...","categories": ["Review"],
         "tags": ["후기","애플","에어팟"],
         "url": "http://localhost:4000/review/airpodmax/",
+        "teaser": null
+      },{
+        "title": "정렬(Sorting)",
+        "excerpt":"배열 vs 리스트 정렬을 구현하는 방식은 크게 배열을 이용하거나 리스트를 이용하는 두가지 방법이 존재한다. 배열: 구현이 용이함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요함. 리스트: 구현이 복잡함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요하지 않음. 본 포스팅에서는 각 정렬의 구현 방식을 일반적으로 사용되는 ‘배열(array)’로 진행한다. Quick...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Sorting"],
+        "url": "http://localhost:4000/algorithm/sorting/",
         "teaser": null
       }]
