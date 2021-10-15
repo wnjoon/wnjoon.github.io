@@ -22,8 +22,8 @@
 
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>HD(Hierarchical Deterministic) Wallet - 월리의 탐구생활</title>
-<meta name="description" content="HD Wallet에 대해 알아보고, go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 구현해본다. ">
+<!-- begin _includes/seo.html --><title>CDN(Content Delivery Network) - 월리의 탐구생활</title>
+<meta name="description" content="클라우드 환경에서 빠른 속도로 컨텐츠를 제공하기 위한 방식인 CDN에 대하여 알아본다. ">
 
 
   <meta name="author" content="글쓰는 개발자 ">
@@ -32,32 +32,32 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="월리의 탐구생활">
-<meta property="og:title" content="HD(Hierarchical Deterministic) Wallet">
-<meta property="og:url" content="http://localhost:4000/wallet/hd_wallet/">
+<meta property="og:title" content="CDN(Content Delivery Network)">
+<meta property="og:url" content="http://localhost:4000/architecture/cdn/">
 
 
-  <meta property="og:description" content="HD Wallet에 대해 알아보고, go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 구현해본다. ">
-
-
-
+  <meta property="og:description" content="클라우드 환경에서 빠른 속도로 컨텐츠를 제공하기 위한 방식인 CDN에 대하여 알아본다. ">
 
 
 
 
-  <meta property="article:published_time" content="2021-08-06T00:00:00+09:00">
 
 
 
-  <meta property="article:modified_time" content="2021-10-13T00:00:00+09:00">
+  <meta property="article:published_time" content="2021-09-18T00:00:00+09:00">
 
 
 
-  
+  <meta property="article:modified_time" content="2021-10-15T00:00:00+09:00">
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/wallet/hd_wallet/">
+
+<link rel="canonical" href="http://localhost:4000/architecture/cdn/">
 
 
 
@@ -205,7 +205,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#wallet" itemprop="item"><span itemprop="name">Wallet</span></a>
+          <a href="/categories/#architecture" itemprop="item"><span itemprop="name">Architecture</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -213,7 +213,7 @@
     
       
       
-        <li class="current">HD(Hierarchical Deterministic) Wallet</li>
+        <li class="current">CDN(Content Delivery Network)</li>
       
     
   </ol>
@@ -340,7 +340,7 @@
   <label for="ac-toc">카테고리 Click</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">15</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">16</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
       </li>
       <li>
         <!-- 개발 -->
@@ -369,6 +369,30 @@
                     
                 
             </ul>
+            <!-- 개발/Architecture -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/architecture" class="">Architecture (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
             <!-- 개발/Blockchain -->
             <ul>
                 
@@ -379,7 +403,7 @@
                     
                 
                     
-                        <li><a href="/categories/blockchain" class="">Blockchain (2)</a></li>
+                        <li><a href="/categories/blockchain" class="">Blockchain (3)</a></li>
                     
                 
                     
@@ -399,7 +423,7 @@
                     
                 
                     
-                        <li><a href="/categories/ethereum" class="">ㄴ Ethereum (3)</a></li>
+                        <li><a href="/categories/ethereum" class="">Ethereum (3)</a></li>
                     
                 
                     
@@ -408,30 +432,6 @@
                 
                     
                 
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-            </ul>
-            <!-- 개발/Wallet -->
-            <ul>
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                        <li><a href="/categories/wallet" class="">ㄴ Wallet (1)</a></li>
                     
                 
                     
@@ -455,9 +455,9 @@
                     
                 
                     
-                
-                    
                         <li><a href="/categories/system_design" class="">System Design (2)</a></li>
+                    
+                
                     
                 
                     
@@ -581,18 +581,18 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="HD(Hierarchical Deterministic) Wallet">
-    <meta itemprop="description" content="HD Wallet에 대해 알아보고, go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 구현해본다.">
-    <meta itemprop="datePublished" content="2021-08-06T00:00:00+09:00">
-    <meta itemprop="dateModified" content="2021-10-13T00:00:00+09:00">
+    <meta itemprop="headline" content="CDN(Content Delivery Network)">
+    <meta itemprop="description" content="클라우드 환경에서 빠른 속도로 컨텐츠를 제공하기 위한 방식인 CDN에 대하여 알아본다.">
+    <meta itemprop="datePublished" content="2021-09-18T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-10-15T00:00:00+09:00">
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">HD(Hierarchical Deterministic) Wallet
+          <h1 id="page-title" class="page__title" itemprop="headline">CDN(Content Delivery Network)
 </h1>
           
-            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-08-06T00:00:00+09:00">2021.08.06</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-13">2021.10.13</time></p>
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-09-18T00:00:00+09:00">2021.09.18</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-15">2021.10.15</time></p>
           
           
             
@@ -608,7 +608,7 @@
     
       
       
-      <a href="/categories/#wallet" class="page__taxonomy-item-category" rel="tag">Wallet</a>
+      <a href="/categories/#architecture" class="page__taxonomy-item-category" rel="tag">Architecture</a>
     
     </span>
   </p>
@@ -625,15 +625,11 @@
     
       
       
-      <a href="/tags/#golang" class="page__taxonomy-item-tag" rel="tag">Golang</a><span class="sep"> </span>
+      <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
     
       
       
-      <a href="/tags/#wallet" class="page__taxonomy-item-tag" rel="tag">Wallet</a><span class="sep"> </span>
-    
-      
-      
-      <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a>
+      <a href="/tags/#architecture" class="page__taxonomy-item-tag" rel="tag">Architecture</a>
     
     </span>
   </p>
@@ -648,17 +644,21 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
               <ul class="toc__menu">
-  <li><a href="#hd-wallet">HD wallet</a></li>
-  <li><a href="#hd-wallet의-필요성">HD wallet의 필요성</a></li>
-  <li><a href="#hd-wallet에서-키-생성하기">HD Wallet에서 키 생성하기</a>
+  <li><a href="#cdncontent-delivery-network">CDN(Content Delivery Network)</a></li>
+  <li><a href="#엣지edge-컴퓨팅">엣지(Edge) 컴퓨팅</a>
     <ul>
-      <li><a href="#1-mnemonic-code">1. Mnemonic Code</a></li>
-      <li><a href="#2-binary-seed">2. Binary Seed</a></li>
-      <li><a href="#3-private-master-key">3. Private Master Key</a></li>
-      <li><a href="#4-child-key">4. Child Key</a></li>
+      <li><a href="#등장-배경">등장 배경</a></li>
+      <li><a href="#기술적-특징">기술적 특징</a>
+        <ul>
+          <li><a href="#1-분산-처리distributed-system">1. 분산 처리(Distributed System)</a></li>
+          <li><a href="#2-빠른-속도latency">2. 빠른 속도(Latency)</a></li>
+          <li><a href="#3-데이터-부하">3. 데이터 부하</a></li>
+          <li><a href="#4-보안">4. 보안</a></li>
+        </ul>
+      </li>
+      <li><a href="#엣지와-클라우드-차이점">엣지와 클라우드 차이점</a></li>
     </ul>
   </li>
-  <li><a href="#source-code">Source code</a></li>
   <li><a href="#참고자료">참고자료</a></li>
 </ul>
 
@@ -667,132 +667,82 @@
         
         <p><br /></p>
 
-<h2 id="hd-wallet">HD wallet</h2>
+<h2 id="cdncontent-delivery-network">CDN(Content Delivery Network)</h2>
 
-<p>HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 <a href="http://wiki.hash.kr/index.php/BIP32">BIP-32</a> 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다.</p>
+<p>엣지 컴퓨팅(Edge Computing)의 한 방식으로, 웹 어플리케이션 또는 스트리밍 서비스에서의 각종 컨텐츠를 빠르게 전송하기 위해 전 세계에 분산된 서버를 구성하는 플랫폼이다. 마치 각 지역마다 물류센터가 있어서 빠르게 택배를 제공받는 방식과 같은데, 중앙 클라우드 서버 외에 각 지역마다(전 세계적으로) 분산된 서버를 전진배치 시켜서 이 곳에서 먼저 빠르게 컨텐츠를 전송해준다.</p>
 
-<p><img src="http://wiki.hash.kr/images/6/68/BIP32.png" alt="" /></p>
+<p><img src="https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2012/11/05143244/how-cdn-works-760x475.png" alt="" /><br />
+<em>@그림 1: CDN은 위처럼 여러 지역에서 접근성 향상을 위해 구성된다 - highchart</em></p>
 
-<blockquote>
-  <p>BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나 공개된 제안 양식을 의미한다.</p>
-</blockquote>
-
-<p><br /></p>
-
-<h2 id="hd-wallet의-필요성">HD wallet의 필요성</h2>
-
-<ol>
-  <li>보안성 : 한번 사용된 주소(공개키)와 키(개인키)는 재사용되지 않는데, 즉 거래가 발생할 때마다 주소가 달라진다. BIP-32에서 이러한 보안성 측면에서의 접근이 처음으로 제안되었으며, 이후 BIP-39에서 Mnemonic Code를 적용하여 사용자가 기억하기 쉬운 단어들의 집합으로 이루어진 코드를 적용할 수 있도록 하였다.</li>
-  <li>멀티 코인 : 초기 HD wallet의 표준이었던 BIP-32, BIP-39가 비트코인에 한정된 기능을 제공하였다면, BIP-44에서는 이더리움을 포함한 다양한 암호화폐에서도 HD wallet을 적용할 수 있도록 하였다.</li>
-</ol>
+<p>사실 CDN이 점점 발전함에 따라 엣지 컴퓨팅이 발전했다고 볼 수 있는데, 초기에는 지역적으로 분산된 컨텐츠 캐싱(Caching)을 위한 네트워크 구성이 전부였던 방식에서 <u>컨텐츠 사용량이 높아짐에 따라 점점 분산망을 활용한 네트워크 가속 서비스를 제공하고, 최근에는 분산된 각 서버의 성능이 향상됨에 따라 중앙에서 처리되던 서비스를 엣지 서버에서 직접 처리할 수 있게 되면서 엣지 컴퓨팅이라는 용어가 발전</u>하게 되었다.</p>
 
 <p><br /></p>
 
-<h2 id="hd-wallet에서-키-생성하기">HD Wallet에서 키 생성하기</h2>
+<h2 id="엣지edge-컴퓨팅">엣지(Edge) 컴퓨팅</h2>
 
-<p>HD wallet에서 사용되는 키의 생성 순서는 다음과 같다.</p>
+<p>엣지 영역(가장 말단 영역) 또는 해당 영역과 근접한 거리에 있는 서버에서 컴퓨팅이 수행되는 방식으로, <u>기존에 사용되던 클라우드 컴퓨팅 방식보다 지역적으로 가까운 서버에서 보다 빠른 속도로 컨텐츠를 제공</u>한다는 점에서 차이를 갖는다.</p>
 
-<ol>
-  <li>Entropy(난수)를 이용한 Mnemonic Code 생성</li>
-  <li>Mnemonic Code를 이용하여 Binary Seed 도출</li>
-  <li>Binary Seed를 이용하여 마스터 키(Master Private Key) 생성</li>
-  <li>만들어진 마스터 키를 이용하여 자식 키(Child Key), 그리고 자식 키를 이용하여 손자 키(Grand-Child Key)를 파생적으로 생성</li>
-</ol>
+<h3 id="등장-배경">등장 배경</h3>
 
-<h3 id="1-mnemonic-code">1. Mnemonic Code</h3>
+<p>프로세서 가격의 하락으로 인한 엣지 컴퓨팅 서버 제작의 용이성이 큰 몫을 했다고 본다. 적은 비용으로 좋은 프로세서를 사용하고 이를 통해 연산량을 대폭 증가시킴으로써, 고성능 컴퓨터에서만 사용 가능하던 AI 연산 등을 엣지 장비에서 처리할 수 있게 되었기 때문이다.</p>
 
-<p>Mnemonic Sentence, Mnemonic Phrase라고도 불리며, 바이너리 데이터를 사람이 기억하기 쉬운 단어들의 집합으로 변환시킨 코드를 의미한다. 주어진 각 단어를 1:1로 매핑되는 바이너리 코드로 변환한 바이너리 시드(Binary Seed)를 만든다.</p>
+<h3 id="기술적-특징">기술적 특징</h3>
 
-<p>비트코인의 <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP-39</a> 에서 Mnemonic Code와 이를 통한 Binary Seed를 생성하는 절차가 기술되어 있다. BIP-39에서 정의한 Mnemonic Code의 단어 수는 [12, 15, 18, 21, 24]개 인데, 그 중 12개와 24개의 단어가 가장 많이 사용되고 있다.</p>
+<h4 id="1-분산-처리distributed-system">1. 분산 처리(Distributed System)</h4>
+
+<p>중앙 데이터 센터(클라우드 서버)에 데이터의 처리와 연산이 집중되어 있는 클라우드 컴퓨팅과 다르게, 엣지 컴퓨팅은 서버 뿐만 아니라 위치적으로도 분산되어 있는 서버에서 데이터를 처리할 수 있다. 이를 통해 내외부에서 발생 가능한 장애로부터 훨씬 유연한 대처가 가능하다.</p>
+
+<h4 id="2-빠른-속도latency">2. 빠른 속도(Latency)</h4>
+
+<p>데이터의 생성과 처리에 접근하는 서버가 로컬 기지국 또는 상대적으로 가까운 위치에 존재하기 때문에, 응답과 대기시간을 확연하게 줄일 수 있다.</p>
+
+<h4 id="3-데이터-부하">3. 데이터 부하</h4>
+
+<p>빠른 속도와 연관된 이야기인데, 데이터를 처리하고 가져오는데 걸리는 시간이 상대적으로 빠르기 때문에 대역폭 사용량 또한 감소한다.</p>
+
+<h4 id="4-보안">4. 보안</h4>
+
+<p>데이터 센터 하나에서 모든 데이터를 관리하는 것이 아니다보니, 보안 계층이 한 층 더 추가되는 개념으로 보일 수 있다. 엣지 컴퓨팅의 특성을 두고 클라우드 컴퓨팅의 서버 데이터 센터가 로컬 기지국으로 확산되는 개념이라고 보는 사람들도 있지만, 어찌되었든 계층적으로 보았을 때 클라우드 컴퓨팅의 데이터 처리와 일부 컴퓨팅 성능을 엣지 컴퓨팅이 보조한다고 보는 것이 더 맞는 접근이라고 본다.<br />
+결국 데이터의 저장과 보존 공간이 더욱 분산됨에 따라, 해킹’해야만 하는’ 위치가 늘어나는 꼴이 된다. 더 많은 곳을 해킹해야 하는 입장에서 보면 보안이 더 강화되었다고 볼 수 있고, 혹은 DDoS와 같은 네트워크 공격 또는 오류가 발생하더라도 또 다른 엣지 플랫폼에서 동일한 서비스를 그대로 제공할 수 있다는 점에서 높은 유지보수성을 갖는다고 볼 수 있다.</p>
+
+<h3 id="엣지와-클라우드-차이점">엣지와 클라우드 차이점</h3>
+
+<p><img src="https://img.kr.news.samsung.com/kr/wp-content/uploads/2017/05/%EC%97%A3%EC%A7%80%EC%BB%B4%ED%93%A8%ED%8C%85-02.jpg" alt="" /><br />
+<em>@그림 2: 엣지 컴퓨팅과 클라우드 컴퓨팅의 차이 - 삼성 뉴스룸</em></p>
 
 <table>
   <thead>
     <tr>
-      <th><strong>Mnemonic Code 단어 수</strong></th>
-      <th><strong>Entrophy(난수) 비트 수</strong></th>
+      <th><strong>구분</strong></th>
+      <th><strong>클라우드 컴퓨팅</strong></th>
+      <th><strong>엣지 컴퓨팅</strong></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>12</td>
-      <td>128</td>
+      <td>처리<br />위치</td>
+      <td>데이터를 처리하고 연산하는 데이터센터가 사용자(단말기)로부터 멀리 떨어져 있음</td>
+      <td>데이터를 처리하고 생성하는 장치(서버)가 사용자(단말기)와 가까운 로컬 기지국에 있음</td>
     </tr>
     <tr>
-      <td>15</td>
-      <td>160</td>
+      <td>처리<br />방식</td>
+      <td>중앙 데이터 센터와 사용자(단말기)가 직접 통신</td>
+      <td>사용자(단말기)와 가까이 위치한 로컬 기지국의 엣지 데이터 센터가 주로 소통하고, 추가적인 작업 혹은 결과물의 저장 등을 위해 로컬 기지국과 중앙 데이터 센터가 통신</td>
     </tr>
     <tr>
-      <td>18</td>
-      <td>192</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>224</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>256</td>
+      <td>처리<br />범위</td>
+      <td>단순 데이터 전송, 저장</td>
+      <td>데이터 전송 및 저장 뿐만 아니라 컴퓨팅 능력이 필요한 처리 과정 수행</td>
     </tr>
   </tbody>
 </table>
-
-<p>Mnemonic Code의 생성 순서는 다음과 같다.</p>
-
-<ol>
-  <li>Mnemonic Code의 단어 수에 해당하는 비트 수 만큼의 난수를 생성한다. 이 때의 난수를 엔트로피(Entropy)라고 하는데, 예를 들어 12개의 단어를 갖는 Mnemonic Code 생성에 필요한 엔트로피는 128비트(16바이트)로 생성되어야 한다.</li>
-  <li>엔트로피를 SHA256으로 해싱한 비트 값을 체크섬에 사용한다. 체크섬은 엔트로피 뒤에 추가되어 에러를 체크하기 위해 사용되는 비트인데, ‘엔트로피 비트 수 / 32’ 계산식으로 구할 수 있다. 위의 128 비트의 엔트로피를 예로 들면, SHA256 해시 결과 중 앞의 4비트가 체크섬이 된다.</li>
-  <li>엔트로피와 엔트로피로부터 도출된 체크섬을 합친 데이터(엔트로피 + 체크섬)를 11비트씩 쪼갠 값에 매핑되는 단어를 BIP-39 단어 리스트로부터 찾는다. 11비트씩 단어를 쪼개기 때문에, 리스트에는 2048(2^11)개의 단어가 들어있다. 리스트의 인덱스는 0부터 2047까지 있는데, <a href="https://github.com/NovaCrypto/BIP39/blob/master/src/main/java/io/github/novacrypto/bip39/wordlists/English.java">여기서 사용되는 단어들은 모두 BIP-39에 미리 정의되어 있으며</a> 대부분 영어로 구성되어 있다.</li>
-</ol>
-
-<h3 id="2-binary-seed">2. Binary Seed</h3>
-
-<p>Mnemonic Code가 HD wallet에서 사용되려면 Binary Seed로 변환되어야 한다. 변환된 Binary Seed를 이용하여 Master Private Key를 생성한다.<br />
-Binary Seed는 PBKDF2 함수를 이용하여 생성된다. 생성 과정에서 Mnemonic Code와 Salt값이 필요하다. 일반적으로 Salt는 “mnemonic” 단어를 사용하나, 사용자가 옵션으로 뒤에 단어를 추가하여 사용할 수도 있다. PBKDF2 함수에는 HMAC-SHA512 해시함수를 사용하며, 총 2048번의 반복(iteration) 과정을 수행하며 최종 도출된 결과 키의 512비트를 사용한다.</p>
-
-<h3 id="3-private-master-key">3. Private Master Key</h3>
-
-<p>위에서 도출된 512비트의 Binary Seed를 다시 HMAC-SHA512로 해싱하여 만든다. 이 때 만들어진 값은 Private Key와 기타 값을 포함한 Master Key(마스터 키, 또는 부모 키)라고 하는게 옳다.</p>
-
-<p>마스터 키는 Private Key와 체인코드(chaincode)로 구성된다. Hyperledger fabric을 다루던 블록체인 개발자에게 체인코드란 스마트 컨트랙트와 같은 개념으로 인식할 수 있지만, 여기서 체인코드는 마스터 키(부모 키)로부터 자식 키를 생성할 때의 엔트로피(난수) 제공 역할을 한다.</p>
-
-<p><img src="https://i.stack.imgur.com/oXwRu.png" alt="" /></p>
-
-<p>그림에서 보이는 것과 같이, 마스터 키는 총 512비트로 구성되며 이 중 앞 256비트는 Private(또는 Public) key, 뒷부분 256비트는 체인코드로 구성된다.<br />
-<a href="https://github.com/tyler-smith/go-bip32/blob/master/bip32.go">Typer-smith(github) : go-bip32</a> 의 NewMasterKey를 보면 Private Key와 Public Key의 생성 과정이 코드로 구현되어 있으며, 필자 또한 샘플 소스 개발 과정에 해당 오픈라이브러리를 사용했다.</p>
-
-<blockquote>
-  <p>실제 구현 과정에서 엔트로피와 니모닉 코드, 그리고 바이너리 시드는 다양한 자료를 검색하면서 구현할 수 있었다. 하지만 마스터 키의 경우에는 <a href="https://iancoleman.io/bip39/#english">검증 사이트(iancoleman.io)</a> 에서 출력하는 값과 계속 상이하여 오픈라이브러리를 사용했다. Tyler-smith의 소스 코드 내 B58Deserialize 함수를 확인 결과 Base58 encoding 과정을 거치는 것으로 보이는데, 이 부분은 설명 나와있는 곳을 찾지 못하여 이유를 아직 확인하기는 어려웠다.</p>
-</blockquote>
-
-<h3 id="4-child-key">4. Child Key</h3>
-
-<p>BIP32에서는 자식 키(Child Key) 생성 방식을 총 3가지로 구분한다.</p>
-
-<ol>
-  <li>부모 Private Key -&gt; 자식 Private Key</li>
-  <li>부모 Private Key -&gt; 자식 Public Key</li>
-  <li>부모 Public Key -&gt; 자식 Public Key</li>
-</ol>
-
-<p>먼저 위의 마스터 키 생성 과정에서 도출된 체인코드를 HMAC-SHA512의 키(secret)로 사용하여 key+index 값을 해싱한다. 해싱된 결과 값은 부모 키와 동일한 구조로, 앞부분 256비트와 부모 키를 결합하여 Child Key가 생성된다. 뒷부분 256비트는 자식 키의 또 다른 자식 키 생성에 사용될 체인코드가 된다.</p>
-
-<p><br /></p>
-
-<h2 id="source-code">Source code</h2>
-
-<p><a href="https://github.com/wnjoon/hdwallet-go">wnjoon/hdwallet-go</a></p>
-
-<p>2021.08.24까지 작업하였고, 최종적으로 PEM 파일로 생성된 공개키를 떨구는 작업까지 완료하였다.</p>
 
 <p><br /></p>
 
 <h2 id="참고자료">참고자료</h2>
 <ul>
-  <li><a href="https://blog.naver.com/gksalswl222/221389359473">HD(Hierarchical Deterministic) Wallet(BIP32,39,44)</a></li>
-  <li><a href="http://cryptostudy.xyz/crypto/article/8-Mnemonic-Code">Crypto 스터디 - Mnemonic Code</a></li>
-  <li><a href="http://cryptostudy.xyz/crypto/article/9-HD-키-생성">Crypto 스터디 - HD 키 생성</a></li>
-  <li><a href="https://blog.naver.com/forkblock/221559838087">HD Wallet</a></li>
-  <li><a href="https://potensj.tistory.com/57">HD wallet 구조 설명 - 개발 이야기</a></li>
+  <li><a href="https://medium.com/@sungjoon.yoon/infura-사용해보기-24af9bf12c4c">엣지 컴퓨팅, 클라우드 컴퓨팅 시대의 새 장(場) 열다 - 삼성뉴스룸</a></li>
+  <li><a href="https://www.highcharts.com/blog/news/50-codehighchartscom-moves-to-cdn/">Hotlink your Highcharts files from our CDN</a></li>
 </ul>
 
 <p><br /></p>
@@ -805,16 +755,16 @@ Binary Seed는 PBKDF2 함수를 이용하여 생성된다. 생성 과정에서 M
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         
         <p></p>
-        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Wallet</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Architecture</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
         <!--
 
   <nav class="pagination">
     
-      <a href="/tools/code-server/" class="pagination--pager" title="웹브라우저 형식의 VScode, code-server 구성하기
+      <a href="/ethereum/infura/" class="pagination--pager" title="Infura로 이더리움 테스트용 노드 만들기
 ">이전</a>
     
     
-      <a href="/system%20design/system_design_and_scalability/" class="pagination--pager" title="시스템 설계와 규모 확장성
+      <a href="/system%20design/scalable-web-architecture-and-distributed-systems/" class="pagination--pager" title="확장 가능한 웹 아키텍처 및 분산 시스템
 ">다음</a>
     
   </nav>
@@ -858,11 +808,11 @@ Binary Seed는 PBKDF2 함수를 이용하여 생성된다. 생성 과정에서 M
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=HD%28Hierarchical+Deterministic%29+Wallet%20http%3A%2F%2Flocalhost%3A4000%2Fwallet%2Fhd_wallet%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=CDN%28Content+Delivery+Network%29%20http%3A%2F%2Flocalhost%3A4000%2Farchitecture%2Fcdn%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fwallet%2Fhd_wallet%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Farchitecture%2Fcdn%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fwallet%2Fhd_wallet%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Farchitecture%2Fcdn%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
       </footer>

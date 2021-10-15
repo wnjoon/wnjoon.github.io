@@ -5,7 +5,7 @@ var store = [{
         "url": "http://localhost:4000/retrospect/2020_retrospect/",
         "teaser": null
       },{
-        "title": "[강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여",
+        "title": "[🧑‍🏫 강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 무료 강의 ‘이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여’를 본 후 내용을 정리하였습니다. 이더리움의 사상이나 만들어진 배경은 생략하고, 기술적인 관점에서만 정리하였습니다. 이더리움 아키텍처(Architecture) 이더리움의 아키텍처를 정확하게 알기 위해, 기존의 웹 어플리케이션(서버-클라이언트) 아키텍처를 비교해본다. @그림 1: 서버-클라이언트 구조의 웹 어플리케이션 아키텍처 사용자는 웹브라우저를 통해 HTML,...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum","강의 정리"],
         "url": "http://localhost:4000/ethereum/ethereum_bible1_inflearn/",
@@ -36,9 +36,9 @@ var store = [{
         "teaser": null
       },{
         "title": "HD(Hierarchical Deterministic) Wallet",
-        "excerpt":"HD wallet HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 BIP-32 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다. BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나...","categories": ["Wallet"],
-        "tags": ["Blockchain","Wallet","Golang"],
-        "url": "http://localhost:4000/wallet/hd_wallet/",
+        "excerpt":"HD wallet HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 BIP-32 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다. BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나...","categories": ["Blockchain"],
+        "tags": ["Blockchain","Wallet","Golang","Bitcoin","Ethereum"],
+        "url": "http://localhost:4000/blockchain/hd_wallet/",
         "teaser": null
       },{
         "title": "시스템 설계와 규모 확장성",
@@ -57,6 +57,12 @@ var store = [{
         "excerpt":"Infura 일반적으로 디앱(DApp)를 개발할 때에는 로컬에서 Ganashe 또는 Truffle develop을 사용하거나 geth를 이용한 private network를 구성한다. 물론 디앱에 국한되지 않더라도 대부분의 앱 또한 로컬에서 개발 -&gt; 테스트 -&gt; 실제 환경과 유사한 개발환경에서 테스트 -&gt; 배포와 같은 순서를 갖는다. 디앱은 여기서 조금 다른 부분이 테스트넷 환경에서 실제로 구성된 노드에 직접 테스트해봐야...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum"],
         "url": "http://localhost:4000/ethereum/infura/",
+        "teaser": null
+      },{
+        "title": "CDN(Content Delivery Network)",
+        "excerpt":"CDN(Content Delivery Network) 엣지 컴퓨팅(Edge Computing)의 한 방식으로, 웹 어플리케이션 또는 스트리밍 서비스에서의 각종 컨텐츠를 빠르게 전송하기 위해 전 세계에 분산된 서버를 구성하는 플랫폼이다. 마치 각 지역마다 물류센터가 있어서 빠르게 택배를 제공받는 방식과 같은데, 중앙 클라우드 서버 외에 각 지역마다(전 세계적으로) 분산된 서버를 전진배치 시켜서 이 곳에서 먼저 빠르게 컨텐츠를...","categories": ["Architecture"],
+        "tags": ["Architecture","Network"],
+        "url": "http://localhost:4000/architecture/cdn/",
         "teaser": null
       },{
         "title": "확장 가능한 웹 아키텍처 및 분산 시스템",

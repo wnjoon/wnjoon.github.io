@@ -22,8 +22,8 @@
 
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>회고록 - 2020년 - 월리의 탐구생활</title>
-<meta name="description" content="2020년 한해의 나를 돌아본다. ">
+<!-- begin _includes/seo.html --><title>HD(Hierarchical Deterministic) Wallet - 월리의 탐구생활</title>
+<meta name="description" content="HD Wallet에 대해 알아보고, go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 구현해본다. ">
 
 
   <meta name="author" content="글쓰는 개발자 ">
@@ -32,19 +32,19 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="월리의 탐구생활">
-<meta property="og:title" content="회고록 - 2020년">
-<meta property="og:url" content="http://localhost:4000/retrospect/2020_retrospect/">
+<meta property="og:title" content="HD(Hierarchical Deterministic) Wallet">
+<meta property="og:url" content="http://localhost:4000/blockchain/hd_wallet/">
 
 
-  <meta property="og:description" content="2020년 한해의 나를 돌아본다. ">
-
-
-
+  <meta property="og:description" content="HD Wallet에 대해 알아보고, go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 구현해본다. ">
 
 
 
 
-  <meta property="article:published_time" content="2021-01-14T00:00:00+09:00">
+
+
+
+  <meta property="article:published_time" content="2021-08-06T00:00:00+09:00">
 
 
 
@@ -57,7 +57,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/retrospect/2020_retrospect/">
+<link rel="canonical" href="http://localhost:4000/blockchain/hd_wallet/">
 
 
 
@@ -205,7 +205,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#retrospect" itemprop="item"><span itemprop="name">Retrospect</span></a>
+          <a href="/categories/#blockchain" itemprop="item"><span itemprop="name">Blockchain</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -213,7 +213,7 @@
     
       
       
-        <li class="current">회고록 - 2020년</li>
+        <li class="current">HD(Hierarchical Deterministic) Wallet</li>
       
     
   </ol>
@@ -581,18 +581,18 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="회고록 - 2020년">
-    <meta itemprop="description" content="2020년 한해의 나를 돌아본다.">
-    <meta itemprop="datePublished" content="2021-01-14T00:00:00+09:00">
+    <meta itemprop="headline" content="HD(Hierarchical Deterministic) Wallet">
+    <meta itemprop="description" content="HD Wallet에 대해 알아보고, go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 구현해본다.">
+    <meta itemprop="datePublished" content="2021-08-06T00:00:00+09:00">
     <meta itemprop="dateModified" content="2021-10-13T00:00:00+09:00">
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">회고록 - 2020년
+          <h1 id="page-title" class="page__title" itemprop="headline">HD(Hierarchical Deterministic) Wallet
 </h1>
           
-            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-01-14T00:00:00+09:00">2021.01.14</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-13">2021.10.13</time></p>
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-08-06T00:00:00+09:00">2021.08.06</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-13">2021.10.13</time></p>
           
           
             
@@ -608,7 +608,7 @@
     
       
       
-      <a href="/categories/#retrospect" class="page__taxonomy-item-category" rel="tag">Retrospect</a>
+      <a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
     
     </span>
   </p>
@@ -625,7 +625,23 @@
     
       
       
-      <a href="/tags/#%ED%9A%8C%EA%B3%A0" class="page__taxonomy-item-tag" rel="tag">회고</a>
+      <a href="/tags/#bitcoin" class="page__taxonomy-item-tag" rel="tag">Bitcoin</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#golang" class="page__taxonomy-item-tag" rel="tag">Golang</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#wallet" class="page__taxonomy-item-tag" rel="tag">Wallet</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a>
     
     </span>
   </p>
@@ -640,28 +656,18 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
               <ul class="toc__menu">
-  <li><a href="#개인">개인</a>
+  <li><a href="#hd-wallet">HD wallet</a></li>
+  <li><a href="#hd-wallet의-필요성">HD wallet의 필요성</a></li>
+  <li><a href="#hd-wallet에서-키-생성하기">HD Wallet에서 키 생성하기</a>
     <ul>
-      <li><a href="#주말연애와-주말부부의-시작">주말연애와 주말부부의 시작</a></li>
-      <li><a href="#새로운-보금자리">새로운 보금자리</a></li>
-      <li><a href="#생애-첫-pt">생애 첫 PT</a></li>
-      <li><a href="#결혼">결혼</a></li>
-      <li><a href="#투자">투자</a></li>
+      <li><a href="#1-mnemonic-code">1. Mnemonic Code</a></li>
+      <li><a href="#2-binary-seed">2. Binary Seed</a></li>
+      <li><a href="#3-private-master-key">3. Private Master Key</a></li>
+      <li><a href="#4-child-key">4. Child Key</a></li>
     </ul>
   </li>
-  <li><a href="#직장">직장</a>
-    <ul>
-      <li><a href="#새로운-역할">새로운 역할</a></li>
-      <li><a href="#어디에서나-잘-살아보기">어디에서나 잘 살아보기</a></li>
-      <li><a href="#자격증">자격증</a></li>
-    </ul>
-  </li>
-  <li><a href="#학습">학습</a>
-    <ul>
-      <li><a href="#부족한점-알아가기">부족한점 알아가기</a></li>
-      <li><a href="#다양한-교육">다양한 교육</a></li>
-    </ul>
-  </li>
+  <li><a href="#source-code">Source code</a></li>
+  <li><a href="#참고자료">참고자료</a></li>
 </ul>
 
             </nav>
@@ -669,58 +675,133 @@
         
         <p><br /></p>
 
-<h2 id="개인">개인</h2>
+<h2 id="hd-wallet">HD wallet</h2>
 
-<h3 id="주말연애와-주말부부의-시작">주말연애와 주말부부의 시작</h3>
+<p>HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 <a href="http://wiki.hash.kr/index.php/BIP32">BIP-32</a> 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다.</p>
 
-<p>2020년 2월. 아내가 이직하고 처음으로 발령받았다. 서울에 오기를, 최소한 경기도에는 가기를 희망했는데 강원도로 가버렸다. 덕분에 우리는 결혼전부터 주말부부가 되었다. 처음에는 주말부부가 너무 싫었다. 뭐 지금 좋다는건 아니지만, 신혼때 가장 많이 무너진다는 삶의 균형을 조금 더 연습하라고 주신 시간이라고 받아들이기로 했다. 덕분에 주중에는 운동, 공부, 회사 일 어느것에도 조급함없이 잘 해낼 수 있었고, 주말에는 아내와 함께 소중한 시간을 보낼 수 있었던 것 같다.</p>
+<p><img src="http://wiki.hash.kr/images/6/68/BIP32.png" alt="" /></p>
 
-<h3 id="새로운-보금자리">새로운 보금자리</h3>
-
-<p>2019년 11월, 결혼을 준비하면서 은행의 힘을 최대한 빌려 집을 구매했다. 그리고 2020년 3월에 드디어 공사를 마무리하고 입주하게 되었다. 내 이름으로 된 등기와 집을 보면서 이제 정말 가장이 되어가고 있다는 생각이 들었다. 하나님의 은혜로 정말 순조롭게 집을 구했고, 필요한만큼 충분히 대출을 받을 수 있음에 감사했다. 그래서그런가, 생각보다 집을 구하는 과정보다 집을 인테리어하는 과정이 꽤 힘들었다. 좋은 업체를 고르는것부터 원하는 스타일로 집을 구성하는 것 까지 쉽지 않은 여정이었다. 사실 모든 결정은 아내가 진행했으니 아내의 고생이 정말 컷다고 생각한다.</p>
-
-<h3 id="생애-첫-pt">생애 첫 PT</h3>
-
-<p>2020년 6월. 생애 첫 헬스장 PT를 신청했다. 100만원이 훌쩍 넘는 거금이었지만, 왜 사람들이 돈을 지불하면서 PT를 받는지 알 수 있었다.
-우선 내가 이제까지 알던 운동 방법이 다 잘못되었다는 것을 느낄 수 있었는데, 꽤나 무거운 무게로도 힘들지 않던 기구들이 올바른 자세로 하게되면 반도 안되는 무게에도 허덕이게 만들었다. 아쉬운 점은, 1) 중간에 오송으로 장기간 출장을 가면서 PT 수업을 받는게 어려워졌고, 2) 코로나가 장기화되면서 계획대로 헬스장을 출입하는 것이 어려워져서 PT를 알차게 받지는 못했다. 그래도 운동 방법은 잘 익혔으니 2021년에는 꾸준히 운동해서 모델같은 몸매를 만들어보도록 노력해야겠다.</p>
-
-<h3 id="결혼">결혼</h3>
-
-<p>2020년 7월. 코로나로 인하여 미뤘던 결혼식을 드디어 치르게 되었다. 나와 아내는 같은 회사에서 만났다. 계열사는 달라도 같은 건물이라 출퇴근을 늘 같이했는데, 2019년 1월에 만나서 7월에 상견례를 했으니 정말 정신없이 결혼을 계획한 셈이다. 한편으로 생각하면 결혼이라는건 꽤 복잡하고 힘든 과정들이라 알고있었는데, 너무나 순조롭고 빠르게 해결했다고 생각하니 이 또한 감사한 일이다. 물론 아내같은 여자랑 결혼한 것이 가장 큰 감사다. <u>(보고계시죠?)</u></p>
-
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbfSGLR%2FbtqSsSiBDPh%2Fs6FaNKvAcoq0SZVvZ52uzK%2Fimg.png" alt="" /></p>
-
-<h3 id="투자">투자</h3>
-
-<p>투자라는 것을 시작해보았다. 투기와 투자의 구분을 정확히 하지 못해 초반에 실수한 것이 많았다. 대략 1년동안 이리저리 뒤척이면서 내린 결론은 하나다. 지금 내 인생을 하루종일 차트보는일에 쓰고싶진 않다. 대신 경제를 읽고 투자하는 안목을 기르는 공부는 꾸준히 하고싶다.</p>
+<blockquote>
+  <p>BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나 공개된 제안 양식을 의미한다.</p>
+</blockquote>
 
 <p><br /></p>
 
-<h2 id="직장">직장</h2>
+<h2 id="hd-wallet의-필요성">HD wallet의 필요성</h2>
 
-<h3 id="새로운-역할">새로운 역할</h3>
-
-<p>회사를 다니면서 소프트웨어 개발자보다는 아키텍처가 되고싶었다. 코드를 잘 짜는 사람보다는 시스템을 이해하고 설계할 줄 아는 사람이 되고 싶었다. 2020년 4월부터 약 7개월간 진행한 식약처 블록체인 시스템 구축 프로젝트에서 처음으로 블록체인에 한정되어 있지만 SWA 역할을 해보았다. 처음이라 미숙한 부분도 많았지만, 개발자에서 엔지니어로 발전해가는 과정을 경험할 수 있어서 정말 뜻깊었다.</p>
-
-<h3 id="어디에서나-잘-살아보기">어디에서나 잘 살아보기</h3>
-
-<p>2019년, 2020년 꼭 한번씩은 장기간 출장이 있었다. 제작년보다는 동일하게 집을 떠나 있어도 운동을 다니거나 공부를 하는등 주어진 시간을 조금 더 알차게 사용할 수 있었던 것 같다. 주변 혹은 환경과 비교하고 아쉬워 하던 모습에서 주어진 환경에서 가장 좋은 방법을 찾아가는 나를 보면서 뿌듯했다.</p>
-
-<h3 id="자격증">자격증</h3>
-
-<p>2020년 9월. 제작년부터 꼭 취득하고 싶었던 블록체인 자격증(CHFA)을 취득했다. 처음에는 공부가 부족해서 불합격했고, 그 다음에는 도대체 내가 뭘 틀렸는지 몰라서 불합격했다. 회사에서 해당 자격증을 3명 이상 보유하면 HCSP(하이퍼레저 패브릭 공식 서비스 제공자) 자격을 부여하는데, 감사하게도 내가 3번째로 획득하면서 우리 회사도 자격을 받게 되었다. 사실 회사를 떠나서 꼭 하나 갖고싶었던 자격증이기도 했고, 아직 자료가 많이 없어서 정말 열심히 했던 시험이라 기분이 좋았다.</p>
+<ol>
+  <li>보안성 : 한번 사용된 주소(공개키)와 키(개인키)는 재사용되지 않는데, 즉 거래가 발생할 때마다 주소가 달라진다. BIP-32에서 이러한 보안성 측면에서의 접근이 처음으로 제안되었으며, 이후 BIP-39에서 Mnemonic Code를 적용하여 사용자가 기억하기 쉬운 단어들의 집합으로 이루어진 코드를 적용할 수 있도록 하였다.</li>
+  <li>멀티 코인 : 초기 HD wallet의 표준이었던 BIP-32, BIP-39가 비트코인에 한정된 기능을 제공하였다면, BIP-44에서는 이더리움을 포함한 다양한 암호화폐에서도 HD wallet을 적용할 수 있도록 하였다.</li>
+</ol>
 
 <p><br /></p>
 
-<h2 id="학습">학습</h2>
+<h2 id="hd-wallet에서-키-생성하기">HD Wallet에서 키 생성하기</h2>
 
-<h3 id="부족한점-알아가기">부족한점 알아가기</h3>
+<p>HD wallet에서 사용되는 키의 생성 순서는 다음과 같다.</p>
 
-<p>데이터베이스, 풀스택 등 일반적인 개발자가 갖고 있을법한 소양들이 나에겐 부족했다. 대학원에서도 C++을 이용한 미들웨어를 분석했고, 이 회사에 오기전에 잠시 몸담았던 곳에서는 C를 기반으로 암호통신장비를 개발했다. 심지어 현재 회사에서는 Go언어와 자바를 주로 사용하고 있으니 대다수가 보유하고 있는 기술에 접근하는 것이 쉽지는 않았다. 그래서 2020년 말부터 스프링부트 학습을 시작했다. 뜬금없던 것은 아니었다. 회사에서 블록체인에 API를 호출하는 프로그램을 스프링부트로 구축하고 있었고, 그걸 사용하기 위해서는 마침 학습이 필요했을 뿐이다. 인프런에서 열심히 듣고있는데, 출퇴근 시간에 들으면서 이동하는게 아주 효율적이고 마음에 든다. 얼른 완강해서 스프링부트에 익숙해지고 싶다.</p>
+<ol>
+  <li>Entropy(난수)를 이용한 Mnemonic Code 생성</li>
+  <li>Mnemonic Code를 이용하여 Binary Seed 도출</li>
+  <li>Binary Seed를 이용하여 마스터 키(Master Private Key) 생성</li>
+  <li>만들어진 마스터 키를 이용하여 자식 키(Child Key), 그리고 자식 키를 이용하여 손자 키(Grand-Child Key)를 파생적으로 생성</li>
+</ol>
 
-<h3 id="다양한-교육">다양한 교육</h3>
+<h3 id="1-mnemonic-code">1. Mnemonic Code</h3>
 
-<p>2020년 한해동안 바쁜 와중에도 정말 다양한 교육을 들었던 것 같다. 쿠버네티스, 도커, 그리고 아직 완강하진 못했지만 파이썬까지. 생각보다 부지런했구나 싶어서 스스로가 대견하기도 하다. 아쉬운점은 정리하지 못했다는 것. 그리고 꾸준히 내 것으로 만들지 못했다는 것이다. 욕심을 부리다보니 한번에 여러가지를 진행했고 집중하지 못했던 부분도 있다. 단 하나를 하더라도 100%로 만들어내자.</p>
+<p>Mnemonic Sentence, Mnemonic Phrase라고도 불리며, 바이너리 데이터를 사람이 기억하기 쉬운 단어들의 집합으로 변환시킨 코드를 의미한다. 주어진 각 단어를 1:1로 매핑되는 바이너리 코드로 변환한 바이너리 시드(Binary Seed)를 만든다.</p>
+
+<p>비트코인의 <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP-39</a> 에서 Mnemonic Code와 이를 통한 Binary Seed를 생성하는 절차가 기술되어 있다. BIP-39에서 정의한 Mnemonic Code의 단어 수는 [12, 15, 18, 21, 24]개 인데, 그 중 12개와 24개의 단어가 가장 많이 사용되고 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Mnemonic Code 단어 수</strong></th>
+      <th><strong>Entrophy(난수) 비트 수</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>12</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>160</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>192</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>224</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>256</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mnemonic Code의 생성 순서는 다음과 같다.</p>
+
+<ol>
+  <li>Mnemonic Code의 단어 수에 해당하는 비트 수 만큼의 난수를 생성한다. 이 때의 난수를 엔트로피(Entropy)라고 하는데, 예를 들어 12개의 단어를 갖는 Mnemonic Code 생성에 필요한 엔트로피는 128비트(16바이트)로 생성되어야 한다.</li>
+  <li>엔트로피를 SHA256으로 해싱한 비트 값을 체크섬에 사용한다. 체크섬은 엔트로피 뒤에 추가되어 에러를 체크하기 위해 사용되는 비트인데, ‘엔트로피 비트 수 / 32’ 계산식으로 구할 수 있다. 위의 128 비트의 엔트로피를 예로 들면, SHA256 해시 결과 중 앞의 4비트가 체크섬이 된다.</li>
+  <li>엔트로피와 엔트로피로부터 도출된 체크섬을 합친 데이터(엔트로피 + 체크섬)를 11비트씩 쪼갠 값에 매핑되는 단어를 BIP-39 단어 리스트로부터 찾는다. 11비트씩 단어를 쪼개기 때문에, 리스트에는 2048(2^11)개의 단어가 들어있다. 리스트의 인덱스는 0부터 2047까지 있는데, <a href="https://github.com/NovaCrypto/BIP39/blob/master/src/main/java/io/github/novacrypto/bip39/wordlists/English.java">여기서 사용되는 단어들은 모두 BIP-39에 미리 정의되어 있으며</a> 대부분 영어로 구성되어 있다.</li>
+</ol>
+
+<h3 id="2-binary-seed">2. Binary Seed</h3>
+
+<p>Mnemonic Code가 HD wallet에서 사용되려면 Binary Seed로 변환되어야 한다. 변환된 Binary Seed를 이용하여 Master Private Key를 생성한다.<br />
+Binary Seed는 PBKDF2 함수를 이용하여 생성된다. 생성 과정에서 Mnemonic Code와 Salt값이 필요하다. 일반적으로 Salt는 “mnemonic” 단어를 사용하나, 사용자가 옵션으로 뒤에 단어를 추가하여 사용할 수도 있다. PBKDF2 함수에는 HMAC-SHA512 해시함수를 사용하며, 총 2048번의 반복(iteration) 과정을 수행하며 최종 도출된 결과 키의 512비트를 사용한다.</p>
+
+<h3 id="3-private-master-key">3. Private Master Key</h3>
+
+<p>위에서 도출된 512비트의 Binary Seed를 다시 HMAC-SHA512로 해싱하여 만든다. 이 때 만들어진 값은 Private Key와 기타 값을 포함한 Master Key(마스터 키, 또는 부모 키)라고 하는게 옳다.</p>
+
+<p>마스터 키는 Private Key와 체인코드(chaincode)로 구성된다. Hyperledger fabric을 다루던 블록체인 개발자에게 체인코드란 스마트 컨트랙트와 같은 개념으로 인식할 수 있지만, 여기서 체인코드는 마스터 키(부모 키)로부터 자식 키를 생성할 때의 엔트로피(난수) 제공 역할을 한다.</p>
+
+<p><img src="https://i.stack.imgur.com/oXwRu.png" alt="" /></p>
+
+<p>그림에서 보이는 것과 같이, 마스터 키는 총 512비트로 구성되며 이 중 앞 256비트는 Private(또는 Public) key, 뒷부분 256비트는 체인코드로 구성된다.<br />
+<a href="https://github.com/tyler-smith/go-bip32/blob/master/bip32.go">Typer-smith(github) : go-bip32</a> 의 NewMasterKey를 보면 Private Key와 Public Key의 생성 과정이 코드로 구현되어 있으며, 필자 또한 샘플 소스 개발 과정에 해당 오픈라이브러리를 사용했다.</p>
+
+<blockquote>
+  <p>실제 구현 과정에서 엔트로피와 니모닉 코드, 그리고 바이너리 시드는 다양한 자료를 검색하면서 구현할 수 있었다. 하지만 마스터 키의 경우에는 <a href="https://iancoleman.io/bip39/#english">검증 사이트(iancoleman.io)</a> 에서 출력하는 값과 계속 상이하여 오픈라이브러리를 사용했다. Tyler-smith의 소스 코드 내 B58Deserialize 함수를 확인 결과 Base58 encoding 과정을 거치는 것으로 보이는데, 이 부분은 설명 나와있는 곳을 찾지 못하여 이유를 아직 확인하기는 어려웠다.</p>
+</blockquote>
+
+<h3 id="4-child-key">4. Child Key</h3>
+
+<p>BIP32에서는 자식 키(Child Key) 생성 방식을 총 3가지로 구분한다.</p>
+
+<ol>
+  <li>부모 Private Key -&gt; 자식 Private Key</li>
+  <li>부모 Private Key -&gt; 자식 Public Key</li>
+  <li>부모 Public Key -&gt; 자식 Public Key</li>
+</ol>
+
+<p>먼저 위의 마스터 키 생성 과정에서 도출된 체인코드를 HMAC-SHA512의 키(secret)로 사용하여 key+index 값을 해싱한다. 해싱된 결과 값은 부모 키와 동일한 구조로, 앞부분 256비트와 부모 키를 결합하여 Child Key가 생성된다. 뒷부분 256비트는 자식 키의 또 다른 자식 키 생성에 사용될 체인코드가 된다.</p>
+
+<p><br /></p>
+
+<h2 id="source-code">Source code</h2>
+
+<p><a href="https://github.com/wnjoon/hdwallet-go">wnjoon/hdwallet-go</a></p>
+
+<p>2021.08.24까지 작업하였고, 최종적으로 PEM 파일로 생성된 공개키를 떨구는 작업까지 완료하였다.</p>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li><a href="https://blog.naver.com/gksalswl222/221389359473">HD(Hierarchical Deterministic) Wallet(BIP32,39,44)</a></li>
+  <li><a href="http://cryptostudy.xyz/crypto/article/8-Mnemonic-Code">Crypto 스터디 - Mnemonic Code</a></li>
+  <li><a href="http://cryptostudy.xyz/crypto/article/9-HD-키-생성">Crypto 스터디 - HD 키 생성</a></li>
+  <li><a href="https://blog.naver.com/forkblock/221559838087">HD Wallet</a></li>
+  <li><a href="https://potensj.tistory.com/57">HD wallet 구조 설명 - 개발 이야기</a></li>
+</ul>
 
 <p><br /></p>
 
@@ -732,15 +813,16 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         
         <p></p>
-        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Retrospect</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Blockchain</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
         <!--
 
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">이전</a>
+      <a href="/tools/code-server/" class="pagination--pager" title="웹브라우저 형식의 VScode, code-server 구성하기
+">이전</a>
     
     
-      <a href="/ethereum/ethereum_bible1_inflearn/" class="pagination--pager" title="[🧑‍🏫 강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여
+      <a href="/system%20design/system_design_and_scalability/" class="pagination--pager" title="시스템 설계와 규모 확장성
 ">다음</a>
     
   </nav>
@@ -751,6 +833,8 @@
 
 
   
+
+  
   	
   	
   	
@@ -759,8 +843,14 @@
 
 
 
-  <a href="#" class="pagination_prev_next--pager disabled-first-child">첫 번째 글입니다</a>
-  <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
+  <nav class="pagination_prev_next">
+    
+      <a href="/blockchain/lightning_network/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>라이트닝 네트워크(Lightning Network)</a>
+    
+    
+      <a href="/blockchain/dapp/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>디앱(DApp, Decentralized Application)</a>
+    
+  </nav>
 
 
 
@@ -784,11 +874,11 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%ED%9A%8C%EA%B3%A0%EB%A1%9D+-+2020%EB%85%84%20http%3A%2F%2Flocalhost%3A4000%2Fretrospect%2F2020_retrospect%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=HD%28Hierarchical+Deterministic%29+Wallet%20http%3A%2F%2Flocalhost%3A4000%2Fblockchain%2Fhd_wallet%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fretrospect%2F2020_retrospect%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblockchain%2Fhd_wallet%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fretrospect%2F2020_retrospect%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fblockchain%2Fhd_wallet%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
       </footer>
