@@ -1,7 +1,8 @@
 #!/bin/bash
 
 MESSAGE=$1
-NOWDATE=$(date "+%Y%m%d%H%M%S")
+# NOWDATE=$(date "+%Y%m%d%H%M%S")
+NOWDATE=$(date +"%y:%m:%d-%H:%M")
 
 echo "1. Add all"
 git add -A
