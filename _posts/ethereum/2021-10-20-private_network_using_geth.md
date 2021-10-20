@@ -93,9 +93,9 @@ geth attach <IPC_LOCATION>
 
 ## 계정 생성
 
-``bash
+```bash
 > personal.newAccount()
-`` 
+``` 
 
 <br>
 
