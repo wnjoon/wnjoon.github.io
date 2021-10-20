@@ -3,7 +3,7 @@ title:  "Namespace, ResourceQuota, LimitRange"
 excerpt: "쿠버네티스의 네임스페이스와 파드 사이의 적절한 자원 분배를 위한 제한 방법에 대하여 알아본다."
 
 categories:
-  -  Kubernetes
+  # -  Kubernetes
 tags:
   - [Kubernetes, Network, Distributed Computing, InfraStructure]
 
