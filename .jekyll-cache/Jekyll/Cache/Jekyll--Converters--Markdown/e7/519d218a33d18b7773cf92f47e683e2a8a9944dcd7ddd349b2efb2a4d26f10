@@ -1,0 +1,115 @@
+I"N<p><br /></p>
+
+<h2 id="geth란">Geth란?</h2>
+
+<p>Geth는 Go Ethereum의 약자로, <u>이더리움에서 스마트컨트랙트를 호출할 수 있도록 하는 공식 클라이언트 어플리케이션 중 하나</u>이다.<br />
+Geth를 이용하면 퍼블릭 이더리움과 연결하거나 프라이빗 이더리움을 별도로 구성할 수 있는데, 또한 노드 1개로 이루어진 이더리움을 구성해서 빠르고 간편하게 스마트컨트랙트를 개발하고 이를 테스트할 수도 있다. 본 포스팅에서는 위의 종류 중 3번째인 테스트용 이더리움, 개발 모드(dev mode)를 직접 구성해본다.<br />
+참고로 굉장히 쉬운 내용이고, <a href="https://geth.ethereum.org/docs/getting-started/dev-mode">공식 홈페이지</a>에 가도 동일한 내용이 적혀있으므로 해당 문서를 참고해도 좋다.</p>
+
+<p><br /></p>
+
+<h2 id="geth-설치">Geth 설치</h2>
+
+<p>Geth를 설치하는 방식은 크게 3가지로 구분되며, 동작 방법은 바이너리 또는 컨테이너 형태로 나뉜다. 본 포스팅에서는 standalone 형태로 설치한 후 바이너리 모드로 geth를 구동해본다.</p>
+
+<h3 id="1-geth-압축파일-다운로드">1. geth 압축파일 다운로드</h3>
+
+<p><a href="https://geth.ethereum.org/downloads/">Download Geth - Sytau (2021.10.20일 기준 latest stable)</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 터미널에서 geth를 다운받는다. 만약 wget이 없다면 homebrew를 이용하여 설치한다.</span>
+<span class="nv">$ </span>wget https://gethstore.blob.core.windows.net/builds/geth-darwin-amd64-1.10.10-bb74230f.tar.gz
+
+<span class="c"># 압축 풀기</span>
+<span class="c"># 필자는 geth 바이너리 파일을 geth_bin 디렉토리에 저장하였다. </span>
+<span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> geth_bin <span class="o">&amp;&amp;</span> <span class="nb">tar </span>xvfz geth-darwin-amd64-1.10.10-bb74230f.tar.gz <span class="nt">-C</span> geth_bin
+</code></pre></div></div>
+
+<h3 id="2-geth-바이너리-파일-등록">2. geth 바이너리 파일 등록</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"export PATH=</span><span class="nv">$PATH</span><span class="s2">:{geth_bin 디렉토리 경로}"</span> <span class="o">&gt;&gt;</span> ~/.bash_profile
+<span class="nv">$ </span><span class="nb">source</span> ~/.bash_profile
+</code></pre></div></div>
+
+<p>geth -h로 geth의 정상 적용 여부와 geth에서 사용 가능한 커맨드 옵션을 확인할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="개발-모드-실행">개발 모드 실행</h2>
+
+<p>개발 모드에서는 기본적으로 아래와 같은 옵션이 적용된 genesis 블록을 생성한다.</p>
+
+<ul>
+  <li>Initializes the data directory with a testing genesis block</li>
+  <li>Sets max peers to 0</li>
+  <li>Turns off discovery by other nodes</li>
+  <li><u>Sets the gas price to 0</u></li>
+  <li><u>Uses the Clique PoA consensus engine</u> with which allows blocks to be mined as-needed without excessive CPU and memory consumption</li>
+  <li>Uses on-demand block generation, producing blocks when transactions are waiting to be mined</li>
+</ul>
+
+<h3 id="1-테스트-디렉토리-생성">1. 테스트 디렉토리 생성</h3>
+
+<p>체인베이스(database)가 in-memory 상태로 남지 않도록 데이터를 저장하고 유지할 수 있도록 테스트 디렉토리를 생성한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir </span>test-chain-dir
+</code></pre></div></div>
+
+<h3 id="2-개발-모드-시작">2. 개발 모드 시작</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>geth <span class="nt">--datadir</span> test-chain-dir <span class="nt">--http</span> <span class="nt">--dev</span> <span class="nt">--http</span>.corsdomain <span class="s2">"https://remix.ethereum.org,http://remix.ethereum.org"</span>
+</code></pre></div></div>
+<p>위의 코드를 보면 –datadir에 위에서 생성한 테스트 디렉토리를 매핑한다. –dev 옵션을 주면 geth를 개발 모드로 실행하게 된다.<br />
+본 예시에서는 remix를 이용하여 dev mode로 구성한 이더리움과 연결하기 때문에, –http.corsdomain에 remix를 연결하였다. remix는 web 기반의 이더리움 IDE이다.</p>
+
+<h3 id="3-노드-연결">3. 노드 연결</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>geth attach &lt;IPC_LOCATION&gt;
+<span class="c"># geth attach ${test-chain-dir 경로}/geth.ipc</span>
+</code></pre></div></div>
+
+<p>위에서 생성한 개발 모드용 노드에서 제공하는 IPC 콘솔로 연결한다. IPC_LOCATION은 위에서 생성한 테스트 디렉토리 내부에 geth.ipc 파일로 존재한다.<br />
+정상적으로 노드에 연결되면 &gt; 와 같이 커맨드라인을 입력할 수 있는 화면이 뜬다.</p>
+
+<p><br /></p>
+
+<h2 id="계정-생성">계정 생성</h2>
+
+<p>``bash</p>
+<blockquote>
+  <p>personal.newAccount()
+``</p>
+</blockquote>
+
+<p><br /></p>
+
+<h2 id="트랜잭션-테스트">트랜잭션 테스트</h2>
+<h3 id="1-코인베이스에서-테스트로-생성한-계정으로-이더-전송">1. 코인베이스에서 테스트로 생성한 계정으로 이더 전송</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> eth.sendTransaction<span class="o">({</span>from:eth.coinbase, to:eth.accounts[1], value: web3.toWei<span class="o">(</span>0.05, <span class="s2">"ether"</span><span class="o">)})</span>
+</code></pre></div></div>
+
+<h3 id="2-테스트-계정의-잔액-확인">2. 테스트 계정의 잔액 확인</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> eth.getBalance<span class="o">(</span>eth.accounts[1]<span class="o">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="remix-연결">Remix 연결</h2>
+
+<p>위의 노드 구성 과정에 Remix를 연결하였기 때문에, <a href="https://remix.ethereum.org">Remix 웹페이지(https://remix.ethereum.org)</a>에서 스마트컨트랙트의 개발과 테스트를 진행할 수 있다. 컨트랙트를 컴파일하는 것은 기존의 구성 그대로 가능하지만, 배포 혹은 실행을 테스트해보고자 할 때에는 web3 provider로 환경을 변경해주어야 한다.<br />
+환경 변경 과정에서 http://127.0.0.1:8545 값을 Web3 Provider Endpoint로 설정해야 하며(기본값으로 되어있음), 이후 Deploy를 진행해야 한다.</p>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li><a href="https://geth.ethereum.org/docs/getting-started/dev-mode">Geth - Dev mode</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET

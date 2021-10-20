@@ -37,26 +37,26 @@ var store = [{
       },{
         "title": "Service - ClusterIP, NodePort, LoadBalancer",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 서비스(Service)의 필요성 서비스의 필요성을 알기 위해서는 쿠버네티스의 기본 사상에 대해 알아야 한다. 쿠버네티스는 1개 이상의 컨테이너로 구성된 파드(Pod)로 동작한다. 쿠버네티스에서 파드란 언제든지 없어지고 생겨날 수 있는 유동적인 존재이다. 배달의민족에서 할인권을 배포하는 이벤트를 진행했다고 가정하자....","categories": ["Kubernetes"],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
         "url": "http://localhost:4000/kubernetes/service/",
         "teaser": null
       },{
         "title": "Volume - emptyDir, hostPath, PV/PVC",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 볼륨(Volume)의 필요성 컨테이너로 이루어진 파드는 서비스 때 언급한 것과 마찬가지로 생성과 삭제가 매우 빈번하게 이루어지는 단위이다. 문제는 파드가 삭제되면 파드 내 컨테이너에 저장되어 있던 데이터 또한 삭제된다는 것이다. 이를 방지하기 위해 쿠버네티스에서는 다양한 방법으로...","categories": ["Kubernetes"],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
         "url": "http://localhost:4000/kubernetes/volume/",
         "teaser": null
       },{
         "title": "Object - ConfigMap, Secret",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. ConfigMap과 Secret의 필요성 SSH를 예로 들어보자. 물론 개발환경에서도 SSH 적용을 하면 좋을 수 있지만, 개발환경의 성능과 불필요한 귀찮음을 배제하기 위해서라도 사용하지 않는 경우가 많다. 개발환경과 운영환경에서 사용되는 ID, 비밀번호도 다를 것이다. 이러한 환경변수는 쿠버네티스...","categories": ["Kubernetes"],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
         "url": "http://localhost:4000/kubernetes/configmap_secret/",
         "teaser": null
       },{
         "title": "Namespace, ResourceQuota, LimitRange",
-        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 자원 분배의 필요성 쿠버네티스는 클러스터에 따라 사용할 수 있는 자원의 한계가 있다. 마치 우리가 클라우드 혹은 외장하드와 같은 별도의 장치나 서비스를 사용하지 않는다면 PC에 연결된 하드 또는 SSD의 용량만 사용할 수 있는 것과 같다....","categories": ["Kubernetes"],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
-        "url": "http://localhost:4000/kubernetes/namespace/",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 자원 분배의 필요성 쿠버네티스는 클러스터에 따라 사용할 수 있는 자원의 한계가 있다. 마치 우리가 클라우드 혹은 외장하드와 같은 별도의 장치나 서비스를 사용하지 않는다면 PC에 연결된 하드 또는 SSD의 용량만 사용할 수 있는 것과 같다....","categories": [],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/namespace/",
         "teaser": null
       },{
         "title": "HD(Hierarchical Deterministic) Wallet",
@@ -123,5 +123,11 @@ var store = [{
         "excerpt":"배열 vs 리스트 정렬을 구현하는 방식은 크게 배열을 이용하거나 리스트를 이용하는 두가지 방법이 존재한다. 배열: 구현이 용이함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요함. 리스트: 구현이 복잡함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요하지 않음. 본 포스팅에서는 각 정렬의 구현 방식을 일반적으로 사용되는 ‘배열(array)’로 진행한다. Quick...","categories": ["Algorithm"],
         "tags": ["Algorithm","Sorting","Recursive"],
         "url": "http://localhost:4000/algorithm/sorting/",
+        "teaser": null
+      },{
+        "title": "Geth을 이용한 이더리움 dev mode 구성하기",
+        "excerpt":"Geth란? Geth는 Go Ethereum의 약자로, 이더리움에서 스마트컨트랙트를 호출할 수 있도록 하는 공식 클라이언트 어플리케이션 중 하나이다. Geth를 이용하면 퍼블릭 이더리움과 연결하거나 프라이빗 이더리움을 별도로 구성할 수 있는데, 또한 노드 1개로 이루어진 이더리움을 구성해서 빠르고 간편하게 스마트컨트랙트를 개발하고 이를 테스트할 수도 있다. 본 포스팅에서는 위의 종류 중 3번째인 테스트용 이더리움, 개발...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","geth"],
+        "url": "http://localhost:4000/ethereum/private_network_using_geth/",
         "teaser": null
       }]

@@ -1,6 +1,38 @@
-I"l<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+I"E<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
 
 <hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/private_network_using_geth/">Geth을 이용한 이더리움 dev mode 구성하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.10.20
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#geth" class="page__taxonomy-item-tag" rel="tag">geth</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
 
 <div class="list__item">
     <article class="archive-item">

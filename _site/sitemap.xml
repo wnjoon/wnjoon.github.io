@@ -37,7 +37,7 @@
 <lastmod>2021-10-16T00:00:00+09:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/kubernetes/namespace/</loc>
+<loc>http://localhost:4000/namespace/</loc>
 <lastmod>2021-10-16T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -83,6 +83,10 @@
 <url>
 <loc>http://localhost:4000/algorithm/sorting/</loc>
 <lastmod>2021-10-15T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/ethereum/private_network_using_geth/</loc>
+<lastmod>2021-10-20T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/categories/</loc>

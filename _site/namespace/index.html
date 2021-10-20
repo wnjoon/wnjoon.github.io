@@ -33,7 +33,7 @@
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="월리의 탐구생활">
 <meta property="og:title" content="Namespace, ResourceQuota, LimitRange">
-<meta property="og:url" content="http://localhost:4000/kubernetes/namespace/">
+<meta property="og:url" content="http://localhost:4000/namespace/">
 
 
   <meta property="og:description" content="쿠버네티스의 네임스페이스와 파드 사이의 적절한 자원 분배를 위한 제한 방법에 대하여 알아본다. ">
@@ -57,7 +57,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/kubernetes/namespace/">
+<link rel="canonical" href="http://localhost:4000/namespace/">
 
 
 
@@ -205,16 +205,6 @@
         <span class="sep">/</span>
       
       
-        
-        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#kubernetes" itemprop="item"><span itemprop="name">Kubernetes</span></a>
-          <meta itemprop="position" content="2" />
-        </li>
-        <span class="sep">/</span>
-      
-    
-      
-      
         <li class="current">Namespace, ResourceQuota, LimitRange</li>
       
     
@@ -342,7 +332,7 @@
   <label for="ac-toc">카테고리 Click</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">21</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">22</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
       </li>
       <li>
         <!-- 개발 -->
@@ -405,7 +395,7 @@
                     
                 
                     
-                        <li><a href="/categories/ethereum" class="">Ethereum (3)</a></li>
+                        <li><a href="/categories/ethereum" class="">Ethereum (4)</a></li>
                     
                 
                     
@@ -439,7 +429,7 @@
                     
                 
                     
-                        <li><a href="/categories/kubernetes" class="">Kubernetes (4)</a></li>
+                        <li><a href="/categories/kubernetes" class="">Kubernetes (3)</a></li>
                     
                 
                     
@@ -649,23 +639,6 @@
   
 
   <p class="page__taxonomy">
-    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
-    <span itemprop="keywords">
-    
-      
-      
-      <a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-    
-    </span>
-  </p>
-
-
-
-  
-  
-  
-
-  <p class="page__taxonomy">
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
     <span itemprop="keywords">
     
@@ -683,11 +656,15 @@
     
       
       
+      <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a><span class="sep"> </span>
+    
+      
+      
       <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a>
     
     </span>
   </p>
-
+ 
           
         </header>
       
@@ -700,9 +677,6 @@
               <ul class="toc__menu">
   <li><a href="#자원-분배의-필요성">자원 분배의 필요성</a></li>
   <li><a href="#resourcequota">ResourceQuota</a></li>
-  <li><a href="#envliteral--환경변수상수">Env(Literal) : 환경변수(상수)</a></li>
-  <li><a href="#envfile--환경변수파일">Env(File) : 환경변수(파일)</a></li>
-  <li><a href="#volume-mountfile--볼륨마운트파일">Volume Mount(File) : 볼륨마운트(파일)</a></li>
   <li><a href="#참고자료">참고자료</a></li>
 </ul>
 
@@ -724,152 +698,11 @@
 
 <p>쿠버네티스 클러스터는 다양한 네임스페이스와 이러한 네임스페이스 내부에 존재하는 여러 개의 파드들을 구성할 수 있다. 이들은 클러스터의 자원을 ‘나누어서’ 사용하게 되는데, 이러한 이유로 자원을 효율적으로 분배해서 되도록 많은 파드가 서비스를 수행할 수 있도록 해야 한다. 만약 하나의 네임스페이스에서 모든 자원을 사용해버린다면, 클러스터 내의 다른 네임스페이스에 속한 파드들은 자원을 하나도 사용하지 못하고 서비스가 이루어지지 못할 것이다.</p>
 
-<p>이를 방지하기 위해 ResourceQuota와 LimitRange라는 옵션이 있다. ResourceQuota는 네임스페이스에 최대로 할당 가능한 자원의 크기를 한정하는 기능이고, 네임스페이스에 있는 자원을 특정 파드가 독식하지 않도록 네임스페이스에 할당될 수 있는 파드의 자원 크기를 제한하는 LimitRange가 있다. 물론 ResourceQuota와 LimitRange는 네임스페이스에만 설정할 수 있는 것이 아니며, 클러스터 전체에 대해서도 설정할 수 있다.</p>
+<p>이를 방지하기 위해 ResourceQuota와 LimitRange라는 옵션이 있다.<u>ResourceQuota는 네임스페이스에 최대로 할당 가능한 자원의 크기를 한정</u>하는 기능이고, <u>LimitRange는 네임스페이스에 있는 자원을 특정 파드가 독식하지 않도록 네임스페이스에 할당될 수 있는 파드의 자원 크기를 제한</u>한다. 물론 ResourceQuota와 LimitRange는 네임스페이스에만 설정할 수 있는 것이 아니며, 클러스터 전체에 대해서도 설정할 수 있다.</p>
 
 <p><br /></p>
 
 <h2 id="resourcequota">ResourceQuota</h2>
-
-<h2 id="envliteral--환경변수상수">Env(Literal) : 환경변수(상수)</h2>
-
-<blockquote>
-  <p>각 컨테이너를 생성할 때 해당 값을 상수형태로 작성하고, 이를 파드에서 참조하는 방식.</p>
-</blockquote>
-
-<p><img src="https://kubetm.github.io/img/practice/beginner/ConfigMap,%20Secret%20with%20Literal%20for%20Kubernetes.jpg" alt="" /><br />
-<em>@그림 2: ConfigMap, Secret 컨테이너에 직접 변수를 등록하고 이를 파드가 참조하는 방식 - 출처: 강의자료</em></p>
-
-<p>ConfigMap, Secret 각 컨테이너를 생성할 때, 내부에 해당 값을 상수형태로 작성하는 방식이다. 값이 변경될 일이 발생하지 않는 환경이나 간단한 테스트 용으로는 적합하지만, 값을 변경하려면 컨테이너를 다시 생성해야 하는 번거로움이 존재한다.</p>
-
-<blockquote>
-  <p>그림에서 볼 수 있듯이, Secret의 내부 값은 Base64로 인코딩되어 들어가야 한다. 컨테이너를 구성할 때 사용한 yaml 파일을 통해 Secret 값을 알아낼 수 없도록 하기 위한 방안이다. 파드에 참조될 때에는 다시 디코딩되어 원래 값이 들어간다.</p>
-</blockquote>
-
-<p><strong>(1) Literal 방식의 ConfigMap 생성</strong></p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">configmap-literal</span>
-<span class="na">data</span><span class="pi">:</span>
-  <span class="na">SSH</span><span class="pi">:</span> <span class="s1">'</span><span class="s">false'</span>
-  <span class="na">User</span><span class="pi">:</span> <span class="s">dev</span>
-</code></pre></div></div>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># key1:value1 이라는 상수를 configMap에 적용하려는 경우</span>
-kubectl create configmap cm-file <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">key1</span><span class="o">=</span>value1
-<span class="c"># 여러개의 key:value를 적용하려는 경우 (--from-literal을 계속 추가)</span>
-kubectl create configmap cm-file <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">key1</span><span class="o">=</span>value1 <span class="nt">--from-literal</span><span class="o">=</span><span class="nv">key2</span><span class="o">=</span>value2
-</code></pre></div></div>
-
-<p><strong>(2) Literal 방식의 Secret 생성</strong></p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">secret-literal</span>
-<span class="na">data</span><span class="pi">:</span>
-  <span class="na">Key</span><span class="pi">:</span> <span class="s">MTIzNA==</span> <span class="c1"># 꼭 base64 인코딩한 값을 주입해야 한다!</span>
-</code></pre></div></div>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># key1:value1 이라는 상수를 secret에 적용하려는 경우</span>
-kubectl create secret generic sec-file <span class="nt">--from</span><span class="o">=</span><span class="nv">literal</span><span class="o">=</span><span class="nv">key1</span><span class="o">=</span>value1
-</code></pre></div></div>
-
-<p><strong>(3) Literal 방식의 ConfigMap, Secret을 적용한 Pod</strong></p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">pod</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">containers</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx</span>
-    <span class="na">envFrom</span><span class="pi">:</span> <span class="c1"># 위에서 생성한 각 오브젝트를 Ref 형태로 주입한다.</span>
-    <span class="pi">-</span> <span class="na">configMapRef</span><span class="pi">:</span>
-        <span class="na">name</span><span class="pi">:</span> <span class="s">configmap-literal</span> 
-    <span class="pi">-</span> <span class="na">secretRef</span><span class="pi">:</span>
-        <span class="na">name</span><span class="pi">:</span> <span class="s">secret-literal</span>
-</code></pre></div></div>
-
-<p><br /></p>
-
-<h2 id="envfile--환경변수파일">Env(File) : 환경변수(파일)</h2>
-
-<blockquote>
-  <p>파일 형태로 작성된 값을 참조해서 ConfigMap, Secret을 컨테이너를 만들고, 파드가 이를 참조하는 방식</p>
-</blockquote>
-
-<p><img src="https://kubetm.github.io/img/practice/beginner/ConfigMap,%20Secret%20with%20File%20for%20Kubernetes.jpg" alt="" /><br />
-<em>@그림 3: 파일을 참조하여 ConfigMap, Secret를 만들고 이를 파드가 참조하는 방식 - 출처: 강의자료</em></p>
-
-<p>ConfigMap과 Secret에서 사용할 값을 파일로 작성하고, 이를 컨테이너로 만들어서 파드가 참조하는 방식이다. yaml 파일에 값을 넣어서 컨테이너로 만드느냐 파일로 작성한 것을 cli를 통해 컨테이너로 만드느냐의 차이일 뿐, 큰 차이는 없다. <u>다만 Secret 생성을 위한 파일 내부의 값은 Base64가 아닌 일반 값으로 작성되어야 한다. cli를 통해 Secret으로 만들어질 때 Base64 인코딩이 되기 때문에, 파일 내부에 인코딩 된 값을 작성한다면 컨테이너는 2번 인코딩된 값을 포함하기 때문이다.</u></p>
-
-<p><strong>(1) File에 작성된 내용을 이용하여 ConfigMap 컨테이너 생성</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create configmap cm-file <span class="nt">--from-file</span><span class="o">=</span>./file-configmap.txt
-</code></pre></div></div>
-
-<p><strong>(2) File에 작성된 내용을 이용하여 Secret 컨테이너 생성</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create secret generic sec-file <span class="nt">--from-file</span><span class="o">=</span>./file-secret.txt
-</code></pre></div></div>
-
-<p><strong>(3) File을 참조하여 만들어진 ConfigMap, Secret을 적용한 Pod</strong></p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">pod</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">containers</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx</span>
-    <span class="na">env</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">file-c</span>
-      <span class="na">valueFrom</span><span class="pi">:</span>
-        <span class="na">configMapKeyRef</span><span class="pi">:</span>
-          <span class="na">name</span><span class="pi">:</span> <span class="s">cm-file</span>
-          <span class="na">key</span><span class="pi">:</span> <span class="s">file-configmap.txt</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">file-s</span>
-      <span class="na">valueFrom</span><span class="pi">:</span>
-        <span class="na">secretKeyRef</span><span class="pi">:</span>
-          <span class="na">name</span><span class="pi">:</span> <span class="s">sec-file</span>
-          <span class="na">key</span><span class="pi">:</span> <span class="s">file-secret.txt</span>
-</code></pre></div></div>
-
-<p><br /></p>
-
-<h2 id="volume-mountfile--볼륨마운트파일">Volume Mount(File) : 볼륨마운트(파일)</h2>
-
-<blockquote>
-  <p>파일이 존재하는 볼륨을 마운트하고, 해당 볼륨에 있는 파일을 파드가 참조하는 방식</p>
-</blockquote>
-
-<p><img src="https://kubetm.github.io/img/practice/beginner/ConfigMap,%20Secret%20with%20Mount%20for%20Kubernetes.jpg" alt="" /><br />
-<em>@그림 3: 파일이 존재하는 볼륨을 마운트하고 이를 파드가 참조하는 방식 - 출처: 강의자료</em></p>
-
-<p>위의 환경변수(파일) 방식과 ConfigMap, Secret을 만드는 과정은 동일하다. 단, 파드를 생성하는 yaml 파일에 env가 아닌 volumeMounts 값을 이용하여 파일이 존재하는 볼륨 위치를 등록하고 해당 파일의 값을 파드가 사용하도록 한다.</p>
-
-<p>그렇다면 두 방식의 차이는 무엇일까? 파드가 생성된 이후에 파일 내부의 값이 변경되는 경우 차이가 발생한다. 만약 파드가 생성된 후 ConfigMap 내부의 값을 변경했다고 하자. 환경변수(파일) 방식은 파드가 생성될 때 해당 내용이 주입되는 것이기 때문에, 파드가 삭제되었다가 다시 생성되지 않는 한 변경된 값이 적용되지 않는다. 하지만 볼륨마운트 방식은 파일의 원본을 직접 참조하기 때문에, 내용의 변경이 바로 파드에 적용된다.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">pod</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">containers</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx</span>
-    <span class="na">volumeMounts</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">file-volume</span>
-      <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/mount</span>
-  <span class="na">volumes</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">file-volume</span>
-    <span class="na">configMap</span><span class="pi">:</span>
-      <span class="na">name</span><span class="pi">:</span> <span class="s">cm-file</span>
-</code></pre></div></div>
 
 <p><br /></p>
 
@@ -889,7 +722,7 @@ kubectl create secret generic sec-file <span class="nt">--from</span><span class
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         
         <p></p>
-        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Kubernetes</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;"></span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
         <!--
 
   <nav class="pagination">
@@ -908,23 +741,11 @@ kubectl create secret generic sec-file <span class="nt">--from</span><span class
 
 
 
-  
-  	
-  	
-  	
-  	
-  	
 
 
 
-  <nav class="pagination_prev_next">
-    
-      <a href="/kubernetes/configmap_secret/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>Object - ConfigMap, Secret</a>
-    
-    
-      <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
-    
-  </nav>
+  <a href="#" class="pagination_prev_next--pager disabled-first-child">첫 번째 글입니다</a>
+  <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
 
 
 
@@ -948,11 +769,11 @@ kubectl create secret generic sec-file <span class="nt">--from</span><span class
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Namespace%2C+ResourceQuota%2C+LimitRange%20http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fnamespace%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Namespace%2C+ResourceQuota%2C+LimitRange%20http%3A%2F%2Flocalhost%3A4000%2Fnamespace%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fnamespace%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fnamespace%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fnamespace%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fnamespace%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
       </footer>
