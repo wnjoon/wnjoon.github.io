@@ -47,6 +47,18 @@ var store = [{
         "url": "http://localhost:4000/kubernetes/volume/",
         "teaser": null
       },{
+        "title": "Object - ConfigMap, Secret",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. ConfigMap과 Secret의 필요성 SSH를 예로 들어보자. 물론 개발환경에서도 SSH 적용을 하면 좋을 수 있지만, 개발환경의 성능과 불필요한 귀찮음을 배제하기 위해서라도 사용하지 않는 경우가 많다. 개발환경과 운영환경에서 사용되는 ID, 비밀번호도 다를 것이다. 이러한 환경변수는 쿠버네티스...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
+        "url": "http://localhost:4000/kubernetes/configmap_secret/",
+        "teaser": null
+      },{
+        "title": "Namespace, ResourceQuota, LimitRange",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 자원 분배의 필요성 쿠버네티스는 클러스터에 따라 사용할 수 있는 자원의 한계가 있다. 마치 우리가 클라우드 혹은 외장하드와 같은 별도의 장치나 서비스를 사용하지 않는다면 PC에 연결된 하드 또는 SSD의 용량만 사용할 수 있는 것과 같다....","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure"],
+        "url": "http://localhost:4000/kubernetes/namespace/",
+        "teaser": null
+      },{
         "title": "HD(Hierarchical Deterministic) Wallet",
         "excerpt":"HD wallet HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 BIP-32 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다. BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나...","categories": ["Blockchain"],
         "tags": ["Blockchain","Wallet","Golang","Bitcoin","Ethereum"],
