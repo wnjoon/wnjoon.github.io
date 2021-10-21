@@ -1,11 +1,11 @@
 ---
-title:  "Object - ConfigMap, Secret" 
+title:  "[🧑‍🏫 강의 정리] Object - ConfigMap, Secret" 
 excerpt: "운영 또는 개발환경에 따라 쿠버네티스에서 사용할 환경변수 및 키 값을 저장하고 관리하는 Object들에 대해 알아본다."
 
 categories:
   -  Kubernetes
 tags:
-  - [Kubernetes, Network, Distributed Computing, InfraStructure, 강의 정리]
+  - [Kubernetes, Network, InfraStructure, 강의 정리]
 
 toc: true
 toc_sticky: true

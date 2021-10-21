@@ -35,34 +35,52 @@ var store = [{
         "url": "http://localhost:4000/tools/code-server/",
         "teaser": null
       },{
-        "title": "Service - ClusterIP, NodePort, LoadBalancer",
+        "title": "[🧑‍🏫 강의 정리] Service - ClusterIP, NodePort, LoadBalancer",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 서비스(Service)의 필요성 서비스의 필요성을 알기 위해서는 쿠버네티스의 기본 사상에 대해 알아야 한다. 쿠버네티스는 1개 이상의 컨테이너로 구성된 파드(Pod)로 동작한다. 쿠버네티스에서 파드란 언제든지 없어지고 생겨날 수 있는 유동적인 존재이다. 배달의민족에서 할인권을 배포하는 이벤트를 진행했다고 가정하자....","categories": ["Kubernetes"],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
         "url": "http://localhost:4000/kubernetes/service/",
         "teaser": null
       },{
-        "title": "Volume - emptyDir, hostPath, PV/PVC",
+        "title": "[🧑‍🏫 강의 정리] Volume - emptyDir, hostPath, PV/PVC",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 볼륨(Volume)의 필요성 컨테이너로 이루어진 파드는 서비스 때 언급한 것과 마찬가지로 생성과 삭제가 매우 빈번하게 이루어지는 단위이다. 문제는 파드가 삭제되면 파드 내 컨테이너에 저장되어 있던 데이터 또한 삭제된다는 것이다. 이를 방지하기 위해 쿠버네티스에서는 다양한 방법으로...","categories": ["Kubernetes"],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
         "url": "http://localhost:4000/kubernetes/volume/",
         "teaser": null
       },{
-        "title": "Object - ConfigMap, Secret",
+        "title": "[🧑‍🏫 강의 정리] Object - ConfigMap, Secret",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. ConfigMap과 Secret의 필요성 SSH를 예로 들어보자. 물론 개발환경에서도 SSH 적용을 하면 좋을 수 있지만, 개발환경의 성능과 불필요한 귀찮음을 배제하기 위해서라도 사용하지 않는 경우가 많다. 개발환경과 운영환경에서 사용되는 ID, 비밀번호도 다를 것이다. 이러한 환경변수는 쿠버네티스...","categories": ["Kubernetes"],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
         "url": "http://localhost:4000/kubernetes/configmap_secret/",
         "teaser": null
       },{
-        "title": "Namespace, ResourceQuota, LimitRange",
-        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 자원 분배의 필요성 쿠버네티스는 클러스터에 따라 사용할 수 있는 자원의 한계가 있다. 마치 우리가 클라우드 혹은 외장하드와 같은 별도의 장치나 서비스를 사용하지 않는다면 PC에 연결된 하드 또는 SSD의 용량만 사용할 수 있는 것과 같다....","categories": [],
-        "tags": ["Kubernetes","Network","Distributed Computing","InfraStructure","강의 정리"],
-        "url": "http://localhost:4000/namespace/",
+        "title": "[🧑‍🏫 강의 정리] Object - Namespace, ResourceQuota, LimitRange",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 자원 분배의 필요성 쿠버네티스는 클러스터에 따라 사용할 수 있는 자원의 한계가 있다. 마치 우리가 클라우드 혹은 외장하드와 같은 별도의 장치나 서비스를 사용하지 않는다면 PC에 연결된 하드 또는 SSD의 용량만 사용할 수 있는 것과 같다....","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/nsrqlr/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Controller - ReplicaSet",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 컨트롤러의 기능 @그림 1: Controller가 제공하는 기능 - 출처: 강의자료 컨트롤러는 쿠버네티스의 서비스를 관리 및 운영하는데 사용된다. (1) Auto Healing 특정 파드 혹은 노드 전체에 장애가 발생하였을 때, 이를 복구해주는 기능이다. 단순히 파드를 재생성할...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/rs/",
         "teaser": null
       },{
         "title": "HD(Hierarchical Deterministic) Wallet",
         "excerpt":"HD wallet HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 BIP-32 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다. BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나...","categories": ["Blockchain"],
         "tags": ["Blockchain","Wallet","Golang","Bitcoin","Ethereum"],
         "url": "http://localhost:4000/blockchain/hd_wallet/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Controller - Deployment",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 버전 변경(업그레이드) 방법 @그림 1: 버전 변경 방법에 대한 간략한 예시 - 출처: 강의자료 쿠버네티스에서는 각 파드의 버전에 따른 업그레이드와 다운그레이드를 위해 Deployment를 사용한다. 아래의 4가지 방법은 쿠버네티스에서 제공하는 버전 관리 방법으로, 이 중...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/deployment/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Controller - DaemonSet, Job, CronJob",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 특수한 목적에 맞게 사용되는 파드 @그림 1: DaemonSet과 Job, CronJob 예시 - 출처: 강의자료 파드는 일종의 유목민(?)과 같이 여러 노드에 필요에 따라 생성과 삭제가 빈번히 발생한다고 생각할 수 있지만, 특수한 목적을 가진 파드들은 이러한...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/dsjobcronjob/",
         "teaser": null
       },{
         "title": "시스템 설계와 규모 확장성",
