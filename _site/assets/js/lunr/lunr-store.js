@@ -149,6 +149,12 @@ var store = [{
         "url": "http://localhost:4000/ethereum/private_network_using_geth/",
         "teaser": null
       },{
+        "title": "Singleton pattern (싱글톤 패턴)",
+        "excerpt":"싱글톤 패턴이란? 싱글톤 패턴은 어떤 클래스가 오직 하나의 객체만을 갖도록 하는 방식을 말하며, 프로그램 전반에 걸쳐 그 객체 하나만 사용되도록 보장해야 한다. 그렇기 때문에 정확히 하나만 생성되어야 하는 ‘전역 객체(global object)’를 구현해야 할 때 유용하다. 생성 시점은 객체가 필요한 시기(just-in-time) 혹은 프로그램이 초기화(initialization on first use)될 때 두가지로 구분된다. 싱글톤...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Design Pattern","OOP"],
+        "url": "http://localhost:4000/algorithm/singleton/",
+        "teaser": null
+      },{
         "title": "0x 프로토콜",
         "excerpt":"0x 프로토콜 0x 프로토콜은 거래소의 탈중앙화를 위해 erc20 거래에 사용할 수 있는 공통된 프로토콜을 만들고자 하는 니즈에서 출발했다. 코인의 거래가 활발해짐에 따라 반번하게 발생하는 거래소를 겨냥한 DDoS 공격 또는 해킹을 해결하기 위함이다. 0x 프로토콜은 스마트컨트랙트로 작성되어 이더리움 위에서 돌아간다. 코스모스나 비트쉐어처럼 중간자를 경유하지 않고도, 0x 프로토콜을 사용하면 직접 이더리움 토큰을...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum"],

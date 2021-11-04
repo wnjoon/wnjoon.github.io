@@ -22,29 +22,33 @@
 
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Kubernetes - 월리의 탐구생활</title>
-<meta name="description" content="최대한 많이 기억하기 위해 기록하는 장소 ">
+<!-- begin _includes/seo.html --><title>Singleton pattern (싱글톤 패턴) - 월리의 탐구생활</title>
+<meta name="description" content="클래스 별로 오직 하나의 객체만을 갖도록 하는 싱글톤 패턴에 대해 알아본다. ">
 
 
   <meta name="author" content="글쓰는 개발자 ">
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="월리의 탐구생활">
-<meta property="og:title" content="Kubernetes">
-<meta property="og:url" content="http://localhost:4000/categories/kubernetes">
+<meta property="og:title" content="Singleton pattern (싱글톤 패턴)">
+<meta property="og:url" content="http://localhost:4000/algorithm/singleton/">
 
 
-  <meta property="og:description" content="최대한 많이 기억하기 위해 기록하는 장소 ">
-
-
-
+  <meta property="og:description" content="클래스 별로 오직 하나의 객체만을 갖도록 하는 싱글톤 패턴에 대해 알아본다. ">
 
 
 
 
 
+
+
+  <meta property="article:published_time" content="2021-11-04T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-11-04T00:00:00+09:00">
 
 
 
@@ -53,7 +57,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/categories/kubernetes">
+<link rel="canonical" href="http://localhost:4000/algorithm/singleton/">
 
 
 
@@ -135,7 +139,7 @@
     </style>
   </head>
 
-  <body class="layout--archive wide">
+  <body class="layout--single wide">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -203,7 +207,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories" itemprop="item"><span itemprop="name">Categories</span></a>
+          <a href="/categories/#algorithm" itemprop="item"><span itemprop="name">Algorithm</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -211,7 +215,7 @@
     
       
       
-        <li class="current">Kubernetes</li>
+        <li class="current">Singleton pattern (싱글톤 패턴)</li>
       
     
   </ol>
@@ -622,268 +626,245 @@
 
 
 
-  <div class="archive">
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Singleton pattern (싱글톤 패턴)">
+    <meta itemprop="description" content="클래스 별로 오직 하나의 객체만을 갖도록 하는 싱글톤 패턴에 대해 알아본다.">
+    <meta itemprop="datePublished" content="2021-11-04T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-11-04T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Singleton pattern (싱글톤 패턴)
+</h1>
+          
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-11-04T00:00:00+09:00">2021.11.04</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-11-04">2021.11.04</time></p>
+          
+          
+            
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
     
-      <h1 id="page-title" class="page__title">Kubernetes</h1>
+      
+      
+      <a href="/categories/#algorithm" class="page__taxonomy-item-category" rel="tag">Algorithm</a>
     
-    <!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+    </span>
+  </p>
 
-<hr />
 
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/kubernetes/dsjobcronjob/">[🧑‍🏫 강의 정리] Controller - DaemonSet, Job, CronJob</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.06
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#design-pattern" class="page__taxonomy-item-tag" rel="tag">Design Pattern</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#oop" class="page__taxonomy-item-tag" rel="tag">OOP</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
         
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-                    
-                    
-                    <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
-</div>
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#싱글톤-패턴이란">싱글톤 패턴이란?</a></li>
+  <li><a href="#싱글톤-패턴-적용-예시">싱글톤 패턴 적용 예시</a></li>
+  <li><a href="#고려사항">고려사항</a></li>
+  <li><a href="#특징">특징</a>
+    <ul>
+      <li><a href="#1-장점">1. 장점</a></li>
+      <li><a href="#2-단점">2. 단점</a></li>
+    </ul>
+  </li>
+  <li><a href="#참고자료">참고자료</a></li>
+</ul>
 
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/kubernetes/deployment/">[🧑‍🏫 강의 정리] Controller - Deployment</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.06
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
+            </nav>
+          </aside>
         
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-                    
-                    
-                    <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
-</div>
+        <p><br /></p>
 
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/kubernetes/rs/">[🧑‍🏫 강의 정리] Controller - ReplicaSet</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.05
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
+<h2 id="싱글톤-패턴이란">싱글톤 패턴이란?</h2>
+
+<p>싱글톤 패턴은 어떤 클래스가 오직 하나의 객체만을 갖도록 하는 방식을 말하며, 프로그램 전반에 걸쳐 그 객체 하나만 사용되도록 보장해야 한다. 그렇기 때문에 정확히 하나만 생성되어야 하는 ‘전역 객체(global object)’를 구현해야 할 때 유용하다.<br />
+생성 시점은 객체가 필요한 시기(just-in-time) 혹은 프로그램이 초기화(initialization on first use)될 때 두가지로 구분된다.</p>
+
+<p><br /></p>
+
+<h2 id="싱글톤-패턴-적용-예시">싱글톤 패턴 적용 예시</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/140270885-2ae131b8-5246-46c2-b44f-097ec5fb215b.png" alt="" /><br />
+<em>&lt;그림 1: Client 객체에 싱글톤 패턴을 적용할 경우&gt;</em></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Restaurant</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Restaurant</span> <span class="n">_instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>	<span class="c1">// (1)</span>
+    <span class="kd">protected</span> <span class="nf">Restaurant</span><span class="o">()</span> <span class="o">{...}</span>                <span class="c1">// (2)</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Restaurant</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>	<span class="c1">// (3)</span>
+    	<span class="k">if</span> <span class="o">(</span><span class="n">_instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        	<span class="n">_instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Restaurant</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">_instance</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>(1) : Declare the instance as a private static data member</li>
+  <li>(2) : Define all constructors to be protected or private.</li>
+  <li>(3) : Provide a public static member function that encapsulates all initialization code, and provides access to the instance. (객체를 생성하거나 생성된 객체를 사용(참조)할 때에는, getInstance 함수를 사용할 것)</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="고려사항">고려사항</h2>
+
+<p>싱글톤 패턴은 다음의 3가지 고려사항이 모두 충족되는 경우에만 사용하는 것이 좋다.</p>
+
+<ul>
+  <li>Ownership of the single instance cannot be reasonably assigned</li>
+  <li>Lazy initialization is desirable</li>
+  <li>Global access is not otherwise provided for</li>
+</ul>
+
+<p>객체의 소유권이 특정 사람에게 정해져있지 않은, 말그대로 객체의 보안성이 크게 중요하지 않은 경우에는 싱글톤이 꼭 필요하진 않다. 혹은 언제든지 초기화(생성)할 수 있는 객체이거나, 얼마든지 전역변수로 객체를 사용할 수 있다면 굳이 싱글톤을 사용할 필요가 없다.</p>
+
+<p><br /></p>
+
+<h2 id="특징">특징</h2>
+<h3 id="1-장점">1. 장점</h3>
+<ul>
+  <li>전역변수에 비해 싱글톤은 인스턴스가 원하는 갯수만큼만 생성되어 있다는 것을 보장할 수 있기 때문에, 인스턴스의 관리가 매우 용이하다.</li>
+  <li>어떻게보면 전역변수와 이름만 다르지 하는 행동은 비슷하다고 할 수 있지만, 전역변수가 프로그램 전체에서 사용될 수 밖에 없는 객체라면 싱글톤은 프로그램 전체에서 사용할수도 있고 특정 목적(클래스)에서만 사용할 수도 있다. 즉 <u>객체의 노출을 줄이고 전역적으로 사용할 수 있도록 균형을 맞춰줄 수 있다.</u></li>
+</ul>
+
+<h3 id="2-단점">2. 단점</h3>
+<ul>
+  <li>단위테스트(unit test)에 방해가 되는 형태이다. 이 때문에 일부에서는 싱글톤을 안티 패턴(anti-pattern)이라고 부르기도 한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li>Cracking The Coding Test - Singleton Pattern(187p)</li>
+  <li><a href="https://sourcemaking.com/design_patterns/singleton">Singleton Design Pattern - SourceMaking</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+
         
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-                    
-                    
-                    <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
-</div>
-
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/kubernetes/nsrqlr/">[🧑‍🏫 강의 정리] Object - Namespace, ResourceQuota, LimitRange</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.04
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-                    
-                    
-                    <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
-</div>
+        <p></p>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Algorithm</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <!--
 
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/kubernetes/configmap_secret/">[🧑‍🏫 강의 정리] Object - ConfigMap, Secret</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.03
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
+  <nav class="pagination">
+    
+      <a href="/ethereum/private_network_using_geth/" class="pagination--pager" title="Geth을 이용한 이더리움 dev mode 구성하기
+">이전</a>
+    
+    
+      <a href="/ethereum/0xprotocol/" class="pagination--pager" title="0x 프로토콜
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+
+  <nav class="pagination_prev_next">
+    
+      <a href="/algorithm/sorting/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>정렬(Sorting)</a>
+    
+    
+      <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
+    
+  </nav>
+
+
+
+<!--
+
+
+
+-->
+
+
+
+        <p></p>
+
+        <!-- archive 중간 광고 -->
+      
+      </section>
+      <footer class="page__meta">
         
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-                    
-                    
-                    <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
+        <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Singleton+pattern+%28%EC%8B%B1%EA%B8%80%ED%86%A4+%ED%8C%A8%ED%84%B4%29%20http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fsingleton%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fsingleton%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Fsingleton%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      </footer>
+    </div>
+
+    
+
+  </article>
+
+  
+  
 </div>
 
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/kubernetes/volume/">[🧑‍🏫 강의 정리] Volume - emptyDir, hostPath, PV/PVC</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.02
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
-        
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-                    
-                    
-                    <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
-</div>
-
-<div class="list__item">
-    <article class="archive-item">
-        <div>
-            <span>
-              <a href="/kubernetes/service/">[🧑‍🏫 강의 정리] Service - ClusterIP, NodePort, LoadBalancer</a>
-            </span>
-            <small> 
-              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.01
-              <!--Archive page 용-: (post -> page)-->
-<!--page__taxonomy.html에서 가져 옴-->
-        
-        <span class="page__taxonomy">
-            <span itemprop="keywords"><a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
-                    
-                    
-                    <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
-                
-                    
-                    
-                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
-                
-            </span>
-        </span>
-            </small>
-        </div>
-      </article>
-</div>
-
-  </div>
-</div>
     </div>
 
     
@@ -935,8 +916,37 @@
 
 
 
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'wnjoon/wnjoon.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
 
 
+
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 
 
   </body>
