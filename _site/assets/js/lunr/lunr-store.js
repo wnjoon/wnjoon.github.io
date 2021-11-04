@@ -148,4 +148,10 @@ var store = [{
         "tags": ["Blockchain","Ethereum","geth"],
         "url": "http://localhost:4000/ethereum/private_network_using_geth/",
         "teaser": null
+      },{
+        "title": "0x 프로토콜",
+        "excerpt":"0x 프로토콜 0x 프로토콜은 거래소의 탈중앙화를 위해 erc20 거래에 사용할 수 있는 공통된 프로토콜을 만들고자 하는 니즈에서 출발했다. 코인의 거래가 활발해짐에 따라 반번하게 발생하는 거래소를 겨냥한 DDoS 공격 또는 해킹을 해결하기 위함이다. 0x 프로토콜은 스마트컨트랙트로 작성되어 이더리움 위에서 돌아간다. 코스모스나 비트쉐어처럼 중간자를 경유하지 않고도, 0x 프로토콜을 사용하면 직접 이더리움 토큰을...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum"],
+        "url": "http://localhost:4000/ethereum/0xprotocol/",
+        "teaser": null
       }]
