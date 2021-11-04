@@ -5,7 +5,7 @@ excerpt: "그래프와 그래프의 탐색 방법인 BFS, DFS에 대해서 알�
 categories:
   -  Algorithm
 tags:
-  - [Algorithm, Graph, DFS, BFS, Searching, Recursive, Queue]
+  - [Algorithm, Graph, DFS, BFS, Searching, Recursive, Queue, ctci]
 
 toc: true
 toc_sticky: true

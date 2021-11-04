@@ -5,7 +5,7 @@ excerpt: "확장성 있는 시스템을 설계하는 방법과 이를 위해 고
 categories:
   -  System Design
 tags:
-  - [Architecture, System Design, Scalability]
+  - [Architecture, System Design, Scalability, ctci]
 
 toc: true
 toc_sticky: true

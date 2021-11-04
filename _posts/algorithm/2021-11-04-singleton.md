@@ -5,7 +5,7 @@ excerpt: "클래스 별로 오직 하나의 객체만을 갖도록 하는 싱글
 categories:
   -  Algorithm
 tags:
-  - [Algorithm, Design Pattern, OOP]
+  - [Algorithm, Design Pattern, OOP, ctci]
 
 toc: true
 toc_sticky: true
