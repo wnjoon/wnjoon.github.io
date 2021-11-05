@@ -1,4 +1,4 @@
-I"<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+I"$<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
 
 <hr />
 
@@ -18,6 +18,46 @@
                     
                     
                     <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ctci" class="page__taxonomy-item-tag" rel="tag">ctci</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#design-pattern" class="page__taxonomy-item-tag" rel="tag">Design Pattern</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#oop" class="page__taxonomy-item-tag" rel="tag">OOP</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/algorithm/factorymtehod/">Factory Method pattern (팩토리 메서드 패턴)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.11.04
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#algorithm" class="page__taxonomy-item-category" rel="tag">Algorithm</a>
+                    
+                    
+                    <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ctci" class="page__taxonomy-item-tag" rel="tag">ctci</a><span class="sep"> </span>
                 
                     
                     
@@ -53,6 +93,10 @@
                 
                     
                     
+                    <a href="/tags/#ctci" class="page__taxonomy-item-tag" rel="tag">ctci</a><span class="sep"> </span>
+                
+                    
+                    
                     <a href="/tags/#recursive" class="page__taxonomy-item-tag" rel="tag">Recursive</a><span class="sep"> </span>
                 
                     
@@ -70,7 +114,7 @@
     <article class="archive-item">
         <div>
             <span>
-              <a href="/algorithm/hash_table-copy/">해시 테이블(Hash Table)</a>
+              <a href="/algorithm/hash_table/">해시 테이블(Hash Table)</a>
             </span>
             <small> 
               <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.25
@@ -82,6 +126,10 @@
                     
                     
                     <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ctci" class="page__taxonomy-item-tag" rel="tag">ctci</a><span class="sep"> </span>
                 
                     
                     
@@ -118,6 +166,10 @@
                     
                     
                     <a href="/tags/#bfs" class="page__taxonomy-item-tag" rel="tag">BFS</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ctci" class="page__taxonomy-item-tag" rel="tag">ctci</a><span class="sep"> </span>
                 
                     
                     
@@ -166,6 +218,10 @@
                     
                     
                     <a href="/tags/#big-o" class="page__taxonomy-item-tag" rel="tag">Big-O</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ctci" class="page__taxonomy-item-tag" rel="tag">ctci</a><span class="sep"> </span>
                 
                     
                     

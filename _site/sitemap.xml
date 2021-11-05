@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/hyperledger/chfa/</loc>
+<lastmod>2021-11-04T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/retrospect/2020_retrospect/</loc>
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/tools/vmwareinbigsur/</loc>
+<lastmod>2021-11-04T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/ethereum/ethereum_bible1_inflearn/</loc>
@@ -81,7 +89,7 @@
 <lastmod>2021-10-14T00:00:00+09:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/algorithm/hash_table-copy/</loc>
+<loc>http://localhost:4000/algorithm/hash_table/</loc>
 <lastmod>2021-10-13T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -97,8 +105,12 @@
 <lastmod>2021-10-15T00:00:00+09:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/ethereum/private_network_using_geth/</loc>
+<loc>http://localhost:4000/ethereum/devmode_using_geth/</loc>
 <lastmod>2021-10-20T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/algorithm/factorymtehod/</loc>
+<lastmod>2021-11-04T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/algorithm/singleton/</loc>
@@ -107,6 +119,10 @@
 <url>
 <loc>http://localhost:4000/ethereum/0xprotocol/</loc>
 <lastmod>2021-11-04T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/ethereum/private_network_using_geth/</loc>
+<lastmod>2021-11-05T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/categories/</loc>
@@ -122,6 +138,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/categories/ethereum</loc>
+</url>
+<url>
+<loc>http://localhost:4000/categories/hyperledger</loc>
 </url>
 <url>
 <loc>http://localhost:4000/categories/kubernetes</loc>
@@ -167,5 +186,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page7/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page8/</loc>
 </url>
 </urlset>

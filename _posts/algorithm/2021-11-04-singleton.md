@@ -71,7 +71,7 @@ public class Restaurant {
 <br>
 
 ## 참고자료 
-- Cracking The Coding Test - Singleton Pattern(187p)
+- Cracking The Coding Test - 187p
 - [Singleton Design Pattern - SourceMaking](https://sourcemaking.com/design_patterns/singleton)
 
 <br>

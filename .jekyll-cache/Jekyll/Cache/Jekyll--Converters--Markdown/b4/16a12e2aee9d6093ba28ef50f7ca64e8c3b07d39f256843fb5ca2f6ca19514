@@ -1,0 +1,76 @@
+I"M<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/vmwareinbigsur/">웹브라우저 형식의 VScode, code-server 구성하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#ide" class="page__taxonomy-item-tag" rel="tag">IDE</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ipad" class="page__taxonomy-item-tag" rel="tag">iPad</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#vscode" class="page__taxonomy-item-tag" rel="tag">VScode</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/code-server/">웹브라우저 형식의 VScode, code-server 구성하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#ide" class="page__taxonomy-item-tag" rel="tag">IDE</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ipad" class="page__taxonomy-item-tag" rel="tag">iPad</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#vscode" class="page__taxonomy-item-tag" rel="tag">VScode</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

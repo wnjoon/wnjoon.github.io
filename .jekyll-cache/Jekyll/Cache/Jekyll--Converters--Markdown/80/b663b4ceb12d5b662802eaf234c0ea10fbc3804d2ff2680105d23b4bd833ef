@@ -1,4 +1,4 @@
-I"z<p><br /></p>
+I"g<p><br /></p>
 
 <h2 id="싱글톤-패턴이란">싱글톤 패턴이란?</h2>
 
@@ -63,7 +63,7 @@
 
 <h2 id="참고자료">참고자료</h2>
 <ul>
-  <li>Cracking The Coding Test - Singleton Pattern(187p)</li>
+  <li>Cracking The Coding Test - 187p</li>
   <li><a href="https://sourcemaking.com/design_patterns/singleton">Singleton Design Pattern - SourceMaking</a></li>
 </ul>
 

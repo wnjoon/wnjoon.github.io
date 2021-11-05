@@ -1,8 +1,20 @@
 var store = [{
+        "title": "CHFA(하이퍼레저 패브릭 자격증) 후기",
+        "excerpt":"Hyperledger Fabric이란? 블록체인 기술은 원장을 공개하는 범위에 따라 공개형(Public/Permissionless)과 허가형(Private/Permissioned)으로 구분된다. 이 중 허가형의 경우 우리나라를 포함한 전 세계적으로 가장 많이 쓰이는 플랫폼 중 리눅스 재단(The Linux Foundation)에서 운영하고 있는 Hyperledger fabric이 있다. CHFA(Certified Hyperledger Fabric Administrator)는 현재까지 Hyperledger fabric에 대한 유일한 공식 자격증이며, 본 포스팅에서는 해당 자격증을 취득하는 과정에서...","categories": ["Hyperledger"],
+        "tags": ["Blockchain","Hyperledger","자격증","후기"],
+        "url": "http://localhost:4000/hyperledger/chfa/",
+        "teaser": null
+      },{
         "title": "회고록 - 2020년",
         "excerpt":"개인 주말연애와 주말부부의 시작 2020년 2월. 아내가 이직하고 처음으로 발령받았다. 서울에 오기를, 최소한 경기도에는 가기를 희망했는데 강원도로 가버렸다. 덕분에 우리는 결혼전부터 주말부부가 되었다. 처음에는 주말부부가 너무 싫었다. 뭐 지금 좋다는건 아니지만, 신혼때 가장 많이 무너진다는 삶의 균형을 조금 더 연습하라고 주신 시간이라고 받아들이기로 했다. 덕분에 주중에는 운동, 공부, 회사 일...","categories": ["Retrospect"],
         "tags": ["회고"],
         "url": "http://localhost:4000/retrospect/2020_retrospect/",
+        "teaser": null
+      },{
+        "title": "맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자",
+        "excerpt":"개요 리눅스 기반에서 시스템을 테스트할 때, 일반적으로 윈도우나 맥 모두 VirtualBox(버추얼박스)를 가장 많이 사용한다. 무료라는 엄청난 장점과 더불어 간편하게 가상화 PC를 만들 수 있기 때문인데, 특히 여러 개의 서버를 복합적으로 설계할 때 아주 효과적이다. 하지만 정말 아쉽게도 이번 맥OS의 업데이트로 인하여 Big Sur에서는 더 이상 버추얼박스를 사용하는게 어려울 것으로 보인다....","categories": ["Tools"],
+        "tags": ["Tools","MacOS","VMware","VirtualBox","가상화"],
+        "url": "http://localhost:4000/tools/vmwareinbigsur/",
         "teaser": null
       },{
         "title": "[🧑‍🏫 강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여",
@@ -19,7 +31,7 @@ var store = [{
       },{
         "title": "시간복잡도(Time Complexity)",
         "excerpt":"Big O Big-O는 알고리즘의 효율성을 나타내는 지표로, 알고리즘이 이전보다 빨라졌는지 혹은 느려졌는지, 혹은 이전보다 메모리를 더 많이 사용하는지 적게 사용하는지의 등을 판단하는 기준이 된다. 알고리즘에 대한 결과를 판단할 때 가장 중요하게 사용되며, 개발자라면 꼭 알고 계산할 수 있어야 하는 부분이다. 시간 복잡도 시간복잡도로서의 Big-O는 접근적 실행시간(asymptotic runtime)을 나타내는 지표로 사용된다....","categories": ["Algorithm"],
-        "tags": ["Algorithm","Time Complexity","Big-O"],
+        "tags": ["Algorithm","Time Complexity","Big-O","ctci"],
         "url": "http://localhost:4000/algorithm/time_complexity/",
         "teaser": null
       },{
@@ -85,7 +97,7 @@ var store = [{
       },{
         "title": "시스템 설계와 규모 확장성",
         "excerpt":"📒 본 포스팅은 Cracking The Coding Interview의 시스템 설계 및 규모 확장성과 HiredInTech 내용을 학습한 후 작성하였습니다. 시스템 설계 방법 TinyURL(URL을 축소해서 이를 원래 URL과 매핑해주는 시스템)을 설계한다고 가정하자. 문제의 범위 한정하기: 내가 생각하는 시스템의 목적과 방향이 면접관과 일치하는지 확실히 해야 한다. 예를 들어 개개인이 축약된 URL을 직접 만들 수...","categories": ["System Design"],
-        "tags": ["Architecture","System Design","Scalability"],
+        "tags": ["Architecture","System Design","Scalability","ctci"],
         "url": "http://localhost:4000/system%20design/system_design_and_scalability/",
         "teaser": null
       },{
@@ -97,7 +109,7 @@ var store = [{
       },{
         "title": "그래프(Graph)와 탐색(DFS, BFS) 방법",
         "excerpt":"그래프(Graph) 그래프는 노드와 노드를 연결하는 간선(edge)의 모음이다. 트리와 헷갈리는 경우가 가끔 있는데, 트리는 그래프의 한 종류다. 하지만 모든 그래프가 트리라고 볼 수는 없다. 트리와 그래프는 사이클의 유무로 결정되는데, 트리는 사이클이 없는 하나의 연결된 그래프(connected graph)이다. 그래프의 특징을 정리해보면 다음과 같다. 그래프는 방향성이 있을 수도, 혹은 없을 수도 있다. 방향성이 있다면...","categories": ["Algorithm"],
-        "tags": ["Algorithm","Graph","DFS","BFS","Searching","Recursive","Queue"],
+        "tags": ["Algorithm","Graph","DFS","BFS","Searching","Recursive","Queue","ctci"],
         "url": "http://localhost:4000/algorithm/graph(dfs,bfs)/",
         "teaser": null
       },{
@@ -121,8 +133,8 @@ var store = [{
       },{
         "title": "해시 테이블(Hash Table)",
         "excerpt":"해시 테이블 해시 테이블은 효율적인 탐색을 위한 자료구조로서, 키(key)를 값(value)에 대응시킨 구조다. 연결 리스트(linked-list)를 이용한 해시 테이블 구현 해시 테이블을 구현하는 방법은 여러가지가 있지만, 앞으로 설명할 연결리스트 활용 방식이 가장 간단하면서도 흔하게 사용된다고 한다. 간단한 해시 테이블을 구현하기 위해, 연결리스트(linked list)와 해시코드 함수(hash code function)가 필요하다. 해시 테이블에 사용되는 키는...","categories": ["Algorithm"],
-        "tags": ["Algorithm","Data Structure","Hashing"],
-        "url": "http://localhost:4000/algorithm/hash_table-copy/",
+        "tags": ["Algorithm","Data Structure","Hashing","ctci"],
+        "url": "http://localhost:4000/algorithm/hash_table/",
         "teaser": null
       },{
         "title": "STAR 방식으로 설명하기",
@@ -139,19 +151,25 @@ var store = [{
       },{
         "title": "정렬(Sorting)",
         "excerpt":"배열 vs 리스트 정렬을 구현하는 방식은 크게 배열을 이용하거나 리스트를 이용하는 두가지 방법이 존재한다. 배열: 구현이 용이함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요함. 리스트: 구현이 복잡함, 병합할 부분 배열을 담아 둘 추가적인 보조 배열이 필요하지 않음. 본 포스팅에서는 각 정렬의 구현 방식을 일반적으로 사용되는 ‘배열(array)’로 진행한다. Quick...","categories": ["Algorithm"],
-        "tags": ["Algorithm","Sorting","Recursive"],
+        "tags": ["Algorithm","Sorting","Recursive","ctci"],
         "url": "http://localhost:4000/algorithm/sorting/",
         "teaser": null
       },{
         "title": "Geth을 이용한 이더리움 dev mode 구성하기",
         "excerpt":"Geth란? Geth는 Go Ethereum의 약자로, 이더리움에서 스마트컨트랙트를 호출할 수 있도록 하는 공식 클라이언트 어플리케이션 중 하나이다. Geth를 이용하면 퍼블릭 이더리움과 연결하거나 프라이빗 이더리움을 별도로 구성할 수 있는데, 또한 노드 1개로 이루어진 이더리움을 구성해서 빠르고 간편하게 스마트컨트랙트를 개발하고 이를 테스트할 수도 있다. 본 포스팅에서는 위의 종류 중 3번째인 테스트용 이더리움, 개발...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum","geth"],
-        "url": "http://localhost:4000/ethereum/private_network_using_geth/",
+        "url": "http://localhost:4000/ethereum/devmode_using_geth/",
+        "teaser": null
+      },{
+        "title": "Factory Method pattern (팩토리 메서드 패턴)",
+        "excerpt":"팩토리 메서드 패턴이란? 어떤 클래스의 객체를 생성하기 위한 인터페이스를 제공해서, 하위 클래스에서 어떤 클래스로 생성할지 결정할 수 있도록 도와주는 디자인 패턴이다. 구현 방법은 크게 2가지가 있다. Factory 메서드 자체에 대한 구현은 제공하지 않고, 객체를 생성하는 클래스를 abstract로 선언하는 방법 Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Design Pattern","OOP","ctci"],
+        "url": "http://localhost:4000/algorithm/factorymtehod/",
         "teaser": null
       },{
         "title": "Singleton pattern (싱글톤 패턴)",
         "excerpt":"싱글톤 패턴이란? 싱글톤 패턴은 어떤 클래스가 오직 하나의 객체만을 갖도록 하는 방식을 말하며, 프로그램 전반에 걸쳐 그 객체 하나만 사용되도록 보장해야 한다. 그렇기 때문에 정확히 하나만 생성되어야 하는 ‘전역 객체(global object)’를 구현해야 할 때 유용하다. 생성 시점은 객체가 필요한 시기(just-in-time) 혹은 프로그램이 초기화(initialization on first use)될 때 두가지로 구분된다. 싱글톤...","categories": ["Algorithm"],
-        "tags": ["Algorithm","Design Pattern","OOP"],
+        "tags": ["Algorithm","Design Pattern","OOP","ctci"],
         "url": "http://localhost:4000/algorithm/singleton/",
         "teaser": null
       },{
@@ -159,5 +177,11 @@ var store = [{
         "excerpt":"0x 프로토콜 0x 프로토콜은 거래소의 탈중앙화를 위해 erc20 거래에 사용할 수 있는 공통된 프로토콜을 만들고자 하는 니즈에서 출발했다. 코인의 거래가 활발해짐에 따라 반번하게 발생하는 거래소를 겨냥한 DDoS 공격 또는 해킹을 해결하기 위함이다. 0x 프로토콜은 스마트컨트랙트로 작성되어 이더리움 위에서 돌아간다. 코스모스나 비트쉐어처럼 중간자를 경유하지 않고도, 0x 프로토콜을 사용하면 직접 이더리움 토큰을...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum"],
         "url": "http://localhost:4000/ethereum/0xprotocol/",
+        "teaser": null
+      },{
+        "title": "Geth을 이용한 이더리움 private network 구성하기",
+        "excerpt":"Dev mode와 Private network의 차이 이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","geth"],
+        "url": "http://localhost:4000/ethereum/private_network_using_geth/",
         "teaser": null
       }]

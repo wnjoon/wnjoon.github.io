@@ -34,6 +34,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            <!-- 개발/Hyperledger -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Hyperledger" %}
+                        <li><a href="/categories/hyperledger" class="">Hyperledger ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
             <!-- 개발/Kubernetes -->
             <ul>
                 {% for category in site.categories %}

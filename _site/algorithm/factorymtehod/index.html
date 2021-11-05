@@ -1,0 +1,999 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+
+    <!--폰트 : "Cafe24Oneprettynight"-->
+    
+    <!--main.scss 조금이라도 빨리 로드 되길.. preload-->
+    <link rel="preload" as="style" href="/assets/css/main.css">
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Factory Method pattern (팩토리 메서드 패턴) - 월리의 탐구생활</title>
+<meta name="description" content="클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다. ">
+
+
+  <meta name="author" content="글쓰는 개발자 ">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="월리의 탐구생활">
+<meta property="og:title" content="Factory Method pattern (팩토리 메서드 패턴)">
+<meta property="og:url" content="http://localhost:4000/algorithm/factorymtehod/">
+
+
+  <meta property="og:description" content="클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다. ">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-11-04T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-11-04T00:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/algorithm/factorymtehod/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "월리",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="월리의 탐구생활 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+    <!-- 스크롤바 커스터마이징 -->
+    <style> 
+      ::-webkit-scrollbar{width: 16px;}
+      ::-webkit-scrollbar-track {background-color:#4b4f52; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb {background-color:#5e6265; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb:hover {background: #ffd24c;}
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment 
+      {
+          width:12px;height:12px;background:transparent;}
+      }  
+
+      
+    </style>
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          월리의 탐구생활
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/index.html">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">카테고리 Click</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#algorithm" itemprop="item"><span itemprop="name">Algorithm</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Factory Method pattern (팩토리 메서드 패턴)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/profile.png" alt="글쓰는 개발자 " itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">글쓰는 개발자 </h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>#TIL #하루키법칙 #기록</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://wnjoon.github.io/resume/" rel="nofollow noopener noreferrer"><i class="far fa-address-card" aria-hidden="true"></i><span class="label">Resume</span></a></li>
+          
+        
+          
+            <li><a href="mailto:wnjoon@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/wnjoon" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  
+    
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">카테고리 Click</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">31</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+      </li>
+      <li>
+        <!-- 개발 -->
+        <span class="nav__sub-title">개발</span>
+            <!-- 개발/Algorithm -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/algorithm" class="">Algorithm (6)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/blockchain" class="">Blockchain (3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Ethereum -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/ethereum" class="">Ethereum (6)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Hyperledger -->
+            <ul>
+                
+                    
+                        <li><a href="/categories/hyperledger" class="">Hyperledger (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Kubernetes -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/kubernetes" class="">Kubernetes (7)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Network -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/network" class="">Network (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/System Design -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/system_design" class="">System Design (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Tools -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/tools" class="">개발 도구 (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!-- 일상 -->
+        <span class="nav__sub-title">일상</span>
+            <!-- 일상/잡학다식 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/etc" class="">잡학다식 (1)</a></li>
+                    
+                
+                    
+                
+            </ul>
+            <!-- 일상/후기 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/review" class="">후기 (1)</a></li>
+                    
+                
+            </ul>
+            <!-- 일상/회고 -->
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/retrospect" class="">회고 (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+      </li>
+      <li>	
+            <br>      
+            <!-- 방문자 수 카운트하는 부분인데.. 뭔가 이상함.. 내가 테스트해보려 들어갔다나오는 모든 것도 카운트되어서 매우 부담스러움 -->
+            <!--<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwnjoon.github.io&count_bg=%2379C83D&title_bg=%23686868&icon=&icon_color=%23B4B4B4&title=visitors&edge_flat=true"/></a>-->
+      </li>
+  </ul>
+</nav>
+
+
+  
+
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Factory Method pattern (팩토리 메서드 패턴)">
+    <meta itemprop="description" content="클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다.">
+    <meta itemprop="datePublished" content="2021-11-04T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-11-04T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Factory Method pattern (팩토리 메서드 패턴)
+</h1>
+          
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-11-04T00:00:00+09:00">2021.11.04</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-11-04">2021.11.04</time></p>
+          
+          
+            
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#algorithm" class="page__taxonomy-item-category" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#ctci" class="page__taxonomy-item-tag" rel="tag">ctci</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#design-pattern" class="page__taxonomy-item-tag" rel="tag">Design Pattern</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#oop" class="page__taxonomy-item-tag" rel="tag">OOP</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#algorithm" class="page__taxonomy-item-tag" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#팩토리-메서드-패턴이란">팩토리 메서드 패턴이란?</a></li>
+  <li><a href="#팩토리-메서드-패턴-적용-예시">팩토리 메서드 패턴 적용 예시</a></li>
+  <li><a href="#팩토리-메서드-구조">팩토리 메서드 구조</a></li>
+  <li><a href="#고려사항">고려사항</a></li>
+  <li><a href="#참고자료">참고자료</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h2 id="팩토리-메서드-패턴이란">팩토리 메서드 패턴이란?</h2>
+
+<p>어떤 클래스의 객체를 생성하기 위한 <u>인터페이스를 제공해서, 하위 클래스에서 어떤 클래스로 생성할지 결정할 수 있도록 도와주는 디자인 패턴</u>이다. 구현 방법은 크게 2가지가 있다.</p>
+<ul>
+  <li>Factory 메서드 자체에 대한 구현은 제공하지 않고, 객체를 생성하는 클래스를 abstract로 선언하는 방법</li>
+  <li>Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 방법</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="팩토리-메서드-패턴-적용-예시">팩토리 메서드 패턴 적용 예시</h2>
+
+<p>Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 과정에 대한 자바 기반 예시는 다음과 같다. 이 경우에는 Factory 메서드에 <u>생성해야 할 클래스를 인자로 전달</u>해주어야 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardGame</span> <span class="o">{</span>
+	
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CardGame</span> <span class="nf">createCardGame</span><span class="o">(</span><span class="nc">GameType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="nc">GameType</span><span class="o">.</span><span class="na">Poker</span><span class="o">)</span> <span class="o">{</span>
+        	<span class="k">return</span> <span class="k">new</span> <span class="nf">PokerGame</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="nc">GameType</span><span class="o">.</span><span class="na">BlackJack</span><span class="o">)</span> <span class="o">{</span>
+        	<span class="k">return</span> <span class="k">new</span> <span class="nf">BlackJackGame</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="팩토리-메서드-구조">팩토리 메서드 구조</h2>
+
+<p>아래의 그림과 같이 팩토리 메서드를 사용하면 마치 super(상위)객체 구현을 참조로 하는 ‘Abstract Factory(추상 메서드)’ 방식과 매우 유사하다는 것을 알 수 있다</p>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/140273911-2f05746f-502f-4900-9325-f09c9ab362f5.png" alt="image" /><br />
+<em>&lt;그림 1: 추상 메서드(abstract method)와 유사한 구조를 갖는 팩토리 메서드&gt;</em></p>
+
+<p>혹은 아래와 같이 클래스의 타입을 반환하는 static 메서드를 사용하더라도, 실제 반환되는 객체는 하위 클래스의 인스턴스(ProductOne 또는 ProductTwo)가 된다. 이처럼 ProductOne이나 ProductTwo 객체 생성을 위한 클래스를 따로 만들지 않고 Product 클래스를 그대로 재사용할 수 있다. 그리고 <u>팩토리 메서드를 통해 생성되는 각 객체들은 종속성을 갖지 않기 때문에, 다형성(ploymorphic)을 갖는 객체를 생성할 수 있게 된다.</u> 이는 팩토리 메서드가 인터페이스(껍데기) 형태를 갖기 때문이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/140274145-47d269d1-9bd1-4b57-b0c8-481342817ce3.png" alt="image" /><br />
+<em>&lt;그림 2: 다형성을 갖는 객체 생성이 가능한 팩토리 메서드&gt;</em></p>
+
+<p><br /></p>
+
+<h2 id="고려사항">고려사항</h2>
+
+<ul>
+  <li>상속되는(팩토리 메서드를 사용하여 생성하려는) 객체에 static이 있는 경우, 이를 팩토리 메서드로 정의하여 다형성을 갖는 객체를 생성하는 것이 좋다.</li>
+  <li>팩토리 메서드에서 사용되는 argument에 불필요한 값이 없도록 잘 디자인해야 한다.</li>
+  <li>재사용할 수 있는 객체를 미리 확인해서 내부에 ‘object pool’을 설계하는 것이 중요하다.</li>
+  <li>모든 생성자는 private 또는 protected로 구성하는 것이 좋다.</li>
+  <li>대부분 팩토리 메서드는 <u>'덜 복잡하고, 커스터마이즈가 자주있고, 하위클래스가 늘어나기 좋은' 경우에 사용</u>되며, 더욱 유연하고 복잡한 클래스로 넘어가는 과정에서 Abstract factory(추상 팩토리), Prototype, Builder와 같은 방식을 사용한다.</li>
+  <li>서브클래싱(sub-classing)이 없는 대신 초기화가 필요한 Prototype 방식과 달리, 팩토리 메서드는 초기화는 필요하지 않지만 서브클래싱은 필요하다.</li>
+  <li>동일한 인스턴스를 여러번 반환해야 하는 경우에 좋다.</li>
+  <li>정확한 유형이 정의되지는 않았지만, 서브 클래스를 사용할 것은 명확한 객체의 경우 적용하면 좋다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li>Cracking The Coding Test - 187p</li>
+  <li><a href="https://sourcemaking.com/design_patterns/factory_method">Factory Method Design Pattern - SourceMaking</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <p></p>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Algorithm</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <!--
+
+  <nav class="pagination">
+    
+      <a href="/ethereum/devmode_using_geth/" class="pagination--pager" title="Geth을 이용한 이더리움 dev mode 구성하기
+">이전</a>
+    
+    
+      <a href="/algorithm/singleton/" class="pagination--pager" title="Singleton pattern (싱글톤 패턴)
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+
+  <nav class="pagination_prev_next">
+    
+      <a href="/algorithm/sorting/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>정렬(Sorting)</a>
+    
+    
+      <a href="/algorithm/singleton/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>Singleton pattern (싱글톤 패턴)</a>
+    
+  </nav>
+
+
+
+<!--
+
+
+
+-->
+
+
+
+        <p></p>
+
+        <!-- archive 중간 광고 -->
+      
+      </section>
+      <footer class="page__meta">
+        
+        <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Factory+Method+pattern+%28%ED%8C%A9%ED%86%A0%EB%A6%AC+%EB%A9%94%EC%84%9C%EB%93%9C+%ED%8C%A8%ED%84%B4%29%20http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Ffactorymtehod%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Ffactorymtehod%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2Ffactorymtehod%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      </footer>
+    </div>
+
+    
+
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+<!-- ansohxxn.github.io -->
+<!--<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6111782407607310"
+     data-ad-slot="5978510098"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>-->
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 월리. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <aside class="sidebar__top">
+      <a href="#site-nav"> <i class="fas fa-angle-double-up fa-2x"></i></a>
+    </aside>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'wnjoon/wnjoon.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+  </body>
+</html>
