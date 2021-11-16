@@ -85,7 +85,7 @@ $ web3j generate truffle
 
 <br>
 
-## ERC20 스마트컨트랙트 작성
+## Web3j를 통한 ERC20 스마트컨트랙트 호출
 
 ### 기본 구조
 
