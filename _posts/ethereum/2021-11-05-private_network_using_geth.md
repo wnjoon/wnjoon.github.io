@@ -18,7 +18,7 @@ last_modified_at: 2021-11-05
 
 ## Dev mode와 Private network의 차이
 
-[이전 포스팅 'Geth을 이용한 이더리움 dev mode 구성하기'](https://wnjoon.github.io/ethereum/private_network_using_geth/)에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고 이를 테스트하기 좋은 환경을 만들어준다.  
+[이전 포스팅 'Geth을 이용한 이더리움 dev mode 구성하기'](https://wnjoon.github.io/ethereum/devmode_using_geth/)에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고 이를 테스트하기 좋은 환경을 만들어준다.  
 Private network는 개발 모드와는 별개로 '퍼블릭하지 않은, 폐쇄된 환경의 이더리움 네트워크'를 구성해주는 것을 목적으로 한다. 그리고 퍼블릭 블록체인과 아주 유사한 환경으로 스마트컨트랙트를 손쉽게 테스트할 수도 있다. 이번 포스팅 이후에 이더리움 클라이언트 개발을 지원하는 자바 기반의 라이브러리인 [web3j](https://github.com/web3j/web3j)를 이용하여 이더리움 네트워크에서 각종 토큰을 전송하고 잔액을 조회하는 기능을 만들어보고 이를 공유해볼 계획인데, 이를 위해 PoW 기반의 Private network를 구성해보기로 했다.
 
 ### Dev mode의 한계점
@@ -32,7 +32,7 @@ Private network는 개발 모드와는 별개로 '퍼블릭하지 않은, 폐쇄
 
 ## Geth 설치 및 구성
 
-Geth에 대한 설치 및 구성 과정은 [이전 포스팅 'Geth을 이용한 이더리움 dev mode 구성하기'](https://wnjoon.github.io/ethereum/private_network_using_geth/)을 참고한다.
+Geth에 대한 설치 및 구성 과정은 [이전 포스팅 'Geth을 이용한 이더리움 dev mode 구성하기'](https://wnjoon.github.io/ethereum/devmode_using_geth/)을 참고한다.
 
 <br>
 
