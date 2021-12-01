@@ -1,5 +1,5 @@
 ---
-title:  "확장 가능한 웹 아키텍처 및 분산 시스템" 
+title:  "[📝 번역 정리] 확장 가능한 웹 아키텍처 및 분산 시스템" 
 excerpt: "Scalable Web Architecture and Distributed Systems - Kate Matsudaira의 내용을 정리한다."
 
 categories:

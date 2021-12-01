@@ -1,5 +1,5 @@
 ---
-title:  "How does Ethereum work, anyway?" 
+title:  "[📝 번역 정리] How does Ethereum work, anyway?" 
 excerpt: "Preethi Kasireddy의 'How does Ethereum work, anyway?'를 읽고 나름 번역해본 내용을 기술한다."
 
 categories:
