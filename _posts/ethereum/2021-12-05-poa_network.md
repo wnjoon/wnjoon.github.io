@@ -27,7 +27,7 @@ last_modified_at: 2021-12-05
 
 <br>
 
-## PoA((Proof-of-Authority)
+## PoA(Proof-of-Authority)
 
 결국 PoW와 Dev mode의 장점을 적절히 조합한 PoA([위키피디아 - PoA](http://wiki.hash.kr/index.php/권위증명))가 테스트환경에 굉장히 유용할 것이라 판단되었고, 이를 이더리움 네트워크로 구성해보려 한다.  
 PoA로 구축한 이더리움 네트워크의 장점을 간단히 정리해보면 아래와 같다.
