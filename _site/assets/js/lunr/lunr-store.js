@@ -143,6 +143,12 @@ var store = [{
         "url": "http://localhost:4000/algorithm/graph(dfs,bfs)/",
         "teaser": null
       },{
+        "title": "합의 알고리즘의 비교 (BFT vs CFT)",
+        "excerpt":"합의 알고리즘의 구분 블록체인을 지탱하고 있는 가장 큰 특징이라고 한다면 합의 알고리즘일 것이다. 거래 내역이 저장된 블록들이 하나의 체인으로 연결되어 있는데, 이렇게 만들어진 블록들의 체인이 여러 노드에 저장되어 위변조를 방지할 수 있게 된다. 물론 이를 위해서 모든 노드들이 거래 내역에 대한 상태(State)를 동일하게 유지해야 하는데, 이를 위해 합의 알고리즘이 필요하게...","categories": ["Blockchain"],
+        "tags": ["Blockchain","합의알고리즘","BFT","CFT"],
+        "url": "http://localhost:4000/blockchain/consensus/",
+        "teaser": null
+      },{
         "title": "Infura로 이더리움 테스트용 노드 만들기",
         "excerpt":"Infura 일반적으로 디앱(DApp)를 개발할 때에는 로컬에서 Ganashe 또는 Truffle develop을 사용하거나 geth를 이용한 private network를 구성한다. 물론 디앱에 국한되지 않더라도 대부분의 앱 또한 로컬에서 개발 -&gt; 테스트 -&gt; 실제 환경과 유사한 개발환경에서 테스트 -&gt; 배포와 같은 순서를 갖는다. 디앱은 여기서 조금 다른 부분이 테스트넷 환경에서 실제로 구성된 노드에 직접 테스트해봐야...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum"],
