@@ -47,6 +47,12 @@ var store = [{
         "url": "http://localhost:4000/blockchain/sto/",
         "teaser": null
       },{
+        "title": "Raft 합의 알고리즘에 대하여",
+        "excerpt":"Raft란? 클라이언트가 입력한 데이터를 분산된 노드(특정 서버) 간 동기화 하기 위한 알고리즘으로, Distributed consensus의 한 방법이다. 기존에는 Paxos 모델을 사용했으나 현재는 Leader-follower 모델을 사용한다. Leader-follower 모델은 전체 노드 중 하나의 리더를 선정하고, 해당 리더가 클라이언트로부터 데이터를 받아 이를 다른 노드들에 전달하는 방식을 말한다. Raft에서의 노드 상태(State) Raft 알고리즘은 노드를 총...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Blockchain","합의알고리즘","CFT"],
+        "url": "http://localhost:4000/algorithm/raft/",
+        "teaser": null
+      },{
         "title": "[🧑‍🏫 강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여",
         "excerpt":"📒 본 포스팅은 인프런에서 제공하는 무료 강의 ‘이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여’를 본 후 내용을 정리하였습니다. 이더리움의 사상이나 만들어진 배경은 생략하고, 기술적인 관점에서만 정리하였습니다. 이더리움 아키텍처(Architecture) 이더리움의 아키텍처를 정확하게 알기 위해, 기존의 웹 어플리케이션(서버-클라이언트) 아키텍처를 비교해본다. @그림 1: 서버-클라이언트 구조의 웹 어플리케이션 아키텍처 사용자는 웹브라우저를 통해 HTML,...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum","강의 정리"],

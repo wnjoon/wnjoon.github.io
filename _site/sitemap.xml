@@ -33,6 +33,10 @@
 <lastmod>2021-11-30T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/algorithm/raft/</loc>
+<lastmod>2021-12-09T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/ethereum/ethereum_bible1_inflearn/</loc>
 <lastmod>2021-10-15T00:00:00+09:00</lastmod>
 </url>
@@ -227,5 +231,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page6/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page7/</loc>
 </url>
 </urlset>

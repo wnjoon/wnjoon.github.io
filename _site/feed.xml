@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-09T14:59:40+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 </name></author><entry><title type="html">PoA 기반의 이더리움 네트워크 구축하기</title><link href="http://localhost:4000/ethereum/poa_network/" rel="alternate" type="text/html" title="PoA 기반의 이더리움 네트워크 구축하기" /><published>2021-12-05T00:00:00+09:00</published><updated>2021-12-05T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/poa_network</id><content type="html" xml:base="http://localhost:4000/ethereum/poa_network/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-09T15:07:42+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 </name></author><entry><title type="html">PoA 기반의 이더리움 네트워크 구축하기</title><link href="http://localhost:4000/ethereum/poa_network/" rel="alternate" type="text/html" title="PoA 기반의 이더리움 네트워크 구축하기" /><published>2021-12-05T00:00:00+09:00</published><updated>2021-12-05T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/poa_network</id><content type="html" xml:base="http://localhost:4000/ethereum/poa_network/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;dev-mode와-pow의-장단점&quot;&gt;Dev mode와 PoW의 장단점&lt;/h2&gt;
 
@@ -507,7 +507,175 @@ url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; https://&lt;span class=&quot;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="web3j" /><category term="java" /><summary type="html">Java 기반의 이더리움 클라이언트 라이브러리 &apos;web3j&apos;를 이용하여 ERC20 토큰의 기본 기능을 다뤄본다.</summary></entry><entry><title type="html">[📝 번역 정리] How does Ethereum work, anyway?</title><link href="http://localhost:4000/ethereum/how_does_ethereum_works/" rel="alternate" type="text/html" title="[📝 번역 정리] How does Ethereum work, anyway?" /><published>2021-11-05T00:00:00+09:00</published><updated>2021-11-30T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/%08how_does_ethereum_works</id><content type="html" xml:base="http://localhost:4000/ethereum/how_does_ethereum_works/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="web3j" /><category term="java" /><summary type="html">Java 기반의 이더리움 클라이언트 라이브러리 &apos;web3j&apos;를 이용하여 ERC20 토큰의 기본 기능을 다뤄본다.</summary></entry><entry><title type="html">Geth을 이용한 이더리움 private network 구성하기</title><link href="http://localhost:4000/ethereum/private_network_using_geth/" rel="alternate" type="text/html" title="Geth을 이용한 이더리움 private network 구성하기" /><published>2021-11-05T00:00:00+09:00</published><updated>2021-11-05T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/private_network_using_geth</id><content type="html" xml:base="http://localhost:4000/ethereum/private_network_using_geth/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dev-mode와-private-network의-차이&quot;&gt;Dev mode와 Private network의 차이&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wnjoon.github.io/ethereum/devmode_using_geth/&quot;&gt;이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’&lt;/a&gt;에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고 이를 테스트하기 좋은 환경을 만들어준다.&lt;br /&gt;
+Private network는 개발 모드와는 별개로 ‘퍼블릭하지 않은, 폐쇄된 환경의 이더리움 네트워크’를 구성해주는 것을 목적으로 한다. 그리고 퍼블릭 블록체인과 아주 유사한 환경으로 스마트컨트랙트를 손쉽게 테스트할 수도 있다. 이번 포스팅 이후에 이더리움 클라이언트 개발을 지원하는 자바 기반의 라이브러리인 &lt;a href=&quot;https://github.com/web3j/web3j&quot;&gt;web3j&lt;/a&gt;를 이용하여 이더리움 네트워크에서 각종 토큰을 전송하고 잔액을 조회하는 기능을 만들어보고 이를 공유해볼 계획인데, 이를 위해 PoW 기반의 Private network를 구성해보기로 했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;dev-mode의-한계점&quot;&gt;Dev mode의 한계점&lt;/h3&gt;
+
+&lt;p&gt;사실 개발모드 외에 private network를 별도로 구성하게 된 이유는 개발모드의 한계점 때문이었다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;제네시스 블록을 자동으로 생성해주기 때문에, 네트워크의 세부적인 옵션을 정의할 수가 없었다. 테스트를 위해서는 별도의 계정을 미리 만들어두고 해당 계정에 다수의 이더를 넣어놓는 것이 굉장히 편할텐데, 개발모드에서는 일일이 계정을 만들어서 coinbase로부터 이더를 전송받아야만 했다.&lt;/li&gt;
+  &lt;li&gt;PoA 방식의 특성상, 개발모드에서는 채굴이라는 과정이 진행되지 않는다. 결국 가스를 지급받으려면 채굴이 필수적인데, 이러한 과정 없이 토큰을 전송하는 트랜잭션을 날리면 동작하지 않았다. 최초의 트랜잭션이 발생될 때 소비되는 가스를 어떻게 마련하는지에 대한 확인이 추가로 필요할 것 같다.&lt;/li&gt;
+  &lt;li&gt;향후에 살펴보겠지만, web3j로 트랜잭션을 날릴 때 CHAIN ID가 필요했다. 개발모드는 일반적으로 1337을 사용하는데, 나중에 다양한 테스트를 위해서는 다양한 적용이 가능한 private network 구축이 더욱 좋을 것이라고 판단했다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;geth-설치-및-구성&quot;&gt;Geth 설치 및 구성&lt;/h2&gt;
+
+&lt;p&gt;Geth에 대한 설치 및 구성 과정은 &lt;a href=&quot;https://wnjoon.github.io/ethereum/devmode_using_geth/&quot;&gt;이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’&lt;/a&gt;을 참고한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;private-network-구성&quot;&gt;Private network 구성&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-genesisjson&quot;&gt;1. genesis.json&lt;/h3&gt;
+
+&lt;p&gt;제네시스 블록에 대한 설정 값을 저장하는 곳이다. 나는 향후 테스트를 위한 4개의 계정을 미리 생성하고, 각 계정마다 잔액을 미리 할당하였다.&lt;br /&gt;
+앞에서 설명한 것처럼, 네트워크의 아이디(chainId)를 별도로 설정할 수 있다. &lt;a href=&quot;https://medium.com/@pedrouid/chainid-vs-networkid-how-do-they-differ-on-ethereum-eec2ed41635b&quot;&gt;이미 퍼블릭한 이더리움에서 공용으로 사용되고 있는 아이디들이 존재&lt;/a&gt;하므로, 이를 피해서 사용해야 한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;말이 Private network 이지만, 결국 퍼블릭한 이더리움 외의 별도의 이더리움 네트워크를 구축하겠다는 것과 동일하다. 만들어진 private network가 외부에 노출되면 결국 퍼블릭 이더리움 네트워크와 겹치지 않는 chainId를 사용해야 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;chainId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;homesteadBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip150Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip155Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip158Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;byzantiumBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;constantinopleBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;alloc&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fe3b557e8fb62b89f4916b721be55ceb828dbd73&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;627306090abaB3A6e1400e9345bC60c78a8BEf57&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;f17f52151EbEF6C7334FAD080c5704D77216b732&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;90d48232C2873a76f2547CDa324b3C8bc761374c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a53e056ee968e2abe96d0ee178488606d9e3f140e1fe9d577a1a544cfa638a6d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;coinbase&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;difficulty&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x20000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;extraData&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;gasLimit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x1fffffffffffff&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;contractSizeLimit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2147483647&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;nonce&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000042&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;mixhash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;parentHash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x00&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-제네시스-블록-생성&quot;&gt;2. 제네시스 블록 생성&lt;/h3&gt;
+
+&lt;p&gt;위에서 정의한 genesis.json 파일을 이용하여 제네시스 블록을 생성한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geth init genesis.json &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt; pow-chain-dir
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;geth를 이용하여 생성한 네트워크의 정보를 저장할 디렉토리로 pow-chain-dir라는 경로를 사용한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-계정-불러오기&quot;&gt;3. 계정 불러오기&lt;/h3&gt;
+
+&lt;p&gt;나는 총 4개의 계정을 제네시스 블록 생성 과정에 미리 생성하고, 이를 불러와서 사용하려고 한다. import를 이용하면 미리 생성된 계정의 정보를 불러올 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geth &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./pow-chain-dir &lt;span class=&quot;nt&quot;&gt;--password&lt;/span&gt; ./init_accounts/password.txt account import ./init_accounts/account1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;–datadir : 생성하는 계정의 정보를 저장할 keystore 경로&lt;/li&gt;
+  &lt;li&gt;–password : 계정을 만들 때 사용할 passphrase가 작성된 파일의 경로&lt;/li&gt;
+  &lt;li&gt;import : 계정의 private key를 저장하고 있는 파일의 경로&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;4-네트워크-실행&quot;&gt;4. 네트워크 실행&lt;/h3&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;nohup &lt;/span&gt;geth &lt;span class=&quot;nt&quot;&gt;--networkid&lt;/span&gt; 17 &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt; pow-chain-dir &lt;span class=&quot;nt&quot;&gt;--miner&lt;/span&gt;.gasprice 0 &lt;span class=&quot;nt&quot;&gt;--miner&lt;/span&gt;.gaslimit 0 &lt;span class=&quot;nt&quot;&gt;--txpool&lt;/span&gt;.pricelimit 0  &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt;.port 8545 &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt;.api &lt;span class=&quot;s2&quot;&gt;&quot;personal,db,eth,net,web3,txpool,miner&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--allow-insecure-unlock&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--nodiscover&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--snapshot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--mine&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--ipcpath&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/tmp/geth.ipc&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ./pow-chain-dir/gethNode.log &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;–networkid : 제네시스 블록에서 정의한 chainId 값&lt;/li&gt;
+  &lt;li&gt;–datadir : private network의 데이터를 저장할 디렉토리 경로&lt;/li&gt;
+  &lt;li&gt;–http.port : geth로 rpc 통신할 수 있는 포트.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;마이닝&quot;&gt;마이닝&lt;/h2&gt;
+
+&lt;p&gt;트랜잭션을 처리하기 위해서는 가스가 필요하고, 이러한 가스를 지불할 수 있는 수단인 이더를 얻으려면 ‘채굴’이 꼭 필요하다. PoW 기반의 이더리움에서는 어쩔 수 없는 부분이고, 그만큼 꼭 필요한 요소라고 볼 수 있다.&lt;br /&gt;
+geth를 이용하면 네트워크에 있는 각 계정들이 지속적으로 채굴하도록 할 수 있다. geth attach를 이용하여 콘솔내에서 실행할 수도 있고, 아래와 같이 호스트에서 geth 내부에 명령어만 실행하도록 할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 채굴 시작&lt;/span&gt;
+geth attach http://localhost:8545 &lt;span class=&quot;nt&quot;&gt;--exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;miner.start()&quot;&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;# 채굴 종료&lt;/span&gt;
+geth attach http://localhost:8545 &lt;span class=&quot;nt&quot;&gt;--exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;miner.stop()&quot;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;계정-unlock&quot;&gt;계정 unlock&lt;/h2&gt;
+
+&lt;p&gt;계정에 대한 잠금/해제는 지갑 어플리케이션을 통해 진행되는데, 현재는 테스트를 위한 private network를 구성하는 것이 목적이므로 모든 계정에 대한 사전의 unlock을 진행하려고 한다.&lt;br /&gt;
+이번에는 geth console로 들어가 생성되어 있는 계정 4개에 대한 unlock을 스크립트 형식으로 진행해본다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# geth console 접속&lt;/span&gt;
+geth attach http://localhost:8545 
+
+&lt;span class=&quot;c&quot;&gt;# 접속 화면&lt;/span&gt;
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.10.11-stable/darwin-amd64/go1.17.2
+coinbase: 0xfe3b557e8fb62b89f4916b721be55ceb828dbd73
+at block: 2256 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Thu Nov 04 2021 20:29:18 GMT+0900 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;KST&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+ modules: eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+To &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;, press ctrl-d or &lt;span class=&quot;nb&quot;&gt;type exit&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 해당 스크립트 실행 (계정이 4개이므로)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 계정의 passphrase 값을 이용하여 unlock -&amp;gt; password.txt 내부의 값(&apos;pwd&apos;) 사용&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;i&amp;lt;4&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;i++&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;personal.unlockAccount&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eth.accounts[i],&lt;span class=&quot;s1&quot;&gt;&apos;pwd&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;정리&quot;&gt;정리&lt;/h2&gt;
+
+&lt;p&gt;지금까지 private network 환경의 이더리움 네트워크를 구성하고, 테스트를 위한 계정 생성과 해당 계정의 unlock까지 진행했다. 다음 포스팅에서는 만들어진 네트워크 위에 web3j를 이용한 ERC20 토큰의 잔액 조회와 전송 어플리케이션을 만들어서 테스트할 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://geth.ethereum.org/docs/interface/private-network&quot;&gt;Geth - Private network&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ethereum.stackexchange.com/questions/7804/how-to-preallocate-multiple-accounts-with-ether-for-geth-dev-chain&quot;&gt;How to preallocate multiple accounts with ether for geth –dev chain? - Stackoverflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="geth" /><summary type="html">MacOS에서 geth를 이용한 private ethereum network를 구성하는 방법을 공유한다.</summary></entry><entry><title type="html">[📝 번역 정리] How does Ethereum work, anyway?</title><link href="http://localhost:4000/ethereum/how_does_ethereum_works/" rel="alternate" type="text/html" title="[📝 번역 정리] How does Ethereum work, anyway?" /><published>2021-11-05T00:00:00+09:00</published><updated>2021-11-30T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/%08how_does_ethereum_works</id><content type="html" xml:base="http://localhost:4000/ethereum/how_does_ethereum_works/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;블록체인에-대한-정의&quot;&gt;블록체인에 대한 정의&lt;/h2&gt;
 
@@ -1125,175 +1293,7 @@ Ommers의 목적은 orphaned block(비트코인에서는 stale block으로 표�
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><summary type="html">Preethi Kasireddy의 &apos;How does Ethereum work, anyway?&apos;를 읽고 나름 번역해본 내용을 기술한다.</summary></entry><entry><title type="html">Geth을 이용한 이더리움 private network 구성하기</title><link href="http://localhost:4000/ethereum/private_network_using_geth/" rel="alternate" type="text/html" title="Geth을 이용한 이더리움 private network 구성하기" /><published>2021-11-05T00:00:00+09:00</published><updated>2021-11-05T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/private_network_using_geth</id><content type="html" xml:base="http://localhost:4000/ethereum/private_network_using_geth/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;dev-mode와-private-network의-차이&quot;&gt;Dev mode와 Private network의 차이&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://wnjoon.github.io/ethereum/devmode_using_geth/&quot;&gt;이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’&lt;/a&gt;에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고 이를 테스트하기 좋은 환경을 만들어준다.&lt;br /&gt;
-Private network는 개발 모드와는 별개로 ‘퍼블릭하지 않은, 폐쇄된 환경의 이더리움 네트워크’를 구성해주는 것을 목적으로 한다. 그리고 퍼블릭 블록체인과 아주 유사한 환경으로 스마트컨트랙트를 손쉽게 테스트할 수도 있다. 이번 포스팅 이후에 이더리움 클라이언트 개발을 지원하는 자바 기반의 라이브러리인 &lt;a href=&quot;https://github.com/web3j/web3j&quot;&gt;web3j&lt;/a&gt;를 이용하여 이더리움 네트워크에서 각종 토큰을 전송하고 잔액을 조회하는 기능을 만들어보고 이를 공유해볼 계획인데, 이를 위해 PoW 기반의 Private network를 구성해보기로 했다.&lt;/p&gt;
-
-&lt;h3 id=&quot;dev-mode의-한계점&quot;&gt;Dev mode의 한계점&lt;/h3&gt;
-
-&lt;p&gt;사실 개발모드 외에 private network를 별도로 구성하게 된 이유는 개발모드의 한계점 때문이었다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;제네시스 블록을 자동으로 생성해주기 때문에, 네트워크의 세부적인 옵션을 정의할 수가 없었다. 테스트를 위해서는 별도의 계정을 미리 만들어두고 해당 계정에 다수의 이더를 넣어놓는 것이 굉장히 편할텐데, 개발모드에서는 일일이 계정을 만들어서 coinbase로부터 이더를 전송받아야만 했다.&lt;/li&gt;
-  &lt;li&gt;PoA 방식의 특성상, 개발모드에서는 채굴이라는 과정이 진행되지 않는다. 결국 가스를 지급받으려면 채굴이 필수적인데, 이러한 과정 없이 토큰을 전송하는 트랜잭션을 날리면 동작하지 않았다. 최초의 트랜잭션이 발생될 때 소비되는 가스를 어떻게 마련하는지에 대한 확인이 추가로 필요할 것 같다.&lt;/li&gt;
-  &lt;li&gt;향후에 살펴보겠지만, web3j로 트랜잭션을 날릴 때 CHAIN ID가 필요했다. 개발모드는 일반적으로 1337을 사용하는데, 나중에 다양한 테스트를 위해서는 다양한 적용이 가능한 private network 구축이 더욱 좋을 것이라고 판단했다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;geth-설치-및-구성&quot;&gt;Geth 설치 및 구성&lt;/h2&gt;
-
-&lt;p&gt;Geth에 대한 설치 및 구성 과정은 &lt;a href=&quot;https://wnjoon.github.io/ethereum/devmode_using_geth/&quot;&gt;이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’&lt;/a&gt;을 참고한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;private-network-구성&quot;&gt;Private network 구성&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-genesisjson&quot;&gt;1. genesis.json&lt;/h3&gt;
-
-&lt;p&gt;제네시스 블록에 대한 설정 값을 저장하는 곳이다. 나는 향후 테스트를 위한 4개의 계정을 미리 생성하고, 각 계정마다 잔액을 미리 할당하였다.&lt;br /&gt;
-앞에서 설명한 것처럼, 네트워크의 아이디(chainId)를 별도로 설정할 수 있다. &lt;a href=&quot;https://medium.com/@pedrouid/chainid-vs-networkid-how-do-they-differ-on-ethereum-eec2ed41635b&quot;&gt;이미 퍼블릭한 이더리움에서 공용으로 사용되고 있는 아이디들이 존재&lt;/a&gt;하므로, 이를 피해서 사용해야 한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;말이 Private network 이지만, 결국 퍼블릭한 이더리움 외의 별도의 이더리움 네트워크를 구축하겠다는 것과 동일하다. 만들어진 private network가 외부에 노출되면 결국 퍼블릭 이더리움 네트워크와 겹치지 않는 chainId를 사용해야 한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;chainId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;homesteadBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip150Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip155Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip158Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;byzantiumBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;constantinopleBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;alloc&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fe3b557e8fb62b89f4916b721be55ceb828dbd73&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;627306090abaB3A6e1400e9345bC60c78a8BEf57&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;f17f52151EbEF6C7334FAD080c5704D77216b732&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;90d48232C2873a76f2547CDa324b3C8bc761374c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a53e056ee968e2abe96d0ee178488606d9e3f140e1fe9d577a1a544cfa638a6d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;coinbase&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;difficulty&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x20000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;extraData&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;gasLimit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x1fffffffffffff&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;contractSizeLimit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2147483647&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;nonce&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000042&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;mixhash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;parentHash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x00&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-제네시스-블록-생성&quot;&gt;2. 제네시스 블록 생성&lt;/h3&gt;
-
-&lt;p&gt;위에서 정의한 genesis.json 파일을 이용하여 제네시스 블록을 생성한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geth init genesis.json &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt; pow-chain-dir
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;geth를 이용하여 생성한 네트워크의 정보를 저장할 디렉토리로 pow-chain-dir라는 경로를 사용한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-계정-불러오기&quot;&gt;3. 계정 불러오기&lt;/h3&gt;
-
-&lt;p&gt;나는 총 4개의 계정을 제네시스 블록 생성 과정에 미리 생성하고, 이를 불러와서 사용하려고 한다. import를 이용하면 미리 생성된 계정의 정보를 불러올 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geth &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./pow-chain-dir &lt;span class=&quot;nt&quot;&gt;--password&lt;/span&gt; ./init_accounts/password.txt account import ./init_accounts/account1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;–datadir : 생성하는 계정의 정보를 저장할 keystore 경로&lt;/li&gt;
-  &lt;li&gt;–password : 계정을 만들 때 사용할 passphrase가 작성된 파일의 경로&lt;/li&gt;
-  &lt;li&gt;import : 계정의 private key를 저장하고 있는 파일의 경로&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;4-네트워크-실행&quot;&gt;4. 네트워크 실행&lt;/h3&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;nohup &lt;/span&gt;geth &lt;span class=&quot;nt&quot;&gt;--networkid&lt;/span&gt; 17 &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt; pow-chain-dir &lt;span class=&quot;nt&quot;&gt;--miner&lt;/span&gt;.gasprice 0 &lt;span class=&quot;nt&quot;&gt;--miner&lt;/span&gt;.gaslimit 0 &lt;span class=&quot;nt&quot;&gt;--txpool&lt;/span&gt;.pricelimit 0  &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt;.port 8545 &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt;.api &lt;span class=&quot;s2&quot;&gt;&quot;personal,db,eth,net,web3,txpool,miner&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--allow-insecure-unlock&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--nodiscover&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--snapshot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--mine&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--ipcpath&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/tmp/geth.ipc&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ./pow-chain-dir/gethNode.log &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;–networkid : 제네시스 블록에서 정의한 chainId 값&lt;/li&gt;
-  &lt;li&gt;–datadir : private network의 데이터를 저장할 디렉토리 경로&lt;/li&gt;
-  &lt;li&gt;–http.port : geth로 rpc 통신할 수 있는 포트.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;마이닝&quot;&gt;마이닝&lt;/h2&gt;
-
-&lt;p&gt;트랜잭션을 처리하기 위해서는 가스가 필요하고, 이러한 가스를 지불할 수 있는 수단인 이더를 얻으려면 ‘채굴’이 꼭 필요하다. PoW 기반의 이더리움에서는 어쩔 수 없는 부분이고, 그만큼 꼭 필요한 요소라고 볼 수 있다.&lt;br /&gt;
-geth를 이용하면 네트워크에 있는 각 계정들이 지속적으로 채굴하도록 할 수 있다. geth attach를 이용하여 콘솔내에서 실행할 수도 있고, 아래와 같이 호스트에서 geth 내부에 명령어만 실행하도록 할 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 채굴 시작&lt;/span&gt;
-geth attach http://localhost:8545 &lt;span class=&quot;nt&quot;&gt;--exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;miner.start()&quot;&lt;/span&gt; 
-&lt;span class=&quot;c&quot;&gt;# 채굴 종료&lt;/span&gt;
-geth attach http://localhost:8545 &lt;span class=&quot;nt&quot;&gt;--exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;miner.stop()&quot;&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;계정-unlock&quot;&gt;계정 unlock&lt;/h2&gt;
-
-&lt;p&gt;계정에 대한 잠금/해제는 지갑 어플리케이션을 통해 진행되는데, 현재는 테스트를 위한 private network를 구성하는 것이 목적이므로 모든 계정에 대한 사전의 unlock을 진행하려고 한다.&lt;br /&gt;
-이번에는 geth console로 들어가 생성되어 있는 계정 4개에 대한 unlock을 스크립트 형식으로 진행해본다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# geth console 접속&lt;/span&gt;
-geth attach http://localhost:8545 
-
-&lt;span class=&quot;c&quot;&gt;# 접속 화면&lt;/span&gt;
-Welcome to the Geth JavaScript console!
-
-instance: Geth/v1.10.11-stable/darwin-amd64/go1.17.2
-coinbase: 0xfe3b557e8fb62b89f4916b721be55ceb828dbd73
-at block: 2256 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Thu Nov 04 2021 20:29:18 GMT+0900 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;KST&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
- modules: eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
-
-To &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;, press ctrl-d or &lt;span class=&quot;nb&quot;&gt;type exit&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 해당 스크립트 실행 (계정이 4개이므로)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 계정의 passphrase 값을 이용하여 unlock -&amp;gt; password.txt 내부의 값(&apos;pwd&apos;) 사용&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;i&amp;lt;4&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;i++&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;personal.unlockAccount&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eth.accounts[i],&lt;span class=&quot;s1&quot;&gt;&apos;pwd&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;정리&quot;&gt;정리&lt;/h2&gt;
-
-&lt;p&gt;지금까지 private network 환경의 이더리움 네트워크를 구성하고, 테스트를 위한 계정 생성과 해당 계정의 unlock까지 진행했다. 다음 포스팅에서는 만들어진 네트워크 위에 web3j를 이용한 ERC20 토큰의 잔액 조회와 전송 어플리케이션을 만들어서 테스트할 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://geth.ethereum.org/docs/interface/private-network&quot;&gt;Geth - Private network&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://ethereum.stackexchange.com/questions/7804/how-to-preallocate-multiple-accounts-with-ether-for-geth-dev-chain&quot;&gt;How to preallocate multiple accounts with ether for geth –dev chain? - Stackoverflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="geth" /><summary type="html">MacOS에서 geth를 이용한 private ethereum network를 구성하는 방법을 공유한다.</summary></entry><entry><title type="html">0x 프로토콜</title><link href="http://localhost:4000/ethereum/0xprotocol/" rel="alternate" type="text/html" title="0x 프로토콜" /><published>2021-11-04T00:00:00+09:00</published><updated>2021-11-04T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/0xprotocol</id><content type="html" xml:base="http://localhost:4000/ethereum/0xprotocol/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><summary type="html">Preethi Kasireddy의 &apos;How does Ethereum work, anyway?&apos;를 읽고 나름 번역해본 내용을 기술한다.</summary></entry><entry><title type="html">0x 프로토콜</title><link href="http://localhost:4000/ethereum/0xprotocol/" rel="alternate" type="text/html" title="0x 프로토콜" /><published>2021-11-04T00:00:00+09:00</published><updated>2021-11-04T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/0xprotocol</id><content type="html" xml:base="http://localhost:4000/ethereum/0xprotocol/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;0x-프로토콜&quot;&gt;0x 프로토콜&lt;/h2&gt;
 
@@ -1367,7 +1367,77 @@ To &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;, press ctrl-d or &lt;span 
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><summary type="html">여러 거래소에서 erc20을 거래할 수 있는 공통 프로토콜인 0x 프로토콜에 대해 알아본다.</summary></entry><entry><title type="html">Singleton pattern (싱글톤 패턴)</title><link href="http://localhost:4000/algorithm/singleton/" rel="alternate" type="text/html" title="Singleton pattern (싱글톤 패턴)" /><published>2021-11-04T00:00:00+09:00</published><updated>2021-11-04T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/singleton</id><content type="html" xml:base="http://localhost:4000/algorithm/singleton/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><summary type="html">여러 거래소에서 erc20을 거래할 수 있는 공통 프로토콜인 0x 프로토콜에 대해 알아본다.</summary></entry><entry><title type="html">Factory Method pattern (팩토리 메서드 패턴)</title><link href="http://localhost:4000/algorithm/factorymtehod/" rel="alternate" type="text/html" title="Factory Method pattern (팩토리 메서드 패턴)" /><published>2021-11-04T00:00:00+09:00</published><updated>2021-11-04T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/factorymtehod</id><content type="html" xml:base="http://localhost:4000/algorithm/factorymtehod/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;팩토리-메서드-패턴이란&quot;&gt;팩토리 메서드 패턴이란?&lt;/h2&gt;
+
+&lt;p&gt;어떤 클래스의 객체를 생성하기 위한 &lt;u&gt;인터페이스를 제공해서, 하위 클래스에서 어떤 클래스로 생성할지 결정할 수 있도록 도와주는 디자인 패턴&lt;/u&gt;이다. 구현 방법은 크게 2가지가 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Factory 메서드 자체에 대한 구현은 제공하지 않고, 객체를 생성하는 클래스를 abstract로 선언하는 방법&lt;/li&gt;
+  &lt;li&gt;Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 방법&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;팩토리-메서드-패턴-적용-예시&quot;&gt;팩토리 메서드 패턴 적용 예시&lt;/h2&gt;
+
+&lt;p&gt;Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 과정에 대한 자바 기반 예시는 다음과 같다. 이 경우에는 Factory 메서드에 &lt;u&gt;생성해야 할 클래스를 인자로 전달&lt;/u&gt;해주어야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CardGame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CardGame&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createCardGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Poker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PokerGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;BlackJack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BlackJackGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;팩토리-메서드-구조&quot;&gt;팩토리 메서드 구조&lt;/h2&gt;
+
+&lt;p&gt;아래의 그림과 같이 팩토리 메서드를 사용하면 마치 super(상위)객체 구현을 참조로 하는 ‘Abstract Factory(추상 메서드)’ 방식과 매우 유사하다는 것을 알 수 있다&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140273911-2f05746f-502f-4900-9325-f09c9ab362f5.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 1: 추상 메서드(abstract method)와 유사한 구조를 갖는 팩토리 메서드&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;혹은 아래와 같이 클래스의 타입을 반환하는 static 메서드를 사용하더라도, 실제 반환되는 객체는 하위 클래스의 인스턴스(ProductOne 또는 ProductTwo)가 된다. 이처럼 ProductOne이나 ProductTwo 객체 생성을 위한 클래스를 따로 만들지 않고 Product 클래스를 그대로 재사용할 수 있다. 그리고 &lt;u&gt;팩토리 메서드를 통해 생성되는 각 객체들은 종속성을 갖지 않기 때문에, 다형성(ploymorphic)을 갖는 객체를 생성할 수 있게 된다.&lt;/u&gt; 이는 팩토리 메서드가 인터페이스(껍데기) 형태를 갖기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140274145-47d269d1-9bd1-4b57-b0c8-481342817ce3.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 2: 다형성을 갖는 객체 생성이 가능한 팩토리 메서드&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;고려사항&quot;&gt;고려사항&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;상속되는(팩토리 메서드를 사용하여 생성하려는) 객체에 static이 있는 경우, 이를 팩토리 메서드로 정의하여 다형성을 갖는 객체를 생성하는 것이 좋다.&lt;/li&gt;
+  &lt;li&gt;팩토리 메서드에서 사용되는 argument에 불필요한 값이 없도록 잘 디자인해야 한다.&lt;/li&gt;
+  &lt;li&gt;재사용할 수 있는 객체를 미리 확인해서 내부에 ‘object pool’을 설계하는 것이 중요하다.&lt;/li&gt;
+  &lt;li&gt;모든 생성자는 private 또는 protected로 구성하는 것이 좋다.&lt;/li&gt;
+  &lt;li&gt;대부분 팩토리 메서드는 &lt;u&gt;&apos;덜 복잡하고, 커스터마이즈가 자주있고, 하위클래스가 늘어나기 좋은&apos; 경우에 사용&lt;/u&gt;되며, 더욱 유연하고 복잡한 클래스로 넘어가는 과정에서 Abstract factory(추상 팩토리), Prototype, Builder와 같은 방식을 사용한다.&lt;/li&gt;
+  &lt;li&gt;서브클래싱(sub-classing)이 없는 대신 초기화가 필요한 Prototype 방식과 달리, 팩토리 메서드는 초기화는 필요하지 않지만 서브클래싱은 필요하다.&lt;/li&gt;
+  &lt;li&gt;동일한 인스턴스를 여러번 반환해야 하는 경우에 좋다.&lt;/li&gt;
+  &lt;li&gt;정확한 유형이 정의되지는 않았지만, 서브 클래스를 사용할 것은 명확한 객체의 경우 적용하면 좋다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Cracking The Coding Test - 187p&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://sourcemaking.com/design_patterns/factory_method&quot;&gt;Factory Method Design Pattern - SourceMaking&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Algorithm" /><category term="Algorithm" /><category term="Design Pattern" /><category term="OOP" /><category term="ctci" /><summary type="html">클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다.</summary></entry><entry><title type="html">Singleton pattern (싱글톤 패턴)</title><link href="http://localhost:4000/algorithm/singleton/" rel="alternate" type="text/html" title="Singleton pattern (싱글톤 패턴)" /><published>2021-11-04T00:00:00+09:00</published><updated>2021-11-04T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/singleton</id><content type="html" xml:base="http://localhost:4000/algorithm/singleton/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;싱글톤-패턴이란&quot;&gt;싱글톤 패턴이란?&lt;/h2&gt;
 
@@ -1440,77 +1510,7 @@ To &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;, press ctrl-d or &lt;span 
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Algorithm" /><category term="Algorithm" /><category term="Design Pattern" /><category term="OOP" /><category term="ctci" /><summary type="html">클래스 별로 오직 하나의 객체만을 갖도록 하는 싱글톤 패턴에 대해 알아본다.</summary></entry><entry><title type="html">Factory Method pattern (팩토리 메서드 패턴)</title><link href="http://localhost:4000/algorithm/factorymtehod/" rel="alternate" type="text/html" title="Factory Method pattern (팩토리 메서드 패턴)" /><published>2021-11-04T00:00:00+09:00</published><updated>2021-11-04T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/factorymtehod</id><content type="html" xml:base="http://localhost:4000/algorithm/factorymtehod/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;팩토리-메서드-패턴이란&quot;&gt;팩토리 메서드 패턴이란?&lt;/h2&gt;
-
-&lt;p&gt;어떤 클래스의 객체를 생성하기 위한 &lt;u&gt;인터페이스를 제공해서, 하위 클래스에서 어떤 클래스로 생성할지 결정할 수 있도록 도와주는 디자인 패턴&lt;/u&gt;이다. 구현 방법은 크게 2가지가 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Factory 메서드 자체에 대한 구현은 제공하지 않고, 객체를 생성하는 클래스를 abstract로 선언하는 방법&lt;/li&gt;
-  &lt;li&gt;Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 방법&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;팩토리-메서드-패턴-적용-예시&quot;&gt;팩토리 메서드 패턴 적용 예시&lt;/h2&gt;
-
-&lt;p&gt;Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 과정에 대한 자바 기반 예시는 다음과 같다. 이 경우에는 Factory 메서드에 &lt;u&gt;생성해야 할 클래스를 인자로 전달&lt;/u&gt;해주어야 한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CardGame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CardGame&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createCardGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Poker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PokerGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;BlackJack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BlackJackGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;팩토리-메서드-구조&quot;&gt;팩토리 메서드 구조&lt;/h2&gt;
-
-&lt;p&gt;아래의 그림과 같이 팩토리 메서드를 사용하면 마치 super(상위)객체 구현을 참조로 하는 ‘Abstract Factory(추상 메서드)’ 방식과 매우 유사하다는 것을 알 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140273911-2f05746f-502f-4900-9325-f09c9ab362f5.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;&amp;lt;그림 1: 추상 메서드(abstract method)와 유사한 구조를 갖는 팩토리 메서드&amp;gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;혹은 아래와 같이 클래스의 타입을 반환하는 static 메서드를 사용하더라도, 실제 반환되는 객체는 하위 클래스의 인스턴스(ProductOne 또는 ProductTwo)가 된다. 이처럼 ProductOne이나 ProductTwo 객체 생성을 위한 클래스를 따로 만들지 않고 Product 클래스를 그대로 재사용할 수 있다. 그리고 &lt;u&gt;팩토리 메서드를 통해 생성되는 각 객체들은 종속성을 갖지 않기 때문에, 다형성(ploymorphic)을 갖는 객체를 생성할 수 있게 된다.&lt;/u&gt; 이는 팩토리 메서드가 인터페이스(껍데기) 형태를 갖기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140274145-47d269d1-9bd1-4b57-b0c8-481342817ce3.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;&amp;lt;그림 2: 다형성을 갖는 객체 생성이 가능한 팩토리 메서드&amp;gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;고려사항&quot;&gt;고려사항&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;상속되는(팩토리 메서드를 사용하여 생성하려는) 객체에 static이 있는 경우, 이를 팩토리 메서드로 정의하여 다형성을 갖는 객체를 생성하는 것이 좋다.&lt;/li&gt;
-  &lt;li&gt;팩토리 메서드에서 사용되는 argument에 불필요한 값이 없도록 잘 디자인해야 한다.&lt;/li&gt;
-  &lt;li&gt;재사용할 수 있는 객체를 미리 확인해서 내부에 ‘object pool’을 설계하는 것이 중요하다.&lt;/li&gt;
-  &lt;li&gt;모든 생성자는 private 또는 protected로 구성하는 것이 좋다.&lt;/li&gt;
-  &lt;li&gt;대부분 팩토리 메서드는 &lt;u&gt;&apos;덜 복잡하고, 커스터마이즈가 자주있고, 하위클래스가 늘어나기 좋은&apos; 경우에 사용&lt;/u&gt;되며, 더욱 유연하고 복잡한 클래스로 넘어가는 과정에서 Abstract factory(추상 팩토리), Prototype, Builder와 같은 방식을 사용한다.&lt;/li&gt;
-  &lt;li&gt;서브클래싱(sub-classing)이 없는 대신 초기화가 필요한 Prototype 방식과 달리, 팩토리 메서드는 초기화는 필요하지 않지만 서브클래싱은 필요하다.&lt;/li&gt;
-  &lt;li&gt;동일한 인스턴스를 여러번 반환해야 하는 경우에 좋다.&lt;/li&gt;
-  &lt;li&gt;정확한 유형이 정의되지는 않았지만, 서브 클래스를 사용할 것은 명확한 객체의 경우 적용하면 좋다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Cracking The Coding Test - 187p&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://sourcemaking.com/design_patterns/factory_method&quot;&gt;Factory Method Design Pattern - SourceMaking&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Algorithm" /><category term="Algorithm" /><category term="Design Pattern" /><category term="OOP" /><category term="ctci" /><summary type="html">클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다.</summary></entry><entry><title type="html">Geth을 이용한 이더리움 dev mode 구성하기</title><link href="http://localhost:4000/ethereum/devmode_using_geth/" rel="alternate" type="text/html" title="Geth을 이용한 이더리움 dev mode 구성하기" /><published>2021-10-20T00:00:00+09:00</published><updated>2021-10-20T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/devmode_using_geth</id><content type="html" xml:base="http://localhost:4000/ethereum/devmode_using_geth/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Algorithm" /><category term="Algorithm" /><category term="Design Pattern" /><category term="OOP" /><category term="ctci" /><summary type="html">클래스 별로 오직 하나의 객체만을 갖도록 하는 싱글톤 패턴에 대해 알아본다.</summary></entry><entry><title type="html">Geth을 이용한 이더리움 dev mode 구성하기</title><link href="http://localhost:4000/ethereum/devmode_using_geth/" rel="alternate" type="text/html" title="Geth을 이용한 이더리움 dev mode 구성하기" /><published>2021-10-20T00:00:00+09:00</published><updated>2021-10-20T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/devmode_using_geth</id><content type="html" xml:base="http://localhost:4000/ethereum/devmode_using_geth/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;geth란&quot;&gt;Geth란?&lt;/h2&gt;
 
