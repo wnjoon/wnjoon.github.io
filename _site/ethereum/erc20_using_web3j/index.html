@@ -1,0 +1,1228 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+
+    <!--폰트 : "Cafe24Oneprettynight"-->
+    
+    <!--main.scss 조금이라도 빨리 로드 되길.. preload-->
+    <link rel="preload" as="style" href="/assets/css/main.css">
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Web3j를 이용하여 ERC20 토큰 다뤄보기 - 월리의 탐구생활</title>
+<meta name="description" content="Java 기반의 이더리움 클라이언트 라이브러리 ‘web3j’를 이용하여 ERC20 토큰의 기본 기능을 다뤄본다. ">
+
+
+  <meta name="author" content="글쓰는 개발자 ">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="월리의 탐구생활">
+<meta property="og:title" content="Web3j를 이용하여 ERC20 토큰 다뤄보기">
+<meta property="og:url" content="http://localhost:4000/ethereum/erc20_using_web3j/">
+
+
+  <meta property="og:description" content="Java 기반의 이더리움 클라이언트 라이브러리 ‘web3j’를 이용하여 ERC20 토큰의 기본 기능을 다뤄본다. ">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-11-16T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-11-16T00:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/ethereum/erc20_using_web3j/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "월리",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="월리의 탐구생활 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+    <!-- 스크롤바 커스터마이징 -->
+    <style> 
+      ::-webkit-scrollbar{width: 16px;}
+      ::-webkit-scrollbar-track {background-color:#4b4f52; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb {background-color:#5e6265; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb:hover {background: #ffd24c;}
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment 
+      {
+          width:12px;height:12px;background:transparent;}
+      }  
+
+      
+    </style>
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          월리의 탐구생활
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/index.html">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">카테고리 Click</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#ethereum" itemprop="item"><span itemprop="name">Ethereum</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Web3j를 이용하여 ERC20 토큰 다뤄보기</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/profile.png" alt="글쓰는 개발자 " itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">글쓰는 개발자 </h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>#TIL #하루키법칙 #기록</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://wnjoon.github.io/resume/" rel="nofollow noopener noreferrer"><i class="far fa-address-card" aria-hidden="true"></i><span class="label">Resume</span></a></li>
+          
+        
+          
+            <li><a href="mailto:wnjoon@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/wnjoon" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  
+    
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">카테고리 Click</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">41</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+      </li>
+      <li>
+        <!-- 개발 -->
+        <span class="nav__sub-title">개발</span>
+            <!-- 개발/Algorithm -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/algorithm" class="">Algorithm (6)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/blockchain" class="">Blockchain (6)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Ethereum -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/ethereum" class="">Ethereum (9)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Hyperledger -->
+            <ul>
+                
+                    
+                        <li><a href="/categories/hyperledger" class="">Hyperledger (3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Kubernetes -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/kubernetes" class="">Kubernetes (7)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Network -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/network" class="">Network (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/System Design -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/system_design" class="">System Design (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Tools -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/tools" class="">개발 도구 (4)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!-- 일상 -->
+        <span class="nav__sub-title">일상</span>
+            <!-- 일상/잡학다식 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/etc" class="">잡학다식 (1)</a></li>
+                    
+                
+                    
+                
+            </ul>
+            <!-- 일상/후기 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/review" class="">후기 (1)</a></li>
+                    
+                
+            </ul>
+            <!-- 일상/회고 -->
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/retrospect" class="">회고 (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+      </li>
+      <li>	
+            <br>      
+            <!-- 방문자 수 카운트하는 부분인데.. 뭔가 이상함.. 내가 테스트해보려 들어갔다나오는 모든 것도 카운트되어서 매우 부담스러움 -->
+           <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwnjoon.github.io&count_bg=%233D53C8&title_bg=%23B4B014&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
+      </li>
+  </ul>
+</nav>
+
+
+  
+
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Web3j를 이용하여 ERC20 토큰 다뤄보기">
+    <meta itemprop="description" content="Java 기반의 이더리움 클라이언트 라이브러리 ‘web3j’를 이용하여 ERC20 토큰의 기본 기능을 다뤄본다.">
+    <meta itemprop="datePublished" content="2021-11-16T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-11-16T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Web3j를 이용하여 ERC20 토큰 다뤄보기
+</h1>
+          
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-11-16T00:00:00+09:00">2021.11.16</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-11-16">2021.11.16</time></p>
+          
+          
+            
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+    
+    </span>
+  </p>
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item-tag" rel="tag">java</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#web3j" class="page__taxonomy-item-tag" rel="tag">web3j</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a>
+    
+    </span>
+  </p>
+
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#web3j란">Web3j란?</a>
+    <ul>
+      <li><a href="#web3j의-특징">Web3j의 특징</a></li>
+    </ul>
+  </li>
+  <li><a href="#java-smart-contract-wrappers">Java smart contract wrappers</a>
+    <ul>
+      <li><a href="#web3j-cli-설치">Web3j CLI 설치</a></li>
+      <li><a href="#wrapper-생성">Wrapper 생성</a></li>
+      <li><a href="#maven-세팅">Maven 세팅</a></li>
+    </ul>
+  </li>
+  <li><a href="#web3j를-통한-erc20-스마트컨트랙트-호출">Web3j를 통한 ERC20 스마트컨트랙트 호출</a>
+    <ul>
+      <li><a href="#기본-구조">기본 구조</a></li>
+      <li><a href="#전제-사항">전제 사항</a></li>
+      <li><a href="#잔액-조회balanceof">잔액 조회(balanceOf)</a>
+        <ul>
+          <li><a href="#1-wrapper를-사용한-경우">1. Wrapper를 사용한 경우</a></li>
+          <li><a href="#2-wrapper를-사용하지-않은-경우">2. Wrapper를 사용하지 않은 경우</a></li>
+        </ul>
+      </li>
+      <li><a href="#자산-전송transfer">자산 전송(transfer)</a>
+        <ul>
+          <li><a href="#1-wrapper를-사용한-경우-1">1. Wrapper를 사용한 경우</a></li>
+          <li><a href="#2-wrapper를-사용하지-않은-경우-1">2. Wrapper를 사용하지 않은 경우</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#정리">정리</a></li>
+  <li><a href="#참고자료">참고자료</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h2 id="web3j란">Web3j란?</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/141983740-16206a02-c879-424c-9847-d5978699dc79.png" alt="image" /><br />
+<em>@그림 1: Web3j에 대한 간략한 구조 - 출처: docs.web3j</em></p>
+
+<p>Web3j는 이더리움 네트워크와 통신하거나 스마트컨트랙트를 배포 및 호출하는 등 전반적인 클라이언트 기능을 구현할 수 있도록 제공하는 자바 기반의 라이브러리이다. 비슷한 종류로 노드기반의 Web3js가 존재한다. 일반적으로 노드 기반의 Web3js가 널리 사용되는데, 웹 기반으로 구성되는 대부분의 이더리움 클라이언트의 성질을 반영한다고 보면 된다.</p>
+
+<h3 id="web3j의-특징">Web3j의 특징</h3>
+
+<p><a href="https://docs.web3j.io/4.8.7/">공식 홈페이지</a>에서는 아래와 같이 표현한다.</p>
+<ul>
+  <li>Complete implementation of <u>Ethereum's JSON-RPC client API over HTTP and IPC</u></li>
+  <li>Ethereum wallet support</li>
+  <li><u>Auto-generation of Java smart contract wrappers</u> to create, deploy, transact with and call smart contracts from native Java code (Solidity and Truffle definition formats supported)</li>
+  <li>Reactive-functional API for working with filters</li>
+  <li><a href="https://ens.domains/ko/">Ethereum Name Service (ENS)</a> support</li>
+  <li>Support for OpenEthereum’s Personal, and Geth’s <u>Personal</u> client APIs</li>
+  <li>Support for Alchemy and Infura, so you don’t have to run an Ethereum client yourself</li>
+  <li>Support for <u>ERC20 and ERC721</u> token standards</li>
+  <li>Comprehensive integration tests demonstrating a number of the above scenarios</li>
+  <li>Command line tools</li>
+  <li>Android compatible</li>
+  <li>Support for JP Morgan’s Quorum via web3j-quorum</li>
+</ul>
+
+<p>왠만한(거의 모든) 이더리움의 기능들을 자바에서 호출할 수 있도록 지원하며, 이번 포스팅에는 Web3j에서 제공하는 ‘스마트 컨트랙트 Wrapper’ 기능을 활용하여 ‘ERC20’ 토큰의 잔액 조회와 타 계정으로의 전송 기능을 구현해보려 한다.</p>
+
+<p><br /></p>
+
+<h2 id="java-smart-contract-wrappers">Java smart contract wrappers</h2>
+
+<p>Web3j는 스마트컨트랙트의 Wrapper 기능을 제공한다. Wrapper는 솔리디티로 구현되어 있는 스마트컨트랙트를 자바 기반으로 변환시켜 Web3j에서 손쉽게 스마트컨트랙트의 기능을 호출할 수 있도록 한다. 물론 Wrapper 없이 직접 스마트컨트랙트를 호출할 수도 있다. 하지만 꽤 많은 소스 길이가 추가되어야 하고, 생각보다 가독성이 좋지 못하다.</p>
+
+<h3 id="web3j-cli-설치">Web3j CLI 설치</h3>
+
+<p>Web3j에서 사용할 수 있는 Wrapper를 생성하려면 터미널 상에서 명령어를 입력해야 한다. 그러므로 터미널에서 사용 가능한 Web3j를 설치해야 한다.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-L</span> get.web3j.io | sh <span class="o">&amp;&amp;</span> <span class="nb">source</span> ~/.web3j/source.sh
+<span class="nv">$ </span>web3j <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p>정상적으로 버전이 출력된다면 설치가 완료된 것이다.</p>
+
+<h3 id="wrapper-생성">Wrapper 생성</h3>
+
+<p>Wrapper는 터미널상에서 생성할 수 있다. 예시로 다음과 같은 환경이라고 가정하자.</p>
+<ul>
+  <li>Deploy 된 ERC20 스마트컨트랙트(MyERC20.json)의 경로: /Users/joon/Workspace/simpple-nft-market/smartcontract/build/contracts/MyERC20.json</li>
+  <li>자바 어플리케이션의 main 디렉토리 경로: /Users/joon/Workspace/simpple-nft-market/app/src/main/java</li>
+  <li>컨트랙트의 패키지 명: com.example.contract</li>
+</ul>
+
+<p>위의 내용은 디렉토리의 경로 또는 자바 어플리케이션의 패키지 명에 따라 상이할 수 있다. 이를 기반으로 Wrapper를 생성하면 아래와 같다.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>web3j generate truffle 
+<span class="se">\ </span><span class="nt">--truffle-json</span><span class="o">=</span>/Users/joon/Workspace/simpple-nft-market/smartcontract/build/contracts/MyERC20.json
+<span class="se">\ </span><span class="nt">-o</span> /Users/joon/Workspace/simpple-nft-market/app/src/main/java
+<span class="se">\ </span><span class="nt">-p</span> com.example.contract
+</code></pre></div></div>
+
+<p>정상적으로 된다면 자바 어플리케이션의 main 디렉토리 내에 contract라는 패키지로 MyERC20.java 파일이 생성된다. <strong>중요한 점은 향후에 생성된 Wrapper 파일의 내부를 보고자 IDE에서 열기를 누른다면 대부분의 IDE가 멈추는 현상을 보게 될 것이다. 이유는 파일 내부에 존재하는 public static final String BINARY 라는 파일 떄문인데, 만약 내부를 보고싶다면 vi나 메모장 혹은 TextEdit과 같이 가벼운 프로그램을 사용하는 것을 추천한다.</strong></p>
+
+<h3 id="maven-세팅">Maven 세팅</h3>
+
+<p>필자는 Maven을 사용하였는데, 아래와 같은 환경으로 구성하였다.</p>
+<ul>
+  <li>Java: 1.8</li>
+  <li>Web3j(Core): <a href="https://mvnrepository.com/artifact/org.web3j/core/4.8.8">4.8.8</a></li>
+  <li>okhttp: <a href="https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp/4.9.1">4.9.1</a></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="web3j를-통한-erc20-스마트컨트랙트-호출">Web3j를 통한 ERC20 스마트컨트랙트 호출</h2>
+
+<h3 id="기본-구조">기본 구조</h3>
+
+<p>Web3j를 이용하여 Wrapper로 만들어진 스마트컨트랙트를 호출할 때 꼭 필요한 요소들이 있다.</p>
+<ul>
+  <li>Web3j: geth로 띄워져 있는 클라이언트의 주소를 연결한다.</li>
+  <li>Credentials: 스마트컨트랙트를 호출하는 계정의 개인키를 이용하여 생성해준다.</li>
+  <li>ContractGasProvider: 스마트컨트랙트 호출에 사용되는 가스비에 대한 값을 정해놓는 부분이다.</li>
+  <li>FastRawTransactionManager: 스마트컨트랙트 호출에 사용된 트랜잭션에 대한 정보를 담는 부분이다.</li>
+  <li>ERC20 스마트컨트랙트 주소</li>
+  <li>체인 ID</li>
+</ul>
+
+<p>Wrapper를 사용하지 않으면 위의 내용 중 일부가 달라진다. 각각의 차이점은 스마트컨트랙트 호출 부분을 참조하면서 비교해본다.</p>
+
+<h3 id="전제-사항">전제 사항</h3>
+
+<p>이전 포스팅 <a href="https://wnjoon.github.io/ethereum/private_network_using_geth/">‘Geth을 이용한 이더리움 private network 구성하기’</a>를 통해 구성한 프라이빗 네트워크에서 본 테스트를 진행한다. 기본적으로 로컬 환경에서의 프라이빗 네트워크는 8545번 포트를 사용하는데, 해당 주소를 Web3j 객체롤 매핑하는 작업이 필요하다. 이 작업은 Wrapper를 쓰고 안쓰고와 상관없이 이더리움 네트워크와 연결되어야 하기 때문에 필수적으로 진행된다. 프라이빗 네트워크가 아닌 다른 경우라도 사용 가능하다. (개발 모드 뿐만 아니라 실제 퍼블릭에서도!)</p>
+
+<h3 id="잔액-조회balanceof">잔액 조회(balanceOf)</h3>
+
+<h4 id="1-wrapper를-사용한-경우">1. Wrapper를 사용한 경우</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">balanceOf</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+
+        <span class="nc">String</span> <span class="no">ERC20_CONTRACT_ADDRESS</span> <span class="o">=</span> <span class="s">"0x....."</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="no">USER_ADDRESS</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="no">USER_PRIVATE_KEY</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span> <span class="c1">// 사용자의 개인키</span>
+        <span class="kt">long</span> <span class="no">TX_END_CHECK_DURATION</span> <span class="o">=</span> <span class="mi">3000</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="no">TX_END_CHECK_RETRY</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+
+        <span class="c1">// 로컬 환경에서 프라이빗 네트워크를 띄운 상태에서 진행한다.</span>
+        <span class="nc">Web3j</span> <span class="n">web3j</span> <span class="o">=</span> <span class="nc">Web3j</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="k">new</span> <span class="nc">HttpService</span><span class="o">(</span><span class="s">"http://localhost:8545"</span><span class="o">));</span>
+        <span class="nc">Credentials</span> <span class="n">credential</span> <span class="o">=</span> <span class="nc">Credentials</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="no">USER_PRIVATE_KEY</span><span class="o">);</span>
+        <span class="nc">ContractGasProvider</span> <span class="n">gasProvider</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DefaultGasProvider</span><span class="o">();</span>
+        <span class="nc">FastRawTransactionManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FastRawTransationManager</span><span class="o">(</span>
+                <span class="n">web3j</span><span class="o">,</span> 
+                <span class="n">credential</span><span class="o">,</span> 
+                <span class="k">new</span> <span class="nf">PollingTransactionReceiptProcessor</span><span class="o">(</span><span class="n">web3j</span><span class="o">,</span> <span class="no">TX_END_CHECK_DURATION</span><span class="o">,</span> <span class="no">TX_END_CHECK_RETRY</span><span class="o">)</span>
+        <span class="o">);</span>
+
+        <span class="c1">// 위에서 생성한 Wrapper의 이름이 MyERC20이라고 가정한다.</span>
+        <span class="nc">MyERC20</span> <span class="n">erc20</span> <span class="o">=</span> <span class="nc">MyERC20</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="no">ERC20_CONTRACT_ADDRESS</span><span class="o">,</span> <span class="n">web3j</span><span class="o">,</span> <span class="n">manager</span><span class="o">,</span> <span class="n">gasProvider</span><span class="o">);</span>
+        <span class="nc">BigInteger</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">erc20</span><span class="o">.</span><span class="na">balanceOf</span><span class="o">(</span><span class="no">USER_ADDRESS</span><span class="o">).</span><span class="na">send</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">balance</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h4 id="2-wrapper를-사용하지-않은-경우">2. Wrapper를 사용하지 않은 경우</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">balanceOf</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="no">USER_ADDRESS</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="no">ERC20_CONTRACT_ADDRESS</span> <span class="o">=</span> <span class="s">"0x....."</span><span class="o">;</span>
+
+        <span class="nc">Web3j</span> <span class="n">web3j</span> <span class="o">=</span> <span class="nc">Web3j</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="k">new</span> <span class="nc">HttpService</span><span class="o">(</span><span class="s">"http://localhost:8545"</span><span class="o">));</span>
+
+        <span class="c1">// input parameters</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Type</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Type</span><span class="o">&gt;();</span>
+        <span class="n">params</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="no">USER_ADDRESS</span><span class="o">));</span>
+
+        <span class="c1">// output parameters</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TypeReference</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">returnTypes</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.&lt;</span><span class="nc">TypeReference</span><span class="o">&lt;?&gt;&gt;</span><span class="n">asList</span><span class="o">(</span><span class="k">new</span> <span class="nc">TypeReferences</span><span class="o">&lt;</span><span class="nc">Uint256</span><span class="o">&gt;()</span> <span class="o">{});</span>
+
+        <span class="nc">Function</span> <span class="n">function</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Function</span><span class="o">(</span>
+                <span class="s">"balanceOf"</span><span class="o">,</span>
+                <span class="n">params</span><span class="o">,</span>
+                <span class="n">returnTypes</span>
+        <span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">txData</span> <span class="o">=</span> <span class="nc">FunctionEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">function</span><span class="o">);</span>
+        <span class="n">org</span><span class="o">.</span><span class="na">web3j</span><span class="o">.</span><span class="na">protocol</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">methods</span><span class="o">.</span><span class="na">response</span><span class="o">.</span><span class="na">EthCall</span> <span class="n">response</span> <span class="o">=</span> <span class="n">web3j</span><span class="o">.</span><span class="na">ethCall</span><span class="o">(</span>
+                <span class="nc">Transaction</span><span class="o">.</span><span class="na">createEthCallTransaction</span><span class="o">(</span><span class="no">USER_ADDRESS</span><span class="o">,</span> <span class="no">ERC20_CONTRACT_ADDRESS</span><span class="o">,</span> <span class="n">txData</span><span class="o">),</span>
+                <span class="nc">DefaultBlockParameterName</span><span class="o">.</span><span class="na">LATEST</span><span class="o">).</span><span class="na">sendAsync</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>
+        <span class="o">)</span>
+
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Type</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="nc">FunctionReturnDecoder</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span>
+                <span class="n">response</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">function</span><span class="o">.</span><span class="na">getOutputParameters</span><span class="o">());</span>
+
+        <span class="nc">BigInteger</span> <span class="n">balance</span> <span class="o">=</span> <span class="o">(</span><span class="nc">BigInteger</span><span class="o">)</span><span class="n">results</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">getValue</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">balance</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>언듯 보기에도 Wrapper가 훨씬 간단하고 가독성이 좋다. 일반적으로 Wrapper를 쓰는 것이 더욱 편리하다는 것을 볼 수 있다.</p>
+
+<h3 id="자산-전송transfer">자산 전송(transfer)</h3>
+
+<h4 id="1-wrapper를-사용한-경우-1">1. Wrapper를 사용한 경우</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">transfer</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="no">ERC20_CONTRACT_ADDRESS</span> <span class="o">=</span> <span class="s">"0x....."</span><span class="o">;</span>
+        
+        <span class="c1">// ERC20을 보내는 사용자</span>
+        <span class="c1">// 내가 상대방에게 보내는 상황이다.</span>
+        <span class="nc">String</span> <span class="no">USER_ADDRESS</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="no">USER_PRIVATE_KEY</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span> 
+
+        <span class="c1">// ERC20을 받는 사용자</span>
+        <span class="nc">String</span> <span class="no">RECEIVER_ADDRESS</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span>
+        
+        <span class="c1">// 트랜잭션 처리에 대한 변수값 -&gt; 기본적으로 3000, 3을 할당한다.</span>
+        <span class="c1">// 네트워크 상황에 따라 변경가능하다.</span>
+        <span class="kt">long</span> <span class="no">TX_END_CHECK_DURATION</span> <span class="o">=</span> <span class="mi">3000</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="no">TX_END_CHECK_RETRY</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        
+        <span class="c1">// 이전에 만든 프라이빗 네트워크에서 사용한 CHAIN ID가 필요하다. </span>
+        <span class="c1">// 트랜잭션을 블록에 작성하는 경우에는 필수적이나, 조회하는 경우에는 써도 되고 안써도 된다.</span>
+        <span class="kt">long</span> <span class="no">CHAIN_ID</span> <span class="o">=</span> <span class="mi">17</span><span class="o">;</span>
+
+        <span class="nc">String</span> <span class="n">amount</span> <span class="o">=</span> <span class="s">"10"</span><span class="o">;</span> <span class="c1">// ERC20 10개를 RECEIVER_ADDRESS에 전송</span>
+
+        <span class="c1">// 로컬 환경에서 프라이빗 네트워크를 띄운 상태에서 진행한다.</span>
+        <span class="nc">Web3j</span> <span class="n">web3j</span> <span class="o">=</span> <span class="nc">Web3j</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="k">new</span> <span class="nc">HttpService</span><span class="o">(</span><span class="s">"http://localhost:8545"</span><span class="o">));</span>
+        <span class="nc">Credentials</span> <span class="n">credential</span> <span class="o">=</span> <span class="nc">Credentials</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="no">USER_PRIVATE_KEY</span><span class="o">);</span>
+        <span class="nc">ContractGasProvider</span> <span class="n">gasProvider</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DefaultGasProvider</span><span class="o">();</span>
+        <span class="nc">FastRawTransactionManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FastRawTransationManager</span><span class="o">(</span>
+                <span class="n">web3j</span><span class="o">,</span> 
+                <span class="n">credential</span><span class="o">,</span> 
+                <span class="no">CHAIN_ID</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">PollingTransactionReceiptProcessor</span><span class="o">(</span><span class="n">web3j</span><span class="o">,</span> <span class="no">TX_END_CHECK_DURATION</span><span class="o">,</span> <span class="no">TX_END_CHECK_RETRY</span><span class="o">)</span>
+        <span class="o">);</span>
+
+        <span class="nc">MyERC20</span> <span class="n">erc20</span> <span class="o">=</span> <span class="nc">MyERC20</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="no">ERC20_CONTRACT_ADDRESS</span><span class="o">,</span> <span class="n">web3j</span><span class="o">,</span> <span class="n">manager</span><span class="o">,</span> <span class="n">gasProvider</span><span class="o">);</span>
+        <span class="n">erc20</span><span class="o">.</span><span class="na">transfer</span><span class="o">(</span><span class="no">RECEIVER_ADDRESS</span><span class="o">,</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="n">amount</span><span class="o">)).</span><span class="na">send</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="2-wrapper를-사용하지-않은-경우-1">2. Wrapper를 사용하지 않은 경우</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">transfer</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="no">ERC20_CONTRACT_ADDRESS</span> <span class="o">=</span> <span class="s">"0x....."</span><span class="o">;</span>
+        
+        <span class="c1">// 위와 동일</span>
+        <span class="nc">String</span> <span class="no">USER_ADDRESS</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="no">USER_PRIVATE_KEY</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span> 
+        <span class="nc">String</span> <span class="no">RECEIVER_ADDRESS</span> <span class="o">=</span> <span class="s">"0x...."</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="no">TX_END_CHECK_DURATION</span> <span class="o">=</span> <span class="mi">5000</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="no">TX_END_CHECK_RETRY</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="no">CHAIN_ID</span> <span class="o">=</span> <span class="mi">17</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">amount</span> <span class="o">=</span> <span class="s">"10"</span><span class="o">;</span>
+
+        <span class="nc">Web3j</span> <span class="n">web3j</span> <span class="o">=</span> <span class="nc">Web3j</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="k">new</span> <span class="nc">HttpService</span><span class="o">(</span><span class="s">"http://localhost:8545"</span><span class="o">));</span>
+        <span class="nc">Credentials</span> <span class="n">credential</span> <span class="o">=</span> <span class="nc">Credentials</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="no">USER_PRIVATE_KEY</span><span class="o">);</span>
+
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Type</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Type</span><span class="o">&gt;();</span>
+        <span class="n">params</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="no">RECEIVER_ADDRESS</span><span class="o">));</span>
+        <span class="n">params</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Uint256</span><span class="o">(</span><span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="n">amount</span><span class="o">)));</span>
+
+        <span class="c1">// output parameters</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TypeReference</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">returnTypes</span> <span class="o">=</span> <span class="nc">Collections</span><span class="o">.&lt;</span><span class="nc">TypeReference</span><span class="o">&lt;?&gt;&gt;</span><span class="n">emptyList</span><span class="o">();</span>
+
+        <span class="nc">Function</span> <span class="n">function</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Function</span><span class="o">(</span>
+                <span class="s">"transfer"</span><span class="o">,</span>
+                <span class="n">params</span><span class="o">,</span>
+                <span class="n">returnTypes</span>
+        <span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">txData</span> <span class="o">=</span> <span class="nc">FunctionEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">function</span><span class="o">);</span>
+
+        <span class="nc">TransactionReceiptProcessor</span> <span class="n">receiptProcessor</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PollingTransactionReceiptProcessor</span><span class="o">(</span><span class="n">web3j</span><span class="o">,</span> <span class="no">TX_END_CHECK_DURATION</span><span class="o">,</span> <span class="no">TX_END_CHECK_RETRY</span><span class="o">);</span>
+        <span class="nc">TransactionManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RawTransactionManager</span><span class="o">(</span><span class="n">web3j</span><span class="o">,</span> <span class="n">credential</span><span class="o">,</span> <span class="no">CHAIN_ID</span><span class="o">,</span> <span class="n">receiptProcessor</span><span class="o">);</span>
+        <span class="nc">ContractGasProvider</span> <span class="n">gasProvider</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DefaultGasProvider</span><span class="o">();</span>
+
+        <span class="nc">String</span> <span class="n">txHash</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">sendTransaction</span><span class="o">(</span>
+                <span class="n">gasProvider</span><span class="o">.</span><span class="na">getGasPrice</span><span class="o">(</span><span class="s">"transfer"</span><span class="o">),</span>
+                <span class="n">gasProvider</span><span class="o">.</span><span class="na">getGasLimit</span><span class="o">(</span><span class="s">"transfer"</span><span class="o">),</span>
+                <span class="no">ERC20_CONTRACT_ADDRESS</span><span class="o">,</span>
+                <span class="n">txData</span><span class="o">,</span>
+                <span class="nc">BigInteger</span><span class="o">.</span><span class="na">ZERO</span>
+        <span class="o">).</span><span class="na">getTransactionHash</span><span class="o">();</span>
+
+        <span class="nc">TransactionReceipt</span> <span class="n">receipt</span> <span class="o">=</span> <span class="n">receiptProcessor</span><span class="o">.</span><span class="na">waitForTrasactionReceipt</span><span class="o">(</span><span class="n">txHash</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">receipt</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="정리">정리</h2>
+
+<p>Wrapper를 사용할때와 사용하지 않을때의 소스를 비교해보면, 월등히 Wrapper를 사용할 때가 더 간결하다는 것을 볼 수 있다. 게다가 입력해야 하는 파라미터의 수도 현저히 줄어들기 때문에 실수를 방지하기 위해서라도 Wrapper를 사용하는 것이 바람직할 것으로 보인다.</p>
+
+<p>단, Web3j의 버전이 낮은 경우 Wrapper를 열심히 만들어도 적용이 되지 않는 경우가 있다. 꼭 최신 버전으로 유지하는 것을 권장한다. 다음번 포스팅에서는 ERC721에 대한 여러가지 스마트컨트랙트 기능을 Web3j로 구현해본다.</p>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li><a href="https://geth.ethereum.org/docs/interface/private-network">Geth - Private network</a></li>
+  <li><a href="https://docs.web3j.io/4.8.7/">web3j - docs</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <p></p>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Ethereum</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <!--
+
+  <nav class="pagination">
+    
+      <a href="/ethereum/private_network_using_geth/" class="pagination--pager" title="Geth을 이용한 이더리움 private network 구성하기
+">이전</a>
+    
+    
+      <a href="/tools/githubtoken/" class="pagination--pager" title="Github 리포지토리에 Token 적용하기
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+
+  <nav class="pagination_prev_next">
+    
+      <a href="/ethereum/private_network_using_geth/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>Geth을 이용한 이더리움 private network 구성하기</a>
+    
+    
+      <a href="/ethereum/poa_network/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>PoA 기반의 이더리움 네트워크 구축하기</a>
+    
+  </nav>
+
+
+
+<!--
+
+
+
+-->
+
+
+
+        <p></p>
+
+        <!-- archive 중간 광고 -->
+      
+      </section>
+      <footer class="page__meta">
+        
+        <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Web3j%EB%A5%BC+%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC+ERC20+%ED%86%A0%ED%81%B0+%EB%8B%A4%EB%A4%84%EB%B3%B4%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fethereum%2Ferc20_using_web3j%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fethereum%2Ferc20_using_web3j%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fethereum%2Ferc20_using_web3j%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      </footer>
+    </div>
+
+    
+
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+<!-- ansohxxn.github.io -->
+<!--<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6111782407607310"
+     data-ad-slot="5978510098"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>-->
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 월리. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <aside class="sidebar__top">
+      <a href="#site-nav"> <i class="fas fa-angle-double-up fa-2x"></i></a>
+    </aside>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'wnjoon/wnjoon.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+  </body>
+</html>

@@ -342,13 +342,15 @@
   <label for="ac-toc">카테고리 Click</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">31</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">41</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
       </li>
       <li>
         <!-- 개발 -->
         <span class="nav__sub-title">개발</span>
             <!-- 개발/Algorithm -->
             <ul>
+                
+                    
                 
                     
                 
@@ -372,8 +374,6 @@
                 
                     
                 
-                    
-                
             </ul>
             <!-- 개발/Blockchain -->
             <ul>
@@ -385,11 +385,11 @@
                     
                 
                     
-                
+                        <li><a href="/categories/blockchain" class="">Blockchain (6)</a></li>
                     
                 
                     
-                        <li><a href="/categories/blockchain" class="">Blockchain (3)</a></li>
+                
                     
                 
                     
@@ -413,9 +413,9 @@
                     
                 
                     
-                        <li><a href="/categories/ethereum" class="">Ethereum (6)</a></li>
-                    
                 
+                    
+                        <li><a href="/categories/ethereum" class="">Ethereum (9)</a></li>
                     
                 
                     
@@ -435,7 +435,7 @@
             <ul>
                 
                     
-                        <li><a href="/categories/hyperledger" class="">Hyperledger (1)</a></li>
+                        <li><a href="/categories/hyperledger" class="">Hyperledger (3)</a></li>
                     
                 
                     
@@ -551,7 +551,7 @@
                     
                 
                     
-                        <li><a href="/categories/tools" class="">개발 도구 (2)</a></li>
+                        <li><a href="/categories/tools" class="">개발 도구 (4)</a></li>
                     
                 
                     
@@ -661,7 +661,7 @@
       <li>	
             <br>      
             <!-- 방문자 수 카운트하는 부분인데.. 뭔가 이상함.. 내가 테스트해보려 들어갔다나오는 모든 것도 카운트되어서 매우 부담스러움 -->
-            <!--<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwnjoon.github.io&count_bg=%2379C83D&title_bg=%23686868&icon=&icon_color=%23B4B4B4&title=visitors&edge_flat=true"/></a>-->
+           <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwnjoon.github.io&count_bg=%233D53C8&title_bg=%23B4B014&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
       </li>
   </ul>
 </nav>
@@ -769,7 +769,7 @@
 
 <h2 id="dev-mode와-private-network의-차이">Dev mode와 Private network의 차이</h2>
 
-<p><a href="https://wnjoon.github.io/ethereum/private_network_using_geth/">이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’</a>에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고 이를 테스트하기 좋은 환경을 만들어준다.<br />
+<p><a href="https://wnjoon.github.io/ethereum/devmode_using_geth/">이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’</a>에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고 이를 테스트하기 좋은 환경을 만들어준다.<br />
 Private network는 개발 모드와는 별개로 ‘퍼블릭하지 않은, 폐쇄된 환경의 이더리움 네트워크’를 구성해주는 것을 목적으로 한다. 그리고 퍼블릭 블록체인과 아주 유사한 환경으로 스마트컨트랙트를 손쉽게 테스트할 수도 있다. 이번 포스팅 이후에 이더리움 클라이언트 개발을 지원하는 자바 기반의 라이브러리인 <a href="https://github.com/web3j/web3j">web3j</a>를 이용하여 이더리움 네트워크에서 각종 토큰을 전송하고 잔액을 조회하는 기능을 만들어보고 이를 공유해볼 계획인데, 이를 위해 PoW 기반의 Private network를 구성해보기로 했다.</p>
 
 <h3 id="dev-mode의-한계점">Dev mode의 한계점</h3>
@@ -785,7 +785,7 @@ Private network는 개발 모드와는 별개로 ‘퍼블릭하지 않은, 폐�
 
 <h2 id="geth-설치-및-구성">Geth 설치 및 구성</h2>
 
-<p>Geth에 대한 설치 및 구성 과정은 <a href="https://wnjoon.github.io/ethereum/private_network_using_geth/">이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’</a>을 참고한다.</p>
+<p>Geth에 대한 설치 및 구성 과정은 <a href="https://wnjoon.github.io/ethereum/devmode_using_geth/">이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’</a>을 참고한다.</p>
 
 <p><br /></p>
 
@@ -944,11 +944,12 @@ To <span class="nb">exit</span>, press ctrl-d or <span class="nb">type exit</spa
 
   <nav class="pagination">
     
-      <a href="/ethereum/0xprotocol/" class="pagination--pager" title="0x 프로토콜
+      <a href="/ethereum/how_does_ethereum_works/" class="pagination--pager" title="[📝 번역 정리] How does Ethereum work, anyway?
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/ethereum/erc20_using_web3j/" class="pagination--pager" title="Web3j를 이용하여 ERC20 토큰 다뤄보기
+">다음</a>
     
   </nav>
 
@@ -956,6 +957,10 @@ To <span class="nb">exit</span>, press ctrl-d or <span class="nb">type exit</spa
 
 
 
+
+  
+
+  
 
   
   	
@@ -968,10 +973,10 @@ To <span class="nb">exit</span>, press ctrl-d or <span class="nb">type exit</spa
 
   <nav class="pagination_prev_next">
     
-      <a href="/ethereum/0xprotocol/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>0x 프로토콜</a>
+      <a href="/ethereum/how_does_ethereum_works/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>[📝 번역 정리] How does Ethereum work, anyway?</a>
     
     
-      <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
+      <a href="/ethereum/erc20_using_web3j/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>Web3j를 이용하여 ERC20 토큰 다뤄보기</a>
     
   </nav>
 

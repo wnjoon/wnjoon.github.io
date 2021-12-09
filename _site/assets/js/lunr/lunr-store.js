@@ -11,10 +11,40 @@ var store = [{
         "url": "http://localhost:4000/retrospect/2020_retrospect/",
         "teaser": null
       },{
+        "title": "하이퍼레저 패브릭에서 생성된 블록은 어디에 있을까?",
+        "excerpt":"컨테이너로 구성된 피어 하이퍼레저 패브릭에서 원장, 즉 블록을 저장하고 있는 주체인 피어(Peer)는 기본적으로 컨테이너 형태로 구성된다. 그러므로 피어에 생성되고 있는 블록 또한 컨테이너 내부에 위치하는 셈인데, 그렇다면 컨테이너의 어디에 블록이 위치하고 있을까? To see the physical location of these data you can go to /var/hyperledger/production in each peer container in...","categories": ["Hyperledger"],
+        "tags": ["Blockchain","Hyperledger","Docker","Container"],
+        "url": "http://localhost:4000/hyperledger/physically_block_location/",
+        "teaser": null
+      },{
+        "title": "Jenkins 설치해보기",
+        "excerpt":"TDD(Test Driven Development)가 좋기는하다. 하지만.. 사실 형상관리는 이미 개발과정에서는 필수요소가 된지 오래다. CI를 단순히 ‘손쉬운 형상관리 + 자동 배포’로만 인식하면 이전과 크게 다를바 없어 보이지만, 테스트 자동화의 관점에서 보면 TDD가 가지고 있던 단점들을 어느정도 해결해준다. 일반적으로 TDD는 유닛테스트 기반으로, 우리가 학부시절에 코딩하던 수준이 아닌 production level에서 볼 수 있는 엄청난...","categories": ["Tools"],
+        "tags": ["Tools","Jenkins","CI/CD","형상관리"],
+        "url": "http://localhost:4000/tools/jenkins/",
+        "teaser": null
+      },{
         "title": "맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자",
         "excerpt":"개요 리눅스 기반에서 시스템을 테스트할 때, 일반적으로 윈도우나 맥 모두 VirtualBox(버추얼박스)를 가장 많이 사용한다. 무료라는 엄청난 장점과 더불어 간편하게 가상화 PC를 만들 수 있기 때문인데, 특히 여러 개의 서버를 복합적으로 설계할 때 아주 효과적이다. 하지만 정말 아쉽게도 이번 맥OS의 업데이트로 인하여 Big Sur에서는 더 이상 버추얼박스를 사용하는게 어려울 것으로 보인다....","categories": ["Tools"],
         "tags": ["Tools","MacOS","VMware","VirtualBox","가상화"],
         "url": "http://localhost:4000/tools/vmwareinbigsur/",
+        "teaser": null
+      },{
+        "title": "하드포크, 그리고 소프트포크에 대하여",
+        "excerpt":"하드포크(Hard fork) 비트코인과 비트코인캐시, 이더리움과 이더리움 클래식 등 무언가 비슷하지만 서로 달라진(갈라진이라고 표현해야 맞는가) 블록체인들을 볼 수 있다. 전문적인 용어로 이를 ‘하드포크(Hard fork)’되었다고 하는데, 블록을 연결하는 체인이 새롭게 만들어졌다는 의미로 결국에는 '새로운 블록체인'이 만들어졌다고 보면 된다. 하드포크가 일어나는 원인은 다양한데, 가장 정상적(?)으로 발생하는 경우는 해당 블록체인의 하드포크 일정(Roadmap)에 맞게 진행되는...","categories": ["Blockchain"],
+        "tags": ["Blockchain","Fork"],
+        "url": "http://localhost:4000/blockchain/fork/",
+        "teaser": null
+      },{
+        "title": "하이퍼레저 패브릭의 MVCC(다중 버전 동시성 제어)",
+        "excerpt":"Concurrency Control(동시성 제어) @그림 1: 동시성 제어 예시 그림 DBMS에서 다수의 사용자 간 동시에 처리되는 트랜잭션으로부터 데이터베이스를 보호하는 방법으로, 동시에 하나의 컬럼에 접근하는 경우 값의 일관성이 낮아질 수 있는 오류를 막기 위하여 사용된다. 위의 그림을 보면 Commit이 이루어지지 않은, 값이 변경되고 있는 도중에 해당 값을 사용하는 과정에서 의도하지 않은 결과가...","categories": ["Hyperledger"],
+        "tags": ["Blockchain","Hyperledger","DBMS"],
+        "url": "http://localhost:4000/hyperledger/mvcc/",
+        "teaser": null
+      },{
+        "title": "증권형 토큰 발행(STO)에 대해서",
+        "excerpt":"증권형 토큰(Security Token) 증권형 토큰은 주식, 채권, 부동산 등 실물자산을 블록체인 기반의 암호화폐에 고정(페깅)한 디지털 자산으로, 증권형 토큰의 소유는 해당 토큰과 연동된 자산의 소유권을 가짐을 의미하며 해당 자산의 규제 안에서만 거래가 가능하다. 토큰 발행 주체에서 창출되는 수익에 대한 배당, 청구 및 의사결정 권리를 가지며, 증권형 토큰을 통해 특정 자산의 분배를...","categories": ["Blockchain"],
+        "tags": ["Blockchain","STO","암호화폐"],
+        "url": "http://localhost:4000/blockchain/sto/",
         "teaser": null
       },{
         "title": "[🧑‍🏫 강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여",
@@ -125,7 +155,7 @@ var store = [{
         "url": "http://localhost:4000/network/cdn/",
         "teaser": null
       },{
-        "title": "확장 가능한 웹 아키텍처 및 분산 시스템",
+        "title": "[📝 번역 정리] 확장 가능한 웹 아키텍처 및 분산 시스템",
         "excerpt":"📒 본 포스팅은 Kate Matsudaira의 Scalable Web Architecture and Distributed Systems 내용을 학습한 후 작성하였습니다. 웹 분산 시스템 설계의 원리 확장 가능한 웹 사이트 또는 애플리케이션을 구축하고 운영한다는 것은, 기본적으로는 인터넷을 통해 원격의 리소스와 사용자를 연결하는 것이고 더 나아가 리소스 또는 해당 리소스에 접근할 수 있는 서버를 여러곳에 분산시켜 확장...","categories": ["System Design"],
         "tags": ["Architecture","System Design","Scalability"],
         "url": "http://localhost:4000/system%20design/scalable-web-architecture-and-distributed-systems/",
@@ -141,6 +171,12 @@ var store = [{
         "excerpt":"S.T.A.R 많은 기업에서 면접을 볼 때, STAR 방식으로 설명할 것을 강조한다. 간략하게 무엇인지 살펴보자. S : Situation Describe the situation that you were in or the task that you needed to accomplish. You must describe a specific event or situation, not a generalized description of what you have done in...","categories": ["Etc"],
         "tags": ["Interview","Communication Skill","EN"],
         "url": "http://localhost:4000/etc/star_way/",
+        "teaser": null
+      },{
+        "title": "사이드체인(Sidechain)에 대한 정리",
+        "excerpt":"사이드체인이란? 사이드체인은 2014년에 발표된 Enabling Blockchain Innovations with Pegged Sidechains이라는 논문에서 처음 등장했다. 오프체인에서 트랜잭션을 처리하는 방법 중 하나로 알려져 있는데, 퍼블릭 블록체인에서 점점 증가하는 노드 내 데이터 크기 및 노드 자체의 갯수로 인한 높아지는 수수료 문제를 통해 ‘실생활에서의 블록체인 접근이 가능할 수 있도록’하기 위한 방안으로 사용되어진다. 결국 메인체인에서의 트랜잭션을...","categories": ["Blockchain"],
+        "tags": ["Blockchain","Sidechain","상호운용성"],
+        "url": "http://localhost:4000/blockchain/sidechain/",
         "teaser": null
       },{
         "title": "에어팟 맥스(Max) 2달 사용기",
@@ -179,9 +215,33 @@ var store = [{
         "url": "http://localhost:4000/ethereum/0xprotocol/",
         "teaser": null
       },{
+        "title": "[📝 번역 정리] How does Ethereum work, anyway?",
+        "excerpt":"블록체인에 대한 정의 Blockchain definition 블록체인은 \"Cryptographically secure transitional singleton machine with shared-state\" 로 정의된다. Cryptographically secure: 깨기 어려운 복잡한 수학적 알고리즘을 기반으로 암호화폐가 생성된다. Transitional singleton machine: 정상적으로 생성된 하나의 객체는 시스템 상에서 생성되는 모든 트랜잭션에 대해 책임을 가지며, 이는 모든 구성원으로부터 신뢰받는 global truth를 생성한다. With shared-state: 저장되는...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum"],
+        "url": "http://localhost:4000/ethereum/how_does_ethereum_works/",
+        "teaser": null
+      },{
         "title": "Geth을 이용한 이더리움 private network 구성하기",
         "excerpt":"Dev mode와 Private network의 차이 이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum","geth"],
         "url": "http://localhost:4000/ethereum/private_network_using_geth/",
+        "teaser": null
+      },{
+        "title": "Web3j를 이용하여 ERC20 토큰 다뤄보기",
+        "excerpt":"Web3j란? @그림 1: Web3j에 대한 간략한 구조 - 출처: docs.web3j Web3j는 이더리움 네트워크와 통신하거나 스마트컨트랙트를 배포 및 호출하는 등 전반적인 클라이언트 기능을 구현할 수 있도록 제공하는 자바 기반의 라이브러리이다. 비슷한 종류로 노드기반의 Web3js가 존재한다. 일반적으로 노드 기반의 Web3js가 널리 사용되는데, 웹 기반으로 구성되는 대부분의 이더리움 클라이언트의 성질을 반영한다고 보면 된다....","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","web3j","java"],
+        "url": "http://localhost:4000/ethereum/erc20_using_web3j/",
+        "teaser": null
+      },{
+        "title": "Github 리포지토리에 Token 적용하기",
+        "excerpt":"Password -&gt; Token 2021년 8월 13일 기준으로 깃헙에서 기존의 패스워드 방식의 인증을 더이상 사용하지 않고 토큰을 이용하여 사용자를 인증하겠다고 발표했다. 이미 필자는 토큰 방식으로 변경해놓은 상태이지만, 오늘 만료기간이 지나 토큰을 재생성해야 하는 상황이 생겼고 이를 기록으로 남겨놓으면 좋을 것 같다고 생각하여 글을 작성한다. 토큰 생성 토큰을 생성하는 방법에 대해서는 여러...","categories": ["Tools"],
+        "tags": ["Tools","Github"],
+        "url": "http://localhost:4000/tools/githubtoken/",
+        "teaser": null
+      },{
+        "title": "PoA 기반의 이더리움 네트워크 구축하기",
+        "excerpt":"Dev mode와 PoW의 장단점 이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’에서 geth의 Dev mode를 활용한 네트워크 구성 및 이에 대한 장단점을 분석하고, 범용적인 테스트 환경의 이더리움 네트워크를 구축하기 위해 PoW 기반의 합의 알고리즘을 적용해보았다. 이를 간략하게 정리해보면 다음과 같다. 종류 장점 단점 Dev mode - 환경을 쉽게 구성할 수...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","geth","poa"],
+        "url": "http://localhost:4000/ethereum/poa_network/",
         "teaser": null
       }]
