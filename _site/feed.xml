@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-06T07:39:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 </name></author><entry><title type="html">블로그에 favicon 적용하기</title><link href="http://localhost:4000/tools/favicon/" rel="alternate" type="text/html" title="블로그에 favicon 적용하기" /><published>2022-02-06T00:00:00+09:00</published><updated>2022-02-06T00:00:00+09:00</updated><id>http://localhost:4000/tools/favicon</id><content type="html" xml:base="http://localhost:4000/tools/favicon/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-06T08:12:38+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 </name></author><entry><title type="html">블로그에 favicon 적용하기</title><link href="http://localhost:4000/tools/favicon/" rel="alternate" type="text/html" title="블로그에 favicon 적용하기" /><published>2022-02-06T00:00:00+09:00</published><updated>2022-02-06T00:00:00+09:00</updated><id>http://localhost:4000/tools/favicon</id><content type="html" xml:base="http://localhost:4000/tools/favicon/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;favicon&quot;&gt;favicon&lt;/h2&gt;
 
@@ -88,7 +88,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/152660452-70521fa0-8498-47ef-97a6-08cf81fd8463.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;위와 같이 메뉴바에 앱이 생기게되고, 키보드에서 모니터의 밝기와 음향을 조절할 수 있게 된다.&lt;/p&gt;
+&lt;p&gt;위와 같이 메뉴바에 앱이 생기게 되고, 키보드에서 모니터의 밝기와 음향을 조절할 수 있게 된다.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
