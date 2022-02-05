@@ -256,4 +256,16 @@ var store = [{
         "tags": ["Blockchain","Ethereum","geth","poa"],
         "url": "http://localhost:4000/ethereum/poa_network/",
         "teaser": null
+      },{
+        "title": "맥에서 외장모니터 음향과 밝기를 키보드로 조절하기",
+        "excerpt":"외장모니터 구매 작년 수많은 재택을 하면서 몸과 마음의 편안함은 얻었지만, 그와 동시에 허리아픔과 눈의 침침함을 얻게 되었다. 큰맘을 먹고 사무용 책상을 구매하면서 LG의 외장모니터도 같이 구매하게 되었는데, 맥에서는 울트라파인과 같이 공식모니터가 아닌 외장모니터를 사용하게 되면 키보드에 달려있는 버튼으로는 밝기나 음향조절이 불가능하다는 것을 알게 되었다. 사실 밝기야 크게 어려움이 없는데, 음향의...","categories": ["Tools"],
+        "tags": ["Tools","외부모니터","음향밝기조절"],
+        "url": "http://localhost:4000/tools/extramonitor/",
+        "teaser": null
+      },{
+        "title": "블로그에 favicon 적용하기",
+        "excerpt":"favicon favicon 즐겨찾기 아이콘. 즐겨찾기(favorites)와 아이콘(icon)의 합성어로, 주소창에 조그만 아이콘으로 표시되어 있다. 아이콘 에디터로 16x16 크기의 적당한 아이콘을 만든 후 그 이름을 favicon.ico로 한 다음 웹 사이트의 루트 디렉터리에 갖다 넣으면 된다. (출처: 아보느 포스트) favicon을 정상적으로 적용할 경우, 웹브라우저 상단에 내가 적용한 아이콘이 같이 표출된다. 적용 방법 아이콘으로 사용할...","categories": ["Tools"],
+        "tags": ["Tools","favicon"],
+        "url": "http://localhost:4000/tools/favicon/",
+        "teaser": null
       }]

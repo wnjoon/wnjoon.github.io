@@ -114,12 +114,30 @@
 
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"> -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 
 <!-- end custom head snippets -->
@@ -342,7 +360,7 @@
   <label for="ac-toc">카테고리 Click</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">43</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">45</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
       </li>
       <li>
         <!-- 개발 -->
@@ -551,7 +569,7 @@
                     
                 
                     
-                        <li><a href="/categories/tools" class="">개발 도구 (4)</a></li>
+                        <li><a href="/categories/tools" class="">개발 도구 (6)</a></li>
                     
                 
                     
@@ -758,7 +776,7 @@
     <ul>
       <li><a href="#1-paxos">1. Paxos</a></li>
       <li><a href="#2-pbftpractical-bft">2. PBFT(Practical BFT)</a></li>
-      <li><a href="#3-raft">3. Raft</a></li>
+      <li><a href="#3-raft참고">3. Raft(참고)</a></li>
     </ul>
   </li>
   <li><a href="#참고자료">참고자료</a></li>
@@ -830,7 +848,7 @@
 
 <p>잘못된 노드가 존재하고 있더라도 나쁜 행위를 도모하기 위해서는 정족수(과반수) 이상의 노드를 확보해야 하는데, 이는 현실적으로 불가능하다. 혹은 리더로 선정된 노드가 잘못된 노드라고 해도, 리더는 모든 노드에게서 감시를 받는 구조이기 때문에 이 또한 현실적으로 불가능하다. 단, 의사결정을 위한 노드의 수가 제한적일 수 밖에 없다.</p>
 
-<h3 id="3-raft">3. Raft</h3>
+<h3 id="3-raft참고">3. Raft(<a href="https://wnjoon.github.io/algorithm/raft/">참고</a>)</h3>
 
 <p>리더를 통해 메시지를 전파하고 이를 통해 합의를 도출하는 방식이다. 난수로 구성된 타임아웃값을 사용하여 리더를 선출하는데, 리더는 로그를 복제 및 관리하고, 다른 노드에게 메시지를 전달하여 정족수 이상의 응답자가 나올 경우에만 최종 합의로 반영하는 방식이다.</p>
 
@@ -966,7 +984,7 @@
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2021 월리. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2022 월리. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>
