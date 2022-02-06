@@ -28,15 +28,15 @@ last_modified_at: 2022-02-03
 
 ## MonitorControl
 
-[https://github.com/MonitorControl/MonitorControl/releases/tag/v1.7.1](https://github.com/MonitorControl/MonitorControl/releases/tag/v1.7.1)
+[https://github.com/MonitorControl/MonitorControl/releases](https://github.com/MonitorControl/MonitorControl/releases)
 
-현재 1.7.1버전까지 출시되었으며, 설치 방법 또한 매우 간단하다. dmg 파일을 다운받아 설치한 후, 설치 과정 맨 마지막 가이드대로 'System Preferences > Security&Privacy > Privacy > Accessibility'에 해당 앱을 체크해주면 된다.
+현재 4.0.2 버전까지 출시되었으며, 설치 방법 또한 매우 간단하다. dmg 파일을 다운받아 설치한 후, 설치 과정 맨 마지막 가이드대로 'System Preferences > Security&Privacy > Privacy > Accessibility'에 해당 앱을 체크해주면 된다.
 
 <br>
 
 ## 결과
 
-![image](https://user-images.githubusercontent.com/39115630/152660452-70521fa0-8498-47ef-97a6-08cf81fd8463.png)
+![image](https://user-images.githubusercontent.com/39115630/152702089-ed163b38-0897-43bf-9482-c6ce4b77b90a.png)  
 
 위와 같이 메뉴바에 앱이 생기게 되고, 키보드에서 모니터의 밝기와 음향을 조절할 수 있게 된다.
 
