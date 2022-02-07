@@ -25,7 +25,7 @@ Today I Learned, 하루키의 법칙 등 왠만큼 도움된다는건 다 해보
 - 해당 카테고리 내부에 글 작성. 글의 템플릿은 기존에 존재하는 것 사용
 
 ## 로컬 작업
-- bundle exec jekyll serve --livereload
+- bundle exec jekyll serve --livereload (또는 ./testlocal.sh)
 
 ## git push
 - ./push.sh ${COMMIT_MESSAGE}
