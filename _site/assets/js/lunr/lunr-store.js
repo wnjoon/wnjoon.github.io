@@ -268,4 +268,16 @@ var store = [{
         "tags": ["Tools","favicon"],
         "url": "http://localhost:4000/tools/favicon/",
         "teaser": null
+      },{
+        "title": "회고록 - 2021년",
+        "excerpt":"개인 끝나지 않았던 펜데믹 2021년에도 코로나로 인한 펜데믹이 이어지면서 여러 활동에 제약이 있었다. 오히려 100명 남짓한 확진자에도 두려워하던 2020년보다 10배 아니 100배가 넘는 확진자가 발생하고 있는 현재가 체감상으로는 더 두렵지만, 이제는 점점 이러한 상황이 익숙하게만 느껴진다. 어른아이 할 것 없이 집앞에 쓰레기를 버리러가는 상황에도 마스크는 필수로 착용하고 있고, 회사에서 누군가와...","categories": ["Retrospect"],
+        "tags": ["회고"],
+        "url": "http://localhost:4000/retrospect/2021_retrospect/",
+        "teaser": null
+      },{
+        "title": "n을 이용하여 Nodejs 버전 간단하게 변경하기",
+        "excerpt":"n n은 npm에서 제공하는 Nodejs 버전 관리용 패키지로, 이전까지는 nvm이 더욱 많이 사용되었다. 하지만 최근에는 n을 이용한 버전관리가 훨씬 많이 사용되는데, 이는 극도의 간편함 때문이라고 볼 수 있다. https://www.npmjs.com/package/n 설치 방법 $ sudo npm install -g n $ n --version # n의 버전을 확인할 수 있다. 사용 방법 n stable...","categories": ["Tools"],
+        "tags": ["Tools","Nodejs","npm","n"],
+        "url": "http://localhost:4000/tools/nodeversionchange/",
+        "teaser": null
       }]
