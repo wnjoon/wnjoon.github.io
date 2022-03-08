@@ -3,9 +3,9 @@ title:  "n을 이용하여 Nodejs 버전 간단하게 변경하기"
 excerpt: "n을 이용하여 Nodejs의 버전을 손쉽게 변경하는 방법을 알아본다."
 
 categories:
-  -  Tools
+  -  Backend
 tags:
-  - [Tools, Nodejs, npm, n]
+  - [Backend, Nodejs, npm, n]
 
 toc: true
 toc_sticky: true
