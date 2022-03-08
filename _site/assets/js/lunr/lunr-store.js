@@ -280,4 +280,10 @@ var store = [{
         "tags": ["Tools","Nodejs","npm","n"],
         "url": "http://localhost:4000/tools/nodeversionchange/",
         "teaser": null
+      },{
+        "title": "JPA를 이용하여 Postgresql에 접속하기",
+        "excerpt":"JPA(Java Persistence API) JPA에 대해서 간략하지만 자세하게 분석해놓은 글은 ‘JPA란? - 권희정‘을 참조하자. 간략하게 설명하면, 어플리케이션과 JDBC 사이에서 동작하는 ORM 기술 표준을 의미한다. 그렇다면 ORM(Object Relational Mapping)은 무엇일까? ORM은 객체와 테이블을 매핑해서 패러다임의 불일치를 개발자 대신 해결해주는 역할을 한다. &lt;그림 1: JPA에 대한 간략한 구성도 - 출처 : Gitbook&gt; Postgresql...","categories": ["Backend"],
+        "tags": ["Backend","Web3j","Database","JPA","Postgresql"],
+        "url": "http://localhost:4000/backend/jpa/",
+        "teaser": null
       }]
