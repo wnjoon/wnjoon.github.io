@@ -45,7 +45,7 @@
             <!-- 개발/Blockchain/Hyperledger -->
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Hyperledger⌙" %}
+                    {% if category[0] == "Hyperledger" %}
                         <li><a href="/categories/hyperledger" class="">ㄴ Hyperledger ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
