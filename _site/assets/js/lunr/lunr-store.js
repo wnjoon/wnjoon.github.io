@@ -18,9 +18,9 @@ var store = [{
         "teaser": null
       },{
         "title": "Jenkins 설치해보기",
-        "excerpt":"TDD(Test Driven Development)가 좋기는하다. 하지만.. 사실 형상관리는 이미 개발과정에서는 필수요소가 된지 오래다. CI를 단순히 ‘손쉬운 형상관리 + 자동 배포’로만 인식하면 이전과 크게 다를바 없어 보이지만, 테스트 자동화의 관점에서 보면 TDD가 가지고 있던 단점들을 어느정도 해결해준다. 일반적으로 TDD는 유닛테스트 기반으로, 우리가 학부시절에 코딩하던 수준이 아닌 production level에서 볼 수 있는 엄청난...","categories": ["Tools"],
-        "tags": ["Tools","Jenkins","CI/CD","형상관리"],
-        "url": "http://localhost:4000/tools/jenkins/",
+        "excerpt":"TDD(Test Driven Development)가 좋기는하다. 하지만.. 사실 형상관리는 이미 개발과정에서는 필수요소가 된지 오래다. CI를 단순히 ‘손쉬운 형상관리 + 자동 배포’로만 인식하면 이전과 크게 다를바 없어 보이지만, 테스트 자동화의 관점에서 보면 TDD가 가지고 있던 단점들을 어느정도 해결해준다. 일반적으로 TDD는 유닛테스트 기반으로, 우리가 학부시절에 코딩하던 수준이 아닌 production level에서 볼 수 있는 엄청난...","categories": ["Backend"],
+        "tags": ["Backend","Jenkins","CI/CD","형상관리"],
+        "url": "http://localhost:4000/backend/jenkins/",
         "teaser": null
       },{
         "title": "맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자",
@@ -276,14 +276,20 @@ var store = [{
         "teaser": null
       },{
         "title": "n을 이용하여 Nodejs 버전 간단하게 변경하기",
-        "excerpt":"n n은 npm에서 제공하는 Nodejs 버전 관리용 패키지로, 이전까지는 nvm이 더욱 많이 사용되었다. 하지만 최근에는 n을 이용한 버전관리가 훨씬 많이 사용되는데, 이는 극도의 간편함 때문이라고 볼 수 있다. https://www.npmjs.com/package/n 설치 방법 $ sudo npm install -g n $ n --version # n의 버전을 확인할 수 있다. 사용 방법 n stable...","categories": ["Tools"],
-        "tags": ["Tools","Nodejs","npm","n"],
-        "url": "http://localhost:4000/tools/nodeversionchange/",
+        "excerpt":"n n은 npm에서 제공하는 Nodejs 버전 관리용 패키지로, 이전까지는 nvm이 더욱 많이 사용되었다. 하지만 최근에는 n을 이용한 버전관리가 훨씬 많이 사용되는데, 이는 극도의 간편함 때문이라고 볼 수 있다. https://www.npmjs.com/package/n 설치 방법 $ sudo npm install -g n $ n --version # n의 버전을 확인할 수 있다. 사용 방법 n stable...","categories": ["Backend"],
+        "tags": ["Backend","Nodejs","npm","n"],
+        "url": "http://localhost:4000/backend/nodeversionchange/",
         "teaser": null
       },{
         "title": "JPA를 이용하여 Postgresql에 접속하기",
         "excerpt":"JPA(Java Persistence API) JPA에 대해서 간략하지만 자세하게 분석해놓은 글은 ‘JPA란? - 권희정‘을 참조하자. 간략하게 설명하면, 어플리케이션과 JDBC 사이에서 동작하는 ORM 기술 표준을 의미한다. 그렇다면 ORM(Object Relational Mapping)은 무엇일까? ORM은 객체와 테이블을 매핑해서 패러다임의 불일치를 개발자 대신 해결해주는 역할을 한다. &lt;그림 1: JPA에 대한 간략한 구성도 - 출처 : Gitbook&gt; Postgresql...","categories": ["Backend"],
         "tags": ["Backend","Web3j","Database","JPA","Postgresql"],
         "url": "http://localhost:4000/backend/jpa/",
+        "teaser": null
+      },{
+        "title": "[📝 GoQuorum Docs] Architecture",
+        "excerpt":"GoQuorum에 대한 High-level 구조도 &lt;그림 1: High-level 구조로 보는 GoQuorum&gt; Geth와 GoQuorum 간의 관계 ‘Geth에 대하여 포스팅한 내용‘이 있으므로, 이를 참조하면 좋다. Geth는 Go Ethereum의 약자로, 이더리움에서 스마트컨트랙트를 호출할 수 있도록 하는 공식 클라이언트 어플리케이션 중 하나를 말한다. GoQuorum은 기본적으로 Geth의 성질을 따라가지만, 이더리움의 Public한 환경이 아닌 Private한 네트워크를 구성하므로...","categories": ["Quorum"],
+        "tags": ["Quorum","Blockchain"],
+        "url": "http://localhost:4000/quorum/architecture/",
         "teaser": null
       }]

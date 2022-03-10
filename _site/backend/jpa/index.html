@@ -360,13 +360,15 @@
   <label for="ac-toc">카테고리 Click</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">48</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">49</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
       </li>
       <li>
         <!-- 개발 -->
         <span class="nav__sub-title">개발</span>
             <!-- 개발/Algorithm -->
             <ul>
+                
+                    
                 
                     
                 
@@ -403,7 +405,7 @@
                     
                 
                     
-                
+                        <li><a href="/categories/backend" class="">Backend (3)</a></li>
                     
                 
                     
@@ -421,12 +423,16 @@
                     
                 
                     
-                        <li><a href="/categories/backend" class="">Backend (1)</a></li>
+                
+                    
+                
                     
                 
             </ul>
             <!-- 개발/Blockchain -->
             <ul>
+                
+                    
                 
                     
                 
@@ -455,7 +461,7 @@
                     
                 
             </ul>
-            <!-- 개발/Ethereum -->
+            <!-- 개발/Blockchain/Ethereum -->
             <ul>
                 
                     
@@ -469,7 +475,9 @@
                     
                 
                     
-                        <li><a href="/categories/ethereum" class="">Ethereum (9)</a></li>
+                
+                    
+                        <li><a href="/categories/ethereum" class="">ㄴ Ethereum (9)</a></li>
                     
                 
                     
@@ -485,12 +493,10 @@
                     
                 
             </ul>
-            <!-- 개발/Hyperledger -->
+            <!-- 개발/Blockchain/Hyperledger -->
             <ul>
                 
                     
-                        <li><a href="/categories/hyperledger" class="">Hyperledger (3)</a></li>
-                    
                 
                     
                 
@@ -512,11 +518,47 @@
                 
                     
                 
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain/Quorum -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/quorum" class="">ㄴ Quorum (1)</a></li>
                     
                 
             </ul>
             <!-- 개발/Kubernetes -->
             <ul>
+                
+                    
                 
                     
                 
@@ -565,6 +607,8 @@
                     
                 
                     
+                
+                    
                         <li><a href="/categories/network" class="">Network (1)</a></li>
                     
                 
@@ -577,6 +621,8 @@
             </ul>
             <!-- 개발/System Design -->
             <ul>
+                
+                    
                 
                     
                 
@@ -613,7 +659,9 @@
                     
                 
                     
-                        <li><a href="/categories/tools" class="">개발 도구 (7)</a></li>
+                
+                    
+                        <li><a href="/categories/tools" class="">개발 도구 (5)</a></li>
                     
                 
                     
@@ -639,6 +687,8 @@
         <span class="nav__sub-title">일상</span>
             <!-- 일상/잡학다식 -->
             <ul>
+                
+                    
                 
                     
                 
@@ -691,6 +741,8 @@
                     
                 
                     
+                
+                    
                         <li><a href="/categories/review" class="">후기 (1)</a></li>
                     
                 
@@ -704,6 +756,8 @@
                 
                     
                         <li><a href="/categories/retrospect" class="">회고 (2)</a></li>
+                    
+                
                     
                 
                     
@@ -960,12 +1014,12 @@
 
 <p>Postgresql에 접속할 것이기 때문에, 이를 선택한다.</p>
 
-<p><img src="images/jpa-1.png" alt="image" />
+<p><img src="https://user-images.githubusercontent.com/39115630/157146573-6438d038-320b-4d3a-abf9-bff58c22ee2f.png" alt="image" />
 <em>&lt;그림 2: Postgresql 선택&gt;</em></p>
 
 <p>네트워크 접속 정보를 작성한다.</p>
 
-<p><img src="images/jpa-2.png" alt="image" />
+<p><img src="https://user-images.githubusercontent.com/39115630/157146503-860ce5a7-2b6b-4744-95b4-ec3c3d295cc3.png" alt="image" />
 <em>&lt;그림 3: 접속할 데이터베이스 네트워크 설정&gt;</em></p>
 <ul>
   <li>Host : 우리는 로컬호스트에 데이터베이스를 구축하였기 때문에, 해당 주소를 넣어준다.</li>
@@ -1063,7 +1117,7 @@ pom.xml의 업데이트 완료 후, mvn을 다시 install해주는 것을 잊지
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><img src="images/jpa-3.png" alt="image" />
+<p><img src="https://user-images.githubusercontent.com/39115630/157146635-766dbe6a-42a5-4839-9204-748d2d6888fa.png" alt="image" />
 <em>&lt;그림 4: JpaRepository를 통해 Override 할 수 있는 다양한 기능들&gt;</em></p>
 
 <h4 id="23-service">2.3. Service</h4>
@@ -1141,11 +1195,12 @@ pom.xml의 업데이트 완료 후, mvn을 다시 install해주는 것을 잊지
 
   <nav class="pagination">
     
-      <a href="/tools/nodeversionchange/" class="pagination--pager" title="n을 이용하여 Nodejs 버전 간단하게 변경하기
+      <a href="/backend/nodeversionchange/" class="pagination--pager" title="n을 이용하여 Nodejs 버전 간단하게 변경하기
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/quorum/architecture/" class="pagination--pager" title="[📝 GoQuorum Docs] Architecture
+">다음</a>
     
   </nav>
 
@@ -1163,8 +1218,14 @@ pom.xml의 업데이트 완료 후, mvn을 다시 install해주는 것을 잊지
 
 
 
-  <a href="#" class="pagination_prev_next--pager disabled-first-child">첫 번째 글입니다</a>
-  <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
+  <nav class="pagination_prev_next">
+    
+      <a href="/backend/nodeversionchange/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>n을 이용하여 Nodejs 버전 간단하게 변경하기</a>
+    
+    
+      <a href="#" class="pagination_prev_next--pager disabled-last-child ">가장 최근 글입니다</a>
+    
+  </nav>
 
 
 
