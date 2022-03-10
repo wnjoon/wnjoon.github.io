@@ -38,7 +38,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Ethereum" %}
-                        <li><a href="/categories/ethereum" class="">ㄴ Ethereum ({{category[1].size}})</a></li>
+                        <li><a href="/categories/ethereum" class=""> - Ethereum ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -46,7 +46,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Hyperledger" %}
-                        <li><a href="/categories/hyperledger" class="">ㄴ Hyperledger ({{category[1].size}})</a></li>
+                        <li><a href="/categories/hyperledger" class=""> - Hyperledger ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -54,7 +54,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Quorum" %}
-                        <li><a href="/categories/quorum" class="">ㄴ Quorum ({{category[1].size}})</a></li>
+                        <li><a href="/categories/quorum" class=""> - Quorum ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
