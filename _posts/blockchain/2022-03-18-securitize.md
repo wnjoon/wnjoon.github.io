@@ -33,7 +33,7 @@ last_modified_at: 2022-03-18
 
 ## 발행(Issuance)
 
-![image](images/securitize-issurance.png)  
+![image](https://user-images.githubusercontent.com/39115630/158927013-c520a00f-4e0b-4584-a496-f46bf08dbfe5.png)  
 *<그림 1: 발행 프로세스>*
 
 1. 발행인이 DS 발행 플랫폼 또는 DS App을 이용하여 발행에 필요한 절차를 시작
@@ -45,7 +45,7 @@ last_modified_at: 2022-03-18
 
 ## 배당금 지급(Dividend Issuance)
 
-![image](images/securitize-divissurance.png)  
+![image](https://user-images.githubusercontent.com/39115630/158926929-408ace30-1bd0-43ee-977b-cb0358a24b28.png)    
 *<그림 2: 특정 토큰에 대한 배당금 지급 프로세스>*
 
 1. 발행인은 DS 발행 플랫폼을 통해 배당금 지불을 처리
@@ -59,7 +59,7 @@ last_modified_at: 2022-03-18
 
 ## 투표(Voting Process)
 
-![image](images/securitize-voting.png)  
+![image](https://user-images.githubusercontent.com/39115630/158927110-e8a18b06-ffaf-48f2-87a0-22861b9a4bb4.png)  
 *<그림 3: 투표 프로세스>*
 
 1. 발행인이 투표 이벤트 생성
@@ -78,7 +78,7 @@ last_modified_at: 2022-03-18
 
 ## 매매(Trading DS Tokens)
 
-![image](images/securitize-trading.png)  
+![image](https://user-images.githubusercontent.com/39115630/158927061-b97df837-904e-48d4-901c-72edba9e0608.png)  
 *<그림 4: 매매 프로세스>*
 
 1. 토큰을 구매하고자 하는 구매자 접속
