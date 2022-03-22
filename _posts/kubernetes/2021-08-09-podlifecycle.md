@@ -29,7 +29,7 @@ last_modified_at: 2021-10-21
 
 파드를 갓 생성한 후 해당 파드의 정보를 확인하면, 아래와 같은 여러 상태값들을 확인할 수 있다.
 
-![](images/podlifecycle-1.png)  
+![image](https://user-images.githubusercontent.com/39115630/159387036-078e1caf-60d3-43df-928f-3e41baf38ccb.png)  
 *@그림 1: 파드에 대한 여러 상태 값 - 출처: 강의자료*
 
 - Phase : 파드의 전체 상태 (Pending, Running, Succeeded, Failed, Unknown)
@@ -40,7 +40,7 @@ last_modified_at: 2021-10-21
 
 <br>
 
-![](images/podlifecycle-2.pngpng)  
+![image](https://user-images.githubusercontent.com/39115630/159387089-da4c8cb4-73b4-45c2-a217-81044d9a1803.png)  
 *@그림 2: 파드의 상태에 대한 세부 내용 - 출처: 강의자료*
 
 ### Pending
