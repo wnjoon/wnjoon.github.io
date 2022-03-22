@@ -22,7 +22,7 @@ last_modified_at: 2021-10-16
 
 SSH를 예로 들어보자. ~~물론 개발환경에서도 SSH 적용을 하면 좋을 수 있지만,~~ 개발환경의 성능과 불필요한 귀찮음을 배제하기 위해서라도 사용하지 않는 경우가 많다. 개발환경과 운영환경에서 사용되는 ID, 비밀번호도 다를 것이다. 이러한 환경변수는 쿠버네티스 내 컨테이너 이미지에 들어가는데, 환경마다 컨테이너 이미지를 각자 관리한다는 것은 꽤 번거로운 일이다.
 
-쿠버네티스는 이를 해결하기 위해 ConfigMap과 Secret라는 오브젝트를 제공한다. 각 환경마다 분리해야 하는 일반적인 상수형태의 환경변수(SSH 유무, User ID)를 갖는 오브젝트를 ConfigMap라고 하고,비밀번호 또는 인증서와 같이 조심스러운 데이터를 담는 오브젝트를 Secret이라고 한다.
+쿠버네티스는 이를 해결하기 위해 ConfigMap과 Secret라는 오브젝트를 제공한다. 각 환경마다 분리해야 하는 일반적인 상수형태의 환경변수(SSH 유무, User ID)를 갖는 오브젝트를 ConfigMap라고 하고, 비밀번호 또는 인증서와 같이 조심스러운 데이터를 담는 오브젝트를 Secret이라고 한다.
 
 ![](https://kubetm.github.io/img/practice/beginner/ConfigMap,%20Secret%20with%20Literal,%20File%20on%20Env,%20Mount%20for%20Kubernetes.jpg)  
 *@그림 1: ConfigMap, Secret을 사용하는 간단한 예시 - 출처: 강의자료*
