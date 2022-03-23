@@ -23,7 +23,7 @@ last_modified_at: 2021-10-21
 
 파드 생성 과정과 생성된 파드의 운영 모두의 과정에서 발생할 수 있는 트래픽 장애를 방지하기 위한 방법으로, 파드 생성 시 꼭 필요한 요소이다.
 
-![image](images/readlive-1.png)  
+![image](https://user-images.githubusercontent.com/39115630/159629757-ff865741-f7f8-410c-9c4d-154fb9484eb9.png)  
 *@그림 1: ReadinessProbe와 LivenessProbe에 대한 간략한 설명 - 출처: 강의자료*
 
 파드가 이미지를 정상적으로 다운로드하면 Running 상태가 되지만, 아래에 있는 Probe를 정상적으로 완료하지 않으면 ContainerReady 상태를 갖게 된다. Probe가 완료되기 전에는 파드가 정상적으로 생성되더라도 해당 파드로 트래픽이 전달되지 않는다.
