@@ -55,7 +55,8 @@ last_modified_at: 2021-10-21
 > 동일한 App(Memory 4G)을 기준으로,  
 > - PodA : Request(Memory 5G)  
 > - PodB : Request(Memory 8G)
-> 라고 한다면, PodA = 75%, PodB = 50%의 OOM 값을 갖는다.  
+> 라고 한다면, PodA = 75%, PodB = 50%의 OOM 값을 갖는다.   
+>  
 > 그러므로, PodA가 먼저 삭제된다.
 
 ### BestEffort
