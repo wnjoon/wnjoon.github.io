@@ -25,7 +25,7 @@ last_modified_at: 2021-10-21
 하지만 자원의 상태 외에도 파드를 특정 노드에 설치해야 하는 이유가 존재할 수 있다. 예를 들어 클라우드 서버의 Region을 묶어야 할 수도 있고, 하나의 기능을 같이 수행하는 파드를 같은 서버에 배치해야 할 수도 있다. 또는 실제 업무에 사용되는 파드와 백업용으로 사용하는 파드를 서로 다른 노드에 분리배치해야 할수도 있다.  
 이러한 여러 정책을 관리하기 위해 쿠버네티스에서는 Node Scheduling 방식을 제공하고 있다.
 
-![image](images/nodescheduling-1.png)    
+![image](https://user-images.githubusercontent.com/39115630/160231603-69621f1e-09de-4843-9a6e-cd3621dc088a.png)  
 *@그림 1: 노드 스케쥴링 방식에 대한 전체적인 개요 - 출처: 강의자료*
 
 <br>
@@ -47,7 +47,7 @@ last_modified_at: 2021-10-21
 파드에 명시되어 있는 라벨 값과 동일한 라벨을 갖는 노드에 파드를 생성하지만, 그 범위가 조금 여유롭다.  
 모든 라벨이 정확하게 일치하지 않아도 정책에 따라 노드를 선택하며, 가장 많이 사용되는 방식이다.
 
-![image](images/nodescheduling-2.png)    
+![image](https://user-images.githubusercontent.com/39115630/160231621-dd0932ac-e8e8-406e-be08-1c4a9dc5bc40.png)  
 *@그림 2 : Node Affinity 사용 예시 - 출처: 강의자료*
 
 - matchExpressions : 명시된 key값에 해당하는 라벨을 갖는 파드를 operator에 작성된 옵션에 따라 생성할지 여부를 결정하는 방식이다. operator는 총 6개의 종류가 있다.  
@@ -109,7 +109,7 @@ spec:
 
 ## Pod간 집중/분산
 
-![image](images/nodescheduling-2.png)    
+![image](https://user-images.githubusercontent.com/39115630/160231628-f91b8ab3-0710-4129-98fe-001f81aa9426.png)  
 *@그림 3 : Pod Affinity 및 Anti Affinity 사용 예시 - 출처: 강의자료*
 
 ### Pod Affinity
@@ -174,7 +174,7 @@ spec:
 
 ## Node에 할당제한
 
-![image](images/nodescheduling-2.png)    
+![image](https://user-images.githubusercontent.com/39115630/160231652-5a675260-9903-4361-99cd-3bedd2856aaf.png)  
 *@그림 4 : Taint 및 Toleration 사용 예시 - 출처: 강의자료*
 
 ### Taint
