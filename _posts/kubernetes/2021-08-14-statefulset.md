@@ -1,6 +1,6 @@
 ---
 title:  "[🧑‍🏫 강의 정리] Controller - StatefulSet" 
-excerpt: ""
+excerpt: "데이터베이스와 같이 각 파드가 서로 다른 상태를 갖고 있는 StatefulSet에 대해서 알아본다."
 
 categories:
   -  Kubernetes
