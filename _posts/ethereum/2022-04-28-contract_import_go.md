@@ -150,7 +150,7 @@ truffle run 기능을 이용한다. 여기서 abi 파일은 위의 배포 과정
 # 본 예시에서는 UniversalToken 내부에서 아래 명령어를 실행한다.
 
 # 디렉토리 생성
-mkdir -p abigenBinding
+$ mkdir -p abigenBinding
 
 # abi, bin 생성
 # 1. ERC1400
