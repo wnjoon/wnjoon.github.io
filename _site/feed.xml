@@ -1,4 +1,466 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-10T11:49:54+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 </name></author><entry><title type="html">[📝 GoQuorum Docs] Architecture</title><link href="http://localhost:4000/quorum/architecture/" rel="alternate" type="text/html" title="[📝 GoQuorum Docs] Architecture" /><published>2022-03-10T00:00:00+09:00</published><updated>2022-03-10T00:00:00+09:00</updated><id>http://localhost:4000/quorum/architecture</id><content type="html" xml:base="http://localhost:4000/quorum/architecture/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-29T08:17:55+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>최대한 많이 기억하기 위해 기록하는 장소</subtitle><author><name>글쓰는 개발자 </name></author><entry><title type="html">이더리움 스마트 컨트랙트를 Go에 바인딩(Binding)하기</title><link href="http://localhost:4000/ethereum/contract_import_go/" rel="alternate" type="text/html" title="이더리움 스마트 컨트랙트를 Go에 바인딩(Binding)하기" /><published>2022-04-28T00:00:00+09:00</published><updated>2022-04-28T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/contract_import_go</id><content type="html" xml:base="http://localhost:4000/ethereum/contract_import_go/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;go를-이용한-이더리움-개발&quot;&gt;Go를 이용한 이더리움 개발&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://goethereumbook.org&quot;&gt;Ethereum Development with Go&lt;/a&gt;에는 Golang을 이용해서 이더리움 클라이언트를 개발하는 방법에 대해 알려주고 있다. 가장 대중적으로 사용되는 방식이 JavaScript이지만, 개인적으로 이더리움의 Geth가 그러했듯이 Go를 이용하여 이더리움의 클라이언트를 개발하는 것은 마치 &lt;u&gt;태생적으로 딱 맞게 세팅된 옷을 입는 행위&lt;/u&gt;와 같다고 생각이 된다.&lt;br /&gt;
+무튼 이러한 이유로 Java를 이용한 Web3j가 아닌 Go를 이용한 클라이언트 개발을 진행해보려고 하는데, 문제점(?)이 발생하였고 이를 해결하는 과정을 공유해보고자 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;sol---jsonabi---go&quot;&gt;.sol -&amp;gt; .json(abi) -&amp;gt; .go&lt;/h2&gt;
+
+&lt;p&gt;스마트 컨트랙트를 컴파일하는 과정에서 생성되는 Json 형태의 ABI를 바로 사용하는 Web3js와 다르게, Web3j나 본 포스팅에서 사용하고자 하는 Go와 같이 컴파일 기반의 언어는 스마트 컨트랙트를 해당 언어로 ‘변경’하는 작업이 필요하다. 이를 Web3j에서는 WrapperClass, Golang에서는 Binding이라고 표현한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://docs.soliditylang.org/en/develop/abi-spec.html&quot;&gt;ABI(Application Binary Interface)&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;The Contract Application Binary Interface (ABI) is the standard way to interact with contracts in the Ethereum ecosystem, both from outside the blockchain and for contract-to-contract interaction. Data is encoded according to its type, as described in this specification. The encoding is not self describing and thus requires a schema in order to decode.&lt;/p&gt;
+
+  &lt;p&gt;결국 ‘스마트 컨트랙트의 호출 방법과 이를 통해 어떤 데이터를 결과로 받을지에 대해 명시한 내용’으로, 컴파일 과정에서 생성된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Web3j도 이 과정이 생각보다 복잡+불편했는데, 상대적으로 적은(매우) 사용자수와 이를 뒷받침하는 적은 레퍼런스 떄문이었다. 문제는 생각보다 사용자 수가 많을 것으로 예상했던 Golang치고 이 과정에 대한 레퍼런스가 매우 부족했다는 것이다.&lt;br /&gt;
+&lt;a href=&quot;https://goethereumbook.org&quot;&gt;Ethereum Development with Go&lt;/a&gt;의 &lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt;에서는 이 과정에 대해 자세히 설명하고 있는데, 결론적으로 말하자면 &lt;u&gt;안된다&lt;/u&gt;. 단순히 안된다고하면 그렇고, 이번에 내가 테스트하려는 스마트 컨트랙트를 기준으로 실행이 되지 않았는데 이 과정에 대해 설명해본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;openzepellin을-참조하지-못하는-문제-발생&quot;&gt;Openzepellin을 참조하지 못하는 문제 발생&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt;에서는 solc를 이용하여 직접 컨트랙트를 컴파일하고 있는데, 여기서 사용하는 예시 컨트랙트는 &lt;strong&gt;‘아무것도 import하지 않고 오직 혼자서만 동작’&lt;/strong&gt;하고 있다.&lt;/p&gt;
+
+&lt;p&gt;필자는 &lt;a href=&quot;https://github.com/ConsenSys/UniversalToken&quot;&gt;Consensys - UniversalToken&lt;/a&gt; 기반의 ST(Security Token - 증권형 토큰)를 테스트해보려고 하는데, ERC1400 뿐만 아니라 여기서 사용되는 대부분의 기능들이 &lt;a href=&quot;https://github.com/OpenZeppelin/openzeppelin-contracts&quot;&gt;Openzepellin&lt;/a&gt; 기반에서 동작한다.&lt;/p&gt;
+
+&lt;p&gt;먼저 package.json 파일과 truffle-config.js 파일의 내용을 기반으로 node_modules를 만들어주었다. 이후 &lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt; 문서에 나온대로 스마트 컨트랙트 파일(.sol)을 ABI 형태로 변환하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/165697006-0dc2e2b6-15d3-4ba0-bafa-40445faa035b.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 1: solc –abi contracts/ERC1400.sol -o build ==&amp;gt; 오류 발생&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림과 같이 Openzepellin에 대한 내용이 node_modules에 버젓이 있음에도 컴파일이 전혀 되지 않았다. 문서에 있는 내용 중 1단계부터 막혀버려서 멘붕이었는데, 이를 아무리 구글링해도 원하는 답변을 찾기 어려웠다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.metachris.com/2021/05/creating-go-bindings-for-ethereum-smart-contracts/#smart-contracts-with-truffle&quot;&gt;Creating Go Bindings for Ethereum Smart Contracts&lt;/a&gt;에서 정확한 답을 찾아서 이를 직접 적용해보고 결과를 포스팅해보고자 한다.&lt;/p&gt;
+
+&lt;p&gt;참고로 이번 포스팅에서 사용한 스마트 컨트랙트는 위에서 언급한 &lt;a href=&quot;https://github.com/ConsenSys/UniversalToken&quot;&gt;Consensys - UniversalToken&lt;/a&gt;으로, 디렉토리 또는 파일의 구조가 위의 리포지토리를 기반으로 진행한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-abigen-확인&quot;&gt;1. abigen 확인&lt;/h3&gt;
+
+&lt;p&gt;참고로 abigen을 이용하려면 go-ethereum을 설치해야만 한다.&lt;/p&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Download go-ethereum, build and install the devtools (which includes abigen)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/ethereum/go-ethereum.git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;go-ethereum
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make devtools
+
+&lt;span class=&quot;c&quot;&gt;# Run abigen and print the version&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;abigen &lt;span class=&quot;nt&quot;&gt;-version&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;abigen &lt;span class=&quot;nt&quot;&gt;-help&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-truffle을-이용한-스마트컨트랙트-배포&quot;&gt;2. truffle을 이용한 스마트컨트랙트 배포&lt;/h3&gt;
+
+&lt;p&gt;필자는 truffle을 이용하여 스마트컨트랙트를 배포하였다. &lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt; 문서에 나와있는데로 solc를 이용하여 Openzepellin의 참조를 걸어주는 방법(&lt;a href=&quot;https://docs.soliditylang.org/en/v0.8.13/path-resolution.html#import-remapping&quot;&gt;docs.soliditylang.org - Import Remapping&lt;/a&gt;)을 찾았지만, 실제로 해본 결과 제대로 동작하지 않았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.1. @chainsafe/truffle-plugin-abigen 설치&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;truffle 기반으로 만들어진 스마트컨트랙트 디렉토리에서 해당 모듈을 설치한다. 혹은 package.json에 이를 추가한다.&lt;br /&gt;
+아래 내용은 @openzeppelin/contracts가 이미 설치되어있다는 가정아래에 진행한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;yarn add truffle @chainsafe/truffle-plugin-abigen
+
+&lt;span class=&quot;c&quot;&gt;# 만약 @openzeppelin/contracts 또한 설치되어 있지 않다면&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# $ yarn add truffle @openzeppelin/contracts @chainsafe/truffle-plugin-abigen&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2.2. truffle-config.js 수정&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;truffle-config.js의 plugins에 위에서 설치한 모듈을 추가한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// truffle-config.js&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;solidity-coverage&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;truffle-contract-size&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;truffle-plugin-verify&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@chainsafe/truffle-plugin-abigen&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 추가&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;compilers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;solc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;0.8.7&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// Fetch exact version from solc-bin (default: truffle's version)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2.3. 컨트랙트 배포&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;필자는 ganache를 이용하여 네트워크를 구성하였고, 이곳에 해당 컨트랙트를 배포하였다. 추가로 ERC20을 직접 테스트해보기 위해 migrations 내부에 ‘13_erc20_token.js’ 파일을 추가로 생성하였다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// migrations/13_erc20_token.js&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ERC20Token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;artifacts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./tokens/ERC20Token.sol&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;deployer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;network&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;accounts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;network&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// test maintains own contracts&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;deployer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ERC20Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ERC20Token&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;GEN&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;   &amp;gt; ERC20 token deployment: Success --&amp;gt;&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ERC20Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이제 migrations에 적혀있던 기존 내용 + erc20을 ganache에 배포한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;truffle migrate &lt;span class=&quot;nt&quot;&gt;--network&lt;/span&gt; ganache
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;build/contracts에 해당 내용들이 생성된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.4. abi, bin 파일 생성&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;truffle run 기능을 이용한다. 여기서 abi 파일은 위의 배포 과정에서 build/contracts 내부에 생성된 json 파일을 기준으로 생성되고, bin 파일은 이렇게 만들어진 abi를 기준으로 생성된다. 즉, 배포(또는 컴파일) 과정이 꼭 먼저 선행되어야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# abi, bin 파일을 저장할 디렉토리가 필요하다.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 이 디렉토리는 이름이 정해져 있으므로, 아래 명령어를 실행하는 곳에 생성한다.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 본 예시에서는 UniversalToken 내부에서 아래 명령어를 실행한다.&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 디렉토리 생성&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; abigenBinding
+
+&lt;span class=&quot;c&quot;&gt;# abi, bin 생성&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 1. ERC1400&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;truffle run abigen ERC1400
+&lt;span class=&quot;c&quot;&gt;# 2. ERC20&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;truffle run abigen ERC20Token
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;truffle run abigen은 build/contracts에 생성된 파일을 기본값으로 확인하기 때문에, 확장자 없이 파일이름만 가지고 abi, bin을 생성한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.5. abi, bin을 이용한 go 파일 생성&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;필자의 경우 UniversalToken/go 아래에 해당 파일을 생성하도록 하였다. 해당 파일을 클라이언트에 옮기는 과정은 본 포스팅에서는 제외한다.&lt;br /&gt;
+–pkg의 경우 go 프로젝트 내에서 사용할 패키지를 담는 곳이다. 필자는 token 내에 바인딩 된 파일을 놓을 계획이라 아래와 같이 진행하였다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# UniversalToken 디렉토리 내에서 실행하였음
+
+# 1. ERC1400
+$ abigen --bin=abigenBindings/bin/ERC1400.bin --abi=abigenBindings/abi/ERC1400.abi --pkg=token --out=go/erc1400.go
+
+# 2. ERC20
+$ abigen --bin=abigenBindings/bin/ERC20Token.bin --abi=abigenBindings/abi/ERC20Token.abi --pkg=token --out=go/erc20.go
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;결론&quot;&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;결론이라 할것은 없지만, truffle을 이용하여 배포된 컨트랙트를 go client에서 사용할 수 있는 .go 파일로 바인딩하는 방법에 대해 알 수 있어서 좋았다. 지극히 개인적인 의견으로 javaScript 보다는 golang을 이용한 클라이언트가 속도면에서도 더 좋을것으로 기대중이지만, 아마 javaScript만이 가지는 프론트엔트와의 직관적인 연결로 대부분 javaScript를 사용하지 않나 생각한다. 향후에는 golang 기반의 클라이언트로 해당 토큰을 호출해보고 이를 포스팅해보도록 하겠다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.metachris.com/2021/05/creating-go-bindings-for-ethereum-smart-contracts/#smart-contracts-with-truffle&quot;&gt;Creating Go Bindings for Ethereum Smart Contracts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="geth" /><category term="Golang" /><summary type="html">Truffle을 이용하여 컨트랙트를 컴파일하고, 이를 Golang에서 사용할 수 있도록 바인딩해본다.</summary></entry><entry><title type="html">[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture</title><link href="http://localhost:4000/blockchain/kycwithscpaper/" rel="alternate" type="text/html" title="[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture" /><published>2022-04-05T00:00:00+09:00</published><updated>2022-04-05T00:00:00+09:00</updated><id>http://localhost:4000/blockchain/kycwithscpaper</id><content type="html" xml:base="http://localhost:4000/blockchain/kycwithscpaper/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;📒 본 포스팅은 Nikolaos Kapsoulis 외 5명이 작성한 Article ‘&lt;a href=&quot;https://www.researchgate.net/publication/339477911_Know_Your_Customer_KYC_Implementation_with_Smart_Contracts_on_a_Privacy-Oriented_Decentralized_Architecture&quot;&gt;Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture&lt;/a&gt;’ 내용을 학습한 후 작성하였습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;연구-주제&quot;&gt;연구 주제&lt;/h2&gt;
+
+&lt;p&gt;암호화폐, 콘텐츠 제작 등 다양한 분야에서 블록체인이 활용되면서, 블록체인 내에서 사용자의 신원을 증명할 수 있는 방법에 대한 연구가 지속되고 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://news.einfomax.co.kr/news/articleView.html?idxno=4086440&quot;&gt;KYC(Know Your Customer)&lt;/a&gt;는 대표적인 신원 관리 방식으로, 금융 기관을 비롯한 다양한 조직에서의 자금 세탁 방지를 위한 근간을 제공한다. 이에 블록체인이 계속해서 금융 기술과 연관성을 가질수록, KYC 프로세스를 적용하기 위한 다양한 노력 및 접근 방법이 필요하다. 이에 &lt;u&gt;블록체인을 통해 분산화 된 환경에서 실행할 수 있는 효율적인 KYC 프로세스를 설계하고, 이를 위해 Quorum 블록체인 환경 내에 IPFS(InterPlanetary File System)을 사용하는 아키텍처를 설계&lt;/u&gt;한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;bloomen-프로젝트&quot;&gt;&lt;a href=&quot;http://bloomen.io/&quot;&gt;Bloomen 프로젝트&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;위에서 제시한 검증 방법을 구현한 프로젝트로, 미디어 콘텐츠의 제작과 배포를 위한 디지털 기술 사용의 증가로 인하여 블록체인을 통한 개인 정보 및 저작권 보호 등을 통한 콘텐츠 제작자 보상을 위한 모델을 제공한다. 스마트컨트랙트를 통해 KYC를 구현하고, 중앙 시스템이 아닌 곳에서 사용자 혹은 기타 제3자가 신원을 확인하고 이를 관리하여 ID의 관리 체계를 분산시킨다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;authorization-with-kyc&quot;&gt;Authorization with KYC&lt;/h2&gt;
+
+&lt;p&gt;KYC를 위한 스마트 컨트랙트를 Private/Public 방법으로 구성한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;public : KYC 승인 사용자의 CRUD 트랜잭션 수행&lt;/li&gt;
+  &lt;li&gt;private : IPFS와 같은 저장소로 CRUD 트랜잭션을 제출&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;간략화한-전체-아키텍처&quot;&gt;간략화한 전체 아키텍처&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/161875299-dfadbcbf-5777-4bad-8eeb-d5aeb6906131.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 1: 설계 구조 - 출처: 본문자료&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림은 어플리케이션의 단계별 프로세스를 나타낸 것으로, 전체 시스템의 아키텍처는 블록체인을 중심으로 단순화됨을 볼 수 있다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;사용자(User)는 KYC UI라는 사용자 인터페이스를 통해 KYC 등록 프로세스를 진행한다. 이 과정에서 사용자의 개인 정보(documentation)가 제출된다. 이 과정에서 적절한 정보를 올바르게 전달하는 것은 사용자의 책임이고, 부적절한 사용자를 걸러내는 것은 프로세스에서 진행해야 한다.&lt;/li&gt;
+  &lt;li&gt;작성된 KYC 문서를 IPFS에 저장한다. IPFS는 저장할 데이터의 해시 결과(Content ID - CID)를 저장한다. 향후 해당 데이터에 접근하려면 CID가 필요하다.&lt;/li&gt;
+  &lt;li&gt;블록체인에는 KYC 승인을 받은 사용자를 식별하기 위한 필수 정보 또는 KYC 승인 유효기간만 들어가고, 민감한 개인정보는 포함하지 않는다. 이러한 데이터를 저장하기 위한 블록체인으로 Quorum을 사용한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;ipfs를-이용한-스마트-컨트랙트-구현&quot;&gt;IPFS를 이용한 스마트 컨트랙트 구현&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/161880588-6fa76e69-f41a-42d1-bdbf-eccf4d73c578.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 2: Private 또는 Public 스마트 컨트랙트&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;IPFS에는 모든 사용자 정보를 저장하며, 내부에는 각 사용자의 정보들을 link 형태로 연결하고 있게 된다. 즉 특정 데이터에 접근하기 위해서는 해당 위치의 주소를 알아야 한다. IPFS에 저장된 사용자 정보에 CRUD하기 위한 기능을 Quorum 내에서 private 또는 public 형태의 스마트 컨트랙트로 구현한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Public 스마트 컨트랙트 기능&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;기능 이름&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;설명&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Response&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GetKYCMemberApproval()&lt;/td&gt;
+      &lt;td&gt;- 요청받은 내용에 대한 KYC 정보를 전달&lt;br /&gt;- 사용자의 민감정보를 제외한 최소한의 정보만 포함&lt;br /&gt;- 해당 사용자(회원)의 유효기간 식별&lt;/td&gt;
+      &lt;td&gt;- Address : 사용자 계정 주소&lt;/td&gt;
+      &lt;td&gt;- Date : KYC 승인 유효기간&lt;br /&gt;- String : 자격 승인 엔티티&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;UpdateKYCMember()&lt;/td&gt;
+      &lt;td&gt;- 블록체인에 저장된 KYC 정보 업데이트&lt;br /&gt;- 승인기간이 지난 사용자 또는 악의적인 활동으로 인하여 차단할 사용자 내역 업데이트&lt;/td&gt;
+      &lt;td&gt;- Address : 사용자 계정 주소&lt;br /&gt;- Date : 갱신된 날짜&lt;br /&gt;- String : 자격 승인 엔티티&lt;br /&gt;- String : 관리자 계정 개인키&lt;/td&gt;
+      &lt;td&gt;- 성공 여부 메시지&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CreateKYCMember()&lt;/td&gt;
+      &lt;td&gt;- 새로운 회원 정보를 저장&lt;/td&gt;
+      &lt;td&gt;- Address : 사용자 계정 주소&lt;br /&gt;- Date : 갱신된 날짜&lt;br /&gt;- String : 자격 승인 엔티티&lt;br /&gt;- Bytes32 : 관리자 계정 개인키&lt;/td&gt;
+      &lt;td&gt;- 성공 여부 메시지&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(QUESTION) 왜 UpdateKYCMember와 CreateKYCMember의 Input에서 관리자 계정 개인키의 타입이 다른걸까? 문서상 오류일 수도 있다고 생각됨&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Private 스마트 컨트랙트 기능&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;평가 또는 업데이트 목적으로 IPFS 내에 저장된 모든 IPFS 문서에 접근할 수 있는 기능을 제공한다. 위에서 언급한것처럼 IPFS에서 사용자의 KYC 문서에 접근하려면 CID가 필요하고, IPFS는 해당 값을 이용하여 특정 권한이 있는 사용자가 자신의 개인 정보에 접근할 수 있도록 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/161882668-fbddcc95-c360-478d-bc7d-8e0f34753d24.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 3: IPFS 내에서 사용되는 CID 기반의 파일 시스템&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이러한 주요 정보인 CID는 Private 스마트 컨트랙트에서 안전하게 저장되며, 특정 권한이 있는 관리자만 해당 파일에 접근하여 사용자의 CID를 선택적으로 반환해줄 수 있어야 한다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;기능 이름&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;설명&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Input&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Response&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GetUserCID()&lt;/td&gt;
+      &lt;td&gt;- KYC 문서가 포함된 경로의 CID를 반환&lt;br /&gt;- 해당 정보에 접근하는 사용자가 이전에(어플리케이션 레벨) 보안 허가를 받은 상태임을 전제로 함&lt;br /&gt;- 본 기능을 사용할 수 있도록 사용자의 해시된 개인키 필요&lt;/td&gt;
+      &lt;td&gt;- String : 사용자 계정 ID&lt;br /&gt;- String : 관리자의 해시된 개인키&lt;/td&gt;
+      &lt;td&gt;- String : 해당 경로의 CID&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CreateUserCID()&lt;/td&gt;
+      &lt;td&gt;- KYC 문서를 IPFS에 저장한 후, 해당 경로의 CID를 블록체인에 저장하는 기능&lt;/td&gt;
+      &lt;td&gt;- String : 사용자 계정 ID&lt;br /&gt;- String : 경로(폴더) CID&lt;br /&gt;- String : 관리자의 해시된 개인키&lt;/td&gt;
+      &lt;td&gt;- 성공 여부 메시지&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;사용-사례&quot;&gt;사용 사례&lt;/h3&gt;
+
+&lt;p&gt;블록체인에 KYC를 적용함에 있어 가장 중요한 부분은 &lt;u&gt;블록체인 네트워크 상에 금융 기록, 가족 상태 등 민감한 사용자 데이터가 공유되지 않는&lt;/u&gt;것이다. 이를 위해 Permissioned 블록체인을 사용하여 사용자의 개인정보를 보호하면서 이들간의 KYC를 스마트 컨트랙트로 구조화하고 캡슐화하여 자동화 처리한다. &lt;br /&gt;
+위에서 언급한 스마트 컨트랙트 기능을 순서대로 나열한 구현 결과는 다음과 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;새로운 사용자가 KYC UI에 자신의 정보를 제공한다.
+    &lt;ul&gt;
+      &lt;li&gt;KYC 문서 업로드&lt;/li&gt;
+      &lt;li&gt;KYC 유효 기간 정의(블록체인 네트워크의 일부가 되는 기간의 만료일)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;관리자 계정이 CreateUserCID()을 호출 -&amp;gt; 사용자 승인 프로세스 진행 -&amp;gt; KYC 문서 IPFS에 저장&lt;/li&gt;
+  &lt;li&gt;GetUserCID()를 통해 CID를 관리자 프로필로 반환(전달) -&amp;gt; 사용자의 블록체인 네트워크 접근 승인&lt;/li&gt;
+  &lt;li&gt;CreateKYCMember()를 통해 신규 회원의 네트워크 정보 생성 및 만료일 설정 -&amp;gt; 블록체인에 해당 내역 저장 -&amp;gt; 사용자에게 네트워크 접근 권한 부여
+    &lt;ul&gt;
+      &lt;li&gt;관리자가 사용자의 정보와 만료 날짜를 식별하려면 GetKYCMemberApproval() 호출
+        &lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;회원의&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;민감하지&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;않은&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;정보는&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;블록체인에&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;저장하고&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;민감한&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;정보는&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IPFS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;에&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;저장&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IPFS&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;의&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;정보는&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;관리자의&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;승인에&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;의해서만&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;접근&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;가능&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registeredMember&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+ &lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberAddr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ &lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;approveEntity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;UpdateKYCMember()는 회원의 유효성 검증 기간을 갱신하는 기능으로, 위 구조에서의 time 또는 approveEntity 필드의 업데이트를 통해 기간 갱신 혹은 비허가된 접근을 수행하는 회원을 차단한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;결론&quot;&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;블록체인에 저장된 데이터는 변경될 수 없다는 특징 때문에, 블록체인에서 사용자의 개인정보를 처리하도록 설계하는 부분은 항상 중요한 점이다. 이를 위해 외부 데이터 저장소에 보관된 데이터를 참조할 수 있는 타임스탬프를 블록체인에 저장하는 방식이 주로 사용된다. 이러한 방식은 향후 데이터가 증가할때마다 외부 저장소에 이를 저장하여 유연하고 확장성있는 시스템 구성이 가능하다는 장점이 있다.&lt;/p&gt;
+
+&lt;p&gt;또는 데이터가 블록체인에 저장되는 시점에 해당 데이터를 추가로 암호화하는 방법이 있다. 하지만 이 떄 사용된 키가 외부로 노출되면 모든 사람이 해당 데이터에 접근할 수 있다는 문제점이 있다. 결국 블록체인이 트랜잭션 데이터를 포함한다는 특징 때문에, 개인 정보를 어떻게 보호할 수 있는지에 대한 검토가 필수적이다.&lt;/p&gt;
+
+&lt;p&gt;본 문서에서는 향후 블록체인에서 계속해서 중요해질 이슈인 KYC를 블록체인 상에 어떠한 모듈과 아키텍처로 구성할 수 있을지에 대한 아이디어를 제시한다. 이를 위해 Permissioned 블록체인의 하나인 Quorum과 IPFS를 연결하여 이를 증명한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.mdpi.com/1999-5903/12/2/41&quot;&gt;Know Your Customer (KYC) Implementation with Smart Contracts on a Privacy-Oriented Decentralized Architecture - by Nikolaos Kapsoulis, Alexandros Psychas , Georgios Palaiokrassas, Achilleas Marinakis, Antonios Litke and Theodora Varvarigou (Electrical and Computer Engineering School, National Technical University of Athens)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://news.einfomax.co.kr/news/articleView.html?idxno=4086440&quot;&gt;시사금융용어: 고객확인절차(KYC) - 연합인포멕스&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://phemex.com/ko/academy/kyc%EB%8A%94-%EB%AC%B4%EC%97%87%EC%9D%B4%EA%B3%A0-%EC%95%94%ED%98%B8%ED%99%94%ED%8F%90%EC%97%90%EC%84%9C-%EC%96%B4%EB%96%A4-%EC%9B%90%EB%A6%AC%EB%A1%9C-%EC%9E%91%EB%8F%99%ED%95%98%EB%82%98%EC%9A%94&quot;&gt;KYC란 무엇이고 암호화폐에서 어떤 원리로 작동하나요? - 성아현&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Blockchain" /><category term="Blockchain" /><category term="STO" /><category term="KYC" /><summary type="html">분산형 구조에서 스마트 컨트랙트 기반의 KYC 적용 사례에 대하여 알아본다.</summary></entry><entry><title type="html">Full 블록체인으로 구성하는 STO 사례 - Securitize</title><link href="http://localhost:4000/blockchain/securitize/" rel="alternate" type="text/html" title="Full 블록체인으로 구성하는 STO 사례 - Securitize" /><published>2022-03-18T00:00:00+09:00</published><updated>2022-03-18T00:00:00+09:00</updated><id>http://localhost:4000/blockchain/securitize</id><content type="html" xml:base="http://localhost:4000/blockchain/securitize/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;증권-거래에서-사용되는-블록체인&quot;&gt;증권 거래에서 사용되는 블록체인&lt;/h2&gt;
+
+&lt;p&gt;증권형 토큰을 발행하는 시스템을 블록체인으로 구성할 경우와 블록체인이 아닌 기존의 시스템으로 구성할 경우, 그리고 블록체인의 적용 범위에 따라 크게 3가지로 구분해볼 수 있다.&lt;br /&gt;
+현재 대부분의 암호화폐 거래소에서는 Hybrid 블록체인 시스템을 적용하고 있다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;블록체인 유무&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;노드&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;설명&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;O&lt;/td&gt;
+      &lt;td&gt;Full 블록체인&lt;/td&gt;
+      &lt;td&gt;- 모든 시스템을 블록체인 기반으로 구축&lt;br /&gt;- STO 전용 토큰을 활용&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;O&lt;/td&gt;
+      &lt;td&gt;Hybrid 블록체인&lt;/td&gt;
+      &lt;td&gt;- 발행, 거래 : 블록체인&lt;br /&gt;- 매매, 원장 : 별도의 시스템에서 관리&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;X&lt;/td&gt;
+      &lt;td&gt;기존의 증권거래 방식&lt;/td&gt;
+      &lt;td&gt;- 현재 증권거래에서 사용되는 중개기관 형태의 시스템&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이 중 본 포스팅에서는 &lt;a href=&quot;https://securitize.io/&quot;&gt;Securitize&lt;/a&gt; 사에서 작성한 자료 ‘&lt;a href=&quot;https://s3.us-east-2.amazonaws.com/securitizemarkets.io/Securitize%E2%80%99s+Digital+Ownership+Architecture+for+Complete+Lifecycle+Management+of+Digital+Securities.pdf&quot;&gt;DS Protocol - Securitize’s Digital Ownership Architecture for Complete Lifecycle Management of Digital Securities : User Journeys&lt;/a&gt;‘를 통해 Full 블록체인으로 STO를 구성할 경우의 발행, 배당금 지급, 투표, 매매 처리에 대한 프로세스를 알아본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;발행issuance&quot;&gt;발행(Issuance)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/158927013-c520a00f-4e0b-4584-a496-f46bf08dbfe5.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 1: 발행 프로세스&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;발행인이 DS 발행 플랫폼 또는 DS App을 이용하여 발행에 필요한 절차를 시작&lt;/li&gt;
+  &lt;li&gt;발행인이 투자자를 모집하고 투자 협약 체결. 이 과정에서 KYC, AML 등의 본인인증 절차가 수행됨&lt;/li&gt;
+  &lt;li&gt;발행인이 Registry Service에 투자자 정보를 등록. 이 과정에서 DS 발행 플랫폼 또는 DS Protocol의 registerinverstor()를 이용하여 블록체인에 내용을 등록&lt;/li&gt;
+  &lt;li&gt;자금 모집이 완료되면, 발행인은 DS 발행 플랫폼을 통해 DS Token을 발행하고 이를 투자자에게 제공&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;배당금-지급dividend-issuance&quot;&gt;배당금 지급(Dividend Issuance)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/158926929-408ace30-1bd0-43ee-977b-cb0358a24b28.png&quot; alt=&quot;image&quot; /&gt;  &lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 2: 특정 토큰에 대한 배당금 지급 프로세스&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;발행인은 DS 발행 플랫폼을 통해 배당금 지불을 처리&lt;/li&gt;
+  &lt;li&gt;DS 발행 플랫폼 내 issueDividends()를 이용하여 배당금을 지급할 대상과 금액을 설정&lt;/li&gt;
+  &lt;li&gt;배당금에 해당하는 토큰 선택&lt;/li&gt;
+  &lt;li&gt;투자자의 전자지갑에 배당금을 입금하고 Register Service 내용 확인 및 조치&lt;/li&gt;
+  &lt;li&gt;투자자에게 전송할 배당금 관련 안내 문구 작성&lt;/li&gt;
+  &lt;li&gt;배당금 관련 안내 문구 전달&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;투표voting-process&quot;&gt;투표(Voting Process)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/158927110-e8a18b06-ffaf-48f2-87a0-22861b9a4bb4.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 3: 투표 프로세스&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;발행인이 투표 이벤트 생성&lt;/li&gt;
+  &lt;li&gt;proposeVote()를 통해 투표 기능 실행&lt;/li&gt;
+  &lt;li&gt;투표 대상 토큰 접근&lt;/li&gt;
+  &lt;li&gt;투자자에게 전송할 투표 안내 문구 작성&lt;/li&gt;
+  &lt;li&gt;투표 안내 문구 전달&lt;/li&gt;
+  &lt;li&gt;투자자들은 vote()를 이용해 투표&lt;/li&gt;
+  &lt;li&gt;투표 기간이 종료되면, 발행인은 투표 마감&lt;/li&gt;
+  &lt;li&gt;closeVote() 기능을 호출하여 DS App에 투표가 마감되었음을 반영&lt;/li&gt;
+  &lt;li&gt;토큰에 결과 입력&lt;/li&gt;
+  &lt;li&gt;투자자에게 투표 결과 공지 준비&lt;/li&gt;
+  &lt;li&gt;투자자에게 투표 결과 공지&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;매매trading-ds-tokens&quot;&gt;매매(Trading DS Tokens)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/158927061-b97df837-904e-48d4-901c-72edba9e0608.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;&amp;lt;그림 4: 매매 프로세스&amp;gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;토큰을 구매하고자 하는 구매자 접속&lt;/li&gt;
+  &lt;li&gt;registerinvestor()을 이용하여 신규 투자자 등록&lt;/li&gt;
+  &lt;li&gt;스마트컨트랙트를 통한 거래 수행&lt;/li&gt;
+  &lt;li&gt;transferFrom 호출 및 토큰 소유자 변경&lt;/li&gt;
+  &lt;li&gt;거래 적정성 유무 검증&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://s3.us-east-2.amazonaws.com/securitizemarkets.io/Securitize%E2%80%99s+Digital+Ownership+Architecture+for+Complete+Lifecycle+Management+of+Digital+Securities.pdf&quot;&gt;DS Protocol - Securitize’s Digital Ownership Architecture for Complete Lifecycle Management of Digital Securities&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Blockchain" /><category term="Blockchain" /><category term="STO" /><summary type="html">증권형 토큰 발행 중 Full 노드 기반의 블록체인으로 구성한 사례를 확인한다</summary></entry><entry><title type="html">[📝 GoQuorum Docs] Architecture</title><link href="http://localhost:4000/quorum/architecture/" rel="alternate" type="text/html" title="[📝 GoQuorum Docs] Architecture" /><published>2022-03-10T00:00:00+09:00</published><updated>2022-03-10T00:00:00+09:00</updated><id>http://localhost:4000/quorum/architecture</id><content type="html" xml:base="http://localhost:4000/quorum/architecture/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;goquorum에-대한-high-level-구조도&quot;&gt;GoQuorum에 대한 High-level 구조도&lt;/h2&gt;
 
@@ -672,544 +1134,4 @@ PoA로 구축한 이더리움 네트워크의 장점을 간단히 정리해보�
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="geth" /><category term="poa" /><summary type="html">geth를 이용하여 PoA 기반의 이더리움 네트워크를 구성하는 방법을 공유한다.</summary></entry><entry><title type="html">Github 리포지토리에 Token 적용하기</title><link href="http://localhost:4000/tools/githubtoken/" rel="alternate" type="text/html" title="Github 리포지토리에 Token 적용하기" /><published>2021-11-17T00:00:00+09:00</published><updated>2021-11-17T00:00:00+09:00</updated><id>http://localhost:4000/tools/githubtoken</id><content type="html" xml:base="http://localhost:4000/tools/githubtoken/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;password---token&quot;&gt;Password -&amp;gt; Token&lt;/h2&gt;
-
-&lt;p&gt;2021년 8월 13일 기준으로 깃헙에서 기존의 패스워드 방식의 인증을 더이상 사용하지 않고 토큰을 이용하여 사용자를 인증하겠다고 발표했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/142071463-f8230552-964a-42c8-975d-99034810bfbf.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이미 필자는 토큰 방식으로 변경해놓은 상태이지만, 오늘 만료기간이 지나 토큰을 재생성해야 하는 상황이 생겼고 이를 기록으로 남겨놓으면 좋을 것 같다고 생각하여 글을 작성한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;토큰-생성&quot;&gt;토큰 생성&lt;/h2&gt;
-
-&lt;p&gt;토큰을 생성하는 방법에 대해서는 여러 포스팅들이 존재하고 있으며, 이 중 한곳을 아래에 링크로 남겨놓는다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://velog.io/@gillog/Github-MacOS-Access-Token-인증-방식-변경-적용-방법-remote-Support-for-password-authentication-was-removed-on-August-13-2021&quot;&gt;Access Token 인증 방식 변경 적용 방법 - gil.log&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;참고로 최종 생성된 토큰값은 페이지를 나가면 더이상 확인할 수 없기 때문에 별도의 공간에 잘 보관해야 한다. &lt;em&gt;(물론 잊어버리면 다시 생성하면 그만이지만 귀찮기 때문)&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;토큰-적용&quot;&gt;토큰 적용&lt;/h2&gt;
-
-&lt;p&gt;토큰을 적용하는 방법은 크게 터미널에서 하느냐 vs 운영체제에서 제공하는 프로그램에서 하느냐로 나눌 수 있다. 필자는 맥을 사용하고 있으며 두가지 방법에 대해 모두 기술해보려고 한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;git-config&quot;&gt;git config&lt;/h3&gt;
-
-&lt;p&gt;혹시 git config를 하지 않았다면 미리 터미널에서 본인의 계정과 이메일주소를 등록해준다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;git config –global user.name “본인의 계정명”&lt;/li&gt;
-  &lt;li&gt;git config –global user.email “본인의 깃헙 이메일”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;앞으로는 비밀번호를 물어보는 란에 토큰값을 넣게 되는데, 매번 이를 넣어주는 귀찮음을 해결하고 싶다면 다음과 같이 입력해준다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;git config –global credential.helper cache&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;토큰 값(비밀번호)을 캐시에 넣어주는 과정으로, 이 과정 이후에는 더이상 토큰 값을 물어보지 않는다.&lt;br /&gt;
-캐시를 지우고 싶다면 아래와 같이 입력한다,&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;git config –global –unset credential.helper&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;terminal에서-리포지토리에-토큰-적용하기&quot;&gt;Terminal에서 리포지토리에 토큰 적용하기&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;본인의 git repository 디렉토리에 접근&lt;/li&gt;
-  &lt;li&gt;디렉토리 내 .git 디렉토리 접근&lt;/li&gt;
-  &lt;li&gt;config 파일 편집&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;core]
-  repositoryformatversion &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 0
-  filemode &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
-  &lt;/span&gt;bare &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false
-  &lt;/span&gt;logallrefupdates &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
-  &lt;/span&gt;ignorecase &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
-  &lt;/span&gt;precomposeunicode &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;remote &lt;span class=&quot;s2&quot;&gt;&quot;origin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;c&quot;&gt;#url = xxxxxxxxxxxxxx&lt;/span&gt;
-  fetch &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; +refs/heads/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;:refs/remotes/origin/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;branch &lt;span class=&quot;s2&quot;&gt;&quot;master&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-  remote &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; origin
-  merge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; refs/heads/master
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;remote “origin” 부분의 url을 변경해준다. (기존의 url 앞에 계정명과 토큰값을 넣어준다고 생각하면 된다)&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 기존 url&lt;/span&gt;
-url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; https://github.com/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;본인의 계정&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;리포지토리명&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.git
-
-&lt;span class=&quot;c&quot;&gt;# 변경 url&lt;/span&gt;
-url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; https://&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;본인의 계정&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;:&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;앞에서 생성한 토큰 값&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;@github.com/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;본인의 계정&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;리포지토리명&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;keychain-활용하기-macos&quot;&gt;Keychain 활용하기 (MacOS)&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Keychain 실행&lt;/li&gt;
-  &lt;li&gt;github 검색&lt;/li&gt;
-  &lt;li&gt;등록된 아이디에 해당하는 패스워드를 토큰값으로 변경&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://cpro95.tistory.com/456&quot;&gt;Github Token 깃헙 토큰 설정하기 - 드리프트의 코-자-경&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://velog.io/@gillog/Github-MacOS-Access-Token-인증-방식-변경-적용-방법-remote-Support-for-password-authentication-was-removed-on-August-13-2021&quot;&gt;Access Token 인증 방식 변경 적용 방법 - gil.log&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Tools" /><category term="Tools" /><category term="Github" /><summary type="html">2021년 8월부터 변경된 깃헙의 정책에 따라 리포지토리에 Token을 적용하는 방식을 알아본다.</summary></entry><entry><title type="html">Web3j를 이용하여 ERC20 토큰 다뤄보기</title><link href="http://localhost:4000/ethereum/erc20_using_web3j/" rel="alternate" type="text/html" title="Web3j를 이용하여 ERC20 토큰 다뤄보기" /><published>2021-11-16T00:00:00+09:00</published><updated>2021-11-16T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/erc20_using_web3j</id><content type="html" xml:base="http://localhost:4000/ethereum/erc20_using_web3j/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;web3j란&quot;&gt;Web3j란?&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/141983740-16206a02-c879-424c-9847-d5978699dc79.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 1: Web3j에 대한 간략한 구조 - 출처: docs.web3j&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Web3j는 이더리움 네트워크와 통신하거나 스마트컨트랙트를 배포 및 호출하는 등 전반적인 클라이언트 기능을 구현할 수 있도록 제공하는 자바 기반의 라이브러리이다. 비슷한 종류로 노드기반의 Web3js가 존재한다. 일반적으로 노드 기반의 Web3js가 널리 사용되는데, 웹 기반으로 구성되는 대부분의 이더리움 클라이언트의 성질을 반영한다고 보면 된다.&lt;/p&gt;
-
-&lt;h3 id=&quot;web3j의-특징&quot;&gt;Web3j의 특징&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.web3j.io/4.8.7/&quot;&gt;공식 홈페이지&lt;/a&gt;에서는 아래와 같이 표현한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Complete implementation of &lt;u&gt;Ethereum's JSON-RPC client API over HTTP and IPC&lt;/u&gt;&lt;/li&gt;
-  &lt;li&gt;Ethereum wallet support&lt;/li&gt;
-  &lt;li&gt;&lt;u&gt;Auto-generation of Java smart contract wrappers&lt;/u&gt; to create, deploy, transact with and call smart contracts from native Java code (Solidity and Truffle definition formats supported)&lt;/li&gt;
-  &lt;li&gt;Reactive-functional API for working with filters&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://ens.domains/ko/&quot;&gt;Ethereum Name Service (ENS)&lt;/a&gt; support&lt;/li&gt;
-  &lt;li&gt;Support for OpenEthereum’s Personal, and Geth’s &lt;u&gt;Personal&lt;/u&gt; client APIs&lt;/li&gt;
-  &lt;li&gt;Support for Alchemy and Infura, so you don’t have to run an Ethereum client yourself&lt;/li&gt;
-  &lt;li&gt;Support for &lt;u&gt;ERC20 and ERC721&lt;/u&gt; token standards&lt;/li&gt;
-  &lt;li&gt;Comprehensive integration tests demonstrating a number of the above scenarios&lt;/li&gt;
-  &lt;li&gt;Command line tools&lt;/li&gt;
-  &lt;li&gt;Android compatible&lt;/li&gt;
-  &lt;li&gt;Support for JP Morgan’s Quorum via web3j-quorum&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;왠만한(거의 모든) 이더리움의 기능들을 자바에서 호출할 수 있도록 지원하며, 이번 포스팅에는 Web3j에서 제공하는 ‘스마트 컨트랙트 Wrapper’ 기능을 활용하여 ‘ERC20’ 토큰의 잔액 조회와 타 계정으로의 전송 기능을 구현해보려 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;java-smart-contract-wrappers&quot;&gt;Java smart contract wrappers&lt;/h2&gt;
-
-&lt;p&gt;Web3j는 스마트컨트랙트의 Wrapper 기능을 제공한다. Wrapper는 솔리디티로 구현되어 있는 스마트컨트랙트를 자바 기반으로 변환시켜 Web3j에서 손쉽게 스마트컨트랙트의 기능을 호출할 수 있도록 한다. 물론 Wrapper 없이 직접 스마트컨트랙트를 호출할 수도 있다. 하지만 꽤 많은 소스 길이가 추가되어야 하고, 생각보다 가독성이 좋지 못하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;web3j-cli-설치&quot;&gt;Web3j CLI 설치&lt;/h3&gt;
-
-&lt;p&gt;Web3j에서 사용할 수 있는 Wrapper를 생성하려면 터미널 상에서 명령어를 입력해야 한다. 그러므로 터미널에서 사용 가능한 Web3j를 설치해야 한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; get.web3j.io | sh &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.web3j/source.sh
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;web3j &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;정상적으로 버전이 출력된다면 설치가 완료된 것이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;wrapper-생성&quot;&gt;Wrapper 생성&lt;/h3&gt;
-
-&lt;p&gt;Wrapper는 터미널상에서 생성할 수 있다. 예시로 다음과 같은 환경이라고 가정하자.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Deploy 된 ERC20 스마트컨트랙트(MyERC20.json)의 경로: /Users/joon/Workspace/simpple-nft-market/smartcontract/build/contracts/MyERC20.json&lt;/li&gt;
-  &lt;li&gt;자바 어플리케이션의 main 디렉토리 경로: /Users/joon/Workspace/simpple-nft-market/app/src/main/java&lt;/li&gt;
-  &lt;li&gt;컨트랙트의 패키지 명: com.example.contract&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;위의 내용은 디렉토리의 경로 또는 자바 어플리케이션의 패키지 명에 따라 상이할 수 있다. 이를 기반으로 Wrapper를 생성하면 아래와 같다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;web3j generate truffle 
-&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--truffle-json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/Users/joon/Workspace/simpple-nft-market/smartcontract/build/contracts/MyERC20.json
-&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /Users/joon/Workspace/simpple-nft-market/app/src/main/java
-&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; com.example.contract
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;정상적으로 된다면 자바 어플리케이션의 main 디렉토리 내에 contract라는 패키지로 MyERC20.java 파일이 생성된다. &lt;strong&gt;중요한 점은 향후에 생성된 Wrapper 파일의 내부를 보고자 IDE에서 열기를 누른다면 대부분의 IDE가 멈추는 현상을 보게 될 것이다. 이유는 파일 내부에 존재하는 public static final String BINARY 라는 파일 떄문인데, 만약 내부를 보고싶다면 vi나 메모장 혹은 TextEdit과 같이 가벼운 프로그램을 사용하는 것을 추천한다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;maven-세팅&quot;&gt;Maven 세팅&lt;/h3&gt;
-
-&lt;p&gt;필자는 Maven을 사용하였는데, 아래와 같은 환경으로 구성하였다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Java: 1.8&lt;/li&gt;
-  &lt;li&gt;Web3j(Core): &lt;a href=&quot;https://mvnrepository.com/artifact/org.web3j/core/4.8.8&quot;&gt;4.8.8&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;okhttp: &lt;a href=&quot;https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp/4.9.1&quot;&gt;4.9.1&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;web3j를-통한-erc20-스마트컨트랙트-호출&quot;&gt;Web3j를 통한 ERC20 스마트컨트랙트 호출&lt;/h2&gt;
-
-&lt;h3 id=&quot;기본-구조&quot;&gt;기본 구조&lt;/h3&gt;
-
-&lt;p&gt;Web3j를 이용하여 Wrapper로 만들어진 스마트컨트랙트를 호출할 때 꼭 필요한 요소들이 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Web3j: geth로 띄워져 있는 클라이언트의 주소를 연결한다.&lt;/li&gt;
-  &lt;li&gt;Credentials: 스마트컨트랙트를 호출하는 계정의 개인키를 이용하여 생성해준다.&lt;/li&gt;
-  &lt;li&gt;ContractGasProvider: 스마트컨트랙트 호출에 사용되는 가스비에 대한 값을 정해놓는 부분이다.&lt;/li&gt;
-  &lt;li&gt;FastRawTransactionManager: 스마트컨트랙트 호출에 사용된 트랜잭션에 대한 정보를 담는 부분이다.&lt;/li&gt;
-  &lt;li&gt;ERC20 스마트컨트랙트 주소&lt;/li&gt;
-  &lt;li&gt;체인 ID&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Wrapper를 사용하지 않으면 위의 내용 중 일부가 달라진다. 각각의 차이점은 스마트컨트랙트 호출 부분을 참조하면서 비교해본다.&lt;/p&gt;
-
-&lt;h3 id=&quot;전제-사항&quot;&gt;전제 사항&lt;/h3&gt;
-
-&lt;p&gt;이전 포스팅 &lt;a href=&quot;https://wnjoon.github.io/ethereum/private_network_using_geth/&quot;&gt;‘Geth을 이용한 이더리움 private network 구성하기’&lt;/a&gt;를 통해 구성한 프라이빗 네트워크에서 본 테스트를 진행한다. 기본적으로 로컬 환경에서의 프라이빗 네트워크는 8545번 포트를 사용하는데, 해당 주소를 Web3j 객체롤 매핑하는 작업이 필요하다. 이 작업은 Wrapper를 쓰고 안쓰고와 상관없이 이더리움 네트워크와 연결되어야 하기 때문에 필수적으로 진행된다. 프라이빗 네트워크가 아닌 다른 경우라도 사용 가능하다. (개발 모드 뿐만 아니라 실제 퍼블릭에서도!)&lt;/p&gt;
-
-&lt;h3 id=&quot;잔액-조회balanceof&quot;&gt;잔액 조회(balanceOf)&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-wrapper를-사용한-경우&quot;&gt;1. Wrapper를 사용한 경우&lt;/h4&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;balanceOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x.....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USER_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USER_PRIVATE_KEY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 사용자의 개인키&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_DURATION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_RETRY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// 로컬 환경에서 프라이빗 네트워크를 띄운 상태에서 진행한다.&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://localhost:8545&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;Credentials&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;credential&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Credentials&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER_PRIVATE_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;ContractGasProvider&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gasProvider&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DefaultGasProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;FastRawTransactionManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FastRawTransationManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; 
-                &lt;span class=&quot;n&quot;&gt;credential&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; 
-                &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PollingTransactionReceiptProcessor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_DURATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_RETRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// 위에서 생성한 Wrapper의 이름이 MyERC20이라고 가정한다.&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;MyERC20&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;erc20&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyERC20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gasProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;BigInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;erc20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;balanceOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h4 id=&quot;2-wrapper를-사용하지-않은-경우&quot;&gt;2. Wrapper를 사용하지 않은 경우&lt;/h4&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;balanceOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USER_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x.....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://localhost:8545&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// input parameters&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// output parameters&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TypeReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;returnTypes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TypeReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TypeReferences&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Uint256&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{});&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;Function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;&quot;balanceOf&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;returnTypes&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FunctionEncoder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;EthCall&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ethCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;nc&quot;&gt;Transaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createEthCallTransaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                &lt;span class=&quot;nc&quot;&gt;DefaultBlockParameterName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LATEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendAsync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;results&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FunctionReturnDecoder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getOutputParameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;BigInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;BigInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;언듯 보기에도 Wrapper가 훨씬 간단하고 가독성이 좋다. 일반적으로 Wrapper를 쓰는 것이 더욱 편리하다는 것을 볼 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;자산-전송transfer&quot;&gt;자산 전송(transfer)&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-wrapper를-사용한-경우-1&quot;&gt;1. Wrapper를 사용한 경우&lt;/h4&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;transfer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x.....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// ERC20을 보내는 사용자&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 내가 상대방에게 보내는 상황이다.&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USER_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USER_PRIVATE_KEY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; 
-
-        &lt;span class=&quot;c1&quot;&gt;// ERC20을 받는 사용자&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;RECEIVER_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// 트랜잭션 처리에 대한 변수값 -&amp;gt; 기본적으로 3000, 3을 할당한다.&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 네트워크 상황에 따라 변경가능하다.&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_DURATION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_RETRY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// 이전에 만든 프라이빗 네트워크에서 사용한 CHAIN ID가 필요하다. &lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 트랜잭션을 블록에 작성하는 경우에는 필수적이나, 조회하는 경우에는 써도 되고 안써도 된다.&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CHAIN_ID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;10&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// ERC20 10개를 RECEIVER_ADDRESS에 전송&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// 로컬 환경에서 프라이빗 네트워크를 띄운 상태에서 진행한다.&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://localhost:8545&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;Credentials&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;credential&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Credentials&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER_PRIVATE_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;ContractGasProvider&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gasProvider&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DefaultGasProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;FastRawTransactionManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FastRawTransationManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; 
-                &lt;span class=&quot;n&quot;&gt;credential&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; 
-                &lt;span class=&quot;no&quot;&gt;CHAIN_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PollingTransactionReceiptProcessor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_DURATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_RETRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;MyERC20&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;erc20&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyERC20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gasProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;erc20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;transfer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RECEIVER_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BigInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;2-wrapper를-사용하지-않은-경우-1&quot;&gt;2. Wrapper를 사용하지 않은 경우&lt;/h4&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;transfer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x.....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// 위와 동일&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USER_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;USER_PRIVATE_KEY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; 
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;RECEIVER_ADDRESS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0x....&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_DURATION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_RETRY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CHAIN_ID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;10&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://localhost:8545&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;Credentials&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;credential&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Credentials&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER_PRIVATE_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RECEIVER_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Uint256&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BigInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// output parameters&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TypeReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;returnTypes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Collections&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TypeReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emptyList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;Function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;&quot;transfer&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;returnTypes&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FunctionEncoder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;TransactionReceiptProcessor&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receiptProcessor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PollingTransactionReceiptProcessor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_DURATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TX_END_CHECK_RETRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;TransactionManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RawTransactionManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;web3j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;credential&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CHAIN_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receiptProcessor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;ContractGasProvider&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gasProvider&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DefaultGasProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txHash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendTransaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;gasProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getGasPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;transfer&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;gasProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getGasLimit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;transfer&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                &lt;span class=&quot;no&quot;&gt;ERC20_CONTRACT_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;txData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;nc&quot;&gt;BigInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ZERO&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getTransactionHash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;TransactionReceipt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receipt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receiptProcessor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;waitForTrasactionReceipt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;txHash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;정리&quot;&gt;정리&lt;/h2&gt;
-
-&lt;p&gt;Wrapper를 사용할때와 사용하지 않을때의 소스를 비교해보면, 월등히 Wrapper를 사용할 때가 더 간결하다는 것을 볼 수 있다. 게다가 입력해야 하는 파라미터의 수도 현저히 줄어들기 때문에 실수를 방지하기 위해서라도 Wrapper를 사용하는 것이 바람직할 것으로 보인다.&lt;/p&gt;
-
-&lt;p&gt;단, Web3j의 버전이 낮은 경우 Wrapper를 열심히 만들어도 적용이 되지 않는 경우가 있다. 꼭 최신 버전으로 유지하는 것을 권장한다. 다음번 포스팅에서는 ERC721에 대한 여러가지 스마트컨트랙트 기능을 Web3j로 구현해본다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://geth.ethereum.org/docs/interface/private-network&quot;&gt;Geth - Private network&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.web3j.io/4.8.7/&quot;&gt;web3j - docs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="web3j" /><category term="java" /><summary type="html">Java 기반의 이더리움 클라이언트 라이브러리 'web3j'를 이용하여 ERC20 토큰의 기본 기능을 다뤄본다.</summary></entry><entry><title type="html">Geth을 이용한 이더리움 private network 구성하기</title><link href="http://localhost:4000/ethereum/private_network_using_geth/" rel="alternate" type="text/html" title="Geth을 이용한 이더리움 private network 구성하기" /><published>2021-11-05T00:00:00+09:00</published><updated>2021-11-05T00:00:00+09:00</updated><id>http://localhost:4000/ethereum/private_network_using_geth</id><content type="html" xml:base="http://localhost:4000/ethereum/private_network_using_geth/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;dev-mode와-private-network의-차이&quot;&gt;Dev mode와 Private network의 차이&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://wnjoon.github.io/ethereum/devmode_using_geth/&quot;&gt;이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’&lt;/a&gt;에서 geth를 이용한 개발모드를 구성하는 방법에 대해 공유했다. 개발모드는 자동으로 제네시스 블록을 생성해주는 것은 물론이고, 트랜잭션 처리에 필요한 가스 비용을 전부 0으로 만들어주고 심지어 PoA 방식의 합의 알고리즘을 통해 블록 생성 및 검증을 더욱 빠르게 하여 스마트컨트랙트를 개발하고 이를 테스트하기 좋은 환경을 만들어준다.&lt;br /&gt;
-Private network는 개발 모드와는 별개로 ‘퍼블릭하지 않은, 폐쇄된 환경의 이더리움 네트워크’를 구성해주는 것을 목적으로 한다. 그리고 퍼블릭 블록체인과 아주 유사한 환경으로 스마트컨트랙트를 손쉽게 테스트할 수도 있다. 이번 포스팅 이후에 이더리움 클라이언트 개발을 지원하는 자바 기반의 라이브러리인 &lt;a href=&quot;https://github.com/web3j/web3j&quot;&gt;web3j&lt;/a&gt;를 이용하여 이더리움 네트워크에서 각종 토큰을 전송하고 잔액을 조회하는 기능을 만들어보고 이를 공유해볼 계획인데, 이를 위해 PoW 기반의 Private network를 구성해보기로 했다.&lt;/p&gt;
-
-&lt;h3 id=&quot;dev-mode의-한계점&quot;&gt;Dev mode의 한계점&lt;/h3&gt;
-
-&lt;p&gt;사실 개발모드 외에 private network를 별도로 구성하게 된 이유는 개발모드의 한계점 때문이었다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;제네시스 블록을 자동으로 생성해주기 때문에, 네트워크의 세부적인 옵션을 정의할 수가 없었다. 테스트를 위해서는 별도의 계정을 미리 만들어두고 해당 계정에 다수의 이더를 넣어놓는 것이 굉장히 편할텐데, 개발모드에서는 일일이 계정을 만들어서 coinbase로부터 이더를 전송받아야만 했다.&lt;/li&gt;
-  &lt;li&gt;PoA 방식의 특성상, 개발모드에서는 채굴이라는 과정이 진행되지 않는다. 결국 가스를 지급받으려면 채굴이 필수적인데, 이러한 과정 없이 토큰을 전송하는 트랜잭션을 날리면 동작하지 않았다. 최초의 트랜잭션이 발생될 때 소비되는 가스를 어떻게 마련하는지에 대한 확인이 추가로 필요할 것 같다.&lt;/li&gt;
-  &lt;li&gt;향후에 살펴보겠지만, web3j로 트랜잭션을 날릴 때 CHAIN ID가 필요했다. 개발모드는 일반적으로 1337을 사용하는데, 나중에 다양한 테스트를 위해서는 다양한 적용이 가능한 private network 구축이 더욱 좋을 것이라고 판단했다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;geth-설치-및-구성&quot;&gt;Geth 설치 및 구성&lt;/h2&gt;
-
-&lt;p&gt;Geth에 대한 설치 및 구성 과정은 &lt;a href=&quot;https://wnjoon.github.io/ethereum/devmode_using_geth/&quot;&gt;이전 포스팅 ‘Geth을 이용한 이더리움 dev mode 구성하기’&lt;/a&gt;을 참고한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;private-network-구성&quot;&gt;Private network 구성&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-genesisjson&quot;&gt;1. genesis.json&lt;/h3&gt;
-
-&lt;p&gt;제네시스 블록에 대한 설정 값을 저장하는 곳이다. 나는 향후 테스트를 위한 4개의 계정을 미리 생성하고, 각 계정마다 잔액을 미리 할당하였다.&lt;br /&gt;
-앞에서 설명한 것처럼, 네트워크의 아이디(chainId)를 별도로 설정할 수 있다. &lt;a href=&quot;https://medium.com/@pedrouid/chainid-vs-networkid-how-do-they-differ-on-ethereum-eec2ed41635b&quot;&gt;이미 퍼블릭한 이더리움에서 공용으로 사용되고 있는 아이디들이 존재&lt;/a&gt;하므로, 이를 피해서 사용해야 한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;말이 Private network 이지만, 결국 퍼블릭한 이더리움 외의 별도의 이더리움 네트워크를 구축하겠다는 것과 동일하다. 만들어진 private network가 외부에 노출되면 결국 퍼블릭 이더리움 네트워크와 겹치지 않는 chainId를 사용해야 한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;chainId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;homesteadBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip150Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip155Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;eip158Block&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;byzantiumBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;constantinopleBlock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;alloc&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;fe3b557e8fb62b89f4916b721be55ceb828dbd73&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;627306090abaB3A6e1400e9345bC60c78a8BEf57&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;f17f52151EbEF6C7334FAD080c5704D77216b732&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;90d48232C2873a76f2547CDa324b3C8bc761374c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;privateKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a53e056ee968e2abe96d0ee178488606d9e3f140e1fe9d577a1a544cfa638a6d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private key and this comment are ignored. In a real chain, the private key should NOT be stored&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;90000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;coinbase&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;difficulty&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x20000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;extraData&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;gasLimit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x1fffffffffffff&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;contractSizeLimit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2147483647&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;nonce&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000042&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;mixhash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;parentHash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x00&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-제네시스-블록-생성&quot;&gt;2. 제네시스 블록 생성&lt;/h3&gt;
-
-&lt;p&gt;위에서 정의한 genesis.json 파일을 이용하여 제네시스 블록을 생성한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geth init genesis.json &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt; pow-chain-dir
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;geth를 이용하여 생성한 네트워크의 정보를 저장할 디렉토리로 pow-chain-dir라는 경로를 사용한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-계정-불러오기&quot;&gt;3. 계정 불러오기&lt;/h3&gt;
-
-&lt;p&gt;나는 총 4개의 계정을 제네시스 블록 생성 과정에 미리 생성하고, 이를 불러와서 사용하려고 한다. import를 이용하면 미리 생성된 계정의 정보를 불러올 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geth &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./pow-chain-dir &lt;span class=&quot;nt&quot;&gt;--password&lt;/span&gt; ./init_accounts/password.txt account import ./init_accounts/account1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;–datadir : 생성하는 계정의 정보를 저장할 keystore 경로&lt;/li&gt;
-  &lt;li&gt;–password : 계정을 만들 때 사용할 passphrase가 작성된 파일의 경로&lt;/li&gt;
-  &lt;li&gt;import : 계정의 private key를 저장하고 있는 파일의 경로&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;4-네트워크-실행&quot;&gt;4. 네트워크 실행&lt;/h3&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;nohup &lt;/span&gt;geth &lt;span class=&quot;nt&quot;&gt;--networkid&lt;/span&gt; 17 &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt; pow-chain-dir &lt;span class=&quot;nt&quot;&gt;--miner&lt;/span&gt;.gasprice 0 &lt;span class=&quot;nt&quot;&gt;--miner&lt;/span&gt;.gaslimit 0 &lt;span class=&quot;nt&quot;&gt;--txpool&lt;/span&gt;.pricelimit 0  &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt;.port 8545 &lt;span class=&quot;nt&quot;&gt;--http&lt;/span&gt;.api &lt;span class=&quot;s2&quot;&gt;&quot;personal,db,eth,net,web3,txpool,miner&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--allow-insecure-unlock&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--nodiscover&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--snapshot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--mine&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--ipcpath&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/tmp/geth.ipc&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ./pow-chain-dir/gethNode.log &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;–networkid : 제네시스 블록에서 정의한 chainId 값&lt;/li&gt;
-  &lt;li&gt;–datadir : private network의 데이터를 저장할 디렉토리 경로&lt;/li&gt;
-  &lt;li&gt;–http.port : geth로 rpc 통신할 수 있는 포트.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;마이닝&quot;&gt;마이닝&lt;/h2&gt;
-
-&lt;p&gt;트랜잭션을 처리하기 위해서는 가스가 필요하고, 이러한 가스를 지불할 수 있는 수단인 이더를 얻으려면 ‘채굴’이 꼭 필요하다. PoW 기반의 이더리움에서는 어쩔 수 없는 부분이고, 그만큼 꼭 필요한 요소라고 볼 수 있다.&lt;br /&gt;
-geth를 이용하면 네트워크에 있는 각 계정들이 지속적으로 채굴하도록 할 수 있다. geth attach를 이용하여 콘솔내에서 실행할 수도 있고, 아래와 같이 호스트에서 geth 내부에 명령어만 실행하도록 할 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 채굴 시작&lt;/span&gt;
-geth attach http://localhost:8545 &lt;span class=&quot;nt&quot;&gt;--exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;miner.start()&quot;&lt;/span&gt; 
-&lt;span class=&quot;c&quot;&gt;# 채굴 종료&lt;/span&gt;
-geth attach http://localhost:8545 &lt;span class=&quot;nt&quot;&gt;--exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;miner.stop()&quot;&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;계정-unlock&quot;&gt;계정 unlock&lt;/h2&gt;
-
-&lt;p&gt;계정에 대한 잠금/해제는 지갑 어플리케이션을 통해 진행되는데, 현재는 테스트를 위한 private network를 구성하는 것이 목적이므로 모든 계정에 대한 사전의 unlock을 진행하려고 한다.&lt;br /&gt;
-이번에는 geth console로 들어가 생성되어 있는 계정 4개에 대한 unlock을 스크립트 형식으로 진행해본다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# geth console 접속&lt;/span&gt;
-geth attach http://localhost:8545 
-
-&lt;span class=&quot;c&quot;&gt;# 접속 화면&lt;/span&gt;
-Welcome to the Geth JavaScript console!
-
-instance: Geth/v1.10.11-stable/darwin-amd64/go1.17.2
-coinbase: 0xfe3b557e8fb62b89f4916b721be55ceb828dbd73
-at block: 2256 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Thu Nov 04 2021 20:29:18 GMT+0900 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;KST&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
- modules: eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
-
-To &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;, press ctrl-d or &lt;span class=&quot;nb&quot;&gt;type exit&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 해당 스크립트 실행 (계정이 4개이므로)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 계정의 passphrase 값을 이용하여 unlock -&amp;gt; password.txt 내부의 값('pwd') 사용&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;i&amp;lt;4&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;i++&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;personal.unlockAccount&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eth.accounts[i],&lt;span class=&quot;s1&quot;&gt;'pwd'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;정리&quot;&gt;정리&lt;/h2&gt;
-
-&lt;p&gt;지금까지 private network 환경의 이더리움 네트워크를 구성하고, 테스트를 위한 계정 생성과 해당 계정의 unlock까지 진행했다. 다음 포스팅에서는 만들어진 네트워크 위에 web3j를 이용한 ERC20 토큰의 잔액 조회와 전송 어플리케이션을 만들어서 테스트할 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://geth.ethereum.org/docs/interface/private-network&quot;&gt;Geth - Private network&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://ethereum.stackexchange.com/questions/7804/how-to-preallocate-multiple-accounts-with-ether-for-geth-dev-chain&quot;&gt;How to preallocate multiple accounts with ether for geth –dev chain? - Stackoverflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--primary align-right&quot;&gt;맨 위로 이동하기&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="geth" /><summary type="html">MacOS에서 geth를 이용한 private ethereum network를 구성하는 방법을 공유한다.</summary></entry></feed>
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content><author><name>글쓰는 개발자 </name></author><category term="Ethereum" /><category term="Blockchain" /><category term="Ethereum" /><category term="geth" /><category term="poa" /><summary type="html">geth를 이용하여 PoA 기반의 이더리움 네트워크를 구성하는 방법을 공유한다.</summary></entry></feed>

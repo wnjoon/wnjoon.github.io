@@ -1,8 +1,0 @@
-I" <ul class="toc__menu">
-  <li><a href="#볼륨volume의-필요성">볼륨(Volume)의 필요성</a></li>
-  <li><a href="#emptydir">emptyDir</a></li>
-  <li><a href="#hostpath">hostPath</a></li>
-  <li><a href="#pvcpv">PVC/PV</a></li>
-  <li><a href="#참고자료">참고자료</a></li>
-</ul>
-:ET

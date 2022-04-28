@@ -1,0 +1,1143 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+
+    <!--폰트 : "Cafe24Oneprettynight"-->
+    
+    <!--main.scss 조금이라도 빨리 로드 되길.. preload-->
+    <link rel="preload" as="style" href="/assets/css/main.css">
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[🧑‍🏫 강의 정리] Pod - QoS Classes - 월리의 탐구생활</title>
+<meta name="description" content="클러스터 내 자원의 상태에 따른 파드 삭제 정책을 나타내는 QoS에 대해서 알아본다. ">
+
+
+  <meta name="author" content="글쓰는 개발자 ">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="월리의 탐구생활">
+<meta property="og:title" content="[🧑‍🏫 강의 정리] Pod - QoS Classes">
+<meta property="og:url" content="http://localhost:4000/kubernetes/qos/">
+
+
+  <meta property="og:description" content="클러스터 내 자원의 상태에 따른 파드 삭제 정책을 나타내는 QoS에 대해서 알아본다. ">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-11T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-10-21T00:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/kubernetes/qos/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "월리",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="월리의 탐구생활 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"> -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+    <!-- 스크롤바 커스터마이징 -->
+    <style> 
+      ::-webkit-scrollbar{width: 16px;}
+      ::-webkit-scrollbar-track {background-color:#4b4f52; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb {background-color:#5e6265; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb:hover {background: #ffd24c;}
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment 
+      {
+          width:12px;height:12px;background:transparent;}
+      }  
+
+      
+    </style>
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          월리의 탐구생활
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/index.html">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">카테고리 Click</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#kubernetes" itemprop="item"><span itemprop="name">Kubernetes</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">[🧑‍🏫 강의 정리] Pod - QoS Classes</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/profile.png" alt="글쓰는 개발자 " itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">글쓰는 개발자 </h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>#TIL #하루키법칙 #기록</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://wnjoon.github.io/resume/" rel="nofollow noopener noreferrer"><i class="far fa-address-card" aria-hidden="true"></i><span class="label">Resume</span></a></li>
+          
+        
+          
+            <li><a href="mailto:wnjoon@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/wnjoon" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  
+    
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">카테고리 Click</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">60</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+      </li>
+      <li>
+        <!-- 개발 -->
+        <span class="nav__sub-title">개발</span>
+            <!-- 개발/Algorithm -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/algorithm" class="">Algorithm (7)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Backend -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/backend" class="">Backend (3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/blockchain" class="">Blockchain (9)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain/Ethereum -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/ethereum" class=""> - Ethereum (10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain/Hyperledger -->
+            <ul>
+                
+                    
+                        <li><a href="/categories/hyperledger" class=""> - Hyperledger (3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain/Quorum -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/quorum" class=""> - Quorum (1)</a></li>
+                    
+                
+            </ul>
+            <!-- 개발/Kubernetes -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/kubernetes" class="">Kubernetes (15)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Network -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/network" class="">Network (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/System Design -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/system_design" class="">System Design (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Tools -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/tools" class="">개발 도구 (5)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!-- 일상 -->
+        <span class="nav__sub-title">일상</span>
+            <!-- 일상/잡학다식 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/etc" class="">잡학다식 (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 일상/후기 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/review" class="">후기 (1)</a></li>
+                    
+                
+                    
+                
+            </ul>
+            <!-- 일상/회고 -->
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/retrospect" class="">회고 (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+      </li>
+      <li>	
+            <br>      
+            <!-- 방문자 수 카운트하는 부분인데.. 뭔가 이상함.. 내가 테스트해보려 들어갔다나오는 모든 것도 카운트되어서 매우 부담스러움 -->
+           <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwnjoon.github.io&count_bg=%233D53C8&title_bg=%23B4B014&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
+      </li>
+  </ul>
+</nav>
+
+
+  
+
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[🧑‍🏫 강의 정리] Pod - QoS Classes">
+    <meta itemprop="description" content="클러스터 내 자원의 상태에 따른 파드 삭제 정책을 나타내는 QoS에 대해서 알아본다.">
+    <meta itemprop="datePublished" content="2021-08-11T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-10-21T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[🧑‍🏫 강의 정리] Pod - QoS Classes
+</h1>
+          
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2021-08-11T00:00:00+09:00">2021.08.11</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-10-21">2021.10.21</time></p>
+          
+          
+            
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#kubernetes" class="page__taxonomy-item-category" rel="tag">Kubernetes</a>
+    
+    </span>
+  </p>
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#infrastructure" class="page__taxonomy-item-tag" rel="tag">InfraStructure</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#network" class="page__taxonomy-item-tag" rel="tag">Network</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#kubernetes" class="page__taxonomy-item-tag" rel="tag">Kubernetes</a>
+    
+    </span>
+  </p>
+
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#qos는-언제-사용될까">QoS는 언제 사용될까?</a>
+    <ul>
+      <li><a href="#guranteed">Guranteed</a></li>
+      <li><a href="#burstable">Burstable</a></li>
+      <li><a href="#besteffort">BestEffort</a></li>
+      <li><a href="#oomout-of-memory-score">OOM(Out Of Memory) Score</a></li>
+    </ul>
+  </li>
+  <li><a href="#참고자료">참고자료</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<blockquote>
+  <p>📒 본 포스팅은 인프런에서 제공하는 강의 <a href="https://www.inflearn.com/course/쿠버네티스-기초/dashboard">‘대세는 쿠버네티스 [초급~중급] - 김태민’</a>를 본 후 내용을 정리하고 있습니다.</p>
+</blockquote>
+
+<h2 id="qos는-언제-사용될까">QoS는 언제 사용될까?</h2>
+
+<p>하나의 노드에 3개의 파드가 올라가 있고, 각 파드가 동일한 자원을 사용하고 있다고 가정한다. 이 중 하나의 파드에서 자원을 좀 더 사용해야 하는데 노드에서는 더 이상 가용할 수 있는 자원이 없을 경우, 존재하는 파드 중 하나를 지워야 하는 상황이 발생할 수 있다.<br />
+이 때 우리는 2가지 상황을 예상해볼 수 있다.</p>
+<ol>
+  <li>자원을 더 사용해야 하는 파드를 죽이고, 그대로 자원을 사용하고 있던 나머지 파드를 살려둔다.</li>
+  <li>자원을 더 사용해야 하는 파드 외에 나머지 한 파드를 죽이고, 해당 파드가 가지고 있던 자원을 필요로하는 파드에게 제공한다.</li>
+</ol>
+
+<p>이 중 어떠한 방법을 선택하는지는 QoS Classes에 명시되어 있는 내용을 따른다. QoS Classes는 총 3가지가 존재하는데, 중요도(삭제해서는 안되는)에 따라 Quaranteed &gt; Burstable &gt; BestEffort로 순서가 매겨진다.</p>
+
+<ul>
+  <li>Pod1 : Guaranteed</li>
+  <li>Pod2 : Burstable</li>
+  <li>Pod3 : BestEffort</li>
+</ul>
+
+<p>만약 파드 3개가 위와 같은 QoS 정책을 가지고 있다면, Pod3 -&gt; Pod2 -&gt; Pod1 순서대로 파드가 삭제될 가능성이 높다. 즉, Guranteed로 설정된 파드가 가장 오랫동안(?) 유지될 수 있다.</p>
+
+<h3 id="guranteed">Guranteed</h3>
+
+<ul>
+  <li>모든 컨테이너에 Request와 Limit가 명시되어야 함</li>
+  <li>모든 Request와 Limit에 CPU와 Memory 값이 명시되어야 함</li>
+  <li>각 컨테이너의 Request에 명시된 CPU와 Memory 값은, Limit에 명시된 CPU와 Memory 값과 일치해야 함</li>
+</ul>
+
+<h3 id="burstable">Burstable</h3>
+
+<ul>
+  <li>파드 내 컨테이너 중 어느 하나라도 Request 또는 Limit 중 하나만 설정되어 있는 경우</li>
+  <li>파드 내 컨테이너의 Request 내부 CPU와 Memory 값이 Limit의 CPU와 Memory 값보다 작은 경우</li>
+  <li>파드 내 컨테이너들 중 하나는 Request와 Limit의 CPU, Memory 값이 일치하지만, 나머지 하나는 설정되어 있지 않은 경우</li>
+</ul>
+
+<h3 id="besteffort">BestEffort</h3>
+
+<ul>
+  <li>어떠한 컨테이너에서도 Request와 Limit이 설정되어 있지 않은 경우</li>
+</ul>
+
+<h3 id="oomout-of-memory-score">OOM(Out Of Memory) Score</h3>
+
+<p>노드 내에 동일한 Request 값을 가지는 파드가 2개 이상 존재한다고 할 때, 이 중 어떤 파드를 삭제해야할지 정하는 정책이다.<br />
+기준은 <u>구동되는 앱에서 사용하는 자원 / Request 값에 명시된 자원</u>으로 구분하는데, 이 중 더 큰 값을 갖는 파드를 먼저 삭제한다.</p>
+
+<blockquote>
+  <p>예시
+동일한 App(Memory 4G)을 기준으로,</p>
+  <ul>
+    <li>PodA : Request(Memory 5G)</li>
+    <li>PodB : Request(Memory 8G)
+라고 한다면, PodA = 75%, PodB = 50%의 OOM 값을 갖는다.</li>
+  </ul>
+
+  <p>그러므로, PodA가 먼저 삭제된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+
+<ul>
+  <li><a href="https://www.inflearn.com/course/쿠버네티스-기초/dashboard">대세는 쿠버네티스 [초급~중급] - 김태민</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <p></p>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Kubernetes</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <!--
+
+  <nav class="pagination">
+    
+      <a href="/kubernetes/readinessliveness-copy/" class="pagination--pager" title="[🧑‍🏫 강의 정리] Pod - ReadinessProbe, LivenessProbe
+">이전</a>
+    
+    
+      <a href="/kubernetes/ndoescheduing/" class="pagination--pager" title="[🧑‍🏫 강의 정리] Pod - Node Scheduling
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+
+  <nav class="pagination_prev_next">
+    
+      <a href="/kubernetes/readinessliveness-copy/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>[🧑‍🏫 강의 정리] Pod - ReadinessProbe, LivenessProbe</a>
+    
+    
+      <a href="/kubernetes/ndoescheduing/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>[🧑‍🏫 강의 정리] Pod - Node Scheduling</a>
+    
+  </nav>
+
+
+
+<!--
+
+
+
+-->
+
+
+
+        <p></p>
+
+        <!-- archive 중간 광고 -->
+      
+      </section>
+      <footer class="page__meta">
+        
+        <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5B%F0%9F%A7%91%E2%80%8D%F0%9F%8F%AB+%EA%B0%95%EC%9D%98+%EC%A0%95%EB%A6%AC%5D+Pod+-+QoS+Classes%20http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fqos%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fqos%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fkubernetes%2Fqos%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      </footer>
+    </div>
+
+    
+
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+<!-- ansohxxn.github.io -->
+<!--<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6111782407607310"
+     data-ad-slot="5978510098"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>-->
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 월리. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <aside class="sidebar__top">
+      <a href="#site-nav"> <i class="fas fa-angle-double-up fa-2x"></i></a>
+    </aside>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'wnjoon/wnjoon.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+  </body>
+</html>

@@ -131,6 +131,54 @@ var store = [{
         "url": "http://localhost:4000/kubernetes/dsjobcronjob/",
         "teaser": null
       },{
+        "title": "[🧑‍🏫 강의 정리] Pod - Lifecycle",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 파드의 생명주기(lifecycle) 쿠버네티스는 모든 프로세스가 파드를 기반으로 이루어진다. 이는 파드의 생성부터 삭제, 그리고 그 과정에서 이루어지는 성공 또는 실패의 과정이 모두 쿠버네티스에서 가장 중요한 요소가 된다는 말이다. 파드의 생명주기는 크게 4가지인 ‘Pending, Running, Succeeded,...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/podlifecycle/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Pod - ReadinessProbe, LivenessProbe",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 개요 파드 생성 과정과 생성된 파드의 운영 모두의 과정에서 발생할 수 있는 트래픽 장애를 방지하기 위한 방법으로, 파드 생성 시 꼭 필요한 요소이다. @그림 1: ReadinessProbe와 LivenessProbe에 대한 간략한 설명 - 출처: 강의자료 파드가...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/readinessliveness-copy/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Pod - QoS Classes",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. QoS는 언제 사용될까? 하나의 노드에 3개의 파드가 올라가 있고, 각 파드가 동일한 자원을 사용하고 있다고 가정한다. 이 중 하나의 파드에서 자원을 좀 더 사용해야 하는데 노드에서는 더 이상 가용할 수 있는 자원이 없을 경우,...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/qos/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Pod - Node Scheduling",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 개요 쿠버네티스를 이용하면 어떠한 파드를 어떠한 노드에 구성할지에 대한 가이드라인을 제시할 수 있다. 특정 노드를 지정하지 않은 상태에서 아무런 설정값이 없다면, 일반적으로 파드는 가장 자원의 상태가 여유로운 노드에 자동으로 생성된다. 하지만 자원의 상태 외에도...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/ndoescheduing/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] API - Authentication, Authorization",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. Authentication X509 Client Cert @그림 1: 쿠버네티스 클러스터에서 API 사용 권한 획득 방법 - 출처: 강의자료 기본적으로 쿠버네티스 API 서버는 6443번 포트를 통해 https 요청을 받는데, 사용자가 https 요청을 사용할 수 있는 권한을 얻으려면...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/AuthenticationAuthorization/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Controller - StatefulSet",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. Stateless / Stateful 어플리케이션 @그림 1: Stateless / Stateful 어플리케이션 - 출처: 강의자료 Stateless 어플리케이션 Web 서버와 같이 서버마다 올라간 서비스가 동일한 동작을 하는, 단순 분산처리를 목적으로 하는 어플리케이션을 의미한다. 장애가 발생해서 새로 생겨나는...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/statefulset/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Controller - Ingress",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. 사용 목적 @그림 1: Ingress의 사용 목적 - 출처: 강의자료 Service Load Balancing 위의 그림처럼 서로 다른 업무(shopping, customer, order)별로 파드가 존재하고 해당 파드 별로 서비스가 존재할 때, 일반적으로는 L4 스위치 등으로 각 URL...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/ingress/",
+        "teaser": null
+      },{
+        "title": "[🧑‍🏫 강의 정리] Controller - Autoscaler",
+        "excerpt":"📒 본 포스팅은 인프런에서 제공하는 강의 ‘대세는 쿠버네티스 [초급~중급] - 김태민’를 본 후 내용을 정리하고 있습니다. Autoscaler의 종류 HPA(Horizontal Pod Autoscaler) 파드의 갯수를 조절하는 컨트롤러. 파드의 증가와 감소에 따라 Scale In/Out으로 나뉜다. Scale Out : 파드에 할당된 리소스가 많은 트래픽으로 인해 전부 사용되어 파드가 죽을 수도 있는 경우, HPA에서 이를...","categories": ["Kubernetes"],
+        "tags": ["Kubernetes","Network","InfraStructure","강의 정리"],
+        "url": "http://localhost:4000/kubernetes/Autoscaler/",
+        "teaser": null
+      },{
         "title": "시스템 설계와 규모 확장성",
         "excerpt":"📒 본 포스팅은 Cracking The Coding Interview의 시스템 설계 및 규모 확장성과 HiredInTech 내용을 학습한 후 작성하였습니다. 시스템 설계 방법 TinyURL(URL을 축소해서 이를 원래 URL과 매핑해주는 시스템)을 설계한다고 가정하자. 문제의 범위 한정하기: 내가 생각하는 시스템의 목적과 방향이 면접관과 일치하는지 확실히 해야 한다. 예를 들어 개개인이 축약된 URL을 직접 만들 수...","categories": ["System Design"],
         "tags": ["Architecture","System Design","Scalability","ctci"],
@@ -291,5 +339,23 @@ var store = [{
         "excerpt":"GoQuorum에 대한 High-level 구조도 &lt;그림 1: High-level 구조로 보는 GoQuorum&gt; Geth와 GoQuorum 간의 관계 ‘Geth에 대하여 포스팅한 내용‘이 있으므로, 이를 참조하면 좋다. Geth는 Go Ethereum의 약자로, 이더리움에서 스마트컨트랙트를 호출할 수 있도록 하는 공식 클라이언트 어플리케이션 중 하나를 말한다. GoQuorum은 기본적으로 Geth의 성질을 따라가지만, 이더리움의 Public한 환경이 아닌 Private한 네트워크를 구성하므로...","categories": ["Quorum"],
         "tags": ["Quorum","Blockchain"],
         "url": "http://localhost:4000/quorum/architecture/",
+        "teaser": null
+      },{
+        "title": "Full 블록체인으로 구성하는 STO 사례 - Securitize",
+        "excerpt":"증권 거래에서 사용되는 블록체인 증권형 토큰을 발행하는 시스템을 블록체인으로 구성할 경우와 블록체인이 아닌 기존의 시스템으로 구성할 경우, 그리고 블록체인의 적용 범위에 따라 크게 3가지로 구분해볼 수 있다. 현재 대부분의 암호화폐 거래소에서는 Hybrid 블록체인 시스템을 적용하고 있다. 블록체인 유무 노드 설명 O Full 블록체인 - 모든 시스템을 블록체인 기반으로 구축 -...","categories": ["Blockchain"],
+        "tags": ["Blockchain","STO"],
+        "url": "http://localhost:4000/blockchain/securitize/",
+        "teaser": null
+      },{
+        "title": "[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture",
+        "excerpt":"📒 본 포스팅은 Nikolaos Kapsoulis 외 5명이 작성한 Article ‘Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture’ 내용을 학습한 후 작성하였습니다. 연구 주제 암호화폐, 콘텐츠 제작 등 다양한 분야에서 블록체인이 활용되면서, 블록체인 내에서 사용자의 신원을 증명할 수 있는 방법에 대한 연구가 지속되고 있다. KYC(Know Your Customer)는...","categories": ["Blockchain"],
+        "tags": ["Blockchain","STO","KYC"],
+        "url": "http://localhost:4000/blockchain/kycwithscpaper/",
+        "teaser": null
+      },{
+        "title": "이더리움 스마트 컨트랙트를 Go에 바인딩(Binding)하기",
+        "excerpt":"Go를 이용한 이더리움 개발 Ethereum Development with Go에는 Golang을 이용해서 이더리움 클라이언트를 개발하는 방법에 대해 알려주고 있다. 가장 대중적으로 사용되는 방식이 JavaScript이지만, 개인적으로 이더리움의 Geth가 그러했듯이 Go를 이용하여 이더리움의 클라이언트를 개발하는 것은 마치 태생적으로 딱 맞게 세팅된 옷을 입는 행위와 같다고 생각이 된다. 무튼 이러한 이유로 Java를 이용한 Web3j가 아닌...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","geth","Golang"],
+        "url": "http://localhost:4000/ethereum/contract_import_go/",
         "teaser": null
       }]

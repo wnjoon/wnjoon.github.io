@@ -1,0 +1,1161 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+
+    <!--폰트 : "Cafe24Oneprettynight"-->
+    
+    <!--main.scss 조금이라도 빨리 로드 되길.. preload-->
+    <link rel="preload" as="style" href="/assets/css/main.css">
+
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Full 블록체인으로 구성하는 STO 사례 - Securitize - 월리의 탐구생활</title>
+<meta name="description" content="증권형 토큰 발행 중 Full 노드 기반의 블록체인으로 구성한 사례를 확인한다 ">
+
+
+  <meta name="author" content="글쓰는 개발자 ">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="월리의 탐구생활">
+<meta property="og:title" content="Full 블록체인으로 구성하는 STO 사례 - Securitize">
+<meta property="og:url" content="http://localhost:4000/blockchain/securitize/">
+
+
+  <meta property="og:description" content="증권형 토큰 발행 중 Full 노드 기반의 블록체인으로 구성한 사례를 확인한다 ">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-03-18T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-03-18T00:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blockchain/securitize/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "월리",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="월리의 탐구생활 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"> -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+    <!-- 스크롤바 커스터마이징 -->
+    <style> 
+      ::-webkit-scrollbar{width: 16px;}
+      ::-webkit-scrollbar-track {background-color:#4b4f52; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb {background-color:#5e6265; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb:hover {background: #ffd24c;}
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment 
+      {
+          width:12px;height:12px;background:transparent;}
+      }  
+
+      
+    </style>
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          월리의 탐구생활
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/index.html">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">카테고리 Click</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#blockchain" itemprop="item"><span itemprop="name">Blockchain</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Full 블록체인으로 구성하는 STO 사례 - Securitize</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/profile.png" alt="글쓰는 개발자 " itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">글쓰는 개발자 </h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>#TIL #하루키법칙 #기록</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://wnjoon.github.io/resume/" rel="nofollow noopener noreferrer"><i class="far fa-address-card" aria-hidden="true"></i><span class="label">Resume</span></a></li>
+          
+        
+          
+            <li><a href="mailto:wnjoon@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/wnjoon" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  
+    
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">카테고리 Click</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+            <span style="font-family:'Chosunilbo_myungjo';">전체 글 수</style> <span style="font-family:'Chosunilbo_myungjo';">60</style> <span style="font-family:'Chosunilbo_myungjo';">개</style> 
+      </li>
+      <li>
+        <!-- 개발 -->
+        <span class="nav__sub-title">개발</span>
+            <!-- 개발/Algorithm -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/algorithm" class="">Algorithm (7)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Backend -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/backend" class="">Backend (3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/blockchain" class="">Blockchain (9)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain/Ethereum -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/ethereum" class=""> - Ethereum (10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain/Hyperledger -->
+            <ul>
+                
+                    
+                        <li><a href="/categories/hyperledger" class=""> - Hyperledger (3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Blockchain/Quorum -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/quorum" class=""> - Quorum (1)</a></li>
+                    
+                
+            </ul>
+            <!-- 개발/Kubernetes -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/kubernetes" class="">Kubernetes (15)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Network -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/network" class="">Network (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/System Design -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/system_design" class="">System Design (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 개발/Tools -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/tools" class="">개발 도구 (5)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!-- 일상 -->
+        <span class="nav__sub-title">일상</span>
+            <!-- 일상/잡학다식 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/etc" class="">잡학다식 (1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+            <!-- 일상/후기 -->
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/review" class="">후기 (1)</a></li>
+                    
+                
+                    
+                
+            </ul>
+            <!-- 일상/회고 -->
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/retrospect" class="">회고 (2)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+      </li>
+      <li>	
+            <br>      
+            <!-- 방문자 수 카운트하는 부분인데.. 뭔가 이상함.. 내가 테스트해보려 들어갔다나오는 모든 것도 카운트되어서 매우 부담스러움 -->
+           <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwnjoon.github.io&count_bg=%233D53C8&title_bg=%23B4B014&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
+      </li>
+  </ul>
+</nav>
+
+
+  
+
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Full 블록체인으로 구성하는 STO 사례 - Securitize">
+    <meta itemprop="description" content="증권형 토큰 발행 중 Full 노드 기반의 블록체인으로 구성한 사례를 확인한다">
+    <meta itemprop="datePublished" content="2022-03-18T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-03-18T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Full 블록체인으로 구성하는 STO 사례 - Securitize
+</h1>
+          
+            <p class="page__meta"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Date:</strong> <time datetime="2022-03-18T00:00:00+09:00">2022.03.18</time>&nbsp&nbsp&nbsp<strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-03-18">2022.03.18</time></p>
+          
+          
+            
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+    
+    </span>
+  </p>
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#sto" class="page__taxonomy-item-tag" rel="tag">STO</a><span class="sep"> </span>
+    
+      
+      
+      <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a>
+    
+    </span>
+  </p>
+
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#증권-거래에서-사용되는-블록체인">증권 거래에서 사용되는 블록체인</a></li>
+  <li><a href="#발행issuance">발행(Issuance)</a></li>
+  <li><a href="#배당금-지급dividend-issuance">배당금 지급(Dividend Issuance)</a></li>
+  <li><a href="#투표voting-process">투표(Voting Process)</a></li>
+  <li><a href="#매매trading-ds-tokens">매매(Trading DS Tokens)</a></li>
+  <li><a href="#참고자료">참고자료</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<h2 id="증권-거래에서-사용되는-블록체인">증권 거래에서 사용되는 블록체인</h2>
+
+<p>증권형 토큰을 발행하는 시스템을 블록체인으로 구성할 경우와 블록체인이 아닌 기존의 시스템으로 구성할 경우, 그리고 블록체인의 적용 범위에 따라 크게 3가지로 구분해볼 수 있다.<br />
+현재 대부분의 암호화폐 거래소에서는 Hybrid 블록체인 시스템을 적용하고 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>블록체인 유무</strong></th>
+      <th><strong>노드</strong></th>
+      <th><strong>설명</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>O</td>
+      <td>Full 블록체인</td>
+      <td>- 모든 시스템을 블록체인 기반으로 구축<br />- STO 전용 토큰을 활용</td>
+    </tr>
+    <tr>
+      <td>O</td>
+      <td>Hybrid 블록체인</td>
+      <td>- 발행, 거래 : 블록체인<br />- 매매, 원장 : 별도의 시스템에서 관리</td>
+    </tr>
+    <tr>
+      <td>X</td>
+      <td>기존의 증권거래 방식</td>
+      <td>- 현재 증권거래에서 사용되는 중개기관 형태의 시스템</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이 중 본 포스팅에서는 <a href="https://securitize.io/">Securitize</a> 사에서 작성한 자료 ‘<a href="https://s3.us-east-2.amazonaws.com/securitizemarkets.io/Securitize%E2%80%99s+Digital+Ownership+Architecture+for+Complete+Lifecycle+Management+of+Digital+Securities.pdf">DS Protocol - Securitize’s Digital Ownership Architecture for Complete Lifecycle Management of Digital Securities : User Journeys</a>‘를 통해 Full 블록체인으로 STO를 구성할 경우의 발행, 배당금 지급, 투표, 매매 처리에 대한 프로세스를 알아본다.</p>
+
+<p><br /></p>
+
+<h2 id="발행issuance">발행(Issuance)</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/158927013-c520a00f-4e0b-4584-a496-f46bf08dbfe5.png" alt="image" /><br />
+<em>&lt;그림 1: 발행 프로세스&gt;</em></p>
+
+<ol>
+  <li>발행인이 DS 발행 플랫폼 또는 DS App을 이용하여 발행에 필요한 절차를 시작</li>
+  <li>발행인이 투자자를 모집하고 투자 협약 체결. 이 과정에서 KYC, AML 등의 본인인증 절차가 수행됨</li>
+  <li>발행인이 Registry Service에 투자자 정보를 등록. 이 과정에서 DS 발행 플랫폼 또는 DS Protocol의 registerinverstor()를 이용하여 블록체인에 내용을 등록</li>
+  <li>자금 모집이 완료되면, 발행인은 DS 발행 플랫폼을 통해 DS Token을 발행하고 이를 투자자에게 제공</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="배당금-지급dividend-issuance">배당금 지급(Dividend Issuance)</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/158926929-408ace30-1bd0-43ee-977b-cb0358a24b28.png" alt="image" />  <br />
+<em>&lt;그림 2: 특정 토큰에 대한 배당금 지급 프로세스&gt;</em></p>
+
+<ol>
+  <li>발행인은 DS 발행 플랫폼을 통해 배당금 지불을 처리</li>
+  <li>DS 발행 플랫폼 내 issueDividends()를 이용하여 배당금을 지급할 대상과 금액을 설정</li>
+  <li>배당금에 해당하는 토큰 선택</li>
+  <li>투자자의 전자지갑에 배당금을 입금하고 Register Service 내용 확인 및 조치</li>
+  <li>투자자에게 전송할 배당금 관련 안내 문구 작성</li>
+  <li>배당금 관련 안내 문구 전달</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="투표voting-process">투표(Voting Process)</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/158927110-e8a18b06-ffaf-48f2-87a0-22861b9a4bb4.png" alt="image" /><br />
+<em>&lt;그림 3: 투표 프로세스&gt;</em></p>
+
+<ol>
+  <li>발행인이 투표 이벤트 생성</li>
+  <li>proposeVote()를 통해 투표 기능 실행</li>
+  <li>투표 대상 토큰 접근</li>
+  <li>투자자에게 전송할 투표 안내 문구 작성</li>
+  <li>투표 안내 문구 전달</li>
+  <li>투자자들은 vote()를 이용해 투표</li>
+  <li>투표 기간이 종료되면, 발행인은 투표 마감</li>
+  <li>closeVote() 기능을 호출하여 DS App에 투표가 마감되었음을 반영</li>
+  <li>토큰에 결과 입력</li>
+  <li>투자자에게 투표 결과 공지 준비</li>
+  <li>투자자에게 투표 결과 공지</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="매매trading-ds-tokens">매매(Trading DS Tokens)</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/158927061-b97df837-904e-48d4-901c-72edba9e0608.png" alt="image" /><br />
+<em>&lt;그림 4: 매매 프로세스&gt;</em></p>
+
+<ol>
+  <li>토큰을 구매하고자 하는 구매자 접속</li>
+  <li>registerinvestor()을 이용하여 신규 투자자 등록</li>
+  <li>스마트컨트랙트를 통한 거래 수행</li>
+  <li>transferFrom 호출 및 토큰 소유자 변경</li>
+  <li>거래 적정성 유무 검증</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li><a href="https://s3.us-east-2.amazonaws.com/securitizemarkets.io/Securitize%E2%80%99s+Digital+Ownership+Architecture+for+Complete+Lifecycle+Management+of+Digital+Securities.pdf">DS Protocol - Securitize’s Digital Ownership Architecture for Complete Lifecycle Management of Digital Securities</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <p></p>
+        <h4 class="page__meta-title"><span style="font-family:'Chosunilbo_myungjo'; color:#000000;">Blockchain</span> <span style="font-family:'Chosunilbo_myungjo';">카테고리 내 다른 글 보러가기</span></h4>
+        <!--
+
+  <nav class="pagination">
+    
+      <a href="/quorum/architecture/" class="pagination--pager" title="[📝 GoQuorum Docs] Architecture
+">이전</a>
+    
+    
+      <a href="/blockchain/kycwithscpaper/" class="pagination--pager" title="[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+
+  <nav class="pagination_prev_next">
+    
+      <a href="/blockchain/sidechain/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>사이드체인(Sidechain)에 대한 정리</a>
+    
+    
+      <a href="/blockchain/kycwithscpaper/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture</a>
+    
+  </nav>
+
+
+
+<!--
+
+
+
+-->
+
+
+
+        <p></p>
+
+        <!-- archive 중간 광고 -->
+      
+      </section>
+      <footer class="page__meta">
+        
+        <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Full+%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8%EC%9C%BC%EB%A1%9C+%EA%B5%AC%EC%84%B1%ED%95%98%EB%8A%94+STO+%EC%82%AC%EB%A1%80+-+Securitize%20http%3A%2F%2Flocalhost%3A4000%2Fblockchain%2Fsecuritize%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblockchain%2Fsecuritize%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fblockchain%2Fsecuritize%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+      </footer>
+    </div>
+
+    
+
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+<!-- ansohxxn.github.io -->
+<!--<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6111782407607310"
+     data-ad-slot="5978510098"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>-->
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 월리. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <aside class="sidebar__top">
+      <a href="#site-nav"> <i class="fas fa-angle-double-up fa-2x"></i></a>
+    </aside>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'wnjoon/wnjoon.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+  </body>
+</html>

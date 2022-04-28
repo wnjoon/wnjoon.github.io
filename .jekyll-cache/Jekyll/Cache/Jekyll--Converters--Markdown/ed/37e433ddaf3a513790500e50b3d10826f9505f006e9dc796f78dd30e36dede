@@ -1,0 +1,300 @@
+I"�-<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/kycwithscpaper/">[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.04.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#kyc" class="page__taxonomy-item-tag" rel="tag">KYC</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#sto" class="page__taxonomy-item-tag" rel="tag">STO</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/securitize/">Full 블록체인으로 구성하는 STO 사례 - Securitize</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.03.18
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#sto" class="page__taxonomy-item-tag" rel="tag">STO</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/sidechain/">사이드체인(Sidechain)에 대한 정리</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.10.13
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#sidechain" class="page__taxonomy-item-tag" rel="tag">Sidechain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%EC%83%81%ED%98%B8%EC%9A%B4%EC%9A%A9%EC%84%B1" class="page__taxonomy-item-tag" rel="tag">상호운용성</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/consensus/">합의 알고리즘의 비교 (BFT vs CFT)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#bft" class="page__taxonomy-item-tag" rel="tag">BFT</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#cft" class="page__taxonomy-item-tag" rel="tag">CFT</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%ED%95%A9%EC%9D%98%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" class="page__taxonomy-item-tag" rel="tag">합의알고리즘</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/dapp/">디앱(DApp, Decentralized Application)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.09
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#application" class="page__taxonomy-item-tag" rel="tag">Application</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#dapp" class="page__taxonomy-item-tag" rel="tag">DApp</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#decentralized" class="page__taxonomy-item-tag" rel="tag">Decentralized</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/hd_wallet/">HD(Hierarchical Deterministic) Wallet</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.08.06
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#bitcoin" class="page__taxonomy-item-tag" rel="tag">Bitcoin</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#golang" class="page__taxonomy-item-tag" rel="tag">Golang</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#wallet" class="page__taxonomy-item-tag" rel="tag">Wallet</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/lightning_network/">라이트닝 네트워크(Lightning Network)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#bitcoin" class="page__taxonomy-item-tag" rel="tag">Bitcoin</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#offchain" class="page__taxonomy-item-tag" rel="tag">Offchain</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/sto/">증권형 토큰 발행(STO)에 대해서</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.04.13
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#sto" class="page__taxonomy-item-tag" rel="tag">STO</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%EC%95%94%ED%98%B8%ED%99%94%ED%8F%90" class="page__taxonomy-item-tag" rel="tag">암호화폐</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/blockchain/fork/">하드포크, 그리고 소프트포크에 대하여</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.04.02
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#blockchain" class="page__taxonomy-item-category" rel="tag">Blockchain</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#fork" class="page__taxonomy-item-tag" rel="tag">Fork</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET
