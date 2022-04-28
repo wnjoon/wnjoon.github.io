@@ -173,7 +173,7 @@ truffle run abigen은 build/contracts에 생성된 파일을 기본값으로 확
 $ abigen --bin=abigenBindings/bin/ERC1400.bin --abi=abigenBindings/abi/ERC1400.abi --pkg=token --out=go/erc1400.go
 
 # 2. ERC20
-$ abigen --bin=abigenBindings/bin/ERC20.bin --abi=abigenBindings/abi/ERC20.abi --pkg=token --out=go/erc20.go
+$ abigen --bin=abigenBindings/bin/ERC20Token.bin --abi=abigenBindings/abi/ERC20Token.abi --pkg=token --out=go/erc20.go
 ```
 
 <br>
