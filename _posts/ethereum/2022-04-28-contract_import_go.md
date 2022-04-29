@@ -180,7 +180,9 @@ $ abigen --bin=abigenBindings/bin/ERC20Token.bin --abi=abigenBindings/abi/ERC20T
 
 ## 결론
 
-결론이라 할것은 없지만, truffle을 이용하여 배포된 컨트랙트를 go client에서 사용할 수 있는 .go 파일로 바인딩하는 방법에 대해 알 수 있어서 좋았다. 지극히 개인적인 의견으로 javaScript 보다는 golang을 이용한 클라이언트가 속도면에서도 더 좋을것으로 기대중이지만, 아마 javaScript만이 가지는 프론트엔트와의 직관적인 연결로 대부분 javaScript를 사용하지 않나 생각한다. 향후에는 golang 기반의 클라이언트로 해당 토큰을 호출해보고 이를 포스팅해보도록 하겠다.
+결론이라 할것은 없지만, truffle을 이용하여 배포된 컨트랙트를 go client에서 사용할 수 있는 .go 파일로 바인딩하는 방법에 대해 알 수 있어서 좋았다. 지극히 개인적인 의견으로 javaScript 보다는 golang을 이용한 클라이언트가 속도면에서도 더 좋을것으로 기대중이지만, 아마 javaScript만이 가지는 프론트엔트와의 직관적인 연결로 대부분 javaScript를 사용하지 않나 생각한다. 향후에는 golang 기반의 클라이언트로 해당 토큰을 호출해보고 이를 포스팅해보도록 하겠다.  
+
+이번 포스팅에서 작성한 스크립트는 '이곳([wnjoon/security-token-test : github](https://github.com/wnjoon/security-token-test/blob/main/smartcontract/UniversalToken/getGoFile.sh))'에서 확인할 수 있다.
 
 <br>
 
