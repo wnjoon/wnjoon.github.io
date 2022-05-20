@@ -36,7 +36,7 @@ last_modified_at: 2022-05-20
 
 트랜잭션 해시가 만들어지기 위해서는 위에서 언급한 <u>1) 트랜잭션 정보</u>와 <u>2) 트랜잭션을 전송하는 지갑의 개인키</u>가 필요하다. 개인키를 통해 트랜잭션을 보낸 사람이 본인임을 증명할 수 있는데, 이러한 증명 과정을 <u>서명(signature)</u>이라고 한다.  
 
-![image](/_posts/ethereum/images/txid_0520_1.png)  
+![image](https://user-images.githubusercontent.com/39115630/169449935-9f3ceda3-a64f-443e-b829-8d75d39f45a7.png)  
 *<그림 1: 트랜잭션 해시가 생성되는 과정>*
 
 트랜잭션 정보와 서명이 블록체인 노드로 전달되면, 블록체인 노드는 두 정보를 RLP encoding을 통해 RawTransaction으로 만든다. 예시로 아래와 같은 RawTransaction이 있다고 할 때, 이를 해석(decode)하면 실제 전송했던 트랜잭션의 내용을 확인할 수 있다. 이 때 확인할 수 있는(들어있는) 내용은 아래와 같다.
