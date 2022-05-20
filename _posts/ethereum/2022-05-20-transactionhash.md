@@ -20,7 +20,7 @@ last_modified_at: 2022-05-20
 
 트랜잭션 해시(Transaction Hash, 또는 줄여서 TXID)는 <u>트랜잭션에 대한 고유 ID</u>를 의미한다. 일반적으로 트랜잭션은 아래와 같은 정보를 갖는다.
 
-```yaml
+```sh
 {
   from : 송신자 지갑의 주소,
   to : 수신자 지갑의 주소,
@@ -41,7 +41,7 @@ last_modified_at: 2022-05-20
 
 트랜잭션 정보와 서명이 블록체인 노드로 전달되면, 블록체인 노드는 두 정보를 RLP encoding을 통해 RawTransaction으로 만든다. 예시로 아래와 같은 RawTransaction이 있다고 할 때, 이를 해석(decode)하면 실제 전송했던 트랜잭션의 내용을 확인할 수 있다. 이 때 확인할 수 있는(들어있는) 내용은 아래와 같다.
 
-```yaml
+```sh
 {
   nonce : 해당 트랜잭션의 논스값,
   gasPrice : 해당 트랜잭션의 가스 수수료,
