@@ -170,6 +170,7 @@ web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
 
 ## 참고자료
 - [트랜잭션 해시(TXID)에 대한 오해 - 김훈일](https://brunch.co.kr/@nujabes403/15#comment)
+- [Inside an Ethereum transaction - Medium](https://medium.com/@codetractio/inside-an-ethereum-transaction-fa94ffca912f)
 - [web3.js - Ethereum JavaScript API](https://web3js.readthedocs.io/en/v1.7.3/index.html)
 - [Keccak256 - 해시넷](http://wiki.hash.kr/index.php/Keccak-256)
 
