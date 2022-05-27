@@ -43,7 +43,7 @@ last_modified_at: 2022-05-26
 - string, bytes, uint[]와 같이 동적인 크기를 갖는 타입들은 각자의 길이를 패딩으로 갖지 않고 인코딩된다.
 - 배열 타입이 인코딩되면 내부 값들의 타입이 갖는 패딩길이를 포함해서 인코딩된다. 단, string, bytes 타입은 일괄적으로 32 bytes 만큼의 크기가 자동으로 패딩된다.
 - 결국 길이 필드가 별도로 존재하지 않기 때문에, 동적인 타입을 여러 개 인코딩할 경우 모호한 결과값이 만들어질 수 있다.
-  - 예시로 <u>abi.encodePacked("a", "bc") == abi.encodePacked("ab", "c")</u>와 같은 상황이 발생할 수 있다.
+  - <i>예시로 abi.encodePacked("a", "bc") == abi.encodePacked("ab", "c")와 같은 상황이 발생할 수 있다.</i>
 - 만약 패딩이 필요하다면, abi.encodePacked(uint16(0x12)) == hex"0012" 와 같이 명시적인 타입변환을 같이 해주어야 한다.
 
 <br>
