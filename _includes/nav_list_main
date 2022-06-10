@@ -26,6 +26,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            <!-- 개발/Backend/Go -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Go" %}
+                        <li><a href="/categories/go" class=""> - Go ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
             <!-- 개발/Blockchain -->
             <ul>
                 {% for category in site.categories %}
