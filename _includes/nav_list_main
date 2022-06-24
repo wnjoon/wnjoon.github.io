@@ -26,14 +26,6 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <!-- 개발/Backend/Go -->
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "Go" %}
-                        <li><a href="/categories/go" class=""> - Go ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
             <!-- 개발/Blockchain -->
             <ul>
                 {% for category in site.categories %}
@@ -58,11 +50,27 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <!-- 개발/Blockchain/Quorum -->
+            <!-- 개발/Docker -->
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Quorum" %}
-                        <li><a href="/categories/quorum" class=""> - Quorum ({{category[1].size}})</a></li>
+                    {% if category[0] == "Docker" %}
+                        <li><a href="/categories/docker" class="">Docker ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <!-- 개발/Go -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Go" %}
+                        <li><a href="/categories/go" class="">Go ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <!-- 개발/Java -->
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Java" %}
+                        <li><a href="/categories/java" class="">Java ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

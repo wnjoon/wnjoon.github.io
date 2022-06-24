@@ -1,0 +1,468 @@
+I"SG<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/encodePacked/">솔리디티의 encodePacked, ethers의 solidityPack </a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.05.26
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#encodepacked" class="page__taxonomy-item-tag" rel="tag">encodePacked</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethers" class="page__taxonomy-item-tag" rel="tag">ethers</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#keccak" class="page__taxonomy-item-tag" rel="tag">keccak</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/transactionhash/">트랜잭션 해시(Transaction Hash)는 꼭 블록체인에서만 만들어지는가?</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.05.20
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#keccak" class="page__taxonomy-item-tag" rel="tag">keccak</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#transaction" class="page__taxonomy-item-tag" rel="tag">Transaction</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/contract_import_go/">이더리움 스마트 컨트랙트를 Go에 바인딩(Binding)하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.04.28
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#geth" class="page__taxonomy-item-tag" rel="tag">geth</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#golang" class="page__taxonomy-item-tag" rel="tag">Golang</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/kycwithscpaper/">[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.04.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#kyc" class="page__taxonomy-item-tag" rel="tag">KYC</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#smartcontract" class="page__taxonomy-item-tag" rel="tag">Smartcontract</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#sto" class="page__taxonomy-item-tag" rel="tag">STO</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/quorum_architecture/">[📝 GoQuorum Docs] Architecture</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.03.10
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#quorum" class="page__taxonomy-item-tag" rel="tag">Quorum</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/poa_network/">PoA 기반의 이더리움 네트워크 구축하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.12.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#geth" class="page__taxonomy-item-tag" rel="tag">geth</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#poa" class="page__taxonomy-item-tag" rel="tag">poa</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/erc20_using_web3j/">Web3j를 이용하여 ERC20 토큰 다뤄보기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.11.16
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#java" class="page__taxonomy-item-tag" rel="tag">java</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#web3j" class="page__taxonomy-item-tag" rel="tag">web3j</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/private_network_using_geth/">Geth을 이용한 이더리움 private network 구성하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.11.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#geth" class="page__taxonomy-item-tag" rel="tag">geth</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/how_does_ethereum_works/">[📝 번역 정리] How does Ethereum work, anyway?</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.11.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/0xprotocol/">0x 프로토콜</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.11.04
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/devmode_using_geth/">Geth을 이용한 이더리움 dev mode 구성하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.10.20
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#geth" class="page__taxonomy-item-tag" rel="tag">geth</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/infura/">Infura로 이더리움 테스트용 노드 만들기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.09.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/erc/">이더리움 표준(ERC)</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.05.12
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#protocol" class="page__taxonomy-item-tag" rel="tag">Protocol</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/ethereum/ethereum_bible1_inflearn/">[🧑‍🏫 강의 정리] 이더리움 입문 바이블 - 모든 이더리움 입문자를 위하여</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.04.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#ethereum" class="page__taxonomy-item-category" rel="tag">Ethereum</a>
+                    
+                    
+                    <a href="/tags/#blockchain" class="page__taxonomy-item-tag" rel="tag">Blockchain</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ethereum" class="page__taxonomy-item-tag" rel="tag">Ethereum</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%EA%B0%95%EC%9D%98-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item-tag" rel="tag">강의 정리</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

@@ -1,0 +1,204 @@
+I"�<!-- 공백이 포함되어 있는 카테고리 이름의 경우 site.categories.['a b c'] 이런식으로! -->
+
+<hr />
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/macpid/">맥OS에서 사용중인 포트 확인 및 종료하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.06.10
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#macos" class="page__taxonomy-item-tag" rel="tag">MacOS</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#pid" class="page__taxonomy-item-tag" rel="tag">PID</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%ED%8F%AC%ED%8A%B8" class="page__taxonomy-item-tag" rel="tag">포트</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/favicon/">블로그에 favicon 적용하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.02.05
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#favicon" class="page__taxonomy-item-tag" rel="tag">favicon</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/extramonitor/">맥에서 외장모니터 음향과 밝기를 키보드로 조절하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2022.02.03
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%EC%99%B8%EB%B6%80%EB%AA%A8%EB%8B%88%ED%84%B0" class="page__taxonomy-item-tag" rel="tag">외부모니터</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%EC%9D%8C%ED%96%A5%EB%B0%9D%EA%B8%B0%EC%A1%B0%EC%A0%88" class="page__taxonomy-item-tag" rel="tag">음향밝기조절</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/githubtoken/">Github 리포지토리에 Token 적용하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.11.17
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#github" class="page__taxonomy-item-tag" rel="tag">Github</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/code-server/">웹브라우저 형식의 VScode, code-server 구성하기</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.07.15
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#ide" class="page__taxonomy-item-tag" rel="tag">IDE</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#ipad" class="page__taxonomy-item-tag" rel="tag">iPad</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#vscode" class="page__taxonomy-item-tag" rel="tag">VScode</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+
+<div class="list__item">
+    <article class="archive-item">
+        <div>
+            <span>
+              <a href="/tools/vmwareinbigsur/">맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자</a>
+            </span>
+            <small> 
+              <i class="fas fa-fw fa-calendar-alt" aria-hidden="true"> </i> 2021.03.04
+              <!--Archive page 용-: (post -> page)-->
+<!--page__taxonomy.html에서 가져 옴-->
+        
+        <span class="page__taxonomy">
+            <span itemprop="keywords"><a href="/categories/#tools" class="page__taxonomy-item-category" rel="tag">Tools</a>
+                    
+                    
+                    <a href="/tags/#macos" class="page__taxonomy-item-tag" rel="tag">MacOS</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#tools" class="page__taxonomy-item-tag" rel="tag">Tools</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#virtualbox" class="page__taxonomy-item-tag" rel="tag">VirtualBox</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#vmware" class="page__taxonomy-item-tag" rel="tag">VMware</a><span class="sep"> </span>
+                
+                    
+                    
+                    <a href="/tags/#%EA%B0%80%EC%83%81%ED%99%94" class="page__taxonomy-item-tag" rel="tag">가상화</a>
+                
+            </span>
+        </span>
+            </small>
+        </div>
+      </article>
+</div>
+:ET

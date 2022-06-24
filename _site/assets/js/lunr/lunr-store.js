@@ -330,15 +330,15 @@ var store = [{
         "teaser": null
       },{
         "title": "JPA를 이용하여 Postgresql에 접속하기",
-        "excerpt":"JPA(Java Persistence API) JPA에 대해서 간략하지만 자세하게 분석해놓은 글은 ‘JPA란? - 권희정‘을 참조하자. 간략하게 설명하면, 어플리케이션과 JDBC 사이에서 동작하는 ORM 기술 표준을 의미한다. 그렇다면 ORM(Object Relational Mapping)은 무엇일까? ORM은 객체와 테이블을 매핑해서 패러다임의 불일치를 개발자 대신 해결해주는 역할을 한다. &lt;그림 1: JPA에 대한 간략한 구성도 - 출처 : Gitbook&gt; Postgresql...","categories": ["Backend"],
-        "tags": ["Backend","Web3j","Database","JPA","Postgresql"],
-        "url": "http://localhost:4000/backend/jpa/",
+        "excerpt":"JPA(Java Persistence API) JPA에 대해서 간략하지만 자세하게 분석해놓은 글은 ‘JPA란? - 권희정‘을 참조하자. 간략하게 설명하면, 어플리케이션과 JDBC 사이에서 동작하는 ORM 기술 표준을 의미한다. 그렇다면 ORM(Object Relational Mapping)은 무엇일까? ORM은 객체와 테이블을 매핑해서 패러다임의 불일치를 개발자 대신 해결해주는 역할을 한다. &lt;그림 1: JPA에 대한 간략한 구성도 - 출처 : Gitbook&gt; Postgresql...","categories": ["Java"],
+        "tags": ["Java","Web3j","Database","JPA","Postgresql"],
+        "url": "http://localhost:4000/java/jpa/",
         "teaser": null
       },{
         "title": "[📝 GoQuorum Docs] Architecture",
-        "excerpt":"GoQuorum에 대한 High-level 구조도 &lt;그림 1: High-level 구조로 보는 GoQuorum&gt; Geth와 GoQuorum 간의 관계 ‘Geth에 대하여 포스팅한 내용‘이 있으므로, 이를 참조하면 좋다. Geth는 Go Ethereum의 약자로, 이더리움에서 스마트컨트랙트를 호출할 수 있도록 하는 공식 클라이언트 어플리케이션 중 하나를 말한다. GoQuorum은 기본적으로 Geth의 성질을 따라가지만, 이더리움의 Public한 환경이 아닌 Private한 네트워크를 구성하므로...","categories": ["Quorum"],
-        "tags": ["Quorum","Blockchain"],
-        "url": "http://localhost:4000/quorum/architecture/",
+        "excerpt":"GoQuorum에 대한 High-level 구조도 &lt;그림 1: High-level 구조로 보는 GoQuorum&gt; Geth와 GoQuorum 간의 관계 ‘Geth에 대하여 포스팅한 내용‘이 있으므로, 이를 참조하면 좋다. Geth는 Go Ethereum의 약자로, 이더리움에서 스마트컨트랙트를 호출할 수 있도록 하는 공식 클라이언트 어플리케이션 중 하나를 말한다. GoQuorum은 기본적으로 Geth의 성질을 따라가지만, 이더리움의 Public한 환경이 아닌 Private한 네트워크를 구성하므로...","categories": ["Ethereum"],
+        "tags": ["Ethereum","Quorum","Blockchain"],
+        "url": "http://localhost:4000/ethereum/quorum_architecture/",
         "teaser": null
       },{
         "title": "Full 블록체인으로 구성하는 STO 사례 - Securitize",
@@ -348,14 +348,44 @@ var store = [{
         "teaser": null
       },{
         "title": "[📝 번역 정리] Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture",
-        "excerpt":"📒 본 포스팅은 Nikolaos Kapsoulis 외 5명이 작성한 Article ‘Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture’ 내용을 학습한 후 작성하였습니다. 연구 주제 암호화폐, 콘텐츠 제작 등 다양한 분야에서 블록체인이 활용되면서, 블록체인 내에서 사용자의 신원을 증명할 수 있는 방법에 대한 연구가 지속되고 있다. KYC(Know Your Customer)는...","categories": ["Blockchain"],
-        "tags": ["Blockchain","STO","KYC"],
-        "url": "http://localhost:4000/blockchain/kycwithscpaper/",
+        "excerpt":"📒 본 포스팅은 Nikolaos Kapsoulis 외 5명이 작성한 Article ‘Know Your Customer(KYC) Implementation with Smart Contracts on a Privacy‐Oriented Decentralized Architecture’ 내용을 학습한 후 작성하였습니다. 연구 주제 암호화폐, 콘텐츠 제작 등 다양한 분야에서 블록체인이 활용되면서, 블록체인 내에서 사용자의 신원을 증명할 수 있는 방법에 대한 연구가 지속되고 있다. KYC(Know Your Customer)는...","categories": ["Ethereum"],
+        "tags": ["Ethereum","Smartcontract","STO","KYC"],
+        "url": "http://localhost:4000/ethereum/kycwithscpaper/",
         "teaser": null
       },{
         "title": "이더리움 스마트 컨트랙트를 Go에 바인딩(Binding)하기",
         "excerpt":"Go를 이용한 이더리움 개발 Ethereum Development with Go에는 Golang을 이용해서 이더리움 클라이언트를 개발하는 방법에 대해 알려주고 있다. 가장 대중적으로 사용되는 방식이 JavaScript이지만, 개인적으로 이더리움의 Geth가 그러했듯이 Go를 이용하여 이더리움의 클라이언트를 개발하는 것은 마치 태생적으로 딱 맞게 세팅된 옷을 입는 행위와 같다고 생각이 된다. 무튼 이러한 이유로 Java를 이용한 Web3j가 아닌...","categories": ["Ethereum"],
         "tags": ["Blockchain","Ethereum","geth","Golang"],
         "url": "http://localhost:4000/ethereum/contract_import_go/",
+        "teaser": null
+      },{
+        "title": "트랜잭션 해시(Transaction Hash)는 꼭 블록체인에서만 만들어지는가?",
+        "excerpt":"트랜잭션 해시란? 트랜잭션 해시(Transaction Hash, 또는 줄여서 TXID)는 트랜잭션에 대한 고유 ID를 의미한다. 일반적으로 트랜잭션은 아래와 같은 정보를 갖는다. { from : 송신자 지갑의 주소, to : 수신자 지갑의 주소, value : 전송한 이더 또는 토큰의 개수, gasPrice : 트랜잭션 전송에 사용되는 가스량, .... } 트랜잭션 해시의 생성 과정 트랜잭션...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","Transaction","keccak"],
+        "url": "http://localhost:4000/ethereum/transactionhash/",
+        "teaser": null
+      },{
+        "title": "솔리디티의 encodePacked, ethers의 solidityPack ",
+        "excerpt":"encodePacked Solidity documentation에서는 ‘Non-standard Packed Mode’라고 부르는데, 정해지지 않은 타입으로 구성된 일련의 데이터를 하나로 결합해주는 기능이다. 솔리디티에서는 string이라는 타입은 지원하지만 이를 concat(연결)하는 기능은 따로 없는데, 솔리디티 내부에 존재하는 모든 데이터들은 바이트 형태로 다루어지기 때문이다. 위의 공식 문서에서는 해당 기능을 아래와 같이 표현한다. types shorter than 32 bytes are concatenated directly,...","categories": ["Ethereum"],
+        "tags": ["Blockchain","Ethereum","keccak","encodePacked","ethers"],
+        "url": "http://localhost:4000/ethereum/encodePacked/",
+        "teaser": null
+      },{
+        "title": "Golang으로 Oracle Database 다뤄보기",
+        "excerpt":"Oracle Database 오라클 데이터베이스(Oracle Database 또는 Oracle RDBMS)는 미국 오라클(Oracle)사의 관계형 데이터베이스 관리 시스템의 이름이다. 현재 유닉스 환경에서 가장 널리 사용되는 RDBMS이다. 검색이나 업데이트용 언어로는 국제표준화기구의 표준 구조화 조회 언어와 PL/SQL을 지원한다. 위키백과 주의사항 참고로 M1 이상의 맥북을 사용하는 사람들은 Oracle에서 제공하는 공식 도커 이미지가 동작하지 않는다. (수많은 사용자들의 시도가...","categories": ["Go"],
+        "tags": ["Go","Backend","Database","Oracle"],
+        "url": "http://localhost:4000/go/oraclego/",
+        "teaser": null
+      },{
+        "title": "맥OS에서 사용중인 포트 확인 및 종료하기",
+        "excerpt":"오류 메시지 $ docker run --name testdbcontainer -e MYSQL_ROOT_PASSWORD=test -p 3306:3306 -d mariadb d4eb563c917c0432741b8ae1bd373876d9037a0f18e31d4c72c4bcb70753db20 docker: Error response from daemon: Ports are not available: listen tcp 0.0.0.0:3306: bind: address already in use. MariaDB를 사용해보려는 찰나, 3306 포트가 이미 사용중이라는 오류메시지가 발생했다. 해결 방안 1. 해당 포트를 사용중인 프로세스 확인 # 3306...","categories": ["Tools"],
+        "tags": ["Tools","MacOS","포트","PID"],
+        "url": "http://localhost:4000/tools/macpid/",
+        "teaser": null
+      },{
+        "title": "멀티플랫폼(multi-platform) 형태의 도커 컨테이너 구동하기",
+        "excerpt":"M1과 도커, 친해지길 바래 애플에서 만든 M1 칩이 성능 측면에서 굉장히 호평을 받고 있지만, 개발자 혹은 디자이너에게는 호환되지 않는 여러 프로그램으로 인해 골머리를 앓게 하는 경우가 많이 발생한다. 필자도 동일한 스마트 컨트랙트를 테스트할 때, 집에 있는 Intel 맥북 프로와 회사의 M1 맥북 프로 간 매우 큰 성능 차이가 생기는 것을...","categories": ["Docker"],
+        "tags": ["Docker","Go","Backend","M1","MacOs"],
+        "url": "http://localhost:4000/docker/m1containergo/",
         "teaser": null
       }]

@@ -1,0 +1,44 @@
+I"y<p><br /></p>
+
+<h2 id="오류-메시지">오류 메시지</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">--name</span> testdbcontainer <span class="nt">-e</span> <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="nb">test</span> <span class="nt">-p</span> 3306:3306 <span class="nt">-d</span> mariadb
+
+d4eb563c917c0432741b8ae1bd373876d9037a0f18e31d4c72c4bcb70753db20
+docker: Error response from daemon: Ports are not available: listen tcp 0.0.0.0:3306: <span class="nb">bind</span>: address already <span class="k">in </span>use.
+</code></pre></div></div>
+
+<p>MariaDB를 사용해보려는 찰나, 3306 포트가 이미 사용중이라는 오류메시지가 발생했다.</p>
+
+<p><br /></p>
+
+<h2 id="해결-방안">해결 방안</h2>
+
+<h3 id="1-해당-포트를-사용중인-프로세스-확인">1. 해당 포트를 사용중인 프로세스 확인</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 3306 포트를 예시로 하면 아래와 같다.</span>
+<span class="nv">$ </span><span class="nb">sudo </span>lsof <span class="nt">-i</span> :3306
+
+COMMAND    PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+mariadbd 47047 ssbc   21u  IPv6 0xb3e94f6cde9be313      0t0  TCP <span class="k">*</span>:mysql <span class="o">(</span>LISTEN<span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="2-프로세스-종료">2. 프로세스 종료</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 위의 결과에 대한 예시는 아래와 같다.</span>
+<span class="nv">$ </span><span class="nb">kill</span> <span class="nt">-9</span> 47047
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="참고자료">참고자료</h2>
+<ul>
+  <li><a href="https://ooz.co.kr/468">사용중인 특정 포트 종료 하고, 포트 열기 - 이러쿵저러쿵:티스토리</a></li>
+</ul>
+
+<p><br /></p>
+
+<p><a href="#" class="btn btn--primary align-right">맨 위로 이동하기</a></p>
+
+<p><br /></p>
+:ET
