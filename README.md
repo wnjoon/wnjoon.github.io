@@ -1,32 +1,27 @@
-# 개인 블로그 
+# whiteglass-template
 
-> https://wnjoon.github.io
+[![Jekyll Deploy](https://github.com/yous/whiteglass-template/workflows/Jekyll%20Deploy/badge.svg?branch=source)](https://github.com/yous/whiteglass-template/actions?query=workflow%3A%22Jekyll+Deploy%22+branch%3Asource)
 
-## 감사의 말
+Template site for [whiteglass](https://github.com/yous/whiteglass) theme. Click
+"Use this template" button to start.
 
-먼저 [식빵맘](https://ansohxxn.github.io)님께 멀리서나마 진심으로 감사드립니다. 깃허브 블로그를 수없이 도전했는데 생각만큼 쉽지 않아서 울며 겨자먹기로 티스토리에 블로그를 운영중이었는데, 식빵맘님이 public으로 제공해주신 덕분에 손쉽고 빠르게 블로그를 만들 수 있었습니다. 가까운 곳에 계셨더라면 값비싼 커피라도 한잔 꼭 대접하고 싶네요. 👍
+## Configuration
 
-## 블로그 소개
+Change the options defined in _config.yml. Let's say the URL of your source
+repository is `https://github.com/johndoe/some-repo`.
 
-Today I Learned, 하루키의 법칙 등 왠만큼 도움된다는건 다 해보려고 노력중이라 배우고 경험한 내용들을 정리해서 작성해두고자 운영중입니다.  
-대부분은 개발과 관련된 내용이나, 추후에는 다양한 분야를 작성해보고 싶은 생각이 있습니다.
+``` yaml
+title: My site title
+author: John Doe
+description: This is my site description.
+baseurl: "/some-repo"
+url: "https://johndoe.github.io"
+```
 
-## 변경 히스토리
-- 2021.10.12 : 식빵맘님 블로그 복사해서 개인용 블로그로 편집 -> 대부분의 작업은 완료
-- 2021.10.13 : 블로그 이관 작업 시작, git push 관련 스크립트 작성
-- 2022.10.01 : 블로그 구조 변경 작업 시작 (minimal-minstake -> beutiful-jekyll)
+For further details, see [Configuration](https://jekyllrb.com/docs/configuration/)
+section under Jekyll documentation.
 
-## 작성 방법
-### 카테고리 추가
-- _pages > categories에 추가하고자 하는 카테고리 생성
-- _includes > nav_list_main에 추가한 카테고리 및 하위 카테고리 작성
+## License
 
-## 포스트 추가
-- _posts > 작성하고자 하는 글의 카테고리 생성 (있으면 해당 디렉토리로 이동)
-- 해당 카테고리 내부에 글 작성. 글의 템플릿은 기존에 존재하는 것 사용
-
-## 로컬 작업
-- bundle exec jekyll serve --livereload (또는 ./testlocal.sh)
-
-## git push
-- ./push.sh ${COMMIT_MESSAGE}
+whiteglass-template is free and unencumbered software released into the public
+domain. For more information, please refer to <http://unlicense.org/>.
