@@ -33,6 +33,6 @@ deploy:
   github_token: $WNJOON_GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   local_dir: _site
-  target_branch: master
+  target_branch: gh-pages
   on:
     branch: master
