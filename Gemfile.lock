@@ -87,7 +87,7 @@ DEPENDENCIES
   jekyll (~> 4.1)
   jekyll-toc
   jekyll-whiteglass
-  rake
+  rake (>= 0.9.2)
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)
