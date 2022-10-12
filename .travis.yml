@@ -30,7 +30,7 @@ branches:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: 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
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   local_dir: _site
   target_branch: master
