@@ -1,41 +1,14 @@
 language: ruby
-cache: bundler
 rvm:
 - 2.7.6
-addons:
-  apt:
-    packages:
-    - openjdk-8-jre
-before_install:
-- gem update --system
-- gem install bundler
-- nvm install node
-install:
-- bundle install --jobs=3 --retry=3
-- pip install --user html5validator
-- npm install -g pa11y-ci
-script:
-- bundle exec jekyll clean && bundle exec jekyll build
-- html5validator --Werror --also-check-css --also-check-svg --root _site/
-- |
-  (bundle exec jekyll server -d _tmp_site & echo $! >&3) 3>jekyll.pid | grep -q 'Server running' && \
-  pa11y-ci --sitemap 'http://localhost:4000/sitemap.xml' \
-    --sitemap-find 'https://wnjoon.github.io' --sitemap-replace 'http://localhost:4000' && \
-  kill -9 "$(cat jekyll.pid)" && \
-  rm -f jekyll.pid && \
-  rm -rf _tmp_site
-branches:
-  only:
-  - master
+env:
+  global:
+    secure: IgoXr9ua+P+vU7O5U4juhpVpoLz40zBoqpSypoNT3WLwS5FqAcI0rw5TsewAPvXU3dgYbk53Z/IWi60Dl0xdZKBHFQF7w5ryTi3OEiWjBAsg1d2vCpNPU/vCxeLxh9hrQgddYe3uCl2lnmoNnxS32ppiEibDpOt8dKy2G0eZ5tg/lD7ibAdSmVNbF0Ybe2mR0EwaxbmXEqywx9wP7Ppp4Nndw05Vnx5CX2agV0nerg2EXGB0A/sm5qhp4oYopEHA4O/lc2A9VMN/IWUr0bD/80/VrOucc+3ffMHd25vo7jHCM0Czo2v3AcTbx/D+7nEd+OdiTgBvnoNk69S31abIwiscfAKltDzicQn5Obci+gfFVZIaHgHbqdSMVDdPBjHevJ/wiCSAD0EgEGNarv5KfMlFTyMc0FG7lGRmsGr3S17J3gKgIwiysAPdJWClifQ0O//EvGxoJfszqw/SFuPkH6L48Jt5fJ273g5rg28prBhSCMsplTmWlbzs2b9cXe2EOojMvhpavSDDE6+Co6Js/UdukXYyu+kl9zfCDtdAgUf7ivY8qOCuvR/tC7RkGsUlpon0EUeangZVxM+bqWpUIaPYuRg+4FZAARIHHzL0dz44fGOXNC235lYt9yT35xOC9Ns2KlGTwMYIv54x72A7RBaaOYXAM8AylS5HgeZ8jzQ=
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: "$WNJOON_GITHUB_TOKEN"
-  keep_history: true
   local_dir: _site
   target_branch: master
   on:
     branch: source
-env:
-  global:
-    secure: IgoXr9ua+P+vU7O5U4juhpVpoLz40zBoqpSypoNT3WLwS5FqAcI0rw5TsewAPvXU3dgYbk53Z/IWi60Dl0xdZKBHFQF7w5ryTi3OEiWjBAsg1d2vCpNPU/vCxeLxh9hrQgddYe3uCl2lnmoNnxS32ppiEibDpOt8dKy2G0eZ5tg/lD7ibAdSmVNbF0Ybe2mR0EwaxbmXEqywx9wP7Ppp4Nndw05Vnx5CX2agV0nerg2EXGB0A/sm5qhp4oYopEHA4O/lc2A9VMN/IWUr0bD/80/VrOucc+3ffMHd25vo7jHCM0Czo2v3AcTbx/D+7nEd+OdiTgBvnoNk69S31abIwiscfAKltDzicQn5Obci+gfFVZIaHgHbqdSMVDdPBjHevJ/wiCSAD0EgEGNarv5KfMlFTyMc0FG7lGRmsGr3S17J3gKgIwiysAPdJWClifQ0O//EvGxoJfszqw/SFuPkH6L48Jt5fJ273g5rg28prBhSCMsplTmWlbzs2b9cXe2EOojMvhpavSDDE6+Co6Js/UdukXYyu+kl9zfCDtdAgUf7ivY8qOCuvR/tC7RkGsUlpon0EUeangZVxM+bqWpUIaPYuRg+4FZAARIHHzL0dz44fGOXNC235lYt9yT35xOC9Ns2KlGTwMYIv54x72A7RBaaOYXAM8AylS5HgeZ8jzQ=
