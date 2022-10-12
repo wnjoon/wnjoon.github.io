@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-10-12T05:19:06+00:00</updated>
+  <updated>2022-10-12T05:32:39+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -24,6 +24,437 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">트랜잭션 해시(Transaction Hash)는 언제 만들어지는가?</title>
+      
+      
+      <link href="http://localhost:4000/2022/05/20/transaction_hash/" rel="alternate" type="text/html" title="트랜잭션 해시(Transaction Hash)는 언제 만들어지는가?" />
+      
+      <published>2022-05-20T06:00:00+00:00</published>
+      <updated>2022-05-20T06:00:00+00:00</updated>
+      <id>http://localhost:4000/2022/05/20/transaction_hash</id>
+      <content type="html" xml:base="http://localhost:4000/2022/05/20/transaction_hash/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;트랜잭션 해시란?&lt;/h2&gt;
+
+&lt;p&gt;트랜잭션 해시(Transaction Hash, 또는 줄여서 TXID)는 &lt;u&gt;트랜잭션에 대한 고유 ID&lt;/u&gt;를 의미한다. 일반적으로 트랜잭션은 아래와 같은 정보를 갖는다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  from : 송신자 지갑의 주소,
+  to : 수신자 지갑의 주소,
+  value : 전송한 이더 또는 토큰의 개수,
+  gasPrice : 트랜잭션 전송에 사용되는 가스량,
+  ....
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;트랜잭션 해시의 생성 과정&lt;/h2&gt;
+
+&lt;p&gt;트랜잭션 해시가 만들어지기 위해서는 위에서 언급한 &lt;u&gt;1) 트랜잭션 정보&lt;/u&gt;와 &lt;u&gt;2) 트랜잭션을 전송하는 지갑의 개인키&lt;/u&gt;가 필요하다. 개인키를 통해 트랜잭션을 보낸 사람이 본인임을 증명할 수 있는데, 이러한 증명 과정을 &lt;u&gt;서명(signature)&lt;/u&gt;이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/169449935-9f3ceda3-a64f-443e-b829-8d75d39f45a7.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 1: 트랜잭션 해시가 생성되는 과정&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;트랜잭션 정보와 서명이 블록체인 노드로 전달되면, 블록체인 노드는 두 정보를 RLP encoding을 통해 RawTransaction으로 만든다. 예시로 아래와 같은 RawTransaction이 있다고 할 때, 이를 해석(decode)하면 실제 전송했던 트랜잭션의 내용을 확인할 수 있다. 이 때 확인할 수 있는(들어있는) 내용은 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  nonce : 해당 트랜잭션의 논스값,
+  gasPrice : 해당 트랜잭션의 가스 수수료,
+  gas : 해당 트랜잭션을 수행할 때의 가스리밋&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gasLimit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,
+  to : 수신자 지갑 주소,
+  value : 전송량,
+  data : 트랜잭션에 추가로 보내는 데이터,
+  v : 서명 값,
+  r : 서명 값,
+  s : 서명 값
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 내용들이 특정 구문값과 함께 순서대로 조합되어 하나의 16진수 형태로 구성된다. 자세한 내용은 ‘&lt;a href=&quot;https://brunch.co.kr/@nujabes403/15#comment&quot;&gt;트랜잭션 해시(TXID)에 대한 오해&lt;/a&gt;‘를 확인하면 좋다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;트랜잭션 해시의 생성 방법&lt;/h2&gt;
+
+&lt;p&gt;트랜잭션 해시는 결국 &lt;u&gt;keccak256(rawTransaction)&lt;/u&gt;의 결과 값이다. &lt;a href=&quot;https://leventozturk.com/engineering/sha3/&quot;&gt;ONLINE SHA-3 Keccak CALCULATOR - CODE GENERATOR&lt;/a&gt;에서 RawTransaction을 keccak256을 통해 트랜잭션 해시로 만들어볼 수 있는데, 해당 트랜잭션이 이더리움 네트워크에 전송되어 있다면 이를 이더스캔(&lt;a href=&quot;https://etherscan.io&quot;&gt;Etherscan&lt;/a&gt;)에서 조회할 수 있다. 여기서 조회 조건인 트랜잭션해시값은 앞에 0x를 붙여줘야 한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://etherscan.io/tx/트랜잭션해시값 : 트랜잭션에 들어가있는 정보들을 볼 수 있다.&lt;/li&gt;
+  &lt;li&gt;https://etherscan.io/getRawTx?tx=트랜잭션해시값  : 해당 트랜잭션의 RawTransaction을 확인할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Web3js&lt;/h2&gt;
+
+&lt;h3&gt;1. 트랜잭션 해시 생성 : eth.sendTransaction&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=sendTransaction#sendtransaction&quot;&gt;web3js.readthedocs.io - eth.sendTransaction&lt;/a&gt;에서는 Web3js를 활용한 트랜잭션 전송 및 해시 반환 방법에 대해 설명하고 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// using the event emitter&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;web3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1000000000000000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;transactionHash&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;confirmation&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;confirmationNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// If a out of gas error, the second parameter is the receipt.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 코드에서 .on으로 시작되는 내용들에 대한 설명은 아래와 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;on(‘transactionHash’ …) : 트랜잭션 해시가 노드로부터 반환되었을 경우 실행할 내용들&lt;/li&gt;
+  &lt;li&gt;on(‘receipt’ …) : 트랜잭션이 블록에 포함되었을 경우 실행할 내용들&lt;/li&gt;
+  &lt;li&gt;on(‘confirmation’ …) : 트랜잭션이 블록체인에서 confirm 되었을 경우 실행할 내용들&lt;/li&gt;
+  &lt;li&gt;on(‘error’ …) : 트랜잭션 전송 과정에서 에러가 발생하였을 경우 실행할 내용들&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;2. RawTransaction 생성 : eth.accounts.signTransaction&lt;/h3&gt;
+
+&lt;p&gt;위의 내용이 트랜잭션을 전송하는 함수였다면, 이 함수(&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction&quot;&gt;eth.accounts.signTransaction&lt;/a&gt;)는 트랜잭션의 정보와 개인키를 이용하여 rawTransaction을 생성해주는 함수이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;web3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;accounts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;signTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xF0109fC8DF283027b6285cc889F5aA624EaC1F55&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1000000000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;gas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;gasPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;234567897654321&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nonce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;chainId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;messageHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x6893a6ee8df79b0f5d64a180cd1ef35d030f3e296a5361cf04d02ce720d32ec5&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x9ebb6ca057a0535d6186462bc0b465b561c94a295bdb0621fc19208ab149a9c&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x440ffd775ce91a833ab410777204d5341a6f9fa91216a6f3ee2c051fea6a0428&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x25&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;rawTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xf86a8086d55698372431831e848094f0109fc8df283027b6285cc889f5aa624eac1f55843b9aca008025a009ebb6ca057a0535d6186462bc0b465b561c94a295bdb0621fc19208ab149a9ca0440ffd775ce91a833ab410777204d5341a6f9fa91216a6f3ee2c051fea6a0428&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;transactionHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xd8f64a42b57be0d565f385378db2f6bf324ce14a594afc05de90436e9ce01f60&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;결국 이 함수를 활용하면 트랜잭션을 블록체인에 전송하지 않고도 rawTransaction을 얻을 수 있고, 이를 keccak256 함수로 반환하여 미리 트랜잭션 해시값을 확인할 수도 있다.&lt;/p&gt;
+
+&lt;h3&gt;3. Nonce&lt;/h3&gt;
+
+&lt;p&gt;그런데 위의 eth.accounts.signTransaction 함수를 보면 논스(nonce) 값이 필요하다. 블록체인에 실제 트랜잭션을 전송하지 않고도 어떻게 논스를 확인할 수 있을까?&lt;br /&gt;
+여기서의 논스는 &lt;u&gt;트랜잭션을 전송하는 지갑의 trasnaction count, 즉 특정 지갑(계정)이 지금까지 블록체인에 전송한 트랜잭션의 개수&lt;/u&gt;를 의미한다. 이 값은 &lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount&quot;&gt;getTransactionCount&lt;/a&gt;를 통해 블록체인 노드로부터 가져올 수 있다.&lt;/p&gt;
+
+&lt;h3&gt;4. RawTransaction으로 트랜잭션 전송 : sendSignedTransaction&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount&quot;&gt;sendSignedTransaction&lt;/a&gt;은 RawTransaction을 블록체인으로 전송하는 함수이다.&lt;br /&gt;
+위의 &lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction&quot;&gt;eth.accounts.signTransaction&lt;/a&gt;로부터 생성된 값을 해당 함수에 넣어주면 이에 맞는 트랜잭션이 전송된다고 보면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Tx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;@ethereumjs/tx&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;privateKey&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rawTx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;nonce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;gasPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x09184e72a000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;gasLimit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x2710&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x0000000000000000000000000000000000000000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x7f7465737432000000000000000000000000000000000000000000000000000000600057&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rawTx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ropsten&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sign&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;privateKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serializedTx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// console.log(serializedTx.toString('hex'));&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000571ca08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;web3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendSignedTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serializedTx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// see eth.getTransactionReceipt() for details&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;위에서 확인할 수 있었듯, rawTransaction을 keccak256 함수로 변환한 값이기 때문에 이더리움 블록체인에 전송되기 전에라도 트랜잭션 해시값은 얻을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://brunch.co.kr/@nujabes403/15#comment&quot;&gt;트랜잭션 해시(TXID)에 대한 오해 - 김훈일&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@codetractio/inside-an-ethereum-transaction-fa94ffca912f&quot;&gt;Inside an Ethereum transaction - Medium&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/index.html&quot;&gt;web3.js - Ethereum JavaScript API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://wiki.hash.kr/index.php/Keccak-256&quot;&gt;Keccak256 - 해시넷&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="blockchain" />
+      
+
+      
+        <category term="ethereum" />
+      
+        <category term="transaction" />
+      
+        <category term="keccak" />
+      
+
+      
+        <summary type="html">트랜잭션 해시에 대한 내용과 생성되는 과정 및 시간에 대하여 알아본다.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">스마트 컨트랙트를 Go에 바인딩(Binding)하기</title>
+      
+      
+      <link href="http://localhost:4000/2022/04/28/smartcontract_gobinding/" rel="alternate" type="text/html" title="스마트 컨트랙트를 Go에 바인딩(Binding)하기" />
+      
+      <published>2022-04-28T06:00:00+00:00</published>
+      <updated>2022-04-28T06:00:00+00:00</updated>
+      <id>http://localhost:4000/2022/04/28/smartcontract_gobinding</id>
+      <content type="html" xml:base="http://localhost:4000/2022/04/28/smartcontract_gobinding/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Go를 이용한 이더리움 개발&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://goethereumbook.org&quot;&gt;Ethereum Development with Go&lt;/a&gt;에는 Golang을 이용해서 이더리움 클라이언트를 개발하는 방법에 대해 알려주고 있다. 가장 대중적으로 사용되는 방식이 JavaScript이지만, 개인적으로 이더리움의 Geth가 그러했듯이 Go를 이용하여 이더리움의 클라이언트를 개발하는 것은 마치 &lt;u&gt;태생적으로 딱 맞게 세팅된 옷을 입는 행위&lt;/u&gt;와 같다고 생각이 된다.&lt;br /&gt;
+무튼 이러한 이유로 Java를 이용한 Web3j가 아닌 Go를 이용한 클라이언트 개발을 진행해보려고 하는데, 문제점(?)이 발생하였고 이를 해결하는 과정을 공유해보고자 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;.sol -&amp;gt; .json(abi) -&amp;gt; .go&lt;/h2&gt;
+
+&lt;p&gt;스마트 컨트랙트를 컴파일하는 과정에서 생성되는 Json 형태의 ABI를 바로 사용하는 Web3js와 다르게, Web3j나 본 포스팅에서 사용하고자 하는 Go와 같이 컴파일 기반의 언어는 스마트 컨트랙트를 해당 언어로 ‘변경’하는 작업이 필요하다. 이를 Web3j에서는 WrapperClass, Golang에서는 Binding이라고 표현한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://docs.soliditylang.org/en/develop/abi-spec.html&quot;&gt;ABI(Application Binary Interface)&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;The Contract Application Binary Interface (ABI) is the standard way to interact with contracts in the Ethereum ecosystem, both from outside the blockchain and for contract-to-contract interaction. Data is encoded according to its type, as described in this specification. The encoding is not self describing and thus requires a schema in order to decode.&lt;/p&gt;
+
+  &lt;p&gt;결국 ‘스마트 컨트랙트의 호출 방법과 이를 통해 어떤 데이터를 결과로 받을지에 대해 명시한 내용’으로, 컴파일 과정에서 생성된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Web3j도 이 과정이 생각보다 복잡+불편했는데, 상대적으로 적은(매우) 사용자수와 이를 뒷받침하는 적은 레퍼런스 떄문이었다. 문제는 생각보다 사용자 수가 많을 것으로 예상했던 Golang치고 이 과정에 대한 레퍼런스가 매우 부족했다는 것이다.&lt;br /&gt;
+&lt;a href=&quot;https://goethereumbook.org&quot;&gt;Ethereum Development with Go&lt;/a&gt;의 &lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt;에서는 이 과정에 대해 자세히 설명하고 있는데, 결론적으로 말하자면 &lt;u&gt;안된다&lt;/u&gt;. 단순히 안된다고하면 그렇고, 이번에 내가 테스트하려는 스마트 컨트랙트를 기준으로 실행이 되지 않았는데 이 과정에 대해 설명해본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Openzepellin을 참조하지 못하는 문제 발생&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt;에서는 solc를 이용하여 직접 컨트랙트를 컴파일하고 있는데, 여기서 사용하는 예시 컨트랙트는 &lt;strong&gt;‘아무것도 import하지 않고 오직 혼자서만 동작’&lt;/strong&gt;하고 있다.&lt;/p&gt;
+
+&lt;p&gt;필자는 &lt;a href=&quot;https://github.com/ConsenSys/UniversalToken&quot;&gt;Consensys - UniversalToken&lt;/a&gt; 기반의 ST(Security Token - 증권형 토큰)를 테스트해보려고 하는데, ERC1400 뿐만 아니라 여기서 사용되는 대부분의 기능들이 &lt;a href=&quot;https://github.com/OpenZeppelin/openzeppelin-contracts&quot;&gt;Openzepellin&lt;/a&gt; 기반에서 동작한다.&lt;/p&gt;
+
+&lt;p&gt;먼저 package.json 파일과 truffle-config.js 파일의 내용을 기반으로 node_modules를 만들어주었다. 이후 &lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt; 문서에 나온대로 스마트 컨트랙트 파일(.sol)을 ABI 형태로 변환하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/165697006-0dc2e2b6-15d3-4ba0-bafa-40445faa035b.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 1: solc –abi contracts/ERC1400.sol -o build ==&amp;gt; 오류 발생&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림과 같이 Openzepellin에 대한 내용이 node_modules에 버젓이 있음에도 컴파일이 전혀 되지 않았다. 문서에 있는 내용 중 1단계부터 막혀버려서 멘붕이었는데, 이를 아무리 구글링해도 원하는 답변을 찾기 어려웠다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;해결 방법&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.metachris.com/2021/05/creating-go-bindings-for-ethereum-smart-contracts/#smart-contracts-with-truffle&quot;&gt;Creating Go Bindings for Ethereum Smart Contracts&lt;/a&gt;에서 정확한 답을 찾아서 이를 직접 적용해보고 결과를 포스팅해보고자 한다.&lt;/p&gt;
+
+&lt;p&gt;참고로 이번 포스팅에서 사용한 스마트 컨트랙트는 위에서 언급한 &lt;a href=&quot;https://github.com/ConsenSys/UniversalToken&quot;&gt;Consensys - UniversalToken&lt;/a&gt;으로, 디렉토리 또는 파일의 구조가 위의 리포지토리를 기반으로 진행한다.&lt;/p&gt;
+
+&lt;h3&gt;1. abigen 확인&lt;/h3&gt;
+
+&lt;p&gt;참고로 abigen을 이용하려면 go-ethereum을 설치해야만 한다.&lt;/p&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Download go-ethereum, build and install the devtools (which includes abigen)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/ethereum/go-ethereum.git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;go-ethereum
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make devtools
+
+&lt;span class=&quot;c&quot;&gt;# Run abigen and print the version&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;abigen &lt;span class=&quot;nt&quot;&gt;-version&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;abigen &lt;span class=&quot;nt&quot;&gt;-help&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3&gt;2. truffle을 이용한 스마트컨트랙트 배포&lt;/h3&gt;
+
+&lt;p&gt;필자는 truffle을 이용하여 스마트컨트랙트를 배포하였다. &lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt; 문서에 나와있는데로 solc를 이용하여 Openzepellin의 참조를 걸어주는 방법(&lt;a href=&quot;https://docs.soliditylang.org/en/v0.8.13/path-resolution.html#import-remapping&quot;&gt;docs.soliditylang.org - Import Remapping&lt;/a&gt;)을 찾았지만, 실제로 해본 결과 제대로 동작하지 않았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.1. @chainsafe/truffle-plugin-abigen 설치&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;truffle 기반으로 만들어진 스마트컨트랙트 디렉토리에서 해당 모듈을 설치한다. 혹은 package.json에 이를 추가한다.&lt;br /&gt;
+아래 내용은 @openzeppelin/contracts가 이미 설치되어있다는 가정아래에 진행한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;yarn add truffle @chainsafe/truffle-plugin-abigen
+
+&lt;span class=&quot;c&quot;&gt;# 만약 @openzeppelin/contracts 또한 설치되어 있지 않다면&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# $ yarn add truffle @openzeppelin/contracts @chainsafe/truffle-plugin-abigen&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2.2. truffle-config.js 수정&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;truffle-config.js의 plugins에 위에서 설치한 모듈을 추가한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// truffle-config.js&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;solidity-coverage&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;truffle-contract-size&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;truffle-plugin-verify&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@chainsafe/truffle-plugin-abigen&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 추가&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;compilers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;solc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;0.8.7&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// Fetch exact version from solc-bin (default: truffle's version)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2.3. 컨트랙트 배포&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;필자는 ganache를 이용하여 네트워크를 구성하였고, 이곳에 해당 컨트랙트를 배포하였다. 추가로 ERC20을 직접 테스트해보기 위해 migrations 내부에 ‘13_erc20_token.js’ 파일을 추가로 생성하였다.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// migrations/13_erc20_token.js&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ERC20Token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;artifacts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./tokens/ERC20Token.sol&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;deployer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;network&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;accounts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;network&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// test maintains own contracts&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;deployer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ERC20Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ERC20Token&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;GEN&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;   &amp;gt; ERC20 token deployment: Success --&amp;gt;&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ERC20Token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이제 migrations에 적혀있던 기존 내용 + erc20을 ganache에 배포한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;truffle migrate &lt;span class=&quot;nt&quot;&gt;--network&lt;/span&gt; ganache
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;build/contracts에 해당 내용들이 생성된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.4. abi, bin 파일 생성&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;truffle run 기능을 이용한다. 여기서 abi 파일은 위의 배포 과정에서 build/contracts 내부에 생성된 json 파일을 기준으로 생성되고, bin 파일은 이렇게 만들어진 abi를 기준으로 생성된다. 즉, 배포(또는 컴파일) 과정이 꼭 먼저 선행되어야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# abi, bin 파일을 저장할 디렉토리가 필요하다.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 이 디렉토리는 이름이 정해져 있으므로, 아래 명령어를 실행하는 곳에 생성한다.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 본 예시에서는 UniversalToken 내부에서 아래 명령어를 실행한다.&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 디렉토리 생성&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; abigenBinding
+
+&lt;span class=&quot;c&quot;&gt;# abi, bin 생성&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 1. ERC1400&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;truffle run abigen ERC1400
+&lt;span class=&quot;c&quot;&gt;# 2. ERC20&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;truffle run abigen ERC20Token
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;truffle run abigen은 build/contracts에 생성된 파일을 기본값으로 확인하기 때문에, 확장자 없이 파일이름만 가지고 abi, bin을 생성한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.5. abi, bin을 이용한 go 파일 생성&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;필자의 경우 UniversalToken/go 아래에 해당 파일을 생성하도록 하였다. 해당 파일을 클라이언트에 옮기는 과정은 본 포스팅에서는 제외한다.&lt;br /&gt;
+–pkg의 경우 go 프로젝트 내에서 사용할 패키지를 담는 곳이다. 필자는 token 내에 바인딩 된 파일을 놓을 계획이라 아래와 같이 진행하였다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# UniversalToken 디렉토리 내에서 실행하였음
+
+# 1. ERC1400
+$ abigen --bin=abigenBindings/bin/ERC1400.bin --abi=abigenBindings/abi/ERC1400.abi --pkg=token --out=go/erc1400.go
+
+# 2. ERC20
+$ abigen --bin=abigenBindings/bin/ERC20Token.bin --abi=abigenBindings/abi/ERC20Token.abi --pkg=token --out=go/erc20.go
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;결론이라 할것은 없지만, truffle을 이용하여 배포된 컨트랙트를 go client에서 사용할 수 있는 .go 파일로 바인딩하는 방법에 대해 알 수 있어서 좋았다. 지극히 개인적인 의견으로 javaScript 보다는 golang을 이용한 클라이언트가 속도면에서도 더 좋을것으로 기대중이지만, 아마 javaScript만이 가지는 프론트엔트와의 직관적인 연결로 대부분 javaScript를 사용하지 않나 생각한다. 향후에는 golang 기반의 클라이언트로 해당 토큰을 호출해보고 이를 포스팅해보도록 하겠다.&lt;/p&gt;
+
+&lt;p&gt;이번 포스팅에서 작성한 스크립트는 ‘이곳(&lt;a href=&quot;https://github.com/wnjoon/security-token-test/blob/main/smartcontract/UniversalToken/getGoFile.sh&quot;&gt;wnjoon/security-token-test : github&lt;/a&gt;)’에서 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.metachris.com/2021/05/creating-go-bindings-for-ethereum-smart-contracts/#smart-contracts-with-truffle&quot;&gt;Creating Go Bindings for Ethereum Smart Contracts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://goethereumbook.org/en/smart-contract-compile/&quot;&gt;Smart Contract Compilation &amp;amp; ABI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="blockchain" />
+      
+
+      
+        <category term="ethereum" />
+      
+        <category term="smartcontract" />
+      
+        <category term="truffle" />
+      
+        <category term="gobinding" />
+      
+        <category term="go" />
+      
+
+      
+        <summary type="html">Truffle을 이용하여 컨트랙트를 컴파일하고, 이를 Golang에서 사용할 수 있도록 바인딩해본다.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
