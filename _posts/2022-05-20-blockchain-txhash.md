@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "트랜잭션 해시(Transaction Hash)는 언제 만들어지는가?" 
-excerpt: "트랜잭션 해시에 대한 내용과 생성되는 과정 및 시간에 대하여 알아본다."
+excerpt: "트랜잭션 해시에 대한 내용과 생성되는 과정 및 시간에 대하여 알아본다. 결론부터 말하자면, 이더리움 블록체인에 전송되기 전에라도 트랜잭션 해시값은 얻을 수 있다."
 date:   2022-05-20 15:00:00 +0900
 categories: blockchain
 tags: [ethereum, transaction, keccak]

@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-10-13T12:22:42+00:00</updated>
+  <updated>2022-10-13T12:30:45+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -1002,7 +1002,7 @@ func encodeInHardhat&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;var _addressVa
       
 
       
-        <summary type="html">트랜잭션 해시에 대한 내용과 생성되는 과정 및 시간에 대하여 알아본다.</summary>
+        <summary type="html">트랜잭션 해시에 대한 내용과 생성되는 과정 및 시간에 대하여 알아본다. 결론부터 말하자면, 이더리움 블록체인에 전송되기 전에라도 트랜잭션 해시값은 얻을 수 있다.</summary>
       
 
       
