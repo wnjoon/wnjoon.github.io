@@ -4,7 +4,7 @@ title:  "해시 테이블(Hash Table)"
 excerpt: "키-값(key-value) 구조를 통해 효율적인 탐색을 제공하는 해시 테이블 자료구조에 대해 알아본다."
 date:   2021-09-25 15:00:00 +0900
 categories: algorithm
-tags: [graph, DFS, BFS]
+tags: [hash, key-value]
 ---
 
 <br>
