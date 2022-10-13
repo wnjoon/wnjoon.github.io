@@ -13,8 +13,8 @@ rm -rf $CACHE_DIR
 # Build
 bundle exec jekyll build
 
-# git add .
-# git commit -m "commit $(date)"
+git add .
+git commit -m "commit $(date)"
 
 # If Build succeeds
 if [ -d "$BUILD_DIR" ]; then
