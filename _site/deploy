@@ -14,7 +14,8 @@ rm -rf $CACHE_DIR
 bundle exec jekyll build
 
 git add .
-git commit -m "commit $(date)"
+git commit -m "something changed at $(date)"
+git push origin development
 
 # If Build succeeds
 if [ -d "$BUILD_DIR" ]; then
