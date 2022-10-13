@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "이더리움은 왜 RLP 인코딩을 사용할까?" 
-excerpt: "RLP는 Recursive Length Prefix의 약자로, '특정 데이터에 정해진 규칙을 반복적으로 적용하는 인코딩 방식' 이다."
+excerpt: "RLP는 Recursive Length Prefix의 약자로, '특정 데이터에 정해진 규칙을 반복적으로 적용하는 인코딩 방식' 이다. 이더리움에서 RLP를 사용하는 이유는 크게 구현의 단순성(Simplicity of implementation)과 언제나 일관된 바이트 형태를 보장(Guaranteed absolute byte-perfect consistency)하기 때문이다."
 date:   2022-09-12 15:00:00 +0900
 categories: blockchain
 tags: [ethereum, RLP, encoding]
