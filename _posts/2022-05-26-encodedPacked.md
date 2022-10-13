@@ -4,7 +4,7 @@ title: "솔리디티의 encodePacked, ethers의 solidityPack "
 excerpt: "Web3js에서 합친 문자열을 솔리디티내에서 동일하게 사용할 수 있는 방법에 대해 알아본다."
 date:   2022-05-26 15:00:00 +0900
 categories: blockchain
-tags: [ethereum, keccak, solidity]
+tags: [ethereum, smart contract, keccak, solidity]
 ---
 
 <br>
