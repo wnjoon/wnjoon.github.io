@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-10-13T01:34:51+00:00</updated>
+  <updated>2022-10-13T01:36:50+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -31,12 +31,12 @@
       <title type="html">이더리움과 상태 머신</title>
       
       
-      <link href="https://wnjoon.github.io/2022/09/10/eth-state-machine/" rel="alternate" type="text/html" title="이더리움과 상태 머신" />
+      <link href="https://wnjoon.github.io/2022/09/10/eth-sm/" rel="alternate" type="text/html" title="이더리움과 상태 머신" />
       
       <published>2022-09-10T06:00:00+00:00</published>
       <updated>2022-09-10T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2022/09/10/eth-state-machine</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2022/09/10/eth-state-machine/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+      <id>https://wnjoon.github.io/2022/09/10/eth-sm</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2022/09/10/eth-sm/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2&gt;이더리움에서의 상태 변화&lt;/h2&gt;
 
