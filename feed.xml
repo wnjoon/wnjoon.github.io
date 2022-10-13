@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-10-13T00:57:18+00:00</updated>
+  <updated>2022-10-13T01:15:20+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -24,6 +24,169 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">솔리디티의 encodePacked, ethers의 solidityPack</title>
+      
+      
+      <link href="https://wnjoon.github.io/2022/05/26/encodedPacked/" rel="alternate" type="text/html" title="솔리디티의 encodePacked, ethers의 solidityPack " />
+      
+      <published>2022-05-26T06:00:00+00:00</published>
+      <updated>2022-05-26T06:00:00+00:00</updated>
+      <id>https://wnjoon.github.io/2022/05/26/encodedPacked</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2022/05/26/encodedPacked/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;encodePacked&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.soliditylang.org/en/v0.8.13/abi-spec.html#non-standard-packed-mode&quot;&gt;Solidity documentation&lt;/a&gt;에서는 ‘Non-standard Packed Mode’라고 부르는데, &lt;u&gt;정해지지 않은 타입으로 구성된 일련의 데이터를 하나로 결합&lt;/u&gt;해주는 기능이다.&lt;br /&gt;
+솔리디티에서는 string이라는 타입은 지원하지만 이를 concat(연결)하는 기능은 따로 없는데, 솔리디티 내부에 존재하는 모든 데이터들은 바이트 형태로 다루어지기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;위의 공식 문서에서는 해당 기능을 아래와 같이 표현한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;types shorter than 32 bytes are concatenated directly, without padding or sign extension&lt;/li&gt;
+  &lt;li&gt;dynamic types are encoded in-place and without the length&lt;/li&gt;
+  &lt;li&gt;array elements are padded, but still encoded in-place&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;예시로 ‘[int16(-1), bytes1(0x42), uint16(0x03), string(“Hello, world!”)]’ 4개를 encodePacked한다고 하면 아래와 같은 결과가 나온다.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;0xffff42000348656c6c6f2c20776f726c6421&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;^^^^                                 int16(-1)&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;^^                               bytes1(0x42)&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;^^^^                           uint16(0x03)&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;^^^^^^^^^^^^^^^^^^^^^^^^^^ string(&quot;Hello, world!&quot;) without a length field&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정리하면,&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;데이터는 순서대로 인코딩되며, 시작과 끝이 별도로 표현되지 않는다. 또한 배열의 길이가 인코딩되지 않는다.&lt;/li&gt;
+  &lt;li&gt;인코딩의 결과는 array 또는 string, bytes가 아니다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;b&gt;하지만 실제 코딩해본 결과, &lt;u&gt;솔리디티에서는 bytes memory 타입으로 결과값을 반환&lt;/u&gt;한다.&lt;/b&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;string, bytes, uint[]와 같이 동적인 크기를 갖는 타입들은 각자의 길이를 패딩으로 갖지 않고 인코딩된다.&lt;/li&gt;
+  &lt;li&gt;배열 타입이 인코딩되면 내부 값들의 타입이 갖는 패딩길이를 포함해서 인코딩된다. 단, string, bytes 타입은 일괄적으로 32 bytes 만큼의 크기가 자동으로 패딩된다.&lt;/li&gt;
+  &lt;li&gt;결국 길이 필드가 별도로 존재하지 않기 때문에, 동적인 타입을 여러 개 인코딩할 경우 모호한 결과값이 만들어질 수 있다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;i&gt;예시로 abi.encodePacked(“a”, “bc”) == abi.encodePacked(“ab”, “c”)와 같은 상황이 발생할 수 있다.&lt;/i&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;만약 패딩이 필요하다면, abi.encodePacked(uint16(0x12)) == hex”0012” 와 같이 명시적인 타입변환을 같이 해주어야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;ethers.js&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.ethers.io/v5/&quot;&gt;ethers.js&lt;/a&gt;는 이더리움 블록체인(또는 이를 사용하는 생태계)과 상호작용하기 위한 라이브러리로, 본 포스팅에서는 hardhat과 연결하여 결과값을 보여주고자 한다.&lt;/p&gt;
+
+&lt;h3&gt;ethers.utils.solidityPack&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.ethers.io/v5/api/utils/hashing/#utils-solidityPack&quot;&gt;solidityPack&lt;/a&gt;은 여러개의 타입으로 구성된 데이터들을 non-standard하게 인코딩한 결과 값을 반환해주는 ethers 내부의 함수로, 솔리디티의 abi.encodePacked 함수와 동일한 기능을 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# solidityPack의 한 예시&lt;/span&gt;
+ethers.utils.solidityPack&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;uint8&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;, 3 &lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'0x48656c6c6f03'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;샘플 소스&lt;/h2&gt;
+
+&lt;p&gt;abi.encodePacked()와 ethers.utils.solidityPack()을 비교하는 부분만 별도로 포스팅한다.&lt;/p&gt;
+
+&lt;h3&gt;시나리오&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Hardhat 기반의 Typescript로 구성한 테스트 소스에서 다양한 타입으로 이루어진 값들을 ethers.utils.solidityPack을 사용하여 인코딩한다.&lt;/li&gt;
+  &lt;li&gt;해당 값을 솔리디티로 구성한 컨트랙트에 전송한다.&lt;/li&gt;
+  &lt;li&gt;솔리디티에서 다양한 타입으로 이루어진 값들을 abi.encodePacked를 이용하여 인코딩해보고, Hardhat으로부터 전달받은 값과 동일한지 확인한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이를 소스코드로 정리하면,&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# hardhat&lt;/span&gt;
+func encodeInHardhat&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;var _addressValue, var _intValue, var _bytesData&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  var encodedValue &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ethers.utils.solidityPack&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;...&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# solidity&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;encodeInSolidity&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;address _addressValue, uint256 _intValue, bytes memory _bytesData, bytes calldata dataFromHardhat&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  bytes memory encodedValue &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; abi.encodePacked&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;...&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  require&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;encodeValue &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; dataFromHardhat&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3&gt;Hardhat&lt;/h3&gt;
+
+&lt;p&gt;타입스크립트를 활용하였으며, 아래와 같이 데이터를 작성할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;waffle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ethers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;web3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;hardhat&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;waffle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getWallets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ethers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;BigNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;0x0000000000000000000000000000000000000000000000000000000000000000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;combinedMsg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ethers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;solidityPack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;uint256&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3&gt;Solidity&lt;/h3&gt;
+
+&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compareMsg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                    &lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                    &lt;span class=&quot;kt&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;memory&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                    &lt;span class=&quot;kt&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;memory&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;calldata&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_encodedMsg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;memory&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;combineMsg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;abi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encoded&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combineMsg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_encodeMsg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Should be same&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.soliditylang.org/en/v0.8.13/abi-spec.html#non-standard-packed-mode&quot;&gt;Solidity documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.ethers.io/v5/&quot;&gt;ethers documentatioin&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="blockchain" />
+      
+
+      
+        <category term="ethereum" />
+      
+        <category term="keccak" />
+      
+        <category term="solidity" />
+      
+
+      
+        <summary type="html">Web3js에서 합친 문자열을 솔리디티내에서 동일하게 사용할 수 있는 방법에 대해 알아본다.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
