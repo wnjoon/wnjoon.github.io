@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-10-13T01:24:10+00:00</updated>
+  <updated>2022-10-13T01:26:08+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -31,12 +31,12 @@
       <title type="html">이더리움과 상태 머신</title>
       
       
-      <link href="https://wnjoon.github.io/2022/09/10/ethereum_state_machine/" rel="alternate" type="text/html" title="이더리움과 상태 머신" />
+      <link href="https://wnjoon.github.io/2022/05/26/ethereum-state-machine/" rel="alternate" type="text/html" title="이더리움과 상태 머신" />
       
-      <published>2022-09-10T06:00:00+00:00</published>
-      <updated>2022-09-10T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2022/09/10/ethereum_state_machine</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2022/09/10/ethereum_state_machine/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+      <published>2022-05-26T06:00:00+00:00</published>
+      <updated>2022-05-26T06:00:00+00:00</updated>
+      <id>https://wnjoon.github.io/2022/05/26/ethereum-state-machine</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2022/05/26/ethereum-state-machine/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2&gt;이더리움에서의 상태 변화&lt;/h2&gt;
 
@@ -57,14 +57,14 @@
 &lt;p&gt;컴퓨터 전공 학생이라면 계산이론 수업에서 이 이론을 들어보았을 것이다. 당시에는 무슨 말인지 이해가 가지 않았지만, 결국 ‘&lt;u&gt;하나의 프로그램이 동작하는 동안 만들어낼 수 있는 유한한 갯수의 분기점(이벤트)&lt;/u&gt;‘를 의미한다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://blog.kakaocdn.net/dn/CUI3j/btrCqpbC1Sy/KefqhEInv9ozvfkkKIIOz1/img.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 1 : 무자비하게 뻗어나가는 멀티버스의 분기점&lt;/em&gt;&lt;/p&gt;
+&amp;lt;그림 1 : 무자비하게 뻗어나가는 멀티버스의 분기점&amp;gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;위의 그림 1는 (마블빠라면 누구나 알고 있을) 로키가 정복자 캉을 죽임으로써 예상할 수 없는 여러개의 멀티버스 분기점이 쏟아져 나오는 장면이다. 사실 캉을 ‘프로그래머’로 본다면, 위의 경우는 생각만해도 끔찍한 상황이다. 프로그램이 전혀 예상하지 못한 결과를 언제라도 만들 수 있기 때문이다.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://yrnana.dev/static/2de2bf98863ec891bb1612b11a5f5976/5a190/image.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 2 : Finite State Machine - nana’s blog&lt;/em&gt;&lt;/p&gt;
+&amp;lt;그림 2 : Finite State Machine - nana’s blog&amp;gt;&lt;/p&gt;
 
 &lt;p&gt;그래서 상태 머신(State Machine, 또는 Finite State Machine)이 존재한다. FSM은 ‘한번에 한가지 상태’만을 갖도록 설게되며, ‘상태의 변화는 Transition 이라고 불리는 특정 이벤트를 통해서만’ 가능하다.&lt;/p&gt;
 
@@ -129,7 +129,7 @@
       
 
       
-        <summary type="html">이더리움은 스마트 컨트랙트를 통해 발생된 정해진 요청에 의해서만 트랜잭션이 발생하며, 상태는 이벤트의 성공으로 인한 변화, 혹은 실패해서 이전 상태로 회귀하는 두 가지 경우만 존재함으로 결국 이더리움의 상태는 이벤트의 성공 또는 실패에 따라 예측이 가능하며 각 경우에 따라 변화할 수 있는 상태 또한 정해져 있기 때문에 상태머신이라고 부를 수 있다.</summary>
+        <summary type="html">이더리움이 왜 상태머신(State machine)인가에 대해 알아본다.</summary>
       
 
       
