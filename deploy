@@ -4,9 +4,11 @@
 BUILD_DIR="./_site"
 TMP_DIR="/tmp/jekyll_build"
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+CACHE_DIR="./jekyll-cache"
 
 # Delete old build files if any
 rm -rf $BUILD_DIR
+rm -rf $CACHE_DIR
 
 # Build
 bundle exec jekyll build
