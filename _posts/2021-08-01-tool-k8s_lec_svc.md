@@ -1,15 +1,13 @@
 ---
 layout: post
-title:  "[🧑‍🏫 강의 정리] Service - ClusterIP, NodePort, LoadBalancer" 
-excerpt: "쿠버네티스의 Service와 세부 종류인 ClusterIP, NodePort, LoadBalancer에 대해 알아본다."
+title:  "Kubernetes: Service - ClusterIP, NodePort, LoadBalancer" 
+excerpt: "쿠버네티스의 Service와 세부 종류인 ClusterIP, NodePort, LoadBalancer에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 '대세는 쿠버네티스 (초급~중급) - 김태민' 내용을 정리한 내용을 포함한다."
 date:   2021-08-01 15:00:00 +0900
 categories: tool
 tags: [k8s, 강의]
 ---
 
 <br>
-
-> 📒 본 포스팅은 인프런에서 제공하는 강의 ['대세는 쿠버네티스 [초급~중급] - 김태민'](https://www.inflearn.com/course/쿠버네티스-기초/dashboard)를 본 후 내용을 정리하고 있습니다. 
 
 ## 서비스(Service)의 필요성
 

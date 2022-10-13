@@ -96,7 +96,7 @@ Active: active (running) since ...
 젠킨스는 기본적으로 8080포트를 활용해서 웹 어플리케이션을 제공한다. 그러므로 해당 포트의 inbound가 가능해야 한다.
 
 ![image](https://user-images.githubusercontent.com/39115630/144054822-351859f2-2368-428f-a25b-79e6ab7f75da.png)  
-*<그림 1: Jenkins를 처음 열었을 때의 화면>*
+*@그림 1: Jenkins를 처음 열었을 때의 화면*
 
 비밀번호를 입력해야 하는데, /var/lib/jenkins/secrets/initialAdminPassword 경로를 확인하면 비밀번호 확인이 가능하다.
 
@@ -105,12 +105,12 @@ $ cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
 ![image](https://user-images.githubusercontent.com/39115630/144054980-7267fda5-0462-4a7d-93c1-104a0c58610a.png)  
-*<그림 2: Jenkins 확장 프로그램 설치 유무 선택 화면>*
+*@그림 2: Jenkins 확장 프로그램 설치 유무 선택 화면*
 
 해당 비밀번호를 입력하면 Customize Jenkins라고 해서 확장 프로그램 설치하는 페이지가 나온다. 나는 잘 모르기도 하고, 설명에 젠킨스 커뮤니티에서 가장 많이 사용하는 플러그인이라고 하여 Install suggested plugins를 설치했다.
 
 ![image](https://user-images.githubusercontent.com/39115630/144055136-3492f786-a2ce-4cb8-99ca-5ed84ad1e9f6.png)  
-*<그림 3: 사용자 아이디 및 비밀번호 생성>*
+*@그림 3: 사용자 아이디 및 비밀번호 생성*
 
 설치가 완료되면 First Admin User를 생성하라는 페이지가 뜬다. 어차피 테스트 용도이기 때문에, 본인이 기억하기 쉬운 내용을 작성한다. 굳이 작성하지 않고 싶다면, 아래에 skip and continue as admin이 있다. 그러면 admin 계정으로 진행할 수 있게 된다. 이후에 젠킨스의 접속 주소를 다시한번 확인한 후, 시작을 하게 된다.
 
@@ -119,7 +119,7 @@ $ cat /var/lib/jenkins/secrets/initialAdminPassword
 ## Jenkins 살펴보기
 
 ![image](https://user-images.githubusercontent.com/39115630/144055293-83cd33ef-5260-43e5-98c3-4570201dcbb5.png)  
-*<그림 4: Jenkins 메인 화면>*
+*@그림 4: Jenkins 메인 화면*
 
 - New Item : 새로운 작업(new job)을 만든다. 젠킨스는 작업 단위로 빌드를 관리하며, 일반적으로 git 혹은 svn 프로젝트가 작업이 된다.
 - People : 유저의 정보들을 확인할 수 있다.

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Singleton pattern (싱글톤 패턴)" 
+title:  "Design Pattern: Singleton pattern" 
 excerpt: "클래스 별로 오직 하나의 객체만을 갖도록 하는 싱글톤 패턴에 대해 알아본다."
 date:   2021-11-02 15:00:00 +0900
 categories: swe
@@ -19,7 +19,7 @@ tags: [design pattern]
 ## 싱글톤 패턴 적용 예시
 
 ![](https://user-images.githubusercontent.com/39115630/140270885-2ae131b8-5246-46c2-b44f-097ec5fb215b.png)  
-*<그림 1: Client 객체에 싱글톤 패턴을 적용할 경우>*
+*<@그림 1: Client 객체에 싱글톤 패턴을 적용할 경우*
 
 ```java
 public class Restaurant {

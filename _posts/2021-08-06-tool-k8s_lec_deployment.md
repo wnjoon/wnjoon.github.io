@@ -1,15 +1,13 @@
 ---
 layout: post
-title:  "[🧑‍🏫 강의 정리] Controller - Deployment" 
-excerpt: "컨트롤러의 하나로, 쿠버네티스 파드의 버전 변경에 따른 재배포가 필요할 때 사용한다."
+title:  "Kubernetes: Controller - Deployment" 
+excerpt: "쿠버네티스가 제공하는 컨트롤러의 하나로, 파드의 버전 변경에 따른 재배포를 담당하는 Deployment에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 '대세는 쿠버네티스 (초급~중급) - 김태민' 내용을 정리한 내용을 포함한다."
 date:   2021-08-06 15:00:00 +0900
 categories: tool
 tags: [k8s, 강의]
 ---
 
 <br>
-
-> 📒 본 포스팅은 인프런에서 제공하는 강의 ['대세는 쿠버네티스 [초급~중급] - 김태민'](https://www.inflearn.com/course/쿠버네티스-기초/dashboard)를 본 후 내용을 정리하고 있습니다. 
 
 ## 버전 변경(업그레이드) 방법
 

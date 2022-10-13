@@ -1,15 +1,13 @@
 ---
 layout: post
-title:  "[🧑‍🏫 강의 정리] Controller - ReplicaSet" 
-excerpt: "컨트롤러의 하나로, 쿠버네티스의 파드 개수를 관리하여 시스템 또는 성능의 장애를 대처하기 위해 사용되는 ReplicaSet에 대해 알아본다."
+title:  "Kubernetes: Controller - ReplicaSet" 
+excerpt: "쿠버네티스에서 제공하는 컨트롤러의 하나로, 파드 개수를 관리하여 시스템 또는 성능의 장애를 대처하기 위해 사용되는 ReplicaSet에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 '대세는 쿠버네티스 (초급~중급) - 김태민' 내용을 정리한 내용을 포함한다."
 date:   2021-08-05 15:00:00 +0900
 categories: tool
 tags: [k8s, 강의]
 ---
 
 <br>
-
-> 📒 본 포스팅은 인프런에서 제공하는 강의 ['대세는 쿠버네티스 [초급~중급] - 김태민'](https://www.inflearn.com/course/쿠버네티스-기초/dashboard)를 본 후 내용을 정리하고 있습니다. 
 
 ## 컨트롤러의 기능
 

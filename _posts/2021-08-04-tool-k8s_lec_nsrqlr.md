@@ -1,15 +1,13 @@
 ---
 layout: post
-title:  "[🧑‍🏫 강의 정리] Object - Namespace, ResourceQuota, LimitRange" 
-excerpt: "쿠버네티스의 네임스페이스와 파드 사이의 적절한 자원 분배를 위한 제한 방법에 대하여 알아본다."
+title:  "Kubernetes: Object - Namespace, ResourceQuota, LimitRange" 
+excerpt: "쿠버네티스의 네임스페이스와 파드 사이의 적절한 자원 분배를 위한 제한 방법에 대하여 알아본다. 본 포스팅은 인프런에서 제공하는 강의 '대세는 쿠버네티스 (초급~중급) - 김태민' 내용을 정리한 내용을 포함한다."
 date:   2021-08-04 15:00:00 +0900
 categories: tool
 tags: [k8s, 강의]
 ---
 
 <br>
-
-> 📒 본 포스팅은 인프런에서 제공하는 강의 ['대세는 쿠버네티스 [초급~중급] - 김태민'](https://www.inflearn.com/course/쿠버네티스-기초/dashboard)를 본 후 내용을 정리하고 있습니다. 
 
 ## 자원 분배의 필요성
 

@@ -26,12 +26,12 @@ tags: [ethereum, state machine]
 컴퓨터 전공 학생이라면 계산이론 수업에서 이 이론을 들어보았을 것이다. 당시에는 무슨 말인지 이해가 가지 않았지만, 결국 '<u>하나의 프로그램이 동작하는 동안 만들어낼 수 있는 유한한 갯수의 분기점(이벤트)</u>'를 의미한다. 
 
 ![](https://blog.kakaocdn.net/dn/CUI3j/btrCqpbC1Sy/KefqhEInv9ozvfkkKIIOz1/img.png)  
-<그림 1 : 무자비하게 뻗어나가는 멀티버스의 분기점>
+*@그림 1 : 무자비하게 뻗어나가는 멀티버스의 분기점*
 
 > 위의 그림 1는 (마블빠라면 누구나 알고 있을) 로키가 정복자 캉을 죽임으로써 예상할 수 없는 여러개의 멀티버스 분기점이 쏟아져 나오는 장면이다. 사실 캉을 '프로그래머'로 본다면, 위의 경우는 생각만해도 끔찍한 상황이다. 프로그램이 전혀 예상하지 못한 결과를 언제라도 만들 수 있기 때문이다.
 
 ![](https://yrnana.dev/static/2de2bf98863ec891bb1612b11a5f5976/5a190/image.png)  
-<그림 2 : Finite State Machine - nana's blog>
+*@그림 2 : Finite State Machine - nana's blog*
 
 그래서 상태 머신(State Machine, 또는 Finite State Machine)이 존재한다. FSM은 '한번에 한가지 상태'만을 갖도록 설게되며, '상태의 변화는 Transition 이라고 불리는 특정 이벤트를 통해서만' 가능하다.
 

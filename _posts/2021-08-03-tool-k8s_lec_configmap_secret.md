@@ -1,15 +1,13 @@
 ---
 layout: post
-title:  "[🧑‍🏫 강의 정리] Object - ConfigMap, Secret" 
-excerpt: "운영 또는 개발환경에 따라 쿠버네티스에서 사용할 환경변수 및 키 값을 저장하고 관리하는 Object들에 대해 알아본다."
+title:  "Kubernetes: Object - ConfigMap, Secret" 
+excerpt: "운영 또는 개발환경에 따라 쿠버네티스에서 사용할 환경변수 및 키 값을 저장하고 관리하는 Object들에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 '대세는 쿠버네티스 (초급~중급) - 김태민' 내용을 정리한 내용을 포함한다."
 date:   2021-08-03 15:00:00 +0900
 categories: tool
 tags: [k8s, 강의]
 ---
 
 <br>
-
-> 📒 본 포스팅은 인프런에서 제공하는 강의 ['대세는 쿠버네티스 [초급~중급] - 김태민'](https://www.inflearn.com/course/쿠버네티스-기초/dashboard)를 본 후 내용을 정리하고 있습니다. 
 
 ## ConfigMap과 Secret의 필요성
 

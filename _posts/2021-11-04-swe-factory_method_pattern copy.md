@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Factory Method pattern (팩토리 메서드 패턴)" 
+title:  "Design Pattern: Factory Method pattern" 
 excerpt: "클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다."
 date:   2021-11-04 15:00:00 +0900
 categories: swe
@@ -42,12 +42,12 @@ public class CardGame {
 아래의 그림과 같이 팩토리 메서드를 사용하면 마치 super(상위)객체 구현을 참조로 하는 'Abstract Factory(추상 메서드)' 방식과 매우 유사하다는 것을 알 수 있다
 
 ![image](https://user-images.githubusercontent.com/39115630/140273911-2f05746f-502f-4900-9325-f09c9ab362f5.png)  
-*<그림 1: 추상 메서드(abstract method)와 유사한 구조를 갖는 팩토리 메서드>*
+*@그림 1: 추상 메서드(abstract method)와 유사한 구조를 갖는 팩토리 메서드*
 
 혹은 아래와 같이 클래스의 타입을 반환하는 static 메서드를 사용하더라도, 실제 반환되는 객체는 하위 클래스의 인스턴스(ProductOne 또는 ProductTwo)가 된다. 이처럼 ProductOne이나 ProductTwo 객체 생성을 위한 클래스를 따로 만들지 않고 Product 클래스를 그대로 재사용할 수 있다. 그리고 <u>팩토리 메서드를 통해 생성되는 각 객체들은 종속성을 갖지 않기 때문에, 다형성(ploymorphic)을 갖는 객체를 생성할 수 있게 된다.</u> 이는 팩토리 메서드가 인터페이스(껍데기) 형태를 갖기 때문이다.
 
 ![image](https://user-images.githubusercontent.com/39115630/140274145-47d269d1-9bd1-4b57-b0c8-481342817ce3.png)  
-*<그림 2: 다형성을 갖는 객체 생성이 가능한 팩토리 메서드>*
+*@그림 2: 다형성을 갖는 객체 생성이 가능한 팩토리 메서드*
 
 <br>
 
