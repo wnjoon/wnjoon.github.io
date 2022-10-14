@@ -4,7 +4,7 @@ title:  "스마트 컨트랙트를 Go에 바인딩(Binding)하기"
 excerpt: "Truffle을 이용하여 컨트랙트를 컴파일하고, 이를 Golang에서 사용할 수 있도록 바인딩해본다."
 date:   2022-04-28 15:00:00 +0900
 categories: blockchain
-tags: [ethereum, smart contract, truffle, gobinding, go]
+tags: [ethereum, smart contract, truffle, go]
 ---
 
 <br>
