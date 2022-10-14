@@ -9,8 +9,8 @@
   
   
   
-  <title>[🧑‍🏫 강의 정리] Controller - Deployment</title>
-  <meta name="description" content="컨트롤러의 하나로, 쿠버네티스 파드의 버전 변경에 따른 재배포가 필요할 때 사용한다.">
+  <title>Kubernetes: Controller - Deployment</title>
+  <meta name="description" content="쿠버네티스가 제공하는 컨트롤러의 하나로, 파드의 버전 변경에 따른 재배포를 담당하는 Deployment에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +22,16 @@
   
 
   
-  <meta property="og:title" content="[🧑‍🏫 강의 정리] Controller - Deployment">
+  <meta property="og:title" content="Kubernetes: Controller - Deployment">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2021/08/06/tool-k8s_lec_deployment/">
-  <meta property="og:description" content="컨트롤러의 하나로, 쿠버네티스 파드의 버전 변경에 따른 재배포가 필요할 때 사용한다.">
+  <meta property="og:description" content="쿠버네티스가 제공하는 컨트롤러의 하나로, 파드의 버전 변경에 따른 재배포를 담당하는 Deployment에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="[🧑‍🏫 강의 정리] Controller - Deployment">
-  <meta name="twitter:description" content="컨트롤러의 하나로, 쿠버네티스 파드의 버전 변경에 따른 재배포가 필요할 때 사용한다.">
+  <meta name="twitter:title" content="Kubernetes: Controller - Deployment">
+  <meta name="twitter:description" content="쿠버네티스가 제공하는 컨트롤러의 하나로, 파드의 버전 변경에 따른 재배포를 담당하는 Deployment에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
   
   
 
@@ -76,7 +76,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">[🧑‍🏫 강의 정리] Controller - Deployment</h1>
+      <h1 class="post-title" itemprop="name headline">Kubernetes: Controller - Deployment</h1>
     
     <p class="post-meta"><time datetime="2021-08-06T06:00:00+00:00" itemprop="datePublished">2021년 8월 6일</time> •
   
@@ -501,10 +501,6 @@
 
   <div class="post-content" itemprop="articleBody">
     <p><br /></p>
-
-<blockquote>
-  <p>📒 본 포스팅은 인프런에서 제공하는 강의 <a href="https://www.inflearn.com/course/쿠버네티스-기초/dashboard">‘대세는 쿠버네티스 [초급~중급] - 김태민’</a>를 본 후 내용을 정리하고 있습니다.</p>
-</blockquote>
 
 <h2>버전 변경(업그레이드) 방법</h2>
 
