@@ -4,7 +4,7 @@ title:  "Raft 합의 알고리즘에 대하여"
 excerpt: "분산 합의 알고리즘의 하나로, CFT 블록체인 계열에서 주로 사용되는 Raft에 대하여 알아본다."
 date:   2021-04-15 15:00:00 +0900
 categories: blockchain
-tags: [consensus algorithm, CFT]
+tags: [합의알고리즘]
 ---
 
 <br>
