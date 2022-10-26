@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-10-26T01:16:46+00:00</updated>
+  <updated>2022-10-26T01:18:13+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -177,6 +177,118 @@
 
       
         <summary type="html">가스는 목표 해시 값을 계산해 낸 채굴자에 대한 보상으로 제공되는 수수료를 의미하는데, EVM 상에서 트랜잭션을 동작시키기 위한 필수적인 비용으로 생각하는게 더 편하다. 하루에도 수없이 가격이 바뀌는 이더의 가격으로 수수료를 매기는 잘못된 방법을 피하기 위해, 이더리움에서는 일정한 가격을 가진 가스라는 단위를 만들어서 사용한다.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Upgradable 스마트 컨트랙트란?</title>
+      
+      
+      <link href="https://wnjoon.github.io/2022/10/24/blockchain-eth-upgradable/" rel="alternate" type="text/html" title="Upgradable 스마트 컨트랙트란?" />
+      
+      <published>2022-10-24T06:00:00+00:00</published>
+      <updated>2022-10-24T06:00:00+00:00</updated>
+      <id>https://wnjoon.github.io/2022/10/24/blockchain-eth-upgradable</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2022/10/24/blockchain-eth-upgradable/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Upgradable 컨트랙트의 필요성&lt;/h2&gt;
+
+&lt;p&gt;스마트 컨트랙트의 가장 큰 특징은 ‘한번 배포되면 절대로 내부를 수정할 수 없다’는 것이다. 하지만 스마트 컨트랙트 내부 로직이 변경되어야만 하는 경우가 생긴다면 어떻게 해야할까?&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예를 들어, 약 100개의 토큰이 이미 발행된 스마트 컨트랙트의 내부의 로직을 변경해야 한다고 하자. 우리는 이미 ‘배포된 컨트랙트는 수정이 불가능’하다는 것을 알고있다. 결국 방법은 ‘컨트랙트를 새로 배포’하는 것 밖에 없다. 그리고 컨트랙트를 새로 배포하게 되면, 발행된 토큰 뿐만 아니라 컨트랙트 내부에 저장되어 있는 많은 정보들이 무효화된다. 결국 기존에 있던 정보들을 앞으로 사용할 수 없다는 것이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이러한 문제점을 해결하는 방안이 ‘Upgradable’ 스마트 컨트랙트이고, 이를 위해 delegate call 이라는 호출 방법을 사용한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;호출 방법에 따른 분류&lt;/h2&gt;
+
+&lt;p&gt;이를 위해 이더리움에서는 ‘변경할 일이 발생할 수 있는 로직을 별도로 갖는 스마트 컨트랙트’를 만들고, ‘토큰을 보유한 스마트 컨트랙트가 해당 스마트 컨트랙트를 호출’ 하는 방법인 delegate call이라는 기능이 있다.&lt;/p&gt;
+
+&lt;h3&gt;1. call&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://velog.velcdn.com/images/wnjoon/post/cae1f3f6-c7ed-4995-a87c-3c881a87a6e5/image.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;그림 1 : call을 사용하여 add() 호출&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;call은 말 그대로 스마트 컨트랙트 내부에 있는 함수를 직접 호출한다. 그림 1을 단계별로 작성해보면 아래와 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;EOA(0x1)가 스마트 컨트랙트 A의 callB 함수를 호출&lt;/li&gt;
+  &lt;li&gt;스마트 컨트랙트 A가 스마트 컨트랙트 B의 add 함수를 호출&lt;/li&gt;
+  &lt;li&gt;스마트 컨트랙트 B 내부의 num 값이 스마트 컨트랙트 B의 add 함수를 통해 변경&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;결국 스마트 컨트랙트의 호출자(msg.sender)는 각 스마트 컨트랙트를 호출한 주소가 될 것이고, 변경되는 값 최종적으로 호출되는 스마트 컨트랙트 내부의 값이 될 것이다.&lt;/p&gt;
+
+&lt;h3&gt;2. delegate call&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://velog.velcdn.com/images/wnjoon/post/b725f4ea-ef42-441d-990c-ed2bddcf958f/image.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;그림 2 : delegate call을 사용하여 add() 호출&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;delegate call은 번역 그대로 ‘대행 호출’이다. 그림 2를 단계별로 작성해보면 아래와 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;EOA(0x1)가 스마트 컨트랙트 A의 delegatecallB 함수를 호출&lt;/li&gt;
+  &lt;li&gt;스마트 컨트랙트 A를 통해 스마트 컨트랙트 B의 add 함수가 호출됨 (마치 add 함수가 스마트 컨트랙트 A에 위치한 것처럼)&lt;/li&gt;
+  &lt;li&gt;스마트 컨트랙트 B의 add 함수를 통해 스마트 컨트랙트 A의 num 변수 값을 변경&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;2번에서 작성한 것 처럼, delegate call을 사용하면 다른 스마트 컨트랙트에 있는 특정 기능을 ‘&lt;u&gt;가져와서 사용&lt;/u&gt;‘하는 효과를 가져올 수 있다. 위의 그림 2를 통해 다시 표현하자면, 스마트 컨트랙트 A는 껍데기가 되고, 스마트 컨트랙트 B에서 실제 기능을 수행할 수 있는 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;결국 delegate call을 이용하면, 스토리지를 담당하는 컨트랙트와 기능을 담당하는 컨트랙트를 서로 분리해서 기능을 변경하더라도 스토리지(토큰)에 영향을 주지 않는 구조를 설계할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dayone.tistory.com/38&quot;&gt;call Vs delegate call - dayone&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://meongae.tistory.com/57&quot;&gt;call, delegatecall - 멍개의 연구소&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/coinmonks/delegatecall-calling-another-contract-function-in-solidity-b579f804178c&quot;&gt;DelegateCall: Calling Another Contract Function in Solidity - medium&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="blockchain" />
+      
+
+      
+        <category term="ethereum" />
+      
+        <category term="solidity" />
+      
+        <category term="smart contract" />
+      
+
+      
+        <summary type="html">스마트 컨트랙트의 가장 큰 특징은 한번 배포되면 절대로 내부를 수정할 수 없다는 것이다. 하지만 스마트 컨트랙트 내부 로직이 변경되어야만 하는 경우가 생긴다면 어떻게 해야할까? delegate call을 이용하면, 스토리지를 담당하는 컨트랙트와 기능을 담당하는 컨트랙트를 서로 분리해서 기능을 변경하더라도 스토리지(토큰)에 영향을 주지 않는 구조를 설계할 수 있다.</summary>
       
 
       
@@ -2684,120 +2796,6 @@ url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; https://&lt;span class=&quot;
 
       
         <summary type="html">클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">0x 프로토콜(protocol)</title>
-      
-      
-      <link href="https://wnjoon.github.io/2021/11/04/blockchain-0x_protocol/" rel="alternate" type="text/html" title="0x 프로토콜(protocol)" />
-      
-      <published>2021-11-04T06:00:00+00:00</published>
-      <updated>2021-11-04T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2021/11/04/blockchain-0x_protocol</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2021/11/04/blockchain-0x_protocol/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;0x 프로토콜이란?&lt;/h2&gt;
-
-&lt;p&gt;0x 프로토콜은 거래소의 탈중앙화를 위해 erc20 거래에 사용할 수 있는 공통된 프로토콜을 만들고자 하는 니즈에서 출발했다. 코인의 거래가 활발해짐에 따라 반번하게 발생하는 거래소를 겨냥한 DDoS 공격 또는 해킹을 해결하기 위함이다.&lt;br /&gt;
-0x 프로토콜은 스마트컨트랙트로 작성되어 이더리움 위에서 돌아간다. 코스모스나 비트쉐어처럼 중간자를 경유하지 않고도, 0x 프로토콜을 사용하면 직접 이더리움 토큰을 입금하고 거래할 수 있게 된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;탈중앙화 거래소(DEX)와 문제점&lt;/h2&gt;
-
-&lt;p&gt;DEX는 탈중앙화 거래소를 뜻하는 말로, 거래소를 거치지 않고 각 개인의 지갑만으로 직접적인 거래가 가능하다. 즉 블록체인 안에서 모든 거래가 가능하게 되는데, 이러한 특징으로 인해 비용 문제가 반드시 따라올 수 밖에 없다.&lt;br /&gt;
-이더리움에서는 모든 거래에 수수료가 부과된다. 수수료의 방식과 가격에는 차이가 있지만, 어찌되었든 반드시 부과되는 수수료의 특성 상 DDoS와 같은 공격이나 해킹으로부터 네트워크를 방어할 수 있게 된다. 하지만 수수료는 네트워크의 안전을 위해서는 장점일 수 있으나, 블록체인에서 모든 거래가 진행되는 DEX에게는 단점이 될 수 있다.&lt;br /&gt;
-일반적인 거래소 기반의 시스템은 내부에 수많은 단계를 거쳐서 코인을 거래하는데, 이를 블록체인으로 옮겨오게 되면 결국 각 단계마다 수수료가 부과되게 된다. 또한 거래의 결과가 반드시 블록에 쌓이기 때문에, 블록을 생성하면서 추가되는 시간 또한 무시하지 못하게 된다.&lt;br /&gt;
-이러한 문제점 때문에 DEX에서 제공하는 보안성과 거래소로부터의 탈중앙화와 같은 장점들을 뒤로하고 수많은 사용자들이 금전적, 시간적인 비용의 문제로 인해 거래소를 사용하고 있었고, 이를 해결하기 위해 0x 프로토콜이 제안되었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;동작 방식&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140250276-8add59e5-7f7b-4771-b9aa-5cf567b9e628.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 1: 0x 프로토콜의 동작 방식 1 - 출처: 백서&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 그림을 단계별로 설명하면 아래와 같다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Maker가 이더리움 네트워크에서 DEX로 토큰A를 입금한다.&lt;/li&gt;
-  &lt;li&gt;Maker는 토큰A와 토큰B를 거래한다는 메시지를 별도의 중개자(Relayer)에게 전송한다. 중개자는 이더리움 네트워크 밖에 위치한다.&lt;/li&gt;
-  &lt;li&gt;중개자는 Maker로부터 받은 메시지를 전파한다.&lt;/li&gt;
-  &lt;li&gt;Taker는 중개자가 전파한 메시지를 받아 해당 주문(Order)을 사용한다.&lt;/li&gt;
-  &lt;li&gt;Taker는 이더리움 네트워크에서 DEX로 토큰B를 입금한다.&lt;/li&gt;
-  &lt;li&gt;Maker는 DEX에 자신의 메시지를 전송하고 주문 처리를 요청한다.&lt;/li&gt;
-  &lt;li&gt;DEX는 서명과 만료일 등의 조건을 확인하고, Maker와 Taker간 토큰을 교환한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;체인과 오프체인(off-chain) 관점에서 위의 과정을 다시한번 확인해보면 아래와 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;off-chain: 2,3,4의 과정으로, 가상화폐의 교환이 일어나기 전 과정(주문 생성, 확인, 거래 요청)을 포함한다.&lt;/li&gt;
-  &lt;li&gt;on-chain: 1,5,6,7의 과정으로, 탈중앙화된 환경(이더리움)에서 거래 체결 및 트랜잭션을 발생하는 과정을 포함한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Binance 앱에서는 Orderbook을 통해 가격을 설정하고 구매(buy)/판매(sell)를 선택하는 행위를 off-chain에서 진행하고, 만들어진 실제 order에 대한 거래를 처리하고 토큰A가 토큰B로 변환되어 잔고가 변경되는 과정이 on-chain에서 진행된다. 이를 그림으로 표현하면 아래와 같은데, 여기서 말하는 수수료로 0x 프로토콜에서 만든 ZRX가 사용된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140251868-67b5189e-3b25-45a4-9ccf-4790e8fca277.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 2: 0x 프로토콜의 동작 방식 2 - 출처: Steemit&lt;/em&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;중개자가 판매자와 구매자 각각에게 수수료를 제시한다.&lt;/li&gt;
-  &lt;li&gt;판매자는 오더북에 어느 정도의 가격으로 올릴지 중개자에게 요청한다.&lt;/li&gt;
-  &lt;li&gt;중개자는 오더북에 판매자의 요청 가격을 등록한다.&lt;/li&gt;
-  &lt;li&gt;구매자는 오더북을 보고 마음에 맞는 가격일 경우 구매를 진행한다.&lt;/li&gt;
-  &lt;li&gt;최종적으로 확정된 거래가 이더리움 내에 등록된다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;정리&lt;/h2&gt;
-
-&lt;p&gt;동작 방식에서 볼 수 있듯이, 0x 프로토콜은 off-chain과 on-chain을 섞은 ‘하이브리드’ 방식을 추구한다. 중개자라는 이더리움 외부의 별도 시스템을 off-chain으로 이용하기 때문에 보안성이 취약할 수 있다는 우려를 낳기도 하지만, 실제 중개자가 처리하는 메시지는 오로지 암호화된 주문 내역이기 때문에 중개자에 대해 꼭 신뢰할 필요가 없게 된다. &lt;br /&gt;
-추가로 고의로 메시지를 처리하지 않고 악용할 수 있다는 우려를 해결하기 위해, 0x 프로토콜은 각 주문 별로 만료일이라는 값을 둔다. 만료일이 지나면 해당 주문은 무효화 처리 된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://0x.org/pdfs/0x_white_paper.pdf&quot;&gt;0x Protocol white paper&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://steemit.com/blockchain/@kukubu/zrx&quot;&gt;뉴비의 백서리뷰 - 제로엑스(ZRX)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://steemit.com/coinkorea/@prosong77/0x-protocol-dex&quot;&gt;제로엑스 프로토콜 DEX 원리, 간단 이해하기&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://steemit.com/kr/@mossid/0x&quot;&gt;0x란? 탈중앙 거래소를 위한 새로운 거래 프로토콜&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>Wonjoon</name>
-          
-          
-        </author>
-      
-
-      
-        <category term="blockchain" />
-      
-
-      
-        <category term="ethereum" />
-      
-        <category term="0xprotocol" />
-      
-
-      
-        <summary type="html">여러 거래소에서 erc20을 거래할 수 있는 공통 프로토콜인 0x 프로토콜에 대해 알아본다.</summary>
       
 
       
