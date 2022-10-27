@@ -2,7 +2,7 @@
 layout: post
 title:  "이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" 
 excerpt: "재진입성 공격은 컨트랙트가 알 수 없는 주소(스마트 컨트랙트)로 이더를 전송하는 경우 발생한다. 내부 fallback 함수에 악성코드를 심어놓은 스마트 컨트랙트로 이더를 전송하게 되면, 악의적인 코드가 실행되면서 발생하는 공격이다. 이 공격을 예방하려면 transfer를 이용한 이더 전송과 상태 변수의 적절한 변경, 그리고 뮤텍스 등을 적용해야 한다."
-date:   2022-10-27 15:00:00 +0900
+date:   2022-10-26 15:00:00 +0900
 categories: blockchain
 tags: [ethereum, solidity, smart contract]
 ---
