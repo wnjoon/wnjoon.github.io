@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-10-27T05:07:12+00:00</updated>
+  <updated>2022-10-27T05:08:30+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -24,6 +24,209 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해</title>
+      
+      
+      <link href="https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy/" rel="alternate" type="text/html" title="이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" />
+      
+      <published>2022-10-26T06:00:00+00:00</published>
+      <updated>2022-10-26T06:00:00+00:00</updated>
+      <id>https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;재진입성 공격이란?&lt;/h2&gt;
+
+&lt;p&gt;재진입이라는 용어는 ‘외부의 악의적인 컨트랙트가 취약한 컨트랙트의 함수를 호출하면서 실행경로가 그 안으로 재진입하는’ 방법이라고 표현한다. 사실 이렇게만 보면 어려운데, 이더리움과 스마트 컨트랙트의 특징을 먼저 살펴보면 좋을 것 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;이더리움은 ‘다른 사용자 주소로 이더를 전송’ 한다.&lt;/li&gt;
+  &lt;li&gt;이더리움에서 스마트 컨트랙트는 다른 외부의 스마트 컨트랙트를 호출하고, 그 내부의 기능을 활용할 수 있다.&lt;/li&gt;
+  &lt;li&gt;단순히 이더를 전송하거나 존재하지 않는 외부의 스마트 컨트랙트 내 기능을 호출하는 경우, 콜백을 포함한 다양한 대체 코드를 실행할 수 있다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;재진입성 공격은 &lt;u&gt;컨트랙트가 알 수 없는 주소(스마트 컨트랙트)로 이더를 전송하는 경우&lt;/u&gt; 발생할 수 있다. 내부 fallback 함수에 악성코드를 심어놓은 스마트 컨트랙트로 이더를 전송하게 되면, 악의적인 코드가 실행되면서 발생하는 공격이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;fallback 함수 : 이름이 없는 함수로, 스마트 컨트랙트 내에 존재하지 않는 함수를 호출하면 대신 호출되는 함수.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;가장 유명한 사례로는 &lt;a href=&quot;https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/&quot;&gt;The DAO 해킹&lt;/a&gt;이 있다. 대략 1억 5천만 달러 이상의 잔액을 보유하고 있던 컨트랙트를 공격하였으며, 이 공격을 통해 이더리움에서 이더리움 클래식이 하드포크 되었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;예시&lt;/h2&gt;
+
+&lt;p&gt;여기 이더를 보관 및 인출해주는 은행 컨트랙트(Bank)와 이를 공격하기 위한 컨트랙트(Attack)가 있다고 하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 은행 컨트랙트
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;contract&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bank&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;mapping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;payable&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)());&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;contract&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Attack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Bank&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_bankAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;bank&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_bankAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attackBank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;payable&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;bank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;ether&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;bank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;ether&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;payable&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;ether&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;bank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;ether&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;공격자(Attacker)가 단일 트랜잭션만으로 Bank 컨트랙트에서 1이더만 남기고 모두 출금하는 과정을 그림으로 표현하면 아래와 같다. 단, Bank 컨트랙트에는 어느정도의 이더가 이미 존재하고 있다고 가정한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://velog.velcdn.com/images/wnjoon/post/6502c25e-0cd0-4d45-89f8-a8e6cbfce390/image.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;@그림 1: 공격자가 Attack 컨트랙트를 이용하여 Bank 컨트랙트를 공격&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;공격자가 Attack 컨트랙트의 attackBank 함수를 실행한다.&lt;/li&gt;
+  &lt;li&gt;attackBank 함수가 Bank 컨트랙트의 deposit 함수를 호출하여 1 이더를 입금한다.&lt;/li&gt;
+  &lt;li&gt;attackBank 함수가 Bank 컨트랙트의 withdraw 함수를 호출하여 1 이더를 인출한다.&lt;/li&gt;
+  &lt;li&gt;Bank 컨트랙트의 withdraw 함수 내부에서 msg.sender(Attack 컨트랙트)에게 1 이더를 전송한다. Attack 컨트랙트의 fallback 함수가 이를 처리한다.&lt;/li&gt;
+  &lt;li&gt;Attack 컨트랙트의 fallback 함수 내부에서 다시 Bank 컨트랙트의 withdraw를 호출한다. Bank 컨트랙트의 잔액이 1 이더만 남을때까지 이 과정은 계속 반복된다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;어떻게 막을 수 있을까?&lt;/h2&gt;
+
+&lt;p&gt;재진입 공격을 막기 위한 방법은 현재까지 3가지 정도 존재한다.&lt;/p&gt;
+
+&lt;h3&gt;1. transfer 함수 사용&lt;/h3&gt;
+
+&lt;p&gt;transfer 함수는 외부 컨트랙트 호출에 대해 총 2300개의 가스만 사용할 수 있도록 되어있다. 이는 이더 전송을 위한 단일 트랜잭션은 가능하나, 외부의 다른 컨트랙트를 호출하기에는 적은 양이다.&lt;/p&gt;
+
+&lt;h3&gt;2. 엄격한 상태 변수 변경&lt;/h3&gt;
+
+&lt;p&gt;컨트랙트 또는 외부의 다른 컨트랙트에서의 호출을 통해 이더가 전송되기 전 상태변수를 변경하는 방식이다. 이를 &lt;a href=&quot;https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern&quot;&gt;체크 효과 상호작용 패턴(checks-effects-interactions pattern)&lt;/a&gt; 이라고 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Bank 컨트랙트 예시
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;contract&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bank&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 아래 두 코드의 위치를 변경해서,
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// 알 수 없는 주소로의 외부 호출을 수행하는 코드를 
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// 지역함수 또는 코드 실행 부분의 
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// 가장 마지막에 진행해야 한다.
+&lt;/span&gt;        &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)());&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3&gt;3. 뮤텍스(mutex) 사용&lt;/h3&gt;
+
+&lt;p&gt;코드가 실행되는 동안에는 컨트랙트를 잠궈주는 상태 변수를 추가하여 재진입을 막을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;개선된 코드&lt;/h2&gt;
+
+&lt;p&gt;개선된 Bank 컨트랙트의 코드를 살펴보면 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 개선된 은행 컨트랙트
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;contract&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bank&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 1. 뮤텍스 추가
+&lt;/span&gt;    &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mutex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;mapping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;payable&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;// 2. 뮤텍스 확인
+&lt;/span&gt;        &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mutex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;        
+        &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 3. 상태 변수 우선 변경
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;balances&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 4. 외부 호출 이전에 뮤텍스 설정
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;mutex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 5. call 대신 transfer 사용
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;transfer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;// 6. 외부 호출 이후 뮤텍스 해제
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;mutex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/proofer-tech/%EC%8A%A4%EB%A7%88%ED%8A%B8-%EC%BB%A8%ED%8A%B8%EB%9E%99%ED%8A%B8-%EB%B3%B4%EC%95%88-%EC%9D%B4%EC%8A%88-1-re-entrancy-%EC%9E%AC%EC%A7%84%EC%9E%85%EC%84%B1-7d4caf24803c&quot;&gt;스마트 컨트랙트 보안::Re-entrancy - PROOFER&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://brunch.co.kr/@ashhan/26&quot;&gt;The DAO 해킹 그리고 사망 - 브런치&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/&quot;&gt;Analysis of the DAO exploit - Hacking,Distributed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="blockchain" />
+      
+
+      
+        <category term="ethereum" />
+      
+        <category term="solidity" />
+      
+        <category term="smart contract" />
+      
+
+      
+        <summary type="html">재진입성 공격은 컨트랙트가 알 수 없는 주소(스마트 컨트랙트)로 이더를 전송하는 경우 발생한다. 내부 fallback 함수에 악성코드를 심어놓은 스마트 컨트랙트로 이더를 전송하게 되면, 악의적인 코드가 실행되면서 발생하는 공격이다. 이 공격을 예방하려면 transfer를 이용한 이더 전송과 상태 변수의 적절한 변경, 그리고 뮤텍스 등을 적용해야 한다.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -2688,114 +2891,6 @@ url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; https://&lt;span class=&quot;
 
       
         <summary type="html">Java 기반의 이더리움 클라이언트 라이브러리 'web3j'를 이용하여 ERC20 토큰의 기본 기능을 다뤄본다.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Design Pattern: Factory Method pattern</title>
-      
-      
-      <link href="https://wnjoon.github.io/2021/11/04/swe-factory_method_pattern-copy/" rel="alternate" type="text/html" title="Design Pattern: Factory Method pattern" />
-      
-      <published>2021-11-04T06:00:00+00:00</published>
-      <updated>2021-11-04T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2021/11/04/swe-factory_method_pattern%20copy</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2021/11/04/swe-factory_method_pattern-copy/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;팩토리 메서드 패턴이란?&lt;/h2&gt;
-
-&lt;p&gt;어떤 클래스의 객체를 생성하기 위한 &lt;u&gt;인터페이스를 제공해서, 하위 클래스에서 어떤 클래스로 생성할지 결정할 수 있도록 도와주는 디자인 패턴&lt;/u&gt;이다. 구현 방법은 크게 2가지가 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Factory 메서드 자체에 대한 구현은 제공하지 않고, 객체를 생성하는 클래스를 abstract로 선언하는 방법&lt;/li&gt;
-  &lt;li&gt;Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 방법&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;팩토리 메서드 패턴 적용 예시&lt;/h2&gt;
-
-&lt;p&gt;Factory 메서드를 실제로 구현한 Creator(생성)클래스를 만들고, 인자 값으로 생성해야 하는 클래스를 넘겨주는 과정에 대한 자바 기반 예시는 다음과 같다. 이 경우에는 Factory 메서드에 &lt;u&gt;생성해야 할 클래스를 인자로 전달&lt;/u&gt;해주어야 한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CardGame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CardGame&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createCardGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Poker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PokerGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GameType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;BlackJack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BlackJackGame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;팩토리 메서드 구조&lt;/h2&gt;
-
-&lt;p&gt;아래의 그림과 같이 팩토리 메서드를 사용하면 마치 super(상위)객체 구현을 참조로 하는 ‘Abstract Factory(추상 메서드)’ 방식과 매우 유사하다는 것을 알 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140273911-2f05746f-502f-4900-9325-f09c9ab362f5.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 1: 추상 메서드(abstract method)와 유사한 구조를 갖는 팩토리 메서드&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;혹은 아래와 같이 클래스의 타입을 반환하는 static 메서드를 사용하더라도, 실제 반환되는 객체는 하위 클래스의 인스턴스(ProductOne 또는 ProductTwo)가 된다. 이처럼 ProductOne이나 ProductTwo 객체 생성을 위한 클래스를 따로 만들지 않고 Product 클래스를 그대로 재사용할 수 있다. 그리고 &lt;u&gt;팩토리 메서드를 통해 생성되는 각 객체들은 종속성을 갖지 않기 때문에, 다형성(ploymorphic)을 갖는 객체를 생성할 수 있게 된다.&lt;/u&gt; 이는 팩토리 메서드가 인터페이스(껍데기) 형태를 갖기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/140274145-47d269d1-9bd1-4b57-b0c8-481342817ce3.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 2: 다형성을 갖는 객체 생성이 가능한 팩토리 메서드&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;고려사항&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;상속되는(팩토리 메서드를 사용하여 생성하려는) 객체에 static이 있는 경우, 이를 팩토리 메서드로 정의하여 다형성을 갖는 객체를 생성하는 것이 좋다.&lt;/li&gt;
-  &lt;li&gt;팩토리 메서드에서 사용되는 argument에 불필요한 값이 없도록 잘 디자인해야 한다.&lt;/li&gt;
-  &lt;li&gt;재사용할 수 있는 객체를 미리 확인해서 내부에 ‘object pool’을 설계하는 것이 중요하다.&lt;/li&gt;
-  &lt;li&gt;모든 생성자는 private 또는 protected로 구성하는 것이 좋다.&lt;/li&gt;
-  &lt;li&gt;대부분 팩토리 메서드는 &lt;u&gt;'덜 복잡하고, 커스터마이즈가 자주있고, 하위클래스가 늘어나기 좋은' 경우에 사용&lt;/u&gt;되며, 더욱 유연하고 복잡한 클래스로 넘어가는 과정에서 Abstract factory(추상 팩토리), Prototype, Builder와 같은 방식을 사용한다.&lt;/li&gt;
-  &lt;li&gt;서브클래싱(sub-classing)이 없는 대신 초기화가 필요한 Prototype 방식과 달리, 팩토리 메서드는 초기화는 필요하지 않지만 서브클래싱은 필요하다.&lt;/li&gt;
-  &lt;li&gt;동일한 인스턴스를 여러번 반환해야 하는 경우에 좋다.&lt;/li&gt;
-  &lt;li&gt;정확한 유형이 정의되지는 않았지만, 서브 클래스를 사용할 것은 명확한 객체의 경우 적용하면 좋다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Cracking The Coding Test - 187p&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://sourcemaking.com/design_patterns/factory_method&quot;&gt;Factory Method Design Pattern - SourceMaking&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>Wonjoon</name>
-          
-          
-        </author>
-      
-
-      
-        <category term="swe" />
-      
-
-      
-        <category term="design pattern" />
-      
-
-      
-        <summary type="html">클래스의 객체를 명확하게 생성할 수 있도록 인터페이스를 제공하는 팩토리 메서드 패턴에 대해 알아본다.</summary>
       
 
       
