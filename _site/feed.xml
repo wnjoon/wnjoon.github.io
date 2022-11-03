@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-11-03T05:47:07+00:00</updated>
+  <updated>2022-11-03T05:49:50+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -28,10 +28,10 @@
   
     <entry>
       
-      <title type="html">MVC 패턴에 대한 이해</title>
+      <title type="html">Design Pattern: MVC pattern</title>
       
       
-      <link href="https://wnjoon.github.io/2022/10/30/swe-mvc/" rel="alternate" type="text/html" title="MVC 패턴에 대한 이해" />
+      <link href="https://wnjoon.github.io/2022/10/30/swe-mvc/" rel="alternate" type="text/html" title="Design Pattern: MVC pattern" />
       
       <published>2022-10-30T06:00:00+00:00</published>
       <updated>2022-10-30T06:00:00+00:00</updated>
