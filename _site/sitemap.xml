@@ -253,6 +253,10 @@
 <lastmod>2022-10-30T06:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://wnjoon.github.io/2022/11/02/crypto-amm/</loc>
+<lastmod>2022-11-02T06:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://wnjoon.github.io/about/</loc>
 </url>
 <url>
@@ -454,6 +458,12 @@
 <loc>https://wnjoon.github.io/tags/backend/</loc>
 </url>
 <url>
+<loc>https://wnjoon.github.io/tags/dex/</loc>
+</url>
+<url>
+<loc>https://wnjoon.github.io/tags/defi/</loc>
+</url>
+<url>
 <loc>https://wnjoon.github.io/categories/blockchain/</loc>
 </url>
 <url>
@@ -481,6 +491,9 @@
 <loc>https://wnjoon.github.io/categories/os/</loc>
 </url>
 <url>
+<loc>https://wnjoon.github.io/categories/cryptocurrency/</loc>
+</url>
+<url>
 <loc>https://wnjoon.github.io/posts/2/</loc>
 </url>
 <url>
@@ -503,5 +516,8 @@
 </url>
 <url>
 <loc>https://wnjoon.github.io/posts/9/</loc>
+</url>
+<url>
+<loc>https://wnjoon.github.io/posts/10/</loc>
 </url>
 </urlset>

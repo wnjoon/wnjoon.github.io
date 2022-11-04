@@ -2,7 +2,7 @@
 layout: post
 title:  "DEX 환경에서 AMM의 필요성" 
 excerpt: "AMM은 자동화된 시장 메이커라는 의미로, CEX처럼 중앙에서 유동성을 관리해주는 시스템이 없는 탈중앙화 거래소(DEX)의 유동성을 증가시켜 활발한 거래가 가능하도록 도와주는 자동 알고리즘 트레이딩 기술을 말한다. 이더리움의 Uniswap, 바이낸스의 Pancakeswap 등에서 사용하고 있다. "
-date:   2022-11-04 15:00:00 +0900
+date:   2022-11-02 15:00:00 +0900
 categories: cryptocurrency
 tags: [dex, defi]
 ---

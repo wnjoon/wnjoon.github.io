@@ -87,16 +87,20 @@
         <header class="post-header">
           <h1 class="post-title">
             
-              <a class="post-link" href="/2021/07/15/tool-code_server/">웹브라우저 형식의 VScode, code-server 구성하기</a>
+              <a class="post-link" href="/2021/08/01/tool-k8s_lec_svc/">Kubernetes: Service - ClusterIP, NodePort, LoadBalancer</a>
             
           </h1>
 
           <p class="post-meta">
-            2021년 7월 15일
+            2021년 8월 1일
             
                •
   
     
+    
+      
+    
+      
     
       
     
@@ -240,6 +244,494 @@
     
       
     
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/k8s/">k8s</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/%EA%B0%95%EC%9D%98/">강의</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+            
+            
+          </p>
+        </header>
+
+        <div class="post-content">
+          쿠버네티스의 Service와 세부 종류인 ClusterIP, NodePort, LoadBalancer에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 '대세는 쿠버네티스 (초급~중급) - 김태민' 내용을 정리한 내용을 포함한다.
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            
+              <a class="post-link" href="/2021/07/15/tool-code_server/">웹브라우저 형식의 VScode, code-server 구성하기</a>
+            
+          </h1>
+
+          <p class="post-meta">
+            2021년 7월 15일
+            
+               •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/tool/">tool</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
   
 
 
@@ -289,6 +781,12 @@
     
       
         <a href="/tags/vscode/">vscode</a>,
+      
+    
+      
+    
+      
+    
       
     
       
@@ -534,6 +1032,12 @@
     
       
     
+      
+    
+      
+    
+      
+    
   
     
     
@@ -583,6 +1087,12 @@
     
       
         <a href="/tags/ipad/">iPad</a>
+      
+    
+      
+    
+      
+    
       
     
       
@@ -834,7 +1344,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -900,6 +1416,12 @@
     
       
         <a href="/tags/offchain/">offchain</a>
+      
+    
+      
+    
+      
+    
       
     
       
@@ -1165,7 +1687,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/algorithm/">algorithm</a>
+      
+    
       
     
       
@@ -1325,6 +1853,12 @@
     
       
     
+      
+    
+      
+    
+      
+    
   
     
     
@@ -1366,6 +1900,12 @@
     
       
         <a href="/tags/big-o/">big O</a>
+      
+    
+      
+    
+      
+    
       
     
       
@@ -1625,7 +2165,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -1793,6 +2339,12 @@
     
       
     
+      
+    
+      
+    
+      
+    
   
     
     
@@ -1830,6 +2382,12 @@
     
       
         <a href="/tags/infura/">infura</a>
+      
+    
+      
+    
+      
+    
       
     
       
@@ -2093,7 +2651,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -2261,6 +2825,12 @@
     
       
     
+      
+    
+      
+    
+      
+    
   
     
     
@@ -2296,6 +2866,12 @@
     
       
         <a href="/tags/%EB%B2%88%EC%97%AD/">번역</a>
+      
+    
+      
+    
+      
+    
       
     
       
@@ -2561,7 +3137,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -2729,323 +3311,6 @@
     
       
     
-  
-
-
-            
-            
-          </p>
-        </header>
-
-        <div class="post-content">
-          분산 합의 알고리즘의 하나로, CFT 블록체인 계열에서 주로 사용되는 Raft에 대하여 알아본다.
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            
-              <a class="post-link" href="/2021/04/13/blockchain-sto/">증권형 토큰 발행(STO)에 대해서</a>
-            
-          </h1>
-
-          <p class="post-meta">
-            2021년 4월 13일
-            
-               •
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/blockchain/">blockchain</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-
-
- •
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/sto/">sto</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
       
     
       
@@ -3061,7 +3326,7 @@
         </header>
 
         <div class="post-content">
-          주식, 채권, 부동산 등의 실물 자산을 암호화폐로 생성한 디지털 자산을 의미하는 증권형 토큰과 이를 발행하는 STO에 대해 알아본다.
+          분산 합의 알고리즘의 하나로, CFT 블록체인 계열에서 주로 사용되는 Raft에 대하여 알아본다.
         </div>
         
       </li>

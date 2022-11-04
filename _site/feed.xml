@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-11-04T05:49:28+00:00</updated>
+  <updated>2022-11-04T05:51:42+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -24,6 +24,157 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">DEX 환경에서 AMM의 필요성</title>
+      
+      
+      <link href="https://wnjoon.github.io/2022/11/02/crypto-amm/" rel="alternate" type="text/html" title="DEX 환경에서 AMM의 필요성" />
+      
+      <published>2022-11-02T06:00:00+00:00</published>
+      <updated>2022-11-02T06:00:00+00:00</updated>
+      <id>https://wnjoon.github.io/2022/11/02/crypto-amm</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2022/11/02/crypto-amm/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;DEX란?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;여기서 말하는 DEX는 디아블로에서 민첩성을 나타내는 단어도, 삼성 갤럭시 폰에서 제공하는 기능도 아닌 “Decentralized Exchange”를 의미한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;DEX는 Decentralized Exchange의 줄임말로, 탈중앙화 거래소라는 의미를 나타낸다. 일반적으로 존재하는 대부분의 금융회사(은행, 증권사 등)는 중앙 시스템에서 사용자의 정보를 확인하고 거래를 처리한다. 업비트나 빗썸과 같은 국내 암호화폐 거래소 또한 이와 같이 중앙에서 사용자의 계좌를 관리하고 암호화폐를 거래한 후, 일괄로 이를 메인넷에 반영하는 형태를 갖는다. 이렇게 일반적으로 사용되는, 중앙에서 관리하는 거래소 방식을 CEX(Centralized Exchange)라고 한다.&lt;/p&gt;
+
+&lt;p&gt;DEX는 CEX의 중앙 집중적인 문제를 해결하고자 한다. 모든 거래는 중앙 시스템 내에 있는 프로그램이 아닌, 메인넷 어딘가에 있는 스마트 컨트랙트에 의해 이루어진다. 스마트 컨트랙트에 작성된 코드는 모든 사용자에게 투명하게 공개되고, 이는 블록체인에 모두 기록된다. 중앙에 통제를 위한 시스템이 없고, 스마트 컨트랙트 내에서 모든 사용자가 익명성이 보장된 자유로운 거래가 가능하게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Orderbook 기반의 거래&lt;/h2&gt;
+
+&lt;p&gt;CEX는 기본적으로 오더북(Orderbook), 즉 호가창 기반으로 거래가 이루어진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://coinpick.com/files/attach/images/35620/118/036/771336b78009171728f037264f5eae30.gif&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 1 : 업비트에서 제공하는 호가창 - 업비트&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;오더북은 &lt;u&gt;주식 또는 암호화폐와 같은 특정 시장에 존재하는 구매자와 판매자 간 모든 매수, 매도 주문을 기록한 전자 목록&lt;/u&gt;이다. 의미 그래도 주문 기록 장부라고도 표현하는데, 구매자와 판매자를 연결하여 입찰 가격이 오더북에 올라온 주문의 최저가 이상인 경우 거래가 이루어진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;DEX 거래의 장점&lt;/h2&gt;
+
+&lt;p&gt;하지만 앞에서 작성하였듯이, DEX는 중앙에서 거래를 관리해주는, 오더북 같은 시스템이 존재하지 않는다. 오롯이 구매자와 판매자 간 직접적인 거래만 가능한 P2P(Peer-To-Peer) 시스템이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/DQmQKkHs6krhLJwzHWuB4co74RL6wtc4ek89fStLAx96os6/image.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 2 : 탈중앙화 거래소의 구조 - steemit&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;중간에서 관리해주는 시스템(중계자)이 없으면 무엇이 장점일까? 먼저 수수료가 절감된다. 국내에서 가장 큰 암호화폐 거래소로 손꼽히는 업비트의 경우 2021년 한 해 동안 영업수익으로 3조가 넘는 돈을 벌었다(&lt;a href=&quot;https://www.coindeskkorea.com/news/articleView.html?idxno=77905&quot;&gt;코인데스크 - 지난해 업비트 영업 ‘날았다’.. 매출 3.7조원 전년대비 20배 늘어&lt;/a&gt;). 암호화폐 거래소의 수익 대부분이 거래 수수료라고 보면, 정말 큰 금액이 아닐 수 없다.&lt;/p&gt;
+
+&lt;p&gt;또한 중앙에서 관리하는 시스템이 없기 때문에, 한 곳에 모든 자산이 모이는 일이 없다. 그렇기 때문에 CEX를 사용하는 일부 암호화폐 거래소에서 발생하는 다량의 자산 해킹과 같은 위험이 발생할 확률이 많이 낮아진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;DEX 거래의 단점&lt;/h2&gt;
+
+&lt;p&gt;그렇다면 단점은 무엇일까? 우선 복잡하다. 우리가 지금까지 사용하고 있던 중앙 시스템 방식과 비교하면 사용하기가 어렵다. 가장 보편적으로 사용되는 이더리움만 하더라도, 메타마스크와 같은 전자지갑을 만들고 이걸 메인넷과 연결해야 한다. 암호화폐라는 것을 구입하기 위한 다양한 수고로움이 필요하게 된다.&lt;/p&gt;
+
+&lt;p&gt;또한 유동성이 있다 (사실 이 유동성이 뒤에서 말하게 될 AMM(Automation Market Making)을 등장하게 한 가장 큰 요인이다). CEX는 중앙에서 모든 거래를 관리하기 때문에 이를 처리하는 속도가 매우 빠르다. 하지만 DEX는 블록을 생성하는, 일명 채굴자(miner)의 검증이 완료되어야 거래가 완료되는 방식이기 때문에 속도가 상대적으로 매우 느리다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;2018년 기준으로도 비자카드의 경우 24,000 TPS의 성능을 보였던 반면에, 이더리움의 경우 기존에 PoW 합의 알고리즘을 사용할 때에는 최대 15 TPS 정도의 성능만을 보였다. 머지 이후 PoS로 변경했다 하더라도 매우 미비한 정도의 TPS 성능 향상만 존재했다고 하니, DEX와 CEX 간 속도 차이가 엄청나게 크다는 것을 느낄 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;AMM(Automation Market Making)&lt;/h2&gt;
+
+&lt;p&gt;AMM(Automation Market Making)은 자동 알고리즘 트레이딩(ATT)을 이용하여 거래와 가격을 이루는 방식이다.&lt;/p&gt;
+
+&lt;p&gt;Market Making은 기본적으로 자산의 가격 책정을 위해 사용된다. 매도자가 상품을 판매하고자 하는 가격과 매수자가 구매하고자 하는 가격 간 차이를 맞춰서, 매수자와 매도자 간 거래가 많이 일어나도록(유동성이 높아지도록) 한다. CEX의 경우에는 이러한 기능이 오더북에 구현되어 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;AMM에 항상 순기능만 있는 것은 아니다. 적은 시장 참여자 수로 인하여 유동성이 매우 낮아지면 매수자 또는 매도자의 의도와 다르게 가격이 책정되어 상품이 구매 또는 판매되는 경우가 있는데, 이를 슬리피지(slippage)라고 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;DEX에서의 AMM&lt;/h2&gt;
+
+&lt;p&gt;먼저 DEX는 CEX와 다르게 법정 화폐를 사용하여 암호화폐를 구매할 수 없다. 결국 암호화폐를 이용하여 다른 암호화폐를 ‘교환’하는 방식이 되는데, 일반적으로 ERC-20 형태의 토큰을 사용한다.&lt;/p&gt;
+
+&lt;p&gt;DEX의 경우 DEX는 스마트 컨트랙트를 통해 모든 거래와 서비스가 이루어지는데, 배포 후 변경이 불가능한 스마트 컨트랙트의 특성 상 가격의 변동에 따라 스마트 컨트랙트를 변경할 수 없게 된다. 그렇기 때문에 자동화 된 Market Maker가 필요하게 되었고, AMM이라는 프로토콜이 만들어졌다.&lt;/p&gt;
+
+&lt;p&gt;DEX에서 사용되는 AMM 방식은 여러가지가 있는데, 가장 보편적으로 사용되는 것은 CFMM(Constant Function Market Makers)이다. 유동성 풀에 존재하는 서로 다른 두 토큰의 개수 간 비율이 특정한 상수 값과 일치하도록 하는 방식으로, &lt;u&gt;암호화폐 간 가치를 상대적으로 비교하여 가격을 제시&lt;/u&gt;하는 매커니즘이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;유동성 풀(liquidity pool) : AMM 공식이 유효하도록 교환하고자 하는 두 토큰이 모두 1개 이상은 무조건 존재하는 풀이다. 아래의 CPMM 공식을 살펴보면, 두 토큰 중 하나라도 갯수가 존재하지 않으면 공식은 성립될 수 없다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 중 CPMM(Constant Product Market Maker) 방식이 실질적으로 사용되는데, &lt;u&gt;유동성 풀 안의 두 토큰의 갯수를 곱한 값이 특정 상수로 일정하게 유지&lt;/u&gt;되는 방식을 통해 가격대를 형성하는 방식이다. Uniswap(Ethereum), Uniswap V2(Ethereum), Sushiswap(Ethereum), Pancakeswap(Binance), Quickswap(Polygon), Raydium(Solana) 등에서 사용한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://miro.medium.com/max/640/1*7ecD-qxC6ukyet4Y5-ZRIA.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 3 : CPMM을 그래프로 표현한 그림 - Baekdu Technologies(Medium)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들어보면,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;비트코인(x)이 10개, 이더리움(y)이 100개 있다고 가정하자. 두 코인의 전체 곱(k)은 1000이다. 이를 공식으로 표현하면 x * y = k 가 된다.&lt;/li&gt;
+  &lt;li&gt;암호화폐 간 교환(swap)이 일어난다. 1 비트코인을 y’ 개의 이더리움과 교환하고자 한다.&lt;/li&gt;
+  &lt;li&gt;k = x * y = x’ * y’이어야 하므로, 1000 = (10 + 1) * y’이 된다.&lt;/li&gt;
+  &lt;li&gt;사용자는 1 비트코인과 9.1 개의 이더리움을 교환하게 된다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;유동성 공급자의 필요성&lt;/h2&gt;
+
+&lt;p&gt;CPMM 방식에서 가장 중요한 부분은, 유동성 풀에 적어도 하나 이상의 토큰이 존재해야 한다는 것이다. 이를 위해 유동성 공급자(LP, Liquidity Provider)가 존재한다.&lt;/p&gt;
+
+&lt;p&gt;LP는 유동성 풀에 토큰을 제공하고, 사용자들은 토큰을 교환하는 과정에서 LP에게 수수료를 지급한다. 중앙에서 유동성을 통제하기 위한 개념이라기 보다는, 유동성의 공급을 유지할 수 있도록 돕고 이에 따른 이자를 받는다는 측면에서 중앙 통제 방식의 CEX와는 다르다고 볼 수 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@defi_baekdu/defi-%EC%83%81%ED%92%88%EC%9D%98-%EC%9D%B4%ED%95%B4-%EA%B1%B0%EB%9E%98-amm-%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC-42c81613ed05&quot;&gt;DeFi 상품의 이해: 거래(AMM)에 대하여 - Baekdu Technologies&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://velog.io/@qortmdalsdl/%ED%83%88%EC%A4%91%EC%95%99%ED%99%94-%EA%B1%B0%EB%9E%98%EC%86%8C-DEX-%EC%99%80-AMM&quot;&gt;탈중앙화 거래소 DEX 와 AMM - sminxta.log&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cafe.naver.com/gcff1/1313&quot;&gt;자동화된 시장 메이커(AMM)란? - 바이비트&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://wiki.hash.kr/index.php/%EC%98%A4%EB%8D%94%EB%B6%81&quot;&gt;오더북 - 해시넷&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="cryptocurrency" />
+      
+
+      
+        <category term="dex" />
+      
+        <category term="defi" />
+      
+
+      
+        <summary type="html">AMM은 자동화된 시장 메이커라는 의미로, CEX처럼 중앙에서 유동성을 관리해주는 시스템이 없는 탈중앙화 거래소(DEX)의 유동성을 증가시켜 활발한 거래가 가능하도록 도와주는 자동 알고리즘 트레이딩 기술을 말한다. 이더리움의 Uniswap, 바이낸스의 Pancakeswap 등에서 사용하고 있다.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -2697,146 +2848,6 @@ v16.14.0
 
       
         <summary type="html">맥에 연결한 외장모니터의 음향과 밝기를 모니터에 있는 물리버튼이 아닌 키보드를 통해 조절해보자.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Github 리포지토리에 Token 적용하기</title>
-      
-      
-      <link href="https://wnjoon.github.io/2021/11/17/tool-github_token/" rel="alternate" type="text/html" title="Github 리포지토리에 Token 적용하기" />
-      
-      <published>2021-11-17T06:00:00+00:00</published>
-      <updated>2021-11-17T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2021/11/17/tool-github_token</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2021/11/17/tool-github_token/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;Password -&amp;gt; Token&lt;/h2&gt;
-
-&lt;p&gt;2021년 8월 13일 기준으로 깃헙에서 기존의 패스워드 방식의 인증을 더이상 사용하지 않고 토큰을 이용하여 사용자를 인증하겠다고 발표했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/142071463-f8230552-964a-42c8-975d-99034810bfbf.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이미 필자는 토큰 방식으로 변경해놓은 상태이지만, 오늘 만료기간이 지나 토큰을 재생성해야 하는 상황이 생겼고 이를 기록으로 남겨놓으면 좋을 것 같다고 생각하여 글을 작성한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;토큰 생성&lt;/h2&gt;
-
-&lt;p&gt;토큰을 생성하는 방법에 대해서는 여러 포스팅들이 존재하고 있으며, 이 중 한곳을 아래에 링크로 남겨놓는다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://velog.io/@gillog/Github-MacOS-Access-Token-인증-방식-변경-적용-방법-remote-Support-for-password-authentication-was-removed-on-August-13-2021&quot;&gt;Access Token 인증 방식 변경 적용 방법 - gil.log&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;참고로 최종 생성된 토큰값은 페이지를 나가면 더이상 확인할 수 없기 때문에 별도의 공간에 잘 보관해야 한다. &lt;em&gt;(물론 잊어버리면 다시 생성하면 그만이지만 귀찮기 때문)&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;토큰 적용&lt;/h2&gt;
-
-&lt;p&gt;토큰을 적용하는 방법은 크게 터미널에서 하느냐 vs 운영체제에서 제공하는 프로그램에서 하느냐로 나눌 수 있다. 필자는 맥을 사용하고 있으며 두가지 방법에 대해 모두 기술해보려고 한다.&lt;/p&gt;
-
-&lt;h3&gt;git config&lt;/h3&gt;
-
-&lt;p&gt;혹시 git config를 하지 않았다면 미리 터미널에서 본인의 계정과 이메일주소를 등록해준다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;git config –global user.name “본인의 계정명”&lt;/li&gt;
-  &lt;li&gt;git config –global user.email “본인의 깃헙 이메일”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;앞으로는 비밀번호를 물어보는 란에 토큰값을 넣게 되는데, 매번 이를 넣어주는 귀찮음을 해결하고 싶다면 다음과 같이 입력해준다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;git config –global credential.helper cache&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;토큰 값(비밀번호)을 캐시에 넣어주는 과정으로, 이 과정 이후에는 더이상 토큰 값을 물어보지 않는다.&lt;br /&gt;
-캐시를 지우고 싶다면 아래와 같이 입력한다,&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;git config –global –unset credential.helper&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;Terminal에서 리포지토리에 토큰 적용하기&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;본인의 git repository 디렉토리에 접근&lt;/li&gt;
-  &lt;li&gt;디렉토리 내 .git 디렉토리 접근&lt;/li&gt;
-  &lt;li&gt;config 파일 편집&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;core]
-  repositoryformatversion &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 0
-  filemode &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
-  &lt;/span&gt;bare &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false
-  &lt;/span&gt;logallrefupdates &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
-  &lt;/span&gt;ignorecase &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
-  &lt;/span&gt;precomposeunicode &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;remote &lt;span class=&quot;s2&quot;&gt;&quot;origin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;c&quot;&gt;#url = xxxxxxxxxxxxxx&lt;/span&gt;
-  fetch &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; +refs/heads/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;:refs/remotes/origin/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;branch &lt;span class=&quot;s2&quot;&gt;&quot;master&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-  remote &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; origin
-  merge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; refs/heads/master
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;remote “origin” 부분의 url을 변경해준다. (기존의 url 앞에 계정명과 토큰값을 넣어준다고 생각하면 된다)&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 기존 url&lt;/span&gt;
-url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; https://github.com/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;본인의 계정&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;리포지토리명&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.git
-
-&lt;span class=&quot;c&quot;&gt;# 변경 url&lt;/span&gt;
-url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; https://&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;본인의 계정&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;:&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;앞에서 생성한 토큰 값&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;@github.com/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;본인의 계정&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;리포지토리명&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Keychain 활용하기 (MacOS)&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Keychain 실행&lt;/li&gt;
-  &lt;li&gt;github 검색&lt;/li&gt;
-  &lt;li&gt;등록된 아이디에 해당하는 패스워드를 토큰값으로 변경&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://cpro95.tistory.com/456&quot;&gt;Github Token 깃헙 토큰 설정하기 - 드리프트의 코-자-경&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://velog.io/@gillog/Github-MacOS-Access-Token-인증-방식-변경-적용-방법-remote-Support-for-password-authentication-was-removed-on-August-13-2021&quot;&gt;Access Token 인증 방식 변경 적용 방법 - gil.log&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>Wonjoon</name>
-          
-          
-        </author>
-      
-
-      
-        <category term="tool" />
-      
-
-      
-        <category term="github" />
-      
-        <category term="authorization" />
-      
-
-      
-        <summary type="html">2021년 8월부터 변경된 깃헙의 정책에 따라 리포지토리에 Token을 적용하는 방식을 알아본다.</summary>
       
 
       
