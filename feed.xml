@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-11-15T05:57:08+00:00</updated>
+  <updated>2022-11-15T06:43:42+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -131,7 +131,7 @@ Cannot connect to the Docker daemon at unix:///Users/ssbc/.colima/default/docker
       &lt;li&gt;HTTP의 캐시 기능 사용 가능&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;들어온 요청을 단순히 처리만 하는 구조이기 때문에, 세션이나 쿠키 정보를 저장하는 구현을 하지 않고 서버가 단순해짐
+  &lt;li&gt;들어온 요청을 단순히 처리만 하는 구조이기 때문에, 세션이나 쿠키 정보를 저장하는 구현 없이 서버가 단순해짐
     &lt;ul&gt;
       &lt;li&gt;클라이언트와 서버 간 역할이 명확하게 구분되고, 서로 간 의존성 감소&lt;/li&gt;
     &lt;/ul&gt;
