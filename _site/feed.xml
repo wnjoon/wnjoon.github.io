@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-11-16T01:42:08+00:00</updated>
+  <updated>2022-11-16T01:48:40+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -181,7 +181,7 @@
       
 
       
-        <summary type="html">인덱스는 데이터베이스 테이블에서 검색 속도를 높이기 위해 사용되는 자료구조이다.</summary>
+        <summary type="html">인덱스는 데이터베이스 테이블에서 검색 속도를 높이기 위해 사용되는 자료구조이다. 인덱스하고자 하는 데이터를 별도의 공간에 정렬해두고, 빠르게 해당 데이터의 물리적 주소에 접근하여 조회 성능을 높일 수 있다. 다만 테이블의 크기가 크거나 빈번한 데이터 변경이 발생하는 테이블에는 권장하지 않을 수도 있다. 기본적으로 PK에 많이 적용되며, B-Tree와 관련된 자료구조가 주로 사용된다.</summary>
       
 
       
