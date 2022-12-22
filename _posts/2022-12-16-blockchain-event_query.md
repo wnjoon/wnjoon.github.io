@@ -344,7 +344,7 @@ func queryRequest(r EventRequest, from, to *big.Int) (ethereum.FilterQuery, erro
 	}
 
 	// Events에 아무런 값이 없는 경우 -> 모든 값을 조회 = query.Topics = nil
-    // Events에 단 하나라도 조건이 있는 경우 -> Topic 필터링
+	// Events에 단 하나라도 조건이 있는 경우 -> Topic 필터링
 	if !reflect.ValueOf(r.Events).IsZero() {
 		topics, err := filterTopics(r.ABI, r.Events)
 		if err != nil {
@@ -360,20 +360,20 @@ func queryRequest(r EventRequest, from, to *big.Int) (ethereum.FilterQuery, erro
 
 func filterTopics(contractAbi abi.ABI, d EventDescription) ([][]common.Hash, error) {
 
-    // ethereum.FilterQuery와 동일한 형태의 인터페이스 타입 배열 생성
+	// ethereum.FilterQuery와 동일한 형태의 인터페이스 타입 배열 생성
 	totalRules := make([][]interface{}, 0)
-    // ABI 문서로부터 이벤트 내에 파라미터의 순서에 맞게 이름, 타입 반환
+	// ABI 문서로부터 이벤트 내에 파라미터의 순서에 맞게 이름, 타입 반환
 	abiInputs := getEventAbiInput(contractAbi, d.Name)
 
 	for _, input := range abiInputs {
 		if d.Rules != nil {
-            // Indexed => 검색 조건으로 사용 가능한 파라미터라면
+			// Indexed => 검색 조건으로 사용 가능한 파라미터라면
 			if input.Indexed {
 				rules := make([]interface{}, 0)
 				item, exist := d.Rules[input.Name]
 				if exist {
-                    // [중요!] 타입을 변경해주어야 한다.
-                    // 3.4에서 설명
+					// [중요!] 타입을 변경해주어야 한다.
+					// 3.4에서 설명
 					typedRule := typeConverter(input.Type, item)
 					rules = append(rules, typedRule...)
 				}
@@ -383,7 +383,7 @@ func filterTopics(contractAbi abi.ABI, d EventDescription) ([][]common.Hash, err
 	}
 	result := append([][]interface{}{{contractAbi.Events[d.Name].ID}}, totalRules...)
 
-    // 2차원 인터페이스 배열을 common.Hash 타입의 2차원 배열로 변경
+	// 2차원 인터페이스 배열을 common.Hash 타입의 2차원 배열로 변경
 	topics, err := abi.MakeTopics(result...)
 	if err != nil {
 		return nil, err
