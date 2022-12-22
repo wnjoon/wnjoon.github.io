@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자</title>
+  <meta name="description" content="왜 버추얼박스는 맥OS에만 오면 힘을 쓰지 못하는지 안타까운 마음을 안고 vmware를 사용해본 후기를 공유한다.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://wnjoon.github.io/2021/03/04/tool-vmware_in_mac/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="👨‍💻 월리의 탐구생활" href="https://wnjoon.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자">
+  <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
+  <meta property="og:url" content="https://wnjoon.github.io/2021/03/04/tool-vmware_in_mac/">
+  <meta property="og:description" content="왜 버추얼박스는 맥OS에만 오면 힘을 쓰지 못하는지 안타까운 마음을 안고 vmware를 사용해본 후기를 공유한다.">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자">
+  <meta name="twitter:description" content="왜 버추얼박스는 맥OS에만 오면 힘을 쓰지 못하는지 안타까운 마음을 안고 vmware를 사용해본 후기를 공유한다.">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">👨‍💻 월리의 탐구생활</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/categories/">Categories</a>
+      
+        
+        <a class="page-link" href="/tags/">Tags</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자</h1>
+    
+    <p class="post-meta"><time datetime="2021-03-04T06:00:00+00:00" itemprop="datePublished">2021년 3월 4일</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/tool/">tool</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/virtual-machine/">virtual machine</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/mac/">mac</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><br /></p>
+
+<h2>개요</h2>
+
+<p>리눅스 기반에서 시스템을 테스트할 때, 일반적으로 윈도우나 맥 모두 VirtualBox(버추얼박스)를 가장 많이 사용한다. 무료라는 엄청난 장점과 더불어 간편하게 가상화 PC를 만들 수 있기 때문인데, 특히 여러 개의 서버를 복합적으로 설계할 때 아주 효과적이다. 하지만 정말 아쉽게도 이번 맥OS의 업데이트로 인하여 Big Sur에서는 더 이상 버추얼박스를 사용하는게 어려울 것으로 보인다.</p>
+
+<p><br /></p>
+
+<h2>평소대로 버추얼박스를 설치해보자</h2>
+
+<p>공식 홈페이지에서 다운로드 -&gt; 설치 -&gt; 아직까지는 이상이 없다 -&gt; <u>VM 생성 -&gt; 리눅스 이미지를 삽입</u>하려는 순간! 에러를 뿜는다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/140277641-8fa06b20-c971-4bf8-9bce-7b5d588cbfec.png" alt="image" /><br />
+<em>@그림 1: 장렬하게 오류를 뱉어내고 사망한 버추얼박스..</em></p>
+
+<p>열심히 구글링 해보니 다음과 같은 해결책이 있었다.</p>
+
+<ol>
+  <li>MacOS의 Recovery 모드(부팅 시 Command+R)로 들어간다.</li>
+  <li>Terminal에 들어가서 아래와 같이 입력한다.$ csrutil clear $ reboot</li>
+  <li>설치했던 버추얼박스를 지우고 재설치한다. 단, 지울때에는 Application에서 휴지통으로 버리거나 appCleaner 앱을 쓰는게 아니고 버추얼박스에서 제공하는 uninstall 스크립트(설치 이미지 파일에 있음)를 사용한다.</li>
+</ol>
+
+<p>결과는? 역시 똑같이 안된다. 그런데 이번에는 다른 오류가 발생한다.</p>
+
+<p><br /></p>
+
+<h2>커널 오류의 발생</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/140277906-f3454fc7-ca22-4373-a5a3-51d7c9e858fe.png" alt="image" /><br />
+<em>@그림 2: 이번엔 커널의 오류를 뱉어내고 사망한 버추얼박스..</em></p>
+
+<p>이번에는 커널에서 오류란다. 이걸 해결하려면 System references &gt; Security &amp; Privacy &gt; General &gt; Oracle에 대한 권한 설정을 해줘야 한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/39115630/140278057-f43a4802-24dd-4f70-9d62-7dd0e595b815.png" alt="image" /><br />
+<em>@그림 3: 권한을 부여할 수 있도록 한참동안 기회를 주지 않은 나의 맥북</em></p>
+
+<p>문제는 ‘Oracle에 대한 권한 설정을 해주는’ 이 문구가 떠 있지 않았다. 버추얼박스를 설치한 후 30분 정도만 떠있고, 그 이후에는 사라진다고 하는데(이건 또 뭔지 모르겠음) Big Sur로 업데이트 할 때 맥을 공장초기화 하고 설치했기 때문에 버추얼박스는 ‘처음’ 설치하는 경우였고, 한번도 저런게 뜨지 않았다(안그래도 왜 안뜨지 하고 의심하고 있었음).</p>
+
+<p>어찌되었든, 몇시간에 걸쳐서 이것저것 해보다가 배보다 배꼽이 더 크고 있다는 생각에 바로 포기하고 한동안 안쓰고 있던 Vmware를 설치하기로 했다.</p>
+
+<p><br /></p>
+
+<h2>맥에서는 이제 Vmware 쓰자</h2>
+
+<blockquote>
+  <p>절대 광고가 아님을 밝힌다.</p>
+</blockquote>
+
+<p>찾아보니 2020년부터 Vmware Fusion 개인사용자의 경우에는 라이센스를 무료로 발급하고 있었다. 물론 Pro는 아니지만, 가볍게 테스트하기에는 전혀 문제가 없었다. 라이센스 발급하는 방법에 대해서는 <a href="https://haddoddo.tistory.com/entry/MAC-%EB%A7%A5%EB%B6%81%EC%97%90-%EC%9C%88%EB%8F%84%EC%9A%B0-%EB%AC%B4%EB%A3%8C%EC%84%A4%EC%B9%98-VMware-Fusion-12-%EA%B0%84%EB%8B%A8-%EC%84%A4%EC%B9%98%EB%B0%A9%EB%B2%95#google_vignette">해당 링크</a>로 남겨둔다.</p>
+
+<p>설치는 매우 간단하고, 버추얼박스와 크게 다른점은 없어서 아직까지 쓰는데 문제는 없다. 하지만 조금의 리뷰를 첨가해보자면,</p>
+<ul>
+  <li>VM clone(복제)이 안된다. Pro버전(유료)에서만 가능하다. 너무 자본주의적이다.</li>
+  <li>나는 네트워크 연결을 Shared with my mac으로 구성하였는데, 쿠버네티스 마스터1개+워커2개를 구성하였을때 무리없이 통신 되었다.</li>
+  <li>VM 만들 때 꼭 customize setting을 해줘야 프로세서나 램, 하드의 용량 등을 설정할 수 있다. 안하면 기본값으로 세팅된다.</li>
+  <li>버추얼박스에서 제공하는 headless 기능이 없다. 이것도 혹시 pro에서만 제공하는건지는 확인해봐야될 것 같다.</li>
+</ul>
+
+<p><br /></p>
+
+<p><u>결론: 어차피 VM만 돌리면 되는 간단한 테스트 용도라면, 맥OS에서는 그냥 마음 편하게 Vmware를 쓰자.</u></p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Wonjoon - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://wnjoon.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
