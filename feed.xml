@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-12-22T05:09:35+00:00</updated>
+  <updated>2022-12-22T05:14:32+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -369,6 +369,9 @@
 &lt;/ul&gt;
 
 &lt;p&gt;여기서 중요한건 Topics 부분인데, 검색 조건은 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209061806-fdca1bcb-fa35-4851-97e0-1498c613912d.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 2 : 이벤트 구독에 사용될 토픽의 검색 조건 설정 방식&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
