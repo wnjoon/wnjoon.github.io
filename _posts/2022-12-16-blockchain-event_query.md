@@ -301,7 +301,6 @@ func getEventAbiInput(abi abi.ABI, event string) []abiInput {
 ABI를 통해 검색하고자 하는 이벤트의 명세를 확인하고 이를 abiInput으로 저장했다면, EventRequest로부터 전달된 검색 조건을 확인해서 이를 이더리움에서 이벤트를 검색할 수 있도록 하는 쿼리 형태(ethereum.FilterQuery)로 만들어야 한다.
 
 ```go
-// FilterQuery contains options for contract log filtering.
 type FilterQuery struct {
 	BlockHash *common.Hash 
 	FromBlock *big.Int
