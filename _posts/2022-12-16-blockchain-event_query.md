@@ -312,7 +312,7 @@ type FilterQuery struct {
 ```
 
 FilterQuery에 대한 내용 중 이벤트 조회 조건에 필요한 내용을 간략하게 살펴보면 다음과 같다
-- FromBlock, ToBlock : 조회 시작 또는 끝 블록번호. nil이면 0번블록 또는 최신블록.
+- FromBlock, ToBlock : 조회 시작 또는 끝 블록번호. 값이 없으면 0번 또는 최신 블록.
 - Addresses : 해당 컨트랙트가 배포된 모든 주소를 배열 형태로 받는다.
 - Topics : 컨트랙트의 이벤트 시그니터 및 이벤트를 조회하기 위한 조건을 담는다.
 
