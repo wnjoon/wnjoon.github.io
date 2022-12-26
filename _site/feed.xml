@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2022-12-26T01:46:32+00:00</updated>
+  <updated>2022-12-26T07:30:36+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -24,6 +24,258 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">아파치 카프카에 대해 매우 간략하게 알아보기</title>
+      
+      
+      <link href="https://wnjoon.github.io/2022/12/23/tool-kafka/" rel="alternate" type="text/html" title="아파치 카프카에 대해 매우 간략하게 알아보기" />
+      
+      <published>2022-12-23T06:00:00+00:00</published>
+      <updated>2022-12-23T06:00:00+00:00</updated>
+      <id>https://wnjoon.github.io/2022/12/23/tool-kafka</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2022/12/23/tool-kafka/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;카프카는 왜 주목받기 시작했는가?&lt;/h2&gt;
+
+&lt;p&gt;데이터를 송신(Source)하는 어플리케이션과 수신(Target)하는 어플리케이션이 많아지면서 이를 위한 데이터 라인이 점점 복잡해지고 이를 통해 효과적인 데이터 처리 시스템이 필요해지기 시작했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209517275-c2b158c6-01d8-47f1-b15f-a01e1201f57d.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 1 : 어플리케이션의 다양화로 인하여 복잡해진 데이터 라인&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림과 같이 데이터 라인이 많아지면 아래와 같은 문제점이 발생할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;배포 단계가 복잡하고 어려워진다.&lt;/li&gt;
+  &lt;li&gt;장애가 발생하면 원인 지점을 파악하는 것이 어려워진다.&lt;/li&gt;
+  &lt;li&gt;어플리케이션마다 프로토콜이 다양해지면서, 처리 작업이 많이 추가된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209498379-9f169a13-7c74-4575-af84-71e5049b29d7.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 2 : 아파치 카프카는 다양한 앱을 하나의 플랫폼에서 간편하게 구독, 처리할 수 있도록 하는 플랫폼이다 - 출처 : &lt;a href=&quot;https://www.youtube.com/watch?v=waw0XXNX-uQ&amp;amp;t=87s&quot;&gt;데브원영&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;카프카는 &lt;a href=&quot;https://engineering.linkedin.com/teams/data/data-infrastructure/streams/kafka&quot;&gt;링크드인(LinkedIn)&lt;/a&gt;에서 만든 오픈소스로, 링크드인에 적용된 카프카에 대해 자세히 알고싶다면 &lt;a href=&quot;https://engineering.linkedin.com/blog/topic/kafka&quot;&gt;이곳(Kafka Ecosystem at LinkedIn)&lt;/a&gt;을 참조하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209517445-4d67d84c-0da9-4d47-847b-85dd2e8c89c2.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 3 : 아파치 카프카를 통해 데이터를 송수신하는 구조&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;결국 카프카의 가장 큰 목적은 ‘송신 어플리케이션과 수신 어플리케이션 간 커플링을 최대한 약하게’하는 것인데, &lt;u&gt;송신 어플리케이션은 카프카에 데이터를 전송하기만 하면되고, 수신 어플리케이션이 카프카로부터 데이터를 가져오는 형태&lt;/u&gt;가 된다. 예를 들어 쇼핑몰이 있다고 가정하면, 송신 어플리케이션에서는 상품을 클릭하거나 구매할 때 로그를 발생하고 타겟 어플리케이션에서 이러한 로그를 적재하고 처리할 수 있도록 만든 후 카프카를 이용해 효과적으로 데이터 라인을 구성할 수 있게 된다. 여기서 송신 어플리케이션의 경우 json, tsv, avro 등 데이터 포멧에 대한 제한 없이 대부분을 처리할 수 있도록 지원한다.&lt;/p&gt;
+
+&lt;p&gt;결국 카프카를 이용함으로써 얻는 장점은 아래와 같다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;고가용성(Fault Tolerant)을 지원하여, 갑작스런 서버 중단 또는 장애에도 데이터를 손실없이 복구할 수 있다.&lt;/li&gt;
+  &lt;li&gt;낮은 지연(latency), 높은 처리량(throughput)을 통한 수많은 데이터의 빠른 처리가 가능하다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;AMQP(Advanced Message Queue Protocol)와 비교되기도 하는데, 자세한 내용은 포스팅하지 않고 하단에 참고자료로 첨부한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;토픽(Topic)&lt;/h2&gt;
+
+&lt;p&gt;카프카 내부에 존재하는 모든 데이터는 토픽이라는 큐 형태의 공간에 들어가게 된다. 카프카의 프로듀서가 데이터를 카프카에 송신하면 카프카의 컨슈머가 카프카로부터 원하는 데이터 형태에 맞는 토픽을 가져오는 방식이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209517498-68e12f8b-092d-47a7-ac92-9a85a3bb9e94.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 4 : 카프카에서 데이터 처리에 사용되는 큐, 토픽&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림과 같이 토픽은 카프카 내에서 여러개 생성할 수 있다. 토픽은 데이터베이스의 테이블 또는 파일시스템 폴더와 유사하다고 볼 수 있으며, 각 토픽은 ‘click_product_log’, ‘pay_product_log’등과 같은 이름을 가질 수 있다. 그렇기 때문에 해당 토픽이 하는 역할을 명확하게 표현해주는 이름을 붙여주면, 추후에 유지보수하는데 큰 도움이 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209517559-f91efd2b-8c6a-4271-9b1c-add89e7087a6.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 5 : 토픽의 파티션&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;토픽에는 파티션이라는 추가 단위가 존재한다. 프로듀서가 카프카로 데이터를 보내면, 해당 데이터는 설정된 토픽 내에 있는 특정 파티션으로 들어가게 된다. 앞에서 설명한 것 처럼 토픽은 큐 형태로 존재하며, 데이터는 큐 안에 순서대로 쌓이게 된다. 컨슈머가 원하는 데이터를 포함하는 토픽과 파티션으로부터 데이터를 순서대로 가져오며, 데이터를 다 읽고 나면 새로운 데이터가 들어올 때 까지 대기하게 된다.&lt;/p&gt;
+
+&lt;p&gt;여기서 중요한 것은 &lt;u&gt;데이터를 가져온다고 해서 파티션 내부에 있는 데이터가 삭제되지는 않는다&lt;/u&gt;는 것이다. 왜 카프카는 데이터를 바로 지우지 않는 것일까? 이유는 새로운 컨슈머가 토픽의 이전 데이터를 호출할 수도 있기 때문이다. 단 무조건 가능한 것은 아니며, 컨슈머의 그룹이 달라야 하며 특정 설정값에 대한 요건(auto.offset.reset = earliest)이 만족되어야 한다. 이러한 특징을 통해 얻을 수 있는 장점이 무엇일까? 먼저 위에서 설명한 것 처럼 서버에 갑작스런 이슈가 발생하였을 경우, 장애가 발생한 시점부터의 데이터를 복구하여 고가용성을 보장받을 수 있다. 또한 같은 데이터를 여러개의 서로 다른 플랫폼(예를 들어 한 쪽에서는 엘라스틱서치에서 처리를, 또 다른곳에서는 하둡에 데이터를 저장하고자 할 때)에 적재 할 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;파티션 내의 데이터는 옵션에 따라 삭제되는 시점을 정할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;log.retention.ms : 최대 record(데이터) 보존 시간&lt;/li&gt;
+  &lt;li&gt;log.retention.byte : 최대 record(데이터) 보존 크기&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위의 그림처럼 파티션이 2개 이상인 경우, 데이터는 어느 파티션으로 들어가게될까? 데이터마다 키가 존재하고, 이를 기반으로 다양한 옵션을 설정할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;키가 null, 기본 파티션 사용 : 라운드 로빈(round robin) 기준으로 파티션에 할당&lt;/li&gt;
+  &lt;li&gt;키가 존재, 기본 파티션 사용 : 키의 해시값을 이름으로 갖는 특정 파티션에 할당&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그렇다면 파티션은 마음대로 늘일 수 있을까? 늘이는 것은 언제든지 가능하지만 반대로 줄이는 것은 불가능하다. 그렇기 때문에 파티션을 추가할 때에는 꼭 신중하게 진행하는 것이 좋다. 그렇다면 파티션은 언제 늘이는 것이 좋을까? 파티션을 늘이면 이를 구독할 수 있는 컨슈머의 갯수를 늘일 수 있기 때문에, 데이터 처리를 여러 컨슈머로 분산시킬 수 있다. 그렇기 때문에 컨슈머의 양이 증가되어야 하는 시점에 파티션을 동일하게 늘여주는 것이 좋다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;고가용성을 위한 Replication(복제)&lt;/h2&gt;
+
+&lt;p&gt;카프카에는 브로커(broker)라는 개념이 존재하는데, 브로커는 카프카가 설치되어 있는 서버 단위를 의미하며 일반적으로 하나의 카프카 시스템에는 최소 3개의 브로커를 구성하는 것을 권장한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;브로커는 크게 메시지 브로커와 이벤트 브로커로 구분할 수 있는데, 카프카에서 사용하는 브로커는 이벤트 브로커이다. 둘 간의 차이는 수집된 데이터의 즉각적인 삭제 여부이다. 메시지 브로커는 데이터를 보내고 처리하고 삭제하지만, 이벤트 브로커는 서비스에서 나온 이벤트를 큐에 저장해서 발생한 이벤트를 보관한다. 이를 통해 장애가 발생하더라도 해당 이벤트를 복구해서 다시 확인할 수 있거나, 많은 양의 실시간 스트림 데이터를 효과적으로 처리할 수 있는 등의 장점을 얻을 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;각 토픽마다 특정 파티션은 브로커에 하나씩 구성할 수 있으며, 이러한 파티션을 브로커마다 복제하는 것을 Replication이라고 부른다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Replication 1개인 토픽 -&amp;gt; n개의 브로커 중 1대에 토픽이 저장됨&lt;/li&gt;
+  &lt;li&gt;Replication 3개인 토픽 -&amp;gt; n개의 브로커 중 3대에 토픽이 저장됨.
+    &lt;ul&gt;
+      &lt;li&gt;단 위에서 언급한 것 처럼, 각 파티션은 브로커 마다 한개씩만 존재해야 하기 때문에 브로커의 수보다 파티션이 많아서는 안된다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209517629-d3b2010d-ef03-4fc8-ac67-f934bad93890.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 6 : 고가용성을 위한 ISR(In Sync Replica) 구조&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그렇다면 하나의 파티션이 총 3개로 복제되었다면 각 파티션은 뭐라고 부를 수 있을까? 원본은 leader, 복제된 각 파티션은 follower라고 부른다. 즉 3개의 파티션중 원본 1개는 leader, 복제로부터 만들어진 2개는 follower가 된다. 그리고 이 모든 파티션을 합쳐서 ISR(In Sync Replica)라고 부른다(위 그림에서 노란색으로 칠해진 부분).&lt;/p&gt;
+
+&lt;p&gt;실제로 카프카 프로듀서가 데이터를 보내면, 이를 leader 파티션이 받아서 follower 파티션에게 전달하게 된다. 이 과정에서 ack라는 옵션을 사용하여 데이터 전달 과정에서 성능 또는 안정성 중 하나에 대한 중요도를 더욱 높일 수 있다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;ack&lt;/th&gt;
+      &lt;th&gt;특징&lt;/th&gt;
+      &lt;th&gt;속도&lt;/th&gt;
+      &lt;th&gt;데이터 유실 가능성&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;- leader에게 정상적으로 데이터가 전송되었는지 응답값 못받음&lt;br /&gt;- follower에게 데이터가 제대로 복제되었는지 응답값 못받음&lt;/td&gt;
+      &lt;td&gt;속도가 매우 빠름&lt;/td&gt;
+      &lt;td&gt;데이터 유실 가능성 제일 높음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;- leader에게 정상적으로 데이터가 전송되었는지 응답값 받음&lt;br /&gt;- follower에게 데이터가 제대로 복제되었는지 응답값 못받음&lt;/td&gt;
+      &lt;td&gt;일반적인 속도&lt;/td&gt;
+      &lt;td&gt;Leader 파티션이 데이터를 받은 이후 브로커에 장애가 발생할 경우, 나머지 follower에 데이터가 전송되지 못해 데이터 유실가능성이 존재&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;all&lt;/td&gt;
+      &lt;td&gt;- leader에게 정상적으로 데이터가 전송되었는지 응답값 받음&lt;br /&gt;- follower에게 데이터가 제대로 복제되었는지 응답값 받음&lt;/td&gt;
+      &lt;td&gt;가장 느린 속도&lt;/td&gt;
+      &lt;td&gt;데이터의 정상적인 복제를 모두 확인하여 유실 가능성이 거의 없음&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;그렇다면 replication 갯수가 많으면 무조건 좋은것일까? 복제해야 하는 서버가 늘어난다는 것은 리소스의 증가 또한 비례한다는 것을 의미한다. 그렇기 때문에 카프카에 들어오는 데이터양과 저장시간(retention time)을 기준으로 총 복제 수를 정하는 것이 좋다. 일반적으로 3개 이상의 브로커를 사용할 때 replication을 3으로 두는 것을 권장한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;프로듀서의 Partitioner란?&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209518144-06a6f576-a118-49f3-b9f8-dc803ea95ea3.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 7 : 프로듀서에서 생성한 데이터의 파티션 위치를 결정하는 파티셔너&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;프로듀서의 파티셔너(Partitioner)는 레코드에 포함되어 있는 메시지 키 또는 메시지 값에 따라 해당 데이터를 토픽 내 어떠한 파티션으로 할당할지를 결정한다. 프로듀서 사용시점에 파티션을 특정하지 않았을 경우, 기본적으로 UniformStickyPartitioner으로 설정이 된다. 이 때 메시지 키의 설정 여부에 따라 동작 방식이 달라지게 된다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;메시지 키 여부&lt;/th&gt;
+      &lt;th&gt;동작 방식&lt;/th&gt;
+      &lt;th&gt;특징&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Y&lt;/td&gt;
+      &lt;td&gt;- 파티셔너는 메시지 키를 이용하여 해시값 생성&lt;br /&gt;- 해시값 기준으로 파티션 결정&lt;/td&gt;
+      &lt;td&gt;순차적인 데이터 처리 가능&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;N&lt;/td&gt;
+      &lt;td&gt;- 라운드 로빈형태로 파티션 결정&lt;br /&gt;- 프로듀서가 배치 형태로 레코드를 최대한 많이 묶음화한 후, 이를 파티션으로 보냄&lt;/td&gt;
+      &lt;td&gt;파티션마다 적절하게 레코드가 분배됨&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;결국 동일한 메시지 키는 동일한 해시값을 만들기 때문에, 항상 동일한 파티션에 데이터가 그룹화되어 할당되고 이를 통해 데이터를 할당된 순서대로 처리할 수 있게 된다. 예를 들어 날씨에 대한 로그를 분석하는 컨슈머의 경우 프로듀서가 메시지 키에 ‘서울’이라는 값을 넣게 되면, 해당 데이터가 동일한 파티션에만 순서대로 적재되기 때문에 컨슈머는 원활하게 데이터를 순서대로 처리할 수 있게 된다.&lt;/p&gt;
+
+&lt;p&gt;추가로 카프카에서는 사용자가 커스텀 파티셔너를 만들 수 있도록 Partitioner 인터페이스를 제공한다. 이를 이용하면 메시지 키, 메시지 값, 토픽 이름에 따라 파티션을 결정할 수 있는데, 예시로 VIP 고객의 데이터를 더 빠르게 처리하고 싶다면, 이러한 커스텀 파티셔너를 이용하여 처리할 컨슈머의 양을 고정적으로 증가시키는 방법을 적용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;컨슈머 랙(Lag)은 무엇이고 어떻게 해결할 수 있을까?&lt;/h2&gt;
+
+&lt;p&gt;컨슈머 랙은 프로듀서가 파티션에 데이터를 넣어주는 속도가 컨슈머가 파티션으로부터 데이터를 가져가는 속도보다 빠른 경우에 발생한다. 일반적으로 컨슈머에서 성능 저하가 생기거나 비정상적인 동작이 생기는 경우 발생할 수 있는데, &lt;u&gt;각 파티션 별로 프로듀서가 넣은 데이터의 오프셋과 컨슈머가 가져가는 데이터의 오프셋 사이의 차이&lt;/u&gt;라고 이해하면 된다. 
+파티션 기준이기 때문에, &lt;u&gt;토픽 내에 존재하는 파티션의 수에 따라 컨슈머 랙 또한 여러 개 존재할 수 있다&lt;/u&gt;. 예를 들어 2개의 파티션과 1개의 컨슈머 그룹이 존재하는 경우, 발생 가능한 컨슈머 랙은 최대 2개가 된다. 이처럼 여러 개의 컨슈머 랙이 존재하는 경우, 이들 중 가장 높은 숫자의 랙은 records-lag-max로 부른다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/209518167-0daa77dd-cfe5-4f6e-83a5-9c7ecd444717.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 8 : 프로듀서와 컨슈머 사이의 데이터 처리량 차이에서 발생하는 컨슈머 랙&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그렇다면 컨슈머 랙은 어떻게 모니터링할 수 있을까? 컨슈머 랙이 컨슈머를 통해 발생하기 때문에, 자연스럽게 컨슈머 단위로 이를 모니터링해야겠다는 생각이 들것이다. 하지만 이러한 방법은 컨슈머 상태에 매우 의존적이기 때문에, 굉장히 위험한 접근방법이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;만약 컨슈머에 장애가 발생해서 더이상 동작하지 않게되면, 컨슈머에서는 발생하는 랙 정보를 더이상 보낼 수 없기 때문에 정보의 수집이 불가능해진다.&lt;/li&gt;
+  &lt;li&gt;컨슈머가 추가로 개발될때마다 해당 컨슈머에서 컨슈머 랙을 수집하는 로직이 추가로 개발되어야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이러한 이유로 링크드인에서는 컨슈머 랙을 효과적으로 모니터링할 수 있는 별도의 어플리케이션인 &lt;a href=&quot;https://github.com/linkedin/Burrow&quot;&gt;Burrow&lt;/a&gt;를 제공한다. Burrow는 3가지 큰 특징을 가지고 있다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;여러개의 카프카 클러스터가 존재하더라도, 단일 Burrow 어플리케이션으로 모든 클러스터에서 발생하는 컨슈머 랙의 모니터링이 가능하다.&lt;/li&gt;
+  &lt;li&gt;Sliding window를 통해 컨슈머의 상태를 ERROR, WARNING, OK와 같이 간단하게 확인할 수 있다.
+    &lt;ul&gt;
+      &lt;li&gt;WARNING: 데이터양이 일시적으로 증가하여 컨슈머 오프셋이 증가되는 경우&lt;/li&gt;
+      &lt;li&gt;ERROR: 데이터양이 계속해서 증가하지만 컨슈머에서 데이터를 더이상 수집하지 않는 경우&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;HTTP API를 제공하여 멀티플랫폼에서 Burrow 적용이 가능하다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.inflearn.com/course/%EC%95%84%ED%8C%8C%EC%B9%98-%EC%B9%B4%ED%94%84%EC%B9%B4-%EC%9E%85%EB%AC%B8/dashboard&quot;&gt;아파치 카프카 for beginner - 데브원영&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://engineering.linkedin.com/blog/topic/kafka&quot;&gt;Kafka Ecosystem - LinkedIn&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EB%B6%84%EC%82%B0_%EC%84%9C%EB%B9%84%EC%8A%A4&quot;&gt;DDS(Data Distribution Service) - 위키백과&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/%EC%83%9D%EC%82%B0%EC%9E%90-%EC%86%8C%EB%B9%84%EC%9E%90_%EB%AC%B8%EC%A0%9C&quot;&gt;프로듀서-컨슈머(Producer-Consumer) - 위키백과&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/AMQP&quot;&gt;AMQP - 위키백과&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.skby.net/amqp-advanced-message-queue-protocol/&quot;&gt;AMQP(Advanced Message Queue Protocol) - 도리의 디지털라이프&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/linkedin/Burrow&quot;&gt;Burrow - Github&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="tool" />
+      
+
+      
+        <category term="kafka" />
+      
+
+      
+        <summary type="html">Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있ㄷ. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리할 수 있도록 지원한다.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -3491,214 +3743,6 @@ func encodeInHardhat&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;var _addressVa
 
       
         <summary type="html">Web3js에서 합친 문자열을 솔리디티내에서 동일하게 사용할 수 있는 방법에 대해 알아본다.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">트랜잭션 해시(Transaction Hash)는 언제 만들어지는가?</title>
-      
-      
-      <link href="https://wnjoon.github.io/2022/05/20/blockchain-txhash/" rel="alternate" type="text/html" title="트랜잭션 해시(Transaction Hash)는 언제 만들어지는가?" />
-      
-      <published>2022-05-20T06:00:00+00:00</published>
-      <updated>2022-05-20T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2022/05/20/blockchain-txhash</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2022/05/20/blockchain-txhash/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;트랜잭션 해시란?&lt;/h2&gt;
-
-&lt;p&gt;트랜잭션 해시(Transaction Hash, 또는 줄여서 TXID)는 &lt;u&gt;트랜잭션에 대한 고유 ID&lt;/u&gt;를 의미한다. 일반적으로 트랜잭션은 아래와 같은 정보를 갖는다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  from : 송신자 지갑의 주소,
-  to : 수신자 지갑의 주소,
-  value : 전송한 이더 또는 토큰의 개수,
-  gasPrice : 트랜잭션 전송에 사용되는 가스량,
-  ....
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;트랜잭션 해시의 생성 과정&lt;/h2&gt;
-
-&lt;p&gt;트랜잭션 해시가 만들어지기 위해서는 위에서 언급한 &lt;u&gt;1) 트랜잭션 정보&lt;/u&gt;와 &lt;u&gt;2) 트랜잭션을 전송하는 지갑의 개인키&lt;/u&gt;가 필요하다. 개인키를 통해 트랜잭션을 보낸 사람이 본인임을 증명할 수 있는데, 이러한 증명 과정을 &lt;u&gt;서명(signature)&lt;/u&gt;이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/169449935-9f3ceda3-a64f-443e-b829-8d75d39f45a7.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 1: 트랜잭션 해시가 생성되는 과정&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;트랜잭션 정보와 서명이 블록체인 노드로 전달되면, 블록체인 노드는 두 정보를 RLP encoding을 통해 RawTransaction으로 만든다. 예시로 아래와 같은 RawTransaction이 있다고 할 때, 이를 해석(decode)하면 실제 전송했던 트랜잭션의 내용을 확인할 수 있다. 이 때 확인할 수 있는(들어있는) 내용은 아래와 같다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  nonce : 해당 트랜잭션의 논스값,
-  gasPrice : 해당 트랜잭션의 가스 수수료,
-  gas : 해당 트랜잭션을 수행할 때의 가스리밋&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gasLimit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,
-  to : 수신자 지갑 주소,
-  value : 전송량,
-  data : 트랜잭션에 추가로 보내는 데이터,
-  v : 서명 값,
-  r : 서명 값,
-  s : 서명 값
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;위의 내용들이 특정 구문값과 함께 순서대로 조합되어 하나의 16진수 형태로 구성된다. 자세한 내용은 ‘&lt;a href=&quot;https://brunch.co.kr/@nujabes403/15#comment&quot;&gt;트랜잭션 해시(TXID)에 대한 오해&lt;/a&gt;‘를 확인하면 좋다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;트랜잭션 해시의 생성 방법&lt;/h2&gt;
-
-&lt;p&gt;트랜잭션 해시는 결국 &lt;u&gt;keccak256(rawTransaction)&lt;/u&gt;의 결과 값이다. &lt;a href=&quot;https://leventozturk.com/engineering/sha3/&quot;&gt;ONLINE SHA-3 Keccak CALCULATOR - CODE GENERATOR&lt;/a&gt;에서 RawTransaction을 keccak256을 통해 트랜잭션 해시로 만들어볼 수 있는데, 해당 트랜잭션이 이더리움 네트워크에 전송되어 있다면 이를 이더스캔(&lt;a href=&quot;https://etherscan.io&quot;&gt;Etherscan&lt;/a&gt;)에서 조회할 수 있다. 여기서 조회 조건인 트랜잭션해시값은 앞에 0x를 붙여줘야 한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;https://etherscan.io/tx/트랜잭션해시값 : 트랜잭션에 들어가있는 정보들을 볼 수 있다.&lt;/li&gt;
-  &lt;li&gt;https://etherscan.io/getRawTx?tx=트랜잭션해시값  : 해당 트랜잭션의 RawTransaction을 확인할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;Web3js&lt;/h2&gt;
-
-&lt;h3&gt;1. 트랜잭션 해시 생성 : eth.sendTransaction&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=sendTransaction#sendtransaction&quot;&gt;web3js.readthedocs.io - eth.sendTransaction&lt;/a&gt;에서는 Web3js를 활용한 트랜잭션 전송 및 해시 반환 방법에 대해 설명하고 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// using the event emitter&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;web3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1000000000000000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;transactionHash&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;confirmation&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;confirmationNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// If a out of gas error, the second parameter is the receipt.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;위의 코드에서 .on으로 시작되는 내용들에 대한 설명은 아래와 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;on(‘transactionHash’ …) : 트랜잭션 해시가 노드로부터 반환되었을 경우 실행할 내용들&lt;/li&gt;
-  &lt;li&gt;on(‘receipt’ …) : 트랜잭션이 블록에 포함되었을 경우 실행할 내용들&lt;/li&gt;
-  &lt;li&gt;on(‘confirmation’ …) : 트랜잭션이 블록체인에서 confirm 되었을 경우 실행할 내용들&lt;/li&gt;
-  &lt;li&gt;on(‘error’ …) : 트랜잭션 전송 과정에서 에러가 발생하였을 경우 실행할 내용들&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2. RawTransaction 생성 : eth.accounts.signTransaction&lt;/h3&gt;
-
-&lt;p&gt;위의 내용이 트랜잭션을 전송하는 함수였다면, 이 함수(&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction&quot;&gt;eth.accounts.signTransaction&lt;/a&gt;)는 트랜잭션의 정보와 개인키를 이용하여 rawTransaction을 생성해주는 함수이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;web3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;accounts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;signTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xF0109fC8DF283027b6285cc889F5aA624EaC1F55&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1000000000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;gas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;gasPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;234567897654321&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;nonce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;chainId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;messageHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x6893a6ee8df79b0f5d64a180cd1ef35d030f3e296a5361cf04d02ce720d32ec5&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x9ebb6ca057a0535d6186462bc0b465b561c94a295bdb0621fc19208ab149a9c&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x440ffd775ce91a833ab410777204d5341a6f9fa91216a6f3ee2c051fea6a0428&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x25&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;rawTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xf86a8086d55698372431831e848094f0109fc8df283027b6285cc889f5aa624eac1f55843b9aca008025a009ebb6ca057a0535d6186462bc0b465b561c94a295bdb0621fc19208ab149a9ca0440ffd775ce91a833ab410777204d5341a6f9fa91216a6f3ee2c051fea6a0428&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;transactionHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0xd8f64a42b57be0d565f385378db2f6bf324ce14a594afc05de90436e9ce01f60&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;결국 이 함수를 활용하면 트랜잭션을 블록체인에 전송하지 않고도 rawTransaction을 얻을 수 있고, 이를 keccak256 함수로 반환하여 미리 트랜잭션 해시값을 확인할 수도 있다.&lt;/p&gt;
-
-&lt;h3&gt;3. Nonce&lt;/h3&gt;
-
-&lt;p&gt;그런데 위의 eth.accounts.signTransaction 함수를 보면 논스(nonce) 값이 필요하다. 블록체인에 실제 트랜잭션을 전송하지 않고도 어떻게 논스를 확인할 수 있을까?&lt;br /&gt;
-여기서의 논스는 &lt;u&gt;트랜잭션을 전송하는 지갑의 trasnaction count, 즉 특정 지갑(계정)이 지금까지 블록체인에 전송한 트랜잭션의 개수&lt;/u&gt;를 의미한다. 이 값은 &lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount&quot;&gt;getTransactionCount&lt;/a&gt;를 통해 블록체인 노드로부터 가져올 수 있다.&lt;/p&gt;
-
-&lt;h3&gt;4. RawTransaction으로 트랜잭션 전송 : sendSignedTransaction&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount&quot;&gt;sendSignedTransaction&lt;/a&gt;은 RawTransaction을 블록체인으로 전송하는 함수이다.&lt;br /&gt;
-위의 &lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction&quot;&gt;eth.accounts.signTransaction&lt;/a&gt;로부터 생성된 값을 해당 함수에 넣어주면 이에 맞는 트랜잭션이 전송된다고 보면 된다.&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Tx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;@ethereumjs/tx&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;privateKey&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rawTx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;nonce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;gasPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x09184e72a000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;gasLimit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x2710&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x0000000000000000000000000000000000000000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x7f7465737432000000000000000000000000000000000000000000000000000000600057&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rawTx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ropsten&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sign&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;privateKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serializedTx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// console.log(serializedTx.toString('hex'));&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000571ca08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;web3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendSignedTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0x&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serializedTx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// see eth.getTransactionReceipt() for details&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;결론&lt;/h2&gt;
-
-&lt;p&gt;위에서 확인할 수 있었듯, rawTransaction을 keccak256 함수로 변환한 값이기 때문에 이더리움 블록체인에 전송되기 전에라도 트랜잭션 해시값은 얻을 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;참고자료&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://brunch.co.kr/@nujabes403/15#comment&quot;&gt;트랜잭션 해시(TXID)에 대한 오해 - 김훈일&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://medium.com/@codetractio/inside-an-ethereum-transaction-fa94ffca912f&quot;&gt;Inside an Ethereum transaction - Medium&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://web3js.readthedocs.io/en/v1.7.3/index.html&quot;&gt;web3.js - Ethereum JavaScript API&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wiki.hash.kr/index.php/Keccak-256&quot;&gt;Keccak256 - 해시넷&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>Wonjoon</name>
-          
-          
-        </author>
-      
-
-      
-        <category term="blockchain" />
-      
-
-      
-        <category term="ethereum" />
-      
-        <category term="transaction" />
-      
-        <category term="keccak" />
-      
-
-      
-        <summary type="html">트랜잭션 해시에 대한 내용과 생성되는 과정 및 시간에 대하여 알아본다. 결론부터 말하자면, 이더리움 블록체인에 전송되기 전에라도 트랜잭션 해시값은 얻을 수 있다.</summary>
       
 
       
