@@ -4,7 +4,7 @@ title:  "아파치 카프카에 대해 매우 간략하게 알아보기"
 excerpt: "Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있ㄷ. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리할 수 있도록 지원한다."
 date:   2022-12-23 15:00:00 +0900
 categories: tool
-tags: [kafka, distribution]
+tags: [kafka, distribution, 강의]
 ---
 
 <br>
