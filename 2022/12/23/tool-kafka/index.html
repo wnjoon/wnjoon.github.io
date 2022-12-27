@@ -10,7 +10,7 @@
   
   
   <title>아파치 카프카에 대해 매우 간략하게 알아보기</title>
-  <meta name="description" content="Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있ㄷ. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리할 수 있도록 지원한다.">
+  <meta name="description" content="Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있다. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리할 수 있도록 지원한다.">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -25,13 +25,13 @@
   <meta property="og:title" content="아파치 카프카에 대해 매우 간략하게 알아보기">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2022/12/23/tool-kafka/">
-  <meta property="og:description" content="Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있ㄷ. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리할 수 있도록 지원한다.">
+  <meta property="og:description" content="Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있다. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리할 수 있도록 지원한다.">
   
   
   <meta name="twitter:card" content="summary">
   
   <meta name="twitter:title" content="아파치 카프카에 대해 매우 간략하게 알아보기">
-  <meta name="twitter:description" content="Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있ㄷ. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리...">
+  <meta name="twitter:description" content="Apache Kafka는 여러 어플리케이션에서 송수신되는 데이터를 실시간으로 처리할 수 있도록 하는 분산형 데이터 스트리밍 플랫폼이다. 데이터를 수신하는 Consumer가 데이터를 송신하는 Producer로부터 Topic이라는 단위로 이루어진 데이터를 선택적으로 구독하도록 설계되어있다. 이를 통해 수많은 송수신 어플리케이션 간 데이터를 효과적으로 처리...">
   
   
 
@@ -916,7 +916,7 @@
 
 <p><br /></p>
 
-<h2>컨슈머 랙(Lag)은 무엇이고 어떻게 해결할 수 있을까?</h2>
+<h2>컨슈머 랙(Lag)은 무엇이고 어떻게 확인할 수 있을까?</h2>
 
 <p>컨슈머 랙은 프로듀서가 파티션에 데이터를 넣어주는 속도가 컨슈머가 파티션으로부터 데이터를 가져가는 속도보다 빠른 경우에 발생한다. 일반적으로 컨슈머에서 성능 저하가 생기거나 비정상적인 동작이 생기는 경우 발생할 수 있는데, <u>각 파티션 별로 프로듀서가 넣은 데이터의 오프셋과 컨슈머가 가져가는 데이터의 오프셋 사이의 차이</u>라고 이해하면 된다. 
 파티션 기준이기 때문에, <u>토픽 내에 존재하는 파티션의 수에 따라 컨슈머 랙 또한 여러 개 존재할 수 있다</u>. 예를 들어 2개의 파티션과 1개의 컨슈머 그룹이 존재하는 경우, 발생 가능한 컨슈머 랙은 최대 2개가 된다. 이처럼 여러 개의 컨슈머 랙이 존재하는 경우, 이들 중 가장 높은 숫자의 랙은 records-lag-max로 부른다.</p>
