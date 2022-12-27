@@ -91,7 +91,7 @@ jekyll-archives:
 
 # jekyll-paginate
 paginate_path: /posts/:num/
-paginate: 7
+paginate: 10
 
 
 # font
