@@ -1041,11 +1041,10 @@ Authentication : 인증, 내가 누구인지에 대하여 표현</p>
 
 <p>이 때 생성되는 XML을 Assertion이라고 부르는데, Assertion 내부에는 ID 공급자 이름, 발행일, 만료일 등의 정보가 포함되어있다 (<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-glossary-2.0-os.pdf">OASIS에서 발행한 SAML v2.0 문서</a>).</p>
 
-<p><br /></p>
-
 <h4>1.1. 인증 과정</h4>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210195316-81efebb6-db1e-49f0-a51a-1c07c9fc83d6.png" alt="image" />  <em>@그림 6 : SAML 인증 과정 - 호롤리한 하루</em></p>
+<p><img src="https://user-images.githubusercontent.com/39115630/210195316-81efebb6-db1e-49f0-a51a-1c07c9fc83d6.png" alt="image" /><br />
+<em>@그림 6 : SAML 인증 과정 - 호롤리한 하루</em></p>
 
 <ol>
   <li>유저가 인증 서비스에 접근하면, Service Provider가 해당 유저의 과거 인증 여부를 확인한다.</li>
@@ -1059,8 +1058,6 @@ Authentication : 인증, 내가 누구인지에 대하여 표현</p>
   <li>검증 결과가 유효하면 User가 요청한 서비스로 이동한다.</li>
 </ol>
 
-<p><br /></p>
-
 <h4>1.2. 문제점</h4>
 
 <p>SAMLRequest, SAMLResponse 모두 XML 형식이기 때문에 모바일 또는 Native Application이 아닌 Browser를 통해서만 동작한다는 한계가 있다.</p>
@@ -1072,8 +1069,6 @@ Authentication : 인증, 내가 누구인지에 대하여 표현</p>
 <p>Authorization(인가)을 위한 개방형 표준 프로토콜로, 자원의 소유자를 대신하여 3rd party application에게 자원의 접근 권한을 위임하는 방식이다. 모바일 플랫폼에서 사용하기 어려운 SAML 방식의 단점을 보완하기 위해 만들어졌으며, JSON을 기반으로 동작한다.</p>
 
 <p>사용자의 동의 및 인증만 완료되면, 3rd party application에 계정 정보와 같은 중요한 정보를 공유하지 않아도 자원에 접근할 수 있게 된다. 예를 들어 Facebook이나 Naver, Google을 통해 사용자의 인증을 받는 어플리케이션을 생각해보면 좋다. 만약 게임에 친구를 초대할 때, 자신의 Facebook 친구목록을 받아와서 이들 중 게임을 실제로 하고 있는 사용자를 자동으로 친구 추가할 수 있다. 이처럼 OAuth는 사용자의 정보를 외부와 공유하지 않고도 자격이 증명되었다는 인증만으로 Application에서 자원을 사용할 수 있도록 할 수 있다.</p>
-
-<p><br /></p>
 
 <h4>2.1. Token</h4>
 
@@ -1181,8 +1176,6 @@ Authentication : 인증, 내가 누구인지에 대하여 표현</p>
   <li>Resource Server는 Access Token이 유효한지 확인한 후, scope가 아직 만료되지 않은 경우 정보를 반환한다.</li>
 </ol>
 
-<p><br /></p>
-
 <h4>2.3. 재인증 과정(Access Token의 만료)</h4>
 
 <p><img src="https://user-images.githubusercontent.com/39115630/210200518-5c872471-9c55-466f-b7a1-b98cfca0ed0d.png" alt="image" /><br />
@@ -1203,8 +1196,6 @@ Authentication : 인증, 내가 누구인지에 대하여 표현</p>
 
 <p>위에서 살펴본 OAuth 방식은 Authorization(인가), 즉 권한의 소유 여부만을 판단하는 기술이다. 즉 특정 자원에 대해 일시적인 권한을 부여한 것일 뿐, 사용자의 정보는 담을 수 없다. 이에 OIDC는 인증(Authentication)을 위해 ID Token이라는 또다른 토큰을 보유한다.</p>
 
-<p><br /></p>
-
 <h4>3.1. JWT Token</h4>
 
 <p>OIDC는 OAuth2.0을 기반으로 인증 레이어를 추가한 방식이다. Bearer 형식의 Access Token과 달리, ID Token은 JWT(JSON Web Token) 형식을 갖는다. ID Token을 통해 누가 인증을 했으며, 누가 토큰을 발행했는지와 같은 정보를 확인할 수 있다.</p>
@@ -1221,8 +1212,6 @@ Authentication : 인증, 내가 누구인지에 대하여 표현</p>
   "iat": 1311280970     // 토큰 발행시간(issued at)
 }
 </code></pre>
-
-<p><br /></p>
 
 <h4>3.2. 인증 과정</h4>
 
