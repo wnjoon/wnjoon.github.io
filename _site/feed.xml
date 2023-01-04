@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2023-01-02T07:44:09+00:00</updated>
+  <updated>2023-01-04T03:12:31+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -149,6 +149,14 @@ Authentication : 인증, 내가 누구인지에 대하여 표현&lt;/p&gt;
 &lt;h3&gt;2. OAuth 2.0&lt;/h3&gt;
 
 &lt;p&gt;Authorization(인가)을 위한 개방형 표준 프로토콜로, 자원의 소유자를 대신하여 3rd party application에게 자원의 접근 권한을 위임하는 방식이다. 모바일 플랫폼에서 사용하기 어려운 SAML 방식의 단점을 보완하기 위해 만들어졌으며, JSON을 기반으로 동작한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://gyoogle.dev/blog/web-knowledge/OAuth.html&quot;&gt;OAuth&lt;/a&gt;는 Open Authorization의 약자로, 좀더 쉽게 설명해보면 “사용자가 자신의 비밀번호를 직접 웹사이트 또는 어플리케이션에 제공하지 않고, 다른 검증된 웹사이트에 있는 자신의 정보를 이용해서 이용하고자 하는 웹사이트 또는 어플리케이션을 이용할 수 있는 권한을 획득하는 것”을 의미한다. 이러한 의미로 개방형 표준 방법이라고도 부른다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;사용자의 동의 및 인증만 완료되면, 3rd party application에 계정 정보와 같은 중요한 정보를 공유하지 않아도 자원에 접근할 수 있게 된다. 예를 들어 Facebook이나 Naver, Google을 통해 사용자의 인증을 받는 어플리케이션을 생각해보면 좋다. 만약 게임에 친구를 초대할 때, 자신의 Facebook 친구목록을 받아와서 이들 중 게임을 실제로 하고 있는 사용자를 자동으로 친구 추가할 수 있다. 이처럼 OAuth는 사용자의 정보를 외부와 공유하지 않고도 자격이 증명되었다는 인증만으로 Application에서 자원을 사용할 수 있도록 할 수 있다.&lt;/p&gt;
 
@@ -338,6 +346,7 @@ Authentication : 인증, 내가 누구인지에 대하여 표현&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://itwiki.kr/w/SSO&quot;&gt;SSO - IT위키&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.itworld.co.kr/news/237559#csidx1fb8cddd152e06daa58ba0d4a1db87a&quot;&gt;SAML로 싱글사인온을 구현하는 방법 - itworld&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://nowonbun.tistory.com/281&quot;&gt;JWT(Json Web Token)을 발행, 확인하는 방법 - 명월 일지&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gyoogle.dev/blog/web-knowledge/OAuth.html&quot;&gt;OAuth - gyoogle.dev&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content>
 
       
@@ -358,8 +367,6 @@ Authentication : 인증, 내가 누구인지에 대하여 표현&lt;/p&gt;
         <category term="swe" />
       
 
-      
-        <category term="java" />
       
         <category term="security" />
       
