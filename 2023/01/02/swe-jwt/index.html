@@ -1117,7 +1117,6 @@ generatedMessage <span class="o">=</span> HMACSHA256<span class="o">(</span>enco
 
 <span class="c"># 문자열이 아닌 hex값을 base64로 인코딩해줘야 한다</span>
 signature <span class="o">=</span> base64HexEncode<span class="o">(</span>generatedMessage<span class="o">)</span>
-
 </code></pre></div></div>
 
 <blockquote>
@@ -1169,7 +1168,7 @@ token <span class="o">=</span> encodedMessage + <span class="s2">"."</span> + si
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>위에 설명한 것 처럼, Jwts 버전 0.10.0 부터 signWith(Key) or signWith(Key, SignatureAlgorithm)이 deprecated 되었다. 기존에는 문자열 형태의 비밀키를 그대로 사용할 수 있었다면, 바뀐 버전부터는 Key 타입으로 변경해서 이를 넣어주어야 한다. 번거로움을 방지하고자 User 객체를 생성할 때 입력받은 Secret Key를 자동으로 Key 타입으로 변경해서 넣어주도록 하였다.</p>
+<p>위에 설명한 것 처럼, Jwts 버전 0.10.0 부터 signWith(Key) 또는 signWith(Key, SignatureAlgorithm)이 deprecated 되었다. 기존에는 문자열 형태의 비밀키를 그대로 사용할 수 있었다면, 바뀐 버전부터는 Key 타입으로 변경해서 이를 넣어주어야 한다. 번거로움을 방지하고자 User 객체를 생성할 때 입력받은 Secret Key를 자동으로 Key 타입으로 변경해서 넣어주도록 하였다.</p>
 
 <h4>3.3. Token</h4>
 
@@ -1243,7 +1242,7 @@ eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ3YWxsZWVpZCIsInVzZXJuYW1lIjoid2FsbGVlIiwiaHR0cHM
 <p>위의 내용을 <a href="https://jwt.io/">jwt.io</a>에 조회해보면 정상 결과를 얻을 수 있다.</p>
 
 <p><img src="https://user-images.githubusercontent.com/39115630/210508616-695d9943-6d69-4ba3-9d2e-fc479b20df91.png" alt="image" /><br />
-<em>@그림 3 : JWT 생성 결과 확인</em></p>
+<em>@그림 3 : jwt.io에서 확인한 JWT 생성 결과</em></p>
 
 <p><br /></p>
 
