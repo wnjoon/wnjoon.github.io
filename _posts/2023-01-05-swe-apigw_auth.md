@@ -128,6 +128,12 @@ API 호출을 요청할 때마다 토큰에 해당하는 정보를 서버에서 
 
 <br>
 
+## 2중화의 필요성
+
+하지만 그림을 보면 알다싶이, API Gateway가 모든 서비스를 전달하는 통로이기 때문에 장애가 발생할 시 치명적인 단일 실패점(SPoF, Single Point of Failure)이 될 수 있다. 그렇기 때문에 API Gateway는 반드시 2중화를 해두는 것이 좋다.
+
+<br>
+
 ## 참고자료
 
 - [마이크로서비스 구조(MSA)의 인증 및 인가(Authorization & Authentication) - SangminKim](https://medium.com/spoontech/마이크로서비스-구조-msa-의-인증-및-인가-authorization-authentication-a595179ab88e)
