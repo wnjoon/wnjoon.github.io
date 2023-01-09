@@ -87,16 +87,18 @@
         <header class="post-header">
           <h1 class="post-title">
             
-              <a class="post-link" href="/2021/07/15/tool-code_server/">웹브라우저 형식의 VScode, code-server 구성하기</a>
+              <a class="post-link" href="/2021/08/01/tool-k8s_lec_svc/">Kubernetes: Service - ClusterIP, NodePort, LoadBalancer</a>
             
           </h1>
 
           <p class="post-meta">
-            2021년 7월 15일
+            2021년 8월 1일
             
                •
   
     
+    
+      
     
       
     
@@ -278,6 +280,602 @@
     
       
     
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/k8s/">k8s</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/%EA%B0%95%EC%9D%98/">강의</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+            
+            
+          </p>
+        </header>
+
+        <div class="post-content">
+          쿠버네티스의 Service와 세부 종류인 ClusterIP, NodePort, LoadBalancer에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 '대세는 쿠버네티스 (초급~중급) - 김태민' 내용을 정리한 내용을 포함한다.
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            
+              <a class="post-link" href="/2021/07/15/tool-code_server/">웹브라우저 형식의 VScode, code-server 구성하기</a>
+            
+          </h1>
+
+          <p class="post-meta">
+            2021년 7월 15일
+            
+               •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/tool/">tool</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
   
 
 
@@ -327,6 +925,10 @@
     
       
         <a href="/tags/vscode/">vscode</a>,
+      
+    
+      
+    
       
     
       
@@ -648,6 +1250,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -697,6 +1303,10 @@
     
       
         <a href="/tags/ipad/">iPad</a>
+      
+    
+      
+    
       
     
       
@@ -1022,7 +1632,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -1090,6 +1704,10 @@
     
       
         <a href="/tags/offchain/">offchain</a>
+      
+    
+      
+    
       
     
       
@@ -1429,7 +2047,11 @@
       
     
       
+    
+      
         <a href="/categories/algorithm/">algorithm</a>
+      
+    
       
     
       
@@ -1629,6 +2251,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -1670,6 +2296,10 @@
     
       
         <a href="/tags/big-o/">big O</a>
+      
+    
+      
+    
       
     
       
@@ -2003,7 +2633,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -2211,6 +2845,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -2248,6 +2886,10 @@
     
       
         <a href="/tags/infura/">infura</a>
+      
+    
+      
+    
       
     
       
@@ -2585,7 +3227,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -2793,6 +3439,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -2828,6 +3478,10 @@
     
       
         <a href="/tags/%EB%B2%88%EC%97%AD/">번역</a>
+      
+    
+      
+    
       
     
       
@@ -3167,7 +3821,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -3223,6 +3881,10 @@
     
       
         <a href="/tags/%ED%95%A9%EC%9D%98%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">합의알고리즘</a>
+      
+    
+      
+    
       
     
       
@@ -3566,7 +4228,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -3620,6 +4286,10 @@
     
       
         <a href="/tags/sto/">sto</a>
+      
+    
+      
+    
       
     
       
@@ -3965,7 +4635,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -3995,6 +4669,10 @@
     
       
         <a href="/tags/hyperledger-fabric/">hyperledger fabric</a>,
+      
+    
+      
+    
       
     
       
@@ -4356,6 +5034,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -4383,6 +5065,10 @@
     
       
         <a href="/tags/mvcc/">mvcc</a>
+      
+    
+      
+    
       
     
       
@@ -4736,7 +5422,11 @@
       
     
       
+    
+      
         <a href="/categories/java/">java</a>
+      
+    
       
     
       
@@ -4774,6 +5464,10 @@
     
       
         <a href="/tags/jpa/">jpa</a>,
+      
+    
+      
+    
       
     
       
@@ -5121,6 +5815,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -5144,6 +5842,10 @@
     
       
         <a href="/tags/web3j/">web3j</a>,
+      
+    
+      
+    
       
     
       
@@ -5487,584 +6189,6 @@
     
       
     
-  
-
-
-            
-            
-          </p>
-        </header>
-
-        <div class="post-content">
-          Web3j로 작성한 이더리움 클라이언트에 사용할 Postgresql 기반의 데이터베이스로 JPA를 이용하여 접속해본다.
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            
-              <a class="post-link" href="/2021/03/04/tool-vmware_in_mac/">맥OS Big Sur에서는 VirtualBox 말고 Vmware를 쓰자</a>
-            
-          </h1>
-
-          <p class="post-meta">
-            2021년 3월 4일
-            
-               •
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/tool/">tool</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-
-
- •
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/virtual-machine/">virtual machine</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/mac/">mac</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
       
     
       
@@ -6078,7 +6202,7 @@
         </header>
 
         <div class="post-content">
-          왜 버추얼박스는 맥OS에만 오면 힘을 쓰지 못하는지 안타까운 마음을 안고 vmware를 사용해본 후기를 공유한다.
+          Web3j로 작성한 이더리움 클라이언트에 사용할 Postgresql 기반의 데이터베이스로 JPA를 이용하여 접속해본다.
         </div>
         
       </li>
