@@ -3,8 +3,8 @@ layout: post
 title:  "Flutter를 이용한 앱 개발환경 구성하기" 
 excerpt: "2023년 꼭 해보고싶은 일 중 하나가 앱 만들기이다. 최근 Flutter를 이용해서 굉장히 쉽고 빠르게 앱을 만들 수 있다고 하여 이를 공부해보기로 하였다. Flutter는 Google에서 만들었으며, 공식 홈페이지에서는 '하나의 코드베이스로 모바일, 웹, 데스크톱에서 네이티브로 컴파일 되는 구글의 아름다운 UI 툴킷'이라고 표현하고 있다. 이번 포스팅에서는 Apple M1 macOS에서 Flutter 개발환경을 구성한 내용을 작성해본다."
 date:   2023-01-06 15:00:00 +0900
-categories: flutter
-tags: [mobile]
+categories: mobile
+tags: [flutter]
 comments: true
 ---
 

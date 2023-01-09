@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2023-01-09T07:26:18+00:00</updated>
+  <updated>2023-01-09T07:29:25+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -31,12 +31,12 @@
       <title type="html">Flutter를 이용한 앱 개발환경 구성하기</title>
       
       
-      <link href="https://wnjoon.github.io/2023/01/06/flutter_gettingstarted/" rel="alternate" type="text/html" title="Flutter를 이용한 앱 개발환경 구성하기" />
+      <link href="https://wnjoon.github.io/2023/01/06/mobile-flutter_gettingstarted/" rel="alternate" type="text/html" title="Flutter를 이용한 앱 개발환경 구성하기" />
       
       <published>2023-01-06T06:00:00+00:00</published>
       <updated>2023-01-06T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2023/01/06/flutter_gettingstarted</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2023/01/06/flutter_gettingstarted/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+      <id>https://wnjoon.github.io/2023/01/06/mobile-flutter_gettingstarted</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2023/01/06/mobile-flutter_gettingstarted/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2&gt;Flutter란&lt;/h2&gt;
 
@@ -222,11 +222,11 @@ brew를 이용하여 설치한다.&lt;/p&gt;
       
 
       
-        <category term="flutter" />
+        <category term="mobile" />
       
 
       
-        <category term="mobile" />
+        <category term="flutter" />
       
 
       
