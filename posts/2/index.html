@@ -87,6 +87,600 @@
         <header class="post-header">
           <h1 class="post-title">
             
+              <a class="post-link" href="/2022/11/08/swe-restapi_design/">칭찬받는 REST API를 작성하는 방법 15가지</a>
+            
+          </h1>
+
+          <p class="post-meta">
+            2022년 11월 8일
+            
+               •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/swe/">swe</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/restapi/">restapi</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/web-development/">web development</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+            
+            
+          </p>
+        </header>
+
+        <div class="post-content">
+          REST API는 웹 프로그래밍에 있어 서버와 클라이언트 간 통신 방법의 표준에 가까운 역할을 담당한다. 그리고 수많은 프로그램과 이를 만드는 개발자들이 이 프로토콜을 사용한다는 말은, 우리는 이 REST API를 작성할 수 있는 좋은 방법을 알아야 한다는 것이다. 마치 코드를 클린하게 짜는 것 처럼.
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            
               <a class="post-link" href="/2022/11/02/crypto-amm/">DEX 환경에서 AMM의 필요성</a>
             
           </h1>
@@ -275,7 +869,11 @@
       
     
       
+    
+      
         <a href="/categories/cryptocurrency/">cryptocurrency</a>
+      
+    
       
     
   
@@ -465,6 +1063,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -596,6 +1198,10 @@
     
       
         <a href="/tags/defi/">defi</a>
+      
+    
+      
+    
       
     
       
@@ -849,7 +1455,11 @@
       
     
       
+    
+      
         <a href="/categories/swe/">swe</a>
+      
+    
       
     
       
@@ -951,6 +1561,10 @@
     
       
         <a href="/tags/design-pattern/">design pattern</a>,
+      
+    
+      
+    
       
     
       
@@ -1230,6 +1844,10 @@
     
       
     
+      
+    
+      
+    
   
 
 
@@ -1421,7 +2039,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -1479,6 +2101,10 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
+      
+    
       
     
       
@@ -1812,6 +2438,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -1917,6 +2547,10 @@
     
       
         <a href="/tags/smart-contract/">smart contract</a>
+      
+    
+      
+    
       
     
       
@@ -2186,7 +2820,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -2244,6 +2882,10 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>
+      
+    
+      
+    
       
     
       
@@ -2585,7 +3227,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -2643,6 +3289,10 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
+      
+    
       
     
       
@@ -2976,6 +3626,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -3081,6 +3735,10 @@
     
       
         <a href="/tags/smart-contract/">smart contract</a>
+      
+    
+      
+    
       
     
       
@@ -3350,7 +4008,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -3408,6 +4070,10 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
+      
+    
       
     
       
@@ -3741,6 +4407,10 @@
     
       
     
+      
+    
+      
+    
   
 
 
@@ -3932,7 +4602,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -3990,6 +4664,10 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
+      
+    
       
     
       
@@ -4323,6 +5001,10 @@
     
       
     
+      
+    
+      
+    
   
 
 
@@ -4514,7 +5196,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -4572,6 +5258,10 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
+      
+    
       
     
       
@@ -4905,6 +5595,10 @@
     
       
     
+      
+    
+      
+    
   
     
     
@@ -5028,6 +5722,10 @@
     
       
         <a href="/tags/encoding/">encoding</a>
+      
+    
+      
+    
       
     
       
@@ -5279,7 +5977,11 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
+      
+    
       
     
       
@@ -5337,6 +6039,10 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
+      
+    
       
     
       
@@ -5670,584 +6376,6 @@
     
       
     
-  
-
-
-            
-            
-          </p>
-        </header>
-
-        <div class="post-content">
-          일반적으로 스마트 컨트랙트의 주소는 전적으로 '컨트랙트를 생성하는 주체의 정보' 의해 결정된다.
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            
-              <a class="post-link" href="/2022/09/10/blockchain-eth_status_machine/">이더리움과 상태 머신</a>
-            
-          </h1>
-
-          <p class="post-meta">
-            2022년 9월 10일
-            
-               •
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/blockchain/">blockchain</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-
-
- •
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/ethereum/">ethereum</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/state-machine/">state machine</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
       
     
       
@@ -6261,7 +6389,7 @@
         </header>
 
         <div class="post-content">
-          이더리움이 왜 상태머신(State machine)인가에 대해 알아본다.
+          일반적으로 스마트 컨트랙트의 주소는 전적으로 '컨트랙트를 생성하는 주체의 정보' 의해 결정된다.
         </div>
         
       </li>
