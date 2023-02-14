@@ -243,6 +243,8 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
       
     
@@ -457,6 +459,8 @@
     
       
     
+      
+    
   
 
 </p>
@@ -500,14 +504,11 @@
 <span class="k">contract</span> <span class="n">Faucet</span> <span class="p">{</span>
     <span class="c1">// 이더 전달
 </span>    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">uint</span> <span class="n">withdraw_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
- 
         <span class="c1">// 출금 이더 제한
 </span>        <span class="nb">require</span><span class="p">(</span><span class="n">withdraw_amount</span> <span class="o">&lt;=</span> <span class="mi">100000000000000000</span><span class="p">);</span>
-    
         <span class="c1">// 이더 전송
 </span>        <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">withdraw_amount</span><span class="p">);</span>
     <span class="p">}</span>
-
     <span class="c1">// 입금 가능
 </span>    <span class="k">function</span> <span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{}</span>
 <span class="p">}</span>
