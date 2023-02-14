@@ -38,14 +38,11 @@ pragma solidity ^0.4.19;
 contract Faucet {
     // 이더 전달
     function withdraw(uint withdraw_amount) public {
- 
         // 출금 이더 제한
         require(withdraw_amount <= 100000000000000000);
-    
         // 이더 전송
         msg.sender.transfer(withdraw_amount);
     }
-
     // 입금 가능
     function () public payable {}
 }
