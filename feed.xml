@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2023-02-17T01:09:48+00:00</updated>
+  <updated>2023-02-23T00:56:13+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -4921,6 +4921,24 @@ http://.../v2/book
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
+&lt;h2&gt;추가 (2023.02.23)&lt;/h2&gt;
+
+&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;mapping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_orders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getOrder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;view&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;returns&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;calldata&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* &amp;lt;- Return에 calldata 사용 */&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_orders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* &amp;lt;- 오류 발생 */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 예시처럼 함수의 리턴에 calldata를 사용하면 오류가 발생한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Return argument &lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;struct MatchingEngine.Order storage ref is not implicitly convertible to expected &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;of first &lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;variable&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; struct MatchingEngine.Order calldata.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;확인 결과(&lt;a href=&quot;https://ethereum.stackexchange.com/questions/117770/how-to-use-calldata-return-values-in-solidity-and-when-are-they-useful&quot;&gt;StackExchange&lt;/a&gt;), calldata는 input 파라미터로만 적용 가능하며 return 값에서는 사용이 불가능하다. 그러므로 Return 값에서는 memory를 사용하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;h2&gt;요약&lt;/h2&gt;
 
 &lt;p&gt;포스팅을 다시 요약해보면,&lt;/p&gt;
@@ -4928,6 +4946,7 @@ http://.../v2/book
   &lt;li&gt;레퍼런스 타입 변수는 선언 시 데이터 위치(storage, memory, calldata)를 꼭 명시해야 한다.&lt;/li&gt;
   &lt;li&gt;상태 변수의 변경이 블록체인에 저장되어야 한다면 storage 키워드를 사용한다.&lt;/li&gt;
   &lt;li&gt;블록체인으로의 상태 변수 업데이트가 필요 없다면 memory, calldata를 사용한다. 단 변수 값의 수정이 이루어지지 않는 단순 읽기만 요구된다면, 가스비 절약을 위해서라도 calldata를 사용하는 것이 더 바람직하다.&lt;/li&gt;
+  &lt;li&gt;(추가) calldata는 함수의 리턴값에서는 사용할 수 없다. 오직 인풋 파라미터에서만 사용가능하다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -4938,6 +4957,7 @@ http://.../v2/book
   &lt;li&gt;&lt;a href=&quot;https://solidity-by-example.org/data-locations/&quot;&gt;Data Locations - Storage, Memory and Calldata&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://medium.com/@aiden.p/solidity-%EC%94%A8-%EB%A6%AC%EC%A6%88-%EC%9D%80%EA%B7%BC-%ED%97%B7%EA%B0%88%EB%A6%AC%EB%8A%94-data-location-2690cefb72db&quot;&gt;은근 헷갈리는 Data Location - Solidity 씨-리즈&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://medium.com/coinmonks/solidity-storage-vs-memory-vs-calldata-8c7e8c38bce&quot;&gt;Storage vs Memory vs Calldata - YBM&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ethereum.stackexchange.com/questions/117770/how-to-use-calldata-return-values-in-solidity-and-when-are-they-useful&quot;&gt;How to use calldata return values in Solidity and when are they useful? - StackExchange&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content>
 
       
