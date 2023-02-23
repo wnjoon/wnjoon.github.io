@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2023-02-23T00:56:13+00:00</updated>
+  <updated>2023-02-23T00:56:42+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -4903,9 +4903,7 @@ http://.../v2/book
 
 &lt;h2&gt;calldata와 memory의 동작 차이&lt;/h2&gt;
 
-&lt;p&gt;왜 calldata와 memory가 모두 블록체인에 데이터를 저장하지 않으면서 누구는 변경이 가능하고 누구는 불가능한 것일까?&lt;/p&gt;
-
-&lt;p&gt;memory 키워드로 데이터를 가져올 경우의 순서를 살펴보면 이해하기 쉽다.&lt;/p&gt;
+&lt;p&gt;왜 calldata와 memory가 모두 블록체인에 데이터를 저장하지 않으면서 누구는 변경이 가능하고 누구는 불가능한 것일까? memory 키워드로 데이터를 가져올 경우의 순서를 살펴보면 이해하기 쉽다.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;calldata 형태로 데이터를 가지고 온다.&lt;/li&gt;
