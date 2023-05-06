@@ -38,7 +38,7 @@ if [ -d "$BUILD_DIR" ]; then
       # Commit
       git add .
       git commit -m "Deploy $(date)"
-      if git push origin master+; then
+      if git push origin master; then
         echo "DEPLOYED SUCCESSFULLY !"
         echo $(basename $(git remote show -n origin | grep Fetch | cut -d: -f2-))
       else
