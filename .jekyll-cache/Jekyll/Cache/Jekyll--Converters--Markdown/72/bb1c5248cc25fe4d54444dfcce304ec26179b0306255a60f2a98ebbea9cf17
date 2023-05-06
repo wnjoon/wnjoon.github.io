@@ -1,4 +1,4 @@
-I""&<p><br /></p>
+I""<p><br /></p>
 
 <h2>encodePacked</h2>
 
@@ -88,25 +88,25 @@ func encodeInHardhat<span class="o">(</span>var _addressValue, var _intValue, va
 
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">waffle</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">,</span> <span class="nx">web3</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">hardhat</span><span class="dl">"</span><span class="p">;</span>
 <span class="p">...</span>
-<span class="kd">const</span> <span class="p">[</span><span class="nx">user1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">waffle</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nx">getWallets</span><span class="p">()</span>
-<span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">"</span><span class="s2">0</span><span class="dl">"</span><span class="p">)</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">user1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">waffle</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nf">getWallets</span><span class="p">()</span>
+<span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="dl">"</span><span class="s2">0</span><span class="dl">"</span><span class="p">)</span>
 <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">0x0000000000000000000000000000000000000000000000000000000000000000</span><span class="dl">"</span>
 <span class="p">...</span>
-<span class="kd">const</span> <span class="nx">combinedMsg</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">solidityPack</span><span class="p">(</span>
+<span class="kd">const</span> <span class="nx">combinedMsg</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nf">solidityPack</span><span class="p">(</span>
                 <span class="p">[</span><span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">uint256</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">bytes</span><span class="dl">"</span><span class="p">],</span>
                 <span class="p">[</span><span class="nx">user1</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">data</span><span class="p">])</span>
 </code></pre></div></div>
 
 <h3>Solidity</h3>
 
-<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">compareMsg</span><span class="p">(</span><span class="kt">address</span> <span class="n">_addr</span><span class="p">,</span> 
-                    <span class="kt">uint256</span> <span class="n">_val</span><span class="p">,</span> 
-                    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_data</span><span class="p">,</span> 
-                    <span class="kt">bytes</span> <span class="k">memory</span> <span class="k">calldata</span> <span class="n">_encodedMsg</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">combineMsg</span> <span class="o">=</span> <span class="n">abi</span><span class="p">.</span><span class="n">encoded</span><span class="p">(</span><span class="n">_addr</span><span class="p">,</span> <span class="n">_val</span><span class="p">,</span> <span class="n">_data</span><span class="p">);</span>
-    <span class="nb">require</span><span class="p">(</span><span class="n">combineMsg</span> <span class="o">==</span> <span class="n">_encodeMsg</span> <span class="p">,</span> <span class="s">"Should be same"</span><span class="p">);</span> 
-<span class="p">}</span>
-</code></pre></div></div>
+<pre><code class="language-solidity">function compareMsg(address _addr, 
+                    uint256 _val, 
+                    bytes memory _data, 
+                    bytes memory calldata _encodedMsg) {
+    bytes memory combineMsg = abi.encoded(_addr, _val, _data);
+    require(combineMsg == _encodeMsg , "Should be same"); 
+}
+</code></pre>
 <p><br /></p>
 
 <h2>참고자료</h2>

@@ -1,4 +1,4 @@
-I"`@<p><br /></p>
+I"a@<p><br /></p>
 
 <h2>트랜잭션 해시란?</h2>
 
@@ -58,19 +58,19 @@
 <p><a href="https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=sendTransaction#sendtransaction">web3js.readthedocs.io - eth.sendTransaction</a>에서는 Web3js를 활용한 트랜잭션 전송 및 해시 반환 방법에 대해 설명하고 있다.</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// using the event emitter</span>
-<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendTransaction</span><span class="p">({</span>
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nf">sendTransaction</span><span class="p">({</span>
     <span class="na">from</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">to</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1000000000000000</span><span class="dl">'</span>
 <span class="p">})</span>
-<span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">transactionHash</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">){</span>
+<span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">transactionHash</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">){</span>
     <span class="p">...</span>
 <span class="p">})</span>
-<span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">receipt</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">receipt</span><span class="p">){</span>
+<span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">receipt</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">receipt</span><span class="p">){</span>
     <span class="p">...</span>
 <span class="p">})</span>
-<span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">confirmation</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">confirmationNumber</span><span class="p">,</span> <span class="nx">receipt</span><span class="p">){</span> <span class="p">...</span> <span class="p">})</span>
-<span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span> <span class="c1">// If a out of gas error, the second parameter is the receipt.</span>
+<span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">confirmation</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">confirmationNumber</span><span class="p">,</span> <span class="nx">receipt</span><span class="p">){</span> <span class="p">...</span> <span class="p">})</span>
+<span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span> <span class="c1">// If a out of gas error, the second parameter is the receipt.</span>
 </code></pre></div></div>
 
 <p>위의 코드에서 .on으로 시작되는 내용들에 대한 설명은 아래와 같다.</p>
@@ -85,7 +85,7 @@
 
 <p>위의 내용이 트랜잭션을 전송하는 함수였다면, 이 함수(<a href="https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction">eth.accounts.signTransaction</a>)는 트랜잭션의 정보와 개인키를 이용하여 rawTransaction을 생성해주는 함수이다.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">signTransaction</span><span class="p">({</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">.</span><span class="nf">signTransaction</span><span class="p">({</span>
     <span class="na">to</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0xF0109fC8DF283027b6285cc889F5aA624EaC1F55</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1000000000</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">gas</span><span class="p">:</span> <span class="mi">2000000</span><span class="p">,</span>
@@ -93,7 +93,7 @@
     <span class="na">nonce</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="na">chainId</span><span class="p">:</span> <span class="mi">1</span>
 <span class="p">},</span> <span class="dl">'</span><span class="s1">0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318</span><span class="dl">'</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
+<span class="p">.</span><span class="nf">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
 <span class="o">&gt;</span> <span class="p">{</span>
     <span class="na">messageHash</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x6893a6ee8df79b0f5d64a180cd1ef35d030f3e296a5361cf04d02ce720d32ec5</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">r</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x9ebb6ca057a0535d6186462bc0b465b561c94a295bdb0621fc19208ab149a9c</span><span class="dl">'</span><span class="p">,</span>
@@ -118,8 +118,8 @@
 <p><a href="https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount">sendSignedTransaction</a>은 RawTransaction을 블록체인으로 전송하는 함수이다.<br />
 위의 <a href="https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction">eth.accounts.signTransaction</a>로부터 생성된 값을 해당 함수에 넣어주면 이에 맞는 트랜잭션이 전송된다고 보면 된다.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Tx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@ethereumjs/tx</span><span class="dl">'</span><span class="p">).</span><span class="nx">Transaction</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">privateKey</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Tx</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@ethereumjs/tx</span><span class="dl">'</span><span class="p">).</span><span class="nx">Transaction</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">privateKey</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">rawTx</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">nonce</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x00</span><span class="dl">'</span><span class="p">,</span>
@@ -130,16 +130,16 @@
   <span class="na">data</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x7f7465737432000000000000000000000000000000000000000000000000000000600057</span><span class="dl">'</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">tx</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tx</span><span class="p">(</span><span class="nx">rawTx</span><span class="p">,</span> <span class="p">{</span><span class="dl">'</span><span class="s1">chain</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">ropsten</span><span class="dl">'</span><span class="p">});</span>
-<span class="nx">tx</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">privateKey</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tx</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Tx</span><span class="p">(</span><span class="nx">rawTx</span><span class="p">,</span> <span class="p">{</span><span class="dl">'</span><span class="s1">chain</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">ropsten</span><span class="dl">'</span><span class="p">});</span>
+<span class="nx">tx</span><span class="p">.</span><span class="nf">sign</span><span class="p">(</span><span class="nx">privateKey</span><span class="p">);</span>
 
-<span class="kd">var</span> <span class="nx">serializedTx</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">serialize</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">serializedTx</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">serialize</span><span class="p">();</span>
 
 <span class="c1">// console.log(serializedTx.toString('hex'));</span>
 <span class="c1">// 0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000571ca08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f</span>
 
-<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendSignedTransaction</span><span class="p">(</span><span class="dl">'</span><span class="s1">0x</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">serializedTx</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">))</span>
-<span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">receipt</span><span class="dl">'</span><span class="p">,</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nf">sendSignedTransaction</span><span class="p">(</span><span class="dl">'</span><span class="s1">0x</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">serializedTx</span><span class="p">.</span><span class="nf">toString</span><span class="p">(</span><span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">receipt</span><span class="dl">'</span><span class="p">,</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">);</span>
 
 <span class="o">&gt;</span> <span class="c1">// see eth.getTransactionReceipt() for details</span>
 </code></pre></div></div>

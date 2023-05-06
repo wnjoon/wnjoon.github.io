@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Kubernetes: Controller - ReplicaSet</title>
+  <meta name="description" content="쿠버네티스에서 제공하는 컨트롤러의 하나로, 파드 개수를 관리하여 시스템 또는 성능의 장애를 대처하기 위해 사용되는 ReplicaSet에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://wnjoon.github.io/2021/08/05/tool-k8s_lec_rs/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="👨‍💻 월리의 탐구생활" href="https://wnjoon.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="Kubernetes: Controller - ReplicaSet">
+  <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
+  <meta property="og:url" content="https://wnjoon.github.io/2021/08/05/tool-k8s_lec_rs/">
+  <meta property="og:description" content="쿠버네티스에서 제공하는 컨트롤러의 하나로, 파드 개수를 관리하여 시스템 또는 성능의 장애를 대처하기 위해 사용되는 ReplicaSet에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Kubernetes: Controller - ReplicaSet">
+  <meta name="twitter:description" content="쿠버네티스에서 제공하는 컨트롤러의 하나로, 파드 개수를 관리하여 시스템 또는 성능의 장애를 대처하기 위해 사용되는 ReplicaSet에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">👨‍💻 월리의 탐구생활</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/categories/">Categories</a>
+      
+        
+        <a class="page-link" href="/tags/">Tags</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Kubernetes: Controller - ReplicaSet</h1>
+    
+    <p class="post-meta"><time datetime="2021-08-05T06:00:00+00:00" itemprop="datePublished">2021년 8월 5일</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/tool/">tool</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/k8s/">k8s</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/%EA%B0%95%EC%9D%98/">강의</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><br /></p>
+
+<h2>컨트롤러의 기능</h2>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/Controller%20with%20Replicastion%20Controller,%20ReplicaSet%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 1: Controller가 제공하는 기능 - 출처: 강의자료</em></p>
+
+<p>컨트롤러는 쿠버네티스의 서비스를 관리 및 운영하는데 사용된다.</p>
+
+<p>(1) Auto Healing</p>
+<ul>
+  <li>특정 파드 혹은 노드 전체에 장애가 발생하였을 때, 이를 복구해주는 기능이다. 단순히 파드를 재생성할 수도 있고, 노드 전체에 장애가 발생하면 해당 노드에 있던 파드를 다른 노드에 생성할 수도 있다.</li>
+  <li>ReplicaSet(Replication Controller), StatefulSet, DaemonSet이 이에 해당한다.</li>
+</ul>
+
+<p>(2) Software Update</p>
+<ul>
+  <li>여러 파드의 버전을 관리하는데 사용된다. 버전 업그레이드 뿐만 아니라, 사용 중 문제가 있을 경우 해당 버전을 다운그레이드 할 때에도 사용된다.</li>
+  <li>Deployment가 이에 해당한다.</li>
+</ul>
+
+<p>(3) Auto Scaling</p>
+<ul>
+  <li>파드의 자원이 부족하면 같은 서비스를 하는 파드를 늘임으로써, 각 파드에 가는 부하를 줄여 안정적인 서비스를 제공하기 위해 사용된다.</li>
+  <li>HPA가 이에 해당한다.</li>
+</ul>
+
+<p>(4) Job</p>
+<ul>
+  <li>그림에는 없지만, 일시적인 작업에 필요한 파드를 만들었다가 작업이 끝나면 다시 파드 개수를 원상복귀 시키는 방법이다. 순간적으로 많은 양의 데이터를 처리해야 할 때, 시스템에 무리가 가지 않도록 하기 위하여 사용된다.</li>
+  <li>CronJob, Job이 이에 해당한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2>ReplicaSet</h2>
+
+<blockquote>
+  <p>예전 버전에는 Replication Controller가 존재하였으나, 현재는 deprecated 되었으므로 본 포스팅에서도 생략한다.</p>
+</blockquote>
+
+<p>위에서 설명한대로, ReplicaSet은 파드의 개수를 관리할 때 사용된다. 일반적으로 파드를 생성할 때 파드를 감싸고 있는 Deployment 단위로 생성하게 되는데, Deployment 내부에서 파드의 개수를 관리하기 위한 ReplicaSet을 함께 정의한다.<br />
+ReplicaSet은 Template, Replicas, Selector 총 3가지 부분으로 구성된다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ReplicaSet</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">rs</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">3</span> <span class="c1"># replicas: 파드 개수</span>
+  <span class="na">selector</span><span class="pi">:</span> <span class="c1"># selector: 생성할 파드의 공통 속성</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">web</span>
+  <span class="na">template</span><span class="pi">:</span> <span class="c1"># template: 생성할 파드의 형태</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">pod-rs</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">web</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:v1</span>
+      <span class="na">terminationGracePeriodSeconds</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+
+<h3>1. Template</h3>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/Controller%20with%20Replication,%20ReplicaSet%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 2: ReplicaSet의 Template, Replicas 예시 - 출처: 강의자료</em></p>
+
+<p>ReplicaSet을 통해 만들어질 파드의 형태를 나타낸다. ReplicaSet을 통해 관리되기 때문에, <u>template.metadata.labels 내용을 sepc.selector.matchLabels 내용이 일치하게 작성해야 한다.</u><br />
+template 내용이 변경되면 해당 ReplicaSet을 통해 만들어진 모든 파드에 자동으로 변경된 내용이 적용된다. 예로 컨테이너의 버전을 v1 -&gt; v2로 변경하면, ReplicaSet으로 만들어진 3개의 파드(replicas에 명시된) 모두의 버전이 변경된다.</p>
+
+<h3>2. Replicas</h3>
+
+<p>ReplicaSet을 통해 관리할(생성해야 하는) 파드의 개수를 나타낸다. Replicas의 숫자를 늘이고 줄이는 경우에 따라 scale-in 또는 scale-out으로 표현된다.</p>
+<ul>
+  <li>scale-in: replicas의 숫자를 기존보다 감소시킴 -&gt; 파드 개수 감소</li>
+  <li>scale-out: replicas의 숫자를 기존보다 증가시킴 -&gt; 파드 개수 증가</li>
+</ul>
+
+<blockquote>
+  <p>그렇다면 scale-out할 때 각 파드의 이름은 어떻게 정해질까? template.metadata.name에 파드의 이름을 pod-rs 정해놓으면 뒤에 무작위의 숫자 혹은 문자가 추가될까? ReplicaSet으로 생성된 파드는 기본적으로 ReplicaSet의 metadata(위에서는 rs)를 따라간다. rs-1234 혹은 rs-a12vd와 같은 이름이 자동으로 생성된다. 단, Replicas가 1일 경우에는 template.metadata.name에 적힌 파드의 이름을 따라가지만, 이 경우도 scale in/out 과정에서 자연스럽게 변경된다.</p>
+</blockquote>
+
+<h3>3. Selector</h3>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/Match%20with%20Replication,%20ReplicaSet%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 3: ReplicaSet의 Selector 예시 - 출처: 강의자료</em></p>
+
+<p>ReplicaSet을 통해 관리될 파드의 속성을 정의한다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ReplicaSet</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">rs</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">web</span>
+      <span class="na">ver</span><span class="pi">:</span> <span class="s">v1</span>
+    <span class="na">matchExpressions</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="pi">{</span><span class="nv">key</span><span class="pi">:</span> <span class="nv">type</span><span class="pi">,</span> <span class="nv">operator</span><span class="pi">:</span> <span class="nv">In</span><span class="pi">,</span> <span class="nv">values</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">web</span><span class="pi">]}</span>
+    <span class="pi">-</span> <span class="pi">{</span><span class="nv">key</span><span class="pi">:</span> <span class="nv">ver</span><span class="pi">,</span> <span class="nv">operator</span><span class="pi">:</span> <span class="nv">Exists</span><span class="pi">}</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">web</span>
+        <span class="na">ver</span><span class="pi">:</span> <span class="s">v1</span>
+        <span class="na">location</span><span class="pi">:</span> <span class="s">dev</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">nginx</span>
+      <span class="na">terminationGracePeriodSeconds</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+
+<p>위의 예시를 보면 Template에서 언급한 내용과 동일하게 파드의 labels 속성은 ReplicaSet의 selector.matchLabels 속성 내용을 모두 포함해야 한다. 만약 matchExpressions를 사용한다면 조건을 세밀하게 구분하기 때문에 완벽하게 같지 않은 ‘포함관계’만 성립해도 된다.</p>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/Match2%20with%20Replication,%20ReplicaSet%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 4: ReplicaSet의 Selector 중 matchExpressions 예시 - 출처: 강의자료</em></p>
+<ul>
+  <li>Exists: 사용자가 정한 키를 모두 가지고 있는 파드만 연결</li>
+  <li>DoesNotExists: 사용자가 정한 키를 가지고 있지 않은 파드만 연결</li>
+  <li>In: 사용자가 정한 키와 값을 모두 갖고 있는 파드만 연결</li>
+  <li>NotIn: 사용자가 정한 키를 포함하지만, 값은 포함하지 않는 파드만 연결</li>
+</ul>
+
+<p>위의 조건에 따르면 가장 필터링이 많이 되는 순서로 In &gt; NotIn &gt; Exists = DoesNotExists 가 될 것이다.</p>
+
+<p><br /></p>
+
+<h2>참고자료</h2>
+
+<ul>
+  <li><a href="https://www.inflearn.com/course/쿠버네티스-기초/dashboard">대세는 쿠버네티스 [초급~중급] - 김태민</a></li>
+</ul>
+
+  </div>
+
+  
+    <div class="post-comments" itemprop="comment">
+      <script src="https://utteranc.es/client.js"
+        repo="wnjoon/comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+    </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Wonjoon - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://wnjoon.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
