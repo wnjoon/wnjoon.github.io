@@ -499,20 +499,20 @@
 
 <p>Faucet.sol이라는 컨트랙트가 있다.</p>
 
-<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.4</span><span class="p">.</span><span class="mi">19</span><span class="p">;</span>
+<pre><code class="language-solidity">pragma solidity ^0.4.19;
 
-<span class="k">contract</span> <span class="n">Faucet</span> <span class="p">{</span>
-    <span class="c1">// 이더 전달
-</span>    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">uint</span> <span class="n">withdraw_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
-        <span class="c1">// 출금 이더 제한
-</span>        <span class="nb">require</span><span class="p">(</span><span class="n">withdraw_amount</span> <span class="o">&lt;=</span> <span class="mi">100000000000000000</span><span class="p">);</span>
-        <span class="c1">// 이더 전송
-</span>        <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">withdraw_amount</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="c1">// 입금 가능
-</span>    <span class="k">function</span> <span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{}</span>
-<span class="p">}</span>
-</code></pre></div></div>
+contract Faucet {
+    // 이더 전달
+    function withdraw(uint withdraw_amount) public {
+        // 출금 이더 제한
+        require(withdraw_amount &lt;= 100000000000000000);
+        // 이더 전송
+        msg.sender.transfer(withdraw_amount);
+    }
+    // 입금 가능
+    function () public payable {}
+}
+</code></pre>
 
 <p>컴파일된 Faucet 스마트 컨트랙트를 Ethersplay로 디컴파일링하면 아래와 같은 결과물을 얻을 수 있다.</p>
 
