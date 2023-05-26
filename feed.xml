@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2023-05-06T05:21:23+00:00</updated>
+  <updated>2023-05-26T01:50:15+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -24,6 +24,145 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">정규화에 대해 알아보기</title>
+      
+      
+      <link href="https://wnjoon.github.io/2023/05/25/sql-normalization/" rel="alternate" type="text/html" title="정규화에 대해 알아보기" />
+      
+      <published>2023-05-25T06:00:00+00:00</published>
+      <updated>2023-05-25T06:00:00+00:00</updated>
+      <id>https://wnjoon.github.io/2023/05/25/sql-normalization</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2023/05/25/sql-normalization/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;이상 현상(anomaly)&lt;/h2&gt;
+
+&lt;p&gt;정규화를 하지 않았을 때 발생할 수 있는 이상 현상은 아래와 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;새로운 데이터를 삽입할 때, 불필요한 데이터가 함께 삽입되는 경우&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/8e119381-3334-4307-b6e3-812b8c7bccc0&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 1 : 정규화의 필요성 - 삽입 이상&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림 1은 정규화가 되지 않은 테이블에 교육팀이라는 부서를 추가하려고 할 때 생기는 문제를 보여준다. 직원구분코드와 직원번호를 식별자로 갖는 테이블에서 단순히 부서 하나만 추가하려고 해도 불필요한 데이터를 추가해줘야만 하는 문제가 생긴다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;데이터가 중복으로 존재해서, 데이터의 값을 변경하였을 때 한쪽은 변경되고 한쪽은 변경되지 않는 경우&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/fc21c358-936d-4951-b1f6-776a0ba11f6b&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 2 : 정규화의 필요성 - 갱신 이상&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림 2에서 부서번호 20번에 해당하는 부서명을 경영관리팀에서 피플케어팀으로 변경한다고 하자. 테이블에 동일한 내용을 갖는 컬럼이 2개 이상이기 때문에, 만약 영희는 제대로 변경했더라도 미애가 그렇지 못하면 같은 부서번호임에도 서로 다른 부서명이 존재할 수 있는 문제가 생긴다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;데이터를 삭제할 때, 삭제되어서는 안되는 내용까지 삭제되는 경우&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/19284ced-e793-4fe4-bbb7-4d6333222fff&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 3 : 정규화의 필요성 - 삭제 이상&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림 3에서 영희와 미애가 모두 퇴사했다고 가정하자. 직원은 퇴사했더라도 경영관리팀이라는 부서는 그대로 존재할 수 있어야 하는데, 현재 테이블에서는 직원과 함께 부서까지도 없어지는 문제가 생긴다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;정규화&lt;/h2&gt;
+
+&lt;p&gt;정규화는 위에서 언급한 이상 현상을 없애기 위한 과정을 말한다. 총 3가지 단계로 진행할 수 있다.&lt;/p&gt;
+
+&lt;h3&gt;1. 제 1정규형&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;모든 속성의 값이 원자 값(atomic value)으로만 구성되어 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/3645b3c0-02bb-4135-a73a-4dcd67e26dc7&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 4 : 제 1정규화 전&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림 4를 보면 철수, 영희, 기범의 업무가 2개 이상인 것을 알 수 있다. 테이블에 있는 모든 속성이 각각 하나의 값만을 갖도록 만드는 것이 제 1정규화의 과정이다. 그렇다면 어떻게 정규화로 처리할 수 있을까?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/42187e0d-6ef3-4e56-8177-5a92a2452675&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 5 : 제 1정규화 결과&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림 5와 같이 테이블을 2개로 나누어준다. 직원구분코드와 직원번호, 그리고 업무가 여러개인 경우를 처리할 수 있는 순번 속성을 추가한다. 이렇게 하면 속성 별로 하나의 값만을 가질 뿐만 아니라, 향후 직원의 업무가 추가 혹은 삭제되더라도 유연하게 테이블을 관리할 수 있게 된다.&lt;/p&gt;
+
+&lt;h3&gt;2. 제 2정규형&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;주식별자가 아닌 모든 속성이 주식별자 속성에 완전히 함수 종속된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;좀 어려운 표현인데, 정리하면 주식별자가 아닌 값에 의존적인 속성을 분리해서 모든 속성이 주식별자에 의존적이도록 만드는 과정을 말한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/e2a2b97d-5005-4d8f-8ae8-991ea61d2256&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 6 : 제 2정규화 전&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림 6에서 보면 직원구분명은 직원구분코드 주식별자에는 의존적이나, 직원번호 주식별자와는 상관이 없다. 이러한 경우에도 동일하게 테이블을 분리해서 문제를 해결할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/86aad487-3cfe-412f-b81d-9fd3f06160af&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 7 : 제 2정규화 결과&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;직원구분코드와 직원구분명을 별도의 테이블로 분리했다. 이렇게하면 주식별자에 완전히 종속된 테이블을 만들 수 있을 뿐 아니라, 추후 직원구분명이 변경되더라도 간단하게 하나의 테이블만 변경해도 된다.&lt;/p&gt;
+
+&lt;h3&gt;3. 제 3정규형&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;일반 속성들 간에 함수 종속이 존재하지 않는다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/dbfb32da-3340-429e-8313-7fbae00596a6&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 8 : 제 3정규화 전&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림 8을 보면 부서번호, 부서명, 부서위치 속성은 직원구분코드와 직원번호 주식별자랑은 크게 연관이 없다는 것을 볼 수 있다. 즉, 부서번호라는 주식별자를 갖는 별도의 테이블로 분리할 수 있다는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/wnjoon/wnjoon.github.io/assets/39115630/8df45c5e-5fee-4328-a0b0-14f7b6559004&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;em&gt;@그림 9 : 제 3정규화 결과&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;참고&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://class101.net/ko/products/5f3b8428203b170014d616d2&quot;&gt;비전공자도 쉽게 배워 바로 써먹는 실무 활용 SQL - CLASS101&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>Wonjoon</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="Database" />
+      
+
+      
+        <category term="Database" />
+      
+        <category term="SQL" />
+      
+
+      
+        <summary type="html">데이터의 중복을 최소화하고 이상 현상(anomaly)이 발생하지 않도록 하기 위해 정규화라는 작업을 진행한다. 중복된 속성 또는 불필요한 속성들을 여러 테이블로 분산시켜 데이터의 처리 과정에 생겨날 수 있는 문제점을 해결하기 위한 방법이다.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -4802,118 +4941,6 @@ contract Bank {
 
       
         <summary type="html">가스는 목표 해시 값을 계산해 낸 채굴자에 대한 보상으로 제공되는 수수료를 의미하는데, EVM 상에서 트랜잭션을 동작시키기 위한 필수적인 비용으로 생각하는게 더 편하다. 하루에도 수없이 가격이 바뀌는 이더의 가격으로 수수료를 매기는 잘못된 방법을 피하기 위해, 이더리움에서는 일정한 가격을 가진 가스라는 단위를 만들어서 사용한다.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Upgradable 스마트 컨트랙트란?</title>
-      
-      
-      <link href="https://wnjoon.github.io/2022/10/24/blockchain-eth-upgradable/" rel="alternate" type="text/html" title="Upgradable 스마트 컨트랙트란?" />
-      
-      <published>2022-10-24T06:00:00+00:00</published>
-      <updated>2022-10-24T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2022/10/24/blockchain-eth-upgradable</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2022/10/24/blockchain-eth-upgradable/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;Upgradable 컨트랙트의 필요성&lt;/h2&gt;
-
-&lt;p&gt;스마트 컨트랙트의 가장 큰 특징은 ‘한번 배포되면 절대로 내부를 수정할 수 없다’는 것이다. 하지만 스마트 컨트랙트 내부 로직이 변경되어야만 하는 경우가 생긴다면 어떻게 해야할까?&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;예를 들어, 약 100개의 토큰이 이미 발행된 스마트 컨트랙트의 내부의 로직을 변경해야 한다고 하자. 우리는 이미 ‘배포된 컨트랙트는 수정이 불가능’하다는 것을 알고있다. 결국 방법은 ‘컨트랙트를 새로 배포’하는 것 밖에 없다. 그리고 컨트랙트를 새로 배포하게 되면, 발행된 토큰 뿐만 아니라 컨트랙트 내부에 저장되어 있는 많은 정보들이 무효화된다. 결국 기존에 있던 정보들을 앞으로 사용할 수 없다는 것이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이러한 문제점을 해결하는 방안이 ‘Upgradable’ 스마트 컨트랙트이고, 이를 위해 delegate call 이라는 호출 방법을 사용한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;호출 방법에 따른 분류&lt;/h2&gt;
-
-&lt;p&gt;이를 위해 이더리움에서는 ‘변경할 일이 발생할 수 있는 로직을 별도로 갖는 스마트 컨트랙트’를 만들고, ‘토큰을 보유한 스마트 컨트랙트가 해당 스마트 컨트랙트를 호출’ 하는 방법인 delegate call이라는 기능이 있다.&lt;/p&gt;
-
-&lt;h3&gt;1. call&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://velog.velcdn.com/images/wnjoon/post/cae1f3f6-c7ed-4995-a87c-3c881a87a6e5/image.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;@그림 1 : call을 사용하여 add() 호출&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;call은 말 그대로 스마트 컨트랙트 내부에 있는 함수를 직접 호출한다. 그림 1을 단계별로 작성해보면 아래와 같다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;EOA(0x1)가 스마트 컨트랙트 A의 callB 함수를 호출&lt;/li&gt;
-  &lt;li&gt;스마트 컨트랙트 A가 스마트 컨트랙트 B의 add 함수를 호출&lt;/li&gt;
-  &lt;li&gt;스마트 컨트랙트 B 내부의 num 값이 스마트 컨트랙트 B의 add 함수를 통해 변경&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;결국 스마트 컨트랙트의 호출자(msg.sender)는 각 스마트 컨트랙트를 호출한 주소가 될 것이고, 변경되는 값 최종적으로 호출되는 스마트 컨트랙트 내부의 값이 될 것이다.&lt;/p&gt;
-
-&lt;h3&gt;2. delegate call&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://velog.velcdn.com/images/wnjoon/post/b725f4ea-ef42-441d-990c-ed2bddcf958f/image.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;@그림 2 : delegate call을 사용하여 add() 호출&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;delegate call은 번역 그대로 ‘대행 호출’이다. 그림 2를 단계별로 작성해보면 아래와 같다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;EOA(0x1)가 스마트 컨트랙트 A의 delegatecallB 함수를 호출&lt;/li&gt;
-  &lt;li&gt;스마트 컨트랙트 A를 통해 스마트 컨트랙트 B의 add 함수가 호출됨 (마치 add 함수가 스마트 컨트랙트 A에 위치한 것처럼)&lt;/li&gt;
-  &lt;li&gt;스마트 컨트랙트 B의 add 함수를 통해 스마트 컨트랙트 A의 num 변수 값을 변경&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;2번에서 작성한 것 처럼, delegate call을 사용하면 다른 스마트 컨트랙트에 있는 특정 기능을 ‘&lt;u&gt;가져와서 사용&lt;/u&gt;‘하는 효과를 가져올 수 있다. 위의 그림 2를 통해 다시 표현하자면, 스마트 컨트랙트 A는 껍데기가 되고, 스마트 컨트랙트 B에서 실제 기능을 수행할 수 있는 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;결론&lt;/h2&gt;
-
-&lt;p&gt;결국 delegate call을 이용하면, 스토리지를 담당하는 컨트랙트와 기능을 담당하는 컨트랙트를 서로 분리해서 기능을 변경하더라도 스토리지(토큰)에 영향을 주지 않는 구조를 설계할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;참고&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://dayone.tistory.com/38&quot;&gt;call Vs delegate call - dayone&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://meongae.tistory.com/57&quot;&gt;call, delegatecall - 멍개의 연구소&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://medium.com/coinmonks/delegatecall-calling-another-contract-function-in-solidity-b579f804178c&quot;&gt;DelegateCall: Calling Another Contract Function in Solidity - medium&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>Wonjoon</name>
-          
-          
-        </author>
-      
-
-      
-        <category term="blockchain" />
-      
-
-      
-        <category term="ethereum" />
-      
-        <category term="solidity" />
-      
-        <category term="smart contract" />
-      
-
-      
-        <summary type="html">스마트 컨트랙트의 가장 큰 특징은 한번 배포되면 절대로 내부를 수정할 수 없다는 것이다. 하지만 스마트 컨트랙트 내부 로직이 변경되어야만 하는 경우가 생긴다면 어떻게 해야할까? delegate call을 이용하면, 스토리지를 담당하는 컨트랙트와 기능을 담당하는 컨트랙트를 서로 분리해서 기능을 변경하더라도 스토리지(토큰)에 영향을 주지 않는 구조를 설계할 수 있다.</summary>
       
 
       
