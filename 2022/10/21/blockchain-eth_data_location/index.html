@@ -251,6 +251,8 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
       
     
@@ -313,6 +315,8 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
       
     
       
@@ -674,6 +678,8 @@
     
       
     
+      
+    
   
 
 </p>
@@ -717,29 +723,29 @@
 
 <h2>예시</h2>
 
-<pre><code class="language-solidity">contract sample {
-    uint public a;
-    uint public b;
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">sample</span> <span class="p">{</span>
+    <span class="kt">uint</span> <span class="k">public</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kt">uint</span> <span class="k">public</span> <span class="n">b</span><span class="p">;</span>
 
-    struct MyStruct {        
-        string val;
-    }
+    <span class="k">struct</span> <span class="n">MyStruct</span> <span class="p">{</span>        
+        <span class="kt">string</span> <span class="n">val</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    mapping(address =&gt; MyStruct) public myStructList;
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="n">MyStruct</span><span class="p">)</span> <span class="k">public</span> <span class="n">myStructList</span><span class="p">;</span>
 
-    // (1)
-    function setVariable(address _address, string calldata _val) external {
-        // (2) 
-        MyStruct storage ms = myStructList[_address];
-        ms.val = _val;
-    }
+    <span class="c1">// (1)
+</span>    <span class="k">function</span> <span class="n">setVariable</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_val</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="c1">// (2) 
+</span>        <span class="n">MyStruct</span> <span class="k">storage</span> <span class="n">ms</span> <span class="o">=</span> <span class="n">myStructList</span><span class="p">[</span><span class="n">_address</span><span class="p">];</span>
+        <span class="n">ms</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">_val</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    // (3)
-    function getVariable(address _address) external view returns (string memory) {
-        return myStructList[_address].val;
-    }
-}
-</code></pre>
+    <span class="c1">// (3)
+</span>    <span class="k">function</span> <span class="n">getVariable</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">myStructList</span><span class="p">[</span><span class="n">_address</span><span class="p">].</span><span class="n">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <ul>
   <li>(1) : 파라미터로 전달된 _val 값을 그대로 받아서 변경 없이 새롭게 만들어진 MyStruct에 넣는다. 그렇기 때문에 수정이 불가능한 calldata 키워드를 사용한다.</li>
@@ -769,12 +775,12 @@
 
 <h2>추가 (2023.02.23)</h2>
 
-<pre><code class="language-solidity">mapping(uint256 =&gt; Order) _orders;
-...
-function getOrder(uint256 id) external view returns (Order calldata) /* &lt;- Return에 calldata 사용 */{
-    return _orders[id]; /* &lt;- 오류 발생 */
-}
-</code></pre>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">Order</span><span class="p">)</span> <span class="n">_orders</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="k">function</span> <span class="n">getOrder</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Order</span> <span class="k">calldata</span><span class="p">)</span> <span class="cm">/* &lt;- Return에 calldata 사용 */</span><span class="p">{</span>
+    <span class="k">return</span> <span class="n">_orders</span><span class="p">[</span><span class="n">id</span><span class="p">];</span> <span class="cm">/* &lt;- 오류 발생 */</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>위의 예시처럼 함수의 리턴에 calldata를 사용하면 오류가 발생한다.</p>
 

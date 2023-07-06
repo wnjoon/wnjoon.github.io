@@ -251,6 +251,8 @@
       
     
       
+    
+      
         <a href="/categories/blockchain/">blockchain</a>
       
     
@@ -313,6 +315,8 @@
     
       
         <a href="/tags/ethereum/">ethereum</a>,
+      
+    
       
     
       
@@ -674,6 +678,8 @@
     
       
     
+      
+    
   
     
     
@@ -811,6 +817,8 @@
     
       
         <a href="/tags/event/">event</a>,
+      
+    
       
     
       
@@ -1068,6 +1076,8 @@
     
       
     
+      
+    
   
 
 </p>
@@ -1083,11 +1093,11 @@
 <p>아래에는 Openzeppelin에서 제공하는 ERC20 인터페이스 내에 정의되어 있는 이벤트를 보여준다.</p>
 
 <p><a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol">IERC20.sol</a></p>
-<pre><code class="language-solidity">interface IERC20 {
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    ...
-}
-</code></pre>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">interface</span> <span class="n">IERC20</span> <span class="p">{</span>
+    <span class="k">event</span> <span class="n">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">value</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>위의 내용을 보면 직관적으로 Transfer 이벤트는 transfer 행위가 이루어질 때 발생하는 것이라고 추측할 수 있다. 이벤트는 스마트 컨트랙트 내에서 emit이라는 키워드를 이용하여 발생시킬 수 있다. 아래는 실제 ERC20 구현 컨트랙트에서 transfer를 실행할 때 Transfer 이벤트를 발생시키는 것을 보여준다.</p>
 
@@ -1102,26 +1112,26 @@
 <p>IERC20.sol에서 정의한 Transfer 이벤트에 맞게 파라미터를 세팅해서 emit과 함께 호출하면, 실제 _transfer 함수를 통해 트랜잭션이 발생할 때 해당 이벤트가 트랜잭션 영수증의 log 부분에 들어가게 된다.</p>
 
 <p><a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol">ERC20.sol</a></p>
-<pre><code class="language-solidity">contract ERC20 is Context, IERC20, IERC20Metadata {
-    function _transfer(address from, address to, uint256 amount) 
-    internal virtual {
-        ...
-        emit Transfer(from, to, amount);
-        ...
-    }
-}
-</code></pre>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">ERC20</span> <span class="k">is</span> <span class="n">Context</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">,</span> <span class="n">IERC20Metadata</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">_transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> 
+    <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="k">emit</span> <span class="n">Transfer</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>실제로 web3js를 이용해 transfer 트랜잭션을 날리고, 이에 대한 영수증을 받아오면 아래와 같이 출력된다. 아래는 Hardhat을 이용하여 transfer를 테스트한 코드의 일부분과, 그 하단에 테스트에 대한 결과를 보여준다.</p>
 
 <p><a href="">erc20.test.ts</a></p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test 스크립트</span>
-<span class="nf">context</span><span class="p">(</span><span class="dl">'</span><span class="s1">Transfer</span><span class="dl">'</span><span class="p">,</span> <span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">- Transfer tokens from user1 to user2</span><span class="dl">'</span><span class="p">,</span> <span class="nf">async</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">tx</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">erc20Token</span><span class="p">.</span><span class="nf">transfer</span><span class="p">(</span><span class="nx">user2</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">3000</span><span class="p">)</span>
-        <span class="kd">const</span> <span class="nx">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">wait</span><span class="p">();</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Transaction Receipt : </span><span class="dl">"</span><span class="p">,</span> <span class="nx">receipt</span><span class="p">)</span>
+<span class="nx">context</span><span class="p">(</span><span class="dl">'</span><span class="s1">Transfer</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">- Transfer tokens from user1 to user2</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">tx</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">erc20Token</span><span class="p">.</span><span class="nx">transfer</span><span class="p">(</span><span class="nx">user2</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="mi">3000</span><span class="p">)</span>
+        <span class="kd">const</span> <span class="nx">receipt</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Transaction Receipt : </span><span class="dl">"</span><span class="p">,</span> <span class="nx">receipt</span><span class="p">)</span>
     <span class="p">})</span>        
 <span class="p">})</span>
 
@@ -1165,13 +1175,13 @@
       <span class="na">logIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="na">blockHash</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0x2d8ea364a263dde1bd8d3fe570d7200c36466787fb2b43b0969e1ae84ab0f14e</span><span class="dl">'</span><span class="p">,</span>
       <span class="na">args</span><span class="p">:</span> <span class="p">[</span><span class="nb">Array</span><span class="p">],</span>
-      <span class="na">decode</span><span class="p">:</span> <span class="p">[</span><span class="nc">Function </span><span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
+      <span class="na">decode</span><span class="p">:</span> <span class="p">[</span><span class="nb">Function</span> <span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
       <span class="na">event</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Transfer</span><span class="dl">'</span><span class="p">,</span>
       <span class="na">eventSignature</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Transfer(address,address,uint256)</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">removeListener</span><span class="p">:</span> <span class="p">[</span><span class="nc">Function </span><span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
-      <span class="na">getBlock</span><span class="p">:</span> <span class="p">[</span><span class="nc">Function </span><span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
-      <span class="na">getTransaction</span><span class="p">:</span> <span class="p">[</span><span class="nc">Function </span><span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
-      <span class="na">getTransactionReceipt</span><span class="p">:</span> <span class="p">[</span><span class="nc">Function </span><span class="p">(</span><span class="nx">anonymous</span><span class="p">)]</span>
+      <span class="na">removeListener</span><span class="p">:</span> <span class="p">[</span><span class="nb">Function</span> <span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
+      <span class="na">getBlock</span><span class="p">:</span> <span class="p">[</span><span class="nb">Function</span> <span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
+      <span class="na">getTransaction</span><span class="p">:</span> <span class="p">[</span><span class="nb">Function</span> <span class="p">(</span><span class="nx">anonymous</span><span class="p">)],</span>
+      <span class="na">getTransactionReceipt</span><span class="p">:</span> <span class="p">[</span><span class="nb">Function</span> <span class="p">(</span><span class="nx">anonymous</span><span class="p">)]</span>
     <span class="p">}</span>
   <span class="p">]</span>
 <span class="p">}</span>

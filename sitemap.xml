@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://wnjoon.github.io/2023/07/05/os-sed/</loc>
+    </url>
+    
+    <url>
         <loc>https://wnjoon.github.io/2023/05/25/sql-normalization/</loc>
     </url>
     
@@ -1062,6 +1066,14 @@
     
     
     <url>
+        <loc>https://wnjoon.github.io/tags/linux/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
         <loc>https://wnjoon.github.io/categories/blockchain/</loc>
     </url>
     
@@ -1207,6 +1219,14 @@
     
     <url>
         <loc>https://wnjoon.github.io/posts/8/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://wnjoon.github.io/posts/9/</loc>
     </url>
     
     
