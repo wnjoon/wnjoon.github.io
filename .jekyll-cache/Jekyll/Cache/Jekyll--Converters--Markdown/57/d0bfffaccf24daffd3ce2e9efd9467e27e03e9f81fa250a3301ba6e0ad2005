@@ -1,4 +1,4 @@
-I"i<p><br /></p>
+I"a5<p><br /></p>
 
 <h2>재진입성 공격이란?</h2>
 
@@ -24,42 +24,42 @@
 
 <p>여기 이더를 보관 및 인출해주는 은행 컨트랙트(Bank)와 이를 공격하기 위한 컨트랙트(Attack)가 있다고 하자.</p>
 
-<pre><code class="language-solidity">// 은행 컨트랙트
-contract Bank {
-    mapping(address -&gt; uint256) public balances;
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 은행 컨트랙트
+</span><span class="k">contract</span> <span class="n">Bank</span> <span class="p">{</span>
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">-&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
 
-    function deposit() public payable {
-        balances[msg.sender] += msg.value;
-    }
+    <span class="k">function</span> <span class="n">deposit</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    function withdraw(uint256 _amount) public {
-        require(balances[msg.sender] &gt;= _amount);
+    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">);</span>
 
-        require(msg.sender.call.value(_amount)());
-        balances[msg.sender] -= _amount;
-    }
-}
-</code></pre>
+        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="n">_amount</span><span class="p">)());</span>
+        <span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_amount</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<pre><code class="language-solidity">contract Attack {
-    Bank public bank;
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">Attack</span> <span class="p">{</span>
+    <span class="n">Bank</span> <span class="k">public</span> <span class="n">bank</span><span class="p">;</span>
 
-    constructor(address _bankAddress) {
-        bank = Bank(_bankAddress);
-    }
+    <span class="k">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_bankAddress</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">bank</span> <span class="o">=</span> <span class="n">Bank</span><span class="p">(</span><span class="n">_bankAddress</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    function attackBank() public payable {
-        bank.deposit.value(1 ether)();
-        bank.withdraw(1 ether);
-    }
+    <span class="k">function</span> <span class="n">attackBank</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="n">bank</span><span class="p">.</span><span class="n">deposit</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span> <span class="kc">ether</span><span class="p">)();</span>
+        <span class="n">bank</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    function () payable {
-        if (bank.balance &gt; 1 ether) {
-            bank.withdraw(1 ether);
-        }
-    }
-}
-</code></pre>
+    <span class="k">function</span> <span class="p">()</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bank</span><span class="p">.</span><span class="nb">balance</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">bank</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>공격자(Attacker)가 단일 트랜잭션만으로 Bank 컨트랙트에서 1이더만 남기고 모두 출금하는 과정을 그림으로 표현하면 아래와 같다. 단, Bank 컨트랙트에는 어느정도의 이더가 이미 존재하고 있다고 가정한다.</p>
 
@@ -89,20 +89,20 @@ contract Bank {
 
 <p>컨트랙트 또는 외부의 다른 컨트랙트에서의 호출을 통해 이더가 전송되기 전 상태변수를 변경하는 방식이다. 이를 <a href="https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern">체크 효과 상호작용 패턴(checks-effects-interactions pattern)</a> 이라고 한다.</p>
 
-<pre><code class="language-solidity">// Bank 컨트랙트 예시
-contract Bank {
-    ...
-    function withdraw(uint256 _amount) public {
-        ...
-        // 아래 두 코드의 위치를 변경해서,
-        // 알 수 없는 주소로의 외부 호출을 수행하는 코드를 
-        // 지역함수 또는 코드 실행 부분의 
-        // 가장 마지막에 진행해야 한다.
-        require(msg.sender.call.value(_amount)());
-        balances[msg.sender] -= _amount;
-    }
-}
-</code></pre>
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Bank 컨트랙트 예시
+</span><span class="k">contract</span> <span class="n">Bank</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="c1">// 아래 두 코드의 위치를 변경해서,
+</span>        <span class="c1">// 알 수 없는 주소로의 외부 호출을 수행하는 코드를 
+</span>        <span class="c1">// 지역함수 또는 코드 실행 부분의 
+</span>        <span class="c1">// 가장 마지막에 진행해야 한다.
+</span>        <span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="n">_amount</span><span class="p">)());</span>
+        <span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_amount</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3>3. 뮤텍스(mutex) 사용</h3>
 
@@ -114,36 +114,36 @@ contract Bank {
 
 <p>개선된 Bank 컨트랙트의 코드를 살펴보면 아래와 같다.</p>
 
-<pre><code class="language-solidity">// 개선된 은행 컨트랙트
-contract Bank {
-    // 1. 뮤텍스 추가
-    bool mutex = false;
-    mapping(address -&gt; uint256) public balances;
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 개선된 은행 컨트랙트
+</span><span class="k">contract</span> <span class="n">Bank</span> <span class="p">{</span>
+    <span class="c1">// 1. 뮤텍스 추가
+</span>    <span class="kt">bool</span> <span class="n">mutex</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">-&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
 
-    function deposit() public payable {
-        balances[msg.sender] += msg.value;
-    }
+    <span class="k">function</span> <span class="n">deposit</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    function withdraw(uint256 _amount) public {
+    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
         
-        // 2. 뮤텍스 확인
-        require(!mutex);        
-        require(balances[msg.sender] &gt;= _amount);
+        <span class="c1">// 2. 뮤텍스 확인
+</span>        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">mutex</span><span class="p">);</span>        
+        <span class="nb">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">);</span>
 
-        // 3. 상태 변수 우선 변경
-        balances[msg.sender] -= _amount;
+        <span class="c1">// 3. 상태 변수 우선 변경
+</span>        <span class="n">balances</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_amount</span><span class="p">;</span>
 
-        // 4. 외부 호출 이전에 뮤텍스 설정
-        mutex = true;
+        <span class="c1">// 4. 외부 호출 이전에 뮤텍스 설정
+</span>        <span class="n">mutex</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 
-        // 5. call 대신 transfer 사용
-        msg.sender.transfer(_amount);
+        <span class="c1">// 5. call 대신 transfer 사용
+</span>        <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">_amount</span><span class="p">);</span>
         
-        // 6. 외부 호출 이후 뮤텍스 해제
-        mutex = false;
-    }
-}
-</code></pre>
+        <span class="c1">// 6. 외부 호출 이후 뮤텍스 해제
+</span>        <span class="n">mutex</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p><br /></p>
 

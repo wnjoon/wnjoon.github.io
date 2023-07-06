@@ -1,4 +1,4 @@
-I"x:<p><br /></p>
+I"w:<p><br /></p>
 
 <h2>Go를 이용한 이더리움 개발</h2>
 
@@ -104,13 +104,13 @@
 <p>필자는 ganache를 이용하여 네트워크를 구성하였고, 이곳에 해당 컨트랙트를 배포하였다. 추가로 ERC20을 직접 테스트해보기 위해 migrations 내부에 ‘13_erc20_token.js’ 파일을 추가로 생성하였다.</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// migrations/13_erc20_token.js</span>
-<span class="kd">const</span> <span class="nx">ERC20Token</span> <span class="o">=</span> <span class="nx">artifacts</span><span class="p">.</span><span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tokens/ERC20Token.sol</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">ERC20Token</span> <span class="o">=</span> <span class="nx">artifacts</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tokens/ERC20Token.sol</span><span class="dl">'</span><span class="p">);</span>
 
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">async</span> <span class="nf">function </span><span class="p">(</span><span class="nx">deployer</span><span class="p">,</span> <span class="nx">network</span><span class="p">,</span> <span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nf">if </span><span class="p">(</span><span class="nx">network</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span> <span class="c1">// test maintains own contracts</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">deployer</span><span class="p">,</span> <span class="nx">network</span><span class="p">,</span> <span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">network</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span> <span class="c1">// test maintains own contracts</span>
   
-  <span class="k">await</span> <span class="nx">deployer</span><span class="p">.</span><span class="nf">deploy</span><span class="p">(</span><span class="nx">ERC20Token</span><span class="p">,</span> <span class="dl">'</span><span class="s1">ERC20Token</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">GEN</span><span class="dl">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="se">\n</span><span class="s1">   &gt; ERC20 token deployment: Success --&gt;</span><span class="dl">'</span><span class="p">,</span> <span class="nx">ERC20Token</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">deployer</span><span class="p">.</span><span class="nx">deploy</span><span class="p">(</span><span class="nx">ERC20Token</span><span class="p">,</span> <span class="dl">'</span><span class="s1">ERC20Token</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">GEN</span><span class="dl">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="se">\n</span><span class="s1">   &gt; ERC20 token deployment: Success --&gt;</span><span class="dl">'</span><span class="p">,</span> <span class="nx">ERC20Token</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
