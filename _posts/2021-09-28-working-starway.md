@@ -3,7 +3,7 @@ layout: post
 title:  "STAR 방식으로 설명하기" 
 excerpt: "Amazon과 같은 다양한 테크기업의 면접에서 주로 사용되는 STAR 방식으로 말하기에 대해 알아보자."
 date:   2021-09-28 15:00:00 +0900
-categories: wokring
+categories: working
 tags: [conversation, 면접]
 ---
 
