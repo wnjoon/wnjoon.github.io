@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://wnjoon.github.io/2023/08/20/blockchain-downsizing_contract_size/</loc>
+    </url>
+    
+    <url>
         <loc>https://wnjoon.github.io/2023/07/05/os-sed_on_mac/</loc>
     </url>
     
@@ -1067,6 +1071,14 @@
     
     <url>
         <loc>https://wnjoon.github.io/tags/linux/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://wnjoon.github.io/tags/smartcontract/</loc>
     </url>
     
     
