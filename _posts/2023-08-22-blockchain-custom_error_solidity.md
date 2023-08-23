@@ -13,7 +13,7 @@ comments: true
 
 ## 커스텀 에러
 
-솔리디티 v0.8.4에서 소개된 방법으로, 기존의 에러 표현 방식에 비해 가스비를 줄이면서(gas-efficient way) 에러 발생의 원인을 설명할 수 있다. 아래는 기존의 방식과 커스텀 에러 방식 각각을 예시로 표현한 내용이다.
+[솔리디티 v0.8.4](https://github.com/ethereum/solidity/releases/tag/v0.8.4)에서 소개된 방법으로, 기존의 에러 표현 방식에 비해 가스비를 줄이면서(gas-efficient way) 에러 발생의 원인을 설명할 수 있다. 아래는 기존의 방식과 커스텀 에러 방식 각각을 예시로 표현한 내용이다.
 
 ```
 # Before
@@ -47,7 +47,7 @@ contract VendingMachine {
 }
 ```
 
-위의 예시를 보면 [이벤트(event)](https://docs.soliditylang.org/en/latest/contracts.html?color=dark#events)와 구문이 비슷한 것을 볼 수 있는데, 차이점은 [revert 구문](https://docs.soliditylang.org/en/latest/control-structures.html?color=dark#revert-statement)과 같이 사용해야 한다는 것이다. revert를 사용하면 현재까지 진행되던 상태 변환 프로세스가 모두 중단되고 에러 메시지를 호출자에게 전달한다. [require 구문의 사용은 []재 포스팅 시점(2023.08.23)에는 제공되지 않고 있는데](https://github.com/ethereum/solidity/issues/11278), 아래의 예시를 보면 이해가 쉬울 것이다.
+위의 예시를 보면 [이벤트(event)](https://docs.soliditylang.org/en/latest/contracts.html?color=dark#events)와 구문이 비슷한 것을 볼 수 있는데, 차이점은 [revert 구문](https://docs.soliditylang.org/en/latest/control-structures.html?color=dark#revert-statement)과 같이 사용해야 한다는 것이다. revert를 사용하면 현재까지 진행되던 상태 변환 프로세스가 모두 중단되고 에러 메시지를 호출자에게 전달한다. [require 구문의 사용은 현재 포스팅 시점(2023.08.23)에는 제공되지 않고 있는데](https://github.com/ethereum/solidity/issues/11278), 아래의 예시를 보면 이해가 쉬울 것이다.
 
 ```
 # This Error message with require statement 
