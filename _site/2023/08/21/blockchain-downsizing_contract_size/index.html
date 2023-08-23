@@ -813,6 +813,10 @@ require(msg.sender == owner, "OW1");
 
 <p><a href="https://soliditylang.org/blog/2021/04/21/custom-errors/">솔리디티 0.8.4에서 소개된 커스텀 에러 방식</a>은 스마트 컨트랙트의 사이즈를 줄일 수 있는 꽤나 효과적인 방법이다.</p>
 
+<blockquote>
+  <p>본 블로그에서도 <a href="https://wnjoon.github.io/2023/08/22/blockchain-custom_error_solidity/">해당 내용에 대해 번역한 포스팅</a>이 존재한다.</p>
+</blockquote>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error Unauthorized();
 
 if (msg.sender != owner) {

@@ -126,7 +126,9 @@ require(msg.sender == owner, "OW1");
 
 #### 2.4. 차라리 커스텀 에러를 사용하자
 
-[솔리디티 0.8.4에서 소개된 커스텀 에러 방식](https://soliditylang.org/blog/2021/04/21/custom-errors/)은 스마트 컨트랙트의 사이즈를 줄일 수 있는 꽤나 효과적인 방법이다.  
+[솔리디티 0.8.4에서 소개된 커스텀 에러 방식](https://soliditylang.org/blog/2021/04/21/custom-errors/)은 스마트 컨트랙트의 사이즈를 줄일 수 있는 꽤나 효과적인 방법이다.
+
+> 본 블로그에서도 [해당 내용에 대해 번역한 포스팅](https://wnjoon.github.io/2023/08/22/blockchain-custom_error_solidity/)이 존재한다.
 
 ```
 error Unauthorized();
