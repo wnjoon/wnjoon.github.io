@@ -4,7 +4,7 @@ title:  "솔리디티의 Custom Errors 사용하기"
 excerpt: "솔리디티 v0.8.4에서 소개된 커스텀 에러(Custom Errors) 방식은 미세하게나마 솔리디티 코드의 크기를 줄이고 배포 및 실행될 때 필요한 가스비를 절감하는 효과를 준다. 이번 포스팅에서는 솔리디티의 커스텀 에러 방식과, 스마트 컨트랙트에서 에러의 발생을 표현할 때 주의해야 할 점을 함께 알아본다."
 date:   2023-08-22 15:00:00 +0900
 categories: blockchain
-tags: [ethereum, smartcontract]
+tags: [ethereum, solidity, smartcontract]
 comments: true
 
 ---

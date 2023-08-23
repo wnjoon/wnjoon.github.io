@@ -4,7 +4,7 @@ title:  "스마트 컨트랙트의 사이즈를 줄이는 방법"
 excerpt: "이더리움의 스마트 컨트랙트는 DoS(Denial-of-Service)와 같은 공격으로부터 네트워크를 방어하기위해, 스마트 컨트랙트의 사이즈를 제한하고 있다. 그렇기 때문에 스마트 컨트랙트에 작성할 수 있는 코드 길이가 한정될 수 밖에 없는데, 이번 포스팅에서는 이더리움 공식 웹사이트에서 제안하는 스마트 컨트랙트 사이즈를 줄이는 방법들을 살펴보려고 한다."
 date:   2023-08-21 15:00:00 +0900
 categories: blockchain
-tags: [ethereum, smartcontract]
+tags: [ethereum, solidity, smartcontract]
 comments: true
 
 ---
