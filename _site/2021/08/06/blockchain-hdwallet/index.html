@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>HD(Hierarchical Deterministic) Wallet</title>
+  <meta name="description" content="HD Wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 이번 포스팅에서는 go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 직접 구현한 내용을 공유한다.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://wnjoon.github.io/2021/08/06/blockchain-hdwallet/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="👨‍💻 월리의 탐구생활" href="https://wnjoon.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="HD(Hierarchical Deterministic) Wallet">
+  <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
+  <meta property="og:url" content="https://wnjoon.github.io/2021/08/06/blockchain-hdwallet/">
+  <meta property="og:description" content="HD Wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 이번 포스팅에서는 go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 직접 구현한 내용을 공유한다.">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="HD(Hierarchical Deterministic) Wallet">
+  <meta name="twitter:description" content="HD Wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 이번 포스팅에서는 go를 이용하여 HD Wallet에서 사용하는 Key를 생성하는 과정을 직접 구현한 내용을 공유한다.">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">👨‍💻 월리의 탐구생활</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/categories/">Categories</a>
+      
+        
+        <a class="page-link" href="/tags/">Tags</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">HD(Hierarchical Deterministic) Wallet</h1>
+    
+    <p class="post-meta"><time datetime="2021-08-06T06:00:00+00:00" itemprop="datePublished">2021년 8월 6일</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/blockchain/">blockchain</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/wallet/">wallet</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/go/">go</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><br /></p>
+
+<h2>HD wallet</h2>
+
+<p>HD(Hierarchical Deterministic) wallet은 하나의 마스터 키로부터 다수의 키들을 계층적으로 파생할 수 있는 지갑으로, 하나의 Root Key로부터 시작되는 계층적(Hierarchical)인 구조를 지닌다. 아래의 그림은 <a href="http://wiki.hash.kr/index.php/BIP32">BIP-32</a> 기준의 HD wallet 흐름도이며, 계층적 구조라는 측면에서는 다른 버전의 BIP(39, 44)와 큰 차이를 갖지 않는다.</p>
+
+<p><img src="http://wiki.hash.kr/images/6/68/BIP32.png" alt="" /></p>
+
+<blockquote>
+  <p>BIP는 Bitcoin Improvement Proposal의 약자로, 비트코인의 기술을 논의하기 위해 작성하거나 공개된 제안 양식을 의미한다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h2>HD wallet의 필요성</h2>
+
+<ol>
+  <li>보안성 : 한번 사용된 주소(공개키)와 키(개인키)는 재사용되지 않는데, 즉 거래가 발생할 때마다 주소가 달라진다. BIP-32에서 이러한 보안성 측면에서의 접근이 처음으로 제안되었으며, 이후 BIP-39에서 Mnemonic Code를 적용하여 사용자가 기억하기 쉬운 단어들의 집합으로 이루어진 코드를 적용할 수 있도록 하였다.</li>
+  <li>멀티 코인 : 초기 HD wallet의 표준이었던 BIP-32, BIP-39가 비트코인에 한정된 기능을 제공하였다면, BIP-44에서는 이더리움을 포함한 다양한 암호화폐에서도 HD wallet을 적용할 수 있도록 하였다.</li>
+</ol>
+
+<p><br /></p>
+
+<h2>HD Wallet에서 키 생성하기</h2>
+
+<p>HD wallet에서 사용되는 키의 생성 순서는 다음과 같다.</p>
+
+<ol>
+  <li>Entropy(난수)를 이용한 Mnemonic Code 생성</li>
+  <li>Mnemonic Code를 이용하여 Binary Seed 도출</li>
+  <li>Binary Seed를 이용하여 마스터 키(Master Private Key) 생성</li>
+  <li>만들어진 마스터 키를 이용하여 자식 키(Child Key), 그리고 자식 키를 이용하여 손자 키(Grand-Child Key)를 파생적으로 생성</li>
+</ol>
+
+<h3>1. Mnemonic Code</h3>
+
+<p>Mnemonic Sentence, Mnemonic Phrase라고도 불리며, 바이너리 데이터를 사람이 기억하기 쉬운 단어들의 집합으로 변환시킨 코드를 의미한다. 주어진 각 단어를 1:1로 매핑되는 바이너리 코드로 변환한 바이너리 시드(Binary Seed)를 만든다.</p>
+
+<p>비트코인의 <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP-39</a> 에서 Mnemonic Code와 이를 통한 Binary Seed를 생성하는 절차가 기술되어 있다. BIP-39에서 정의한 Mnemonic Code의 단어 수는 [12, 15, 18, 21, 24]개 인데, 그 중 12개와 24개의 단어가 가장 많이 사용되고 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Mnemonic Code 단어 수</strong></th>
+      <th><strong>Entrophy(난수) 비트 수</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>12</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>160</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>192</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>224</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>256</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mnemonic Code의 생성 순서는 다음과 같다.</p>
+
+<ol>
+  <li>Mnemonic Code의 단어 수에 해당하는 비트 수 만큼의 난수를 생성한다. 이 때의 난수를 엔트로피(Entropy)라고 하는데, 예를 들어 12개의 단어를 갖는 Mnemonic Code 생성에 필요한 엔트로피는 128비트(16바이트)로 생성되어야 한다.</li>
+  <li>엔트로피를 SHA256으로 해싱한 비트 값을 체크섬에 사용한다. 체크섬은 엔트로피 뒤에 추가되어 에러를 체크하기 위해 사용되는 비트인데, ‘엔트로피 비트 수 / 32’ 계산식으로 구할 수 있다. 위의 128 비트의 엔트로피를 예로 들면, SHA256 해시 결과 중 앞의 4비트가 체크섬이 된다.</li>
+  <li>엔트로피와 엔트로피로부터 도출된 체크섬을 합친 데이터(엔트로피 + 체크섬)를 11비트씩 쪼갠 값에 매핑되는 단어를 BIP-39 단어 리스트로부터 찾는다. 11비트씩 단어를 쪼개기 때문에, 리스트에는 2048(2^11)개의 단어가 들어있다. 리스트의 인덱스는 0부터 2047까지 있는데, <a href="https://github.com/NovaCrypto/BIP39/blob/master/src/main/java/io/github/novacrypto/bip39/wordlists/English.java">여기서 사용되는 단어들은 모두 BIP-39에 미리 정의되어 있으며</a> 대부분 영어로 구성되어 있다.</li>
+</ol>
+
+<h3>2. Binary Seed</h3>
+
+<p>Mnemonic Code가 HD wallet에서 사용되려면 Binary Seed로 변환되어야 한다. 변환된 Binary Seed를 이용하여 Master Private Key를 생성한다.<br />
+Binary Seed는 PBKDF2 함수를 이용하여 생성된다. 생성 과정에서 Mnemonic Code와 Salt값이 필요하다. 일반적으로 Salt는 “mnemonic” 단어를 사용하나, 사용자가 옵션으로 뒤에 단어를 추가하여 사용할 수도 있다. PBKDF2 함수에는 HMAC-SHA512 해시함수를 사용하며, 총 2048번의 반복(iteration) 과정을 수행하며 최종 도출된 결과 키의 512비트를 사용한다.</p>
+
+<h3>3. Private Master Key</h3>
+
+<p>위에서 도출된 512비트의 Binary Seed를 다시 HMAC-SHA512로 해싱하여 만든다. 이 때 만들어진 값은 Private Key와 기타 값을 포함한 Master Key(마스터 키, 또는 부모 키)라고 하는게 옳다.</p>
+
+<p>마스터 키는 Private Key와 체인코드(chaincode)로 구성된다. Hyperledger fabric을 다루던 블록체인 개발자에게 체인코드란 스마트 컨트랙트와 같은 개념으로 인식할 수 있지만, 여기서 체인코드는 마스터 키(부모 키)로부터 자식 키를 생성할 때의 엔트로피(난수) 제공 역할을 한다.</p>
+
+<p><img src="https://i.stack.imgur.com/oXwRu.png" alt="" /></p>
+
+<p>그림에서 보이는 것과 같이, 마스터 키는 총 512비트로 구성되며 이 중 앞 256비트는 Private(또는 Public) key, 뒷부분 256비트는 체인코드로 구성된다.<br />
+<a href="https://github.com/tyler-smith/go-bip32/blob/master/bip32.go">Typer-smith(github) : go-bip32</a> 의 NewMasterKey를 보면 Private Key와 Public Key의 생성 과정이 코드로 구현되어 있으며, 필자 또한 샘플 소스 개발 과정에 해당 오픈라이브러리를 사용했다.</p>
+
+<blockquote>
+  <p>실제 구현 과정에서 엔트로피와 니모닉 코드, 그리고 바이너리 시드는 다양한 자료를 검색하면서 구현할 수 있었다. 하지만 마스터 키의 경우에는 <a href="https://iancoleman.io/bip39/#english">검증 사이트(iancoleman.io)</a> 에서 출력하는 값과 계속 상이하여 오픈라이브러리를 사용했다. Tyler-smith의 소스 코드 내 B58Deserialize 함수를 확인 결과 Base58 encoding 과정을 거치는 것으로 보이는데, 이 부분은 설명 나와있는 곳을 찾지 못하여 이유를 아직 확인하기는 어려웠다.</p>
+</blockquote>
+
+<h3>4. Child Key</h3>
+
+<p>BIP32에서는 자식 키(Child Key) 생성 방식을 총 3가지로 구분한다.</p>
+
+<ol>
+  <li>부모 Private Key -&gt; 자식 Private Key</li>
+  <li>부모 Private Key -&gt; 자식 Public Key</li>
+  <li>부모 Public Key -&gt; 자식 Public Key</li>
+</ol>
+
+<p>먼저 위의 마스터 키 생성 과정에서 도출된 체인코드를 HMAC-SHA512의 키(secret)로 사용하여 key+index 값을 해싱한다. 해싱된 결과 값은 부모 키와 동일한 구조로, 앞부분 256비트와 부모 키를 결합하여 Child Key가 생성된다. 뒷부분 256비트는 자식 키의 또 다른 자식 키 생성에 사용될 체인코드가 된다.</p>
+
+<p><br /></p>
+
+<h2>Source code</h2>
+
+<p><a href="https://github.com/wnjoon/hdwallet-go">wnjoon/hdwallet-go</a></p>
+
+<p>2021.08.24까지 작업하였고, 최종적으로 PEM 파일로 생성된 공개키를 떨구는 작업까지 완료하였다.</p>
+
+<p><br /></p>
+
+<h2>참고자료</h2>
+<ul>
+  <li><a href="https://blog.naver.com/gksalswl222/221389359473">HD(Hierarchical Deterministic) Wallet(BIP32,39,44)</a></li>
+  <li><a href="http://cryptostudy.xyz/crypto/article/8-Mnemonic-Code">Crypto 스터디 - Mnemonic Code</a></li>
+  <li><a href="http://cryptostudy.xyz/crypto/article/9-HD-키-생성">Crypto 스터디 - HD 키 생성</a></li>
+  <li><a href="https://blog.naver.com/forkblock/221559838087">HD Wallet</a></li>
+  <li><a href="https://potensj.tistory.com/57">HD wallet 구조 설명 - 개발 이야기</a></li>
+</ul>
+
+  </div>
+
+  
+    <div class="post-comments" itemprop="comment">
+      <script src="https://utteranc.es/client.js"
+        repo="wnjoon/comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+    </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Wonjoon - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://wnjoon.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

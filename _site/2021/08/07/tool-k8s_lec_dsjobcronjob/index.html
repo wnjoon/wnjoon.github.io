@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Kubernetes: Controller - DaemonSet, Job, CronJob</title>
+  <meta name="description" content="쿠버네티스에서 제공하는 컨트롤러의 하나로, 특수한 목적을 갖는 파드를 생성하고 이를 관리하기 위한 방법 3가지에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://wnjoon.github.io/2021/08/07/tool-k8s_lec_dsjobcronjob/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="👨‍💻 월리의 탐구생활" href="https://wnjoon.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="Kubernetes: Controller - DaemonSet, Job, CronJob">
+  <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
+  <meta property="og:url" content="https://wnjoon.github.io/2021/08/07/tool-k8s_lec_dsjobcronjob/">
+  <meta property="og:description" content="쿠버네티스에서 제공하는 컨트롤러의 하나로, 특수한 목적을 갖는 파드를 생성하고 이를 관리하기 위한 방법 3가지에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Kubernetes: Controller - DaemonSet, Job, CronJob">
+  <meta name="twitter:description" content="쿠버네티스에서 제공하는 컨트롤러의 하나로, 특수한 목적을 갖는 파드를 생성하고 이를 관리하기 위한 방법 3가지에 대해 알아본다. 본 포스팅은 인프런에서 제공하는 강의 &#39;대세는 쿠버네티스 (초급~중급) - 김태민&#39; 내용을 정리한 내용을 포함한다.">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">👨‍💻 월리의 탐구생활</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/categories/">Categories</a>
+      
+        
+        <a class="page-link" href="/tags/">Tags</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Kubernetes: Controller - DaemonSet, Job, CronJob</h1>
+    
+    <p class="post-meta"><time datetime="2021-08-07T06:00:00+00:00" itemprop="datePublished">2021년 8월 7일</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/tool/">tool</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/k8s/">k8s</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/%EA%B0%95%EC%9D%98/">강의</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><br /></p>
+
+<h2>특수한 목적에 맞게 사용되는 파드</h2>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/Controller%20with%20DatemonSet,%20Job,%20CronJob%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 1: DaemonSet과 Job, CronJob 예시 - 출처: 강의자료</em></p>
+
+<p>파드는 일종의 유목민(?)과 같이 여러 노드에 필요에 따라 생성과 삭제가 빈번히 발생한다고 생각할 수 있지만, 특수한 목적을 가진 파드들은 이러한 성격과 다르게 관리되기도 한다. 예를 들어 로그를 수집하고 모니터링하는 파드들은 각 노드에 필수적으로 하나씩 존재해야 할 수 있다. 또는 DB 백업과 같이 하루 중 일정 시간에만 반짝 사용되는 경우에는 파드가 굳이 계속 노드에 존재할 필요가 없을 수 있다.<br />
+각 노드마다 필수로 올라가는 파드를 관리하는 컨트롤러를 DaemonSet, 특수한 업무에만 사용되는 임시적인 파드를 관리하는 컨트롤러를 Job 또는 CronJob이라고 한다. 이들은 ReplicaSet과 유사하게 보일 수 있지만, 서로 다른 성격들을 갖고 있다.</p>
+
+<p><br /></p>
+
+<h2>DaemonSet</h2>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/HostPort,%20NodeSelector%20with%20DaemonSet%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 2: DaemonSet 예시 - 출처: 강의자료</em></p>
+
+<ul>
+  <li>DaemonSet은 자원의 상태와 관계 없이 각 노드 별로 무조건 하나의 파드를 생성한다.</li>
+  <li>쿠버네티스에서는 마스터가 각 노드를 관리하거나 각 노드별로 통신할 수 있도록 네트워크 프록시를 제공하기 위해 DaemonSet을 사용한다. 이 외에도 성능측정도구(Prometheus), 로그 수집(fluentd), 스토리지(GlusterFS) 등 다양한 어플리케이션에 활용되기도 한다.</li>
+  <li><u>DaemonSet은 특정 노드에 대해서만 파드를 만들지 않도록 할 수 있다.</u> 하지만 특정 노드에서만 파드를 만들도록 할 수는 없다. 결국 기본적으로 모든 파드에 생성되나, 특정 파드에 대해서만 이를 예외처리하는 방식이다.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">DaemonSet</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">daemonset-1</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">app</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">app</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">nodeSelector</span><span class="pi">:</span> <span class="c1"># 노드 필터링(생략하면 모든 노드에 파드를 하나씩 생성)</span>
+        <span class="na">os</span><span class="pi">:</span> <span class="s">centos</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">nginx</span>
+        <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8080</span>
+          <span class="na">hostPort</span><span class="pi">:</span> <span class="m">18080</span>
+</code></pre></div></div>
+
+<p>hostPort는 Service의 externalTrafficPolicy와 같은 역할을 수행한다. 위의 예시는 노드의 18080 포트를 통해 파드의 8080 포트가 자동으로 연결되도록 설정한다. 그러면 외부에서 18080포트로 접속하여 파드의 컨테이너(8080포트)를 사용할 수 있다.<br />
+nodeSelector를 사용하려면 노드마다 label을 붙여야 하는데, 아래의 명령어를 통해 적용할 수 있다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 라벨 적용</span>
+kubectl label nodes <span class="o">{</span>노드명<span class="o">}</span> <span class="o">{</span><span class="nv">key</span><span class="o">=</span>value<span class="o">}</span>
+kubectl label nodes node1 <span class="nv">os</span><span class="o">=</span>ubuntu
+
+<span class="c"># 라벨 삭제</span>
+kubectl label nodes node1 os-
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2>Job</h2>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/Parrallelism,%20Completions%20with%20Job%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 3: Job 예시 - 출처: 강의자료</em></p>
+
+<ul>
+  <li>Job은 특정 상황에 따라 파드를 scale-out(증가)하고, 상황이 종료되면 scale-in(감소)한다.</li>
+  <li>Job은 역할이 끝난 파드를 삭제하지 않고, 종료 상태로 둔다. 이는 실행이 완료된 파드의 로그를 확인해야 하는 경우가 발생할 수 있기 때문이다. 그렇기 때문에 그림 1과 같이 Job은 ReplicaSet과 다르게 파드의 최종상태를 Restart(계속 개수를 유지)하지 않고 Finish로 종료한다.</li>
+  <li>Job을 삭제하면 Job이 관리하고 있는 모든 파드들이 삭제된다. 관리 대상에는 역할이 끝난 후 종료상태로 남아있는 파드도 포함이다.</li>
+  <li>데이터 백업, 주기적인 업데이트 관리, 특정 시간 대량 메시지 발송 등에서 사용된다.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">batch/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Job</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">job-1</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">completions</span><span class="pi">:</span> <span class="m">6</span> <span class="c1"># optional : Job을 통해 생성해야 하는 총 파드 개수</span>
+  <span class="na">parallelism</span><span class="pi">:</span> <span class="m">2</span> <span class="c1"># optional : 실행 단위의 파드 개수(한번에 실행되는 파드 개수)</span>
+  <span class="na">activeDeadlineSeconds</span><span class="pi">:</span> <span class="m">30</span> <span class="c1"># optional : Job의 전체 진행 시간</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">restartPolicy</span><span class="pi">:</span> <span class="s">Never</span> <span class="c1"># Job이 끝났을 때의 정책</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">nginx</span>
+        <span class="na">command</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">sh"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">-c"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">echo</span><span class="nv"> </span><span class="s">'job</span><span class="nv"> </span><span class="s">start';sleep</span><span class="nv"> </span><span class="s">20;</span><span class="nv"> </span><span class="s">echo</span><span class="nv"> </span><span class="s">'job</span><span class="nv"> </span><span class="s">end'"</span><span class="pi">]</span>
+      <span class="na">terminationGracePeriodSeconds</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+
+<p>위의 예시에 의하면, 총 6개의 파드가 생성되어야 하는데 한번에 2개씩 생성된다. activeDeadlineSeconds 시간이 지나면 completions에 맞는 개수의 파드가 생성되지 않았더라도 Job은 종료되고 존재하던 파드는 모두 삭제된다. 이는 Job 내부에 오류가 발생하였을 경우 무한루프에 빠질 수 있기 때문에 넉넉한 시간을 두고 이보다 더 시간이 오래걸리는 경우 Job을 종료시킬 수 있도록 한다.</p>
+
+<p><br /></p>
+
+<h2>CronJob</h2>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/Allow%20with%20CronJob%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 4: CronJob 예시 - 출처: 강의자료</em></p>
+
+<ul>
+  <li>CronJob은 Job을 주기에 따라 계속 실행하고자 할 때 사용한다.</li>
+  <li>schedule: “*/1 * * * *” : Job을 1분 주기마다 실행하겠다는 의미이다.</li>
+  <li>CronJob이 삭제되면 해당 CronJob을 통해 만들어진 모든 Job은 삭제된다. 이는 메뉴얼로 생성된 Job의 경우도 포함이다.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">batch/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">CronJob</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cron-job-2</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">schedule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*/1</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*"</span>
+  <span class="na">concurrencyPolicy</span><span class="pi">:</span> <span class="s">Replace</span> <span class="c1"># optional : 하단에 설명</span>
+  <span class="na">jobTemplate</span><span class="pi">:</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">template</span><span class="pi">:</span>
+        <span class="na">spec</span><span class="pi">:</span>
+          <span class="na">restartPolicy</span><span class="pi">:</span> <span class="s">Never</span>
+          <span class="na">containers</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
+            <span class="na">image</span><span class="pi">:</span> <span class="s">nginx</span>
+            <span class="na">command</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">sh"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">-c"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">echo</span><span class="nv"> </span><span class="s">'job</span><span class="nv"> </span><span class="s">start';sleep</span><span class="nv"> </span><span class="s">140;</span><span class="nv"> </span><span class="s">echo</span><span class="nv"> </span><span class="s">'job</span><span class="nv"> </span><span class="s">end'"</span><span class="pi">]</span>
+          <span class="na">terminationGracePeriodSeconds</span><span class="pi">:</span> <span class="m">0</span>
+</code></pre></div></div>
+
+<p>cli를 이용한 CronJob 생성(manual) 방법은 다음과 같다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create job <span class="nt">--from</span><span class="o">=</span>cronjob/cron-job cron-job-manual-001
+</code></pre></div></div>
+
+<p>만약 suspend를 true로 해주면, 남아있는 주기와 관련 없이 진행중이던 CronJob에서의 Job 생성이 중단된다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl patch cronjobs cron-job <span class="nt">-p</span> <span class="s1">'{"spec" : {"suspend" : false }}'</span>
+</code></pre></div></div>
+
+<h3>ConcurrencyPolicy</h3>
+
+<p><img src="https://kubetm.github.io/img/practice/beginner/ConcurencyPolicy%201.19%20with%20CronJob%20for%20Kubernetes.jpg" alt="" /><br />
+<em>@그림 5: CronJob의 ConcurrencyPolicy 예시 - 출처: 강의자료</em></p>
+
+<ol>
+  <li>Allow : 주기마다 무조건 Job을 생성한다.</li>
+  <li>Forbid : 생성 주기에 실행중인 파드가 아직 있다면, 더이상 생성하지 않는다. 실행중인 파드가 없거나 종료되어 있는 경우에만 생성한다.</li>
+  <li>Replace : 생성 주기에 실행중인 파드가 아직 있다면, 새로운 파드를 생성한 후 기존에 진행중이던 파드를 삭제한다.</li>
+</ol>
+
+<p><br /></p>
+
+<h2>참고자료</h2>
+
+<ul>
+  <li><a href="https://www.inflearn.com/course/쿠버네티스-기초/dashboard">대세는 쿠버네티스 [초급~중급] - 김태민</a></li>
+</ul>
+
+  </div>
+
+  
+    <div class="post-comments" itemprop="comment">
+      <script src="https://utteranc.es/client.js"
+        repo="wnjoon/comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+    </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Wonjoon - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://wnjoon.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

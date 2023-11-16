@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>맥OS에서 sed를 사용할 때의 문제점 해결</title>
+  <meta name="description" content="sed는 유닉스 계열의 OS에서 손쉽게 파일 내부의 특정 값을 수정할 수 있는 명령어다. 그런데 말입니다(?) 혹시 command expects followed by text 라는 글을 보신적이 있으신가요?">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://wnjoon.github.io/2023/07/05/os-sed_on_mac/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="👨‍💻 월리의 탐구생활" href="https://wnjoon.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="맥OS에서 sed를 사용할 때의 문제점 해결">
+  <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
+  <meta property="og:url" content="https://wnjoon.github.io/2023/07/05/os-sed_on_mac/">
+  <meta property="og:description" content="sed는 유닉스 계열의 OS에서 손쉽게 파일 내부의 특정 값을 수정할 수 있는 명령어다. 그런데 말입니다(?) 혹시 command expects followed by text 라는 글을 보신적이 있으신가요?">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="맥OS에서 sed를 사용할 때의 문제점 해결">
+  <meta name="twitter:description" content="sed는 유닉스 계열의 OS에서 손쉽게 파일 내부의 특정 값을 수정할 수 있는 명령어다. 그런데 말입니다(?) 혹시 command expects followed by text 라는 글을 보신적이 있으신가요?">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">👨‍💻 월리의 탐구생활</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/categories/">Categories</a>
+      
+        
+        <a class="page-link" href="/tags/">Tags</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">맥OS에서 sed를 사용할 때의 문제점 해결</h1>
+    
+    <p class="post-meta"><time datetime="2023-07-05T06:00:00+00:00" itemprop="datePublished">2023년 7월 5일</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/os/">os</a>
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/mac/">mac</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/linux/">linux</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><br /></p>
+
+<h2>테스트 환경</h2>
+
+<ul>
+  <li>Apple M1 Pro</li>
+  <li>Ventura 13.4.1</li>
+</ul>
+
+<p>참고로 인텔칩이냐 M1이냐의 문제라기보단, MacOS에서 발생할 수 있는 문제점이다.</p>
+
+<p><br /></p>
+
+<h2>맥OS에서 sed 사용하기</h2>
+
+<p>config.json 파일의 _id_ 값을 입력받은 파라미터로 변경하기 위해 아래와 같이 스크립트를 작성했다.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sed</span> <span class="nt">-i</span> <span class="s2">"s|_id_|</span><span class="k">${</span><span class="nv">ID</span><span class="k">}</span><span class="s2">|g"</span> <span class="s2">"config.json"</span>
+</code></pre></div></div>
+
+<p>하지만 아래와 같은 오류가 발생했다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed: 1: "config.json": command c expects \ followed by text
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2>문제 해결</h2>
+
+<p>다양한 해결방법들이 존재하는데, 개인적으로 gnu-sed를 추가로 설치하는 것이 가장 편했다.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>gnu-sed
+...
+
+GNU <span class="s2">"sed"</span> has been installed as <span class="s2">"gsed"</span><span class="nb">.</span>
+If you need to use it as <span class="s2">"sed"</span>, you can add a <span class="s2">"gnubin"</span> directory
+to your PATH from your bashrc like:
+
+    <span class="nv">PATH</span><span class="o">=</span><span class="s2">"/opt/homebrew/opt/gnu-sed/libexec/gnubin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<span class="o">==&gt;</span> Summary
+🍺  /opt/homebrew/Cellar/gnu-sed/4.9: 12 files, 613.6KB
+<span class="o">==&gt;</span> Running <span class="sb">`</span>brew cleanup gnu-sed<span class="sb">`</span>...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS <span class="o">(</span>see <span class="sb">`</span>man brew<span class="sb">`</span><span class="o">)</span><span class="nb">.</span>
+</code></pre></div></div>
+
+<p>설치 이후에 zshrc에 해당 PATH를 추가해주면 된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH" &gt;&gt; ~/.zshrc
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2>참고</h2>
+
+<ul>
+  <li><a href="https://ben.lobaugh.net/blog/205337/how-to-fix-the-sed-command-expects-error-on-mac-os">HOW TO FIX THE “SED COMMAND EXPECTS \” ERROR ON MAC OS</a></li>
+</ul>
+
+
+  </div>
+
+  
+    <div class="post-comments" itemprop="comment">
+      <script src="https://utteranc.es/client.js"
+        repo="wnjoon/comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+    </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Wonjoon - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://wnjoon.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

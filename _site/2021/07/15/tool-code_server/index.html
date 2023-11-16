@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>웹브라우저 형식의 VScode, code-server 구성하기</title>
+  <meta name="description" content="VScode에서 제공하는 웹브라우저 기반의 IDE인 code-server를 활용하자. 더 나아가 이녀석은 아이패드에서도 사용이 가능하다.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://wnjoon.github.io/2021/07/15/tool-code_server/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="👨‍💻 월리의 탐구생활" href="https://wnjoon.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="웹브라우저 형식의 VScode, code-server 구성하기">
+  <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
+  <meta property="og:url" content="https://wnjoon.github.io/2021/07/15/tool-code_server/">
+  <meta property="og:description" content="VScode에서 제공하는 웹브라우저 기반의 IDE인 code-server를 활용하자. 더 나아가 이녀석은 아이패드에서도 사용이 가능하다.">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="웹브라우저 형식의 VScode, code-server 구성하기">
+  <meta name="twitter:description" content="VScode에서 제공하는 웹브라우저 기반의 IDE인 code-server를 활용하자. 더 나아가 이녀석은 아이패드에서도 사용이 가능하다.">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">👨‍💻 월리의 탐구생활</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/categories/">Categories</a>
+      
+        
+        <a class="page-link" href="/tags/">Tags</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">웹브라우저 형식의 VScode, code-server 구성하기</h1>
+    
+    <p class="post-meta"><time datetime="2021-07-15T06:00:00+00:00" itemprop="datePublished">2021년 7월 15일</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/tool/">tool</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/vscode/">vscode</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/ide/">ide</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/ipad/">iPad</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><br /></p>
+
+<h2>code-server</h2>
+
+<p>개발자들에게 가장 사랑받는 IDE가 무엇일까? 재미있는건 개발자들이 사랑한다고 해서 점유율이 높은건 아닌데, 기존에 많이 사용되었던 IDE일수록 기존에 있던 기능들을 deprecated 하기가 쉽지 않고 이를 통해 시스템이 점점 더 무거워지기 때문은 아닐까 생각된다.<br />
+개발자 입장에서는 가볍고, 확장성이 좋고, 단순한 IDE를 사랑할 수 밖에 없다. 내가 원하는 코드를 가벼운 환경에서 작성할 수 있는게 가장 중요하기 때문이다. 그런 점에서 Microsoft의 vscode는 ‘굉장히 잘 만들어 놓은’ IDE이다. 필자와 같이 나름 오래된 컴공 학부생에게는 Microsoft사의 IDE라 하면 무겁고 느린 Visual Studio로 열심히 C언어를 작성했던 경험이 떠오를텐데, vscode는 이 점에서 엄청난 발전과 신선한 느낌을 준다.<br />
+더 놀라운 것은 ‘이미 빠르고 가벼운’ vscode를 code-server라는 웹브라우저 기반의 IDE로 제공한다는 것이다. 이미 예전부터 제공되어왔고, 많은 개발자분들이 설치하고 구성하는 방법을 포스팅해놓았다. 조금 더 자세한 내용을 확인하기 위해서는 조금만 더 구글링해보면 찾을 수 있다.</p>
+
+<p><br /></p>
+
+<h2>설치 환경</h2>
+
+<p>필자는 우분투 16.04 환경에서 설치해보았고, 상위 버전에서도 설치와 동작이 가능하다.<br />
+code-server는 이미 오픈소스로 제공되어있고, https://github.com/cdr/code-server 에서 설치하는 방식을 모두 확인할 수 있다.<br />
+최소한의 요구사항은 https://github.com/cdr/code-server/blob/main/docs/requirements.md 에서 확인할 수 있는데, 최소한으로 1 GB of RAM, 2 CPU cores는 만족해야 한다. 물론 외부에서 접속 가능한 소켓(포트)이 열려있어야 한다.<br />
+설치 방법은 docker를 활용한 컨테이너 방식과 바이너리 설치 방식이 있는데, 필자는 바이너리 방식으로 설치하였다.</p>
+
+<h2>설치 및 구성</h2>
+
+<p><strong>1) 설치 단계 확인(1번째 줄) 및 code-server 설치(2번째 줄)</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-fsSL</span> https://code-server.dev/install.sh | sh <span class="nt">-s</span> <span class="nt">--</span> <span class="nt">--dry-run</span>
+<span class="nv">$ </span>curl <span class="nt">-fsSL</span> https://code-server.dev/install.sh | sh
+</code></pre></div></div>
+
+<p>이러면 설치가 끝난다(너무 간단하다).</p>
+
+<p><strong>2) code-server 실행</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl start code-server@<span class="o">{</span>CURRENT_USER<span class="o">}</span>
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>code-server@<span class="o">{</span>CURRENT_USER<span class="o">}</span>
+</code></pre></div></div>
+<p>여기서 CURRENT_USER는 현재 code-server를 설치한 사용자를 넣어주면 된다. 두번째 줄을 넣어주면 서버가 기동될때마다 자동으로 code-server를 실행해준다.</p>
+
+<p><strong>3) 외부에서 접근 가능하도록 포트 설정</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vi /home/<span class="o">{</span>CURRENT_USER<span class="o">}</span>/.config/code-server/config.yaml
+</code></pre></div></div>
+
+<p>위의 파일로 들어가면 code-server의 접근 권한을 설정할 수 있다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bind-addr: 0.0.0.0:4000
+auth: password
+password: <span class="nv">$myNewPassword</span>
+cert: <span class="nb">false</span>
+</code></pre></div></div>
+
+<ul>
+  <li>bind-addr: 0.0.0.0:포트로 설정한다. 여기서 설정한 포트를 기준으로 외부에서 접속이 가능하다.</li>
+  <li>auth: password로 하면 외부에서 code-server를 들어갔을 때 비밀번호를 요구한다. none으로 하면 비밀번호 없이 접속한다.</li>
+  <li>password: 위의 auth를 password로 할 경우, 입력해야 하는 비밀번호를 작성한다.</li>
+  <li>cert: TLS, 인증서 사용 여부를 작성하는 곳이다.</li>
+</ul>
+
+<p>중요한 것은 bind-addr 부분을 0.0.0.0으로 해야 외부에서 접근이 가능하다.<br />
+일반적으로 code-server를 외부에서 사용하기 위해 클라우드 환경을 이용할텐데, 꼭 해당 서버의 외부 포트를 열어주어야 한다.</p>
+
+<p><strong>4) code-server 재시작</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl restart code-server@<span class="o">{</span>CURRENT_USER<span class="o">}</span>
+</code></pre></div></div>
+
+<p>config.yaml 파일을 변경했기 때문에 code-server를 재시작해준다.</p>
+
+<p><strong>5) External IP 확인</strong></p>
+
+<p>가장 중요한 부분인데, 대부분 클라우드 환경에서 code-server를 구성하는 가장 큰 이유는 ‘외부에서도 편리하게 vscode를 사용하기 위해서’ 일 것이다. 서버를 재시작할일이 없으면 상관없지만, 사용할 때마다 서버를 구동시키는 경우라면(혹은 그 외의 다양한 이유에도) External(외부, 공용) IP 설정은 필수다.<br />
+클라우드 서비스마다 해당 방식은 다르니, 여기서는 생략한다.</p>
+
+<p><br /></p>
+
+<h2>실행 결과</h2>
+
+<p>위의 순서대로 진행했다면, http://{External IP}:4000에 접속하면 code-server가 구동되는 것을 볼 수 있다.<br />
+위에서 설정한 password를 입력하면 PC에서 보던 vscode가 동일하게 웹에서 동작하는 것을 확인하게 된다.</p>
+
+<p><br /></p>
+
+<h2>누구에게 가장 필요할까?</h2>
+
+<p>필자를 포함한 많은 개발자들이 ‘가장 살까 말까 고민하는 제품’ 중 하나가 아이패드와 같은 태블릿일 것이다. <u>태블릿을 들고 다니면서 편하게 개발하는 개발자</u>의 모습을 상상하지만, 이를 가능하게 할 IDE가 거의 없고 대부분 서버에서 직접 Vim을 쓰는 경우가 많다. 파이썬의 경우에는 약간의 IDE가 있기는 하지만, 그 외에는 Vim 외에는 방법이 ‘전혀’ 없는 것이 문제다.<br />
+이러한 상황에 웹브라우저 형식의 code-server는 매우 좋은 해결책이 될 것으로 보인다. 작성한 코드는 git으로 관리하고, 어디서나 언제든지 쉽고 편하게 코드를 작성해보자!</p>
+
+  </div>
+
+  
+    <div class="post-comments" itemprop="comment">
+      <script src="https://utteranc.es/client.js"
+        repo="wnjoon/comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+    </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Wonjoon - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://wnjoon.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
