@@ -6,7 +6,6 @@ description: How to Use custom error in solditiy for reducing smart contract siz
 date:   2023-08-22 15:00:00 +0900
 categories: blockchain
 tags: [ethereum, solidity, smartcontract]
-external-url: https://wnjoon.github.io/blockchain/custom-error-solidity
 keywords: blockchain, smartcontract, solidity
 comments: true
 
