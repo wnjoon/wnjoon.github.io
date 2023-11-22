@@ -6,8 +6,8 @@
     <description>개발자 블로그가 되고자 하는 기록 웹페이지 입니다.</description>
     <link>https://wnjoon.github.io/</link>
     <atom:link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 16 Nov 2023 06:53:37 +0000</pubDate>
-    <lastBuildDate>Thu, 16 Nov 2023 06:53:37 +0000</lastBuildDate>
+    <pubDate>Wed, 22 Nov 2023 01:19:17 +0000</pubDate>
+    <lastBuildDate>Wed, 22 Nov 2023 01:19:17 +0000</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
@@ -400,8 +400,8 @@ function doSomething() { checkStuff(); }
 &lt;/ul&gt;
 </description>
         <pubDate>Mon, 21 Aug 2023 06:00:00 +0000</pubDate>
-        <link>https://wnjoon.github.io/2023/08/21/blockchain-downsizing_contract_size/</link>
-        <guid isPermaLink="true">https://wnjoon.github.io/2023/08/21/blockchain-downsizing_contract_size/</guid>
+        <link>https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/</link>
+        <guid isPermaLink="true">https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/</guid>
         
         <category>ethereum</category>
         
