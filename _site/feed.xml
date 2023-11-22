@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2023-11-16T06:53:37+00:00</updated>
+  <updated>2023-11-22T01:19:17+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -255,12 +255,12 @@ console.log(
       <title type="html">스마트 컨트랙트의 사이즈를 줄이는 방법</title>
       
       
-      <link href="https://wnjoon.github.io/2023/08/21/blockchain-downsizing_contract_size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" />
+      <link href="https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" />
       
       <published>2023-08-21T06:00:00+00:00</published>
       <updated>2023-08-21T06:00:00+00:00</updated>
-      <id>https://wnjoon.github.io/2023/08/21/blockchain-downsizing_contract_size</id>
-      <content type="html" xml:base="https://wnjoon.github.io/2023/08/21/blockchain-downsizing_contract_size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+      <id>https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size</id>
+      <content type="html" xml:base="https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2&gt;&lt;a href=&quot;https://eips.ethereum.org/EIPS/eip-170&quot;&gt;EIP-170&lt;/a&gt;&lt;/h2&gt;
 
