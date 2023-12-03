@@ -82,7 +82,7 @@ func NewTransactionSender(sender Sender) *TransactionSender {
 }
 ```
 
-이처럼 파라미터에 Sender 인터페이스를 주입해달라고 요청하면 된다. 그러면 실제 주입은 어떻게 이루어질까?
+이처럼 파라미터에 Sender 인터페이스를 지키고 있는 구현체를 주입해달라고 요청하면 된다. 그러면 실제 주입은 어떻게 이루어질까?
 
 ```go
 func main() {
