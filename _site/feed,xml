@@ -6,9 +6,108 @@
     <description>개발자 블로그가 되고자 하는 기록 웹페이지 입니다.</description>
     <link>https://wnjoon.github.io/</link>
     <atom:link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 22 Nov 2023 01:19:17 +0000</pubDate>
-    <lastBuildDate>Wed, 22 Nov 2023 01:19:17 +0000</lastBuildDate>
+    <pubDate>Sun, 03 Dec 2023 06:59:30 +0000</pubDate>
+    <lastBuildDate>Sun, 03 Dec 2023 06:59:30 +0000</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>Go언어에서 인터페이스 기반 설계하기</title>
+        <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;기존의 방식&lt;/h2&gt;
+
+&lt;p&gt;필자는 현재 블록체인(Hyperledger Besu) 기반의 다양한 비지니스를 처리할 수 있는 플랫폼 형태의 클라이언트를 golang으로 개발하고 있다. 필자의 선임은 필자에게 항상 인터페이스 기반으로 설계하고, 개발자가 기호에 따라 만든 구현체를 해당 인터페이스로 주입해야 한다고 늘 가르쳐왔다. 어찌어찌해서 개발은 해왔지만 사실 정확하게 이해하고 개발했다고 볼수는 없었는데, 이번에 해당 방식에 대해 제대로 이해했다고 생각했고 이를 포스팅에 남겨놓기로 했다.&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DirectTransactionManager&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;QueueTransactionManager&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;DirectTransactionManager 트랜잭션을 가공하고 이를 바로 블록체인 노드에 전송하고, QueueTransactionManager는 가공한 트랜잭션을 카프카와 같은 큐 형태의 서비스에 전달하고 해당 서비스가 트랜잭션을 블록체인 노드로 전송한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DirectTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;funcA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DirectTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;funcB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DirectTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SendTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;common&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;common&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;big&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DirectTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;funcC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QueueTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;funcD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QueueTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SendTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;common&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;common&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;big&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QueueTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;funcE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QueueTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;funcF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위처럼 DirectTransactionManager와 QueueTransactionManager는 다양한 기능들을 포함하고 있지만, 이중 트랜잭션 전송을 요청하는 SendTransaction이라는 동일한 기능을 가질 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;// 예시이기 떄문에 함수의 이름들이 영 별로인 것을 감안해주길 바란다&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DirectTransactionSender&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;QueueTransactionSender&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewTransactionSenderWithDirect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DirectTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DirectTransactionSender&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewTransactionSenderWithQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QueueTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QueueTransactionSender&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 TransactionManager들을 이용하여 Sender 구현체를 생성한다고 하자. 나에게 필요한건 DirectTransactionManager 또는 QueueTransactionManager 전체가 아닌 그 내부의 SendTransaction임에도 불구하고 각각을 위한 구현체(DirectTransactionSender, QueueTransactionSender)를 모두 만들어줘야 한다.&lt;br /&gt;
+이 방법으로 해도 동작은 할 수 있겠지만, 결국 Sender 구현체가 트랜잭션을 처리하는(그 중 전송하는 방식을 갖는) 각 구현체(TransactionManager)들에 종속적이게 된다. 클린 아키텍처에서 말하는 SOLID 원칙에 맞지 않는다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;복잡한 내용을 정리하면, 실제 개발자가 필요한 기능은 트랜잭션 전송임에도 불구하고 트랜잭션 처리 방식에 대해 모두 알고 각각에 맞는 구현체들을 만들어줘야 한다는 것이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;인터페이스 기반으로 설계하기&lt;/h2&gt;
+
+&lt;p&gt;Go언어에서는 인터페이스를 굉장히 간단하게 구현할 수 있도록 해준다. 일명 Duck Typing이라고도 부르는데, &lt;u&gt;그냥 함수명과 파라미터, 그리고 반환값이 일치하기만 하면 해당 함수는 인터페이스를 따르고 있다고 컴파일러는 이해한다.&lt;/u&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sender&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;SendTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;common&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;common&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;big&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이러면 끝이다. TransactionSender는 ‘누군지는 관심없고, 나에게 SendTransaction 기능을 제공할 수만 있으면 됩니다’ 라고 파라미터를 열어두기만 하면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TransactionSender&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sender&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Sender 인터페이스를 따르고 있는 구현체라면 누구든지 환영합니다!&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewTransactionSender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransactionSender&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransactionSender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이처럼 파라미터에 Sender 인터페이스를 주입해달라고 요청하면 된다. 그러면 실제 주입은 어떻게 이루어질까?&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewQueueTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewDirectTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;transactionSender&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewTransactionSender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// queue 기반으로 트랜잭션을 전송하고자 하는 경우&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;transactionSender&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewTransactionSender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// 직접 트랜잭션을 전송하고자 하는 경우&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이처럼 Go언어에서 인터페이스 기반으로 기능을 설계하는 것은 타언어에 비해 굉장히 유연하고 쉽다. 서비스 안에서 하나의 기능에 여러 개발자가 협업하게 되는 경우가 많은데, 인터페이스를 활용하면 서로간의 종속성은 낮아지고 효율적인 개발이 가능하다.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 02 Dec 2023 06:00:00 +0000</pubDate>
+        <link>https://wnjoon.github.io/2023/12/02/go-interface-architecture/</link>
+        <guid isPermaLink="true">https://wnjoon.github.io/2023/12/02/go-interface-architecture/</guid>
+        
+        <category>go</category>
+        
+        <category>architecture</category>
+        
+        
+        <category>go</category>
+        
+      </item>
     
       <item>
         <title>솔리디티의 Custom Errors 사용하기</title>
@@ -1372,199 +1471,6 @@ brew를 이용하여 설치한다.&lt;/p&gt;
         
         
         <category>mobile</category>
-        
-      </item>
-    
-      <item>
-        <title>API Gateway를 이용한 인증과정</title>
-        <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;API Gateway의 목적&lt;/h2&gt;
-
-&lt;p&gt;MSA(Micro Service Architecture)로 서비스를 만들 때 가장 중요한 요소 중 하나로, 서버 앞에서 이들의 기능을 적절하게 라우팅해주기 위해 사용된다. 일반적으로 JSON/REST 기반으로 구성되어 최소한의(해야만 하는 일만 하는) 기능만 하도록 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/210908343-37590cd6-0f44-44e7-96d7-8402fe80abd4.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 1 : AWS에서 제공하는 API Gateway 도식표 - Amazon Web Service&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;AWS의 경우에는 REST 뿐만 아니라 스트리밍 데이터에 적합한 Websocket 형식의 API Gateway도 제공하고 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;인증(Authentication) 및 인가(Authorization)에서의 API Gateway&lt;/h2&gt;
-
-&lt;h3&gt;1. 인증과 인가&lt;/h3&gt;
-
-&lt;p&gt;간단하게 다시 되집어보면 아래와 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;인증 : 유저의 정보를 확인, 유저가 누구인가 (회원가입, 로그인 등)&lt;/li&gt;
-  &lt;li&gt;인가 : 유저의 권한을 확인 (역할, 접근 가능 범위 등)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이를 API Gateway 입장에서 보면 아래와 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;인증 : API를 호출하는 클라이언트의 신분(identity) 확인
-    &lt;ul&gt;
-      &lt;li&gt;예) 클라이언트 사용자가 Google 계정을 가지고 있는지&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;인가 : 클라이언트가 해당 API를 호출해도 되는지의 권한 확인
-    &lt;ul&gt;
-      &lt;li&gt;예) 클라이언트가 어느 권한(관리자 또는 일반 사용자)까지 정보를 호출할 수 있는지&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2. API 토큰&lt;/h3&gt;
-
-&lt;p&gt;사용자의 인가/인증 절차를 간편하게 처리하기 위해 API 토큰(이하 토큰)을 사용한다. 사용자에 대한 인증/인가 절차가 완료되면 해당 사용자가 API를 호출할 수 있는 권한에 대한 토큰을 발급한다. 이후 API 서버에서는 해당 토큰을 통해 사용자의 신분 또는 권한을 확인한 후, API 호출에 대한 허가를 결정한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/210927228-ca35df25-0574-4994-9e26-49b89baa95bf.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 2 : API Gateway를 통한 토큰 발급 및 API 호출 과정&lt;/em&gt;&lt;/p&gt;
-
-&lt;h4&gt;2.1. 토큰 발급&lt;/h4&gt;
-
-&lt;p&gt;그림 2처럼, 토큰을 발급하는 과정은 크게 4단계로 구분된다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;클라이언트 인증 방식은 위 예시와 같이 id/password 기반부터 공인인증서, OTP 등 다양하다. 이중 하나의 방법을 선택한다.&lt;/li&gt;
-  &lt;li&gt;API Gateway는 인증에 대한 요청을 인증서버로 보낸다. 인증서버는 단순히 인증만 처리하며, 토큰의 발급은 API Gateway에서 진행한다. 이를 통해 다양한 인증 방식을 적용하고 이를 선택적으로 사용하는 것이 가능하다.&lt;/li&gt;
-  &lt;li&gt;인증이 성공하면 해당 결과를 API Gateway로 전송한다.&lt;/li&gt;
-  &lt;li&gt;API Gateway에서는 결과에 따라 토큰을 발급한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;여기서 &lt;a href=&quot;https://wnjoon.github.io/2022/12/30/swe-sso/&quot;&gt;이전 포스팅&lt;/a&gt;에서 다룬것처럼, 토큰의 형식에 따라 4번의 처리가 달라진다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.1.1. 서버에 권한 내용을 저장&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;일련의 문자열로 구성된 OAuth 기반의 토큰의 경우에는 API Gateway 내부에 클라이언트와 발급된 토큰의 정보를 아래와 같이 데이터베이스 형태로 저장한다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;token&lt;/th&gt;
-      &lt;th&gt;user&lt;/th&gt;
-      &lt;th&gt;role&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;abc1234&lt;/td&gt;
-      &lt;td&gt;Alice&lt;/td&gt;
-      &lt;td&gt;admin&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;xyz7890&lt;/td&gt;
-      &lt;td&gt;Bob&lt;/td&gt;
-      &lt;td&gt;user&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;이러한 서버 기반의 토큰 방식을 가장 쉽게 찾아볼 수 있는게 깃헙(Github)이다. &lt;a href=&quot;https://wnjoon.github.io/2021/11/17/tool-github_token/&quot;&gt;이전 포스팅&lt;/a&gt;에도 언급한 것 처럼, 2021년 8월 13일 기준으로 깃헙은 패스워드가 아닌 토큰 방식으로 사용자를 인증하고 있다. 이 때 발급되는 토큰은 일련의 문자열로, 해당 토큰을 깃헙의 API Gateway에서 확인한 후 사용권한을 부여하고 있다.&lt;/p&gt;
-
-&lt;p&gt;이러한 방식을 적용하였을 때의 특징은 아래와 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;토큰의 정보를 저장하기 위한 공간이 별도로 필요하여 노력과 비용이 추가된다.&lt;/li&gt;
-  &lt;li&gt;또한 전달받은 토큰의 정보를 확인하는 추가작업이 빈번하기 때문에, 일반적으로 이를 빠르게 처리하기 위해 메모리 기반의 고속 스토리지(redis, memcached 등)를 사용한다.&lt;/li&gt;
-  &lt;li&gt;서버에 토큰의 정보가 저장되기 때문에 비교적 안전하게 관리될 수 있다.&lt;/li&gt;
-  &lt;li&gt;토큰은 단순히 문자열로만 구성되며 대부분의 정보는 데이터베이스에서 관리되기 때문에, 많은 정보를 저장하고 이를 수정하기에 용이하다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;2.1.2. 토큰 자체에 권한 내용을 저장(클레임)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;토큰 내부에 사용자의 정보를 포함(Claim 방식)하는 토큰(JWT, SAML 등)인 경우 토큰 자체에 권한 정보가 저장된다. JWT에 대한 자세한 내용은 &lt;a href=&quot;https://wnjoon.github.io/2023/01/02/swe-jwt/&quot;&gt;이전 포스팅&lt;/a&gt;을 참조하면 좋다.&lt;/p&gt;
-
-&lt;p&gt;이러한 방식을 적용하였을 때의 특징은 아래와 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;별도의 저장소가 필요없기 때문에 노력이나 비용적인 면에서 효율적이다.&lt;/li&gt;
-  &lt;li&gt;토큰 자체에 클레임이라는 단위로 이루어진 정보들이 들어가기 때문에, 많은 정보를 넣을 경우 토큰의 길이가 길어져 양을 제한해야 한다.&lt;/li&gt;
-  &lt;li&gt;토큰이 한번 발급되면 이를 수정하는 것이 어렵다(재발급이 더 편하다).&lt;/li&gt;
-  &lt;li&gt;토큰에 정보들이 모두 들어가있기 때문에 보안적으로 취약할 수 있다. 이를 막기 위해 비교적 짧은 유효기간을 둬서 사용을 제한해야 한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4&gt;2.2. 토큰 인증&lt;/h4&gt;
-
-&lt;p&gt;그림 2에서 볼 수 있듯이, API Gateway는 발급된 토큰을 검증해서 API 호출의 승인 여부를 결정한다. 이 중 먼저 토큰을 이용해서 사용자를 인증(Authentication)하는 경우를 살펴본다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.2.1. 서버에 토큰 정보를 저장한 경우&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;API 호출을 요청할 때마다 토큰에 해당하는 정보를 서버에서 조회한 후, 이를 비교하여 API 호출여부를 결정한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.2.2. 클레임(토큰에 정보 저장) 기반인 경우&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;토큰 자체에 정보들이 있기 때문에, 서버에서의 확인 작업이 별도로 필요하지 않다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.2.3. 기타&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;하지만 모든 서버가 외부로만 구성되지는 않을 것이다. 단적인 예로 금융권에서의 서버 구성은 내부서버가 많고, 이러한 상황에서 토큰 방식을 적용하여 불필요한 인증과정을 추가할 필요는 없을 것이다. 대체로 이런 경우에는 별도의 인증 서비스를 거치지 않고, 외부망과 내부망 사이에서의 보안을 더 강화하는 경우도 많다. 외부 서버끼리의 통신이라 하더라도 꼭 토큰을 사용하는 것도 아니다. SSL 기반의 높은 보안성을 갖는 인증 방식을 사용하는 경우도 많다.&lt;/p&gt;
-
-&lt;h4&gt;2.3. 토큰 인가&lt;/h4&gt;
-
-&lt;p&gt;인증이 “이 도끼가 니 도끼냐?”를 물었던 것이라면, 인가는 “제가 이 호텔의 VIP 권한이 있습니까?”를 묻는 것과 같다. 일반적으로 인가에 대해 가장 많이 사용되는 예시가 관리자와 일반 사용자 간 구분이다. 사용자마자 일일이 권한을 부여하는 방식도 있지만, 최근에는 역할(role)에 따라 권한을 부여하는 방식이 더 많이 사용된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.3.1. 개별 권한을 직접 토큰에 부여하는 경우&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;쇼핑몰 어플리케이션이 있다고 가정하자. 이 어플리케이션에는 상품 등록, 삭제, 조회 기능이 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/210927324-d571ab53-c42f-46d0-99a5-67111ac1fc34.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 3 : 각 권한을 직접 토큰에 부여하는 상황&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 그림과 같이 각각의 권한을 토큰 별로 부여할 수도 있다. 이렇게하면 토큰 별로 세밀하게 권한을 부여할 수 있다는 장점이 있지만, 한편으로 권한이 많아질수록 이를 관리하는 것이 복잡해질 수 있다. &lt;a href=&quot;https://developers.facebook.com/docs/facebook-login/permissions/v2.2?locale=ko_KR&quot;&gt;Facebook의 경우 이러한 방식으로 권한을 부여&lt;/a&gt;하고 있는데, 각 권한 별로 요청하는 API를 만들어 놓은 것을 볼 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.3.2. 역할 별로 권한을 토큰에 부여하는 경우&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/39115630/210927423-f50bc49c-414e-4966-9dc6-72557a37e32a.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;em&gt;@그림 4 : 역할 별로 권한을 토큰에 부여하는 상황&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;모든 권한을 직접 토큰에 부여하지 않고, 역할 별로 권한을 미리 분류해서 해당 역할을 토큰에 부여하는 방식이다. 위의 그림처럼 관리자와 사용자를 나누고 각 역할 별로 가능한 권한을 부여하는 것과 같다. 이를 RBAC(Role Based Access Control)이라고 부른다.&lt;/p&gt;
-
-&lt;p&gt;장점은 당연히 관리포인트가 줄어든다는 것이다. 권한의 갯수가 많아질수록 역할별로 공통되게 부여되는 권한을 미리 구분해서 처리할 수 있기 때문이다. 하지만 세세한 권한 관리는 어렵다는 단점이 있다.&lt;/p&gt;
-
-&lt;h3&gt;3. 캐시(Cache)를 활용하기&lt;/h3&gt;
-
-&lt;p&gt;발급된 토큰은 일반적으로 잘 변하지 않는 성격이라고 볼 수 있다. 어차피 JWT만 하더라도 발급되고 나서 길지 않은 유효기간을 설정하도록 되어있기도 하고, 단기간 내에 발급한 토큰을 금세 변경하는 일도 거의 일어나지 않는다(없다고 해도 무방하다).&lt;/p&gt;
-
-&lt;p&gt;결국 같은 토큰을 반복해서 인증에 사용하는 것인데, 캐시를 이용하면 효율적으로 인증 과정을 처리할 수 있다. 당연히 불필요한 통신과정이 생략되기 때문에 속도가 빠를 것이고, 인증 서비스와 통신하는 횟수가 줄어들기 때문에 서버와 통신하면서 발생할 수 있는 장애빈도도 줄어들 것이다.&lt;/p&gt;
-
-&lt;p&gt;하지만 실제로 토큰이 변경되는 상황(신규 또는 재발급)에는 캐시된 내역이 오류를 발생시킬 수 있다. 이를 위해서는 캐시 또한 적절한 만료시간을 적용할 수 있어야 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;2중화의 필요성&lt;/h2&gt;
-
-&lt;p&gt;하지만 그림을 보면 알다싶이, API Gateway가 모든 서비스를 전달하는 통로이기 때문에 장애가 발생할 시 치명적인 단일 실패점(SPoF, Single Point of Failure)이 될 수 있다. 그렇기 때문에 API Gateway는 반드시 2중화를 해두는 것이 좋다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2&gt;참고자료&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://medium.com/spoontech/마이크로서비스-구조-msa-의-인증-및-인가-authorization-authentication-a595179ab88e&quot;&gt;마이크로서비스 구조(MSA)의 인증 및 인가(Authorization &amp;amp; Authentication) - SangminKim&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://bcho.tistory.com/1005&quot;&gt;MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 (API GATEWAY) - 조대협의 블로그&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/ko/api-gateway/&quot;&gt;API Gateway 작동 방식 - Amazon Web Service&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://velog.io/@aaronddy/%EC%9D%B8%EC%A6%9DAuthentication%EA%B3%BC-%EC%9D%B8%EA%B0%80Authorization&quot;&gt;인증(Authentication)과 인가(Authorization) - aarondddy.log&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developers.facebook.com/docs/permissions/reference&quot;&gt;권한 참고 자료 - Facebook&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://wnjoon.github.io/2022/12/30/swe-sso/&quot;&gt;SSO(Single Sign On)에 대해 알아보기 - 월리의 탐구생활&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://wnjoon.github.io/2023/01/02/swe-jwt/&quot;&gt;JWT(JSON Web Token)에 대해 알아보기 - 월리의 탐구생활&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://wnjoon.github.io/2021/11/17/tool-github_token/&quot;&gt;Github 리포지토리에 Token 적용하기 - 월리의 탐구생활&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Thu, 05 Jan 2023 06:00:00 +0000</pubDate>
-        <link>https://wnjoon.github.io/2023/01/05/swe-apigw_auth/</link>
-        <guid isPermaLink="true">https://wnjoon.github.io/2023/01/05/swe-apigw_auth/</guid>
-        
-        <category>security</category>
-        
-        <category>인증</category>
-        
-        <category>token</category>
-        
-        <category>api</category>
-        
-        <category>gateway</category>
-        
-        
-        <category>swe</category>
         
       </item>
     
