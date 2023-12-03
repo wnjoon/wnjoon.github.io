@@ -88,11 +88,11 @@ func NewTransactionSender(sender Sender) *TransactionSender {
 func main() {
     ...
 
-    q := NewQueueTransactionManager(...)
-    t := NewDirectTransactionManager(...)
+    qtm := NewQueueTransactionManager(...)
+    dtm := NewDirectTransactionManager(...)
     
-    transactionSender := NewTransactionSender(q) // queue 기반으로 트랜잭션을 전송하고자 하는 경우
-    transactionSender := NewTransactionSender(q) // 직접 트랜잭션을 전송하고자 하는 경우
+    transactionSender := NewTransactionSender(qtm) // queue 기반으로 트랜잭션을 전송하고자 하는 경우
+    transactionSender := NewTransactionSender(dtm) // 직접 트랜잭션을 전송하고자 하는 경우
 }
 ```
 

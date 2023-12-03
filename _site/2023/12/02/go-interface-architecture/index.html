@@ -780,11 +780,11 @@
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="o">...</span>
 
-    <span class="n">q</span> <span class="o">:=</span> <span class="n">NewQueueTransactionManager</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-    <span class="n">t</span> <span class="o">:=</span> <span class="n">NewDirectTransactionManager</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">qtm</span> <span class="o">:=</span> <span class="n">NewQueueTransactionManager</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">dtm</span> <span class="o">:=</span> <span class="n">NewDirectTransactionManager</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
     
-    <span class="n">transactionSender</span> <span class="o">:=</span> <span class="n">NewTransactionSender</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="c">// queue 기반으로 트랜잭션을 전송하고자 하는 경우</span>
-    <span class="n">transactionSender</span> <span class="o">:=</span> <span class="n">NewTransactionSender</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="c">// 직접 트랜잭션을 전송하고자 하는 경우</span>
+    <span class="n">transactionSender</span> <span class="o">:=</span> <span class="n">NewTransactionSender</span><span class="p">(</span><span class="n">qtm</span><span class="p">)</span> <span class="c">// queue 기반으로 트랜잭션을 전송하고자 하는 경우</span>
+    <span class="n">transactionSender</span> <span class="o">:=</span> <span class="n">NewTransactionSender</span><span class="p">(</span><span class="n">dtm</span><span class="p">)</span> <span class="c">// 직접 트랜잭션을 전송하고자 하는 경우</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
