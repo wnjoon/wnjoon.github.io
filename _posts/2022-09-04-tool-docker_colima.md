@@ -4,7 +4,7 @@ title: "Colima를 활용한 M1에서 x86/64 기반의 컨테이너 구동하기"
 excerpt: "M1 맥북에서 동작하지 않던 x86/64 기반의 컨테이너를 Colima라는 툴을 이용하여 가상환경 처럼 구동해본다. Colima는 Docker desktop 어플리케이션을 사용하지 않고 간단하게 런타임 환경에서 CLI를 이용하여 컨테이너를 구동할 수 있도록 하는 오픈소스 프로그램이다."
 date: 2022-09-04 15:00:00 +0900
 categories: tool
-permalink: /colima-in-m1/
+permalink: /:categories/colima-in-m1/
 tags: [docker, colima]
 ---
 
