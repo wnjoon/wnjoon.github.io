@@ -10,7 +10,10 @@
   
   
   <title>API Gateway를 이용한 인증과정</title>
-  <meta name="description" content="많은 서비스들이 MSA(Micro Service Architecture) 방식을 적용하면서, 효과적으로 다양한 서비스를 인증하는 방식이 중요해지고 있다. 일반적으로 API Gateway를 서비스 최전방에 두고 사용하는데, 이를 통해 서비스 전체에 공통된 기능을 처리할 수 있도록 한다. 인증 또한 이러한 기능 중 한가지며, OAuth 또는 JWT와 같은 토큰 기반의 인증 시 이러한 방식을 사용한다.">
+  <meta name="description" content="Description of the inter-system authentication process using API Gateway in an MSA environment.">
+  
+    
+    <meta name="keywords" content="software architecture,authentication,rest api,msa">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -25,13 +28,13 @@
   <meta property="og:title" content="API Gateway를 이용한 인증과정">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/01/05/swe-apigw_auth/">
-  <meta property="og:description" content="많은 서비스들이 MSA(Micro Service Architecture) 방식을 적용하면서, 효과적으로 다양한 서비스를 인증하는 방식이 중요해지고 있다. 일반적으로 API Gateway를 서비스 최전방에 두고 사용하는데, 이를 통해 서비스 전체에 공통된 기능을 처리할 수 있도록 한다. 인증 또한 이러한 기능 중 한가지며, OAuth 또는 JWT와 같은 토큰 기반의 인증 시 이러한 방식을 사용한다.">
+  <meta property="og:description" content="Description of the inter-system authentication process using API Gateway in an MSA environment.">
   
   
   <meta name="twitter:card" content="summary">
   
   <meta name="twitter:title" content="API Gateway를 이용한 인증과정">
-  <meta name="twitter:description" content="많은 서비스들이 MSA(Micro Service Architecture) 방식을 적용하면서, 효과적으로 다양한 서비스를 인증하는 방식이 중요해지고 있다. 일반적으로 API Gateway를 서비스 최전방에 두고 사용하는데, 이를 통해 서비스 전체에 공통된 기능을 처리할 수 있도록 한다. 인증 또한 이러한 기능 중 한가지며, OAuth 또는 JWT와 같은...">
+  <meta name="twitter:description" content="Description of the inter-system authentication process using API Gateway in an MSA environment.">
   
   
 
@@ -171,103 +174,13 @@
       
     
       
-    
+        <a href="/categories/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98/">아키텍처</a>
       
     
       
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/swe/">swe</a>
       
     
       
@@ -362,97 +275,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/security/">security</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+        <a href="/tags/authentication/">authentication</a>,
       
     
       
@@ -557,718 +380,13 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/%EC%9D%B8%EC%A6%9D/">인증</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/token/">token</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/api/">api</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+        <a href="/tags/rest-api/">rest api</a>
       
     
       
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/gateway/">gateway</a>
       
     
       
@@ -1325,8 +443,12 @@
 
 <p>MSA(Micro Service Architecture)로 서비스를 만들 때 가장 중요한 요소 중 하나로, 서버 앞에서 이들의 기능을 적절하게 라우팅해주기 위해 사용된다. 일반적으로 JSON/REST 기반으로 구성되어 최소한의(해야만 하는 일만 하는) 기능만 하도록 한다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210908343-37590cd6-0f44-44e7-96d7-8402fe80abd4.png" alt="image" /><br />
-<em>@그림 1 : AWS에서 제공하는 API Gateway 도식표 - Amazon Web Service</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/210908343-37590cd6-0f44-44e7-96d7-8402fe80abd4.png" alt="" />
+  <br />
+   AWS에서 제공하는 API Gateway 도식표 (출처 : Amazon Web Service)
+</p>
+<p><br /></p>
 
 <p>AWS의 경우에는 REST 뿐만 아니라 스트리밍 데이터에 적합한 Websocket 형식의 API Gateway도 제공하고 있다.</p>
 
@@ -1337,12 +459,14 @@
 <h3>1. 인증과 인가</h3>
 
 <p>간단하게 다시 되집어보면 아래와 같다.</p>
+
 <ul>
   <li>인증 : 유저의 정보를 확인, 유저가 누구인가 (회원가입, 로그인 등)</li>
   <li>인가 : 유저의 권한을 확인 (역할, 접근 가능 범위 등)</li>
 </ul>
 
 <p>이를 API Gateway 입장에서 보면 아래와 같다.</p>
+
 <ul>
   <li>인증 : API를 호출하는 클라이언트의 신분(identity) 확인
     <ul>
@@ -1360,8 +484,12 @@
 
 <p>사용자의 인가/인증 절차를 간편하게 처리하기 위해 API 토큰(이하 토큰)을 사용한다. 사용자에 대한 인증/인가 절차가 완료되면 해당 사용자가 API를 호출할 수 있는 권한에 대한 토큰을 발급한다. 이후 API 서버에서는 해당 토큰을 통해 사용자의 신분 또는 권한을 확인한 후, API 호출에 대한 허가를 결정한다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210927228-ca35df25-0574-4994-9e26-49b89baa95bf.png" alt="image" /><br />
-<em>@그림 2 : API Gateway를 통한 토큰 발급 및 API 호출 과정</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/210927228-ca35df25-0574-4994-9e26-49b89baa95bf.png" alt="" />
+  <br />
+   API Gateway를 통한 토큰 발급 및 API 호출 과정
+</p>
+<p><br /></p>
 
 <h4>2.1. 토큰 발급</h4>
 
@@ -1405,6 +533,7 @@
 <p>이러한 서버 기반의 토큰 방식을 가장 쉽게 찾아볼 수 있는게 깃헙(Github)이다. <a href="https://wnjoon.github.io/2021/11/17/tool-github_token/">이전 포스팅</a>에도 언급한 것 처럼, 2021년 8월 13일 기준으로 깃헙은 패스워드가 아닌 토큰 방식으로 사용자를 인증하고 있다. 이 때 발급되는 토큰은 일련의 문자열로, 해당 토큰을 깃헙의 API Gateway에서 확인한 후 사용권한을 부여하고 있다.</p>
 
 <p>이러한 방식을 적용하였을 때의 특징은 아래와 같다.</p>
+
 <ul>
   <li>토큰의 정보를 저장하기 위한 공간이 별도로 필요하여 노력과 비용이 추가된다.</li>
   <li>또한 전달받은 토큰의 정보를 확인하는 추가작업이 빈번하기 때문에, 일반적으로 이를 빠르게 처리하기 위해 메모리 기반의 고속 스토리지(redis, memcached 등)를 사용한다.</li>
@@ -1417,6 +546,7 @@
 <p>토큰 내부에 사용자의 정보를 포함(Claim 방식)하는 토큰(JWT, SAML 등)인 경우 토큰 자체에 권한 정보가 저장된다. JWT에 대한 자세한 내용은 <a href="https://wnjoon.github.io/2023/01/02/swe-jwt/">이전 포스팅</a>을 참조하면 좋다.</p>
 
 <p>이러한 방식을 적용하였을 때의 특징은 아래와 같다.</p>
+
 <ul>
   <li>별도의 저장소가 필요없기 때문에 노력이나 비용적인 면에서 효율적이다.</li>
   <li>토큰 자체에 클레임이라는 단위로 이루어진 정보들이 들어가기 때문에, 많은 정보를 넣을 경우 토큰의 길이가 길어져 양을 제한해야 한다.</li>
@@ -1448,15 +578,23 @@
 
 <p>쇼핑몰 어플리케이션이 있다고 가정하자. 이 어플리케이션에는 상품 등록, 삭제, 조회 기능이 있다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210927324-d571ab53-c42f-46d0-99a5-67111ac1fc34.png" alt="image" /><br />
-<em>@그림 3 : 각 권한을 직접 토큰에 부여하는 상황</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/210927324-d571ab53-c42f-46d0-99a5-67111ac1fc34.png" alt="" />
+  <br />
+   각 권한을 직접 토큰에 부여하는 상황
+</p>
+<p><br /></p>
 
 <p>위의 그림과 같이 각각의 권한을 토큰 별로 부여할 수도 있다. 이렇게하면 토큰 별로 세밀하게 권한을 부여할 수 있다는 장점이 있지만, 한편으로 권한이 많아질수록 이를 관리하는 것이 복잡해질 수 있다. <a href="https://developers.facebook.com/docs/facebook-login/permissions/v2.2?locale=ko_KR">Facebook의 경우 이러한 방식으로 권한을 부여</a>하고 있는데, 각 권한 별로 요청하는 API를 만들어 놓은 것을 볼 수 있다.</p>
 
 <p><strong>2.3.2. 역할 별로 권한을 토큰에 부여하는 경우</strong></p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210927423-f50bc49c-414e-4966-9dc6-72557a37e32a.png" alt="image" /><br />
-<em>@그림 4 : 역할 별로 권한을 토큰에 부여하는 상황</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/210927423-f50bc49c-414e-4966-9dc6-72557a37e32a.png" alt="" />
+  <br />
+   역할 별로 권한을 토큰에 부여하는 상황
+</p>
+<p><br /></p>
 
 <p>모든 권한을 직접 토큰에 부여하지 않고, 역할 별로 권한을 미리 분류해서 해당 역할을 토큰에 부여하는 방식이다. 위의 그림처럼 관리자와 사용자를 나누고 각 역할 별로 가능한 권한을 부여하는 것과 같다. 이를 RBAC(Role Based Access Control)이라고 부른다.</p>
 
@@ -1476,7 +614,10 @@
 
 <p>하지만 그림을 보면 알다싶이, API Gateway가 모든 서비스를 전달하는 통로이기 때문에 장애가 발생할 시 치명적인 단일 실패점(SPoF, Single Point of Failure)이 될 수 있다. 그렇기 때문에 API Gateway는 반드시 2중화를 해두는 것이 좋다.</p>
 
-<p><br /></p>
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
 

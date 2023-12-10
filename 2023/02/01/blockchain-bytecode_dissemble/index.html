@@ -9,8 +9,11 @@
   
   
   
-  <title>스마트 컨트랙트 호출 과정을 바이트코드로 알아보기</title>
-  <meta name="description" content="어셈블리어라는 것을 들어본적이 있는가? 우리가 사용하는 모든 프로그래밍 언어는 결국 바이트로, 그리고 최종적으로 0과 1로 변환되어 컴퓨터에게 전달된다. 사용하기 쉬울수록 그 사이에 수많은 계층이 존재하는데, 이더리움 또한 솔리디티로 작성된 내용을 EVM에서 바이트코드로 변환하여 컴퓨터에게 전달한다. 그 중 스마트 컨트랙트의 호출과정을 한번 바이트코드로 알아본다.">
+  <title>바이트코드로 알아보는 스마트 컨트랙트의 호출 과정</title>
+  <meta name="description" content="Check the smart contract calling process in Ethereum with byte code.">
+  
+    
+    <meta name="keywords" content="blockchain,ethereum">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="스마트 컨트랙트 호출 과정을 바이트코드로 알아보기">
+  <meta property="og:title" content="바이트코드로 알아보는 스마트 컨트랙트의 호출 과정">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/02/01/blockchain-bytecode_dissemble/">
-  <meta property="og:description" content="어셈블리어라는 것을 들어본적이 있는가? 우리가 사용하는 모든 프로그래밍 언어는 결국 바이트로, 그리고 최종적으로 0과 1로 변환되어 컴퓨터에게 전달된다. 사용하기 쉬울수록 그 사이에 수많은 계층이 존재하는데, 이더리움 또한 솔리디티로 작성된 내용을 EVM에서 바이트코드로 변환하여 컴퓨터에게 전달한다. 그 중 스마트 컨트랙트의 호출과정을 한번 바이트코드로 알아본다.">
+  <meta property="og:description" content="Check the smart contract calling process in Ethereum with byte code.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="스마트 컨트랙트 호출 과정을 바이트코드로 알아보기">
-  <meta name="twitter:description" content="어셈블리어라는 것을 들어본적이 있는가? 우리가 사용하는 모든 프로그래밍 언어는 결국 바이트로, 그리고 최종적으로 0과 1로 변환되어 컴퓨터에게 전달된다. 사용하기 쉬울수록 그 사이에 수많은 계층이 존재하는데, 이더리움 또한 솔리디티로 작성된 내용을 EVM에서 바이트코드로 변환하여 컴퓨터에게 전달한다. 그 중 스마트 컨트랙트의 호출과정을 한번 바이트코드...">
+  <meta name="twitter:title" content="바이트코드로 알아보는 스마트 컨트랙트의 호출 과정">
+  <meta name="twitter:description" content="Check the smart contract calling process in Ethereum with byte code.">
   
   
 
@@ -76,79 +79,11 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">스마트 컨트랙트 호출 과정을 바이트코드로 알아보기</h1>
+      <h1 class="post-title" itemprop="name headline">바이트코드로 알아보는 스마트 컨트랙트의 호출 과정</h1>
     
     <p class="post-meta"><time datetime="2023-02-01T06:00:00+00:00" itemprop="datePublished">2023년 2월 1일</time> •
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -262,48 +197,12 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
 
 
  •
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -417,82 +316,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
 
 </p>
@@ -505,8 +328,12 @@
 
 <p>디셈블러는 ‘사람이 절대 읽을 수 없는 기계어를 어셈블리어로 변경해주는 것’을 말한다. 이러한 역할을 하는 도구를 디컴파일러(decompiler)라고 한다. 솔리디티 또한 여러가지 도구를 통해 미리 바이트코드를 확인할 수 있다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/216486862-7b57efcd-9559-4488-a0e2-13deb3f4f9d3.png" alt="image" /><br />
-<em>@그림 1 : 컴파일 된 어떠한 스마트 컨트랙트 - coinpressokr</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/216486862-7b57efcd-9559-4488-a0e2-13deb3f4f9d3.png" alt="" />
+  <br />
+   컴파일 된 어떠한 스마트 컨트랙트 (출처 : coinpressokr)
+</p>
+<p><br /></p>
 
 <p>스마트 컨트랙트가 컴파일되면 위의 그림과 같이 사람으로선 절대 알아볼 수 없는, 오직 컴퓨터만이 알아볼법한 형태의 결과물이 생성된다. 그렇다면 이를 디컴파일 해줄 수 있는 도구가 무엇이 있을까? 솔리디티를 활용할 수 있는 도구들은 아래와 같다.</p>
 
@@ -527,7 +354,7 @@
 
 <p><br /></p>
 
-<h2>디스어셈블링 해보기</h2>
+<h2>디스어셈블링</h2>
 
 <p>Faucet.sol이라는 컨트랙트가 있다.</p>
 
@@ -548,8 +375,12 @@
 
 <p>컴파일된 Faucet 스마트 컨트랙트를 Ethersplay로 디컴파일링하면 아래와 같은 결과물을 얻을 수 있다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/216518320-d81aa32a-a87b-4868-8d6b-ff7873fa9ff2.png" alt="image" /><br />
-<em>@그림 2 : 디컴파일 된 Faucet 스마트 컨트랙트 - Mastering Ethereum</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/216518320-d81aa32a-a87b-4868-8d6b-ff7873fa9ff2.png" alt="" />
+  <br />
+   디컴파일 된 Faucet 스마트 컨트랙트 (출처 : Mastering Ethereum)
+</p>
+<p><br /></p>
 
 <p><br /></p>
 
@@ -563,8 +394,12 @@
 
 <h3>2. 함수가 존재하지 않는 경우 (노란박스)</h3>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/216518225-bb6c6e4b-d721-43da-945d-7787e0052595.png" alt="image" /><br />
-<em>@그림 3 : 함수가 존재하지 않는 경우</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/216518225-bb6c6e4b-d721-43da-945d-7787e0052595" alt="" />
+  <br />
+   함수가 존재하지 않는 경우
+</p>
+<p><br /></p>
 
 <ol>
   <li>PUSH1 0x4
@@ -609,8 +444,12 @@
 
 <p>위 그림에서 LT(S[0] &gt; S[1]), 즉 CALLDATASIZE가 4바이트 이상인 경우 해당 함수가 존재한다고 판단한다. 위 그림 3에서 파란 칸으로 되어있는 부분(PUSH1 0x0)부터 시작한다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/216518402-95c5aac7-ad9a-4a18-b2d5-855924f8ddee.png" alt="image" /><br />
-<em>@그림 4 : 함수가 존재하는 경우</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/216518402-95c5aac7-ad9a-4a18-b2d5-855924f8ddee.png" alt="" />
+  <br />
+   함수가 존재하는 경우
+</p>
+<p><br /></p>
 
 <ol>
   <li>CALLDATALOAD
@@ -686,7 +525,10 @@
   </li>
 </ol>
 
-<p><br /></p>
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
 

@@ -9,8 +9,11 @@
   
   
   
-  <title>Raft 합의 알고리즘에 대하여</title>
-  <meta name="description" content="분산 합의 알고리즘의 하나로, CFT 블록체인 계열에서 주로 사용되는 Raft에 대하여 알아본다.">
+  <title>Raft 알고리즘과 동작 방식</title>
+  <meta name="description" content="Description of the Raft consensus algorithm used in CFT-based blockchains.">
+  
+    
+    <meta name="keywords" content="algorithm,consensus,blockchain,hyperledger fabric,cft">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="Raft 합의 알고리즘에 대하여">
+  <meta property="og:title" content="Raft 알고리즘과 동작 방식">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2021/04/15/blockchain-raft/">
-  <meta property="og:description" content="분산 합의 알고리즘의 하나로, CFT 블록체인 계열에서 주로 사용되는 Raft에 대하여 알아본다.">
+  <meta property="og:description" content="Description of the Raft consensus algorithm used in CFT-based blockchains.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Raft 합의 알고리즘에 대하여">
-  <meta name="twitter:description" content="분산 합의 알고리즘의 하나로, CFT 블록체인 계열에서 주로 사용되는 Raft에 대하여 알아본다.">
+  <meta name="twitter:title" content="Raft 알고리즘과 동작 방식">
+  <meta name="twitter:description" content="Description of the Raft consensus algorithm used in CFT-based blockchains.">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">Raft 합의 알고리즘에 대하여</h1>
+      <h1 class="post-title" itemprop="name headline">Raft 알고리즘과 동작 방식</h1>
     
     <p class="post-meta"><time datetime="2021-04-15T06:00:00+00:00" itemprop="datePublished">2021년 4월 15일</time> •
   
@@ -167,6 +170,35 @@
       
     
       
+        <a href="/categories/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8/">블록체인</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
     
       
     
@@ -257,15 +289,11 @@
       
     
       
-        <a href="/categories/blockchain/">blockchain</a>
-      
     
       
     
       
-    
-      
-    
+        <a href="/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a>
       
     
       
@@ -292,6 +320,18 @@
     
     
       
+        <a href="/tags/hyperledger-fabric/">hyperledger fabric</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
     
       
     
@@ -304,6 +344,95 @@
       
     
       
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
     
       
     
@@ -417,82 +546,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
 
 </p>
@@ -501,17 +554,17 @@
   <div class="post-content" itemprop="articleBody">
     <p><br /></p>
 
-<h2>Raft란?</h2>
+<h2>Raft 알고리즘</h2>
 
-<p>클라이언트가 입력한 데이터를 분산된 노드(특정 서버) 간 동기화 하기 위한 알고리즘으로, Distributed consensus의 한 방법이다.</p>
+<p>클라이언트가 입력한 데이터를 분산된 노드(특정 서버) 간 동기화 하기 위한 알고리즘으로, Distributed consensus의 한 방법이다.<br />
+기존에는 Paxos 모델을 사용했으나 현재는 Leader-follower 모델을 사용한다.</p>
 
-<p>기존에는 Paxos 모델을 사용했으나 현재는 Leader-follower 모델을 사용한다. Leader-follower 모델은 전체 노드 중 하나의 리더를 선정하고, 해당 리더가 클라이언트로부터 데이터를 받아 이를 다른 노드들에 전달하는 방식을 말한다.</p>
+<blockquote>
+  <p>Leader-follower 모델은 전체 노드 중 하나의 리더를 선정하고, 해당 리더가 클라이언트로부터 데이터를 받아 이를 다른 노드들에 전달한다.</p>
+</blockquote>
 
-<p><br /></p>
+<p>Raft 알고리즘에서 노드는 3가지 중 하나의 상태를 갖게 된다.</p>
 
-<h2>Raft에서의 노드 상태(State)</h2>
-
-<p>Raft 알고리즘은 노드를 총 3가지 상태로 구분한다.</p>
 <ul>
   <li>Follower: 모든 노드의 초기 상태(리더가 선정되지 않은 경우)</li>
   <li>Candidiate: 리더로 선출할 수 있는 상태의 노드(리더가 선정되지 않은 경우)</li>
@@ -520,22 +573,22 @@
 
 <p><br /></p>
 
-<h2>리더 선출 조건</h2>
+<h2>리더 선출</h2>
+
+<h3>1. 리더 선출 시기</h3>
 
 <p>그렇다면 리더는 언제 선출되기 시작할까? <u>각 노드는 리더로부터 주기적인 heartbeat 메시지를 받는데, 이 메시지가 일정 기간 오지 않아 timeout이 발생하면 리더는 candidate가 되고 다시 리더의 선출 과정이 진행된다.</u></p>
 
-<h3>1. Election timeout</h3>
+<ul>
+  <li>
+    <p>Election timeout : Follower가 Candidate로 변경되는데 걸리는 시간으로, 대략 150ms ~ 300ms 사이의 랜덤값으로 각 노드가 각자 설정하는 값이다. 각 노드별로 이 시간이 다르다는 의미는, Candidate가 되는 순서가 달라지고 request vote를 보내는 것도 제각각이라는 말이다.</p>
+  </li>
+  <li>
+    <p>Heartbeat timeout : 리더가 주기적으로 보내는 메시지로, 특정 시간(timeout)동안 리더로부터 해당 메시지가 오지 않는 경우 리더는 자동으로 Candidate가 된다.</p>
+  </li>
+</ul>
 
-<p>Follower가 Candidate로 변경되는데 걸리는 시간으로, 대략 150ms ~ 300ms 사이의 랜덤값으로 각 노드가 각자 설정하는 값이다.
-각 노드별로 이 시간이 다르다는 의미는, Candidate가 되는 순서가 달라지고 request vote를 보내는 것도 제각각이라는 말이다.</p>
-
-<h3>2. Heartbeat timeout</h3>
-
-<p>리더가 주기적으로 보내는 메시지로, 특정 시간(timeout)동안 리더로부터 해당 메시지가 오지 않는 경우 리더는 자동으로 Candidate가 된다.</p>
-
-<p><br /></p>
-
-<h2>리더 선출 과정</h2>
+<h3>2. 리더 선출 과정</h3>
 
 <ol>
   <li>선거 시작! (선거 기간을 election term이라고 하자 + termCount = 1)</li>
@@ -548,13 +601,9 @@
   <li>어, 어떤 candidate도 과반수 이상을 받은적이 없네? -&gt; 그럼 election term 다시 시작!</li>
 </ol>
 
-<p><br /></p>
+<h3>3. 리더 선출 이후</h3>
 
-<h2>리더가 된 다음 노드의 행보</h2>
-
-<p>리더는 계속 자기가 리더라는 것을 말해줘야 한다. 이를 heartbeat 메시지라고 하는데, Append Entries Message라는 구조를 사용한다. 노드들은 리더가 보내는 heartbeat 메시지에 계속 응답하게 되고, 이 상태가 유지되는 동안 election term은 같은 id로 유지된다.</p>
-
-<p>만약 hearbeat 메시지가 멈추면 해당 리더는 곧바로 Candidate로 변경되고 리더 선출 과정은 다시 시작된다.</p>
+<p>리더는 계속 자기가 리더라는 것을 말해줘야 한다. 이를 heartbeat 메시지라고 하는데, Append Entries Message라는 구조를 사용한다. 노드들은 리더가 보내는 heartbeat 메시지에 계속 응답하게 되고, 이 상태가 유지되는 동안 election term은 같은 id로 유지된다. 만약 hearbeat 메시지가 멈추면 해당 리더는 곧바로 Candidate로 변경되고 리더 선출 과정은 다시 시작된다.</p>
 
 <blockquote>
   <p>간혹 Follower가 메시지를 의도적으로 받지 않는(멈추는) 상황도 있다고 하는데, 이 부분은 다시 확인해보아야 할 것 같다.</p>
@@ -562,7 +611,7 @@
 
 <p><br /></p>
 
-<h2>명령어 전달 방법 : Log replication</h2>
+<h2>Log replication를 이용한 전체 노드 간 합의 결과 공유</h2>
 
 <p>만약 클라이언트가 DB에 X라는 값을 10으로 변경하라는 쿼리를 전송했다고 하자. 단일 노드인 경우에는 그냥 바꿔주면 되는데, 노드가 여러개있는 분산 환경에서는 정확하게 모든 노드가 변경되어야만 하는 요구조건이 생긴다.</p>
 
@@ -584,15 +633,18 @@
 
 <p>만약 7.에서 클라이언트가 응답을 받지 못한다면, 명령어가 실행되더라도 클라이언트가 이에 대한 결과를 모르기 때문에 계속 위의 작업을 반복하게 된다. 이를 막기 위해 명령어 내부에는 Unique Serial Number를 포함시켜서, 해당 작업의 완료여부를 명확하게 구분한다.</p>
 
-<p><br /></p>
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
+
 <ul>
   <li><a href="https://raft.github.io/raft.pdf">In Search of an Understandable Consensus Algorithm - Diego Ongaro and John Ousterhout</a></li>
   <li><a href="http://i5on9i.blogspot.com/2016/09/raft.html">Raft 알고리즘 - 내가 알고 있는 모든 지식</a></li>
   <li><a href="http://thesecretlivesofdata.com/raft/">Raft - The Secret Lives of Data</a></li>
 </ul>
-
 
   </div>
 

@@ -9,8 +9,11 @@
   
   
   
-  <title>이더리움과 상태 머신</title>
-  <meta name="description" content="이더리움이 왜 상태머신(State machine)인가에 대해 알아본다.">
+  <title>계산이론 과목에서 보던 상태머신으로 바라본 이더리움</title>
+  <meta name="description" content="An explanation of why Ethereum is a state machine.">
+  
+    
+    <meta name="keywords" content="blockchain,ethereum,state machine">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="이더리움과 상태 머신">
+  <meta property="og:title" content="계산이론 과목에서 보던 상태머신으로 바라본 이더리움">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2022/09/10/blockchain-eth_status_machine/">
-  <meta property="og:description" content="이더리움이 왜 상태머신(State machine)인가에 대해 알아본다.">
+  <meta property="og:description" content="An explanation of why Ethereum is a state machine.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="이더리움과 상태 머신">
-  <meta name="twitter:description" content="이더리움이 왜 상태머신(State machine)인가에 대해 알아본다.">
+  <meta name="twitter:title" content="계산이론 과목에서 보던 상태머신으로 바라본 이더리움">
+  <meta name="twitter:description" content="An explanation of why Ethereum is a state machine.">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">이더리움과 상태 머신</h1>
+      <h1 class="post-title" itemprop="name headline">계산이론 과목에서 보던 상태머신으로 바라본 이더리움</h1>
     
     <p class="post-meta"><time datetime="2022-09-10T06:00:00+00:00" itemprop="datePublished">2022년 9월 10일</time> •
   
@@ -167,97 +170,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/blockchain/">blockchain</a>
+        <a href="/categories/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8/">블록체인</a>
       
     
       
@@ -290,20 +203,6 @@
  •
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -417,146 +316,8 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -670,34 +431,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
 
 </p>
@@ -724,15 +457,23 @@
 
 <p>컴퓨터 전공 학생이라면 계산이론 수업에서 이 이론을 들어보았을 것이다. 당시에는 무슨 말인지 이해가 가지 않았지만, 결국 ‘<u>하나의 프로그램이 동작하는 동안 만들어낼 수 있는 유한한 갯수의 분기점(이벤트)</u>‘를 의미한다.</p>
 
-<p><img src="https://blog.kakaocdn.net/dn/CUI3j/btrCqpbC1Sy/KefqhEInv9ozvfkkKIIOz1/img.png" alt="" /><br />
-<em>@그림 1 : 무자비하게 뻗어나가는 멀티버스의 분기점</em></p>
+<p align="center" style="color:gray">
+  <img src="https://blog.kakaocdn.net/dn/CUI3j/btrCqpbC1Sy/KefqhEInv9ozvfkkKIIOz1/img.png" alt="무자비하게 뻗어나가는 멀티버스의 분기점" />
+  <br />
+  무자비하게 뻗어나가는 멀티버스의 분기점
+</p>
+<p><br /></p>
 
 <blockquote>
   <p>위의 그림 1는 (마블빠라면 누구나 알고 있을) 로키가 정복자 캉을 죽임으로써 예상할 수 없는 여러개의 멀티버스 분기점이 쏟아져 나오는 장면이다. 사실 캉을 ‘프로그래머’로 본다면, 위의 경우는 생각만해도 끔찍한 상황이다. 프로그램이 전혀 예상하지 못한 결과를 언제라도 만들 수 있기 때문이다.</p>
 </blockquote>
 
-<p><img src="https://yrnana.dev/static/2de2bf98863ec891bb1612b11a5f5976/5a190/image.png" alt="" /><br />
-<em>@그림 2 : Finite State Machine - nana’s blog</em></p>
+<p align="center" style="color:gray">
+  <img src="https://yrnana.dev/static/2de2bf98863ec891bb1612b11a5f5976/5a190/image.png" alt="Finite State Machine" />
+  <br />
+  Finite State Machine (출처 : nana's blog)
+</p>
+<p><br /></p>
 
 <p>그래서 상태 머신(State Machine, 또는 Finite State Machine)이 존재한다. FSM은 ‘한번에 한가지 상태’만을 갖도록 설게되며, ‘상태의 변화는 Transition 이라고 불리는 특정 이벤트를 통해서만’ 가능하다.</p>
 
@@ -746,13 +487,13 @@
 
 <p>그림 2에서 동그란원은 상태를, 화살표는 이벤트를 나타낸다. 즉, Idle을 시작으로 특정 이벤트마다 정확히 하나의 분기만을 처리한다.</p>
 
-<h3>장점</h3>
+<h3>1. 장점</h3>
 
 <p>위의 그림 2는 간단한 예시를 보였지만, 실제로 프로그램은 수많은 이벤트와 다양한 상태를 포함한다. 자연스럽게 예상하지 못한 장애들이 발생할 수 있는데, 이벤트와 발생 가능한 상태가 명확하게 표현된 상태 머신을 통해 장애 발생지점을 어느정도 짐작하고 빠르게 디버깅할 수 있다.</p>
 
 <p>또한 프로그램이 상태머신으로 표현되면, 상대적으로 설계 자체를 단순화시키고 이를 문서화하기에도 편리하다 (<i>실제로 사람은 글보다 그림으로 전체적인 맥락을 더 쉽게 이해한다고 한다</i>). 즉 전체적인 코드 진행이 한눈에 명확하게 그려지기 쉬운데, 그렇기 때문에 다른 개발자가 스펙에 맞게 프로그램을 구현하기에도 편리해진다.</p>
 
-<h3>단점</h3>
+<h3>2. 단점</h3>
 
 <p>사실 단점이라기 모호하지만, 상태머신을 적용할 수 있는 오픈소스 라이브러리가 C 또는 C++로 작성되어 있다. 타 언어로는 오픈소스의 라이브러리를 통해 이를 적용할 수 없기 때문에 직접 구현해야 한다.</p>
 
@@ -767,10 +508,6 @@
   <li>상태는 이벤트의 성공으로 인한 변화, 혹은 실패해서 이전 상태로 회귀하는 두 가지 경우만 존재</li>
   <li>결국 이더리움의 상태는 이벤트의 성공 또는 실패에 따라 예측이 가능하며, 각 경우에 따라 변화할 수 있는 상태 또한 정해져 있음</li>
 </ul>
-
-<p><br /></p>
-
-<h2>참고자료</h2>
 
   </div>
 

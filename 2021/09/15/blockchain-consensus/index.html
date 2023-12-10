@@ -9,8 +9,11 @@
   
   
   
-  <title>합의 알고리즘의 비교 (BFT vs CFT)</title>
-  <meta name="description" content="합의알고리즘은 크게 BFT(Byzantine Fault Tolerance)와 CFT(Crash Fault Tolerance)로 구분된다. 여기서 FT(Fault Tolerance)는 장애가 발생할 경우에도 시스템을 그대로 유지하여 서비스를 제공하기 위해 어디까지 충돌 또는 장애를 허용할지를 나타낸다. 일반적으로 CFT는 프라이빗 블록체인에, BFT는 퍼블릭 블록체인에서 사용된다.">
+  <title>합의 알고리즘 비교 (BFT vs CFT)</title>
+  <meta name="description" content="Description and comparison of bft and cft consensus algorithms">
+  
+    
+    <meta name="keywords" content="algorithm,consensus,blockchain,hyperledger fabric,cft,etheruem,bft">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="합의 알고리즘의 비교 (BFT vs CFT)">
+  <meta property="og:title" content="합의 알고리즘 비교 (BFT vs CFT)">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2021/09/15/blockchain-consensus/">
-  <meta property="og:description" content="합의알고리즘은 크게 BFT(Byzantine Fault Tolerance)와 CFT(Crash Fault Tolerance)로 구분된다. 여기서 FT(Fault Tolerance)는 장애가 발생할 경우에도 시스템을 그대로 유지하여 서비스를 제공하기 위해 어디까지 충돌 또는 장애를 허용할지를 나타낸다. 일반적으로 CFT는 프라이빗 블록체인에, BFT는 퍼블릭 블록체인에서 사용된다.">
+  <meta property="og:description" content="Description and comparison of bft and cft consensus algorithms">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="합의 알고리즘의 비교 (BFT vs CFT)">
-  <meta name="twitter:description" content="합의알고리즘은 크게 BFT(Byzantine Fault Tolerance)와 CFT(Crash Fault Tolerance)로 구분된다. 여기서 FT(Fault Tolerance)는 장애가 발생할 경우에도 시스템을 그대로 유지하여 서비스를 제공하기 위해 어디까지 충돌 또는 장애를 허용할지를 나타낸다. 일반적으로 CFT는 프라이빗 블록체인에, BFT는 ...">
+  <meta name="twitter:title" content="합의 알고리즘 비교 (BFT vs CFT)">
+  <meta name="twitter:description" content="Description and comparison of bft and cft consensus algorithms">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">합의 알고리즘의 비교 (BFT vs CFT)</h1>
+      <h1 class="post-title" itemprop="name headline">합의 알고리즘 비교 (BFT vs CFT)</h1>
     
     <p class="post-meta"><time datetime="2021-09-15T06:00:00+00:00" itemprop="datePublished">2021년 9월 15일</time> •
   
@@ -167,6 +170,35 @@
       
     
       
+        <a href="/categories/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8/">블록체인</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
     
       
     
@@ -257,15 +289,11 @@
       
     
       
-        <a href="/categories/blockchain/">blockchain</a>
-      
     
       
     
       
-    
-      
-    
+        <a href="/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a>
       
     
       
@@ -304,6 +332,222 @@
       
     
       
+    
+      
+        <a href="/tags/ethereum/">ethereum</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+        <a href="/tags/hyperledger-fabric/">hyperledger fabric</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
     
       
     
@@ -417,82 +661,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
 
 </p>
@@ -501,7 +669,7 @@
   <div class="post-content" itemprop="articleBody">
     <p><br /></p>
 
-<h2>합의 알고리즘의 구분</h2>
+<h2>합의 알고리즘의 종류</h2>
 
 <p>블록체인을 지탱하고 있는 가장 큰 특징이라고 한다면 합의 알고리즘일 것이다. 거래 내역이 저장된 블록들이 하나의 체인으로 연결되어 있는데, 이렇게 만들어진 블록들의 체인이 여러 노드에 저장되어 위변조를 방지할 수 있게 된다. 물론 이를 위해서 모든 노드들이 거래 내역에 대한 상태(State)를 동일하게 유지해야 하는데, 이를 위해 합의 알고리즘이 필요하게 된다.</p>
 
@@ -568,9 +736,13 @@
 
 <p>Hyperledger Fabric에서는 Kafka-Zookeeper 방식을 deprecated하고 Raft 방식을 기본(default) 합의 알고리즘으로 지정하였다.</p>
 
-<p><br /></p>
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
+
 <ul>
   <li><a href="https://mysnu.org/m/community/newtechnology.php?search_order=&amp;search_part=&amp;c_cate1=&amp;mode=v&amp;idx=11700&amp;thisPageNum=">가상화폐 기반인 블록체인 기술 연구 개발의 시스템 응용과 이슈 - 서울대학교 엄현상 교수</a></li>
   <li><a href="https://www.mk.co.kr/news/economy/view/2021/07/671585/">수학 문제 푸는 PoW, 지분 따라 돈 주는 PoS - 매일경제</a></li>

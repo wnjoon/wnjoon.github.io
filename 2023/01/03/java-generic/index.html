@@ -9,8 +9,11 @@
   
   
   
-  <title>유연한 타입 사용을 지원하는 제네릭(Generic) 알아보기</title>
-  <meta name="description" content="정적 언어의 하나인 자바에는 클래스 내부에서 사용될 타입을 클래스의 외부에서 적용하도록 하는 제네릭(Generic)이라는 것이 존재한다. 제네릭을 사용하면 컴파일 시점에 타입의 오류를 막을 수도 있고, 클래스 외부에서 타입을 제공하기 때문에 굳이 내부에서 별도의 타입 체크를 할 필요가 없다. 그리고 가장 중요한 코드의 재사용성이 높아지는 장점이 있다.">
+  <title>Java에서 유연한 타입 사용을 지원하는 제네릭(Generic)</title>
+  <meta name="description" content="An explanation of generics that support flexible type usage in Java.">
+  
+    
+    <meta name="keywords" content="java">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="유연한 타입 사용을 지원하는 제네릭(Generic) 알아보기">
+  <meta property="og:title" content="Java에서 유연한 타입 사용을 지원하는 제네릭(Generic)">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/01/03/java-generic/">
-  <meta property="og:description" content="정적 언어의 하나인 자바에는 클래스 내부에서 사용될 타입을 클래스의 외부에서 적용하도록 하는 제네릭(Generic)이라는 것이 존재한다. 제네릭을 사용하면 컴파일 시점에 타입의 오류를 막을 수도 있고, 클래스 외부에서 타입을 제공하기 때문에 굳이 내부에서 별도의 타입 체크를 할 필요가 없다. 그리고 가장 중요한 코드의 재사용성이 높아지는 장점이 있다.">
+  <meta property="og:description" content="An explanation of generics that support flexible type usage in Java.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="유연한 타입 사용을 지원하는 제네릭(Generic) 알아보기">
-  <meta name="twitter:description" content="정적 언어의 하나인 자바에는 클래스 내부에서 사용될 타입을 클래스의 외부에서 적용하도록 하는 제네릭(Generic)이라는 것이 존재한다. 제네릭을 사용하면 컴파일 시점에 타입의 오류를 막을 수도 있고, 클래스 외부에서 타입을 제공하기 때문에 굳이 내부에서 별도의 타입 체크를 할 필요가 없다. 그리고 가장 중요한 코드의 재사용성이 높아지는 장점이 있다.">
+  <meta name="twitter:title" content="Java에서 유연한 타입 사용을 지원하는 제네릭(Generic)">
+  <meta name="twitter:description" content="An explanation of generics that support flexible type usage in Java.">
   
   
 
@@ -76,97 +79,11 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">유연한 타입 사용을 지원하는 제네릭(Generic) 알아보기</h1>
+      <h1 class="post-title" itemprop="name headline">Java에서 유연한 타입 사용을 지원하는 제네릭(Generic)</h1>
     
     <p class="post-meta"><time datetime="2023-01-03T06:00:00+00:00" itemprop="datePublished">2023년 1월 3일</time> •
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -280,10 +197,6 @@
     
       
     
-      
-    
-      
-    
   
 
 
@@ -364,97 +277,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
         <a href="/tags/language/">language</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
       
     
       
@@ -662,9 +485,9 @@
 <h3>4. 클래스에서의 사용</h3>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">SampleClass</span><span class="o">&lt;</span><span class="no">E</span><span class="o">&gt;</span> <span class="o">{</span>
-    
+
     <span class="c1">// 제네릭 타입을 갖는 변수</span>
-    <span class="kd">private</span> <span class="no">E</span> <span class="n">elem</span><span class="o">;</span> 
+    <span class="kd">private</span> <span class="no">E</span> <span class="n">elem</span><span class="o">;</span>
 
     <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="no">E</span> <span class="n">elem</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">elem</span> <span class="o">=</span> <span class="n">elem</span><span class="o">;</span>
@@ -679,7 +502,7 @@
 <span class="kd">class</span> <span class="nc">SampleClass2</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="no">K</span> <span class="n">elem1</span><span class="o">;</span>
     <span class="kd">private</span> <span class="no">V</span> <span class="n">elem2</span><span class="o">;</span>
-    
+
     <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="no">K</span> <span class="n">elem1</span><span class="o">,</span> <span class="no">V</span> <span class="n">elem2</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">elem1</span> <span class="o">=</span> <span class="n">elem1</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">elem2</span> <span class="o">=</span> <span class="n">elem2</span><span class="o">;</span>
@@ -724,9 +547,9 @@
 <p>위에서 만든 SampleClass 내부에 제네릭 타입을 갖는 메소드를 새롭게 추가해보자.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">SampleClass</span><span class="o">&lt;</span><span class="no">E</span><span class="o">&gt;</span> <span class="o">{</span>
-    
+
     <span class="c1">// 제네릭 타입을 갖는 변수</span>
-    <span class="kd">private</span> <span class="no">E</span> <span class="n">elem</span><span class="o">;</span> 
+    <span class="kd">private</span> <span class="no">E</span> <span class="n">elem</span><span class="o">;</span>
 
     <span class="c1">// 동일 내용 생략</span>
     <span class="o">...</span>
@@ -742,8 +565,8 @@
         <span class="nc">SampleClass</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">sc1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SampleClass</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
         <span class="nc">SampleClass</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">sc2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SampleClass</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
 
-        <span class="nc">Print</span><span class="o">(</span><span class="n">sc1</span><span class="o">.</span><span class="na">sampleMethod</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span> <span class="c1">// (1)  </span>
-        <span class="nc">Print</span><span class="o">(</span><span class="n">sc1</span><span class="o">.</span><span class="na">sampleMethod</span><span class="o">(</span><span class="s">"good"</span><span class="o">).</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span> <span class="c1">// (2) </span>
+        <span class="nc">Print</span><span class="o">(</span><span class="n">sc1</span><span class="o">.</span><span class="na">sampleMethod</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span> <span class="c1">// (1)</span>
+        <span class="nc">Print</span><span class="o">(</span><span class="n">sc1</span><span class="o">.</span><span class="na">sampleMethod</span><span class="o">(</span><span class="s">"good"</span><span class="o">).</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span> <span class="c1">// (2)</span>
         <span class="nc">Print</span><span class="o">(</span><span class="n">sc1</span><span class="o">.</span><span class="na">sampleMethod</span><span class="o">(</span><span class="n">sc2</span><span class="o">).</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span> <span class="c1">// (3)</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -752,6 +575,7 @@
 <p>위의 예시에서 우리는 SampleClass를 제네릭 타입을 갖도록 선언하였고, 각 String, Integer 타입을 갖는 객체를 생성하였다. 그래서 SampleClass 내부에 있는 E 타입을 갖는 elem 변수는 String 또는 Integer 타입이 될텐데, 자세히보면 sampleMethod는 파라미터에 별도의 제네릭 타입을 명시해두었다. 즉, 함수의 선언 시점에 입력한 파라미터의 타입에 맞게 타입 T가 설정된다.</p>
 
 <p>위의 코드 결과는 아래와 같을 것이다.</p>
+
 <ul>
   <li>(1) : java.lang.Integer</li>
   <li>(2) : java.lang.String</li>
@@ -831,6 +655,7 @@
 </code></pre></div></div>
 
 <p>위의 예시는 컴파일 중 에러를 출력한다. 아래의 순서를 잘 따라가보면 이해할 수 있을 것이다.</p>
+
 <ol>
   <li>제네릭 타입으로 새롭게 생성된 collection 객체에 add를 한다. add가 가능한 객체는 collection의 타입 또는 그의 자식 타입이어야 한다.</li>
   <li>하지만 와일드카드로 선언되었기 때문에 collection 객체는 무제한의 범위를 갖는다.</li>
@@ -849,9 +674,9 @@
 
 <h4>7.1. 상한 경계 와일드카드</h4>
 
-<p>extends 키워드를 통해 와일드카드 타입의 최상위 타입을 정의한다. 아래의 예시를 보면 이해가 더 쉬울 것이다. <u>*얼마전 어처구니 없는 결말로 화제를 모았던 재벌집 막내아들의 진양철-진영기-진성준 3대의 객체를 기준으로 설명해본다.*</u></p>
+<p>extends 키워드를 통해 와일드카드 타입의 최상위 타입을 정의한다. 아래의 예시를 보면 이해가 더 쉬울 것이다. <u>_얼마전 어처구니 없는 결말로 화제를 모았던 재벌집 막내아들의 진양철-진영기-진성준 3대의 객체를 기준으로 설명해본다._</u></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>    
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">for</span><span class="o">(</span><span class="n">진성준</span> <span class="n">e</span> <span class="o">:</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span><span class="n">print</span><span class="o">}</span>  <span class="c1">// 컴파일 ERROR!</span>
     <span class="k">for</span><span class="o">(</span><span class="n">진영기</span> <span class="n">e</span> <span class="o">:</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span><span class="n">print</span><span class="o">}</span>
     <span class="k">for</span><span class="o">(</span><span class="n">진양철</span> <span class="n">e</span> <span class="o">:</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span><span class="n">print</span><span class="o">}</span>
@@ -876,8 +701,8 @@
 <p>super 키워드를 사용하여 와일드카드가 사용할 수 있는 최하위 타입을 정의한다. 위에서 전부 컴파일 오류를 뱉어낸 예시를 다시 살펴본다.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">진성준</span><span class="o">());</span>    
-    <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">진영기</span><span class="o">());</span>    
+    <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">진성준</span><span class="o">());</span>
+    <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">진영기</span><span class="o">());</span>
     <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">진양철</span><span class="o">());</span>    <span class="c1">// 컴파일 ERROR!</span>
     <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Object</span><span class="o">());</span>  <span class="c1">// 컴파일 ERROR!</span>
 <span class="o">}</span>
@@ -885,7 +710,7 @@
 
 <p>컬렉션 c가 의미하는 내용이 진영기 및 진영기의 부모(최하위) 타입이라고 할 때, 컬렉션은 진성준 또는 진영기 자신이면 안전하게 컬렉션에 추가할 수 있게 된다. 즉 범위가 제한된 상태라는 것이 인증되기 때문에, 그의 부모 타입에 대해서만 컴파일 에러가 발생하게 된다. 그런데 재미있는것은 오히려 print의 경우에는 상황이 다르다.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>    
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">for</span><span class="o">(</span><span class="n">진성준</span> <span class="n">e</span> <span class="o">:</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span><span class="n">print</span><span class="o">}</span>   <span class="c1">// 컴파일 ERROR!</span>
     <span class="k">for</span><span class="o">(</span><span class="n">진영기</span> <span class="n">e</span> <span class="o">:</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span><span class="n">print</span><span class="o">}</span>   <span class="c1">// 컴파일 ERROR!</span>
     <span class="k">for</span><span class="o">(</span><span class="n">진양철</span> <span class="n">e</span> <span class="o">:</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span><span class="n">print</span><span class="o">}</span>   <span class="c1">// 컴파일 ERROR!</span>
@@ -898,21 +723,25 @@
 <h4>7.3. PECS(Producer-Extends, Consumer-Super) 공식</h4>
 
 <p><strong>사실 위에 복잡한 예시보다 이게 더 간단하고 이해가 쉬울 것 같지만</strong>, Effective Java에서는 와일드카드를 사용할 때의 혼란을 막기 위해 PECS라는 공식을 사용할 것을 권장한다.</p>
+
 <ul>
   <li>extends : 컬렉션으로부터 와일드 카드 타입의 객체를 생성(produce) -&gt; print</li>
   <li>super : 가지고 있는 객체를 컬렉션에 사용(consumer) -&gt; add</li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>    
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">for</span><span class="o">(</span><span class="n">진영기</span> <span class="n">e</span> <span class="o">:</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span><span class="n">print</span><span class="o">}</span>
 <span class="o">}</span>
 
 <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">진영기</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">진영기</span><span class="o">());</span>    
+    <span class="n">c</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">진영기</span><span class="o">());</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><br /></p>
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
 

@@ -9,8 +9,11 @@
   
   
   
-  <title>EVM(Ethereum Virtual Machine)에 대해 알아보기</title>
-  <meta name="description" content="EVM은 닷넷(.NET) 프레임워크 가상 머신 또는 자바의 JVM(Java Virtual Machine)과 같이 바이트코드로 컴파일된 프로그래밍 언어를 해석하는 머신으로, 솔리디티로 작성된 내용에 대해 이를 처리한다. 즉 이더리움 상에서 스마트 컨트랙트를 배포하고 이를 실행하는 곳으로, 튜링 완전 상태 머신과 유사한 형태를 지닌다.">
+  <title>이더리움의 가상머신, EVM(Ethereum Virtual Machine)</title>
+  <meta name="description" content="Description of EVM, which stands for Ethereum’s virtual machine.">
+  
+    
+    <meta name="keywords" content="blockchain,ethereum,virtual machine">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="EVM(Ethereum Virtual Machine)에 대해 알아보기">
+  <meta property="og:title" content="이더리움의 가상머신, EVM(Ethereum Virtual Machine)">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/01/31/blockchain-evm/">
-  <meta property="og:description" content="EVM은 닷넷(.NET) 프레임워크 가상 머신 또는 자바의 JVM(Java Virtual Machine)과 같이 바이트코드로 컴파일된 프로그래밍 언어를 해석하는 머신으로, 솔리디티로 작성된 내용에 대해 이를 처리한다. 즉 이더리움 상에서 스마트 컨트랙트를 배포하고 이를 실행하는 곳으로, 튜링 완전 상태 머신과 유사한 형태를 지닌다.">
+  <meta property="og:description" content="Description of EVM, which stands for Ethereum’s virtual machine.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="EVM(Ethereum Virtual Machine)에 대해 알아보기">
-  <meta name="twitter:description" content="EVM은 닷넷(.NET) 프레임워크 가상 머신 또는 자바의 JVM(Java Virtual Machine)과 같이 바이트코드로 컴파일된 프로그래밍 언어를 해석하는 머신으로, 솔리디티로 작성된 내용에 대해 이를 처리한다. 즉 이더리움 상에서 스마트 컨트랙트를 배포하고 이를 실행하는 곳으로, 튜링 완전 상태 머신과 유사한 형태를 지닌다.">
+  <meta name="twitter:title" content="이더리움의 가상머신, EVM(Ethereum Virtual Machine)">
+  <meta name="twitter:description" content="Description of EVM, which stands for Ethereum’s virtual machine.">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">EVM(Ethereum Virtual Machine)에 대해 알아보기</h1>
+      <h1 class="post-title" itemprop="name headline">이더리움의 가상머신, EVM(Ethereum Virtual Machine)</h1>
     
     <p class="post-meta"><time datetime="2023-01-31T06:00:00+00:00" itemprop="datePublished">2023년 1월 31일</time> •
   
@@ -167,97 +170,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/blockchain/">blockchain</a>
+        <a href="/categories/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8/">블록체인</a>
       
     
       
@@ -290,20 +203,6 @@
  •
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -417,82 +316,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
 
 </p>
@@ -501,20 +324,20 @@
   <div class="post-content" itemprop="articleBody">
     <p><br /></p>
 
-<h2>가상머신 (Virtual Machine)</h2>
+<h2>EVM (이더리움 가상 머신)</h2>
 
 <p>가상머신은 가상머신을 생성하고 실행하는 프로세스를 의미하는 ‘하이퍼바이저(Hyperviser)’에 의해 실제 컴퓨터 또는 운영체제를 가상화하는 것을 의미한다. 실제 컴퓨터를 가상화하는 일반적인 가상머신은 VirtualBox, QEMU, KVM(Kernel-based) 등이 있다.</p>
 
 <p>하지만 가상머신이 단순히 ‘계산의 목적’만을 갖고 생성되기도 한다. 하나의 예로 Java를 살펴보자. Java는 어떠한 OS 또는 하드웨어에 구속받지 않고 원하는 결과값을 실행할 수 있어야 한다. 이를 위해 JVM이라는 가상머신에서 코드를 실행한다. 비슷한 예로 닷넷(.NET)을 사용하는 C#이 있다. 이러한 고급 프로그래밍 언어는 가상머신이라는 추가적인 추상화 계층위에서 실행되어, 해당 가상머신의 바이트코드 명령어 집합으로 컴파일된다.</p>
 
+<p>EVM은 스마트 컨트랙트 작성이 가능한 솔리디티 등 여러 고수준의 프로그램이 언어를 컴파일하여 자체적인 바이트 코드 명령어 집합을 실행할 수 있도록 한다.</p>
+
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/216258316-8d4741e6-8f50-4eef-b723-89af97e5d0f5.png" alt="" />
+  <br />
+   EVM의 아키텍처 및 실행 컨텍스트 (출처 : Mastering Ethereum)
+</p>
 <p><br /></p>
-
-<h2>EVM (이더리움 가상 머신)</h2>
-
-<p>이처럼 EVM은 스마트 컨트랙트 작성이 가능한 솔리디티 등 여러 고수준의 프로그램이 언어를 컴파일하여 자체적인 바이트 코드 명령어 집합을 실행할 수 있도록 한다.</p>
-
-<p><img src="https://user-images.githubusercontent.com/39115630/216258316-8d4741e6-8f50-4eef-b723-89af97e5d0f5.png" alt="image" />  <br />
-<em>@그림 1 : EVM의 아키텍처 및 실행 컨텍스트 - Mastering Ethereum</em></p>
 
 <h3>1. 튜링 완전 상태 머신</h3>
 
@@ -532,8 +355,12 @@ PUSH result
 
 <p>위의 코드를 스택으로 그려보면, 아래와 같이 나올 것이다. 여기서 SP는 Stack Pointer로, 스택의 가장 상단(값이 들어오고 나가는 출입구)을 의미한다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/216258388-88f01248-1d45-492d-83f7-06b158806121.png" alt="image" /> <br />
-<em>@그림 2 : 스택에서 두 값을 더하는 경우의 그림 - Ellie</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/216258388-88f01248-1d45-492d-83f7-06b158806121.png" alt="" />
+  <br />
+  스택에서 두 값을 더하는 경우의 그림 (출처 : Ellie)
+</p>
+<p><br /></p>
 
 <p>EVM 뿐만 아니라 JVM과 같은 가상머신에서도 스택 기반의 아키텍처를 사용하는데, 그렇다면 스택을 사용할 때의 장점은 무엇일까?</p>
 
@@ -565,6 +392,7 @@ PUSH result
 <h2>EVM 명령어 집합</h2>
 
 <p>EVM은 일반적인 프로그래밍 언어가 갖는 대부분 작업의 바이트코드 연산을 제공한다.</p>
+
 <ul>
   <li>산술 및 비트 논리 연산</li>
   <li>실행 컨텍스트 조회</li>
@@ -574,6 +402,7 @@ PUSH result
 </ul>
 
 <p>추가로 이더리움만의 특성(계정, 가스)에 접근할 수 있는 기능도 존재한다.</p>
+
 <ul>
   <li>계정의 주소 및 잔액 정보</li>
   <li>블록 번호 및 현재 가스 가격</li>
@@ -633,6 +462,7 @@ PUSH result
 <h3>4. 컨트랙트 배포</h3>
 
 <p>트랜잭션의 수신자 주소(to)가 0x00(비어있는)이면, 새로운 컨트랙트를 생성한다. 생성 단계를 간략하게 살펴보면 아래와 같다.</p>
+
 <ol>
   <li>만약 컨트랙트가 payable 하다면, 보유하고 있어야 할 이더가 값으로 전달되어 있는지 확인한다.</li>
   <li>트랜잭션의 초기화 필드 내용(초기화 바이트코드)을 실행한다.</li>
@@ -640,6 +470,7 @@ PUSH result
 </ol>
 
 <p>위의 순서를 잘 보면, 컨트랙트 생성 과정에 2가지 바이트코드가 존재한다는 것을 알 수 있다.</p>
+
 <ul>
   <li>배포(deployment)/초기화(init) 바이트코드
     <ul>
@@ -655,12 +486,17 @@ PUSH result
 
 <p>결국 런타임 바이트코드는 배포 바이트코드의 하위 집합으로, 완전히 포함되는 위치에 있음을 알 수 있다. 컨트랙트 주소 생성 과정에 대해서는 ‘<a href="https://wnjoon.github.io/2022/09/11/blockchain-smartcontract_creation/">스마트 컨트랙트의 주소는 어떻게 만들어지는가?</a>‘를 참조하자.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/216258626-40e873ee-732d-4819-ad2c-9ed5269544f9.png" alt="image" /><br />
-<em>@그림 3 : Opcode of RETURN - Ethereum Yellow Paper</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/216258626-40e873ee-732d-4819-ad2c-9ed5269544f9.png" alt="" />
+  <br />
+  Opcode of RETURN (출처 : Ethereum Yellow Paper)
+</p>
+<p><br /></p>
 
 <p>이더리움 황서의 Appendix H에 보면, 위와 같이 RETURN opcode를 확인할 수 있다. 결국 위의 정의에서 표현하고자 하는것은 결과 값이 가상머신 메모리 상에 존재하게 되고 이 때의 오프셋은 스택의 맨 위 값으로부터 결정되며, 길이는 그 아래인 두번째 값에서부터 결정된다는 것이다.</p>
 
 <p>그러므로 초기화 바이트코드는 아래와 같은 순서로 진행된다.</p>
+
 <ul>
   <li>필요한 컨트랙트 주소의 상태값을 변경한다. 이 때, 일부 상태 변수는 초기화될 수 있다.</li>
   <li>만들어진 런타임 바이트코드를 메모리에 배치한다.</li>
@@ -669,7 +505,10 @@ PUSH result
   <li>RETURN 한다.</li>
 </ul>
 
-<p><br /></p>
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
 

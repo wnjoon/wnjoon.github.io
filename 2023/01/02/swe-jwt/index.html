@@ -9,8 +9,11 @@
   
   
   
-  <title>JWT(JSON Web Token)에 대해 알아보기</title>
-  <meta name="description" content="웹서비스에는 다양한 인증방식이 존재한다. 이 중 JWT는 RFC 7519 웹 표준을 지키는 규약으로, JSON 형식을 갖는 토큰을 통해 사용자와 서비스 사이에 간단하면서도 안전한 인증 방식을 제공한다. JSON 기반이기 때문에 당연히 대부분의 프로그래밍 언어에서 사용이 가능하며, 전달 방식도 HTTP의 헤더에 넣거나 URL에 파라미터를 활용하는 등 다양하다. 본 포스팅에서는 JWT에 대해 간략하게 알아보도록 한다.">
+  <title>사용자와 서비스 간 간단한 인증방식을 제공하는 JWT(JSON Web Token)</title>
+  <meta name="description" content="Description of JWT, which provides a simple authentication method between users and services.">
+  
+    
+    <meta name="keywords" content="software architecture,security,authentication,jwt">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="JWT(JSON Web Token)에 대해 알아보기">
+  <meta property="og:title" content="사용자와 서비스 간 간단한 인증방식을 제공하는 JWT(JSON Web Token)">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/01/02/swe-jwt/">
-  <meta property="og:description" content="웹서비스에는 다양한 인증방식이 존재한다. 이 중 JWT는 RFC 7519 웹 표준을 지키는 규약으로, JSON 형식을 갖는 토큰을 통해 사용자와 서비스 사이에 간단하면서도 안전한 인증 방식을 제공한다. JSON 기반이기 때문에 당연히 대부분의 프로그래밍 언어에서 사용이 가능하며, 전달 방식도 HTTP의 헤더에 넣거나 URL에 파라미터를 활용하는 등 다양하다. 본 포스팅에서는 JWT에 대해 간략하게 알아보도록 한다.">
+  <meta property="og:description" content="Description of JWT, which provides a simple authentication method between users and services.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="JWT(JSON Web Token)에 대해 알아보기">
-  <meta name="twitter:description" content="웹서비스에는 다양한 인증방식이 존재한다. 이 중 JWT는 RFC 7519 웹 표준을 지키는 규약으로, JSON 형식을 갖는 토큰을 통해 사용자와 서비스 사이에 간단하면서도 안전한 인증 방식을 제공한다. JSON 기반이기 때문에 당연히 대부분의 프로그래밍 언어에서 사용이 가능하며, 전달 방식도 HTTP의 헤더에 넣거나 URL에 파라미터를 활용하는 등 다...">
+  <meta name="twitter:title" content="사용자와 서비스 간 간단한 인증방식을 제공하는 JWT(JSON Web Token)">
+  <meta name="twitter:description" content="Description of JWT, which provides a simple authentication method between users and services.">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">JWT(JSON Web Token)에 대해 알아보기</h1>
+      <h1 class="post-title" itemprop="name headline">사용자와 서비스 간 간단한 인증방식을 제공하는 JWT(JSON Web Token)</h1>
     
     <p class="post-meta"><time datetime="2023-01-02T06:00:00+00:00" itemprop="datePublished">2023년 1월 2일</time> •
   
@@ -171,103 +174,13 @@
       
     
       
-    
+        <a href="/categories/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98/">아키텍처</a>
       
     
       
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/swe/">swe</a>
       
     
       
@@ -290,80 +203,6 @@
  •
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -477,22 +316,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
     
     
@@ -567,507 +390,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/%EC%9D%B8%EC%A6%9D/">인증</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/token/">token</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/json/">json</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+        <a href="/tags/authentication/">authentication</a>
       
     
       
@@ -1116,7 +439,7 @@
   <div class="post-content" itemprop="articleBody">
     <p><br /></p>
 
-<h2>다양한 인증 방식</h2>
+<h2>웹서비스 인증 방식</h2>
 
 <p>웹서비스의 인증방식에는 크게 API Key, OAuth2, JWT(JSON Web Token)가 있다.</p>
 
@@ -1136,7 +459,7 @@
 
 <p><br /></p>
 
-<h2>JWT에 대해 좀 더 알아보기</h2>
+<h2>JWT(JSON Web Token)</h2>
 
 <p>JWT는 RFC 7519 웹 표준을 지키는 규약으로, JSON 형식을 갖는 토큰을 통해 사용자와 서비스 사이에 간단하면서도 안전한 인증 방식을 제공한다. JSON 기반이기 때문에 당연히 대부분의 주류 프로그래밍 언어(C, Java, Python, Go 등)에서 사용이 가능하며, 전달 방식도 HTTP의 헤더에 넣거나 URL에 파라미터를 활용하는 등 다양하다.</p>
 
@@ -1144,25 +467,34 @@
 
 <p>OAuth와 마찬가지로 Access Token과 Refresh Token을 사용한다. 보안 이슈 상 비교적 짧은 유효기간을 갖는 Access Token의 불편함을 해결하기 위해 상대적으로 여유있는 유효기간을 갖는 Refresh Token을 사용하여 추가적인 로그인 과정 없이 Refresh Token을 이용하여 Access Token을 새로 발급할 수 있다. 토큰 자체의 탈취에 대한 보안 이슈를 완벽하게 막을 수는 없지만, 적어도 Access Token의 짧은 유효기간을 통해 공격 가능한 시간범위를 줄이고자 한다고 보면 좋다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210500898-50103913-aaa4-4e16-bfc3-a96e21a5d05d.png" alt="image" /><br />
-<em>@그림 1 : JWT 동작 방식 - gyoogle.dev</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/210500898-50103913-aaa4-4e16-bfc3-a96e21a5d05d.png" alt="" />
+  <br />
+   JWT 동작 방식 (출처 : gyoogle.dev)
+</p>
+<p><br /></p>
 
 <h3>2. 구성 요소</h3>
 
 <p>JWT는 ‘.’ 구분자를 기분으로 구성되며, 3가지 문자열로 이루어져 있다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210493679-43d11fbb-e57b-4cb8-b3f0-d73730acc44c.png" alt="image" /><br />
-<em>@그림 2 : JWT 구성 요소 - veloport.log</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/210493679-43d11fbb-e57b-4cb8-b3f0-d73730acc44c.png" alt="" />
+  <br />
+   JWT 구성 요소  (출처 : veloport.log)
+</p>
+<p><br /></p>
 
 <h4>2.1. Header</h4>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-	</span><span class="nl">"typ"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
-	</span><span class="nl">"alg"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <p>헤더는 typ, alg 두가지 정보를 포함한다.</p>
+
 <ul>
   <li>typ : 토큰의 타입. JWT이기 때문에 해당 내용이 들어가있다.</li>
   <li>alg : 해싱 알고리즘. 기본적으로 HMAC SHA256 또는 RSA를 사용하며, 토큰을 검증할 때 사용하는 signature에 적용된다. 위 예시에서는 HMAC SHA256이 사용되어 hs256이라고 적혀있다.</li>
@@ -1173,11 +505,11 @@
 <p>토큰에 담기는 정보를 페이로드라고 한다.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1485270000000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"https://example.com/jwt_claims/is_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11028373727102"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wallee"</span><span class="w">
+  </span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1485270000000"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"https://example.com/jwt_claims/is_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11028373727102"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wallee"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
@@ -1285,8 +617,8 @@ token <span class="o">=</span> encodedMessage + <span class="s2">"."</span> + si
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dependencies <span class="o">{</span>
    ...
-   implementation group: <span class="s1">'io.jsonwebtoken'</span>, name: <span class="s1">'jjwt-api'</span>, version: <span class="s1">'0.11.2'</span>	
-   runtimeOnly group: <span class="s1">'io.jsonwebtoken'</span>, name: <span class="s1">'jjwt-impl'</span>, version: <span class="s1">'0.11.2'</span>	
+   implementation group: <span class="s1">'io.jsonwebtoken'</span>, name: <span class="s1">'jjwt-api'</span>, version: <span class="s1">'0.11.2'</span>
+   runtimeOnly group: <span class="s1">'io.jsonwebtoken'</span>, name: <span class="s1">'jjwt-impl'</span>, version: <span class="s1">'0.11.2'</span>
    runtimeOnly group: <span class="s1">'io.jsonwebtoken'</span>, name: <span class="s1">'jjwt-jackson'</span>, version: <span class="s1">'0.11.2'</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -1360,7 +692,7 @@ token <span class="o">=</span> encodedMessage + <span class="s2">"."</span> + si
 		<span class="c1">// 32글자 이상의 비밀키를 입력해주어야 한다</span>
 		<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"wallee"</span><span class="o">,</span> <span class="s">"secretkeyisheretousenowsecretkeyisheretousenowsecretkeyisheretousenow"</span><span class="o">);</span>
 		<span class="nc">Token</span> <span class="n">token</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Token</span><span class="o">();</span>
-		
+
 		<span class="nc">String</span> <span class="n">jwt</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="na">createToken</span><span class="o">(</span><span class="s">"walleeid"</span><span class="o">,</span> <span class="n">user</span><span class="o">);</span>
 		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">jwt</span><span class="o">);</span>
 
@@ -1381,10 +713,17 @@ eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ3YWxsZWVpZCIsInVzZXJuYW1lIjoid2FsbGVlIiwiaHR0cHM
 
 <p>위의 내용을 <a href="https://jwt.io/">jwt.io</a>에 조회해보면 정상 결과를 얻을 수 있다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/39115630/210508616-695d9943-6d69-4ba3-9d2e-fc479b20df91.png" alt="image" /><br />
-<em>@그림 3 : jwt.io에서 확인한 JWT 생성 결과</em></p>
-
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/210508616-695d9943-6d69-4ba3-9d2e-fc479b20df91.png" alt="" />
+  <br />
+   jwt.io에서 확인한 JWT 생성 결과
+</p>
 <p><br /></p>
+
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
 
