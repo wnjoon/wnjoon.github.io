@@ -1,12 +1,13 @@
 ---
 layout: post
-title:  "맥OS에서 sed를 사용할 때의 문제점 해결" 
+title: "맥OS에서 sed를 사용할 때의 오류 해결방법"
 excerpt: "sed는 유닉스 계열의 OS에서 손쉽게 파일 내부의 특정 값을 수정할 수 있는 명령어다. 그런데 말입니다(?) 혹시 command expects \ followed by text 라는 글을 보신적이 있으신가요?"
-date:   2023-07-05 15:00:00 +0900
-categories: os
-tags: [mac, linux]
+description: "How to resolve errors when parsing strings using sed on Mac OS."
+date: 2023-07-05 15:00:00 +0900
+categories: 맥쓰사
+tags: [mac]
+keywords: [mac]
 comments: true
-
 ---
 
 <br>
@@ -22,7 +23,7 @@ comments: true
 
 ## 맥OS에서 sed 사용하기
 
-config.json 파일의 \_id\_ 값을 입력받은 파라미터로 변경하기 위해 아래와 같이 스크립트를 작성했다. 
+config.json 파일의 \_id\_ 값을 입력받은 파라미터로 변경하기 위해 아래와 같이 스크립트를 작성했다.
 
 ```shell
 $ sed -i "s|_id_|${ID}|g" "config.json"
@@ -63,15 +64,10 @@ $ echo PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH" >> ~/.zshrc
 ```
 
 <br>
+<br>
 
-## 참고
+---
+
+## 참고자료
 
 - [HOW TO FIX THE “SED COMMAND EXPECTS \” ERROR ON MAC OS](https://ben.lobaugh.net/blog/205337/how-to-fix-the-sed-command-expects-error-on-mac-os)
-
-
-
-
-
-
-
-

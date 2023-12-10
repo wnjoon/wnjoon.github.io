@@ -1,19 +1,20 @@
 ---
 layout: post
-title:  "스마트 컨트랙트의 사이즈를 줄이는 방법" 
+title: "스마트 컨트랙트의 사이즈를 줄이는 방법"
 excerpt: "이더리움의 스마트 컨트랙트는 DoS(Denial-of-Service)와 같은 공격으로부터 네트워크를 방어하기위해, 스마트 컨트랙트의 사이즈를 제한하고 있다. 그렇기 때문에 스마트 컨트랙트에 작성할 수 있는 코드 길이가 한정될 수 밖에 없는데, 이번 포스팅에서는 이더리움 공식 웹사이트에서 제안하는 스마트 컨트랙트 사이즈를 줄이는 방법들을 살펴보려고 한다."
-date:   2023-08-21 15:00:00 +0900
-categories: blockchain
-tags: [ethereum, solidity, smartcontract]
+description: "Introducing several ways to reduce the size of smart contracts in Ethereum."
+date: 2023-08-21 15:00:00 +0900
+categories: 블록체인
+tags: [ethereum, smart contract]
+keywords: [blockchain, ethereum, smart contract, solidity]
 comments: true
-
 ---
 
 <br>
 
 ## [EIP-170](https://eips.ethereum.org/EIPS/eip-170)
 
-[2016년 11월 22일에 발생한 하드포크 'Suprious Dragon'](https://blog.ethereum.org/2016/11/18/hard-fork-no-4-spurious-dragon) 시기에 공개되었으며, 스마트 컨트랙트의 사이즈를 24,576kb로 제한하는 규칙을 갖는다.  
+[2016년 11월 22일에 발생한 하드포크 'Suprious Dragon'](https://blog.ethereum.org/2016/11/18/hard-fork-no-4-spurious-dragon) 시기에 공개되었으며, 스마트 컨트랙트의 사이즈를 24,576kb로 제한하는 규칙을 갖는다.
 
 ```
 If block.number >= FORK_BLKNUM, then if contract creation initialization returns data with length of more than MAX_CODE_SIZE bytes, contract creation fails with an out of gas error.
@@ -24,13 +25,13 @@ If block.number >= FORK_BLKNUM, then if contract creation initialization returns
 ```
 
 이더리움은 디스크에서 읽어온 스마트 컨트랙트에 대한 코드를 VM 환경에서 실행하기 위해 전처리하는 과정에서 O(n), 그리고 블록의 유효성 증명을 위해 데이터를 머클 증명에 추가하는 과정의 O(n)으로 총 2번 잠재적인 가스 사용이 발생할 수 있다(이를 이더리움에서는 2차 취약점 - Quadraticvulnerability 이라고 언급한다).  
-결국 스마트 컨트랙트 자체의 크기로 인하여 성능에 영향을 주는 경우가 발생하게 되고, DoS가 아니더라도 굉장히 간단한 기능만을 사용하려는 사용자의 경우 스마트 컨트랙트가 '길다'는 이유만으로 많은 가스비와 시간을 소비해야 할 수도 있게 된다. 
+결국 스마트 컨트랙트 자체의 크기로 인하여 성능에 영향을 주는 경우가 발생하게 되고, DoS가 아니더라도 굉장히 간단한 기능만을 사용하려는 사용자의 경우 스마트 컨트랙트가 '길다'는 이유만으로 많은 가스비와 시간을 소비해야 할 수도 있게 된다.
 
 <br>
 
 ## 스마트 컨트랙트의 사이즈를 확인하는 방법
 
-스마트 컨트랙트 바이트코드의 크기를 확인하려면 [truffle-contract-size](https://github.com/IoBuilders/truffle-contract-size)를 사용하면 된다.  
+스마트 컨트랙트 바이트코드의 크기를 확인하려면 [truffle-contract-size](https://github.com/IoBuilders/truffle-contract-size)를 사용하면 된다.
 
 <br>
 
@@ -44,6 +45,7 @@ If block.number >= FORK_BLKNUM, then if contract creation initialization returns
 
 스마트 컨트랙트 분리의 첫걸음은 좋은 구조(good architecture)로부터 시작한다. 스마트 컨트랙트가 작아질수록 가독성은 높아진다.  
 스마트 컨트랙트 분리 시 생각해보아야 하는 점들은 아래와 같다.
+
 - 함께 동작하는 기능들은 모아두는 것이 좋다.
 - 상태(state)값을 확인 또는 변경하지 않는 기능은 분리해도 좋다.
 - 스토리지(storage)에 접근하지 않는다면 분리해도 좋다.
@@ -192,6 +194,11 @@ function checkStuff() private {}
 function doSomething() { checkStuff(); }
 ```
 
-## 참고
+<br>
+<br>
+
+---
+
+## 참고자료
 
 - [DOWNSIZING CONTRACTS TO FIGHT THE CONTRACT SIZE LIMIT - ethereum.org](https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/)

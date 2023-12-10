@@ -1,14 +1,13 @@
 ---
 layout: post
-title:  "솔리디티의 Custom Errors 사용하기" 
+title: "가스비 절감의 효과를 갖는 솔리디티의 custom error 사용방법"
 excerpt: "솔리디티 v0.8.4에서 소개된 커스텀 에러(Custom Errors) 방식은 미세하게나마 솔리디티 코드의 크기를 줄이고 배포 및 실행될 때 필요한 가스비를 절감하는 효과를 준다. 이번 포스팅에서는 솔리디티의 커스텀 에러 방식과, 스마트 컨트랙트에서 에러의 발생을 표현할 때 주의해야 할 점을 함께 알아본다."
 description: How to Use custom error in solditiy for reducing smart contract size and gas price.
-date:   2023-08-22 15:00:00 +0900
-categories: blockchain
-tags: [ethereum, solidity, smartcontract]
-keywords: blockchain, smartcontract, solidity
+date: 2023-08-22 15:00:00 +0900
+categories: 블록체인
+tags: [ethereum, smart contract]
+keywords: [blockchain, ethereum, smart contract, solidity]
 comments: true
-
 ---
 
 <br>
@@ -52,7 +51,7 @@ contract VendingMachine {
 위의 예시를 보면 [이벤트(event)](https://docs.soliditylang.org/en/latest/contracts.html?color=dark#events)와 구문이 비슷한 것을 볼 수 있는데, 차이점은 [revert 구문](https://docs.soliditylang.org/en/latest/control-structures.html?color=dark#revert-statement)과 같이 사용해야 한다는 것이다. revert를 사용하면 현재까지 진행되던 상태 변환 프로세스가 모두 중단되고 에러 메시지를 호출자에게 전달한다. [require 구문의 사용은 현재 포스팅 시점(2023.08.23)에는 제공되지 않고 있는데](https://github.com/ethereum/solidity/issues/11278), 아래의 예시를 보면 이해가 쉬울 것이다.
 
 ```
-# This Error message with require statement 
+# This Error message with require statement
 require(condition, "error message")
 
 # Should be translated to
@@ -107,7 +106,7 @@ revert InsufficientBalance({
 });
 ```
 
-사용 시점의 에러 데이터는 abi.encodeWithSignature("InsufficientBalance(uint256,uint256)", balance[msg.sender], amount)로 ABI 인코딩된다.  
+사용 시점의 에러 데이터는 abi.encodeWithSignature("InsufficientBalance(uint256,uint256)", balance[msg.sender], amount)로 ABI 인코딩된다.
 
 <br>
 
@@ -183,13 +182,16 @@ console.log(
 
 ## 주의점
 
-스마트 컨트랙트를 컴파일해서 ABI 형태의 JSON 파일로 만드는 과정에서, 컴파일러는 해당 스마트 컨트랙트가 나타낼 수 있는(emit) 모든 에러를 해당 파일에 포함시킨다. 여기서 중요한 것은 이 과정에 <u>external call로 호출되는 에러 메시지들은 포함되지 않는다</u>는 것이다. 
+스마트 컨트랙트를 컴파일해서 ABI 형태의 JSON 파일로 만드는 과정에서, 컴파일러는 해당 스마트 컨트랙트가 나타낼 수 있는(emit) 모든 에러를 해당 파일에 포함시킨다. 여기서 중요한 것은 이 과정에 <u>external call로 호출되는 에러 메시지들은 포함되지 않는다</u>는 것이다.
 이러한 이유로 개발자들은 에러 마다 [NatSpec](https://docs.soliditylang.org/en/latest/natspec-format.html?color=dark) 형식을 준수하는 설명을 달아놓기도 한다. NatSpec은 개발자와 사용자가 추가 비용없이 에러 메시지에 대해 서로 이해할 수 있도록 하는 좋은 방법 중 하나이다.
 
-어쨋든 에러 메시지의 출처를 추적할 수 없기 때문에, 에러 데이터는 신중하게 사용해야 한다. external call 호출 횟수가 계속 늘어날수록, 발생하는 에러 메시지가 어디서부터 온 것인지 추적하기 점점 어려워진다는 것을 의미한다. 게다가 실제 에러가 아님에도 불구하고 에러메시지(처럼 보이는 문구)를 호출하도록 악의적으로 스마트 컨트랙트를 작성할 수도 있다. 
+어쨋든 에러 메시지의 출처를 추적할 수 없기 때문에, 에러 데이터는 신중하게 사용해야 한다. external call 호출 횟수가 계속 늘어날수록, 발생하는 에러 메시지가 어디서부터 온 것인지 추적하기 점점 어려워진다는 것을 의미한다. 게다가 실제 에러가 아님에도 불구하고 에러메시지(처럼 보이는 문구)를 호출하도록 악의적으로 스마트 컨트랙트를 작성할 수도 있다.
 
 <br>
+<br>
 
-## 참고
+---
+
+## 참고자료
 
 - [Custom Errors in Solidity - Soliditylang.org](https://soliditylang.org/blog/2021/04/21/custom-errors/)

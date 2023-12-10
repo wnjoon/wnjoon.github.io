@@ -9,11 +9,11 @@
   
   
   
-  <title>Go언어에서 인터페이스 기반 설계하기</title>
+  <title>인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title>
   <meta name="description" content="Way to use interface architecture in go language">
   
     
-    <meta name="keywords" content="golang, architecture">
+    <meta name="keywords" content="software architecture,design pattern,go,interface">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -25,7 +25,7 @@
   
 
   
-  <meta property="og:title" content="Go언어에서 인터페이스 기반 설계하기">
+  <meta property="og:title" content="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/12/02/go-interface-architecture/">
   <meta property="og:description" content="Way to use interface architecture in go language">
@@ -33,7 +33,7 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Go언어에서 인터페이스 기반 설계하기">
+  <meta name="twitter:title" content="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법">
   <meta name="twitter:description" content="Way to use interface architecture in go language">
   
   
@@ -79,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">Go언어에서 인터페이스 기반 설계하기</h1>
+      <h1 class="post-title" itemprop="name headline">인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</h1>
     
     <p class="post-meta"><time datetime="2023-12-02T06:00:00+00:00" itemprop="datePublished">2023년 12월 2일</time> •
   
@@ -88,6 +88,111 @@
       
     
       
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98/">아키텍처</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
     
       
     
@@ -195,8 +300,6 @@
     
       
     
-      
-    
   
 
 
@@ -281,13 +384,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-        <a href="/tags/go/">go</a>,
+        <a href="/tags/software-architecture/">software architecture</a>,
       
     
       
@@ -344,8 +441,89 @@
       
     
       
-        <a href="/tags/architecture/">architecture</a>
+    
       
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/design-pattern/">design pattern</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
     
       
     
@@ -405,6 +583,28 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/go/">go</a>
       
     
       
@@ -512,14 +712,13 @@
 
     <span class="n">qtm</span> <span class="o">:=</span> <span class="n">NewQueueTransactionManager</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
     <span class="n">dtm</span> <span class="o">:=</span> <span class="n">NewDirectTransactionManager</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-    
+
     <span class="n">transactionSender</span> <span class="o">:=</span> <span class="n">NewTransactionSender</span><span class="p">(</span><span class="n">qtm</span><span class="p">)</span> <span class="c">// queue 기반으로 트랜잭션을 전송하고자 하는 경우</span>
     <span class="n">transactionSender</span> <span class="o">:=</span> <span class="n">NewTransactionSender</span><span class="p">(</span><span class="n">dtm</span><span class="p">)</span> <span class="c">// 직접 트랜잭션을 전송하고자 하는 경우</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <p>이처럼 Go언어에서 인터페이스 기반으로 기능을 설계하는 것은 타언어에 비해 굉장히 유연하고 쉽다. 서비스 안에서 하나의 기능에 여러 개발자가 협업하게 되는 경우가 많은데, 인터페이스를 활용하면 서로간의 종속성은 낮아지고 효율적인 개발이 가능하다.</p>
-
 
   </div>
 

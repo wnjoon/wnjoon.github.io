@@ -1,14 +1,13 @@
 ---
 layout: post
-title:  "Go언어에서 인터페이스 기반 설계하기" 
+title: "인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법"
 excerpt: "좋은 아키텍처를 구성하려면 SOLID 원칙을 따라야 한다고 말한다. 그중 인터페이스 기반의 설계는 향후 확장성 및 유연한 환경을 위해 꼭 필요한 방법인데, 이번 포스팅에서는 go언어를 사용하여 인터페이스 기반의 설계를 경험한 내용을 공유하고자 한다."
 description: Way to use interface architecture in go language
-date:   2023-12-02 15:00:00 +0900
-categories: go
-tags: [go, architecture]
-keywords: golang, architecture
+date: 2023-12-02 15:00:00 +0900
+categories: [아키텍처, go]
+tags: [software architecture, design pattern, go]
+keywords: [software architecture, design pattern, go, interface]
 comments: true
-
 ---
 
 <br>
@@ -23,7 +22,7 @@ type QueueTransactionManager struct {...}
 ...
 ```
 
-DirectTransactionManager 트랜잭션을 가공하고 이를 바로 블록체인 노드에 전송하고, QueueTransactionManager는 가공한 트랜잭션을 카프카와 같은 큐 형태의 서비스에 전달하고 해당 서비스가 트랜잭션을 블록체인 노드로 전송한다.  
+DirectTransactionManager 트랜잭션을 가공하고 이를 바로 블록체인 노드에 전송하고, QueueTransactionManager는 가공한 트랜잭션을 카프카와 같은 큐 형태의 서비스에 전달하고 해당 서비스가 트랜잭션을 블록체인 노드로 전송한다.
 
 ```go
 func (t *DirectTransactionManager) funcA(...) {}
@@ -90,11 +89,10 @@ func main() {
 
     qtm := NewQueueTransactionManager(...)
     dtm := NewDirectTransactionManager(...)
-    
+
     transactionSender := NewTransactionSender(qtm) // queue 기반으로 트랜잭션을 전송하고자 하는 경우
     transactionSender := NewTransactionSender(dtm) // 직접 트랜잭션을 전송하고자 하는 경우
 }
 ```
 
-이처럼 Go언어에서 인터페이스 기반으로 기능을 설계하는 것은 타언어에 비해 굉장히 유연하고 쉽다. 서비스 안에서 하나의 기능에 여러 개발자가 협업하게 되는 경우가 많은데, 인터페이스를 활용하면 서로간의 종속성은 낮아지고 효율적인 개발이 가능하다.  
-
+이처럼 Go언어에서 인터페이스 기반으로 기능을 설계하는 것은 타언어에 비해 굉장히 유연하고 쉽다. 서비스 안에서 하나의 기능에 여러 개발자가 협업하게 되는 경우가 많은데, 인터페이스를 활용하면 서로간의 종속성은 낮아지고 효율적인 개발이 가능하다.

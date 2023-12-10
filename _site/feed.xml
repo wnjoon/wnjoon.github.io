@@ -5,7 +5,7 @@
   
   <link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://wnjoon.github.io/" rel="alternate" type="text/html" hreflang="ko" />
-  <updated>2023-12-10T00:35:46+00:00</updated>
+  <updated>2023-12-10T08:49:10+00:00</updated>
   <id>https://wnjoon.github.io//</id>
 
   
@@ -28,10 +28,10 @@
   
     <entry>
       
-      <title type="html">Go언어에서 인터페이스 기반 설계하기</title>
+      <title type="html">인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title>
       
       
-      <link href="https://wnjoon.github.io/2023/12/02/go-interface-architecture/" rel="alternate" type="text/html" title="Go언어에서 인터페이스 기반 설계하기" />
+      <link href="https://wnjoon.github.io/2023/12/02/go-interface-architecture/" rel="alternate" type="text/html" title="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" />
       
       <published>2023-12-02T06:00:00+00:00</published>
       <updated>2023-12-02T06:00:00+00:00</updated>
@@ -111,7 +111,7 @@
 
     &lt;span class=&quot;n&quot;&gt;qtm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewQueueTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;dtm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewDirectTransactionManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    
+
     &lt;span class=&quot;n&quot;&gt;transactionSender&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewTransactionSender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;qtm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// queue 기반으로 트랜잭션을 전송하고자 하는 경우&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;transactionSender&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewTransactionSender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// 직접 트랜잭션을 전송하고자 하는 경우&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -134,13 +134,17 @@
       
 
       
+        <category term="아키텍처" />
+      
         <category term="go" />
       
 
       
-        <category term="go" />
+        <category term="software architecture" />
       
-        <category term="architecture" />
+        <category term="design pattern" />
+      
+        <category term="go" />
       
 
       
@@ -155,10 +159,10 @@
   
     <entry>
       
-      <title type="html">솔리디티의 Custom Errors 사용하기</title>
+      <title type="html">가스비 절감의 효과를 갖는 솔리디티의 custom error 사용방법</title>
       
       
-      <link href="https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="솔리디티의 Custom Errors 사용하기" />
+      <link href="https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="가스비 절감의 효과를 갖는 솔리디티의 custom error 사용방법" />
       
       <published>2023-08-22T06:00:00+00:00</published>
       <updated>2023-08-22T06:00:00+00:00</updated>
@@ -201,7 +205,7 @@ contract VendingMachine {
 
 &lt;p&gt;위의 예시를 보면 &lt;a href=&quot;https://docs.soliditylang.org/en/latest/contracts.html?color=dark#events&quot;&gt;이벤트(event)&lt;/a&gt;와 구문이 비슷한 것을 볼 수 있는데, 차이점은 &lt;a href=&quot;https://docs.soliditylang.org/en/latest/control-structures.html?color=dark#revert-statement&quot;&gt;revert 구문&lt;/a&gt;과 같이 사용해야 한다는 것이다. revert를 사용하면 현재까지 진행되던 상태 변환 프로세스가 모두 중단되고 에러 메시지를 호출자에게 전달한다. &lt;a href=&quot;https://github.com/ethereum/solidity/issues/11278&quot;&gt;require 구문의 사용은 현재 포스팅 시점(2023.08.23)에는 제공되지 않고 있는데&lt;/a&gt;, 아래의 예시를 보면 이해가 쉬울 것이다.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# This Error message with require statement 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# This Error message with require statement
 require(condition, &quot;error message&quot;)
 
 # Should be translated to
@@ -328,14 +332,17 @@ console.log(
 
 &lt;h2&gt;주의점&lt;/h2&gt;
 
-&lt;p&gt;스마트 컨트랙트를 컴파일해서 ABI 형태의 JSON 파일로 만드는 과정에서, 컴파일러는 해당 스마트 컨트랙트가 나타낼 수 있는(emit) 모든 에러를 해당 파일에 포함시킨다. 여기서 중요한 것은 이 과정에 &lt;u&gt;external call로 호출되는 에러 메시지들은 포함되지 않는다&lt;/u&gt;는 것이다. 
+&lt;p&gt;스마트 컨트랙트를 컴파일해서 ABI 형태의 JSON 파일로 만드는 과정에서, 컴파일러는 해당 스마트 컨트랙트가 나타낼 수 있는(emit) 모든 에러를 해당 파일에 포함시킨다. 여기서 중요한 것은 이 과정에 &lt;u&gt;external call로 호출되는 에러 메시지들은 포함되지 않는다&lt;/u&gt;는 것이다.
 이러한 이유로 개발자들은 에러 마다 &lt;a href=&quot;https://docs.soliditylang.org/en/latest/natspec-format.html?color=dark&quot;&gt;NatSpec&lt;/a&gt; 형식을 준수하는 설명을 달아놓기도 한다. NatSpec은 개발자와 사용자가 추가 비용없이 에러 메시지에 대해 서로 이해할 수 있도록 하는 좋은 방법 중 하나이다.&lt;/p&gt;
 
 &lt;p&gt;어쨋든 에러 메시지의 출처를 추적할 수 없기 때문에, 에러 데이터는 신중하게 사용해야 한다. external call 호출 횟수가 계속 늘어날수록, 발생하는 에러 메시지가 어디서부터 온 것인지 추적하기 점점 어려워진다는 것을 의미한다. 게다가 실제 에러가 아님에도 불구하고 에러메시지(처럼 보이는 문구)를 호출하도록 악의적으로 스마트 컨트랙트를 작성할 수도 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2&gt;참고&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://soliditylang.org/blog/2021/04/21/custom-errors/&quot;&gt;Custom Errors in Solidity - Soliditylang.org&lt;/a&gt;&lt;/li&gt;
@@ -356,15 +363,13 @@ console.log(
       
 
       
-        <category term="blockchain" />
+        <category term="블록체인" />
       
 
       
         <category term="ethereum" />
       
-        <category term="solidity" />
-      
-        <category term="smartcontract" />
+        <category term="smart contract" />
       
 
       
@@ -421,6 +426,7 @@ console.log(
 
 &lt;p&gt;스마트 컨트랙트 분리의 첫걸음은 좋은 구조(good architecture)로부터 시작한다. 스마트 컨트랙트가 작아질수록 가독성은 높아진다.&lt;br /&gt;
 스마트 컨트랙트 분리 시 생각해보아야 하는 점들은 아래와 같다.&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;함께 동작하는 기능들은 모아두는 것이 좋다.&lt;/li&gt;
   &lt;li&gt;상태(state)값을 확인 또는 변경하지 않는 기능은 분리해도 좋다.&lt;/li&gt;
@@ -573,7 +579,12 @@ function checkStuff() private {}
 function doSomething() { checkStuff(); }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2&gt;참고&lt;/h2&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/&quot;&gt;DOWNSIZING CONTRACTS TO FIGHT THE CONTRACT SIZE LIMIT - ethereum.org&lt;/a&gt;&lt;/li&gt;
@@ -594,15 +605,13 @@ function doSomething() { checkStuff(); }
       
 
       
-        <category term="blockchain" />
+        <category term="블록체인" />
       
 
       
         <category term="ethereum" />
       
-        <category term="solidity" />
-      
-        <category term="smartcontract" />
+        <category term="smart contract" />
       
 
       
@@ -617,10 +626,10 @@ function doSomething() { checkStuff(); }
   
     <entry>
       
-      <title type="html">맥OS에서 sed를 사용할 때의 문제점 해결</title>
+      <title type="html">맥OS에서 sed를 사용할 때의 오류 해결방법</title>
       
       
-      <link href="https://wnjoon.github.io/2023/07/05/os-sed_on_mac/" rel="alternate" type="text/html" title="맥OS에서 sed를 사용할 때의 문제점 해결" />
+      <link href="https://wnjoon.github.io/2023/07/05/os-sed_on_mac/" rel="alternate" type="text/html" title="맥OS에서 sed를 사용할 때의 오류 해결방법" />
       
       <published>2023-07-05T06:00:00+00:00</published>
       <updated>2023-07-05T06:00:00+00:00</updated>
@@ -676,9 +685,12 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS &lt;span class=&quot;o&quot;&gt;(&lt
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ echo PATH=&quot;/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH&quot; &amp;gt;&amp;gt; ~/.zshrc
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2&gt;참고&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;h2&gt;참고자료&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://ben.lobaugh.net/blog/205337/how-to-fix-the-sed-command-expects-error-on-mac-os&quot;&gt;HOW TO FIX THE “SED COMMAND EXPECTS \” ERROR ON MAC OS&lt;/a&gt;&lt;/li&gt;
@@ -699,13 +711,11 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS &lt;span class=&quot;o&quot;&gt;(&lt
       
 
       
-        <category term="os" />
+        <category term="맥쓰사" />
       
 
       
         <category term="mac" />
-      
-        <category term="linux" />
       
 
       

@@ -9,8 +9,11 @@
   
   
   
-  <title>맥OS에서 sed를 사용할 때의 문제점 해결</title>
-  <meta name="description" content="sed는 유닉스 계열의 OS에서 손쉽게 파일 내부의 특정 값을 수정할 수 있는 명령어다. 그런데 말입니다(?) 혹시 command expects followed by text 라는 글을 보신적이 있으신가요?">
+  <title>맥OS에서 sed를 사용할 때의 오류 해결방법</title>
+  <meta name="description" content="How to resolve errors when parsing strings using sed on Mac OS.">
+  
+    
+    <meta name="keywords" content="mac">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="맥OS에서 sed를 사용할 때의 문제점 해결">
+  <meta property="og:title" content="맥OS에서 sed를 사용할 때의 오류 해결방법">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/07/05/os-sed_on_mac/">
-  <meta property="og:description" content="sed는 유닉스 계열의 OS에서 손쉽게 파일 내부의 특정 값을 수정할 수 있는 명령어다. 그런데 말입니다(?) 혹시 command expects followed by text 라는 글을 보신적이 있으신가요?">
+  <meta property="og:description" content="How to resolve errors when parsing strings using sed on Mac OS.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="맥OS에서 sed를 사용할 때의 문제점 해결">
-  <meta name="twitter:description" content="sed는 유닉스 계열의 OS에서 손쉽게 파일 내부의 특정 값을 수정할 수 있는 명령어다. 그런데 말입니다(?) 혹시 command expects followed by text 라는 글을 보신적이 있으신가요?">
+  <meta name="twitter:title" content="맥OS에서 sed를 사용할 때의 오류 해결방법">
+  <meta name="twitter:description" content="How to resolve errors when parsing strings using sed on Mac OS.">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">맥OS에서 sed를 사용할 때의 문제점 해결</h1>
+      <h1 class="post-title" itemprop="name headline">맥OS에서 sed를 사용할 때의 오류 해결방법</h1>
     
     <p class="post-meta"><time datetime="2023-07-05T06:00:00+00:00" itemprop="datePublished">2023년 7월 5일</time> •
   
@@ -177,7 +180,7 @@
       
     
       
-    
+        <a href="/categories/%EB%A7%A5%EC%93%B0%EC%82%AC/">맥쓰사</a>
       
     
       
@@ -186,12 +189,6 @@
     
       
     
-      
-    
-      
-    
-      
-        <a href="/categories/os/">os</a>
       
     
   
@@ -240,7 +237,7 @@
       
     
       
-        <a href="/tags/mac/">mac</a>,
+        <a href="/tags/mac/">mac</a>
       
     
       
@@ -273,127 +270,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/linux/">linux</a>
       
     
       
@@ -485,14 +361,16 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS <span class="o">(</span>see <span cl
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH" &gt;&gt; ~/.zshrc
 </code></pre></div></div>
 
-<p><br /></p>
+<p><br />
+<br /></p>
 
-<h2>참고</h2>
+<hr />
+
+<h2>참고자료</h2>
 
 <ul>
   <li><a href="https://ben.lobaugh.net/blog/205337/how-to-fix-the-sed-command-expects-error-on-mac-os">HOW TO FIX THE “SED COMMAND EXPECTS \” ERROR ON MAC OS</a></li>
 </ul>
-
 
   </div>
 
