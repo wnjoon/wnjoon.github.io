@@ -9,8 +9,11 @@
   
   
   
-  <title>Design Pattern: MVC pattern</title>
-  <meta name="description" content="MVC 패턴을 간단하게 보자면 &#39;View에서 특정 이벤트를 수행했을 경우, Controller에서 이벤트에 해당하는 메소드를 Model로 보내고, Model에서 이를 수행한 후 결과를 가져온 뒤, View에 결과를 적용&#39;한다 - MVC 패턴 예제 및 동작방식 정리글(Wakestand Island)">
+  <title>데이터를 정의하고, 보여주고, 처리하는 각 과정을 독립적으로 분할하는 MVC 디자인패턴</title>
+  <meta name="description" content="Description of the MVC design pattern for the purpose of separation according to each function of data definition, output, and processing.">
+  
+    
+    <meta name="keywords" content="software architecture,design pattern,mvc">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="Design Pattern: MVC pattern">
+  <meta property="og:title" content="데이터를 정의하고, 보여주고, 처리하는 각 과정을 독립적으로 분할하는 MVC 디자인패턴">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2022/10/30/swe-mvc/">
-  <meta property="og:description" content="MVC 패턴을 간단하게 보자면 &#39;View에서 특정 이벤트를 수행했을 경우, Controller에서 이벤트에 해당하는 메소드를 Model로 보내고, Model에서 이를 수행한 후 결과를 가져온 뒤, View에 결과를 적용&#39;한다 - MVC 패턴 예제 및 동작방식 정리글(Wakestand Island)">
+  <meta property="og:description" content="Description of the MVC design pattern for the purpose of separation according to each function of data definition, output, and processing.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Design Pattern: MVC pattern">
-  <meta name="twitter:description" content="MVC 패턴을 간단하게 보자면 &#39;View에서 특정 이벤트를 수행했을 경우, Controller에서 이벤트에 해당하는 메소드를 Model로 보내고, Model에서 이를 수행한 후 결과를 가져온 뒤, View에 결과를 적용&#39;한다 - MVC 패턴 예제 및 동작방식 정리글(Wakestand Island)">
+  <meta name="twitter:title" content="데이터를 정의하고, 보여주고, 처리하는 각 과정을 독립적으로 분할하는 MVC 디자인패턴">
+  <meta name="twitter:description" content="Description of the MVC design pattern for the purpose of separation according to each function of data definition, output, and processing.">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">Design Pattern: MVC pattern</h1>
+      <h1 class="post-title" itemprop="name headline">데이터를 정의하고, 보여주고, 처리하는 각 과정을 독립적으로 분할하는 MVC 디자인패턴</h1>
     
     <p class="post-meta"><time datetime="2022-10-30T06:00:00+00:00" itemprop="datePublished">2022년 10월 30일</time> •
   
@@ -171,103 +174,13 @@
       
     
       
-    
+        <a href="/categories/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98/">아키텍처</a>
       
     
       
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/swe/">swe</a>
       
     
       
@@ -346,302 +259,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/design-pattern/">design pattern</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/backend/">backend</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+        <a href="/tags/design-pattern/">design pattern</a>
       
     
       
@@ -709,22 +327,25 @@
 <h2>MVC 패턴의 필요성</h2>
 
 <p>MVC 패턴은 웹/앱 서비스 개발에서 가장 많이 사용되고 있는 디자인 패턴 중 하나로, Model, View, Controller의 약자를 의미한다.</p>
-<ul>
-  <li>Model : 데이터를 정의하고, 정의한 데이터에 대한 로직을 처리하는 용도</li>
-  <li>View : 모델에서 정의한 데이터를 화면에 보여주는 용도</li>
-  <li>Controller : 모델과 뷰를 연결하는 용도</li>
-</ul>
 
-<p><strong>‘Model = 무엇을 , View = 어디에 , Controller = 어떻게’ 보여주는가를 나타낸다고 생각한다.</strong></p>
+<ul>
+  <li>Model (무엇을) : 데이터를 정의하고, 정의한 데이터에 대한 로직을 처리하는 용도</li>
+  <li>View (어디에) : 모델에서 정의한 데이터를 화면에 보여주는 용도</li>
+  <li>Controller (어떻게) : 모델과 뷰를 연결하는 용도</li>
+</ul>
 
 <blockquote>
   <p>디자인 패턴을 간략하게 설명해보면, “프로그램의 개발 과정에서 발생했던 여러 문제점에 대한 해결 방법(노하우)을 상황에 맞게 사용할 수 있도록 정리해 놓은 규칙, 약속”을 의미한다.</p>
 </blockquote>
 
-<p><img src="https://developer.mozilla.org/en-US/docs/Glossary/MVC/model-view-controller-light-blue.png" alt="" /><br />
-<em>@그림 1: MVC 패턴의 개략적인 설명 - mozila.org</em></p>
+<p align="center" style="color:gray">
+  <img src="https://developer.mozilla.org/en-US/docs/Glossary/MVC/model-view-controller-light-blue.png" alt="MVC 패턴의 개략적인 설명" />
+  <br />
+   MVC 패턴의 개략적인 설명 (출처 : mozila.org)
+</p>
+<p><br /></p>
 
-<p>결국 MVC 패턴은 개발 과정에서 발생할 수 있는 여러 문제점을 미리 해결하고, 향후 더욱 편리한 유지보수를 위해 만들어진 규칙으로 보면 좋다. 사실 프로그램이 커지고 협업하는 개발자가 많아질수록 가장 어려운 부분이 ‘협업’일 것이다. 내가 작성한 소스코드를 상대방도 잘 읽을 수 있어야 하고, 상대방이 작성한 내용을 한눈에 읽고 관리하기도 용이해야 한다.</p>
+<p>MVC 패턴은 개발 과정에서 발생할 수 있는 여러 문제점을 미리 해결하고, 향후 더욱 편리한 유지보수를 위해 만들어진 규칙으로 보면 좋다. 사실 프로그램이 커지고 협업하는 개발자가 많아질수록 가장 어려운 부분이 ‘협업’일 것이다. 내가 작성한 소스코드를 상대방도 잘 읽을 수 있어야 하고, 상대방이 작성한 내용을 한눈에 읽고 관리하기도 용이해야 한다.</p>
 
 <p><br /></p>
 
@@ -744,11 +365,16 @@
 
 <p>순수하게 데이터를 담아 계층 간에 전달하기 위해 사용하는 객체이다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2F6QGYT%2FbtrgAUXXKKr%2FPr21tqQPPqSuADD6JE0ZoK%2Fimg.png" alt="" /><br />
-<em>@그림 2: DTO의 매우 개략적인 형태 - MAENCO</em></p>
+<p align="center" style="color:gray">
+  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2F6QGYT%2FbtrgAUXXKKr%2FPr21tqQPPqSuADD6JE0ZoK%2Fimg.png" alt="DTO의 매우 개략적인 형태" />
+  <br />
+   DTO의 매우 개략적인 형태 (출처 : MAENCO)
+</p>
+<p><br /></p>
 
 <p>로직이 없는 순수한 데이터 객체를 의미하며, 단순히 데이터 전달만을 위한 객체이기 때문에 getter/setter만 포함한다.<br />
 만약 사용자가 외부로부터 입력받은 데이터를 데이터베이스에 입력하는 경우 아래와 같은 순서를 따르게 된다.</p>
+
 <ol>
   <li>사용자가 입력한 정보가 DTO 형태로 만들어져 서버로 전송된다.</li>
   <li>서버는 전송 받은 DTO를 DAO를 이용하여 데이터베이스로 전송하고, 해당 정보는 데이터베이스에 입력된다.</li>
@@ -780,6 +406,7 @@
 <h4>1.3. VO (Value Object)</h4>
 
 <p>DTO와 비교하면 이해하기 쉬운 객체인데, 다른점은 아래와 같다.</p>
+
 <ul>
   <li>DTO와 다르게 VO는 로직을 포함할 수 있다.</li>
   <li>VO는 특정 값 자체를 표현하는 것이 목적이기 때문에, 값의 변형을 막고 불변성을 보장하기 위해 생성자를 필수적으로 사용한다.</li>
@@ -795,7 +422,7 @@
     <span class="kd">public</span> <span class="nf">CarVO</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
     <span class="o">}</span>
-    
+
 <span class="o">}</span>
 <span class="o">...</span>
 <span class="kd">class</span> <span class="nc">CarVOTest</span> <span class="o">{</span>
@@ -853,19 +480,19 @@
    <span class="nd">@Id</span>
    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
    <span class="n">privae</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
-  
+
    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
-  
+
    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
-  
+
    <span class="nd">@Builder</span>
    <span class="kd">public</span> <span class="nf">User</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">email</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
       <span class="k">this</span><span class="o">.</span><span class="na">email</span> <span class="o">=</span> <span class="n">email</span><span class="o">;</span>
    <span class="o">}</span>
-  
+
    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">update</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">email</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
       <span class="k">this</span><span class="o">.</span><span class="na">email</span> <span class="o">=</span> <span class="n">email</span><span class="o">;</span>
@@ -876,8 +503,12 @@
 
 <p>위의 예시는 JPA를 활용하여 엔티티를 표현한다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/33862991/116250387-a46ec800-a7a8-11eb-8368-8e2df28225fa.png" alt="" /><br />
-<em>@그림 3: DTO와 Entity를 활용한 시스템의 매우(x2) 개략적인 형태 - MAENCO</em></p>
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/33862991/116250387-a46ec800-a7a8-11eb-8368-8e2df28225fa.png" alt=" DTO와 Entity를 활용한 시스템의 매우(x2) 개략적인 형태" />
+  <br />
+    DTO와 Entity를 활용한 시스템의 매우(x2) 개략적인 형태 (출처 : MAENCO)
+</p>
+<p><br /></p>
 
 <h3>2. View</h3>
 
@@ -887,6 +518,7 @@
 <h3>3. Controller</h3>
 
 <p>모델과 뷰 사이의 징검다리와 같은 역할을 담당한다. 만약 웹브라우저에서 특정 버튼을 클릭했다고 가정하자.</p>
+
 <ol>
   <li>사용자가 뷰의 submit 버튼을 클릭한다.</li>
   <li>뷰에서 컨트롤러로 요쳥을 보낸다.</li>
@@ -902,12 +534,19 @@
 
 <p>프로젝트의 규모가 커질수록 분리된 각 영역에서 의존성이 생길 수 밖에 없다. 가장 큰 문제로 Controller의 비대해짐을 꼽을 수 있다. 이러한 문제를 MassiveViewController라고 부른다는데, 이를 해결한 모델로 MVP, MVVM 등이 존재한다.</p>
 
-<p><img src="https://lh5.googleusercontent.com/YhZpXn3s1LmxwpHQ4jDwtYZasr18ixPIuvjesRqYpIes1rFUSKPi7P-5Bom8CHBVsH2ycPVYSppDmnZ13tFth5MqgjVnlAAz4hBUmbwoW5UFIaMyNB4LuW8v_DaLf04iZCW_WCcF" alt="" /><br />
-<em>@그림 4: MVC, MVP, MVVP에 대한 비교 - ThirdRock</em></p>
+<p align="center" style="color:gray">
+  <img src="https://lh5.googleusercontent.com/YhZpXn3s1LmxwpHQ4jDwtYZasr18ixPIuvjesRqYpIes1rFUSKPi7P-5Bom8CHBVsH2ycPVYSppDmnZ13tFth5MqgjVnlAAz4hBUmbwoW5UFIaMyNB4LuW8v_DaLf04iZCW_WCcF" alt="MVC, MVP, MVVP에 대한 비교" />
+  <br />
+    MVC, MVP, MVVP에 대한 비교 (출처 : ThirdRock)
+</p>
+<p><br /></p>
 
 <p>이에 대한 자세한 내용은 추후 포스팅하도록 한다.</p>
 
-<p><br /></p>
+<p><br />
+<br /></p>
+
+<hr />
 
 <h2>참고자료</h2>
 

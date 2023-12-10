@@ -1,10 +1,13 @@
 ---
 layout: post
-title:  "JPA를 이용하여 Postgresql에 접속하기" 
-excerpt: "Web3j로 작성한 이더리움 클라이언트에 사용할 Postgresql 기반의 데이터베이스로 JPA를 이용하여 접속해본다."
-date:   2021-03-08 15:00:00 +0900
-categories: java
-tags: [jpa, database, web3j, postgresql]
+title: "JPA를 활용한 Postgres 사용기"
+excerpt: "JPA(Java Persistence API)는 Java 환경에서 지원하는 표준 ORM이다. 본 포스팅에서는 Postgres 데이터베이스를 도커로 구동하고, 이전에 Web3j로 작성한 이더리움 클라이언트에 JPA를 활용하여 구동한 Postgres 데이터베이스와 연결하는 과정을 설명한다."
+description: "Description of Postgres connection method using JPA, a Java-based ORM tool."
+date: 2022-03-08 15:00:00 +0900
+categories: [데이터베이스, java]
+tags: [ethereum, web3, orm]
+keywords: [database, ethereum, web3, java, jpa]
+comments: true
 ---
 
 <br>
@@ -14,27 +17,31 @@ tags: [jpa, database, web3j, postgresql]
 > JPA에 대해서 간략하지만 자세하게 분석해놓은 글은 '[JPA란? - 권희정](https://gmlwjd9405.github.io/2019/08/04/what-is-jpa.html)'을 참조하자.
 
 간략하게 설명하면, 어플리케이션과 JDBC 사이에서 동작하는 ORM 기술 표준을 의미한다.  
-그렇다면 ORM(Object Relational Mapping)은 무엇일까? ORM은 객체와 테이블을 매핑해서 패러다임의 불일치를 개발자 대신 해결해주는 역할을 한다. 
+그렇다면 ORM(Object Relational Mapping)은 무엇일까? ORM은 객체와 테이블을 매핑해서 패러다임의 불일치를 개발자 대신 해결해주는 역할을 한다.
 
-![image](https://user-images.githubusercontent.com/39115630/157138970-b19a4939-84f8-4d5b-8069-dc7b71a5a51c.png)  
-*@그림 1: JPA에 대한 간략한 구성도 - 출처 : [Gitbook](https://ultrakain.gitbooks.io/jpa/content/chapter1/chapter1.3.html)*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/157138970-b19a4939-84f8-4d5b-8069-dc7b71a5a51c.png" alt="JPA에 대한 간략한 구성도" />
+  <br />
+   JPA에 대한 간략한 구성도 (출처: Gitbook)
+</p><br>
 
 <br>
 
-## Postgresql 구성하기
+## Docker 컨테이너 형태로 Postgres 구동하기
 
 인프런의 유명한 강사이신 김영한님께서 JPA에 대해 훌륭한 강의를 제공하시는데, 해당 강의에서는 h2로 간단한 데이터베이스를 구성한다.  
-지난번 프로젝트에서 postgresql로 작성해서 mybatis로 연결해본 간략한 데이터베이스가 있어서, 이녀석을 JPA로 연결해보는 작업을 진행해보려고 한다.  
+지난번 프로젝트에서 postgresql로 작성해서 mybatis로 연결해본 간략한 데이터베이스가 있어서, 이녀석을 JPA로 연결해보는 작업을 진행해보려고 한다.
 
 조금 더 자세한 내용에 대해서는 '[Docker로 postgreSQL Database 설치하기 - 취미로 코딩하는 개발자](https://devinlife.com/postgresql/run-postgresql-on-docker/)'를 참조하자.
 
-### 1. Docker로 실행
+### 1. 컨테이너 실행
 
 ```sh
 $ docker run -d -v $PWD/data:/var/lib/postgresql/data \
   p 7070:5432 --name pgsql -e TZ=Asia/Seoul \
   -e POSTGRES_PASSWORD=postgrespw postgres:12
 ```
+
 - Username : postgres(따로 작성하지 않으면 자동으로 postgres로 생성됨)
 - Password : POSTGRES_PASSWORD의 값을 넣어준다.
 
@@ -54,9 +61,9 @@ $ docker exec -it pgsql bash
 
 ```sh
 $ psql -U postgres
-``` 
+```
 
-테이블을 생성하는 스크립트를 실행한다. 아래 스크립트를 복사해서 실행된 postgresql 안에 붙여넣으면 된다.  
+테이블을 생성하는 스크립트를 실행한다. 아래 스크립트를 복사해서 실행된 postgresql 안에 붙여넣으면 된다.
 
 ```sql
 drop database if exists marketplacedb;
@@ -70,7 +77,7 @@ GRANT CONNECT ON DATABASE marketplacedb TO marketplace;
 GRANT ALL PRIVILEGES ON DATABASE marketplacedb TO marketplace;
 ```
 
-마지막으로 예시로 사용할 컬럼들을 삽입한다. 총 5명의 사용자와 각 사용자들의 이더리움상 주소 및 개인키를 DB상에 보관한다.  
+마지막으로 예시로 사용할 컬럼들을 삽입한다. 총 5명의 사용자와 각 사용자들의 이더리움상 주소 및 개인키를 DB상에 보관한다.
 
 ```sql
 begin;
@@ -81,7 +88,7 @@ CREATE TABLE "public"."tb_user" (
     "username" varchar(50) NOT NULL,
     "password" varchar(50) NOT NULL,
     "address" varchar(50) NOT NULL,
-    "privatekey" varchar(100) NOT NULL,    
+    "privatekey" varchar(100) NOT NULL,
     PRIMARY KEY ("user_id")
 );
 
@@ -99,6 +106,19 @@ commit;
 
 '[Github : nft-marketplace](https://github.com/wnjoon/nft-marketplace/tree/master/marketplace/database/postgresql)'에서 스크립트 및 이를 활용하는 방법을 확인할 수 있다.
 
+```sh
+# makeDatabase.sql
+drop database if exists marketplacedb;
+drop user if exists marketplace;
+
+create database marketplacedb;
+
+create user marketplace;
+alter user marketplace with password 'marketplace';
+GRANT CONNECT ON DATABASE marketplacedb TO marketplace;
+GRANT ALL PRIVILEGES ON DATABASE marketplacedb TO marketplace;
+```
+
 ### 3. DBeaver로 데이터베이스 확인하기
 
 데이터베이스를 확인할 수 있는 다양한 방법이 있지만, 이 중 DBeaver를 사용해보고자 한다.  
@@ -112,38 +132,45 @@ commit;
 
 Postgresql에 접속할 것이기 때문에, 이를 선택한다.
 
-![image](https://user-images.githubusercontent.com/39115630/157146573-6438d038-320b-4d3a-abf9-bff58c22ee2f.png)
-*@그림 2: Postgresql 선택*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/157146573-6438d038-320b-4d3a-abf9-bff58c22ee2f.png" alt="Postgresql 선택" />
+  <br />
+   Postgresql 선택
+</p><br>
 
 네트워크 접속 정보를 작성한다.
 
-![image](https://user-images.githubusercontent.com/39115630/157146503-860ce5a7-2b6b-4744-95b4-ec3c3d295cc3.png)
-*@그림 3: 접속할 데이터베이스 네트워크 설정*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/157146503-860ce5a7-2b6b-4744-95b4-ec3c3d295cc3.png" alt="접속할 데이터베이스 네트워크 설정" />
+  <br />
+   접속할 데이터베이스 네트워크 설정
+</p><br>
 
 - Host : 우리는 로컬호스트에 데이터베이스를 구축하였기 때문에, 해당 주소를 넣어준다.
 - Port : 도커를 이용하여 7070 포트의 컨테이너를 생성하였기 때문에 이를 넣어준다.
 - Database : 위에서 만든 데이터베이스를 넣어준다. 우리는 marketplacedb라는 데이터베이스를 만들었다.
-- Username, Password : 도커로 컨테이너를 만들 때, 사용자명과 비밀번호를 같이 입력한 것을 알 수 있다. 
+- Username, Password : 도커로 컨테이너를 만들 때, 사용자명과 비밀번호를 같이 입력한 것을 알 수 있다.
 
 <br>
 
-## 적용해보기
+## Java 소스코드에 JPA 적용하는법
 
 ### 1. pom.xml
 
 ```xml
-    <!-- JPA -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+<!-- JPA -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
 
-		<!-- postgre -->	
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>	
+<!-- postgre -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+</dependency>
 ```
+
 Spingboot와 연결하기 위해서는 기타 다양한 dependency도 고려해야하지만, 우선 가장 필요한 두가지는 위와 같다.  
 pom.xml의 업데이트 완료 후, mvn을 다시 install해주는 것을 잊지 말자.
 
@@ -180,12 +207,12 @@ import lombok.ToString;
 @ToString # 클래스에 대한 toString 자동 생성
 @Table(name = "tb_user") # 이 클래스는 위에서 생성한 tb_user라는 테이블과 매칭됨
 public class UserInfo {
-    
+
     @Id # 테이블의 id. 클래스 내에 꼭 하나는 있어야 함
     @GeneratedValue(strategy = GenerationType.AUTO) # 값을 incremental하게 자동으로 생성
     @Column(name = "user_id") # 해당 값이 데이터베이스 상 어떤 컬럼과 매칭되는지 연결
     private long user_id;
-    
+
     @Column(name = "username")
     private String userName;
 
@@ -202,7 +229,7 @@ public class UserInfo {
 
 #### 2.2. Repository
 
-JPA와 연결되는 Repository를 생성한다.  
+JPA와 연결되는 Repository를 생성한다.
 
 ```java
 package com.exercise.marketplace.user.repository;
@@ -217,13 +244,16 @@ public interface UserRepository extends JpaRepository<UserInfo, Long> {
 }
 ```
 
-![image](https://user-images.githubusercontent.com/39115630/157146635-766dbe6a-42a5-4839-9204-748d2d6888fa.png)
-*@그림 4: JpaRepository를 통해 Override 할 수 있는 다양한 기능들*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/157146635-766dbe6a-42a5-4839-9204-748d2d6888fa.png" alt="JpaRepository를 통해 Override 할 수 있는 다양한 기능들" />
+  <br />
+   JpaRepository를 통해 Override 할 수 있는 다양한 기능들
+</p><br>
 
 #### 2.3. Service
 
 위에서 만들어준 엔티티를 리포지토리를 통해 받아올 서비스 레벨을 작성한다.  
-우리가 작성할 부분은 이 중 '입력된 ID에 해당하는 사용자 컬럼을 반환'하는 기능을 작성한다. 
+우리가 작성할 부분은 이 중 '입력된 ID에 해당하는 사용자 컬럼을 반환'하는 기능을 작성한다.
 
 ```java
 package com.exercise.marketplace.user.service;
@@ -244,12 +274,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     /*
      * Get User Info From Database using JPA
      */
     public ResponseEntity<UserInfo> getUserInfo(@PathVariable("user_id") long user_id) {
-        
+
         Optional<UserInfo> user = userRepository.findById(user_id);
         if(user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
@@ -272,8 +302,12 @@ public class UserService {
 사용자는 다른 응용계층의 서비스에서 getUser 함수를 호출하고, 이 함수 내에서 JpaRepository를 통해 UserInfo를 받아오는 getUserInfo를 수행하도록 작성하였다. Postman에서 수행할 때 user_id를 문자열(String)으로 받아오고 이를 Long 타입으로 변환해서 넘겨주도록 작성해보았다.
 
 <br>
+<br>
+
+---
 
 ## 참고자료
+
 - [JPA란? - 권희정](https://gmlwjd9405.github.io/2019/08/04/what-is-jpa.html)
 - [Gitbook - JPA](https://ultrakain.gitbooks.io/jpa/content/chapter1/chapter1.3.html)
 - [Docker로 postgreSQL Database 설치하기 - 취미로 코딩하는 개발자](https://devinlife.com/postgresql/run-postgresql-on-docker/)

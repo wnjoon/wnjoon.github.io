@@ -1,16 +1,18 @@
 ---
 layout: post
-title: "Colima를 활용한 M1에서 x86/64 기반의 컨테이너 구동하기"
-excerpt: "M1 맥북에서 동작하지 않던 x86/64 기반의 컨테이너를 Colima라는 툴을 이용하여 가상환경 처럼 구동해본다. Colima는 Docker desktop 어플리케이션을 사용하지 않고 간단하게 런타임 환경에서 CLI를 이용하여 컨테이너를 구동할 수 있도록 하는 오픈소스 프로그램이다."
+title: "M1에서 x86/64 기반의 컨테이너 사용법"
+excerpt: "맥북에서 새로 나온 실리콘 계열에서는 인텔의 x86/64 계열로 빌드된 컨테이너가 동작하지 않는 경우가 간혹 존재한다. 이 때 Colima라는 도구를 사용하면 실리콘 맥북에서도 x86/64 계열의 컨테이너 사용이 가능해지는데, 특히 Colima는 Docker desktop 어플리케이션을 사용하지 않고 간단하게 런타임 환경에서 CLI를 이용하여 컨테이너를 구동할 수 있도록 하는 오픈소스 프로그램이다. 이번 포스팅에서는 Colima를 어떻게 설치하며 실행하는지에 대해 설명한다."
+description: "Description of colima, which allows running x86/64 series containers on silicon MacBooks."
 date: 2022-09-04 15:00:00 +0900
-categories: tool
-permalink: /:categories/colima-in-m1/
-tags: [docker, colima]
+categories: 맥쓰사
+tags: [mac, docker]
+keywords: [mac, docker, container]
+comments: true
 ---
 
 <br>
 
-## Oracle을 M1에서 테스트 할 수 없다?
+## M1에서 구동할 수 없는 x86/64로 빌드된 컨테이너 (aka. oracle)
 
 회사에서 사용하는 맥북은 M1 기반인데, Oracle 컨테이너를 도커로 구동할 수 없었다. 컨테이너 자체가 x86/64 기반이라 그랬는데, 어쩔 수 없이(필자를 포함해서 대부분의 사람들이) Oracle Cloud Database 또는 AWS에 x86/64 기반의 인스턴스를 구성하고 거기에 Oracle을 구동하는 방식으로 테스트했다.
 
@@ -45,6 +47,11 @@ $ docker run -e ORACLE_PASSWORD=pass -p 1521:1521 -d gvenzl/oracle-xe
 ```
 
 이후 DBeaver를 이용하여 로컬호스트에 접근하였을 때, 정상적으로 동작하는 것을 확인할 수 있었다.
+
+<br>
+<br>
+
+---
 
 ## 참고자료
 

@@ -1,17 +1,14 @@
 ---
 layout: post
-title:  "해시 테이블(Hash Table)" 
-excerpt: "키-값(key-value) 구조를 통해 효율적인 탐색을 제공하는 해시 테이블 자료구조에 대해 알아본다."
-date:   2021-09-25 15:00:00 +0900
-categories: algorithm
-tags: [hash, key-value]
+title: "해시 테이블(Hash Table)의 구조"
+excerpt: "해시 테이블은 키-값(key-value) 구조를 통해 효율적인 탐색을 제공하는 자료구조이다. 본 포스팅에서는 어떠한 방식으로 값들을 해시화 하여 관리하는지, 중복되는 경우가 발생하면 어떻게 처리하는지 등 해시 테이블에 대해 간략하게 알아본다."
+description: "Description of hash tables that provide efficient search functions using a key-value structure."
+date: 2021-09-25 15:00:00 +0900
+categories: 알고리즘
+tags: [data structure]
+keywords: [algorithm, data structure, searching, key-value]
+comments: true
 ---
-
-<br>
-
-## 해시 테이블 
-
-해시 테이블은 효율적인 탐색을 위한 자료구조로서, 키(key)를 값(value)에 대응시킨 구조다.
 
 <br>
 
@@ -21,9 +18,12 @@ tags: [hash, key-value]
 간단한 해시 테이블을 구현하기 위해, <u>연결리스트(linked list)와 해시코드 함수(hash code function)가 필요</u>하다. 해시 테이블에 사용되는 키는 문자열 또는 그 외에 어떤 자료형도 가능하지만, 일반적으로 int 또는 long이 된다.
 
 > 엄밀히 표현하면, int보다는 long이 더 효율적일 수 있다. 키의 개수는 무한할 수 있는데 반해 int는 long보다 유한할 수 있기 때문이다.  
-> 참고로 자바에서는 int와 long 값의 범위가 아래와 같다. 물론 자바가 아니더라도 대부분 동일하다.  
-> - int: 32bit (-2^31 ~ 2^31 - 1) / -2147483648 ~ 2147483647  
+> 참고로 자바에서는 int와 long 값의 범위가 아래와 같다. 물론 자바가 아니더라도 대부분 동일하다.
+>
+> - int: 32bit (-2^31 ~ 2^31 - 1) / -2147483648 ~ 2147483647
 > - long: 64bit (-2^63 ~ 2^63 - 1) / -9223372036854775808 ~ 9223372036854775807
+
+<br>
 
 구현 순서는 다음과 같다.
 
@@ -31,32 +31,32 @@ tags: [hash, key-value]
 2. 배열의 인덱스를 계산한다. 배열의 인덱스는 hash(key) % array_length 방식으로 구할 수 있다. <u>모듈러 방식으로 구하기 때문에, 서로 다른 두 해시 코드가 같은 인덱스 값을 가질 수 있다.</u>
 3. 배열의 각 인덱스에는 키-값으로 이루어진 연결리스트가 존재하는데, 해당 키-값을 배열의 각 인덱스에 저장(인덱스 내부에 있는 연결리스트에 연결)한다. 연결리스트는 충분히 발생할 수 있는 충돌에 대비하기 위해서 사용하는데, 여기서 충돌이란 두가지 경우에서 발생할 수 있는데, 서로 다른 두 개의 키가 같은 해시 코드를 가리키는 경우(1에서 나올 수 있는)와 서로 다른 두 개의 해시 코드가 같은 인덱스를 가리키는 경우(2에서 나올 수 있는)가 있다.
 
+> 균형 이진 탐색 트리(balanced binary search tree)를 이용해서도 해시 테이블을 구현할 수 있는데, 이 경우 탐색시간은 O(logN)이 된다. 수행시간은 조금 더 걸릴 수 있지만, 배열을 미리 할당하지 않음으로써 잠재적으로 적은 공간을 사용한다는 장점이 있다.
+
 <br>
 
-### 해시 테이블에서 값 찾기
+## 해시 테이블에서 값 찾기
 
 해시테이블에서 키에 상응하는 값을 찾는 과정은 아래와 같다.
- 
+
 1. 주어진 키로부터 해시 코드를 계산한다.
 2. 해시코드를 이용하여 인덱스를 계산한다.
 3. 해당 키에 상응하는 값을 인덱스 내부에 있는 연결리스트에서 검색한다.
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrZSs4%2FbtrfVttdxfx%2Fc1qrGzyhrSCY6H90YTEpvk%2Fimg.png)
+<p align="center" style="color:gray">
+  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrZSs4%2FbtrfVttdxfx%2Fc1qrGzyhrSCY6H90YTEpvk%2Fimg.png" alt="해시 테이블의 동작 방식" />
+  <br />
+  해시 테이블의 동작 방식
+</p><br>
+
+해시 테이블에서 값을 찾는데 시간 복잡도는 얼마나 될까? 만약 충돌의 발생 빈도가 높아지면, 키의 개수를 N이라고 할 때 최악의 경우 O(N)의 수행시간이 걸릴 수도 있다.  
+하지만 일반적으로 사용되는 '충돌을 최소화할 수 있도록 잘 구현된 해시'를 사용할 경우, 탐색 시간은 O(1)이 된다. 해당 키의 해시값에 대한 인덱스를 계산해서 해당 인덱스로 접근하는 1번의 과정만 존재하기 때문이다.
 
 <br>
-
-### 시간 복잡도
-
-만약 충돌의 발생 빈도가 높아지면, 키의 개수를 N이라고 할 때 최악의 경우 O(N)의 수행시간이 걸릴 수도 있다. 하지만 일반적으로 사용되는 '충돌을 최소화할 수 있도록 잘 구현된 해시'를 사용할 경우, 탐색 시간은 O(1)이 된다. 해당 키의 해시값에 대한 인덱스를 계산해서 해당 인덱스로 접근하는 1번의 과정만 존재하기 때문이다.
-
 <br>
 
-## 다른 구현 방법
+---
 
-균형 이진 탐색 트리(balanced binary search tree)를 이용하면 탐색시간은 O(logN)이 된다. 수행시간은 조금 더 걸릴 수 있지만, 배열을 미리 할당하지 않음으로써 잠재적으로 적은 공간을 사용한다는 장점이 있다.
+## 참고자료
 
-<br>
-
-## 참고자료 
 - Cracking The Coding Interview - 해시테이블
-

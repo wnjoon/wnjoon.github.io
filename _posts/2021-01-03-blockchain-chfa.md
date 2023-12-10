@@ -1,18 +1,21 @@
 ---
 layout: post
-title:  "CHFA(하이퍼레저 패브릭 자격증) 후기" 
-excerpt: "하이퍼레저 패브릭의 공식 자격증 CHFA(Certified Hyperledger Fabric Administrator) 자격증 취득 후기를 공유한다."
-date:   2021-01-03 15:00:00 +0900
-categories: blockchain
+title: "리눅스 재단 공식 하이퍼레저 패브릭 자격증(CHFA) 후기"
+excerpt: "허가형 블록체인 중 하나인 하이퍼레저 패브릭에는 리눅스 재단에서 공식적으로 관리하는 자격증 CHFA(Certified Hyperledger Fabric Administrator)이 있다. 필자의 해당 시험 응시 경험과 자격증 취득에 필요한 팁을 공유한다."
+description: "Share experience obtaining certification for Hyperledger Fabric, one of the permissioned blockchains"
+date: 2021-01-03 15:00:00 +0900
+categories: 블록체인
 tags: [hyperledger fabric, 자격증]
+keywords: [blockchain, hyperledger fabric, 자격증]
+comments: true
 ---
 
 <br>
 
-## Hyperledger Fabric이란?
+## Hyperledger Fabric
 
 블록체인 기술은 원장을 공개하는 범위에 따라 공개형(Public/Permissionless)과 허가형(Private/Permissioned)으로 구분된다.
-이 중 허가형의 경우 우리나라를 포함한 전 세계적으로 가장 많이 쓰이는 플랫폼 중 리눅스 재단(The Linux Foundation)에서 운영하고 있는 Hyperledger fabric이 있다.  
+이 중 허가형의 경우 우리나라를 포함한 전 세계적으로 가장 많이 쓰이는 플랫폼 중 리눅스 재단(The Linux Foundation)에서 운영하고 있는 Hyperledger fabric이 있다.
 
 CHFA(Certified Hyperledger Fabric Administrator)는 현재까지 Hyperledger fabric에 대한 유일한 공식 자격증이며, 본 포스팅에서는 해당 자격증을 취득하는 과정에서 겪은 경험에 대해 공유하고자 한다.
 
@@ -40,17 +43,18 @@ CHFA(Certified Hyperledger Fabric Administrator)는 현재까지 Hyperledger fab
 ### 3. 미리 준비하기
 
 생각 이상으로 시험을 응시하기 위한 환경 검증이 까다롭다. 우선, 시험 감독관이 영어를 사용하는 외국인임을 알아야 한다. 시험 준비시간부터 마치는 시간까지 웹캠을 이용하여 모든 일거수일투족을 감시한다. 특히 시험을 보기 전 아래와 같이 주변 환경을 점검한다.
+
 - 시험장소에 본인만 있는지
 - 시험장소에 노트북을 제외한 그 어느것도 주변에 있지 않은지
-- 심지어 만약 물컵이 있다면 물컵이 투명한 유리컵인지도 확인한다. 필자는 <u>투명유리컵</u> 사용을 강요받았다. 
+- 심지어 만약 물컵이 있다면 물컵이 투명한 유리컵인지도 확인한다. 필자는 <u>투명유리컵</u> 사용을 강요받았다.
 
 주변 환경에 대한 검사가 마무리되면 본인 인증을 진행하는데, 개인적으로 꼭 여권을 지참하길 권장한다. 만일 주민등록증 또는 운전면허증을 보여주게 되면 영문 이름 확인을 위한 본인의 신용카드를 또 제출해야 되므로 인증 시간이 훨씬 더 소요된다.
 
 ### 4. 시험 방식
 
-- 시험은 대략 14~16문제정도 출제된다. 각 문제별로 생성된 VM에 ssh로 접속(예: ssh fabadm@fab-00-01)하여 시험을 진행한다.  
-- 시험 도중에는 Hyperledger fabric 공식 문서 웹사이트(https://hyperledger-fabric.readthedocs.io)를 제외한 그 어느 곳도 참조할 수 없다. 어차피 모든 문제가 공식 문서 안에서 출제되기 때문에, 굳이 다른 곳을 확인할 필요는 없다.  
-- Hyperledger fabric의 커맨드 라인에서 사용되는 경로 또는 명령어가 꽤 긴 편이기 때문에, 시험에서는 공식적으로 chrome 내에서 사용할 수 있는 notepad를 제공한다. 문제는 이 노트가 한번 크기를 줄여놓으면 늘어나지를 않는다. 적당한 크기까지만 줄이고 괜한 호기심에 최소한으로 줄이는 불상사는 일으키지 않는 것이 좋다(그냥 처음 켜진 크기 그대로 사용하는 것을 권장한다).  
+- 시험은 대략 14~16문제정도 출제된다. 각 문제별로 생성된 VM에 ssh로 접속(예: ssh fabadm@fab-00-01)하여 시험을 진행한다.
+- 시험 도중에는 Hyperledger fabric 공식 문서 웹사이트(https://hyperledger-fabric.readthedocs.io)를 제외한 그 어느 곳도 참조할 수 없다. 어차피 모든 문제가 공식 문서 안에서 출제되기 때문에, 굳이 다른 곳을 확인할 필요는 없다.
+- Hyperledger fabric의 커맨드 라인에서 사용되는 경로 또는 명령어가 꽤 긴 편이기 때문에, 시험에서는 공식적으로 chrome 내에서 사용할 수 있는 notepad를 제공한다. 문제는 이 노트가 한번 크기를 줄여놓으면 늘어나지를 않는다. 적당한 크기까지만 줄이고 괜한 호기심에 최소한으로 줄이는 불상사는 일으키지 않는 것이 좋다(그냥 처음 켜진 크기 그대로 사용하는 것을 권장한다).
 - 시험 시간도 잘 알려주기 때문에 굳이 시간을 체크해야 할 필요는 없다.
 
 ### 5. 시험 팁
@@ -60,7 +64,7 @@ CHFA(Certified Hyperledger Fabric Administrator)는 현재까지 Hyperledger fab
 - BYFN(Build Your First Network)의 시퀀스를 하나씩 잘 뜯어보아야 한다. 채널 생성에서 체인코드 설치 및 초기화는 기본이며 Org의 추가 또는 Orderer를 활용한 채널 파라미터 값 변경도 가능해야 한다.
 - 일반적으로 학습 또는 테스트 과정에서는 Cryptogen을 활용하여 네트워크의 인증서를 관리하지만, 실제로는 Fabric-CA를 활용하며 시험에서도 Fabric-CA의 활용능력을 중요하게 평가한다. 인증서 등록 및 폐기 과정부터 사용자 관리까지 튜토리얼에 제공된 내용을 꼭 확인해야 한다.
 - 추가로 향후 v2.2에는 어떻게 될지 모르지만, 본 시험에서는 Fabric-ca를 docker 컨테이너 기반이 아닌 systemctl 기반으로 운영한다. 튜토리얼의 예시에서는 docker로만 설명하기 때문에 시험 때 당황할 수 있는 부분인데, CA-server-config 등 Fabric-CA 설정의 변경이후에는 꼭 systemctl을 활용하여 이를 적용하도록 한다.
- 
+
 ### 6. 간단한 문제 형식 공유
 
 <u>기밀사항을 침범하지 않는 한</u> 간략한 문제 유형을 공유한다. 공식문서에 나오지 않아서 애먹었던 내용은 밑줄을 작성하였는데, 꼭 시험 전에 구글링을 할 것을 당부한다.
@@ -76,9 +80,8 @@ CHFA(Certified Hyperledger Fabric Administrator)는 현재까지 Hyperledger fab
 - Raft 방식의 오더링 시스템 구성
 - <u>Systemctl을 이용한 Fabric-CA 구동</u>
 
-<br>
-
-## 결과
-
-![image](https://user-images.githubusercontent.com/39115630/140275709-5917732e-d097-4384-b7f6-4e332a053ee9.png)  
-*@그림 1: CHFA 자격증 취득의 결과 ✌️*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/140275709-5917732e-d097-4384-b7f6-4e332a053ee9.png" alt="chfa certification" />
+  <br />
+  CHFA 자격증 취득의 결과
+</p><br>

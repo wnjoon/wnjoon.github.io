@@ -1,17 +1,20 @@
 ---
 layout: post
-title: "트랜잭션 해시(Transaction Hash)는 언제 만들어지는가?" 
-excerpt: "트랜잭션 해시에 대한 내용과 생성되는 과정 및 시간에 대하여 알아본다. 결론부터 말하자면, 이더리움 블록체인에 전송되기 전에라도 트랜잭션 해시값은 얻을 수 있다."
-date:   2022-05-20 15:00:00 +0900
-categories: blockchain
-tags: [ethereum, transaction, keccak]
+title: "트랜잭션 해시(Transaction Hash)에 대한 설명과 생성 과정"
+excerpt: "이더리움에서는 모든 서명된 트랜잭션마다 해시값을 가지며, 이 값을 이용하여 블록에 배포된 트랜잭션의 정보들을 손쉽게 조회할 수 있다. 그렇다면 블록에 배포되지 못하고 실패한 트랜잭션은 어떻게 조회할 수 있을까? 이번 포스팅에서는 트랜잭션 해시가 어떻게 만들어지고, 언제 확인할 수 있는지에 대해 설명한다."
+description: "An explanation of what a transaction hash is and how it is created in Ethereum."
+date: 2022-05-20 15:00:00 +0900
+categories: 블록체인
+tags: [ethereum, web3js]
+keywords: [blockchain, ethereum, keccak]
+comments: true
 ---
 
 <br>
 
-## 트랜잭션 해시란?
+## 서명은 되었지만 아직 블록으로 만들어지지 못한 트랜잭션, RawTransaction
 
-트랜잭션 해시(Transaction Hash, 또는 줄여서 TXID)는 <u>트랜잭션에 대한 고유 ID</u>를 의미한다. 일반적으로 트랜잭션은 아래와 같은 정보를 갖는다.
+트랜잭션 해시(Transaction Hash)는 <u>트랜잭션에 대한 고유 ID</u>를 의미한다. 일반적으로 트랜잭션은 아래와 같은 정보를 갖는다.
 
 ```sh
 {
@@ -23,16 +26,15 @@ tags: [ethereum, transaction, keccak]
 }
 ```
 
-<br>
+이러한 트랜잭션 해시가 만들어지기 위해서는 위에서 언급한 <u>트랜잭션 정보</u>와 <u>트랜잭션을 전송하는 사용자(EOA)의 개인키</u>가 필요하다. 개인키를 통해 트랜잭션을 보낸 사람이 누구인지를 증명할 수 있는데, 이러한 증명 과정을 <u>서명(signature)</u>이라고 한다.
 
-## 트랜잭션 해시의 생성 과정
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/169449935-9f3ceda3-a64f-443e-b829-8d75d39f45a7.png" alt="트랜잭션 해시의 생성 과정" />
+  <br />
+   트랜잭션 해시의 생성 과정 (이더리움으로 갔다고 해서 배포된 것은 아니라는 것을 향후에 설명할 것)
+</p><br>
 
-트랜잭션 해시가 만들어지기 위해서는 위에서 언급한 <u>1) 트랜잭션 정보</u>와 <u>2) 트랜잭션을 전송하는 지갑의 개인키</u>가 필요하다. 개인키를 통해 트랜잭션을 보낸 사람이 본인임을 증명할 수 있는데, 이러한 증명 과정을 <u>서명(signature)</u>이라고 한다.  
-
-![image](https://user-images.githubusercontent.com/39115630/169449935-9f3ceda3-a64f-443e-b829-8d75d39f45a7.png)  
-*@그림 1: 트랜잭션 해시가 생성되는 과정*
-
-트랜잭션 정보와 서명이 블록체인 노드로 전달되면, 블록체인 노드는 두 정보를 RLP encoding을 통해 RawTransaction으로 만든다. 예시로 아래와 같은 RawTransaction이 있다고 할 때, 이를 해석(decode)하면 실제 전송했던 트랜잭션의 내용을 확인할 수 있다. 이 때 확인할 수 있는(들어있는) 내용은 아래와 같다.
+트랜잭션 정보와 서명이 블록체인 노드로 전달되면, 블록체인 노드는 두 정보를 포함한 데이터를 [RLP 방식](https://wnjoon.github.io/2022/09/12/blockchain-rlp)을 통해 인코딩하게 되는데, 이 때 만들어지는 것이 RawTransaction이다. RawTransaction 내부를 확인해보면 아래와 같다.
 
 ```sh
 {
@@ -48,23 +50,18 @@ tags: [ethereum, transaction, keccak]
 }
 ```
 
-위의 내용들이 특정 구문값과 함께 순서대로 조합되어 하나의 16진수 형태로 구성된다. 자세한 내용은 '[트랜잭션 해시(TXID)에 대한 오해](https://brunch.co.kr/@nujabes403/15#comment)'를 확인하면 좋다.  
+위의 내용들이 특정 구문값과 함께 순서대로 조합되어 하나의 16진수 형태로 구성된다. 자세한 내용은 아래 참고자료에 추가한 '[트랜잭션 해시(TXID)에 대한 오해](https://brunch.co.kr/@nujabes403/15#comment)'를 확인하면 좋다.
+
+그렇다면 실제 트랜잭션의 해시는 어떻게 얻을 수 있을까? 이더리움에서는 서명까지 완료된 RawTransaction을 Keccak256 방식으로 해싱하여 트랜잭션 해시를 생성한다. 즉, 블록체인에 배포되어 블록으로 생성되기 전에도 트랜잭션 해시 값은 미리 확인할 수 있다.
 
 <br>
 
-## 트랜잭션 해시의 생성 방법
+## Web3js로 알아보기
 
-트랜잭션 해시는 결국 <u>keccak256(rawTransaction)</u>의 결과 값이다. [ONLINE SHA-3 Keccak CALCULATOR - CODE GENERATOR](https://leventozturk.com/engineering/sha3/)에서 RawTransaction을 keccak256을 통해 트랜잭션 해시로 만들어볼 수 있는데, 해당 트랜잭션이 이더리움 네트워크에 전송되어 있다면 이를 이더스캔([Etherscan](https://etherscan.io))에서 조회할 수 있다. 여기서 조회 조건인 트랜잭션해시값은 앞에 0x를 붙여줘야 한다.
-- https://etherscan.io/tx/트랜잭션해시값 : 트랜잭션에 들어가있는 정보들을 볼 수 있다. 
-- https://etherscan.io/getRawTx?tx=트랜잭션해시값  : 해당 트랜잭션의 RawTransaction을 확인할 수 있다.
+### 2.1. eth.sendTransaction
 
-<br>
-
-## Web3js
-
-### 1. 트랜잭션 해시 생성 : eth.sendTransaction
-
-[web3js.readthedocs.io - eth.sendTransaction](https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=sendTransaction#sendtransaction)에서는 Web3js를 활용한 트랜잭션 전송 및 해시 반환 방법에 대해 설명하고 있다.  
+[sendTransaction](https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=sendTransaction#sendtransaction)은 파라미터로 전달된 값을 바이트 형태로 조합한 후, 함께 전달된 사용자 주소에 해당하는 개인키로 서명하여 블록체인에 전송하는 일련의 과정을 한번에 처리해준다.  
+뒤에서 다룰 내용인 동일한 데이터값을 블록체인에 전송하기 전 서명하여 트랜잭션 해시로 만들었을 때의 값과 비교하기 위해 실행해본다.
 
 ```js
 // using the event emitter
@@ -84,14 +81,15 @@ web3.eth.sendTransaction({
 ```
 
 위의 코드에서 .on으로 시작되는 내용들에 대한 설명은 아래와 같다.
+
 - on('transactionHash' ...) : 트랜잭션 해시가 노드로부터 반환되었을 경우 실행할 내용들
 - on('receipt' ...) : 트랜잭션이 블록에 포함되었을 경우 실행할 내용들
 - on('confirmation' ...) : 트랜잭션이 블록체인에서 confirm 되었을 경우 실행할 내용들
 - on('error' ...) : 트랜잭션 전송 과정에서 에러가 발생하였을 경우 실행할 내용들
 
-### 2. RawTransaction 생성 : eth.accounts.signTransaction
+### 2.2. eth.accounts.signTransaction
 
-위의 내용이 트랜잭션을 전송하는 함수였다면, 이 함수([eth.accounts.signTransaction](https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction))는 트랜잭션의 정보와 개인키를 이용하여 rawTransaction을 생성해주는 함수이다. 
+[signTransaction](https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction)은 말그대로 트랜잭션 형태로 만들어진 바이트 데이터를 전달된 사용자의 개인키로 서명한다. 이 때 생성된 값이 RawTransaction이 된다.
 
 ```js
 web3.eth.accounts.signTransaction({
@@ -115,17 +113,17 @@ web3.eth.accounts.signTransaction({
 }
 ```
 
-결국 이 함수를 활용하면 트랜잭션을 블록체인에 전송하지 않고도 rawTransaction을 얻을 수 있고, 이를 keccak256 함수로 반환하여 미리 트랜잭션 해시값을 확인할 수도 있다.  
+결과 값을 보면 transactionHash를 볼 수 있는데, 결국 트랜잭션이 블록에 포함되지 않아도(더 나아가 블록체인에 트랜잭션을 전송하지 않아도) 생성된 rawTransaction을 keccak256 함수로 해싱하여 미리 트랜잭션 해시값을 확인할 수 있다.
 
-### 3. Nonce
+> **Nonce**
+>
+> 논스는 <u>트랜잭션을 전송하는 지갑의 trasnaction count, 즉 특정 지갑(계정)이 지금까지 블록체인에 전송한 트랜잭션의 개수</u>를 의미한다.
+> 위의 eth.accounts.signTransaction 함수를 보면 트랜잭션 전송에는 필히 논스(nonce) 값이 필요하다는 것을 알 수 있는데, [getTransactionCount](https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount)를 통해 현재까지 해당 사용자가 블록체인으로 전송한 트랜잭션의 수를 미리 확인할 수 있다.  
+> 즉 모든 트랜잭션은 전송하기 전 블록체인으로부터 현재 사용자가 사용할 수 있는 논스값을 먼저 확인해야 하는데, 이러한 블록체인 접근 과정을 최소화하여 성능을 개선 하기 위해 redis와 같은 별도의 논스 관리 시스템을 사용하기도 한다.
 
-그런데 위의 eth.accounts.signTransaction 함수를 보면 논스(nonce) 값이 필요하다. 블록체인에 실제 트랜잭션을 전송하지 않고도 어떻게 논스를 확인할 수 있을까?  
-여기서의 논스는 <u>트랜잭션을 전송하는 지갑의 trasnaction count, 즉 특정 지갑(계정)이 지금까지 블록체인에 전송한 트랜잭션의 개수</u>를 의미한다. 이 값은 [getTransactionCount](https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount)를 통해 블록체인 노드로부터 가져올 수 있다. 
+### 2.3. eth.sendSignedTransaction
 
-### 4. RawTransaction으로 트랜잭션 전송 : sendSignedTransaction
-
-[sendSignedTransaction](https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount)은 RawTransaction을 블록체인으로 전송하는 함수이다.  
-위의 [eth.accounts.signTransaction](https://web3js.readthedocs.io/en/v1.7.3/web3-eth-accounts.html?highlight=signTransaction#signtransaction)로부터 생성된 값을 해당 함수에 넣어주면 이에 맞는 트랜잭션이 전송된다고 보면 된다.
+[sendSignedTransaction](https://web3js.readthedocs.io/en/v1.7.3/web3-eth.html?highlight=getTransactionCount#gettransactioncount)은 서명된 트랜잭션인 RawTransaction을 블록체인으로 전송할때 사용한다.
 
 ```js
 var Tx = require('@ethereumjs/tx').Transaction;
@@ -155,14 +153,12 @@ web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
 ```
 
 <br>
-
-## 결론
-
-위에서 확인할 수 있었듯, rawTransaction을 keccak256 함수로 변환한 값이기 때문에 이더리움 블록체인에 전송되기 전에라도 트랜잭션 해시값은 얻을 수 있다. 
-
 <br>
 
+---
+
 ## 참고자료
+
 - [트랜잭션 해시(TXID)에 대한 오해 - 김훈일](https://brunch.co.kr/@nujabes403/15#comment)
 - [Inside an Ethereum transaction - Medium](https://medium.com/@codetractio/inside-an-ethereum-transaction-fa94ffca912f)
 - [web3.js - Ethereum JavaScript API](https://web3js.readthedocs.io/en/v1.7.3/index.html)

@@ -1,10 +1,13 @@
 ---
 layout: post
-title:  "Jenkins에 대해 알아보기" 
-excerpt: "CI/CD(소스 형상관리)의 대명사 도구인 젠킨스(Jenkins, 이하 인상좋은 아저씨)를 설치해본다."
-date:   2021-03-04 15:00:00 +0900
-categories: tool
-tags: [ci/cd, jenkins]
+title: "Jenkins에 대해 간략하게 알아보자"
+excerpt: "Jenkins는 CI/CD(소스 형상관리) 분야에서 굉장히 유명한 도구이다. 인상좋은 아저씨를 아이콘으로 한 귀여운 특징이 있는데, 이번 포스팅에서는 Jenkins가 왜 필요한지, 그리고 어떻게 설치하는지에 대해 간략하게 알아본다."
+description: "Description and installation method of Jenkins, one of the most used tools in CI/CD, whose icon is an impressive old man."
+date: 2021-03-04 15:00:00 +0900
+categories: 아키텍처
+tags: [jenkins, 형상관리]
+keywords: [software architecture, jenkins, scm]
+comments: true
 ---
 
 <br>
@@ -21,13 +24,15 @@ tags: [ci/cd, jenkins]
 
 <br>
 
-## Jenkins?
+## Jenkins
 
-![image](https://user-images.githubusercontent.com/39115630/144053641-7eb9a9e4-ebba-4ff5-afe5-0a1c796d93c6.png)
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/144053641-7eb9a9e4-ebba-4ff5-afe5-0a1c796d93c6.png" alt="jenkins old man" />
+</p><br>
 
 > 젠킨스(Jenkins)는 거의 모든 언어의 조합과 소스코드 리포지토리(Repository)에 대한 지속적인 통합과 지속적인 전달 환경을 구축하기 위한 간단한 방법을 제공한다.
 > 젠킨스는 다른 일상적인 개발 작업을 자동화할 뿐 아니라 파이프라인(Pipeline)을 사용해 거의 모든 언어의 조합과 소스코드 리포지토리에 대한 지속적인 통합과 지속적인 전달 환경을 구축하기 위한 간단한 방법을 제공한다.
-> 
+>
 > "젠킨스란 무엇인가, CI(Continuous Integration) 서버의 이해, itworld"
 
 젠킨스는 CI(Continuous Integration) 도구인데, CI를 단계별로 보면 다음과 같다.
@@ -41,13 +46,14 @@ tags: [ci/cd, jenkins]
 
 <br>
 
-## Jenkins 설치하기
+## Jenkins 설치
 
 나는 CentOS 7에서 설치를 진행하였다. (참고 사이트: [Installing Jenkins](https://www.jenkins.io/doc/book/installing/linux/))
 
 ### 1. Requirement
 
 **Minimum hardware requirements:**
+
 - 256 MB of RAM
 - 1 GB of drive space (although 10 GB is a recommended minimum if running Jenkins as a Docker container)
 - Recommended hardware configuration for a small team:
@@ -56,6 +62,7 @@ tags: [ci/cd, jenkins]
 - Comprehensive hardware recommendations:
 
 **Software requirements:**
+
 - Java: see the Java Requirements page
 - Web browser: see the Web Browser Compatibility page
 - For Windows operating system: Windows Support Policy
@@ -66,10 +73,10 @@ tags: [ci/cd, jenkins]
 LTS 버전으로 설치하였다.
 
 ```bash
-$ sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo 
-$ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key 
-$ sudo yum upgrade 
-$ sudo yum install jenkins java-1.8.0-openjdk-devel 
+$ sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+$ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+$ sudo yum upgrade
+$ sudo yum install jenkins java-1.8.0-openjdk-devel
 $ sudo systemctl daemon-reload
 ```
 
@@ -78,14 +85,14 @@ $ sudo systemctl daemon-reload
 ## Jenkins 구동하기
 
 ```bash
-$ sudo systemctl start jenkins 
+$ sudo systemctl start jenkins
 $ sudo systemctl status jenkins
 ```
 
 상태가 active로 나오면 정상적으로 설치된 것이다.
 
 ```bash
-Loaded: loaded (/etc/rc.d/init.d/jenkins; generated) 
+Loaded: loaded (/etc/rc.d/init.d/jenkins; generated)
 Active: active (running) since ...
 ```
 
@@ -95,8 +102,11 @@ Active: active (running) since ...
 
 젠킨스는 기본적으로 8080포트를 활용해서 웹 어플리케이션을 제공한다. 그러므로 해당 포트의 inbound가 가능해야 한다.
 
-![image](https://user-images.githubusercontent.com/39115630/144054822-351859f2-2368-428f-a25b-79e6ab7f75da.png)  
-*@그림 1: Jenkins를 처음 열었을 때의 화면*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/144054822-351859f2-2368-428f-a25b-79e6ab7f75da.png" alt="open jenkins" />
+  <br />
+  Jenkins를 처음 열었을 때의 화면
+</p><br>
 
 비밀번호를 입력해야 하는데, /var/lib/jenkins/secrets/initialAdminPassword 경로를 확인하면 비밀번호 확인이 가능하다.
 
@@ -104,13 +114,19 @@ Active: active (running) since ...
 $ cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
-![image](https://user-images.githubusercontent.com/39115630/144054980-7267fda5-0462-4a7d-93c1-104a0c58610a.png)  
-*@그림 2: Jenkins 확장 프로그램 설치 유무 선택 화면*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/144054980-7267fda5-0462-4a7d-93c1-104a0c58610a.png" alt="install jenkins extensions" />
+  <br />
+  Jenkins 확장 프로그램 설치 유무 선택 화면
+</p><br>
 
 해당 비밀번호를 입력하면 Customize Jenkins라고 해서 확장 프로그램 설치하는 페이지가 나온다. 나는 잘 모르기도 하고, 설명에 젠킨스 커뮤니티에서 가장 많이 사용하는 플러그인이라고 하여 Install suggested plugins를 설치했다.
 
-![image](https://user-images.githubusercontent.com/39115630/144055136-3492f786-a2ce-4cb8-99ca-5ed84ad1e9f6.png)  
-*@그림 3: 사용자 아이디 및 비밀번호 생성*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/144055136-3492f786-a2ce-4cb8-99ca-5ed84ad1e9f6.png" alt="create user id, password" />
+  <br />
+  사용자 아이디 및 비밀번호 생성
+</p><br>
 
 설치가 완료되면 First Admin User를 생성하라는 페이지가 뜬다. 어차피 테스트 용도이기 때문에, 본인이 기억하기 쉬운 내용을 작성한다. 굳이 작성하지 않고 싶다면, 아래에 skip and continue as admin이 있다. 그러면 admin 계정으로 진행할 수 있게 된다. 이후에 젠킨스의 접속 주소를 다시한번 확인한 후, 시작을 하게 된다.
 
@@ -118,8 +134,11 @@ $ cat /var/lib/jenkins/secrets/initialAdminPassword
 
 ## Jenkins 살펴보기
 
-![image](https://user-images.githubusercontent.com/39115630/144055293-83cd33ef-5260-43e5-98c3-4570201dcbb5.png)  
-*@그림 4: Jenkins 메인 화면*
+<p align="center" style="color:gray">
+  <img src="https://user-images.githubusercontent.com/39115630/144055293-83cd33ef-5260-43e5-98c3-4570201dcbb5.png" alt="jenkins main page" />
+  <br />
+  Jenkins 메인 화면
+</p><br>
 
 - New Item : 새로운 작업(new job)을 만든다. 젠킨스는 작업 단위로 빌드를 관리하며, 일반적으로 git 혹은 svn 프로젝트가 작업이 된다.
 - People : 유저의 정보들을 확인할 수 있다.

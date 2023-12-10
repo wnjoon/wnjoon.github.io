@@ -9,8 +9,11 @@
   
   
   
-  <title>Storage, Memory, Calldata의 차이</title>
-  <meta name="description" content="솔리디티에서 레퍼런스 타입 변수를 선언할 때에는 데이터 위치(storage, memory, calldata)를 꼭 명시해야 한다. 상태 변수의 변경이 블록체인에 저장되어야 한다면 storage 키워드를 사용하고, 블록체인으로의 상태 변수 업데이트가 필요 없다면 memory, calldata를 사용한다. 단 변수 값의 수정이 이루어지지 않는 단순 읽기만 요구된다면, 가스비 절약을 위해서라도 calldata를 사용하는 것이 더 바람직하다.">
+  <title>솔리디티의 레퍼런스 타입 사용시 필요한 데이터 위치 &#39;Storage, Memory, Calldata&#39; 비교</title>
+  <meta name="description" content="An explanation of the differences between storage, memory, and calldata, which are data location values required when declaring reference type variables in Solidity.">
+  
+    
+    <meta name="keywords" content="blockchain,ethereum,smart contract">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -22,16 +25,16 @@
   
 
   
-  <meta property="og:title" content="Storage, Memory, Calldata의 차이">
+  <meta property="og:title" content="솔리디티의 레퍼런스 타입 사용시 필요한 데이터 위치 &#39;Storage, Memory, Calldata&#39; 비교">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2022/10/21/blockchain-eth_data_location/">
-  <meta property="og:description" content="솔리디티에서 레퍼런스 타입 변수를 선언할 때에는 데이터 위치(storage, memory, calldata)를 꼭 명시해야 한다. 상태 변수의 변경이 블록체인에 저장되어야 한다면 storage 키워드를 사용하고, 블록체인으로의 상태 변수 업데이트가 필요 없다면 memory, calldata를 사용한다. 단 변수 값의 수정이 이루어지지 않는 단순 읽기만 요구된다면, 가스비 절약을 위해서라도 calldata를 사용하는 것이 더 바람직하다.">
+  <meta property="og:description" content="An explanation of the differences between storage, memory, and calldata, which are data location values required when declaring reference type variables in Solidity.">
   
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Storage, Memory, Calldata의 차이">
-  <meta name="twitter:description" content="솔리디티에서 레퍼런스 타입 변수를 선언할 때에는 데이터 위치(storage, memory, calldata)를 꼭 명시해야 한다. 상태 변수의 변경이 블록체인에 저장되어야 한다면 storage 키워드를 사용하고, 블록체인으로의 상태 변수 업데이트가 필요 없다면 memory, calldata를 사용한다. 단 변수 값의 수정이 이루어지지 않는 단순 읽기만...">
+  <meta name="twitter:title" content="솔리디티의 레퍼런스 타입 사용시 필요한 데이터 위치 &#39;Storage, Memory, Calldata&#39; 비교">
+  <meta name="twitter:description" content="An explanation of the differences between storage, memory, and calldata, which are data location values required when declaring reference type variables in Solidity.">
   
   
 
@@ -76,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">Storage, Memory, Calldata의 차이</h1>
+      <h1 class="post-title" itemprop="name headline">솔리디티의 레퍼런스 타입 사용시 필요한 데이터 위치 &#39;Storage, Memory, Calldata&#39; 비교</h1>
     
     <p class="post-meta"><time datetime="2022-10-21T06:00:00+00:00" itemprop="datePublished">2022년 10월 21일</time> •
   
@@ -167,97 +170,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/categories/blockchain/">blockchain</a>
+        <a href="/categories/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8/">블록체인</a>
       
     
       
@@ -290,20 +203,6 @@
  •
   
     
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
     
       
     
@@ -417,82 +316,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
     
     
@@ -545,97 +368,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/solidity/">solidity</a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+        <a href="/tags/smart-contract/">smart contract</a>
       
     
       
@@ -706,9 +439,9 @@
   <div class="post-content" itemprop="articleBody">
     <p><br /></p>
 
-<h2>레퍼런스(Reference) 타입 변수</h2>
+<h2>레퍼런스(Reference) 타입 변수와 데이터 선언 위치</h2>
 
-<p>다이나믹(Dynamic) 타입이라고도 불리는데, 솔리디티에서 사용하는 데이터의 위치(location)을 명시하지 않으면 컴파일 과정에서 에러를 발생시킨다. 레퍼런스 타입은 아래와 같다.</p>
+<p>레퍼런스 타입은 다이나믹(Dynamic) 타입이라고도 불리는데, 솔리디티에서 사용하는 데이터의 위치(location)을 명시하지 않으면 컴파일 과정에서 에러를 발생시킨다. 레퍼런스 타입은 아래와 같다.</p>
 
 <ul>
   <li>Array (솔리디티에서는 bytes, string 타입을 special array로 취급한다)</li>
@@ -716,36 +449,46 @@
   <li>Mapping</li>
 </ul>
 
-<p><br /></p>
-
-<h2>데이터 위치(location)</h2>
+<p>레퍼런스 타입 사용시 선언할 수 있는 데이터 위치 값들은 아래와 같다.</p>
 
 <p><strong>Storage</strong></p>
+
 <ul>
   <li>모든 상태 변수를 저장한다. 즉, 블록체인에 저장되는 데이터는 모두 Storage에 저장된다.</li>
 </ul>
 
 <p><strong>Memory</strong></p>
+
 <ul>
   <li>함수 호출(External) 과정에 휘발성으로 존재하는 데이터를 잠시 저장하는 곳이다.</li>
   <li>수정이 가능하다.</li>
 </ul>
 
 <p><strong>Calldata</strong></p>
+
 <ul>
   <li>함수 호출 시 파라미터에 포함되는 데이터를 잠시 저장하는 곳이다.</li>
   <li>수정이 불가능하다.</li>
 </ul>
 
+<p>위의 내용을 간단하게 정리해보면 아래와 같다.</p>
+
+<ul>
+  <li>레퍼런스 타입 변수는 선언 시 데이터 위치(storage, memory, calldata)를 꼭 명시해야 한다.</li>
+  <li>상태 변수의 변경이 블록체인에 저장되어야 한다면 storage 키워드를 사용한다.</li>
+  <li>블록체인으로의 상태 변수 업데이트가 필요 없다면 memory, calldata를 사용한다. 단 변수 값의 수정이 이루어지지 않는 단순 읽기만 요구된다면, 가스비 절약을 위해서라도 calldata를 사용하는 것이 더 바람직하다.</li>
+  <li>calldata는 함수의 리턴값에서는 사용할 수 없다. 오직 인풋 파라미터에서만 사용가능하다.</li>
+</ul>
+
 <p><br /></p>
 
-<h2>예시</h2>
+<h2>솔리디티에서 작성되는 방식</h2>
 
 <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">contract</span> <span class="n">sample</span> <span class="p">{</span>
     <span class="kt">uint</span> <span class="k">public</span> <span class="n">a</span><span class="p">;</span>
     <span class="kt">uint</span> <span class="k">public</span> <span class="n">b</span><span class="p">;</span>
 
-    <span class="k">struct</span> <span class="n">MyStruct</span> <span class="p">{</span>        
+    <span class="k">struct</span> <span class="n">MyStruct</span> <span class="p">{</span>
         <span class="kt">string</span> <span class="n">val</span><span class="p">;</span>
     <span class="p">}</span>
 
@@ -753,7 +496,7 @@
 
     <span class="c1">// (1)
 </span>    <span class="k">function</span> <span class="n">setVariable</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">string</span> <span class="k">calldata</span> <span class="n">_val</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
-        <span class="c1">// (2) 
+        <span class="c1">// (2)
 </span>        <span class="n">MyStruct</span> <span class="k">storage</span> <span class="n">ms</span> <span class="o">=</span> <span class="n">myStructList</span><span class="p">[</span><span class="n">_address</span><span class="p">];</span>
         <span class="n">ms</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">_val</span><span class="p">;</span>
     <span class="p">}</span>
@@ -789,37 +532,22 @@
 
 <p>사실 복사본을 사용한다는 말은 자연스럽게 가스비 증가를 의미하게 된다. 그러므로 데이터의 변경이 없을 것 같은 경우에는 calldata 키워드를 사용하는것이 무분별한 memory 키워드 사용보다는 더 좋을 것이다.</p>
 
-<p><br /></p>
-
-<h2>추가 (2023.02.23)</h2>
+<p>추가로 함수의 리턴값을 다룰 때에도 calldata와 memory의 차이점이 발생한다.</p>
 
 <div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">Order</span><span class="p">)</span> <span class="n">_orders</span><span class="p">;</span>
 <span class="p">...</span>
 <span class="k">function</span> <span class="n">getOrder</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Order</span> <span class="k">calldata</span><span class="p">)</span> <span class="cm">/* &lt;- Return에 calldata 사용 */</span><span class="p">{</span>
     <span class="k">return</span> <span class="n">_orders</span><span class="p">[</span><span class="n">id</span><span class="p">];</span> <span class="cm">/* &lt;- 오류 발생 */</span>
 <span class="p">}</span>
-</code></pre></div></div>
+<span class="c1">// 오류 : Return argument type struct MatchingEngine.Order storage ref is not implicitly convertible to expected type (type of first return variable) struct MatchingEngine.Order calldata.
+</span></code></pre></div></div>
 
-<p>위의 예시처럼 함수의 리턴에 calldata를 사용하면 오류가 발생한다.</p>
+<p>위의 예시처럼 함수의 리턴에 calldata를 사용하면 오류가 발생한다(<a href="https://ethereum.stackexchange.com/questions/117770/how-to-use-calldata-return-values-in-solidity-and-when-are-they-useful">StackExchange</a>). 위에서 설명한 것 처럼 함수 호출 시 파라미터에 포함되는 데이터를 잠시 저장하는 곳이기 때문에, calldata는 input 파라미터에서만 사용이 가능하다. 리턴 값에는 필히 memory를 선언하도록 하자.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Return argument <span class="nb">type </span>struct MatchingEngine.Order storage ref is not implicitly convertible to expected <span class="nb">type</span> <span class="o">(</span><span class="nb">type </span>of first <span class="k">return </span>variable<span class="o">)</span> struct MatchingEngine.Order calldata.
-</code></pre></div></div>
+<p><br />
+<br /></p>
 
-<p>확인 결과(<a href="https://ethereum.stackexchange.com/questions/117770/how-to-use-calldata-return-values-in-solidity-and-when-are-they-useful">StackExchange</a>), calldata는 input 파라미터로만 적용 가능하며 return 값에서는 사용이 불가능하다. 그러므로 Return 값에서는 memory를 사용하자.</p>
-
-<p><br /></p>
-
-<h2>요약</h2>
-
-<p>포스팅을 다시 요약해보면,</p>
-<ul>
-  <li>레퍼런스 타입 변수는 선언 시 데이터 위치(storage, memory, calldata)를 꼭 명시해야 한다.</li>
-  <li>상태 변수의 변경이 블록체인에 저장되어야 한다면 storage 키워드를 사용한다.</li>
-  <li>블록체인으로의 상태 변수 업데이트가 필요 없다면 memory, calldata를 사용한다. 단 변수 값의 수정이 이루어지지 않는 단순 읽기만 요구된다면, 가스비 절약을 위해서라도 calldata를 사용하는 것이 더 바람직하다.</li>
-  <li>(추가) calldata는 함수의 리턴값에서는 사용할 수 없다. 오직 인풋 파라미터에서만 사용가능하다.</li>
-</ul>
-
-<p><br /></p>
+<hr />
 
 <h2>참고자료</h2>
 

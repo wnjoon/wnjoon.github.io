@@ -1,10 +1,13 @@
 ---
 layout: post
-title:  "이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" 
+title: "이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해"
 excerpt: "재진입성 공격은 컨트랙트가 알 수 없는 주소(스마트 컨트랙트)로 이더를 전송하는 경우 발생한다. 내부 fallback 함수에 악성코드를 심어놓은 스마트 컨트랙트로 이더를 전송하게 되면, 악의적인 코드가 실행되면서 발생하는 공격이다. 이 공격을 예방하려면 transfer를 이용한 이더 전송과 상태 변수의 적절한 변경, 그리고 뮤텍스 등을 적용해야 한다."
-date:   2022-10-26 15:00:00 +0900
-categories: blockchain
-tags: [ethereum, solidity, smart contract]
+description: "Description of reentrancy attacks that can occur due to malware that causes a smart contract to send ether to an unknown address."
+date: 2022-10-26 15:00:00 +0900
+categories: 블록체인
+tags: [ethereum, smart contract]
+keywords: [blockchain, ethereum, smart contract]
+comments: true
 ---
 
 <br>
@@ -25,9 +28,9 @@ tags: [ethereum, solidity, smart contract]
 
 <br>
 
-## 예시
+## 재진입성 공격에 대한 솔리디티 예시
 
-여기 이더를 보관 및 인출해주는 은행 컨트랙트(Bank)와 이를 공격하기 위한 컨트랙트(Attack)가 있다고 하자. 
+여기 이더를 보관 및 인출해주는 은행 컨트랙트(Bank)와 이를 공격하기 위한 컨트랙트(Attack)가 있다고 하자.
 
 ```solidity
 // 은행 컨트랙트
@@ -70,9 +73,11 @@ contract Attack {
 
 공격자(Attacker)가 단일 트랜잭션만으로 Bank 컨트랙트에서 1이더만 남기고 모두 출금하는 과정을 그림으로 표현하면 아래와 같다. 단, Bank 컨트랙트에는 어느정도의 이더가 이미 존재하고 있다고 가정한다.
 
-![](https://velog.velcdn.com/images/wnjoon/post/6502c25e-0cd0-4d45-89f8-a8e6cbfce390/image.PNG)
-
-*@그림 1: 공격자가 Attack 컨트랙트를 이용하여 Bank 컨트랙트를 공격*
+<p align="center" style="color:gray">
+  <img src="https://velog.velcdn.com/images/wnjoon/post/6502c25e-0cd0-4d45-89f8-a8e6cbfce390/image.PNG" alt="공격자가 Attack 컨트랙트를 이용하여 Bank 컨트랙트를 공격" />
+  <br />
+   공격자가 Attack 컨트랙트를 이용하여 Bank 컨트랙트를 공격
+</p><br>
 
 1. 공격자가 Attack 컨트랙트의 attackBank 함수를 실행한다.
 2. attackBank 함수가 Bank 컨트랙트의 deposit 함수를 호출하여 1 이더를 입금한다.
@@ -82,9 +87,7 @@ contract Attack {
 
 <br>
 
-## 어떻게 막을 수 있을까?
-
-재진입 공격을 막기 위한 방법은 현재까지 3가지 정도 존재한다.
+## 재진입성 공격을 막기 위한 3가지 방법
 
 ### 1. transfer 함수 사용
 
@@ -101,8 +104,8 @@ contract Bank {
     function withdraw(uint256 _amount) public {
         ...
         // 아래 두 코드의 위치를 변경해서,
-        // 알 수 없는 주소로의 외부 호출을 수행하는 코드를 
-        // 지역함수 또는 코드 실행 부분의 
+        // 알 수 없는 주소로의 외부 호출을 수행하는 코드를
+        // 지역함수 또는 코드 실행 부분의
         // 가장 마지막에 진행해야 한다.
         require(msg.sender.call.value(_amount)());
         balances[msg.sender] -= _amount;
@@ -116,7 +119,7 @@ contract Bank {
 
 <br>
 
-## 개선된 코드
+## 개선된 솔리디티 코드
 
 개선된 Bank 컨트랙트의 코드를 살펴보면 아래와 같다.
 
@@ -132,9 +135,9 @@ contract Bank {
     }
 
     function withdraw(uint256 _amount) public {
-        
+
         // 2. 뮤텍스 확인
-        require(!mutex);        
+        require(!mutex);
         require(balances[msg.sender] >= _amount);
 
         // 3. 상태 변수 우선 변경
@@ -145,7 +148,7 @@ contract Bank {
 
         // 5. call 대신 transfer 사용
         msg.sender.transfer(_amount);
-        
+
         // 6. 외부 호출 이후 뮤텍스 해제
         mutex = false;
     }
@@ -153,6 +156,9 @@ contract Bank {
 ```
 
 <br>
+<br>
+
+---
 
 ## 참고자료
 
