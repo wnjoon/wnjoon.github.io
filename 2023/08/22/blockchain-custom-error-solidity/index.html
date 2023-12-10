@@ -9,11 +9,11 @@
   
   
   
-  <title>솔리디티의 Custom Errors 사용하기</title>
+  <title>가스비 절감의 효과를 갖는 솔리디티의 custom error 사용방법</title>
   <meta name="description" content="How to Use custom error in solditiy for reducing smart contract size and gas price.">
   
     
-    <meta name="keywords" content="blockchain, smartcontract, solidity">
+    <meta name="keywords" content="blockchain,ethereum,smart contract,solidity">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -25,7 +25,7 @@
   
 
   
-  <meta property="og:title" content="솔리디티의 Custom Errors 사용하기">
+  <meta property="og:title" content="가스비 절감의 효과를 갖는 솔리디티의 custom error 사용방법">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity/">
   <meta property="og:description" content="How to Use custom error in solditiy for reducing smart contract size and gas price.">
@@ -33,7 +33,7 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="솔리디티의 Custom Errors 사용하기">
+  <meta name="twitter:title" content="가스비 절감의 효과를 갖는 솔리디티의 custom error 사용방법">
   <meta name="twitter:description" content="How to Use custom error in solditiy for reducing smart contract size and gas price.">
   
   
@@ -79,7 +79,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">솔리디티의 Custom Errors 사용하기</h1>
+      <h1 class="post-title" itemprop="name headline">가스비 절감의 효과를 갖는 솔리디티의 custom error 사용방법</h1>
     
     <p class="post-meta"><time datetime="2023-08-22T06:00:00+00:00" itemprop="datePublished">2023년 8월 22일</time> •
   
@@ -166,7 +166,7 @@
       
     
       
-    
+        <a href="/categories/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8/">블록체인</a>
       
     
       
@@ -187,12 +187,6 @@
     
       
     
-      
-    
-      
-    
-      
-        <a href="/categories/blockchain/">blockchain</a>
       
     
       
@@ -310,12 +304,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
   
     
     
@@ -368,112 +356,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/solidity/">solidity</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+        <a href="/tags/smart-contract/">smart contract</a>
       
     
       
@@ -500,22 +383,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/smartcontract/">smartcontract</a>
       
     
       
@@ -590,7 +457,7 @@ contract VendingMachine {
 
 <p>위의 예시를 보면 <a href="https://docs.soliditylang.org/en/latest/contracts.html?color=dark#events">이벤트(event)</a>와 구문이 비슷한 것을 볼 수 있는데, 차이점은 <a href="https://docs.soliditylang.org/en/latest/control-structures.html?color=dark#revert-statement">revert 구문</a>과 같이 사용해야 한다는 것이다. revert를 사용하면 현재까지 진행되던 상태 변환 프로세스가 모두 중단되고 에러 메시지를 호출자에게 전달한다. <a href="https://github.com/ethereum/solidity/issues/11278">require 구문의 사용은 현재 포스팅 시점(2023.08.23)에는 제공되지 않고 있는데</a>, 아래의 예시를 보면 이해가 쉬울 것이다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># This Error message with require statement 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># This Error message with require statement
 require(condition, "error message")
 
 # Should be translated to
@@ -717,14 +584,17 @@ console.log(
 
 <h2>주의점</h2>
 
-<p>스마트 컨트랙트를 컴파일해서 ABI 형태의 JSON 파일로 만드는 과정에서, 컴파일러는 해당 스마트 컨트랙트가 나타낼 수 있는(emit) 모든 에러를 해당 파일에 포함시킨다. 여기서 중요한 것은 이 과정에 <u>external call로 호출되는 에러 메시지들은 포함되지 않는다</u>는 것이다. 
+<p>스마트 컨트랙트를 컴파일해서 ABI 형태의 JSON 파일로 만드는 과정에서, 컴파일러는 해당 스마트 컨트랙트가 나타낼 수 있는(emit) 모든 에러를 해당 파일에 포함시킨다. 여기서 중요한 것은 이 과정에 <u>external call로 호출되는 에러 메시지들은 포함되지 않는다</u>는 것이다.
 이러한 이유로 개발자들은 에러 마다 <a href="https://docs.soliditylang.org/en/latest/natspec-format.html?color=dark">NatSpec</a> 형식을 준수하는 설명을 달아놓기도 한다. NatSpec은 개발자와 사용자가 추가 비용없이 에러 메시지에 대해 서로 이해할 수 있도록 하는 좋은 방법 중 하나이다.</p>
 
 <p>어쨋든 에러 메시지의 출처를 추적할 수 없기 때문에, 에러 데이터는 신중하게 사용해야 한다. external call 호출 횟수가 계속 늘어날수록, 발생하는 에러 메시지가 어디서부터 온 것인지 추적하기 점점 어려워진다는 것을 의미한다. 게다가 실제 에러가 아님에도 불구하고 에러메시지(처럼 보이는 문구)를 호출하도록 악의적으로 스마트 컨트랙트를 작성할 수도 있다.</p>
 
-<p><br /></p>
+<p><br />
+<br /></p>
 
-<h2>참고</h2>
+<hr />
+
+<h2>참고자료</h2>
 
 <ul>
   <li><a href="https://soliditylang.org/blog/2021/04/21/custom-errors/">Custom Errors in Solidity - Soliditylang.org</a></li>

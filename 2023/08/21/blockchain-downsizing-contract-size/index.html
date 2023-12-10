@@ -10,7 +10,10 @@
   
   
   <title>스마트 컨트랙트의 사이즈를 줄이는 방법</title>
-  <meta name="description" content="이더리움의 스마트 컨트랙트는 DoS(Denial-of-Service)와 같은 공격으로부터 네트워크를 방어하기위해, 스마트 컨트랙트의 사이즈를 제한하고 있다. 그렇기 때문에 스마트 컨트랙트에 작성할 수 있는 코드 길이가 한정될 수 밖에 없는데, 이번 포스팅에서는 이더리움 공식 웹사이트에서 제안하는 스마트 컨트랙트 사이즈를 줄이는 방법들을 살펴보려고 한다.">
+  <meta name="description" content="Introducing several ways to reduce the size of smart contracts in Ethereum.">
+  
+    
+    <meta name="keywords" content="blockchain,ethereum,smart contract,solidity">
   
 
   <link rel="stylesheet" href="/assets/main.css">
@@ -25,13 +28,13 @@
   <meta property="og:title" content="스마트 컨트랙트의 사이즈를 줄이는 방법">
   <meta property="og:site_name" content="👨‍💻 월리의 탐구생활">
   <meta property="og:url" content="https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/">
-  <meta property="og:description" content="이더리움의 스마트 컨트랙트는 DoS(Denial-of-Service)와 같은 공격으로부터 네트워크를 방어하기위해, 스마트 컨트랙트의 사이즈를 제한하고 있다. 그렇기 때문에 스마트 컨트랙트에 작성할 수 있는 코드 길이가 한정될 수 밖에 없는데, 이번 포스팅에서는 이더리움 공식 웹사이트에서 제안하는 스마트 컨트랙트 사이즈를 줄이는 방법들을 살펴보려고 한다.">
+  <meta property="og:description" content="Introducing several ways to reduce the size of smart contracts in Ethereum.">
   
   
   <meta name="twitter:card" content="summary">
   
   <meta name="twitter:title" content="스마트 컨트랙트의 사이즈를 줄이는 방법">
-  <meta name="twitter:description" content="이더리움의 스마트 컨트랙트는 DoS(Denial-of-Service)와 같은 공격으로부터 네트워크를 방어하기위해, 스마트 컨트랙트의 사이즈를 제한하고 있다. 그렇기 때문에 스마트 컨트랙트에 작성할 수 있는 코드 길이가 한정될 수 밖에 없는데, 이번 포스팅에서는 이더리움 공식 웹사이트에서 제안하는 스마트 컨트랙트 사이즈를 줄이는 방법들을 살펴보려고 한다.">
+  <meta name="twitter:description" content="Introducing several ways to reduce the size of smart contracts in Ethereum.">
   
   
 
@@ -163,7 +166,7 @@
       
     
       
-    
+        <a href="/categories/%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8/">블록체인</a>
       
     
       
@@ -184,12 +187,6 @@
     
       
     
-      
-    
-      
-    
-      
-        <a href="/categories/blockchain/">blockchain</a>
       
     
       
@@ -307,12 +304,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
   
     
     
@@ -365,112 +356,7 @@
       
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/solidity/">solidity</a>,
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+        <a href="/tags/smart-contract/">smart contract</a>
       
     
       
@@ -497,22 +383,6 @@
     
       
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-        <a href="/tags/smartcontract/">smartcontract</a>
       
     
       
@@ -583,6 +453,7 @@
 
 <p>스마트 컨트랙트 분리의 첫걸음은 좋은 구조(good architecture)로부터 시작한다. 스마트 컨트랙트가 작아질수록 가독성은 높아진다.<br />
 스마트 컨트랙트 분리 시 생각해보아야 하는 점들은 아래와 같다.</p>
+
 <ul>
   <li>함께 동작하는 기능들은 모아두는 것이 좋다.</li>
   <li>상태(state)값을 확인 또는 변경하지 않는 기능은 분리해도 좋다.</li>
@@ -735,7 +606,12 @@ function checkStuff() private {}
 function doSomething() { checkStuff(); }
 </code></pre></div></div>
 
-<h2>참고</h2>
+<p><br />
+<br /></p>
+
+<hr />
+
+<h2>참고자료</h2>
 
 <ul>
   <li><a href="https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/">DOWNSIZING CONTRACTS TO FIGHT THE CONTRACT SIZE LIMIT - ethereum.org</a></li>
