@@ -4,7 +4,7 @@ title: "바이트코드로 알아보는 스마트 컨트랙트의 호출 과정"
 excerpt: "어셈블리어라는 것을 들어본적이 있는가? 우리가 사용하는 모든 프로그래밍 언어는 결국 바이트로, 그리고 최종적으로 0과 1로 변환되어 컴퓨터에게 전달된다. 사용하기 쉬울수록 그 사이에 수많은 계층이 존재하는데, 이더리움 또한 솔리디티로 작성된 내용을 EVM에서 바이트코드로 변환하여 컴퓨터에게 전달한다. 그 중 스마트 컨트랙트의 호출과정을 한번 바이트코드로 알아본다."
 description: "Check the smart contract calling process in Ethereum with byte code."
 date: 2023-02-01 15:00:00 +0900
-categories: blockchain
+categories: 블록체인
 tags: [ethereum]
 keywords: [blockchain, ethereum]
 comments: true
