@@ -10,4 +10,4 @@ title: About me
 ## Contact
 - [Linkedin](https://www.linkedin.com/in/wonjoon/)
 - [Resume](https://wnjoon.github.io/resume) 
-- [Personal blog](https://brunch.co.kr/@wallee)
+- [Brunch](https://brunch.co.kr/@wallee)
