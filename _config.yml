@@ -1,52 +1,30 @@
-# Site Specific Configuration
-name: 월리의 탐구생활
-description: 개발자라면 하나쯤 있을법한 블로그
-url: https://wnjoon.github.io
-author: wonjoon
-timezone: Asia/Seoul
-timezone_short: KR
+title: 월리의 탐구생활 # name of the site
+author: Wonjoon # name of site's author
+email: wnjoon@gmail.com # email of site's author
+url: https://wnjoon.github.io # root address of the site
+# baseurl: "/no-style-please" # subpath of the site, e.g. "/blog" (leave it blank "" if you're site shouldn't use a subpath)
+description: > # description of the site (multiple lines allowed)
+  A (nearly) no-CSS, fast, minimalist Jekyll theme.
 
-# Keywords
-keywords: ['seo', 'key', 'words']
+# permalink: /:slug.html
 
-# Analytics (Plausible requires sign-up)
-analytics:
-  plausible:
-    enabled: false
-    site_fqdn: 'your.site.fqdn'
-    script_source: 'https://plausible.io/js/script.js'
+favicon: "logo.png" # name+extension of favicon (which must be put on the root folder)
+# goat_counter: "yoursitename" # put your GoatCounter name if you want to use GoatCounter analytics
 
-# Permalink
-permalink: /:year/:month/:day/:title
+# theme: no-style-please
+remote_theme: riggraz/no-style-please 
 
-# Styling
+theme_config:
+  appearance: "light" # can be "light", "dark" or "auto"
+  back_home_text: "<-home" # customize text for homepage link in post layout
+  date_format: "%Y-%m-%d" # customize how date is formatted
+  show_description: false # show blog description in home page
+
+permalink: /:year/:month/:day/:title/
+
 sass:
-  sass_dir: _sass
-  style: expanded # compact, expanded or compressed
+  style: :compressed
 
-# Paginate
-pagination:
-  enabled: true
-  # Value set low for demonstration purposes
-  per_page: 3
-  sort_field: 'date'
-  sort_reverse: true
-
-# Category Paginating
-autopages:
-  enabled: true
-  categories:
-    title: 'Posts in category :cat'
-    permalink: '/category/:cat'
-    silent: false
-
-# Exclusions
-exclude: [ 'README.md', 'COPYING' ]
-
-# Plugins
 plugins:
   - jekyll-feed
-  - jekyll-paginate-v2
   - jekyll-seo-tag
-
-
