@@ -3,11 +3,10 @@ layout: post
 title:  "가스비 절감의 효과를 갖는 솔리디티의 custom error 사용 방법" 
 description: How to Use custom error in solditiy for reducing smart contract size and gas price.
 date:   2023-08-22 15:00:00 +0900
-categories: 블록체인
-tags: [ethereum, solidity, smartcontract]
+# categories: blockchain
+# tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity
 comments: true
-
 ---
 
 <br>
