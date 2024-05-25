@@ -1,0 +1,28 @@
+I"!<h2 id="about">About</h2>
+<p>LightSpeed is a lightweight Jekyll theme designed to be privacy-friendly (<del>no</del> <em>very little</em> JavaScript), fast, and
+excellent at delivering content.</p>
+
+<h2 id="about-further">About, Further</h2>
+<p>This second section demonstrates spacing. CSS is kept to a minimum with minor styling
+for site colours and spacing. prism.js is used for code styling.  <br />
+<br />
+Here’s a new paragraph for you.</p>
+
+<h2 id="features">Features</h2>
+<ul>
+  <li>Pagination
+    <ul>
+      <li>Posts</li>
+      <li>Categories</li>
+    </ul>
+  </li>
+  <li>Posts</li>
+  <li>RSS</li>
+  <li>Syntax highlighting</li>
+  <li>Basic Mobile Support</li>
+  <li>SEO Plugin</li>
+</ul>
+
+<h2 id="contact">Contact</h2>
+<p>Email me, <a href="mailto:tom@tomjack.ca">tom@tomjack.ca</a>.</p>
+:ET

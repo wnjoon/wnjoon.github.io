@@ -1,6 +1,6 @@
 # Site Specific Configuration
 name: 월리의 탐구생활
-description: 개발자라면 하나쯤 있을법한 블로그
+description: 개발자라면 하나쯤은 있을법한 블로그
 url: https://wnjoon.github.io
 author: wonjoon
 timezone: Asia/Seoul
@@ -17,7 +17,7 @@ analytics:
     script_source: 'https://plausible.io/js/script.js'
 
 # Permalink
-permalink: /:year/:month/:day/:title
+# permalink: /:year/:month/:day/:title
 
 # Styling
 sass:
@@ -28,7 +28,7 @@ sass:
 pagination:
   enabled: true
   # Value set low for demonstration purposes
-  per_page: 3
+  per_page: 10
   sort_field: 'date'
   sort_reverse: true
 
