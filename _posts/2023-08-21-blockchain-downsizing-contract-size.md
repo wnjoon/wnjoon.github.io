@@ -2,12 +2,12 @@
 layout: post
 author: wonjoon
 title:  "스마트 컨트랙트의 사이즈를 줄이는 방법" 
-# description: Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways.
+description: Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways.
 # date:   2023-08-21 15:00:00 +0900
-which_category: blockchain
+categories: 개발
 # tags: [ethereum, solidity, smartcontract]
-# keywords: blockchain, ethereum, smartcontract, solidity
-# comments: true
+keywords: blockchain, ethereum, smartcontract, solidity
+comments: true
 ---
 
 <br>
