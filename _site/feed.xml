@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-26T22:44:19+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-05-26T22:53:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">가스비 절감의 효과를 갖는 솔리디티의 custom error</title><link href="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="가스비 절감의 효과를 갖는 솔리디티의 custom error" /><published>2023-08-22T00:00:00+09:00</published><updated>2023-08-22T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/22/blockchain-custom-error-solidity</id><content type="html" xml:base="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;커스텀-에러&quot;&gt;커스텀 에러&lt;/h2&gt;
@@ -210,7 +210,7 @@ console.log(
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://soliditylang.org/blog/2021/04/21/custom-errors/&quot;&gt;Custom Errors in Solidity - Soliditylang.org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="blockchain" /><summary type="html"></summary></entry><entry><title type="html">스마트 컨트랙트의 사이즈를 줄이는 방법</title><link href="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" /><published>2023-08-21T00:00:00+09:00</published><updated>2023-08-21T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size</id><content type="html" xml:base="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">스마트 컨트랙트의 사이즈를 줄이는 방법</title><link href="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" /><published>2023-08-21T00:00:00+09:00</published><updated>2023-08-21T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size</id><content type="html" xml:base="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;eip-170&quot;&gt;EIP-170&lt;/h2&gt;
 
@@ -408,7 +408,7 @@ function doSomething() { checkStuff(); }
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/&quot;&gt;DOWNSIZING CONTRACTS TO FIGHT THE CONTRACT SIZE LIMIT - ethereum.org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="blockchain" /><summary type="html"></summary></entry><entry><title type="html">다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?</title><link href="http://localhost:4000/2023/02/13/blockchain-st_trade_mechanism/" rel="alternate" type="text/html" title="다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?" /><published>2023-02-13T00:00:00+09:00</published><updated>2023-02-13T00:00:00+09:00</updated><id>http://localhost:4000/2023/02/13/blockchain-st_trade_mechanism</id><content type="html" xml:base="http://localhost:4000/2023/02/13/blockchain-st_trade_mechanism/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?</title><link href="http://localhost:4000/2023/02/13/blockchain-st_trade_mechanism/" rel="alternate" type="text/html" title="다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?" /><published>2023-02-13T00:00:00+09:00</published><updated>2023-02-13T00:00:00+09:00</updated><id>http://localhost:4000/2023/02/13/blockchain-st_trade_mechanism</id><content type="html" xml:base="http://localhost:4000/2023/02/13/blockchain-st_trade_mechanism/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;비상장주식과-거래-방법&quot;&gt;비상장주식과 거래 방법&lt;/h2&gt;
 
@@ -514,7 +514,7 @@ function doSomething() { checkStuff(); }
   &lt;li&gt;&lt;a href=&quot;https://news.mt.co.kr/mtview.php?no=2021102013545118652&quot;&gt;뜨겁지만 위험한 비상장주식 투자…거래 플랫폼별로 살펴보니 - 머니투데이&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://kvicnewsletter.co.kr/page/view.php?idx=430&quot;&gt;안전한 비상장주식의 거래방법이 궁금하다면? - KVIC&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;file:///Users/ssbc/Downloads/(%EC%B2%A8%EB%B6%802)K_OTC_Full+Version.pdf&quot;&gt;K-OTC의 이해 - 금융투자협회&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"></summary></entry><entry><title type="html">아파치 카프카에 대해 매우 간략하게 알아보기</title><link href="http://localhost:4000/2022/12/23/tool-kafka/" rel="alternate" type="text/html" title="아파치 카프카에 대해 매우 간략하게 알아보기" /><published>2022-12-23T15:00:00+09:00</published><updated>2022-12-23T15:00:00+09:00</updated><id>http://localhost:4000/2022/12/23/tool-kafka</id><content type="html" xml:base="http://localhost:4000/2022/12/23/tool-kafka/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">아파치 카프카에 대해 매우 간략하게 알아보기</title><link href="http://localhost:4000/2022/12/23/tool-kafka/" rel="alternate" type="text/html" title="아파치 카프카에 대해 매우 간략하게 알아보기" /><published>2022-12-23T15:00:00+09:00</published><updated>2022-12-23T15:00:00+09:00</updated><id>http://localhost:4000/2022/12/23/tool-kafka</id><content type="html" xml:base="http://localhost:4000/2022/12/23/tool-kafka/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;카프카는-왜-주목받기-시작했는가&quot;&gt;카프카는 왜 주목받기 시작했는가?&lt;/h2&gt;
 
@@ -878,147 +878,4 @@ function doSomething() { checkStuff(); }
   &lt;li&gt;&lt;a href=&quot;https://medium.com/proofer-tech/%EC%8A%A4%EB%A7%88%ED%8A%B8-%EC%BB%A8%ED%8A%B8%EB%9E%99%ED%8A%B8-%EB%B3%B4%EC%95%88-%EC%9D%B4%EC%8A%88-1-re-entrancy-%EC%9E%AC%EC%A7%84%EC%9E%85%EC%84%B1-7d4caf24803c&quot;&gt;스마트 컨트랙트 보안::Re-entrancy - PROOFER&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://brunch.co.kr/@ashhan/26&quot;&gt;The DAO 해킹 그리고 사망 - 브런치&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/&quot;&gt;Analysis of the DAO exploit - Hacking,Distributed&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"></summary></entry><entry><title type="html">Storage, Memory, Calldata의 차이</title><link href="http://localhost:4000/2022/10/21/blockchain-eth_data_location/" rel="alternate" type="text/html" title="Storage, Memory, Calldata의 차이" /><published>2022-10-21T00:00:00+09:00</published><updated>2022-10-21T00:00:00+09:00</updated><id>http://localhost:4000/2022/10/21/blockchain-eth_data_location</id><content type="html" xml:base="http://localhost:4000/2022/10/21/blockchain-eth_data_location/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;레퍼런스reference-타입-변수&quot;&gt;레퍼런스(Reference) 타입 변수&lt;/h2&gt;
-
-&lt;p&gt;다이나믹(Dynamic) 타입이라고도 불리며, 아래와 같은 종류가 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Array (솔리디티에서는 bytes, string 타입을 special array로 취급한다)&lt;/li&gt;
-  &lt;li&gt;Struct&lt;/li&gt;
-  &lt;li&gt;Mapping&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;레퍼런스 타입은 해당 변수가 저장될 위치(location)를 명시하지 않으면 컴파일 과정에서 에러를 발생시킨다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Storage
-    &lt;ul&gt;
-      &lt;li&gt;모든 상태 변수를 저장한다. 즉, 블록체인에 저장되는 데이터는 모두 Storage에 저장된다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Memory
-    &lt;ul&gt;
-      &lt;li&gt;함수 호출(External) 과정에 휘발성으로 존재하는 데이터를 잠시 저장하는 곳이다.&lt;/li&gt;
-      &lt;li&gt;수정이 가능하다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Calldata
-    &lt;ul&gt;
-      &lt;li&gt;함수 호출 시 파라미터에 포함되는 데이터를 잠시 저장하는 곳이다.&lt;/li&gt;
-      &lt;li&gt;수정이 불가능하다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;예시&quot;&gt;예시&lt;/h2&gt;
-
-&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;contract&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;uint&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;uint&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyStruct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        
-        &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;mapping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyStruct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myStructList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    
-    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setVariable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;calldata&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (1)
-&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;MyStruct&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;storage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myStructList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (2) 
-&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;ms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getVariable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;view&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;returns&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (3)
-&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myStructList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;(1)
-    &lt;ul&gt;
-      &lt;li&gt;파라미터로 전달된 _val 값을 그대로 받아서 변경 없이 새롭게 만들어진 MyStruct에 넣는다. 그렇기 때문에 수정이 불가능한 calldata 키워드를 사용한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;(2)
-    &lt;ul&gt;
-      &lt;li&gt;myStructList 상태 변수를 변경하기 위해 storage 키워드 사용한다.&lt;/li&gt;
-      &lt;li&gt;memory 키워드를 사용하게 되면 myStructList 데이터를 복사해서 사용하기 때문에, 실제 myStructList 내부의 값은 절대 변하지 않는다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;(3)
-    &lt;ul&gt;
-      &lt;li&gt;값의 return에 memory 키워드를 사용한다.&lt;/li&gt;
-      &lt;li&gt;myStructList 내부 값을 변경하는 것이 아니기 때문에, 상태 변수에 변화를 주지 않는 memory 키워드를 사용하면 된다.&lt;/li&gt;
-      &lt;li&gt;&lt;u&gt;상태 변수에 변화를 주지 않는다면, calldata를 사용해도 무방하지 않을까?&lt;/u&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;memory와-calldata의-차이&quot;&gt;memory와 calldata의 차이&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-데이터의-복사-여부&quot;&gt;1. 데이터의 복사 여부&lt;/h3&gt;
-
-&lt;p&gt;위에서 memory 수정이 가능하지만, calldata는 수정이 불가능하다고 했다.&lt;/p&gt;
-
-&lt;p&gt;아래는 솔리디티에서 변수에 memory 키워드를 사용할 경우의 단계별 동작이다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;calldata 형태로 데이터를 가지고 온다.&lt;/li&gt;
-  &lt;li&gt;새로운 memory에 데이터를 복사한다.&lt;/li&gt;
-  &lt;li&gt;memory 형태의 데이터를 전달한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;솔리디티에서 함수를 통해 전달되는 모든 파라미터는 트랜잭션 내 Data field에 들어간다. 여기에는 함수 호출에 필요한 데이터(function identifier, argument 등)가 들어가기 때문에 input data라고도 불리고 간혹 calldata 라고 부르기도 한다.&lt;/p&gt;
-
-&lt;p&gt;그러므로 calldata는 Data field의 input data(함수 호출에 사용된 데이터)를 그대로 사용하겠다는 말이고, memory 키워드는 Data field를 통해 가져온 데이터에 대한 복사본을 만들고 이를 사용하는 방식이다.&lt;/p&gt;
-
-&lt;p&gt;복사본을 사용할 경우 가스비가 증가하게 된다. 그러므로 데이터의 변경이 없을 것 같은 경우에는 calldata 키워드를 사용하는것이 무분별한 memory 키워드 사용보다는 더 좋을 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;2-return-파라미터에서의-사용&quot;&gt;2. Return 파라미터에서의 사용&lt;/h3&gt;
-
-&lt;div class=&quot;language-solidity highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;mapping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_orders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getOrder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;view&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;returns&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;calldata&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* &amp;lt;- Return에 calldata 사용 */&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_orders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* &amp;lt;- 오류 발생 */&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;동일하게 상태를 변화시키지 않는데도 calldata를 return에 사용하면 오류가 발생한다. 이에 대한 답변으로 &lt;a href=&quot;https://ethereum.stackexchange.com/questions/117770/how-to-use-calldata-return-values-in-solidity-and-when-are-they-useful&quot;&gt;StackExchange&lt;/a&gt;에서는 아래와 같이 말하고 있다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Return argument type struct MatchingEngine.Order storage ref is not implicitly convertible to expected type (type of first return variable) struct MatchingEngine.Order calldata.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;확인 결과(), calldata는 input 파라미터로만 적용 가능하며 return 값에서는 사용이 불가능하다. 그러므로 Return 값에서는 memory를 사용하자.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;요약&quot;&gt;요약&lt;/h2&gt;
-
-&lt;p&gt;포스팅을 다시 요약해보면,&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;레퍼런스 타입 변수는 선언 시 데이터 위치(storage, memory, calldata)를 꼭 명시해야 한다.&lt;/li&gt;
-  &lt;li&gt;상태 변수의 변경이 블록체인에 저장되어야 한다면 storage 키워드를 사용한다.&lt;/li&gt;
-  &lt;li&gt;블록체인으로의 상태 변수 업데이트가 필요 없다면 memory, calldata를 사용한다. 단 변수 값의 수정이 이루어지지 않는 단순 읽기만 요구된다면, 가스비 절약을 위해서라도 calldata를 사용하는 것이 더 바람직하다.&lt;/li&gt;
-  &lt;li&gt;(추가) calldata는 함수의 리턴값에서는 사용할 수 없다. 오직 인풋 파라미터에서만 사용가능하다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://solidity-by-example.org/data-locations/&quot;&gt;Data Locations - Storage, Memory and Calldata&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://medium.com/@aiden.p/solidity-%EC%94%A8-%EB%A6%AC%EC%A6%88-%EC%9D%80%EA%B7%BC-%ED%97%B7%EA%B0%88%EB%A6%AC%EB%8A%94-data-location-2690cefb72db&quot;&gt;은근 헷갈리는 Data Location - Solidity 씨-리즈&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://medium.com/coinmonks/solidity-storage-vs-memory-vs-calldata-8c7e8c38bce&quot;&gt;Storage vs Memory vs Calldata - YBM&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://ethereum.stackexchange.com/questions/117770/how-to-use-calldata-return-values-in-solidity-and-when-are-they-useful&quot;&gt;How to use calldata return values in Solidity and when are they useful? - StackExchange&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry></feed>

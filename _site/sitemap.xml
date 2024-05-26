@@ -68,17 +68,4 @@
         
     </url>
     
-    <url>
-        <loc>http://localhost:4000/2022/10/21/blockchain-eth_data_location/</loc>
-        
-        <lastmod>2022-10-21T00:00:00+09:00</lastmod>
-        
-        
-        <changefreq>weekly</changefreq>
-        
-        
-        <priority>0.5</priority>
-        
-    </url>
-    
 </urlset>

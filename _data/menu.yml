@@ -16,11 +16,12 @@ entries:
       limit: 4
       show_more: true
       show_more_text: more...
-      show_more_url: archive.html
+      show_more_url: archive/index.html
 
   # - title: posts by category
   #   post_list:
-  #     category: blockchain
+  #     limit: 4
+  #     category: 개발
   #     show_more: true
   #     show_more_text: See more posts...
   #     show_more_url: example2-archive.html
