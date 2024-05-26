@@ -1,0 +1,40 @@
+# For documentation on this file, see:
+# https://github.com/riggraz/no-style-please#customize-the-menu
+
+entries:
+  - title: 개발자라면 하나쯤은 있을법한 블로그
+
+  - title: info
+    entries:
+      - title: linkedin 
+        url: https://www.linkedin.com/in/wonjoon/
+      - title: brunch
+        url: https://brunch.co.kr/@wallee
+
+  - title: all posts
+    post_list:
+      limit: 5
+      show_more: true
+      show_more_text: See archive...
+      show_more_url: archive.html
+
+  # - title: posts by category
+  #   post_list:
+  #     category: blockchain
+  #     show_more: true
+  #     show_more_text: See more posts...
+  #     show_more_url: example2-archive.html
+
+  # - title: rss
+  #   url: feed.xml
+  
+  # - title: another list
+  #   entries:
+  #     - title: with subitems
+  #       entries:
+  #         - title: with subsubitems
+  #         - title: example page
+  #           url: about
+  # - title: PRO TIP
+  #   entries:
+  #     - title: to edit this menu, edit _data/menu.yml file

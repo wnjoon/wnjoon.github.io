@@ -1,22 +1,27 @@
-# Setup
-title:               Lanyon
-tagline:             'A Jekyll theme'
-description:         'A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:                 http://wnjoon.github.io
-baseurl:             ''
-paginate:            5
-permalink:           pretty
+title: 월리의 탐구생활 # name of the site
+author: Wonjoon # name of site's author
+email: wnjoon@gmail.com # email of site's author
+url: https://wnjoon.github.io # root address of the site
+# baseurl: "/no-style-please" # subpath of the site, e.g. "/blog" (leave it blank "" if you're site shouldn't use a subpath)
+description: > # description of the site (multiple lines allowed)
+  A (nearly) no-CSS, fast, minimalist Jekyll theme.
 
-# About/contact
-author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+# permalink: /:slug.html
 
-# Gems
+favicon: "logo.png" # name+extension of favicon (which must be put on the root folder)
+# goat_counter: "yoursitename" # put your GoatCounter name if you want to use GoatCounter analytics
+
+theme: no-style-please # if you are using GitHub Pages, change it to remote_theme: riggraz/no-style-please
+
+theme_config:
+  appearance: "light" # can be "light", "dark" or "auto"
+  back_home_text: ".." # customize text for homepage link in post layout
+  date_format: "%Y-%m-%d" # customize how date is formatted
+  show_description: false # show blog description in home page
+
+sass:
+  style: :compressed
+
 plugins:
-  - jekyll-paginate
-
-# Custom vars
-version:             1.1.0
-google_analytics_id: #UA-XXXX-Y
+  - jekyll-feed
+  - jekyll-seo-tag
