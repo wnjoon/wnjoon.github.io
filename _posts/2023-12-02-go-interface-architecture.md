@@ -48,7 +48,7 @@ comments: true
 
 Go언어는 다른 언어와 비교하여 적극적으로 인터페이스 형태의 설계를 권장하고 있고, 실제로 인터페이스 방식으로 설계하기가 매우 편리하다. 별도의 인터페이스를 위한 파일을 만들 필요도 없으며, 해당 인터페이스를 사용하겠다는 명시적인 선언도 필요없다. 단지 인터페이스의 모든 기능을 모듈 내에 포함시키면 된다. 
 
-Go언어에서 인터페이스를 설계할 경우 권장하는 사항이 하나 있는데, 인터페이스 이름을 동작을 수행하는 객체 형태로 짓는 것이다. 예를 들어 로그 결과를 출력하기 위한 인터페이스의 경우 LogPrinter, 로그 결과를 파일로 저장하는 경우 LogWriter와 같이 뒤에 -er 접미사를 붙여서 작성하는 것을 권장한다.
+Go언어에서 인터페이스를 설계할 경우 권장하는 사항이 하나 있는데, 인터페이스 이름을 동작을 수행하는 객체 형태로 짓는 것이다. 예를 들어 어떠한 결과를 출력하기 위한 인터페이스의 경우 Printer, 결과를 파일로 저장하는 경우 Writer와 같이 뒤에 -er 접미사를 붙여서 작성하는 것을 권장한다.
 
 
 ### 예시
@@ -85,13 +85,13 @@ func NewTxManager(sender Sender) *TxManager {
 동기 처리 방식을 제공하는 모듈과 비동기 처리 방식을 제공하는 모듈은 각각 아래와 같다. 둘다 Sender 인터페이스에 포함된 기능을 포함하고 있다.
 
 ```go
-// SyncTxManager
-func (t *SyncTxManager) NewSyncTxManager() *SyncTxManager {}
-func (t *SyncTxManager) SendTransaction(ctx context.Context, from common.Address, to *common.Address, value *big.Int, data []byte) error
+// SyncSender
+func (t *SyncSender) NewSyncSender() *SyncSender {}
+func (t *SyncSender) SendTransaction(ctx context.Context, from common.Address, to *common.Address, value *big.Int, data []byte) error
 
-// AsyncTxManager
-func (t *AsyncTxManager) NewAsyncTxManager() *AsyncTxManager {}
-func (t *AsyncTxManager) SendTransaction(ctx context.Context, from common.Address, to *common.Address, value *big.Int, data []byte) error
+// AsyncSender
+func (t *AsyncSender) NewAsyncSender() *AsyncSender {}
+func (t *AsyncSender) SendTransaction(ctx context.Context, from common.Address, to *common.Address, value *big.Int, data []byte) error
 ...
 ```
 
@@ -100,13 +100,13 @@ func (t *AsyncTxManager) SendTransaction(ctx context.Context, from common.Addres
 ```go
 func main() {
     
-    syncTxManager := NewSyncTxManager()
-    asyncTxManager := NewAsyncTxManager()
+    syncSender := NewSyncSender()
+    asyncSender := NewAsyncSender()
     
     // 동기 방식
-    txm := NewTxManager(syncTxManager) 
+    txm := NewTxManager(syncSender) 
     // 비동기 방식
-    txm := NewTxManager(asyncTxManager)
+    txm := NewTxManager(asyncSender)
 }
 ```
 
