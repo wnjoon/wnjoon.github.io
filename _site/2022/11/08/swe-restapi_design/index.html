@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>칭찬받는 REST API를 작성하는 방법 15가지</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="칭찬받는 REST API를 작성하는 방법 15가지" />
+<meta name="author" content="Wonjoon" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduce 15 steps to make better REST API" />
+<meta property="og:description" content="Introduce 15 steps to make better REST API" />
+<link rel="canonical" href="http://localhost:4000/2022/11/08/swe-restapi_design/" />
+<meta property="og:url" content="http://localhost:4000/2022/11/08/swe-restapi_design/" />
+<meta property="og:site_name" content="월리의 탐구생활" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-08T15:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="칭찬받는 REST API를 작성하는 방법 15가지" />
+<script type="application/ld+json">
+{"headline":"칭찬받는 REST API를 작성하는 방법 15가지","dateModified":"2022-11-08T15:00:00+09:00","datePublished":"2022-11-08T15:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/11/08/swe-restapi_design/"},"url":"http://localhost:4000/2022/11/08/swe-restapi_design/","author":{"@type":"Person","name":"Wonjoon"},"@type":"BlogPosting","description":"Introduce 15 steps to make better REST API","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="월리의 탐구생활" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head><body a="light">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <a href="/"><-home</a><article>
+  <p class="post-meta">
+    <time datetime="2022-11-08 15:00:00 +0900">2022-11-08</time>
+  </p>
+  
+  <h1>칭찬받는 REST API를 작성하는 방법 15가지</h1>
+
+  <p><br /></p>
+
+<h2 id="rest-api란-무엇일까">REST API란 무엇일까?</h2>
+
+<p>REST는 Representational State Transfer의 약자로, 웹에서 데이터를 전송하고 처리하는 방법을 정의한 하나의 인터페이스를 말한다. REST는 일반적으로 6가지 정도의 특징을 갖는데, 이를 간략하게(?) 정리하면 아래와 같다.</p>
+<ul>
+  <li>HTTP 웹 표준을 사용
+    <ul>
+      <li>URL 형식으로 표현되기 때문에, 어느 플랫폼에서나 사용 가능</li>
+      <li>HTTP의 캐시 기능 사용 가능</li>
+    </ul>
+  </li>
+  <li>들어온 요청을 단순히 처리만 하는 구조이기 때문에, 세션이나 쿠키 정보를 저장하는 구현 없이 서버가 단순해짐
+    <ul>
+      <li>클라이언트와 서버 간 역할이 명확하게 구분되고, 서로 간 의존성 감소</li>
+    </ul>
+  </li>
+  <li>REST 메시지만 보고도 기능을 쉽게 알 수 있음 (이렇게 만들기 위한 디자인 패턴이 필요)</li>
+  <li>여러개의 계층으로 구성될 수 있는데, 이는 계층 별로 기능(보안, 로드밸런싱, 암호화 등)을 추가하거나 프록시, 게이트웨이 등의 중간매체를 사용할 수 있음</li>
+</ul>
+
+<p>결론적으로 REST API를 사용하면 서버와 클라이언트가 <u>서로 최대한 의존하지 않고</u>, <u>이해하기 쉬운 HTTP 형태로</u>, <u>원하는 기능을 다양하게 추가할 수 있는</u> 개발이 가능하다는 것이다.</p>
+
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--YTDTEgpk--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/ekawmj3rafdtn06hzj79.png" alt="" />
+<em>@그림 1 : REST API의 개략적인 구조 - <a href="https://res.cloudinary.com/practicaldev/image/fetch/s--YTDTEgpk--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/ekawmj3rafdtn06hzj79.png">cloudinary</a></em></p>
+
+<p><br /></p>
+
+<h2 id="rest-api-디자인하기">REST API 디자인하기</h2>
+
+<p>그렇다면 REST API를 어떻게 작성하면 좋을까? 코드와 마찬가지로, REST API 또한 많은 사람들이 좋다고 생각해 온 방법들이 존재한다.</p>
+
+<h3 id="1-엔드포인트의-이름-규칙명사-하이픈-소문자-등을-지키자">1. 엔드포인트의 이름 규칙(명사, 하이픈, 소문자 등)을 지키자.</h3>
+
+<p>“Make sure to use nouns in endpoint paths”</p>
+
+<p>책을 검색하거나 등록(또는 삭제)하는 API를 만든다고 하자. 이 때 우리가 다루려는 ‘책’이라는 명사를 경로 이름으로 사용하는 것이 좋다.</p>
+
+<p>HTTP 요청 메소드는 기본적으로 동사로 되어있다.</p>
+<ul>
+  <li>GET : 요청 내역을 가져옴</li>
+  <li>POST : 서버로 새로운 데이터를 전송</li>
+  <li>PUT/PATCH : 존재하는 데이터를 변경</li>
+  <li>DELETE : 데이터 삭제</li>
+</ul>
+
+<p>만약 책을 검색하고자 한다면 어떻게 작성하면 좋을까? 두가지 예시가 있다.</p>
+<ol>
+  <li>GET /books</li>
+  <li>GET /get-books</li>
+</ol>
+
+<p>위에서 권장한 방법대로라면, 1번이 옳은 것이다. 이미 GET이라는 HTTP 메소드가 해당 API의 역할을 충분히 설명하고 있기 때문에, 마지막 경로에 동사를 넣게 되면 중복된 설명이 된다.</p>
+
+<blockquote>
+  <p>작성된 API를 소리내어 읽어보자. 1번은 책을 가져오다가 되겠지만, 2번은 책을 가져오기를 가져오다가 될 것이다. 어색하지 않은가?</p>
+</blockquote>
+
+<p>추가로 1번을 보면 book이 아니라 books 복수형으로 표현하고 있다. 이에 대해서는 ‘<a href="https://stackoverflow.com/questions/6845772/should-i-use-singular-or-plural-name-convention-for-rest-resources">StackOverflow - Should I use Singular or Plural name convention for REST resources?</a>‘에서도 많은 논쟁이 있었는데, 가장 많은 추천을 받은 곳에서는 아래와 같이 설명하고 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB 상에서 book이라는 테이블을 사용한다고 가정해보자.
+- 특정 책 하나를 가져오는 요청은 여러 책 중에서 하나를 가져오는 것 이므로, GET /books:id
+- 책 전체를 가져오는 요청은 여러 책들의 리스트를 가져오는 것 이므로, GET /books
+- 책 한권을 등록하는 요청은 여러 책 안에 한 권의 책을 임의의 ID를 부여하면서 추가하는 것 이므로, POST /books
+- 특정 책의 내용을 변경하는 요청은 여러 책 안에 있는 한 권의 책을 변경하는 것 이므로, PUT /books:id
+</code></pre></div></div>
+
+<p>하지만 StackOverflow를 보더라도, 꼭 복수를 써야한다는 의견만 있는 것은 아니다. 다만 <u>복수를 쓰기로 했으면 복수만, 단수를 쓰기로 했으면 단수만 쓸 것. 혼용하는 것은 지양할 것</u>이라는 의견에는 모두가 같은 생각임을 볼 수 있다.</p>
+
+<p>또한 엔드포인트의 이름이 길어지면 하이픈(-)을 사용하는 것이 가독성에 좋다. 밑줄도 좋은 방법이지만, 간혹 URL 주소에 밑줄이 이미 들어가있는 경우들이 존재한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /books/fantasycategory -&gt; GET /books/fantasy-category
+</code></pre></div></div>
+
+<p>그리고 지금까지 잘 보셨겠지만, 일반적으로 URI 경로에서는 소문자를 사용한다. URL에서 프로토콜과 호스트주소는 대소문자를 구별하지 않지만, 리소스의 경로 부분은 운영체제에 따라 구분되는 경우가 존재한다. 예를 들어 윈도우에서는 구분하지 않지만, 리눅스에서는 이를 구분하고 있다. 이에 대한 혼란을 막기 위해서라도 소문자로 통일하는 것이 좋다.</p>
+
+<h3 id="2-데이터-송수신-포멧으로는-json을-사용하자">2. 데이터 송수신 포멧으로는 JSON을 사용하자.</h3>
+
+<p>예전에는 XML을 이용했지만, 최근에는 JSON(JavaScript Object Notation)가 API 데이터 송수신 표준 형식이 되었다.</p>
+
+<p>JSON의 장점을 간략하게 설명하면 다음과 같다.</p>
+<ul>
+  <li>인간이 읽을 수 있는 텍스트로, 사용이 편리함</li>
+  <li>최소한의 정보를 함축적으로 표현(XML에 비해 적은 용량으로 빠르게 통신 가능)</li>
+  <li>언어에 독립적</li>
+</ul>
+
+<p>일반적으로 제공되는 form-data는 클라이언트가 텍스트 또는 숫자 형식의 데이터를 보낼 때는 적합하지 않고, 어차피 대부분의 프레임워크에서 클라이언트가 데이터를 전송할 때 JSON을 사용할 수 있도록 기능을 제공하고 있다. 간단하게 헤더의 Content-Type 부분을 application/json으로 설정하기만 하면 된다.</p>
+
+<h3 id="3-http-상태코드를-적극적으로-활용하자">3. HTTP 상태코드를 적극적으로 활용하자.</h3>
+
+<p>HTTP에는 이미 수많은 사람들이 사용하고 있는 상태 코드들이 정의되어 있다. API 처리가 정상적으로 이루어졌는지, 혹 아니라면 무슨 이유인지 명확하게 표현하기에 가장 적합하다.</p>
+
+<p>상태 코드에는 대표적으로 아래와 같은 종류가 있다.</p>
+<ul>
+  <li>200 : 클라이언트의 요청이 정상적으로 수행되었음</li>
+  <li>201 : 클라이언트가 생성과 관련된 요청을 하였고, 이 요청이 정상적으로 완료됨(POST)</li>
+  <li>301 : 클라이언트가 요청한 데이터의 URI가 변경되었을 경우</li>
+  <li>400 : 클라이언트의 요청이 부적절한 경우</li>
+  <li>401 : 클라이언트가 인증과정(로그인 등)을 거치지 않은 상태에서 보안된 데이터에 접근하려고 하는 경우</li>
+  <li>403 : 클라이언트가 인증과 관련 없이, 존재는 하지만 응답할 수 없는 데이터를 요청한 경우 (일반적으로 사용 X)</li>
+  <li>404 : 클라이언트가 인증과 관련 없이, 응답할 수 없는 데이터를 요청한 경우 (일반적으로 사용 O)</li>
+  <li>405 : 클라이언트가 요청한 데이터에 해당 메소드가 존재하지 않거나 사용 불가능 상태인 경우</li>
+  <li>500 : 서버에 문제가 있을 경우</li>
+</ul>
+
+<p>이 외에도 수많은 상태 코드들이 있는데, 중요한 것은 ‘가장 최소한의 개수를 사용’하여 클라이언트가 API 요청 또는 응답에 적절한 상태 코드를 부여할 수 있도록 하는 것이다.</p>
+
+<h3 id="4-응답-메시지는-표준화-된-내용으로-반환하자">4. 응답 메시지는 표준화 된 내용으로 반환하자.</h3>
+
+<p>어떠한 요청에 대한 데이터라 하더라도, 서버로부터 항상 유사한 형태의 표준화된 응답 구조를 사용해야 한다. 그렇게 해야 클라이언트는 동일한 구조 내에서 원하는 값을 예측해서 가져올 수 있게 된다. 만약 아래와 같은 구조가 존재한다고 하자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ 
+  { 
+     bookId: 1, 
+     name: "Harry Potter" 
+  }, 
+  { 
+     bookId: 2, 
+     name: "Avatar" 
+  } 
+]
+</code></pre></div></div>
+
+<p>또는 아래와 같이 조금 더 중첩된 구조를 가질 수도 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ 
+   "data": [ 
+     { 
+       "bookId": 1, 
+       "name": "Harry Potter" 
+     }, 
+     { 
+       "bookId": 2, 
+       "name": "Avatar" 
+     } 
+   ], 
+   "totalDocs": 200, 
+   "nextPageId" : 3 
+}
+</code></pre></div></div>
+
+<p>만약 새로운 책을 추가한다고 하자. 성공했을 경우 권장하는 응답 메시지는 아래와 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// POST /books 
+{ 
+     "bookId": 3, 
+     "name": "Toy Story" 
+}
+</code></pre></div></div>
+
+<p>만약 여기서 ‘책이 성공적으로 등록되었습니다’ 라는 메시지를 추가하면 어떨까? 답은 ‘불필요하다’이다. 우리는 위에서 상태코드를 통해 해당 요청이 정상적으로 완료되었는지 혹은 문제가 생겼는지를 확인하자고 했다. 추가적인 메시지는 중복된 내용을 포함하는 꼴만 만들게 된다.</p>
+
+<p>오히려 문제가 발생한 경우에 대해서는 무슨 오류가 있었는지에 대한 메시지를 적어주는 것이 좋다. 그렇게 해야 클라이언트가 해당 문제를 빠르게 확인하고 조치를 취할 수 있기 때문이다. 아래와 같은 응답이 적절한 예시가 될 수 있을 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ 
+  "code": "book/not_found",  // 또는 일련의 숫자 또는 코드형태
+  "message": "ID가 4인 책을 찾을 수 없습니다." 
+}
+</code></pre></div></div>
+
+<p>응답 메시지에 HTTP 상태 코드를 포함할 필요까지는 없지만, 그래도 사용자 또는 클라이언트가 해당 오류에 대해 빠르게 확인할 수 있도록 오류를 매핑한 코드와 이를 간략하게 설명한 메시지 정도는 정의해두는 것이 좋다. 물론 운영환경에서는 불필요한 보안 정보를 노출하게 될 수 있기 때문에, 개발 단계에서만 이를 노출하는 것이 좋다.</p>
+
+<h3 id="5-페이징-기법을-활용헤서-컬렉션으로-받은-많은-데이터를-효율적으로-처리하자">5. 페이징 기법을 활용헤서 컬렉션으로 받은 많은 데이터를 효율적으로 처리하자.</h3>
+
+<p>데이터가 많아질수록, 데이터를 어떻게 반환해서 보여줄지가 굉장히 중요해진다. 위에서 정의한 API 중, 등록된 전체 책의 개수를 반환하려고 한다고 가정하자. 책의 개수가 적을 때는 문제가 없겠지만, 수백만권 혹은 수천만권의 책이 있다고 한다면 해당 API를 호출하는 것은 성능이나 대역폭 측면에서 좋지 못한 선택이 될 수 있다.</p>
+
+<p>페이징 기법(Pagination)을 사용하는 방법으로는 크게 skip, limit 또는 keyset이 있다. 일반적으로 skip, limit을 사용하지만, 페이징 기법을 위해서라도 keyset을 사용하는 것을 권장한다.</p>
+<ul>
+  <li>skip : 출력할 데이터의 시작부분을 설정한다. 입력값으로 들어온 값 + 1부터 출력한다.</li>
+  <li>limit : 출력할 데이터의 개수를 제한한다. 입력값으로 들어온 값 만큼만 반환한다.</li>
+  <li>keyset : 식별자 또는 ID를 참조 값으로 받아서 테이블을 별도로 스캔하지 않고 조건에 맞게 페이징하여 반환한다.</li>
+</ul>
+
+<p>추가로 API의 결과 값을 필터링 또는 정렬할 수 있는 기능도 필요하다. 성능을 향상시키기 위해 DB 인덱스에 <a href="https://goodbyeanma.tistory.com/41">Access 패턴</a>을 적용하기도 하는데, 결론적으로 API 호출에 필요한 필터와 정렬은 쿼리 파라미터에 정의되어야 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># fantasy 범주에 속하는 책 20권을 조회한다고 가정하는 API
+GET /books?limit=20&amp;category=fantasy
+</code></pre></div></div>
+
+<h3 id="6-put-보다는-patch를-사용하자">6. PUT 보다는 PATCH를 사용하자.</h3>
+
+<p>PUT과 PATCH의 가장 큰 차이는 ‘데이터 내에 변경되는 요소의 범위’이다.</p>
+<ul>
+  <li>PUT : 데이터 내 모든 요소를 수정</li>
+  <li>PATCH : 데이터 내 요소 중 일부만 수정</li>
+</ul>
+
+<p>일반적으로 데이터 내에 있는 모든 요소를 한번에 변경하는 일은 거의 발생하지 않는다. 추가로 의도하지 않게 변경해서는 안되는 요소마저도 변경될 소지가 존재한다. 그렇기 때문에 되도록이면 PATCH를 권장하며, PUT을 절대 사용해서는 안되는 것은 아니다.</p>
+
+<h3 id="7-extended-옵션을-사용해서-선택적으로-결과-값을-반환하자">7. Extended 옵션을 사용해서 선택적으로 결과 값을 반환하자.</h3>
+
+<p>시스템이 커질수록 데이터 내 요소들도 증가할 수 밖에 없다. 문제는 모든 클라이언트에서도 증가한 요소들을 전부 사용하진 않는다는 것이다.<br />
+이를 해결하기 위해 extended라는 옵션을 사용한다. 아래는 extended 옵션의 유무에 따른 결과 값의 차이를 보여준다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /books/:id
+{
+   "bookId": 1,
+   "name": "Harry Potter"
+}
+GET /books/:id?extended=true
+{
+   "bookId": 1,
+   "name": "Harry Potter"
+   "tags": ["fantasy", "magic", "UK"],
+   "author": {
+      "id": 1,
+      "name": "J.K.Rowling"
+   }
+}
+</code></pre></div></div>
+
+<h3 id="8-적절하게-엔드포인트의-크기를-나눠주자">8. 적절하게 엔드포인트의 크기를 나눠주자.</h3>
+
+<p>API의 기본 사상은 ‘주어진 하나의 일을 잘 수행하자’ 이다. 한번에 여러 작업을 해결할 수 있는 것 보다, 한 눈에 사용 가능한 기능을 확인할 수 있는 작은 단위의 API 설계가 중요하다(어찌보면 books이라는 엔드포인트는 어떻게보면 굉장히 큰 단위일 수 있다). 그리고 이러한 작은 단위의 API를 적절하게 통합하여 클라이언트가 쉽게 기능을 예측하고 이해할 수 있도록 돕는 것이 좋다.</p>
+
+<h3 id="9-정확한-api-문서를-제공하자">9. 정확한 API 문서를 제공하자.</h3>
+
+<p>API의 궁극적인 목적은 ‘클라이언트가 원하는 기능을 한눈에 알아보고 적절하게 프로그램 상에 배치해서 기능을 수행할 수 있도록 하는 것’이다. 이를 위해서는 API에 대해 잘 정리된 문서가 중요하다.</p>
+
+<p>문서에는 각 엔드포인트의 목적과 이를 실행하기 위한 권한, 호출하였을 때의 응답 예시, 그리고 실패하였을 때의 오류 메시지가 꼭 명시되어야 한다. 그리고 API의 버전이 변경됨에 따라 내부 기능의 변화 과정을 문서에 꼭 작성해야 한다. 기본적으로 Swagger와 같이 API의 개발과 문서 작성을 동시에 해주는 도구가 있다. 혹은 Postman으로 API를 테스트하고, 이를 문서화 된 파일로 저장해주는 도구도 존재한다.</p>
+
+<h3 id="10-보안을-위한-기능을-꼭-적용하자">10. 보안을 위한 기능을 꼭 적용하자.</h3>
+
+<p>가장 일반적인 방법으로 SSL을 서버에 적용하면, 클라이언트-서버 간 안전한 통신을 보장하면서 잠재적으로 발생 가능한 공격을 막을 수 있다.</p>
+
+<p>웹 상에서는 Origin이라는 개념이 존재하는데, 이는 URL 상에서 프로토콜, 도메인, 포트 번호를 합친 부분을 말한다. 접속중인 웹사이트의 Origin은 window.location.origin 명령어를 통해 확인할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://wnjoon.github.io:8545/posts/123 
+- 프로토콜(Scheme) : https://
+- 도메인 : wnjoon.github.io
+- 포트번호 : 8545
+- Origin : https://wnjoon.github.io:8545/
+</code></pre></div></div>
+
+<p>웹 브라우저는 보안 때문에 같은 Origin끼리 통신할 수 있도록 하는 SOP(Same Origin Policy)와 다른 Origin으로도 요청을 보낼 수 있도록 예외를 허용하는 CORS(Cross Origin Resource Sharing) 정책이 존재한다. API의 특성 상 서로 다른 Origin 간 통신은 당연히 발생하기 때문에, CORS를 이용하여 적절하게 HTTP 통신을 제한할 수 있는 기능을 지원해야 한다.</p>
+
+<p>CORS 프로토콜은 브라우저가 사전 요청(preflight request)을 서버에 보내고, 이를 승인 받은 경우에만 통신할 수 있도록 한다. 이 사전 요청은 HTTP 요청 중 OPTION 메소드를 사용하는데, 이를 위해서는 아래의 사항을 선택적으로 응답 헤더에 넣어야 한다.</p>
+<ul>
+  <li>Access-Control-Allow-Methods</li>
+  <li>Access-Control-Allow-Headers</li>
+  <li>Access-Control-Allow-Origin</li>
+</ul>
+
+<h3 id="11-api-버전을-명시하자">11. API 버전을 명시하자.</h3>
+
+<p>개발 과정이 되었든 운영 중에 API 엔드포인트를 변경하거나 내부 구조를 변경하였든, API와 관련된 어느것이라도 변경이 발생하였다면 이를 버전화해야 한다. 클라이언트가 모르는 상태로 갑자기 API의 엔드포인트를 변경해서는 안된다. API는 어떠한 변경이 발생하더라도, 이전의 통신 상태에까지 영향을 주어서는 안된다. 즉, 기존의 방법대로 통신하는 어플리케이션이 하나라도 존재한다면, 해당 기능을 임의대로 정지해서는 안된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://.../v1/book
+http://.../v2/book
+</code></pre></div></div>
+
+<h3 id="12-캐시-데이터를-사용해서-성능을-향상시키자">12. 캐시 데이터를 사용해서 성능을 향상시키자.</h3>
+
+<p>빈번하게 사용되면서 동시에 변경이 거의 발생하지 않는 데이터는 캐싱하는 것이 좋다. 인메모리(in-memory) 또는 캐시 데이터베이스(cached-database)를 이용하는 것이 메인 데이터베이스를 접근하는 것보다 훨씬 좋은 성능을 보인다.</p>
+
+<p>다만 캐싱된 데이터의 경우 만료기간이 존재할 수 있기 때문에, 적절한 시기에 이를 업데이트 할 수 있도록 구현하는 것이 중요하다. 캐시된 데이터를 사용할 때에는 반드시 HTTP 헤더에 Cache-Control를 포함해야 한다.</p>
+
+<h3 id="13-표준-utc를-사용하자">13. 표준 UTC를 사용하자.</h3>
+
+<p>API는 시간 또는 공간에 상관없이 어디에서나 호출될 수 있다. 그렇기 때문에 동일한 날짜 표준 방식을 통해 일관성 있는 출력을 보여줄 필요가 있다. ISO8601은 날짜/시간 데이터의 국제 표준 방식으로, 날짜는 Z 또는 UTC 형식이어야 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "createdAt": "2022-11-08T15:00:00Z"
+}
+</code></pre></div></div>
+
+<h3 id="14-주기적인-헬스체크를-해주자">14. 주기적인 헬스체크를 해주자.</h3>
+
+<p>API에 문제가 생겨서 시스템을 정지해야 할 경우, 해당 API는 어쩔 수 없이 복구가 될 때까지는 사용이 불가능하다. 이를 위해 API 호출 시점에 해당 API가 정상적으로 사용 가능한지 확인할 수 있는 헬스체크(Health-check) 시스템이 엔드포인트 상에 적용되어야 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /health
+</code></pre></div></div>
+
+<p>일반적으로 이러한 헬스체크 기능은 로드밸런서 등에서 호출될 수 있으며, API의 동작 여부 뿐만 아니라 유지 보수 기간에 대한 개략적인 기준을 제시할 수도 있다.</p>
+
+<h3 id="15-api-key-인증을-허용하자">15. API Key 인증을 허용하자.</h3>
+
+<p>API Key로 인증하게 되면, 3rd party 어플리케이션에서 해당 API를 손쉽게 사용하도록 만들 수 있다. 이를 위해서는 X-Api-Key 또는 Api-Key와 같은 커스텀 HTTP 헤더를 사용해야 한다. 특히 Key의 사용 기한을 정해서 만료일이 있도록 해야 보안상 문제가 발생하였을 경우 이를 무효화할 수 있다는 것을 염두하자.</p>
+
+<p><br />
+<br /></p>
+
+<h2 id="참고">참고</h2>
+
+<ul>
+  <li><a href="https://medium.com/@liams_o/15-fundamental-tips-on-rest-api-design-9a05bcd42920">15 fundamental tips on REST API design - Williams O</a></li>
+  <li><a href="https://www.freecodecamp.org/news/rest-api-best-practices-rest-endpoint-design-examples/">REST API Best Practices:REST Endpoint Design Examples - Kolade Chris</a></li>
+  <li><a href="http://www.incodom.kr/REST">REST (Representational State Transfer) - 인코덤</a></li>
+  <li><a href="https://meetup.toast.com/posts/92">REST API 제대로 알고 사용하기 - NHN Cloud Meetup</a></li>
+  <li><a href="https://blog.pumpkin-raccoon.com/115">REST API URL 주고 컨벤션 - 호박너구리 블로그</a></li>
+  <li><a href="https://stackoverflow.com/questions/6845772/should-i-use-singular-or-plural-name-convention-for-rest-resources">Should I use Singular or Plural name convention for REST resources? - StackOverflow</a></li>
+  <li><a href="https://goodbyeanma.tistory.com/41">SQL SERVER 액세스 패턴 - goodbyeanma</a></li>
+  <li><a href="https://it-eldorado.tistory.com/163">CORS (Cross Origin Resource Sharing) 이해하기 - 피그브라더</a></li>
+</ul>
+
+</article>
+      </div>
+    </main>
+  </body>
+</html>
