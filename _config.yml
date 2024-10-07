@@ -1,4 +1,4 @@
-title: 월리의 탐구생활 # name of the site
+title: "//TODO: Write Blog" # name of the site
 author: Wonjoon # name of site's author
 email: wnjoon@gmail.com # email of site's author
 url: https://wnjoon.github.io # root address of the site
@@ -12,10 +12,10 @@ favicon: "logo.png" # name+extension of favicon (which must be put on the root f
 # goat_counter: "yoursitename" # put your GoatCounter name if you want to use GoatCounter analytics
 
 # theme: no-style-please
-remote_theme: riggraz/no-style-please 
+# remote_theme: riggraz/no-style-please 
 
 theme_config:
-  appearance: "light" # can be "light", "dark" or "auto"
+  appearance: "dark" # can be "light", "dark" or "auto"
   back_home_text: "<-home" # customize text for homepage link in post layout
   date_format: "%Y-%m-%d" # customize how date is formatted
   show_description: false # show blog description in home page
@@ -23,7 +23,7 @@ theme_config:
 permalink: /:year/:month/:day/:title/
 
 sass:
-  style: :compressed
+  style: "expanded"
 
 plugins:
   - jekyll-feed

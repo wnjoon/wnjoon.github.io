@@ -4,8 +4,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title><!-- Begin Jekyll SEO tag v2.7.1 -->
-<meta name="generator" content="Jekyll v3.9.5" />
+  <title>인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v3.10.0" />
 <meta property="og:title" content="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" />
 <meta name="author" content="wonjoon" />
 <meta property="og:locale" content="en_US" />
@@ -13,17 +13,17 @@
 <meta property="og:description" content="Importance of using interface while construct program and example of using golang" />
 <link rel="canonical" href="http://localhost:4000/2023/12/02/go-interface-architecture/" />
 <meta property="og:url" content="http://localhost:4000/2023/12/02/go-interface-architecture/" />
-<meta property="og:site_name" content="월리의 탐구생활" />
+<meta property="og:site_name" content="//TODO: Write Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-12-02T00:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" />
 <script type="application/ld+json">
-{"headline":"인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법","dateModified":"2023-12-02T00:00:00+09:00","datePublished":"2023-12-02T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/12/02/go-interface-architecture/"},"url":"http://localhost:4000/2023/12/02/go-interface-architecture/","author":{"@type":"Person","name":"wonjoon"},"@type":"BlogPosting","description":"Importance of using interface while construct program and example of using golang","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-12-02T00:00:00+09:00","datePublished":"2023-12-02T00:00:00+09:00","description":"Importance of using interface while construct program and example of using golang","headline":"인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/12/02/go-interface-architecture/"},"url":"http://localhost:4000/2023/12/02/go-interface-architecture/"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="월리의 탐구생활" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
   <link rel="stylesheet" href="/assets/css/main.css" />
-</head><body a="light">
+</head><body a="dark">
     <main class="page-content" aria-label="Content">
       <div class="w">
         <a href="/"><-home</a><article>
@@ -114,13 +114,13 @@
 
 <p>동기 처리 방식을 제공하는 모듈과 비동기 처리 방식을 제공하는 모듈은 각각 아래와 같다. 둘다 Sender 인터페이스에 포함된 기능을 포함하고 있다.</p>
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// SyncTxManager</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">SyncTxManager</span><span class="p">)</span> <span class="n">NewSyncTxManager</span><span class="p">()</span> <span class="o">*</span><span class="n">SyncTxManager</span> <span class="p">{}</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">SyncTxManager</span><span class="p">)</span> <span class="n">SendTransaction</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">from</span> <span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">to</span> <span class="o">*</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">value</span> <span class="o">*</span><span class="n">big</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// SyncSender</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">SyncSender</span><span class="p">)</span> <span class="n">NewSyncSender</span><span class="p">()</span> <span class="o">*</span><span class="n">SyncSender</span> <span class="p">{}</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">SyncSender</span><span class="p">)</span> <span class="n">SendTransaction</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">from</span> <span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">to</span> <span class="o">*</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">value</span> <span class="o">*</span><span class="n">big</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
 
-<span class="c">// AsyncTxManager</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">AsyncTxManager</span><span class="p">)</span> <span class="n">NewAsyncTxManager</span><span class="p">()</span> <span class="o">*</span><span class="n">AsyncTxManager</span> <span class="p">{}</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">AsyncTxManager</span><span class="p">)</span> <span class="n">SendTransaction</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">from</span> <span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">to</span> <span class="o">*</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">value</span> <span class="o">*</span><span class="n">big</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
+<span class="c">// AsyncSender</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">AsyncSender</span><span class="p">)</span> <span class="n">NewAsyncSender</span><span class="p">()</span> <span class="o">*</span><span class="n">AsyncSender</span> <span class="p">{}</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">AsyncSender</span><span class="p">)</span> <span class="n">SendTransaction</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">from</span> <span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">to</span> <span class="o">*</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">value</span> <span class="o">*</span><span class="n">big</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
 <span class="o">...</span>
 </code></pre></div></div>
 
@@ -128,13 +128,13 @@
 
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
     
-    <span class="n">syncTxManager</span> <span class="o">:=</span> <span class="n">NewSyncTxManager</span><span class="p">()</span>
-    <span class="n">asyncTxManager</span> <span class="o">:=</span> <span class="n">NewAsyncTxManager</span><span class="p">()</span>
+    <span class="n">syncSender</span> <span class="o">:=</span> <span class="n">NewSyncSender</span><span class="p">()</span>
+    <span class="n">asyncSender</span> <span class="o">:=</span> <span class="n">NewAsyncSender</span><span class="p">()</span>
     
     <span class="c">// 동기 방식</span>
-    <span class="n">txm</span> <span class="o">:=</span> <span class="n">NewTxManager</span><span class="p">(</span><span class="n">syncTxManager</span><span class="p">)</span> 
+    <span class="n">txm</span> <span class="o">:=</span> <span class="n">NewTxManager</span><span class="p">(</span><span class="n">syncSender</span><span class="p">)</span> 
     <span class="c">// 비동기 방식</span>
-    <span class="n">txm</span> <span class="o">:=</span> <span class="n">NewTxManager</span><span class="p">(</span><span class="n">asyncTxManager</span><span class="p">)</span>
+    <span class="n">txm</span> <span class="o">:=</span> <span class="n">NewTxManager</span><span class="p">(</span><span class="n">asyncSender</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div></div>
 

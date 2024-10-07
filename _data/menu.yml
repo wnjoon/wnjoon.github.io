@@ -2,18 +2,17 @@
 # https://github.com/riggraz/no-style-please#customize-the-menu
 
 entries:
-  - title: 개발자라면 하나쯤은 있을법한 블로그
-
+  - title: “Every developer has that blog - half built, never shipped.“ 
   - title: info
     entries:
-      - title: linkedin 
-        url: https://www.linkedin.com/in/wonjoon/
-      - title: brunch
-        url: https://brunch.co.kr/@wallee
-
+      - title: about me 
+        # url: https://www.linkedin.com/in/wonjoon/
+        url: http://wnjoon.github.io/portfolio
+      # - title: brunch
+      #   url: https://brunch.co.kr/@wallee
   - title: all posts
     post_list:
-      limit: 5
+      limit: 10
       show_more: true
       show_more_text: more...
       show_more_url: archive/index.html
