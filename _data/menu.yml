@@ -11,6 +11,11 @@ entries:
       - title: brunch
         url: https://brunch.co.kr/@wallee
 
+  - title: docs
+    entries:
+      - title: interchain developer academy
+        url: https://github.com/wnjoon/dev-docs/blob/main/interchain-developer-academy/ida.md
+
   - title: all posts
     post_list:
       limit: 5
