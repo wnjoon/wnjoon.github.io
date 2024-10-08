@@ -13,8 +13,8 @@ entries:
 
   - title: docs
     entries:
-      - title: interchain developer academy
-        url: https://github.com/wnjoon/dev-docs/blob/main/interchain-developer-academy/ida.md
+      - title: interchain 
+        url: https://github.com/wnjoon/dev-docs/blob/main/interchain/ida.md
 
   - title: all posts
     post_list:
