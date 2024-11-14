@@ -10,12 +10,6 @@ entries:
         url: https://www.linkedin.com/in/wonjoon/
       - title: brunch
         url: https://brunch.co.kr/@wallee
-
-  - title: docs
-    entries:
-      - title: interchain 
-        url: https://github.com/wnjoon/dev-docs/blob/main/interchain/interchain.md
-
   - title: all posts
     post_list:
       limit: 5

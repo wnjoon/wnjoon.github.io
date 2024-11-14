@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-10-08T17:43:43+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title><link href="http://localhost:4000/2023/12/02/go-interface-architecture/" rel="alternate" type="text/html" title="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" /><published>2023-12-02T00:00:00+09:00</published><updated>2023-12-02T00:00:00+09:00</updated><id>http://localhost:4000/2023/12/02/go-interface-architecture</id><content type="html" xml:base="http://localhost:4000/2023/12/02/go-interface-architecture/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://wnjoon.github.io/" rel="alternate" type="text/html" /><updated>2024-11-14T10:53:32+09:00</updated><id>https://wnjoon.github.io/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title><link href="https://wnjoon.github.io/2023/12/02/go-interface-architecture/" rel="alternate" type="text/html" title="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" /><published>2023-12-02T00:00:00+09:00</published><updated>2023-12-02T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/12/02/go-interface-architecture</id><content type="html" xml:base="https://wnjoon.github.io/2023/12/02/go-interface-architecture/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;왜-우리는-인터페이스-기반으로-설계해야-할까&quot;&gt;왜 우리는 인터페이스 기반으로 설계해야 할까?&lt;/h2&gt;
 
@@ -111,7 +111,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://appmaster.io/blog/interface-implementation-go&quot;&gt;Interface in Go - AppMaster&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">가스비 절감의 효과를 갖는 솔리디티의 custom error</title><link href="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="가스비 절감의 효과를 갖는 솔리디티의 custom error" /><published>2023-08-22T00:00:00+09:00</published><updated>2023-08-22T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/22/blockchain-custom-error-solidity</id><content type="html" xml:base="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">가스비 절감의 효과를 갖는 솔리디티의 custom error</title><link href="https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="가스비 절감의 효과를 갖는 솔리디티의 custom error" /><published>2023-08-22T00:00:00+09:00</published><updated>2023-08-22T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity</id><content type="html" xml:base="https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;커스텀-에러&quot;&gt;커스텀 에러&lt;/h2&gt;
 
@@ -322,7 +322,7 @@ console.log(
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://soliditylang.org/blog/2021/04/21/custom-errors/&quot;&gt;Custom Errors in Solidity - Soliditylang.org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">스마트 컨트랙트의 사이즈를 줄이는 방법</title><link href="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" /><published>2023-08-21T00:00:00+09:00</published><updated>2023-08-21T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size</id><content type="html" xml:base="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">스마트 컨트랙트의 사이즈를 줄이는 방법</title><link href="https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" /><published>2023-08-21T00:00:00+09:00</published><updated>2023-08-21T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size</id><content type="html" xml:base="https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;eip-170&quot;&gt;EIP-170&lt;/h2&gt;
 
@@ -520,7 +520,7 @@ function doSomething() { checkStuff(); }
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/&quot;&gt;DOWNSIZING CONTRACTS TO FIGHT THE CONTRACT SIZE LIMIT - ethereum.org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?</title><link href="http://localhost:4000/2023/02/13/blockchain-mc-trade-contract/" rel="alternate" type="text/html" title="다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?" /><published>2023-02-13T00:00:00+09:00</published><updated>2023-02-13T00:00:00+09:00</updated><id>http://localhost:4000/2023/02/13/blockchain-mc-trade-contract</id><content type="html" xml:base="http://localhost:4000/2023/02/13/blockchain-mc-trade-contract/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?</title><link href="https://wnjoon.github.io/2023/02/13/blockchain-mc-trade-contract/" rel="alternate" type="text/html" title="다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?" /><published>2023-02-13T00:00:00+09:00</published><updated>2023-02-13T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/02/13/blockchain-mc-trade-contract</id><content type="html" xml:base="https://wnjoon.github.io/2023/02/13/blockchain-mc-trade-contract/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;비상장주식과-거래-방법&quot;&gt;비상장주식과 거래 방법&lt;/h2&gt;
 
@@ -626,7 +626,7 @@ function doSomething() { checkStuff(); }
   &lt;li&gt;&lt;a href=&quot;https://news.mt.co.kr/mtview.php?no=2021102013545118652&quot;&gt;뜨겁지만 위험한 비상장주식 투자…거래 플랫폼별로 살펴보니 - 머니투데이&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://kvicnewsletter.co.kr/page/view.php?idx=430&quot;&gt;안전한 비상장주식의 거래방법이 궁금하다면? - KVIC&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;file:///Users/ssbc/Downloads/(%EC%B2%A8%EB%B6%802)K_OTC_Full+Version.pdf&quot;&gt;K-OTC의 이해 - 금융투자협회&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">아파치 카프카에 대해 매우 간략하게 알아보기</title><link href="http://localhost:4000/2022/12/23/tool-kafka/" rel="alternate" type="text/html" title="아파치 카프카에 대해 매우 간략하게 알아보기" /><published>2022-12-23T15:00:00+09:00</published><updated>2022-12-23T15:00:00+09:00</updated><id>http://localhost:4000/2022/12/23/tool-kafka</id><content type="html" xml:base="http://localhost:4000/2022/12/23/tool-kafka/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">아파치 카프카에 대해 매우 간략하게 알아보기</title><link href="https://wnjoon.github.io/2022/12/23/tool-kafka/" rel="alternate" type="text/html" title="아파치 카프카에 대해 매우 간략하게 알아보기" /><published>2022-12-23T15:00:00+09:00</published><updated>2022-12-23T15:00:00+09:00</updated><id>https://wnjoon.github.io/2022/12/23/tool-kafka</id><content type="html" xml:base="https://wnjoon.github.io/2022/12/23/tool-kafka/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;카프카는-왜-주목받기-시작했는가&quot;&gt;카프카는 왜 주목받기 시작했는가?&lt;/h2&gt;
 
@@ -834,7 +834,7 @@ function doSomething() { checkStuff(); }
   &lt;li&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/AMQP&quot;&gt;AMQP - 위키백과&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.skby.net/amqp-advanced-message-queue-protocol/&quot;&gt;AMQP(Advanced Message Queue Protocol) - 도리의 디지털라이프&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/linkedin/Burrow&quot;&gt;Burrow - Github&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">칭찬받는 REST API를 작성하는 방법 15가지</title><link href="http://localhost:4000/2022/11/08/swe-restapi_design/" rel="alternate" type="text/html" title="칭찬받는 REST API를 작성하는 방법 15가지" /><published>2022-11-08T15:00:00+09:00</published><updated>2022-11-08T15:00:00+09:00</updated><id>http://localhost:4000/2022/11/08/swe-restapi_design</id><content type="html" xml:base="http://localhost:4000/2022/11/08/swe-restapi_design/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">칭찬받는 REST API를 작성하는 방법 15가지</title><link href="https://wnjoon.github.io/2022/11/08/swe-restapi_design/" rel="alternate" type="text/html" title="칭찬받는 REST API를 작성하는 방법 15가지" /><published>2022-11-08T15:00:00+09:00</published><updated>2022-11-08T15:00:00+09:00</updated><id>https://wnjoon.github.io/2022/11/08/swe-restapi_design</id><content type="html" xml:base="https://wnjoon.github.io/2022/11/08/swe-restapi_design/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;rest-api란-무엇일까&quot;&gt;REST API란 무엇일까?&lt;/h2&gt;
 
@@ -1128,7 +1128,7 @@ http://.../v2/book
   &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/6845772/should-i-use-singular-or-plural-name-convention-for-rest-resources&quot;&gt;Should I use Singular or Plural name convention for REST resources? - StackOverflow&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://goodbyeanma.tistory.com/41&quot;&gt;SQL SERVER 액세스 패턴 - goodbyeanma&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://it-eldorado.tistory.com/163&quot;&gt;CORS (Cross Origin Resource Sharing) 이해하기 - 피그브라더&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해</title><link href="http://localhost:4000/2022/10/26/blockchain-eth-reentrancy/" rel="alternate" type="text/html" title="이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" /><published>2022-10-26T00:00:00+09:00</published><updated>2022-10-26T00:00:00+09:00</updated><id>http://localhost:4000/2022/10/26/blockchain-eth-reentrancy</id><content type="html" xml:base="http://localhost:4000/2022/10/26/blockchain-eth-reentrancy/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해</title><link href="https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy/" rel="alternate" type="text/html" title="이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" /><published>2022-10-26T00:00:00+09:00</published><updated>2022-10-26T00:00:00+09:00</updated><id>https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy</id><content type="html" xml:base="https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;재진입성-공격이란&quot;&gt;재진입성 공격이란?&lt;/h2&gt;
 
