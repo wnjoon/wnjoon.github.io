@@ -23,7 +23,7 @@ theme_config:
 permalink: /:year/:month/:day/:title/
 
 sass:
-  style: :compressed
+  style: "expanded"
 
 plugins:
   - jekyll-feed
