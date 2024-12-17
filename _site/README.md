@@ -2,7 +2,7 @@
 
 ## Error Handling
 
-#### 1. An error occurred while installing strscan (3.1.0), and Bundler cannot continue.
+### An error occurred while installing strscan (3.1.0), and Bundler cannot continue
 
 An error occurred while installing strscan (3.1.0), and Bundler cannot continue.
 Make sure that gem install strscan -v '3.1.0' --source 'https://rubygems.org/' succeeds before bundling.

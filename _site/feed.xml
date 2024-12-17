@@ -1,5 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://wnjoon.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://wnjoon.github.io/" rel="alternate" type="text/html" /><updated>2024-11-14T10:53:32+09:00</updated><id>https://wnjoon.github.io/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title><link href="https://wnjoon.github.io/2023/12/02/go-interface-architecture/" rel="alternate" type="text/html" title="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" /><published>2023-12-02T00:00:00+09:00</published><updated>2023-12-02T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/12/02/go-interface-architecture</id><content type="html" xml:base="https://wnjoon.github.io/2023/12/02/go-interface-architecture/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-12-17T11:22:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">월리의 탐구생활</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design</title><link href="http://localhost:4000/2024/12/17/what-is-narwhal/" rel="alternate" type="text/html" title="Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" /><published>2024-12-17T00:00:00+09:00</published><updated>2024-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/17/what-is-narwhal</id><content type="html" xml:base="http://localhost:4000/2024/12/17/what-is-narwhal/">&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-narwhal&quot;&gt;What is Narwhal?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#worker-and-primary&quot;&gt;Worker and Primary&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-process-of-narwhal&quot;&gt;The process of Narwhal&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#narwhal-combined-with-consensus-protocol&quot;&gt;Narwhal combined with consensus protocol&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#limitations&quot;&gt;Limitations&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-is-narwhal&quot;&gt;What is Narwhal?&lt;/h2&gt;
+
+&lt;p&gt;Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency.&lt;/p&gt;
+
+&lt;p&gt;Narwhal was introduced in the paper &lt;a href=&quot;https://arxiv.org/abs/2105.11827&quot;&gt;“Narwhal and Tusk: A DAG-based Mempool and Efficient BFT Consensus”&lt;/a&gt;. Narwhal processes transaction propagation and validation in separate, worker and primary layers to reduce bottlenecks and provide modular-based data availability.&lt;/p&gt;
+
+&lt;p&gt;Narwhal uses DAG(Directed Acyclic Graph) to clearly define dependencies between transaction data, thereby maximizing parallelism and scalability. DAG flexibly manages the order of transactions and supports stable data propagation even when the network is massively expanded.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;./images/narwhal-overall.png&quot; alt=&quot;The relationship in the process of Narwhal&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;worker-and-primary&quot;&gt;Worker and Primary&lt;/h2&gt;
+
+&lt;p&gt;When the client sends a transaction, it goes to the worker located in the node. Transactions are delivered to workers simultaneously, and each worker groups the received transactions into batches.&lt;/p&gt;
+
+&lt;p&gt;When transactions accumulate over a certain period or exceed a specified size, the batches created up to that point are transmitted to other nodes.&lt;/p&gt;
+
+&lt;p&gt;Nodes validate the received batch and send back a signature of itself to the origin worker. When a worker receives 2f + 1 of the signatures from other nodes, it creates a ‘Mempool block’, including a certificate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;./images/mempoolblock-design.png&quot; alt=&quot;The design of the mempool block. r is round, and i is block number&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The certificate list guarantees that this Mempool block is already validated by 2f + 1 signatures from other nodes is reusable and does not need to re-propagate transactions even though the proposal has failed.&lt;/p&gt;
+
+&lt;p&gt;The primary receives Mempool blocks from workers in the same node and creates DAG for managing dependency between transactions. DAG uses authenticated Mempool blocks as nodes, and the relationships (parent-child) between each mempool block as edges connecting the nodes to determine the order of transactions and use them as data for consensus.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-process-of-narwhal&quot;&gt;The process of Narwhal&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-make-batches-from-transactions-and-broadcast&quot;&gt;1. Make batches from transactions and broadcast&lt;/h3&gt;
+
+&lt;p&gt;As described above, transactions sent from clients are generated in batches over a certain period or when a certain size is satisfied.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-get-the-signature-of-thenode&quot;&gt;2. Get the signature of the node&lt;/h3&gt;
+
+&lt;p&gt;Nodes send back their signature to the origin node worker, not a different worker. When signature data is disseminated randomly, network traffic is increased, and data integrity is difficult to ensure.
+Every batch has metadata, including the ID of the batch and worker. A worker who receives batches can send them back to the origin worker due to their containing worker ID.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-make-the-mempool-block-with-certification&quot;&gt;3. Make the mempool block with certification&lt;/h3&gt;
+
+&lt;p&gt;When the worker receives more than 2f + 1 signature from other nodes, the worker creates a ‘Mempool block’ including transaction information, signature, etc.&lt;/p&gt;
+
+&lt;p&gt;Mempool block has a certification list, not a single certification to reuse when the proposal is failed. It could be a waste of network resources if the Mempool block has to obtain signatures from other nodes in every round, even though they already made certification from signatures of other nodes in previous rounds.&lt;/p&gt;
+
+&lt;h3 id=&quot;4-send-dag-to-the-leadernode&quot;&gt;4. Send DAG to the leader node&lt;/h3&gt;
+
+&lt;p&gt;Validator nodes transmit the DAG generated over a certain period to the primary of the leader node. The leader node arranges Mempool blocks from received DAGs into a single DAG and sends it to other nodes for proposal. Non-validators also generate DAG but do not send it to the leader node.&lt;/p&gt;
+
+&lt;h3 id=&quot;5-when-the-round-isfailed&quot;&gt;5. When the round is failed&lt;/h3&gt;
+
+&lt;p&gt;A round is a logical unit of time during which transaction data is propagated through the network and consensus is reached. Round failures can occur due to leader failure, network delays, malicious node behavior, etc.&lt;/p&gt;
+
+&lt;p&gt;In Narwhal, a round is defined as a process in which a specific leader is designated, and the leader merges DAG data to attempt consensus.&lt;/p&gt;
+
+&lt;h4 id=&quot;in-worker&quot;&gt;In worker&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Even though the round failed, a worker maintains the Mempool block and reuses it in the next round.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since the worker continues to collect new transactions from clients regardless of round failure, new transactions are bundled into the next batch, including transactions from the previous batch, and propagated to the network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A batch is converted into a Mempool Block when a worker collects more than 2f+1 signatures from other nodes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;in-primary&quot;&gt;In primary&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Since the previous Mempool block is already allocated in DAG, it can be reused in the next round.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;narwhal-combined-with-consensus-protocol&quot;&gt;Narwhal combined with consensus protocol&lt;/h2&gt;
+
+&lt;p&gt;Most consensus algorithms, including PBFT and Hotstuff, operating with strongly coupled data propagation and consensus in the consensus process, can be improved in performance when they use Narwhal.&lt;/p&gt;
+
+&lt;p&gt;Narwhal provides increased network performance from completely separated data propagation and consensus.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-propagation&quot;&gt;Data Propagation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In Narwhal, data availability can be ensured by both workers collecting transaction data and primary generating DAG.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since transaction data is propagated independently from the consensus process, the data remains valid even if the consensus fails.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consensus&quot;&gt;Consensus&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Since Narwhal has already completed the data propagation, HotStuff only needs to agree on the DAG state, which is already guaranteed by the worker and primary from Narwhal.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;./images/diff-narwhal-standalone.png&quot; alt=&quot;Differences between Narwhal-based consensus and standalone&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;limitations&quot;&gt;Limitations&lt;/h2&gt;
+
+&lt;p&gt;Because of the mesh structure in DAG, the complexity and size would be increased rapidly when the network expands and the number of transactions is increased. To solve this, we need a strategy to periodically clean up old Mempool blocks or limit the depth and size of the DAG.&lt;/p&gt;
+
+&lt;p&gt;Also, Narwhal maintains previous DAG data, which the proposal failed, and reuses them in the next round. We also need a policy to efficiently discard old data or merge it with additional data.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2105.11827&quot;&gt;Narwhal and Tusk: A DAG-based Mempool and Efficient BFT Consensus&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html">Contents</summary></entry><entry><title type="html">인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법</title><link href="http://localhost:4000/2023/12/02/go-interface-architecture/" rel="alternate" type="text/html" title="인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" /><published>2023-12-02T00:00:00+09:00</published><updated>2023-12-02T00:00:00+09:00</updated><id>http://localhost:4000/2023/12/02/go-interface-architecture</id><content type="html" xml:base="http://localhost:4000/2023/12/02/go-interface-architecture/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;왜-우리는-인터페이스-기반으로-설계해야-할까&quot;&gt;왜 우리는 인터페이스 기반으로 설계해야 할까?&lt;/h2&gt;
 
@@ -111,7 +227,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://appmaster.io/blog/interface-implementation-go&quot;&gt;Interface in Go - AppMaster&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">가스비 절감의 효과를 갖는 솔리디티의 custom error</title><link href="https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="가스비 절감의 효과를 갖는 솔리디티의 custom error" /><published>2023-08-22T00:00:00+09:00</published><updated>2023-08-22T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity</id><content type="html" xml:base="https://wnjoon.github.io/2023/08/22/blockchain-custom-error-solidity/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">가스비 절감의 효과를 갖는 솔리디티의 custom error</title><link href="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="가스비 절감의 효과를 갖는 솔리디티의 custom error" /><published>2023-08-22T00:00:00+09:00</published><updated>2023-08-22T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/22/blockchain-custom-error-solidity</id><content type="html" xml:base="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;커스텀-에러&quot;&gt;커스텀 에러&lt;/h2&gt;
 
@@ -322,7 +438,7 @@ console.log(
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://soliditylang.org/blog/2021/04/21/custom-errors/&quot;&gt;Custom Errors in Solidity - Soliditylang.org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">스마트 컨트랙트의 사이즈를 줄이는 방법</title><link href="https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" /><published>2023-08-21T00:00:00+09:00</published><updated>2023-08-21T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size</id><content type="html" xml:base="https://wnjoon.github.io/2023/08/21/blockchain-downsizing-contract-size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">스마트 컨트랙트의 사이즈를 줄이는 방법</title><link href="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/" rel="alternate" type="text/html" title="스마트 컨트랙트의 사이즈를 줄이는 방법" /><published>2023-08-21T00:00:00+09:00</published><updated>2023-08-21T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size</id><content type="html" xml:base="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;eip-170&quot;&gt;EIP-170&lt;/h2&gt;
 
@@ -520,7 +636,7 @@ function doSomething() { checkStuff(); }
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/&quot;&gt;DOWNSIZING CONTRACTS TO FIGHT THE CONTRACT SIZE LIMIT - ethereum.org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?</title><link href="https://wnjoon.github.io/2023/02/13/blockchain-mc-trade-contract/" rel="alternate" type="text/html" title="다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?" /><published>2023-02-13T00:00:00+09:00</published><updated>2023-02-13T00:00:00+09:00</updated><id>https://wnjoon.github.io/2023/02/13/blockchain-mc-trade-contract</id><content type="html" xml:base="https://wnjoon.github.io/2023/02/13/blockchain-mc-trade-contract/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?</title><link href="http://localhost:4000/2023/02/13/blockchain-mc-trade-contract/" rel="alternate" type="text/html" title="다자간 상대매매를 스마트 컨트랙트로 구성할 수 있을까?" /><published>2023-02-13T00:00:00+09:00</published><updated>2023-02-13T00:00:00+09:00</updated><id>http://localhost:4000/2023/02/13/blockchain-mc-trade-contract</id><content type="html" xml:base="http://localhost:4000/2023/02/13/blockchain-mc-trade-contract/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;비상장주식과-거래-방법&quot;&gt;비상장주식과 거래 방법&lt;/h2&gt;
 
@@ -626,7 +742,7 @@ function doSomething() { checkStuff(); }
   &lt;li&gt;&lt;a href=&quot;https://news.mt.co.kr/mtview.php?no=2021102013545118652&quot;&gt;뜨겁지만 위험한 비상장주식 투자…거래 플랫폼별로 살펴보니 - 머니투데이&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://kvicnewsletter.co.kr/page/view.php?idx=430&quot;&gt;안전한 비상장주식의 거래방법이 궁금하다면? - KVIC&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;file:///Users/ssbc/Downloads/(%EC%B2%A8%EB%B6%802)K_OTC_Full+Version.pdf&quot;&gt;K-OTC의 이해 - 금융투자협회&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">아파치 카프카에 대해 매우 간략하게 알아보기</title><link href="https://wnjoon.github.io/2022/12/23/tool-kafka/" rel="alternate" type="text/html" title="아파치 카프카에 대해 매우 간략하게 알아보기" /><published>2022-12-23T15:00:00+09:00</published><updated>2022-12-23T15:00:00+09:00</updated><id>https://wnjoon.github.io/2022/12/23/tool-kafka</id><content type="html" xml:base="https://wnjoon.github.io/2022/12/23/tool-kafka/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">아파치 카프카에 대해 매우 간략하게 알아보기</title><link href="http://localhost:4000/2022/12/23/tool-kafka/" rel="alternate" type="text/html" title="아파치 카프카에 대해 매우 간략하게 알아보기" /><published>2022-12-23T15:00:00+09:00</published><updated>2022-12-23T15:00:00+09:00</updated><id>http://localhost:4000/2022/12/23/tool-kafka</id><content type="html" xml:base="http://localhost:4000/2022/12/23/tool-kafka/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;카프카는-왜-주목받기-시작했는가&quot;&gt;카프카는 왜 주목받기 시작했는가?&lt;/h2&gt;
 
@@ -834,7 +950,7 @@ function doSomething() { checkStuff(); }
   &lt;li&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/AMQP&quot;&gt;AMQP - 위키백과&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.skby.net/amqp-advanced-message-queue-protocol/&quot;&gt;AMQP(Advanced Message Queue Protocol) - 도리의 디지털라이프&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/linkedin/Burrow&quot;&gt;Burrow - Github&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">칭찬받는 REST API를 작성하는 방법 15가지</title><link href="https://wnjoon.github.io/2022/11/08/swe-restapi_design/" rel="alternate" type="text/html" title="칭찬받는 REST API를 작성하는 방법 15가지" /><published>2022-11-08T15:00:00+09:00</published><updated>2022-11-08T15:00:00+09:00</updated><id>https://wnjoon.github.io/2022/11/08/swe-restapi_design</id><content type="html" xml:base="https://wnjoon.github.io/2022/11/08/swe-restapi_design/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">칭찬받는 REST API를 작성하는 방법 15가지</title><link href="http://localhost:4000/2022/11/08/swe-restapi_design/" rel="alternate" type="text/html" title="칭찬받는 REST API를 작성하는 방법 15가지" /><published>2022-11-08T15:00:00+09:00</published><updated>2022-11-08T15:00:00+09:00</updated><id>http://localhost:4000/2022/11/08/swe-restapi_design</id><content type="html" xml:base="http://localhost:4000/2022/11/08/swe-restapi_design/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;rest-api란-무엇일까&quot;&gt;REST API란 무엇일까?&lt;/h2&gt;
 
@@ -1128,7 +1244,7 @@ http://.../v2/book
   &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/6845772/should-i-use-singular-or-plural-name-convention-for-rest-resources&quot;&gt;Should I use Singular or Plural name convention for REST resources? - StackOverflow&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://goodbyeanma.tistory.com/41&quot;&gt;SQL SERVER 액세스 패턴 - goodbyeanma&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://it-eldorado.tistory.com/163&quot;&gt;CORS (Cross Origin Resource Sharing) 이해하기 - 피그브라더&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해</title><link href="https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy/" rel="alternate" type="text/html" title="이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" /><published>2022-10-26T00:00:00+09:00</published><updated>2022-10-26T00:00:00+09:00</updated><id>https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy</id><content type="html" xml:base="https://wnjoon.github.io/2022/10/26/blockchain-eth-reentrancy/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="개발" /><summary type="html"></summary></entry><entry><title type="html">이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해</title><link href="http://localhost:4000/2022/10/26/blockchain-eth-reentrancy/" rel="alternate" type="text/html" title="이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" /><published>2022-10-26T00:00:00+09:00</published><updated>2022-10-26T00:00:00+09:00</updated><id>http://localhost:4000/2022/10/26/blockchain-eth-reentrancy</id><content type="html" xml:base="http://localhost:4000/2022/10/26/blockchain-eth-reentrancy/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;재진입성-공격이란&quot;&gt;재진입성 공격이란?&lt;/h2&gt;
 
