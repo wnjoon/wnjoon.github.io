@@ -13,7 +13,7 @@
 <meta property="og:description" content="Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency. Narwhal was introduced in the paper “Narwhal and Tusk…”" />
 <link rel="canonical" href="http://localhost:4000/2024/12/17/what-is-narwhal/" />
 <meta property="og:url" content="http://localhost:4000/2024/12/17/what-is-narwhal/" />
-<meta property="og:site_name" content="월리의 탐구생활" />
+<meta property="og:site_name" content="//TODO: Write Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2024-12-17T00:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
@@ -21,7 +21,7 @@
 <script type="application/ld+json">
 {"headline":"Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design","dateModified":"2024-12-17T00:00:00+09:00","datePublished":"2024-12-17T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2024/12/17/what-is-narwhal/"},"url":"http://localhost:4000/2024/12/17/what-is-narwhal/","author":{"@type":"Person","name":"Wonjoon"},"@type":"BlogPosting","description":"Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency. Narwhal was introduced in the paper “Narwhal and Tusk…”","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="월리의 탐구생활" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
   <link rel="stylesheet" href="/assets/css/main.css" />
 </head><body a="light">
     <main class="page-content" aria-label="Content">
@@ -51,7 +51,9 @@
 
 <p>Narwhal uses DAG(Directed Acyclic Graph) to clearly define dependencies between transaction data, thereby maximizing parallelism and scalability. DAG flexibly manages the order of transactions and supports stable data propagation even when the network is massively expanded.</p>
 
-<p><img src="./images/narwhal-overall.png" alt="The relationship in the process of Narwhal" /></p>
+<p><img src="https://github.com/user-attachments/assets/975a0c88-d70b-47c9-b1f8-1f9b0808baf1" alt="The relationship in the process of Narwhal" /></p>
+
+<p><em>@The relationship in the process of Narwhal</em></p>
 
 <h2 id="worker-and-primary">Worker and Primary</h2>
 
@@ -61,7 +63,9 @@
 
 <p>Nodes validate the received batch and send back a signature of itself to the origin worker. When a worker receives 2f + 1 of the signatures from other nodes, it creates a ‘Mempool block’, including a certificate.</p>
 
-<p><img src="./images/mempoolblock-design.png" alt="The design of the mempool block. r is round, and i is block number" /></p>
+<p><img src="https://github.com/user-attachments/assets/36fc3b5e-1911-4d9d-8b78-8b33c7daa697" alt="The design of the mempool block. r is round, and i is block number" /></p>
+
+<p><em>@The design of the mempool block. r is round, and i is block number</em></p>
 
 <p>The certificate list guarantees that this Mempool block is already validated by 2f + 1 signatures from other nodes is reusable and does not need to re-propagate transactions even though the proposal has failed.</p>
 
@@ -137,7 +141,9 @@ Every batch has metadata, including the ID of the batch and worker. A worker who
   <li>Since Narwhal has already completed the data propagation, HotStuff only needs to agree on the DAG state, which is already guaranteed by the worker and primary from Narwhal.</li>
 </ul>
 
-<p><img src="./images/diff-narwhal-standalone.png" alt="Differences between Narwhal-based consensus and standalone" /></p>
+<p><img src="https://github.com/user-attachments/assets/3107439d-ce19-4e25-bf88-483243ad68ac" alt="Differences between Narwhal-based consensus and standalone" /></p>
+
+<p><em>@Differences between Narwhal-based consensus and standalone</em></p>
 
 <h2 id="limitations">Limitations</h2>
 

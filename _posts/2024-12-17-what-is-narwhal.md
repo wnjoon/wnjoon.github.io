@@ -25,7 +25,9 @@ Narwhal was introduced in the paper ["Narwhal and Tusk: A DAG-based Mempool and 
 
 Narwhal uses DAG(Directed Acyclic Graph) to clearly define dependencies between transaction data, thereby maximizing parallelism and scalability. DAG flexibly manages the order of transactions and supports stable data propagation even when the network is massively expanded.
 
-![The relationship in the process of Narwhal](./images/narwhal-overall.png)
+![The relationship in the process of Narwhal](https://github.com/user-attachments/assets/975a0c88-d70b-47c9-b1f8-1f9b0808baf1)
+
+*@The relationship in the process of Narwhal*
 
 ## Worker and Primary
 
@@ -35,7 +37,9 @@ When transactions accumulate over a certain period or exceed a specified size, t
 
 Nodes validate the received batch and send back a signature of itself to the origin worker. When a worker receives 2f + 1 of the signatures from other nodes, it creates a 'Mempool block', including a certificate.
 
-![The design of the mempool block. r is round, and i is block number](./images/mempoolblock-design.png)
+![The design of the mempool block. r is round, and i is block number](https://github.com/user-attachments/assets/36fc3b5e-1911-4d9d-8b78-8b33c7daa697)
+
+*@The design of the mempool block. r is round, and i is block number*
 
 The certificate list guarantees that this Mempool block is already validated by 2f + 1 signatures from other nodes is reusable and does not need to re-propagate transactions even though the proposal has failed.
 
@@ -96,7 +100,9 @@ Narwhal provides increased network performance from completely separated data pr
 
 - Since Narwhal has already completed the data propagation, HotStuff only needs to agree on the DAG state, which is already guaranteed by the worker and primary from Narwhal.
 
-![Differences between Narwhal-based consensus and standalone](./images/diff-narwhal-standalone.png)
+![Differences between Narwhal-based consensus and standalone](https://github.com/user-attachments/assets/3107439d-ce19-4e25-bf88-483243ad68ac)
+
+*@Differences between Narwhal-based consensus and standalone*
 
 ## Limitations
 

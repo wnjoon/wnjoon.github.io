@@ -2,7 +2,7 @@
 # https://github.com/riggraz/no-style-please#customize-the-menu
 
 entries:
-  - title: 개발자라면 하나쯤은 있을법한 블로그
+  - title: “Every developer has that blog - half built, never shipped.“ 
 
   - title: info
     entries:
