@@ -1,5 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-12-17T13:23:03+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design</title><link href="http://localhost:4000/2024/12/17/what-is-narwhal/" rel="alternate" type="text/html" title="Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" /><published>2024-12-17T00:00:00+09:00</published><updated>2024-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/17/what-is-narwhal</id><content type="html" xml:base="http://localhost:4000/2024/12/17/what-is-narwhal/">&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-12-26T14:42:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">DOG: A New Gossip Protocol for CometBFT</title><link href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" rel="alternate" type="text/html" title="DOG: A New Gossip Protocol for CometBFT" /><published>2024-12-26T00:00:00+09:00</published><updated>2024-12-26T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/26/dog-gossip-protocol</id><content type="html" xml:base="http://localhost:4000/2024/12/26/dog-gossip-protocol/">&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#for-the-busy-modern-soul&quot;&gt;For the busy modern soul&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-usefulness-of-dog-in-the-persistent-peering-network&quot;&gt;The usefulness of DOG in the persistent peering network&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#comparison-flood-gossip-protocol&quot;&gt;Comparison: Flood gossip protocol&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;for-the-busy-modern-soul&quot;&gt;For the busy modern soul&lt;/h2&gt;
+
+&lt;p&gt;DOG optimizes the path for transmitting transactions to each node.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When the sent transaction is returned (cycle), it closes the path by sending a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HaveTx&lt;/code&gt; message to the peer that sent the transaction.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HaveTx&lt;/code&gt; message only carries the transaction hash, so there is little network overhead.&lt;/li&gt;
+  &lt;li&gt;Gradually remove unnecessary paths to minimize duplicate transactions.
+    &lt;ul&gt;
+      &lt;li&gt;In the paper, It is called a &lt;em&gt;Closed-loop redundancy controller&lt;/em&gt; which is a mechanism for the system to monitor the current network status and dynamically adjust the level of redundant propagation.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Finally, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;superposition of directed spanning tree&lt;/code&gt; structure is created with each node as the root.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Redundancy Controller is used to set the transaction duplication tolerance range per node.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Redundancy Level
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The percentage of redundancy allowed in the overall transaction flow&lt;/p&gt;
+
+        &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Redundancy Level &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1 / Allowable redundancy ratio
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;The lower the Redundancy Level, the lower the tolerance for duplicate transactions&lt;/li&gt;
+      &lt;li&gt;f.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Redundancy Level = 0.5&lt;/code&gt; means when 100 different transactions come in, up to 50 duplicate transactions can be received&lt;/li&gt;
+      &lt;li&gt;If duplicate transactions are lower than the allowable range, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ResetRoute&lt;/code&gt; message is sent to the peer to reactivate the closed route&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Test Results&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the test, transactions were transmitted at a speed of 500tx/s for 15 minutes from 200 nodes&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mempool: As the path is built, the mempool size and cache hit count gradually decrease&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Consensus
+    &lt;ul&gt;
+      &lt;li&gt;More stable block production&lt;/li&gt;
+      &lt;li&gt;Less additional consensus rounds for the validator is needed&lt;/li&gt;
+      &lt;li&gt;8 times less missing validators during voting&lt;/li&gt;
+      &lt;li&gt;About 2.7 times less missed blocks&lt;/li&gt;
+      &lt;li&gt;Additional 10% reduction in network traffic generated by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BlockPart&lt;/code&gt; messages&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Resource usage and latency
+    &lt;ul&gt;
+      &lt;li&gt;CPU usage reduced by 43%&lt;/li&gt;
+      &lt;li&gt;Memory usage reduced by 10%&lt;/li&gt;
+      &lt;li&gt;Total transaction verification time (checkTx) reduced by 10%&lt;/li&gt;
+      &lt;li&gt;Average latency: Flood (3.63s), DOG (3.14s)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-usefulness-of-dog-in-the-persistent-peering-network&quot;&gt;The usefulness of DOG in the persistent peering network&lt;/h2&gt;
+
+&lt;p&gt;Persistent peering network is a network where nodes are connected to each other in a persistent way, meaning that nodes are always connected to each other. All validators are connected to each other, and since there are no multi-hops in the network, all transactions can be propagated directly to all nodes in one hop.&lt;/p&gt;
+
+&lt;p&gt;As you may have guessed, DOG is not an advantage in this environment. In a single-hop architecture, where a transaction from A to B does not need to go through C, no duplicate transactions occur. The biggest advantage of DOG is that it optimizes the overall network path by gradually reducing the paths where duplicate transactions can occur, so its use is unnecessary in this environment.&lt;/p&gt;
+
+&lt;p&gt;However, this does not mean that DOG is completely unnecessary.&lt;/p&gt;
+
+&lt;p&gt;Since it is not guaranteed that all nodes will always maintain connectivity, DOG can maintain network propagation by dynamically reconfiguring the path when a specific network connection becomes unstable.&lt;/p&gt;
+
+&lt;p&gt;In addition, even in a direct peering environment, network bandwidth can be further reduced through duplicate transaction filtering. In particular, when unnecessary redundant data is propagated in communication between nodes, DOG can detect and minimize this.&lt;/p&gt;
+
+&lt;p&gt;Finally, when the number of network nodes is greatly expanded, it may be realistically difficult to maintain persistent peering, but DOG can maintain efficient propagation even in large-scale networks by optimizing the transaction propagation path.&lt;/p&gt;
+
+&lt;h2 id=&quot;comparison-flood-gossip-protocol&quot;&gt;Comparison: Flood gossip protocol&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Flood&lt;/code&gt; gossip protocol broadcasts a transaction to all peers in the network when the transaction is created.&lt;/p&gt;
+
+&lt;p&gt;During this process, the same transaction may be transmitted multiple times.
+In a fully connected network, all nodes are directly connected to each other, which increases redundant propagation.&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Flood gossip protocol simply broadcast transactions without checking for duplication, which wastes bandwidth.
+
+For example, There are 4 nodes A, B, C, D.
+
+- If node A sends a transaction to nodes B, C, and D, then B, C, and D also send the same transaction back to each other.
+- Flood simply propagate without checking for transaction duplication, resulting in wasted bandwidth.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As a result, these problems occur:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Network bandwidth wastes
+    &lt;ul&gt;
+      &lt;li&gt;Duplicate transaction messages are continuously transmitted, which wastes bandwidth unnecessarily.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Performance degradation
+    &lt;ul&gt;
+      &lt;li&gt;Transaction propagation speed may slow down as the network becomes overloaded.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Scalability issues
+    &lt;ul&gt;
+      &lt;li&gt;As the number of network nodes increases, the number of duplicate propagated transactions also increases rapidly.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://informal.systems/blog/a-new-mempool-gossip-protocol-for-cometbft&quot;&gt;A New Mempool Gossip Protocol for CometBFT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html">Contents</summary></entry><entry><title type="html">Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design</title><link href="http://localhost:4000/2024/12/17/what-is-narwhal/" rel="alternate" type="text/html" title="Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" /><published>2024-12-17T00:00:00+09:00</published><updated>2024-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/17/what-is-narwhal</id><content type="html" xml:base="http://localhost:4000/2024/12/17/what-is-narwhal/">&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#what-is-narwhal&quot;&gt;What is Narwhal?&lt;/a&gt;&lt;/li&gt;

@@ -30,9 +30,8 @@ Redundancy Controller is used to set the transaction duplication tolerance range
 - Redundancy Level
   - The percentage of redundancy allowed in the overall transaction flow
 
-    ```math
-    \text{Redundancy Level} = \frac{1}{\text{Allowable redundancy ratio}}
-
+    ```sh
+    Redundancy Level = 1 / Allowable redundancy ratio
     ```
 
   - The lower the Redundancy Level, the lower the tolerance for duplicate transactions
