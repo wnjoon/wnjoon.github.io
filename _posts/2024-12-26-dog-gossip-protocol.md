@@ -25,6 +25,14 @@ DOG optimizes the path for transmitting transactions to each node.
   - In the paper, It is called a *Closed-loop redundancy controller* which is a mechanism for the system to monitor the current network status and dynamically adjust the level of redundant propagation.
 - Finally, a `superposition of directed spanning tree` structure is created with each node as the root.
 
+![Initially all routes are open](https://github.com/user-attachments/assets/44f98095-8a47-442e-9e26-62c02569e8fb)
+
+*@Initially all routes are open*
+
+![The result of directed spanning trees](https://github.com/user-attachments/assets/19b8b63c-00aa-4b00-92b4-24e2a72c4d7a)
+
+*@The result: Directed spanning trees, where each node has a single, optimal path to reach every other node.*
+
 Redundancy Controller is used to set the transaction duplication tolerance range per node.
 
 - Redundancy Level
