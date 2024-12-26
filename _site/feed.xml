@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-12-26T14:42:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-12-26T15:02:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">DOG: A New Gossip Protocol for CometBFT</title><link href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" rel="alternate" type="text/html" title="DOG: A New Gossip Protocol for CometBFT" /><published>2024-12-26T00:00:00+09:00</published><updated>2024-12-26T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/26/dog-gossip-protocol</id><content type="html" xml:base="http://localhost:4000/2024/12/26/dog-gossip-protocol/">&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -21,6 +21,14 @@
   &lt;/li&gt;
   &lt;li&gt;Finally, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;superposition of directed spanning tree&lt;/code&gt; structure is created with each node as the root.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/user-attachments/assets/44f98095-8a47-442e-9e26-62c02569e8fb&quot; alt=&quot;Initially all routes are open&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;@Initially all routes are open&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/user-attachments/assets/19b8b63c-00aa-4b00-92b4-24e2a72c4d7a&quot; alt=&quot;The result of directed spanning trees&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;@The result: Directed spanning trees, where each node has a single, optimal path to reach every other node.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Redundancy Controller is used to set the transaction duplication tolerance range per node.&lt;/p&gt;
 
