@@ -57,9 +57,13 @@ hr { margin: 2rem 0; }
 
 p { margin: 1rem 0; }
 
-a { color: white; }
+a { 
+  // color: white; 
+  color: lightgrey;
+}
 a:hover {
-  color: skyblue;
+  // color: skyblue;
+  color: orangered;
 }
 
 li { 
