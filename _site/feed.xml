@@ -1,5 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-03T13:11:47+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">DOG: A New Gossip Protocol for CometBFT</title><link href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" rel="alternate" type="text/html" title="DOG: A New Gossip Protocol for CometBFT" /><published>2024-12-26T00:00:00+09:00</published><updated>2024-12-26T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/26/dog-gossip-protocol</id><content type="html" xml:base="http://localhost:4000/2024/12/26/dog-gossip-protocol/"><![CDATA[<h2 id="contents">Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-06T16:22:10+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">The Power of Daily Plan</title><link href="http://localhost:4000/2025/03/06/power-of-daily-plan/" rel="alternate" type="text/html" title="The Power of Daily Plan" /><published>2025-03-06T00:00:00+09:00</published><updated>2025-03-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/06/power-of-daily-plan</id><content type="html" xml:base="http://localhost:4000/2025/03/06/power-of-daily-plan/"><![CDATA[<h3 id="there-is-a-p-in-my-mbti-result">There is a P in my MBTI result</h3>
+
+<p>In other words, I find it difficult to set clear plans, and I am more accustomed to handling things spontaneously. The reason I use the words “difficult” and “accustomed” is not because I dislike planning or prefer working on impulse.</p>
+
+<p>I don’t know about others with a P-type personality, but at least for me, I want to be more like a J.</p>
+
+<p>Especially in my profession as a developer, having a well-structured plan is often essential for getting work done effectively.</p>
+
+<h3 id="why-planning-matters">Why Planning Matters</h3>
+
+<p>People who have achieved great success in life all have one thing in common: they plan their day before they start.</p>
+
+<p>They don’t do this because they have too much or too little time. Instead, they take a sacred moment to determine the priorities for the day.</p>
+
+<p>I describe it as “sacred” because it is a moment where we acknowledge the natural limitations of time that we, as humans, cannot escape.</p>
+
+<h3 id="the-challenges-of-planning">The Challenges of Planning</h3>
+
+<p>But planning isn’t easy.</p>
+
+<ul>
+  <li>Should I be conservative with my plans to avoid failure?</li>
+  <li>Or should I set goals based on my ambition to complete everything I want?</li>
+  <li>What should I do when unexpected events force me to adjust my plans?</li>
+</ul>
+
+<p>Even though I am a P-type, I don’t start my day without any plans at all.
+However, I struggle to create detailed plans.
+I leave multiple possibilities open for tasks that may change, so it’s hard for me to set a clear, measurable goal for what I will complete.</p>
+
+<h3 id="learning-from-the-best">Learning from the Best</h3>
+
+<p>So, how do highly skilled people approach this?</p>
+
+<p>Someone I deeply admire follows a simple rule:
+They plan their day based on the maximum number of hours they can fully focus on work.</p>
+
+<p>Within that time, they prioritize the most important tasks instead of simply listing everything they need to do.</p>
+
+<p>Even though their to-do list was short, they carefully considered the importance and urgency of each task.
+This approach made them a smart, efficient, and highly capable worker.</p>
+
+<h3 id="the-importance-of-planning-in-workplaces">The Importance of Planning in Workplaces</h3>
+
+<p>Many IT companies require employees to plan their daily tasks and share them with the team.
+However, not all workplaces have such systems in place.</p>
+
+<p>I believe that creating a daily work plan is the single most important task, even if your company doesn’t require it.</p>
+
+<p>This habit offers more than just team alignment and problem-solving efficiency.</p>
+
+<p>More importantly, it helps you understand your own workload and set priorities to maximize productivity within your available time.</p>
+
+<h3 id="if-you-havent-been-planning-start-now">If You Haven’t Been Planning, Start Now</h3>
+
+<p>Regardless of experience level, if you are still starting your day without a plan, I strongly encourage you to make a change immediately.</p>
+
+<p>At first, I also thought, “Why waste time planning? I should just get to work.”
+Because of this mindset, I missed multiple opportunities to build a solid planning habit.</p>
+
+<p>But as my workload grew and I needed to prioritize,
+I realized that changing my deeply ingrained habit of not planning was incredibly difficult.</p>
+
+<p>Even now, I am still working on improving,
+and I am writing this to keep myself motivated.</p>
+
+<h3 id="if-you-dont-know-where-to-start">If You Don’t Know Where to Start</h3>
+
+<p>That’s okay. Planning is never easy.</p>
+
+<p>No one is good at it from the beginning.
+But with time and practice, you will get better at it.</p>
+
+<p>One important thing: don’t be too ambitious.
+If you plan too many tasks, you will only end up feeling overwhelmed.</p>
+
+<p>Instead, prioritize what truly matters within your time constraints,
+and have the courage to delay or eliminate tasks that don’t fit into your schedule.</p>
+
+<h3 id="we-cannot-do-everything">We cannot do everything</h3>
+
+<p>Even the exceptional people we look up to don’t do everything.
+The difference is that they distinguish between what is important and what is not.</p>
+
+<p>They don’t try to do it all.
+Instead, they focus on their priorities with a sense of humility
+— knowing that time is limited, and they must make the most of it.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[There is a P in my MBTI result]]></summary></entry><entry><title type="html">DOG: A New Gossip Protocol for CometBFT</title><link href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" rel="alternate" type="text/html" title="DOG: A New Gossip Protocol for CometBFT" /><published>2024-12-26T00:00:00+09:00</published><updated>2024-12-26T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/26/dog-gossip-protocol</id><content type="html" xml:base="http://localhost:4000/2024/12/26/dog-gossip-protocol/"><![CDATA[<h2 id="contents">Contents</h2>
 
 <ul>
   <li><a href="#for-the-busy-modern-soul">For the busy modern soul</a></li>
