@@ -6,10 +6,7 @@ entries:
   - title: info
     entries:
       - title: about me 
-        # url: https://www.linkedin.com/in/wonjoon/
-        url: http://wnjoon.github.io/portfolio
-      # - title: brunch
-      #   url: https://brunch.co.kr/@wallee
+        url: http://wnjoon.github.io/resume
   - title: all posts
     post_list:
       limit: 10
