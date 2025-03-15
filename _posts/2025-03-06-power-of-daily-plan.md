@@ -4,10 +4,9 @@ title:  "The Power of Daily Plan"
 description: "Even the most exceptional people can’t do everything—they simply prioritize what truly matters, recognizing their limits and making the most of their time with humility."
 categories: essay
 # tags: [ethereum, solidity, smartcontract]
-keywords: developer
+keywords: essay
 comments: true
 ---
-
 
 ### There is a P in my MBTI result
 
