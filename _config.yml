@@ -25,6 +25,12 @@ permalink: /:year/:month/:day/:title/
 sass:
   style: "expanded"
 
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
