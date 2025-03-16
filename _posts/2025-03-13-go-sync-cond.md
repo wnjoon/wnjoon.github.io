@@ -16,13 +16,13 @@ comments: true
 - [Comparison: `Signal()` vs. `Broadcast()`](#comparison-signal-vs-broadcast)
 - [Conclusion](#conclusion)
 
-## What is `sync.Cond`?
+## What is sync.Cond?
 
 - `sync.Cond` is a condition variable that helps synchronize multiple goroutines.
 - It is typically used when one or more goroutines must wait until a shared resource reaches a specific state.
 - One goroutine waits (`Wait()`) until a condition is satisfied, and another goroutine notifies (`Signal()` or `Broadcast()`) the waiting goroutines when the condition is met.
 
-## How `sync.Cond` Works
+## How sync.Cond Works
 
 | **Method** | **Description** |
 | --- | --- |
@@ -30,7 +30,7 @@ comments: true
 | `Signal()` | Wakes only one waiting goroutine (even if multiple goroutines are waiting) |
 | `Broadcast()` | Wakes all waiting goroutines |
 
-## Example: Donation Goal Tracker Using `sync.Cond`
+## Example: Donation Goal Tracker Using sync.Cond
 
 The following example demonstrates how `sync.Cond` can be used to coordinate multiple goroutines that monitor a donation goal.
 
@@ -157,7 +157,7 @@ Key Observations:
 - If a goroutine’s goal is met, it exits after printing the result.
 - Once all goals are reached, no goroutines are waiting, so `Broadcast()` no longer has any effect.
 
-## Comparison: `Signal()` vs. `Broadcast()`
+## Comparison: Signal() vs. Broadcast()
 
 | **Method** | **Behavior** | **Use Case** |
 | --- | --- | --- |

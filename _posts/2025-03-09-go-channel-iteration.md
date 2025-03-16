@@ -75,13 +75,13 @@ for balance := range donation.ch {
 }
 ```
 
-### How `for range` Works
+### How for range Works
 
 - `range donation.ch`: Iterates over incoming values from the channel.
 - Each time a new value is sent to `donation.ch`, it is immediately read and assigned to `balance`.
 - The loop continues waiting for new values until the channel is closed.
 
-### Key Characteristics of `for range`
+### Key Characteristics of for range
 
 - Automatically waits for new values.
 - Stops when the channel is closed.
@@ -103,13 +103,13 @@ f := func(goal int) {
 }
 ```
 
-### How `select` Works
+### How select Works
 
 - `case balance := <-donation.ch`: Reads from the channel only when data is available.
 - Useful when monitoring multiple channels simultaneously.
 - Requires an explicit return or break to exit the loop.
 
-### Key Characteristics of `select`
+### Key Characteristics of select
 
 - Can handle multiple channels.
 - Only executes when a channel has data.
@@ -131,18 +131,18 @@ for {
 }
 ```
 
-### Problems with Using `switch`
+### Problems with Using switch
 
 - `balance := <-donation.ch`: Directly blocks waiting for a value (inefficient).
 - `default`: Executes unconditionally when no case matches, which prevents proper subscription behavior.
 
-### Key Characteristics of `switch`
+### Key Characteristics of switch
 
 - Cannot wait for channel updates.
 - Inefficient because it forces direct value retrieval.
 - `default` runs even when there’s no new data.
 
-## Comparison Table: `for range` vs. `select` vs. `switch`
+## Comparison Table: for range vs. select vs. switch
 
 | **Method** | **How It Works** | **Can Monitor Channels?** | **Exit Condition** |
 | --- | --- | --- | --- |
