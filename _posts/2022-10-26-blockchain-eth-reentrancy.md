@@ -1,38 +1,49 @@
 ---
 layout: post
-title:  "이더리움에서의 재진입성(Reentrancy) 공격에 대한 이해" 
-description: Understand of Reentrancy problem occured in Ethereum network.
+title:  "Understanding Reentrancy Attacks in Smart Contracts" 
+description: A reentrancy attack occurs when an external malicious contract repeatedly calls a vulnerable contract’s function before the previous execution is completed.
 # date:   2022-10-26 15:00:00 +0900
-categories: 개발
+categories: ethereum
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity
 comments: true
 ---
 
-<br>
+## Contents
 
-## 재진입성 공격이란?
+- [Reentrancy Attack](#reentrancy-attack)
+- [Example: Reentrancy Attack on a Bank Contract](#example-reentrancy-attack-on-a-bank-contract)
+- [How to Prevent Reentrancy Attacks](#how-to-prevent-reentrancy-attacks)
+- [Summary: How to Defend Against Reentrancy Attacks](#summary-how-to-defend-against-reentrancy-attacks)
+- [Conclusion](#conclusion)
 
-재진입이라는 용어는 '외부의 악의적인 컨트랙트가 취약한 컨트랙트의 함수를 호출하면서 실행경로가 그 안으로 재진입하는' 방법이라고 표현한다. 사실 이렇게만 보면 어려운데, 이더리움과 스마트 컨트랙트의 특징을 먼저 살펴보면 좋을 것 같다.
+## Reentrancy Attack
 
-1. 이더리움은 '다른 사용자 주소로 이더를 전송' 한다.
-2. 이더리움에서 스마트 컨트랙트는 다른 외부의 스마트 컨트랙트를 호출하고, 그 내부의 기능을 활용할 수 있다.
-3. 단순히 이더를 전송하거나 존재하지 않는 외부의 스마트 컨트랙트 내 기능을 호출하는 경우, 콜백을 포함한 다양한 대체 코드를 실행할 수 있다.
+A reentrancy attack occurs when a malicious external contract calls a vulnerable contract’s function recursively before the previous execution is completed.
 
-재진입성 공격은 <u>컨트랙트가 알 수 없는 주소(스마트 컨트랙트)로 이더를 전송하는 경우</u> 발생할 수 있다. 내부 fallback 함수에 악성코드를 심어놓은 스마트 컨트랙트로 이더를 전송하게 되면, 악의적인 코드가 실행되면서 발생하는 공격이다.
+To understand this attack in the context of Ethereum and smart contracts, let’s go through some key properties:
 
-> fallback 함수 : 이름이 없는 함수로, 스마트 컨트랙트 내에 존재하지 않는 함수를 호출하면 대신 호출되는 함수.
+- Ethereum allows transferring Ether between user addresses.
+- Smart contracts in Ethereum can call external contracts and interact with their functions.
+- If a contract sends Ether to an unknown address or calls a nonexistent function in another contract, a `fallback` function can execute alternative code.
 
-가장 유명한 사례로는 [The DAO 해킹](https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/)이 있다. 대략 1억 5천만 달러 이상의 잔액을 보유하고 있던 컨트랙트를 공격하였으며, 이 공격을 통해 이더리움에서 이더리움 클래식이 하드포크 되었다.
+A reentrancy attack happens when a contract sends Ether to an external malicious contract with a malicious `fallback` function that recursively calls the vulnerable contract before it updates its state.
 
-<br>
+A `fallback` function is a function without a name in Solidity. It gets triggered when a contract receives Ether or when a nonexistent function is called.
 
-## 예시
+One of the most famous reentrancy attacks was "The DAO Hack". In this attack, the attacker exploited a vulnerable contract holding over $150 million in Ether. This attack led to the Ethereum hard fork, splitting the network into Ethereum (ETH) and Ethereum Classic (ETC).
 
-여기 이더를 보관 및 인출해주는 은행 컨트랙트(Bank)와 이를 공격하기 위한 컨트랙트(Attack)가 있다고 하자. 
+## Example: Reentrancy Attack on a Bank Contract
+
+### Smart Contracts Setup
+
+We have two contracts:
+
+- Bank Contract: Holds and allows withdrawals of Ether.
+- Attack Contract: Exploits the Bank contract’s vulnerability.
 
 ```solidity
-// 은행 컨트랙트
+// Vulnerable Bank Contract
 contract Bank {
     mapping(address -> uint256) public balances;
 
@@ -50,6 +61,7 @@ contract Bank {
 ```
 
 ```solidity
+// Malicious Attack Contract
 contract Attack {
     Bank public bank;
 
@@ -70,95 +82,104 @@ contract Attack {
 }
 ```
 
-공격자(Attacker)가 단일 트랜잭션만으로 Bank 컨트랙트에서 1이더만 남기고 모두 출금하는 과정을 그림으로 표현하면 아래와 같다. 단, Bank 컨트랙트에는 어느정도의 이더가 이미 존재하고 있다고 가정한다.
+### Attack Scenario: How the Exploit Works
 
-![](https://velog.velcdn.com/images/wnjoon/post/6502c25e-0cd0-4d45-89f8-a8e6cbfce390/image.PNG)
+The attacker withdraws almost all Ether from the Bank contract in a single transaction. Assume the Bank contract already has sufficient Ether.
 
-*@그림 1: 공격자가 Attack 컨트랙트를 이용하여 Bank 컨트랙트를 공격*
+![attach scenario](https://velog.velcdn.com/images/wnjoon/post/6502c25e-0cd0-4d45-89f8-a8e6cbfce390/image.PNG)
 
-1. 공격자가 Attack 컨트랙트의 attackBank 함수를 실행한다.
-2. attackBank 함수가 Bank 컨트랙트의 deposit 함수를 호출하여 1 이더를 입금한다.
-3. attackBank 함수가 Bank 컨트랙트의 withdraw 함수를 호출하여 1 이더를 인출한다.
-4. Bank 컨트랙트의 withdraw 함수 내부에서 msg.sender(Attack 컨트랙트)에게 1 이더를 전송한다. Attack 컨트랙트의 fallback 함수가 이를 처리한다.
-5. Attack 컨트랙트의 fallback 함수 내부에서 다시 Bank 컨트랙트의 withdraw를 호출한다. Bank 컨트랙트의 잔액이 1 이더만 남을때까지 이 과정은 계속 반복된다.
+Step-by-Step Attack Process:
 
-<br>
+1. The attacker calls `attackBank()` from the Attack contract.
+2. `attackBank()` deposits 1 Ether into the Bank contract.
+3. `attackBank()` then calls `withdraw(1 ether)`, triggering the Bank contract’s withdrawal function.
+4. The Bank contract sends 1 Ether to the Attack contract.
+5. The Attack contract’s fallback function gets triggered before the Bank contract updates the balance.
+6. The fallback function recursively calls `withdraw(1 ether)` before the previous call completes.
+7. This loop continues until only 1 Ether remains in the Bank contract.
 
-## 어떻게 막을 수 있을까?
+## How to Prevent Reentrancy Attacks?
 
-재진입 공격을 막기 위한 방법은 현재까지 3가지 정도 존재한다.
+There are three main strategies to mitigate reentrancy attacks.
 
-### 1. transfer 함수 사용
+### 1. Use transfer() Instead of call.value()
 
-transfer 함수는 외부 컨트랙트 호출에 대해 총 2300개의 가스만 사용할 수 있도록 되어있다. 이는 이더 전송을 위한 단일 트랜잭션은 가능하나, 외부의 다른 컨트랙트를 호출하기에는 적은 양이다.
-
-### 2. 엄격한 상태 변수 변경
-
-컨트랙트 또는 외부의 다른 컨트랙트에서의 호출을 통해 이더가 전송되기 전 상태변수를 변경하는 방식이다. 이를 [체크 효과 상호작용 패턴(checks-effects-interactions pattern)](https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern) 이라고 한다.
+- Solidity’s `transfer()` function only allows 2300 gas for external calls.
+- This prevents the `fallback` function from making further reentrant calls.
 
 ```solidity
-// Bank 컨트랙트 예시
-contract Bank {
-    ...
-    function withdraw(uint256 _amount) public {
-        ...
-        // 아래 두 코드의 위치를 변경해서,
-        // 알 수 없는 주소로의 외부 호출을 수행하는 코드를 
-        // 지역함수 또는 코드 실행 부분의 
-        // 가장 마지막에 진행해야 한다.
-        require(msg.sender.call.value(_amount)());
-        balances[msg.sender] -= _amount;
-    }
+msg.sender.transfer(_amount); // Safer alternative
+```
+
+### 2. Follow the Checks-Effects-Interactions Pattern
+
+The [Checks-Effects-Interactions pattern](https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern) ensures state variables are updated before making external calls.
+
+#### Vulnerable Code
+
+```solidity
+function withdraw(uint256 _amount) public {
+    require(balances[msg.sender] >= _amount);
+
+    require(msg.sender.call.value(_amount)()); // External call before updating state
+    balances[msg.sender] -= _amount;
 }
 ```
 
-### 3. 뮤텍스(mutex) 사용
-
-코드가 실행되는 동안에는 컨트랙트를 잠궈주는 상태 변수를 추가하여 재진입을 막을 수 있다.
-
-<br>
-
-## 개선된 코드
-
-개선된 Bank 컨트랙트의 코드를 살펴보면 아래와 같다.
+#### Fixed Code
 
 ```solidity
-// 개선된 은행 컨트랙트
+function withdraw(uint256 _amount) public {
+    require(balances[msg.sender] >= _amount);
+
+    balances[msg.sender] -= _amount;  // Update state first
+    msg.sender.transfer(_amount);  // External call after state update
+}
+```
+
+### 3. Use a Mutex (Reentrancy Lock)
+
+A mutex (boolean flag) prevents reentrant calls by locking the function until execution is complete.
+
+#### Improved Bank Contract with Reentrancy Protection
+
+```solidity
+// Secure Bank Contract
 contract Bank {
-    // 1. 뮤텍스 추가
-    bool mutex = false;
-    mapping(address -> uint256) public balances;
+    bool mutex = false; // Mutex variable to prevent reentrancy
+    mapping(address => uint256) public balances;
 
     function deposit() public payable {
         balances[msg.sender] += msg.value;
     }
 
     function withdraw(uint256 _amount) public {
-        
-        // 2. 뮤텍스 확인
-        require(!mutex);        
+        require(!mutex);  // Ensure no reentrancy
         require(balances[msg.sender] >= _amount);
 
-        // 3. 상태 변수 우선 변경
         balances[msg.sender] -= _amount;
+        mutex = true;  // Lock the contract
 
-        // 4. 외부 호출 이전에 뮤텍스 설정
-        mutex = true;
-
-        // 5. call 대신 transfer 사용
         msg.sender.transfer(_amount);
-        
-        // 6. 외부 호출 이후 뮤텍스 해제
-        mutex = false;
+
+        mutex = false;  // Unlock after transfer
     }
 }
 ```
 
-<br>
-<br>
+## Summary: How to Defend Against Reentrancy Attacks
 
-## 참고
+| Method | Description | Effectiveness |
+| --- | --- | --- |
+| Use transfer() instead of call.value() | Limits gas usage for external calls, preventing reentrancy | Highly effective |
+| Checks-Effects-Interactions pattern | Updates state variables before external calls to prevent recursion | Strong protection |
+| Mutex (Reentrancy Lock) | Uses a flag to prevent multiple executions | Effective but requires careful implementation |
 
-- [스마트 컨트랙트 보안::Re-entrancy - PROOFER](https://medium.com/proofer-tech/%EC%8A%A4%EB%A7%88%ED%8A%B8-%EC%BB%A8%ED%8A%B8%EB%9E%99%ED%8A%B8-%EB%B3%B4%EC%95%88-%EC%9D%B4%EC%8A%88-1-re-entrancy-%EC%9E%AC%EC%A7%84%EC%9E%85%EC%84%B1-7d4caf24803c)
-- [The DAO 해킹 그리고 사망 - 브런치](https://brunch.co.kr/@ashhan/26)
-- [Analysis of the DAO exploit - Hacking,Distributed](https://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/)
+## Conclusion
+
+- Reentrancy attacks exploit the ability of external contracts to reenter a function before state updates occur.
+- The DAO hack was a real-world example, causing Ethereum’s first hard fork.
+- Three main defense strategies:
+- Use `transfer()` instead of `call.value()` to limit gas usage.
+- Apply the Checks-Effects-Interactions pattern to update state before making external calls.
+- Implement mutex (reentrancy locks) to prevent multiple function executions.
