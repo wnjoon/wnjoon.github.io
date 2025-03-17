@@ -32,9 +32,9 @@ body {
   // color: black;
   color: white;
   // font-family: "Gowun Dodum", monospace;
-  // font-family: sans-serif;
+  font-family: sans-serif;
   // font-family: "Gowun Batang", serif;
-  font-family: monospace;
+  // font-family: monospace;
   font-size: 16px;
   line-height: 1.6;
   margin: 0;
@@ -93,13 +93,13 @@ table, th, td {
   border: thin solid rgb(132, 32, 32);
   border-collapse: collapse;
   padding: 0.4rem;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 code {
   color: white;
   background: rgb(80, 80, 80);
-  font-size: 16px;
+  font-size: 14px;
 }
 
 div.highlighter-rouge code {
