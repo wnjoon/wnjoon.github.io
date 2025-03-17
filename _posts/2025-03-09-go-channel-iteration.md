@@ -2,7 +2,7 @@
 layout: post
 title:  "Understanding Channel Iteration in Go: for range vs. select vs. switch"
 description: "In Go, channels are commonly used for communication between goroutines. This post explores different ways to read from channels and handle incoming values efficiently."
-categories: dev
+categories: go
 # tags: [ethereum, solidity, smartcontract]
 keywords: go, channel, iteration
 comments: true

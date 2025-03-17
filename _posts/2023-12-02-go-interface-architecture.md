@@ -1,59 +1,67 @@
 ---
 layout: post
 author: wonjoon
-title:  "인터페이스 기반 설계의 중요성과 go언어를 이용한 구현 방법" 
-description: Importance of using interface while construct program and example of using golang
-categories: 개발
-keywords: golang
+title:  "Importance of using interface while construct program and example of using go" 
+description: By designing software around interfaces, we minimize dependencies, improve collaboration, and build scalable, maintainable systems.
+categories: go
+keywords: go, interface, design
 comments: true
 ---
 
-<br>
+## Why Should We Design Applications Based on Interfaces?
 
-## 왜 우리는 인터페이스 기반으로 설계해야 할까?
+Modern software applications are composed of multiple modules that interact with each other. To ensure scalability, maintainability, and flexibility, interface-based design is widely recommended.
 
-우리가 사용하고 있는 여러 서비스들을 포함한 일반적인 프로그램은 다양한 모듈로 구성되어 있다. 그리고 이러한 <u>모듈간의 유연한 연결</u>을 위하여 인터페이스 기반의 설계를 권장한다.
+Let’s take Netflix as an example. Netflix is not just a video streaming service; it includes user management, subscription payments, recommendations, advertising, and many other services. Each team within Netflix works on different components, often following their own schedules and priorities. Without a well-defined interface-based approach, collaboration and integration would become extremely complex.
 
-넷플릭스를 예로 들어보자. 넷플릭스라는 하나의 서비스안에는 비디오 스트리밍 뿐만 아니라 회원관리, 구독권 결재, 추천, 광고 등 수많은 세부 서비스들이 존재한다.
+The best way to address this challenge is to design and develop applications based on interfaces.
 
-그리고 당연히, 이 수많은 서비스들을 개발하기 위한 수많은 팀들이 존재한다. 심지어 소규모의 스타트업에서도 (일반적으로는) 각 기능(모듈)을 개발하기 위한 팀, 아니 적어도 사람이 별도로 구성된다. 
+## How Interface-Based Design Improves the Development Process
 
-> 비록 아닌 곳들 또한 많이 있지만, 오늘 하고싶은 이야기의 주제와는 조금 벗어나기 때문에 넘어간다.
+Let’s assume we’re developing an app that enables users to purchase subscriptions.
 
-다시 돌아와서 결국 수많은 기능들이 개발됨으로써 넷플릭스라는 하나의 서비스가 사용자에게 제공되는 것인데, 이 과정에서 수많은 팀들이 각자의 계획과 일정에 맞게 개발을 진행하기 때문에 의사소통과 협업에 문제가 발생하기 마련이다. 
+Scenario
 
-이를 해결하기 위한 가장 좋은 방법이 인터페이스 기반으로 설계하고 개발하는 것이다. 간단하게 예시로 표현해보면 아래와 같다.
+1. Team A is responsible for user management, and Team B is developing the payment system.
+2. Team A needs to implement subscription purchases, which depend on Team B’s payment gateway (PG) integration.
+3. Team B is busy with other tasks and cannot immediately implement the PG integration. However, Team A cannot wait indefinitely for them to complete it.
+4. Team B provides an interface that defines the PG integration structure. Even though the actual implementation is not ready, the interface specifies what the final implementation will look like.
+5. Team A develops a mock implementation based on the provided interface and proceeds with subscription feature development.
+6. Once Team B completes the real PG integration, Team A replaces the mock implementation with the actual implementation.
 
-1. 회원관리를 개발하는 A팀과 결제시스템을 개발하는 B팀이 있다. A팀에서 개발하는 기능 중 회원권 구매 기능이 있고, 이 기능은 B팀에서 개발중인 PG 연동 기능을 포함해야 한다.
-2. B팀에서 개발중인 다른 기능들이 있기 때문에, PG 연동 기능을 바로 개발하기 어렵다. 그렇다고 A팀은 B팀의 업무가 끝날때까지 기다리고만 있을수는 없다.
-3. B팀은 A팀에게 인터페이스 형태의 PG 연동 기능을 제공한다. 실제 동작하는 부분은 개발하지 않았지만 어떤 형태로 만들어질지에 대한 추상적인 형태는 제공할 수 있다.
-4. A팀은 B팀으로부터 제공받은 인터페이스를 기반으로 Mock 기반의 구현체를 만들고, 이를 이용하여 회원권 구매 기능 개발을 진행한다.
-5. 추후 B팀에서 PG 연동 기능 개발이 완료되면, 기존의 Mock 기반 구현체를 실제 동작이 포함된 구현체로 교체한다.
+By adopting interface-based design, modules remain decoupled and can be developed independently without waiting for other teams.
 
-> Mock : 실제 구현체와 통신하지 않고 얻을 수 있는 가짜 또는 샘플데이터
+## Challenges of Interface-Based Design
 
-이렇게 인터페이스 기반으로 설계하고 개발하면 <u>각 모듈간 의존성을 최소화시키고 독립적인 개발이 가능</u>하다는 장점이 있다. 
+Despite its benefits, interface-based design is challenging when business logic is not well-defined.
 
-<br>
+- Business requirements must be well-analyzed before development to determine what interfaces will be needed.
+- Some Agile methodologies misinterpret speed as skipping planning. Fast development should not mean skipping clear business requirements and interface design.
+- If Team A starts development without a clear understanding of what Team B will deliver, frequent changes to the interface can result in wasted effort.
+- A well-defined interface can reduce development time, not increase it.
 
-## 인터페이스 기반 설계의 어려움
+To prevent unnecessary changes, a clear interface design should be agreed upon before development begins.
 
-하지만 인터페이스 기반의 설계는 쉽지 않다. 가장 큰 이유로 인터페이스는 결국 <u>명확한 업무 설계</u>를 기반으로 만들어지기 때문이다. 대부분의 개발자의 경우 머리보다 손이 먼저나가는 경우가 많은데, 이는 업무에 대한 명확한 분석이 먼저가 아니라 개발 과정에서 업무의 분석이 이루어지기 마련이다. 
+## How Go Supports Interface-Based Design
 
-이렇게 되면, 위에서 설명한 A팀과 B팀의 예시로 볼 때, A팀이 B팀에서 제공받은 인터페이스를 기반으로 개발한 내용들이 향후에 변경될 요지가 존재한다는 것이고 이는 인터페이스 기반의 설계와 개발로부터 얻을 수 있는 장점을 완전히 벗어나게 된다. 그러므로 실제 개발을 시작하는 시간은 좀 늦어질지라도, 업무에 대한 많은 고민과 분석을 통해 인터페이스를 먼저 설계하고 이를 기반으로 구현체를 개발하는 것이 무엇보다 중요하다.
+Go encourages interface-based design and provides a simple yet powerful way to implement it.
 
-<br>
+Key Differences from Java and Other Languages
 
-## Go언어를 이용한 인터페이스 설계
+- No need for explicit interface declarations in implementing structs.
+- No separate interface files are required.
+- If a struct implements all the methods of an interface, it automatically satisfies that interface.
 
-Go언어는 다른 언어와 비교하여 적극적으로 인터페이스 형태의 설계를 권장하고 있고, 실제로 인터페이스 방식으로 설계하기가 매우 편리하다. 별도의 인터페이스를 위한 파일을 만들 필요도 없으며, 해당 인터페이스를 사용하겠다는 명시적인 선언도 필요없다. 단지 인터페이스의 모든 기능을 모듈 내에 포함시키면 된다. 
+### Best Practices for Defining Interfaces in Go
 
-Go언어에서 인터페이스를 설계할 경우 권장하는 사항이 하나 있는데, 인터페이스 이름을 동작을 수행하는 객체 형태로 짓는 것이다. 예를 들어 어떠한 결과를 출력하기 위한 인터페이스의 경우 Printer, 결과를 파일로 저장하는 경우 Writer와 같이 뒤에 -er 접미사를 붙여서 작성하는 것을 권장한다.
+- Use meaningful names ending in -er to describe the action performed.
+- Example:
+  - Printer: Prints output
+  - Writer: Writes to a file
 
+## Example: Designing an Ethereum Transaction Sender Interface
 
-### 예시
-
-서명된 이더리움 트랜잭션을 네트워크에 전송하는 인터페이스를 만들어보자. 
+Let’s define an interface for sending signed Ethereum transactions.
 
 ```go
 type Sender interface {
@@ -61,28 +69,39 @@ type Sender interface {
 }
 ```
 
-이더리움으로 트랜잭션을 전송하기 위한 두가지 방법이 있다.
-- 이더리움 네트워크로 전송된 트랜잭션이 블록에 마이닝될때까지 기다렸다가 결과를 반환해주는 동기 처리방식
-- 이더리움 네트워크로 트랜잭션을 전송하고 결과는 반환받지 않는 비동기 처리방식
+### Transaction Sending Approaches
 
-이더리움 네트워크로 트랜잭션을 전송하는 것은 동일하기 때문에, 위에서 선언한 Sender 인터페이스를 사용할 수 있다.
+Ethereum transactions can be sent in two ways:
+
+- Synchronous (Sync): Waits until the transaction is mined before returning a response.
+- Asynchronous (Async): Sends the transaction without waiting for confirmation.
+
+Since both approaches use the same parameters, we can define a single `Sender` interface.
+
+### Using Dependency Injection for Flexibility
+
+We create a `TxManager` struct that depends on a `Sender` interface rather than a specific implementation.
 
 ```go
 type TxManager struct {
-    // TxManager라는 구현체가 Sender 인터페이스를 사용할 것이라고 선언했다. 
-    sender Sender 
-    ...
+    sender Sender
 }
 
-// Sender 인터페이스를 가진 구현체를 만든다.
+// Injects an implementation of Sender into TxManager
 func NewTxManager(sender Sender) *TxManager {
-    &TxManager{
+    return &TxManager{
         sender: sender,
     }
 }
 ```
 
-동기 처리 방식을 제공하는 모듈과 비동기 처리 방식을 제공하는 모듈은 각각 아래와 같다. 둘다 Sender 인터페이스에 포함된 기능을 포함하고 있다.
+### Different Implementations of the Sender Interface
+
+We now create two different implementations:
+
+- SyncSender: Implements synchronous transactions.
+- AsyncSender: Implements asynchronous transactions.
+- Both implementations satisfy the `Sender` interface because they define the required method.
 
 ```go
 // SyncSender
@@ -92,27 +111,51 @@ func (t *SyncSender) SendTransaction(ctx context.Context, from common.Address, t
 // AsyncSender
 func (t *AsyncSender) NewAsyncSender() *AsyncSender {}
 func (t *AsyncSender) SendTransaction(ctx context.Context, from common.Address, to *common.Address, value *big.Int, data []byte) error
-...
 ```
 
-인터페이스를 실제 구현체에 주입할 때는 아래와 같이 진행하면 된다.
+### Injecting the Implementations
+
+We can now inject either `SyncSender` or `AsyncSender` into the TxManager dynamically.
 
 ```go
 func main() {
-    
     syncSender := NewSyncSender()
     asyncSender := NewAsyncSender()
-    
-    // 동기 방식
-    txm := NewTxManager(syncSender) 
-    // 비동기 방식
-    txm := NewTxManager(asyncSender)
+
+    // Use synchronous transaction processing
+    txm := NewTxManager(syncSender)
+
+    // Use asynchronous transaction processing
+    txm = NewTxManager(asyncSender)
 }
 ```
 
-<br>
-<br>
+## Advantages of Interface-Based Design
 
-## 참고
+### Decouples Modules
 
-- [Interface in Go - AppMaster](https://appmaster.io/blog/interface-implementation-go)
+- Teams can develop independently without waiting for other teams.
+- Reduces dependencies between different components.
+
+### Enables Dependency Injection
+
+- Implementations can be easily replaced or modified without changing business logic.
+- Useful for mock testing and swapping different implementations.
+
+### Enhances Maintainability & Scalability
+
+- Clear separation of concerns makes code easier to maintain.
+- New features can be added without modifying existing components.
+
+### Encourages Reusability
+
+- The same interface can have multiple implementations, making it reusable across different scenarios.
+
+## Conclusion
+
+Why should we use interface-based design:
+
+- Modularization – Develop and maintain different parts of a system independently.
+- Flexibility – Swap implementations without changing business logic.
+- Scalability – Extend and modify software without breaking existing functionality.
+- Testing – Use mock implementations for unit tests.

@@ -4,22 +4,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>가스비 절감의 효과를 갖는 솔리디티의 custom error</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+  <title>Custom Errors in Solidity: A Gas-Efficient Alternative</title><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v3.10.0" />
-<meta property="og:title" content="가스비 절감의 효과를 갖는 솔리디티의 custom error" />
+<meta property="og:title" content="Custom Errors in Solidity: A Gas-Efficient Alternative" />
 <meta name="author" content="wonjoon" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="How to Use custom error in solditiy for reducing smart contract size and gas price." />
-<meta property="og:description" content="How to Use custom error in solditiy for reducing smart contract size and gas price." />
+<meta name="description" content="By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution.." />
+<meta property="og:description" content="By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution.." />
 <link rel="canonical" href="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/" />
 <meta property="og:url" content="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/" />
 <meta property="og:site_name" content="//TODO: Write Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-08-22T00:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="가스비 절감의 효과를 갖는 솔리디티의 custom error" />
+<meta property="twitter:title" content="Custom Errors in Solidity: A Gas-Efficient Alternative" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-08-22T00:00:00+09:00","datePublished":"2023-08-22T00:00:00+09:00","description":"How to Use custom error in solditiy for reducing smart contract size and gas price.","headline":"가스비 절감의 효과를 갖는 솔리디티의 custom error","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/"},"url":"http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-08-22T00:00:00+09:00","datePublished":"2023-08-22T00:00:00+09:00","description":"By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution..","headline":"Custom Errors in Solidity: A Gas-Efficient Alternative","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/"},"url":"http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/"}</script>
 <!-- End Jekyll SEO tag -->
 <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
   <link rel="stylesheet" href="/assets/css/main.css" />
@@ -32,219 +32,267 @@
     <time datetime="2023-08-22 00:00:00 +0900">2023-08-22</time>
   </p>
   
-  <h1>가스비 절감의 효과를 갖는 솔리디티의 custom error</h1>
+  <h1>Custom Errors in Solidity: A Gas-Efficient Alternative</h1>
 
-  <p><br /></p>
+  <h2 id="table-of-contents">Table of Contents</h2>
 
-<h2 id="커스텀-에러">커스텀 에러</h2>
-
-<p><a href="https://github.com/ethereum/solidity/releases/tag/v0.8.4">솔리디티 v0.8.4</a>에서 소개된 방법으로, 기존의 에러 표현 방식에 비해 가스비를 줄이면서 에러 발생의 원인을 설명할 수 있다.<br />
-아래는 기존의 방식과 커스텀 에러 방식 각각을 예시로 표현한 내용이다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Before
-revert("Insufficient funds."); // 사용 (선언 없음)
-
-# Custom errors
-error Unauthorized(); // 선언
-...
-revert Unauthorized(); // 사용
-</code></pre></div></div>
-
-<p>가스비는 스마트 컨트랙트의 배포(deploy)에 영향을 주는데, 이 외에도 기존의 방식은 에러에 대한 정보를 동적으로 관리하기 어렵다는 단점이 있었다.<br />
-커스텀 에러는 ‘error’ 구문을 사용한다. 그리고 외부(인터페이스 또는 라이브러리)에서 선언한 에러를 스마트 컨트랙트에 불러와서 사용할 수도 있다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.4;
-
-error Unauthorized(); // Custom error
-
-contract VendingMachine {
-    address payable owner = payable(msg.sender);
-
-    function withdraw() public {
-        if (msg.sender != owner)
-            revert Unauthorized();  // Using custom error with revert statement
-
-        owner.transfer(address(this).balance);
-    }
-    // ...
-}
-</code></pre></div></div>
-
-<p>위의 예시를 보면 <a href="https://docs.soliditylang.org/en/latest/contracts.html?color=dark#events">이벤트(event)</a>와 구문이 비슷한 것을 볼 수 있는데, 차이점은 <a href="https://docs.soliditylang.org/en/latest/control-structures.html?color=dark#revert-statement">revert 구문</a>과 같이 사용해야 한다는 것이다. revert를 사용하면 현재까지 진행되던 상태 변환 프로세스가 모두 중단되고 에러 메시지를 호출자에게 전달한다. <a href="https://github.com/ethereum/solidity/issues/11278">require 구문의 사용은 현재 포스팅 시점(2023.08.23)에는 제공되지 않고 있는데</a>, 아래의 예시를 보면 이해가 쉬울 것이다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># This Error message with require statement 
-require(condition, "error message")
-
-# Should be translated to
-if (!condition) revert CustomError()
-</code></pre></div></div>
-
-<p><br /></p>
-
-<h2 id="파라미터를-추가한-커스텀-에러">파라미터를 추가한 커스텀 에러</h2>
-
-<p>커스텀 에러는 파라미터를 추가할 수도 있다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.4;
-
-/// Insufficient balance for transfer. Needed `required` but only
-/// `available` available.
-/// @param available balance available.
-/// @param required requested amount to transfer.
-error InsufficientBalance(uint256 available, uint256 required);
-
-contract TestToken {
-    mapping(address =&gt; uint) balance;
-    function transfer(address to, uint256 amount) public {
-        if (amount &gt; balance[msg.sender])
-            // Error call using named parameters. Equivalent to
-            // revert InsufficientBalance(balance[msg.sender], amount);
-            revert InsufficientBalance({
-                available: balance[msg.sender],
-                required: amount
-            });
-        balance[msg.sender] -= amount;
-        balance[to] += amount;
-    }
-    // ...
-}
-</code></pre></div></div>
-
-<p>위의 예시를 보면 커스텀 에러를 아래와 같이 선언하고,</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error InsufficientBalance(uint256 available, uint256 required);
-</code></pre></div></div>
-
-<p>아래와 같이 사용한다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>revert InsufficientBalance({
-    available: balance[msg.sender],
-    required: amount
-});
-</code></pre></div></div>
-
-<p>사용 시점의 에러 데이터는 abi.encodeWithSignature(“InsufficientBalance(uint256,uint256)”, balance[msg.sender], amount)로 ABI 인코딩된다.</p>
-
-<p><br /></p>
-
-<h2 id="실제로-얼마나-스마트-컨트랙트-사이즈가-줄어드는가">실제로 얼마나 스마트 컨트랙트 사이즈가 줄어드는가?</h2>
-
-<p>위에서 예시로 든 VendingMachine 스마트 컨트랙트 기준으로 커스텀 에러 사용 여부에 따른 사이즈를 비교해보았다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.4;
-
-error Unauthorized(); // Custom error
-
-contract VendingMachine {
-    address payable owner = payable(msg.sender);
-
-    function withdraw() public {
-        if (msg.sender != owner)
-            revert Unauthorized();  // 커스텀 에러 사용 시
-            revert("Insufficient funds."); // 커스텀 에러 미사용 시
-
-        owner.transfer(address(this).balance);
-    }
-    // ...
-}
-</code></pre></div></div>
-
-<p><a href="https://github.com/IoBuilders/truffle-contract-size">truffle-contract-size</a>를 사용하여 각 상황별로 스마트 컨트랙트 사이즈를 계산한 결과는 아래와 같다.</p>
 <ul>
-  <li>커스텀 에러 사용 : 0.33 KiB</li>
-  <li>커스텀 에러 미사용 : 0.46 KiB</li>
+  <li><a href="#custom-error">Custom Error</a></li>
+  <li><a href="#how-to-use-custom-errors-in-solidity">How to Use Custom Errors in Solidity</a></li>
+  <li><a href="#how-much-gas-is-saved">How Much Gas is Saved?</a></li>
+  <li><a href="#comparing-yul-code-custom-errors-vs-string-errors">Comparing Yul Code: Custom Errors vs. String Errors</a></li>
+  <li><a href="#decoding-custom-errors-with-ethersjs">Decoding Custom Errors with ethers.js</a></li>
+  <li><a href="#caution-external-call--custom-errors">Caution: external call &amp; Custom Errors</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
 </ul>
 
-<p>단순한 에러라 할지라도 대략 0.13 KiB 정도의 차이가 나는 것을 보면, 복잡한 로직이 들어간 스마트 컨트랙트 일수록 커스텀 에러의 적용이 꽤 유의미한 가치를 가져올 수 있을 것이라고 생각된다.</p>
+<h2 id="custom-error">Custom Error</h2>
 
-<p><br /></p>
+<p><a href="https://github.com/ethereum/solidity/releases/tag/v0.8.4">Solidity v0.8.4</a> introduced custom errors, a new way to handle errors in smart contracts. Instead of using string-based revert messages, developers can now define error variables and use them efficiently.</p>
 
-<h2 id="좀더-깊이-커스텀-에러-들여다보기">좀더 깊이 커스텀 에러 들여다보기</h2>
-
-<p>파라미터를 포함하지 않는 기본적인 커스텀 에러 ‘revert Unauthorized()’를 <a href="https://docs.soliditylang.org/en/latest/yul.html">Yul 코드</a>로 확인해보면 아래와 같다.</p>
-
-<blockquote>
-  <p>Yul 코드는 다양한 백엔드에서 바이트코트 형태로 컴파일될 수 있도록 하는 중간 언어(intermediate language)를 의미한다.</p>
-</blockquote>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># revert Unauthorized();
-let free_mem_ptr := mload(64)
-mstore(free_mem_ptr, 0x82b4290000000000000000000000000000000000000000000000000000000000)
-revert(free_mem_ptr, 4)
-</code></pre></div></div>
-
-<p>위의 0x82b42900은 Unauthourized() 커스텀 에러의 selector를 의미한다. 그렇다면 커스텀 에러를 사용하지 않고 revert(“Unauthorized”)와 같이 에러 메시지를 그대로 사용하면 어떻게 될까?</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># revert("Unauthorized");
-let free_mem_ptr := mload(64)
-mstore(free_mem_ptr, 0x08c379a000000000000000000000000000000000000000000000000000000000)
-mstore(add(free_mem_ptr, 4), 32)
-mstore(add(free_mem_ptr, 36), 12)
-mstore(add(free_mem_ptr, 68), "Unauthorized")
-revert(free_mem_ptr, 100)
-</code></pre></div></div>
-
-<p>0x08c379a0 값은 Error(에러메시지 문자열)의 selector를 의미한다. 단순히 코드만 봐도 커스텀 에러를 사용할 때가 더 적은 가스비를 소모하는 것을 볼 수 있다. 런타임 시점의 가스비는 revert 조건을 만족하는 경우에 대해서만 연관이 있다는 것을 기억하자.</p>
-
-<p><br /></p>
-
-<h2 id="커스텀-에러-확인하기">커스텀 에러 확인하기</h2>
-
-<p>그렇다면 커스텀 에러는 어떻게 확인할 수 있을까? 가장 최근 버전의 ethers.js를 사용하면 커스텀 에러 메시지를 디코딩한 값을 확인할 수 있다.<br />
-아래 예시는 위의 InsufficientBalance 커스텀 에러를 확인하는 경우를 나타낸다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import { ethers } from 'ethers'
-
-// As a workaround, we have a function with the
-// same name and parameters as the error in the abi.
-const abi = [
-  'function InsufficientBalance(uint256 available, uint256 required)',
-]
-
-const interface = new ethers.utils.Interface(abi)
-const error_data =
-  '0xcf479181000000000000000000000000000000000000' +
-  '0000000000000000000000000100000000000000000000' +
-  '0000000000000000000000000000000000000100000000'
-
-const decoded = interface.decodeFunctionData(
-  interface.functions['InsufficientBalance(uint256,uint256)'],
-  error_data
-)
-// Contents of decoded:
-// [
-//   BigNumber { _hex: '0x0100', _isBigNumber: true },
-//   BigNumber { _hex: '0x0100000000', _isBigNumber: true },
-//   available: BigNumber { _hex: '0x0100', _isBigNumber: true },
-//   required: BigNumber { _hex: '0x0100000000', _isBigNumber: true }
-// ]
-console.log(
-  'Insufficient balance for transfer. ' +
-    `Needed ${decoded.required.toString()} but only ` +
-    `${decoded.available.toString()} available.`
-)
-// Insufficient balance for transfer. Needed 4294967296 but only 256 available.
-</code></pre></div></div>
-
-<p><br /></p>
-
-<h2 id="주의점">주의점</h2>
-
-<p>스마트 컨트랙트를 컴파일해서 ABI 형태의 JSON 파일로 만드는 과정에서, 컴파일러는 해당 스마트 컨트랙트가 나타낼 수 있는(emit) 모든 에러를 해당 파일에 포함시킨다. 여기서 중요한 것은 이 과정에 <u>external call로 호출되는 에러 메시지들은 포함되지 않는다</u>는 것이다. 
-이러한 이유로 개발자들은 에러 마다 <a href="https://docs.soliditylang.org/en/latest/natspec-format.html?color=dark">NatSpec</a> 형식을 준수하는 설명을 달아놓기도 한다. NatSpec은 개발자와 사용자가 추가 비용없이 에러 메시지에 대해 서로 이해할 수 있도록 하는 좋은 방법 중 하나이다.</p>
-
-<p>어쨋든 에러 메시지의 출처를 추적할 수 없기 때문에, 에러 데이터는 신중하게 사용해야 한다. external call 호출 횟수가 계속 늘어날수록, 발생하는 에러 메시지가 어디서부터 온 것인지 추적하기 점점 어려워진다는 것을 의미한다. 게다가 실제 에러가 아님에도 불구하고 에러메시지(처럼 보이는 문구)를 호출하도록 악의적으로 스마트 컨트랙트를 작성할 수도 있다.</p>
-
-<p><br />
-<br /></p>
-
-<h2 id="참고">참고</h2>
+<h3 id="why-use-custom-errors">Why Use Custom Errors?</h3>
 
 <ul>
-  <li><a href="https://soliditylang.org/blog/2021/04/21/custom-errors/">Custom Errors in Solidity - Soliditylang.org</a></li>
+  <li>Lower gas costs compared to traditional string-based errors.</li>
+  <li>Reusability in external interfaces or libraries.</li>
+  <li>Easier error management across multiple smart contracts.</li>
+</ul>
+
+<p>Comparison: String-Based vs. Custom Errors</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Before (Traditional Revert)
+</span><span class="nb">revert</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span> <span class="c1">// No predefined error
+</span>
+<span class="c1">// After (Custom Error)
+</span><span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span>   <span class="c1">// Declare the error
+</span><span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>  <span class="c1">// Use the error
+</span></code></pre></div></div>
+
+<h2 id="how-to-use-custom-errors-in-solidity">How to Use Custom Errors in Solidity</h2>
+
+<h3 id="1-using-revert-with-custom-errors">1. Using revert with Custom Errors</h3>
+
+<p>Custom errors function similar to Solidity’s event mechanism, but must be used with the revert statement.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example: Custom Error for Unauthorized Access
+// SPDX-License-Identifier: GPL-3.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span> <span class="c1">// Custom error
+</span>
+<span class="k">contract</span> <span class="n">VendingMachine</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="k">payable</span> <span class="n">owner</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">withdraw</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">!=</span> <span class="n">owner</span><span class="p">)</span>
+            <span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>  <span class="c1">// Using custom error with revert statement
+</span>
+        <span class="n">owner</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">revert</code> halts execution and returns the error.</li>
+  <li>As of Solidity v0.8.4, <code class="language-plaintext highlighter-rouge">require</code> does not support custom errors (<a href="https://github.com/ethereum/solidity/issues/11278">Issue in github</a>).</li>
+</ul>
+
+<p>Equivalent Code Transformation between <code class="language-plaintext highlighter-rouge">revert</code> and <code class="language-plaintext highlighter-rouge">require</code>:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Traditional require statement:
+</span><span class="nb">require</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="s">"error message"</span><span class="p">);</span>
+
+<span class="c1">// Translates to:
+</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">condition</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">CustomError</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="2-custom-errors-with-parameters">2. Custom Errors with Parameters</h3>
+
+<p>Custom errors can accept parameters, allowing developers to pass relevant data.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example: Custom Error with Parameters
+// SPDX-License-Identifier: GPL-3.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="c1">/// Error: Insufficient balance for transfer.
+/// @param available balance available.
+/// @param required requested amount to transfer.
+</span><span class="n">error</span> <span class="n">InsufficientBalance</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">available</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">required</span><span class="p">);</span>
+
+<span class="k">contract</span> <span class="n">TestToken</span> <span class="p">{</span>
+    <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="nb">balance</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="nb">balance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">])</span>
+            <span class="nb">revert</span> <span class="n">InsufficientBalance</span><span class="p">({</span>
+                <span class="n">available</span><span class="o">:</span> <span class="nb">balance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">],</span>
+                <span class="n">required</span><span class="o">:</span> <span class="n">amount</span>
+            <span class="p">});</span>
+
+        <span class="nb">balance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">amount</span><span class="p">;</span>
+        <span class="nb">balance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">+=</span> <span class="n">amount</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The error is ABI-encoded: <code class="language-plaintext highlighter-rouge">abi.encodeWithSignature("InsufficientBalance(uint256,uint256)", balance[msg.sender], amount)</code>.</li>
+  <li>Helps return specific error information to external applications.</li>
+</ul>
+
+<h2 id="how-much-gas-is-saved">How Much Gas is Saved?</h2>
+
+<p>Using <a href="https://github.com/IoBuilders/truffle-contract-size">truffle-contract-size</a>, we compared contract sizes with and without custom errors.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example: Vending Machine Contract
+// SPDX-License-Identifier: GPL-3.0
+</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+
+<span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span> <span class="c1">// Custom error
+</span>
+<span class="k">contract</span> <span class="n">VendingMachine</span> <span class="p">{</span>
+    <span class="kt">address</span> <span class="k">payable</span> <span class="n">owner</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="n">withdraw</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">!=</span> <span class="n">owner</span><span class="p">)</span>
+            <span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>  <span class="c1">// With custom error
+</span>            <span class="nb">revert</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span> <span class="c1">// Without custom error
+</span>
+        <span class="n">owner</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Contract Size Results:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Contract Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>With Custom Errors</td>
+      <td>0.33 KiB</td>
+    </tr>
+    <tr>
+      <td>Without Custom Errors</td>
+      <td>0.46 KiB</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Even for simple errors, custom errors reduce contract size by ~0.13 KiB.
+For larger smart contracts, the savings are even more significant.</p>
+
+<h2 id="comparing-yul-code-custom-errors-vs-string-errors">Comparing Yul Code: Custom Errors vs. String Errors</h2>
+
+<p><a href="https://docs.soliditylang.org/en/latest/yul.html">Yul</a> is an intermediate representation for Solidity bytecode.</p>
+
+<h3 id="1-custom-error-revert-unauthorized">1. Custom Error: revert Unauthorized()</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># revert Unauthorized();</span>
+<span class="nb">let </span>free_mem_ptr :<span class="o">=</span> mload<span class="o">(</span>64<span class="o">)</span>
+mstore<span class="o">(</span>free_mem_ptr, 0x82b4290000000000000000000000000000000000000000000000000000000000<span class="o">)</span>
+revert<span class="o">(</span>free_mem_ptr, 4<span class="o">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>0x82b42900: Custom error selector.</li>
+  <li>Minimal gas cost due to compact encoding.</li>
+</ul>
+
+<h3 id="2-string-based-error-revertunauthorized">2. String-Based Error: revert(“Unauthorized”)</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Example: Decoding InsufficientBalance Error</span>
+<span class="c"># revert("Unauthorized");</span>
+<span class="nb">let </span>free_mem_ptr :<span class="o">=</span> mload<span class="o">(</span>64<span class="o">)</span>
+mstore<span class="o">(</span>free_mem_ptr, 0x08c379a000000000000000000000000000000000000000000000000000000000<span class="o">)</span>
+mstore<span class="o">(</span>add<span class="o">(</span>free_mem_ptr, 4<span class="o">)</span>, 32<span class="o">)</span>
+mstore<span class="o">(</span>add<span class="o">(</span>free_mem_ptr, 36<span class="o">)</span>, 12<span class="o">)</span>
+mstore<span class="o">(</span>add<span class="o">(</span>free_mem_ptr, 68<span class="o">)</span>, <span class="s2">"Unauthorized"</span><span class="o">)</span>
+revert<span class="o">(</span>free_mem_ptr, 100<span class="o">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>0x08c379a0: String error selector.</li>
+  <li>More storage operations, higher gas consumption.</li>
+  <li>Longer execution time compared to custom errors.</li>
+</ul>
+
+<h2 id="decoding-custom-errors-with-ethersjs">Decoding Custom Errors with ethers.js</h2>
+
+<p>Custom errors can be decoded in ethers.js to retrieve detailed error information.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ethers</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ethers</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Define an interface to match the custom error</span>
+<span class="kd">const</span> <span class="nx">abi</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="dl">'</span><span class="s1">function InsufficientBalance(uint256 available, uint256 required)</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="kd">const</span> <span class="kr">interface</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(</span><span class="nx">abi</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">error_data</span> <span class="o">=</span>
+  <span class="dl">'</span><span class="s1">0xcf479181000000000000000000000000000000000000</span><span class="dl">'</span> <span class="o">+</span>
+  <span class="dl">'</span><span class="s1">0000000000000000000000000100000000000000000000</span><span class="dl">'</span> <span class="o">+</span>
+  <span class="dl">'</span><span class="s1">0000000000000000000000000000000000000100000000</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">decoded</span> <span class="o">=</span> <span class="kr">interface</span><span class="p">.</span><span class="nx">decodeFunctionData</span><span class="p">(</span>
+  <span class="kr">interface</span><span class="p">.</span><span class="nx">functions</span><span class="p">[</span><span class="dl">'</span><span class="s1">InsufficientBalance(uint256,uint256)</span><span class="dl">'</span><span class="p">],</span>
+  <span class="nx">error_data</span>
+<span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+  <span class="s2">`Insufficient balance for transfer. `</span> <span class="o">+</span>
+  <span class="s2">`Needed </span><span class="p">${</span><span class="nx">decoded</span><span class="p">.</span><span class="nx">required</span><span class="p">.</span><span class="nx">toString</span><span class="p">()}</span><span class="s2"> but only `</span> <span class="o">+</span>
+  <span class="s2">`</span><span class="p">${</span><span class="nx">decoded</span><span class="p">.</span><span class="nx">available</span><span class="p">.</span><span class="nx">toString</span><span class="p">()}</span><span class="s2"> available.`</span>
+<span class="p">);</span>
+<span class="c1">// Output: Insufficient balance for transfer. Needed 4294967296 but only 256 available.</span>
+</code></pre></div></div>
+
+<ul>
+  <li>ethers.js can decode ABI-encoded errors for better debugging.</li>
+  <li>Error parameters are extracted and converted into human-readable messages.</li>
+</ul>
+
+<h2 id="caution-external-call--custom-errors">Caution: external call &amp; Custom Errors</h2>
+
+<h3 id="smart-contract-compilation--external-calls">Smart Contract Compilation &amp; External Calls</h3>
+
+<p>When compiling a contract:</p>
+
+<ul>
+  <li>The Solidity compiler includes all defined custom errors in the contract’s ABI.</li>
+  <li>However, external calls do not include errors from other contracts.</li>
+</ul>
+
+<h3 id="security-concern-manipulated-error-messages">Security Concern: Manipulated Error Messages</h3>
+
+<ul>
+  <li>Malicious contracts can fake errors by crafting misleading return messages.</li>
+  <li>Developers must verify whether the error originates internally or externally.</li>
+  <li>Use <a href="https://docs.soliditylang.org/en/latest/natspec-format.html">NatSpec</a> documentation to provide clear explanations for custom errors.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Why Use Custom Errors:</p>
+
+<ul>
+  <li>Lower Gas Costs – Reduces contract size &amp; execution gas.</li>
+  <li>Improved Debugging – Encodes detailed error information.</li>
+  <li>Better Maintainability – Centralized error management across contracts.</li>
+  <li>Efficient ABI Encoding – Works seamlessly with Solidity tooling &amp; ethers.js.</li>
+</ul>
+
+<p>When Should You Use Custom Errors:</p>
+
+<ul>
+  <li>Large contracts with complex logic.</li>
+  <li>Contracts where gas efficiency is critical.</li>
+  <li>Reusable libraries and interfaces.</li>
 </ul>
 
 </article>

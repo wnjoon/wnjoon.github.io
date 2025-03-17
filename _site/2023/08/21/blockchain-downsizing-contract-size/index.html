@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>스마트 컨트랙트의 사이즈를 줄이는 방법</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+  <title>How to Reduce Smart Contract Size</title><!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v3.10.0" />
-<meta property="og:title" content="스마트 컨트랙트의 사이즈를 줄이는 방법" />
+<meta property="og:title" content="How to Reduce Smart Contract Size" />
 <meta name="author" content="wonjoon" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways." />
@@ -17,9 +17,9 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-08-21T00:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="스마트 컨트랙트의 사이즈를 줄이는 방법" />
+<meta property="twitter:title" content="How to Reduce Smart Contract Size" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-08-21T00:00:00+09:00","datePublished":"2023-08-21T00:00:00+09:00","description":"Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways.","headline":"스마트 컨트랙트의 사이즈를 줄이는 방법","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"},"url":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-08-21T00:00:00+09:00","datePublished":"2023-08-21T00:00:00+09:00","description":"Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways.","headline":"How to Reduce Smart Contract Size","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"},"url":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"}</script>
 <!-- End Jekyll SEO tag -->
 <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
   <link rel="stylesheet" href="/assets/css/main.css" />
@@ -32,207 +32,256 @@
     <time datetime="2023-08-21 00:00:00 +0900">2023-08-21</time>
   </p>
   
-  <h1>스마트 컨트랙트의 사이즈를 줄이는 방법</h1>
+  <h1>How to Reduce Smart Contract Size</h1>
 
-  <p><br /></p>
+  <h2 id="table-of-contents">Table of Contents</h2>
 
-<h2 id="eip-170">EIP-170</h2>
+<ul>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#eip-170-ethereum-smart-contract-size-limit">EIP-170: Ethereum Smart Contract Size Limit</a></li>
+  <li><a href="#quadratic-vulnerability">Quadratic Vulnerability</a></li>
+  <li><a href="#how-to-check-smart-contract-size">How to Check Smart Contract Size</a></li>
+  <li><a href="#how-to-reduce-smart-contract-size">How to Reduce Smart Contract Size</a></li>
+</ul>
 
-<p><a href="https://eips.ethereum.org/EIPS/eip-170">EIP-170</a>은 2016년 11월 22일에 발생한 하드포크 <a href="https://blog.ethereum.org/2016/11/18/hard-fork-no-4-spurious-dragon">‘Suprious Dragon’</a> 시기에 공개되었으며, DoS(Denial of Service) 공격으로부터 이더리움 네트워크를 보호하기 위해 스마트 컨트랙트의 사이즈를 24,576kb로 제한하는 규칙을 제안한 내용이다.</p>
+<h2 id="summary">Summary</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If block.number &gt;= FORK_BLKNUM, then if contract creation initialization returns data with length of more than MAX_CODE_SIZE bytes, contract creation fails with an out of gas error.
+<p>EIP-170 introduced a size limit for smart contracts to prevent network congestion and DoS attacks.</p>
+
+<p>To optimize smart contract size, developers should:</p>
+
+<ul>
+  <li>Modularize contracts (split large contracts).</li>
+  <li>Use libraries to offload reusable logic.</li>
+  <li>Apply custom errors and shorter messages.</li>
+  <li>Optimize Solidity compiler settings.</li>
+  <li>Reduce function count and variable declarations.</li>
+</ul>
+
+<h2 id="eip-170-ethereum-smart-contract-size-limit">EIP-170: Ethereum Smart Contract Size Limit</h2>
+
+<p><a href="https://eips.ethereum.org/EIPS/eip-170">EIP-170</a> was introduced during the Spurious Dragon hard fork on November 22, 2016, to protect the Ethereum network from Denial of Service (DoS) attacks. This proposal limits the size of smart contracts to 24,576 bytes (24.576 KB).</p>
+
+<h3 id="eip-170-implementation">EIP-170 Implementation</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If block.number &gt;= FORK_BLKNUM, then if contract creation initialization returns data with length of more than MAX_CODE_SIZE bytes, contract creation fails with an out of gas error.
 
 - MAX_CODE_SIZE: 0x6000 (2**14 + 2**13)
 - FORK_BLKNUM: 2,675,000
 - CHAIN_ID: 1 (Mainnet)
 </code></pre></div></div>
 
-<p>이더리움 네트워크에서는 잠재적으로 최소 2번의 O(n) 만큼 가스가 사용될 수 있다.</p>
-<ol>
-  <li>디스크에서 읽어온 스마트 컨트랙트에 대한 코드를 VM 환경에서 실행하기 위해 전처리하는 과정에서 O(n)</li>
-  <li>블록의 유효성 증명을 위해 데이터를 머클 증명에 추가하는 과정의 O(n)</li>
-</ol>
+<h2 id="quadratic-vulnerability">Quadratic Vulnerability</h2>
 
-<p>이를 이더리움에서는 2차 취약점(Quadratic Vulnerability) 이라고 언급하는데, 결국 스마트 컨트랙트 자체의 크기로 인하여 트랜잭션 처리 성능에 영향을 주는 경우가 발생하게 된다.<br />
-그리고 꼭 DoS가 아니더라도 굉장히 간단한 기능만을 사용하려는 사용자의 경우 단순히 <u>스마트 컨트랙트가 길다</u>는 이유만으로 많은 가스비와 시간을 소비해야 할 수도 있게 된다.</p>
+<p>Ethereum transactions consume gas in two main ways:</p>
 
-<p><br /></p>
-
-<h2 id="스마트-컨트랙트의-사이즈를-확인하는-방법">스마트 컨트랙트의 사이즈를 확인하는 방법</h2>
-
-<p>스마트 컨트랙트 바이트코드의 크기를 확인하려면 <a href="https://github.com/IoBuilders/truffle-contract-size">truffle-contract-size</a>를 사용하면 된다.</p>
-
-<p><br /></p>
-
-<h2 id="단계별로-스마트-컨트랙트의-사이즈를-줄이는-방법">단계별로 스마트 컨트랙트의 사이즈를 줄이는 방법</h2>
-
-<p>본문에서는 3단계로 스마트 컨트랙트의 사이즈를 줄이는 방법을 제시한다.<br />
-1단계가 가장 큰 효과를 줄 수 있는(Big impact) 방법이고, 단계가 올라갈수록 소소하게 효과를 줄 수 있는 방법으로 보면 된다.</p>
-
-<h3 id="1-big-impact">1. Big impact</h3>
-
-<h4 id="11-스마트-컨트랙트-분리하기">1.1. 스마트 컨트랙트 분리하기</h4>
-
-<p>스마트 컨트랙트 분리의 첫걸음은 좋은 구조(Good Architecture)로부터 시작한다. 스마트 컨트랙트가 작아질수록 가독성은 높아진다.</p>
-
-<p>스마트 컨트랙트 분리 시 생각해보아야 하는 점들은 아래와 같다.</p>
-<ul>
-  <li>함께 동작하는 기능들은 모아두는 것이 좋다.</li>
-  <li>상태(state)값을 확인 또는 변경하지 않는 기능은 분리해도 좋다.</li>
-  <li>스토리지(storage)에 접근하지 않는다면 분리해도 좋다.</li>
-</ul>
-
-<h4 id="12-라이브러리-사용하기">1.2. 라이브러리 사용하기</h4>
-
-<p>라이브러리를 사용하면 효율적으로 특정 기능들을 별도의 스마트 컨트랙트로 분리할 수 있다. 라이브러리는 다른 스마트 컨트랙트에서 컴파일 과정에 추가되어 사용되기 때문에 internal로 선언되어서는 안된다.<br />
-라이브러리를 사용할 때에는 <a href="https://solidity.readthedocs.io/en/v0.6.10/contracts.html#using-for">using for</a>을 사용한다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pragma solidity &gt;=0.6.0 &lt;0.7.0;
-
-struct Data { mapping(uint =&gt; bool) flags; }
-
-library Set {
-    function insert(Data storage self, uint value)
-        public
-        returns (bool)
-    {
-        if (self.flags[value])
-            return false; // already there
-        self.flags[value] = true;
-        return true;
-    }
-    ...
-}
-
-contract C {
-    using Set for Data; // this is the crucial change
-    Data knownValues;
-
-    function register(uint value) public {
-        require(knownValues.insert(value));
-    }
-}
-</code></pre></div></div>
-
-<blockquote>
-  <p>만약 public 함수로 외부에서 직접 사용할 수 있도록 선언하고자 한다면, 별도의 스마트 컨트랙트로 배포하는 것이 옳다.</p>
-</blockquote>
-
-<h4 id="13-프록시-적용하기">1.3. 프록시 적용하기</h4>
-
-<p>본문에서는 프록시를 가장 진보한(advanced) 방법이라고 표현하는데, 다른 스마트 컨트랙트의 기능을 통해 본래 스마트 컨트랙트의 상태를 변경하는 delegatecall 호출 방식을 사용한다.<br />
-프록시 방법의 대표적인 예가 <a href="https://hackernoon.com/how-to-make-smart-contracts-upgradable-2612e771d5a2">upgradable한 스마트 컨트랙트</a>인데, 단점은 그만큼 코드가 복잡해진다는 것이다.<br />
-만약 단순히 스마트 컨트랙트의 사이즈만 줄이기 위해서는 사용을 권장하지 않는다고 한다.</p>
-
-<h3 id="2-medium-impact">2. Medium impact</h3>
-
-<h4 id="21-함수-개수-줄이기">2.1. 함수 개수 줄이기</h4>
+<h3 id="pre-processing-a-smart-contract">Pre-processing a smart contract</h3>
 
 <ul>
-  <li>External : 편리한 사용성을 위해 우리는 view 함수를 자주 작성하곤 한다. 스마트 컨트랙트 제한 크기 이하라면 전혀 상관이 없다만, 아니라면 가장 필요로하는 한개만 남긴다는 생각으로 함수를 줄이는 것이 좋다.</li>
-  <li>Internal : 단발성으로 호출되는 internal 또는 private 함수를 줄이고, 이를 사용하는 함수 내부에 인라인 코드로 작성하자.</li>
+  <li>Before execution, the Ethereum Virtual Machine (EVM) loads and processes the contract code (O(n) complexity).</li>
 </ul>
 
-<h4 id="22-새로운-변수-선언-줄이기">2.2. 새로운 변수 선언 줄이기</h4>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Before
-function get(uint id) returns (address,address) {
-    MyStruct memory myStruct = myStructs[id];
-    return (myStruct.addr1, myStruct.addr2);
-}
-
-# After
-function get(uint id) returns (address,address) {
-    return (myStructs[id].addr1, myStructs[id].addr2);
-}
-</code></pre></div></div>
-
-<p>별도의 변수를 선언하지 않았을 때, 무려(?) 0.28kb의 크기를 감소시킬 수 있다. 꼭 별도로 선언해야 하는 변수가 아니라면, 선언되어 있는 변수를 재활용하자.</p>
-
-<h4 id="23-짧은-에러메시지">2.3. 짧은 에러메시지</h4>
-
-<p>에러메시지의 길이 또한 스마트 컨트랙트의 크기를 변화시키는 요인이 된다. 에러 상황을 나타낼 때 메시지 보다는 코드를 사용할 것을 권장한다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Before
-require(msg.sender == owner, "Only the owner of this contract can call this function");
-
-# After
-require(msg.sender == owner, "OW1");
-</code></pre></div></div>
-
-<h4 id="24-커스텀-에러-사용하기">2.4. 커스텀 에러 사용하기</h4>
-
-<p><a href="https://soliditylang.org/blog/2021/04/21/custom-errors/">솔리디티 0.8.4에서 소개된 커스텀 에러 방식</a>은 스마트 컨트랙트의 사이즈를 줄일 수 있는 꽤나 효과적인 방법이다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error Unauthorized();
-
-if (msg.sender != owner) {
-    revert Unauthorized();
-}
-</code></pre></div></div>
-
-<p>위의 방식이 커스텀 에러인데, 이처럼 선언하게 되면 해당 에러가 selector 형식으로 ABI 인코딩된다. 커스텀 에러 안에서도 다양한 방식이 있는데, 추후 포스팅하겠다.</p>
-
-<h4 id="25-optimizer-수정하기">2.5. Optimizer 수정하기</h4>
-
-<p>기본값 200은 것은 함수가 200번 호출될 경우를 대비한 바이트코드의 최적화를 의미한다. 만약 값을 1로 한다면 단일 호출인 경우에 대한 바이트코드 최적화를 의미하게 되는데, 다른 의미로 배포(deployment)를 나타내게 된다.<br />
-Optimizer에 사용되는 값이 증가할수록 가스비가 증가하므로, 배포된 이후 해당 컨트랙트를 직접 호출하는 경우가 없다면 값을 최소화하여 적용하는 방안을 고려하는 것을 권장한다.</p>
-
-<h3 id="3-small-impact">3. Small impact</h3>
-
-<h4 id="31-함수-파라미터로-구조체-전달하지-않기">3.1. 함수 파라미터로 구조체 전달하지 않기</h4>
-
-<p>ABIEncoderV2에서는 함수의 파라미터로 구조체를 전달할 수 있다. 편의성은 올라갈 수 있지만 스마트 컨트랙트의 사이즈는 증가한다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Passing struct
-function get(uint id) returns (address,address) {
-    return _get(myStruct);
-}
-
-function _get(MyStruct memory myStruct) private view returns(address,address) {
-    return (myStruct.addr1, myStruct.addr2);
-}
-
-# Passing variables
-function get(uint id) returns(address,address) {
-    return _get(myStructs[id].addr1, myStructs[id].addr2);
-}
-
-function _get(address addr1, address addr2) private view returns(address,address) {
-    return (addr1, addr2);
-}
-</code></pre></div></div>
-
-<p>구조체가 아닌 파라미터를 전달할 경우, 0.1kb의 크기가 차이난다.</p>
-
-<h4 id="32-기능에-맞는-visibility-적용하기">3.2. 기능에 맞는 visibility 적용하기</h4>
+<h3 id="merkle-proof-validation">Merkle Proof Validation</h3>
 
 <ul>
-  <li>함수가 무조건 외부에서만 호출되는 경우 : public</li>
-  <li>함수가 다른 스마트 컨트랙트를 통해서만 호출되는 경우 : private 또는 internal</li>
+  <li>The blockchain validates transactions using Merkle proofs, requiring additional computation (O(n) complexity).</li>
 </ul>
 
-<h4 id="33-modifier-삭제하기">3.3. Modifier 삭제하기</h4>
+<p>A Quadratic Vulnerability arises when a contract’s size significantly impacts execution performance. Even simple functions can become expensive and slow if the contract size is too large.</p>
 
-<p>Modifier는 스마트 컨트랙트 사이즈에 큰 영향을 준다. 차라리 함수를 사용할 것을 권장한다.</p>
+<h2 id="how-to-check-smart-contract-size">How to Check Smart Contract Size</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Use modifier
-modifier checkStuff() {}
-function doSomething() checkStuff {}
+<p>Smart contracts are compiled into bytecode, which determines their final size.</p>
 
-# Use only functions
-function checkStuff() private {}
-function doSomething() { checkStuff(); }
-</code></pre></div></div>
+<p>A common tool for checking smart contract sizes is <a href="https://github.com/IoBuilders/truffle-contract-size">truffle-contract-size</a>.</p>
 
-<p><br />
-<br /></p>
+<h2 id="how-to-reduce-smart-contract-size">How to Reduce Smart Contract Size</h2>
 
-<h2 id="참고">참고</h2>
+<p><a href="https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/">The Ethereum Developer Guide</a> outlines three key strategies to optimize smart contract size.</p>
 
 <ul>
-  <li><a href="https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/">DOWNSIZING CONTRACTS TO FIGHT THE CONTRACT SIZE LIMIT - ethereum.org</a></li>
+  <li>Step 1 (Big Impact): Major optimizations.</li>
+  <li>Step 2 (Medium Impact): Code refactoring and simplifications.</li>
+  <li>Step 3 (Small Impact): Minor optimizations.</li>
 </ul>
+
+<h3 id="1-big-impact-major-contract-optimizations">1. Big Impact: Major Contract Optimizations</h3>
+
+<h4 id="11-split-large-contracts">1.1. Split Large Contracts</h4>
+
+<p>Breaking down smart contracts into smaller, modular components improves:</p>
+
+<ul>
+  <li>Readability</li>
+  <li>Maintainability</li>
+  <li>Performance</li>
+</ul>
+
+<p>Best Practices for Contract Separation</p>
+
+<ul>
+  <li>Group related functions together.</li>
+  <li>Separate functions that don’t modify state.</li>
+  <li>Decouple storage-heavy operations.</li>
+</ul>
+
+<h4 id="12-use-libraries">1.2. Use Libraries</h4>
+
+<p>Libraries allow reusable code without increasing contract size.</p>
+
+<p>Important Notes:</p>
+
+<ul>
+  <li>Libraries cannot have internal functions (they must be external or public).</li>
+  <li>Use Solidity’s using for keyword to apply libraries efficiently.</li>
+</ul>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.6</span><span class="p">.</span><span class="mi">0</span> <span class="o">&lt;</span><span class="mf">0.7</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">Data</span> <span class="p">{</span> <span class="k">mapping</span><span class="p">(</span><span class="kt">uint</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="n">flags</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">library</span> <span class="n">Set</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="n">insert</span><span class="p">(</span><span class="n">Data</span> <span class="k">storage</span> <span class="n">self</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">flags</span><span class="p">[</span><span class="n">value</span><span class="p">])</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">// Already exists
+</span>        <span class="n">self</span><span class="p">.</span><span class="n">flags</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">C</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">Set</span> <span class="k">for</span> <span class="n">Data</span><span class="p">;</span>
+    <span class="n">Data</span> <span class="n">knownValues</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="n">register</span><span class="p">(</span><span class="kt">uint</span> <span class="n">value</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">knownValues</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="13-implement-proxies">1.3. Implement Proxies</h4>
+
+<p>Proxies use delegatecall to execute logic from another contract, keeping the main contract lightweight.</p>
+
+<ul>
+  <li>Common in upgradable smart contracts (<a href="https://hackernoon.com/how-to-make-smart-contracts-upgradable-2612e771d5a2">Guide</a>).</li>
+  <li>Increases complexity, so use only if absolutely necessary.</li>
+</ul>
+
+<h3 id="2-medium-impact-code-refactoring">2. Medium Impact: Code Refactoring</h3>
+
+<h4 id="21-reduce-the-number-of-functions">2.1. Reduce the Number of Functions</h4>
+
+<ul>
+  <li>External Functions: Minimize view functions unless necessary.</li>
+  <li>Internal Functions: Inline single-use functions instead of defining them separately.</li>
+</ul>
+
+<h4 id="22-reuse-variables">2.2. Reuse Variables</h4>
+
+<p>Before Optimization:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">get</span><span class="p">(</span><span class="kt">uint</span> <span class="n">id</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">MyStruct</span> <span class="k">memory</span> <span class="n">myStruct</span> <span class="o">=</span> <span class="n">myStructs</span><span class="p">[</span><span class="n">id</span><span class="p">];</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">myStruct</span><span class="p">.</span><span class="n">addr1</span><span class="p">,</span> <span class="n">myStruct</span><span class="p">.</span><span class="n">addr2</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>After Optimization:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">get</span><span class="p">(</span><span class="kt">uint</span> <span class="n">id</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">myStructs</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">addr1</span><span class="p">,</span> <span class="n">myStructs</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">addr2</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This reduces contract size by 0.28 KB.</p>
+
+<h4 id="23-use-shorter-error-messages">2.3. Use Shorter Error Messages</h4>
+
+<p>Error messages contribute to contract size. Use error codes instead of full descriptions.</p>
+
+<p>Before Optimization:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">"Only the owner can call this function"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>After Optimization:</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">"OW1"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="24-use-custom-errors">2.4. Use Custom Errors</h4>
+
+<p><a href="https://soliditylang.org/blog/2021/04/21/custom-errors/">Solidity 0.8.4</a> introduced custom errors, which reduce contract size by encoding errors efficiently.</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">!=</span> <span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="25-adjust-solidity-optimizer-settings">2.5. Adjust Solidity Optimizer Settings</h4>
+
+<p>Solidity’s optimizer reduces bytecode size based on call frequency. If a contract is rarely called, use low optimizer settings.</p>
+
+<ul>
+  <li>Default value: 200</li>
+  <li>Deployment Optimization: Set to 1 (reduces bytecode size but increases gas cost).</li>
+  <li>Runtime Optimization: Set to a higher value to optimize gas usage.</li>
+</ul>
+
+<h3 id="3-small-impact-minor-optimizations">3. Small Impact: Minor Optimizations</h3>
+
+<h4 id="31-avoid-passing-structs-as-parameters">3.1. Avoid Passing Structs as Parameters</h4>
+
+<p>Using structs as function parameters increases contract size. In this example, we can save ~0.1 KB by passing primitive variables instead of structs.</p>
+
+<p>Before Optimization (Structs):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">get</span><span class="p">(</span><span class="kt">uint</span> <span class="n">id</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">_get</span><span class="p">(</span><span class="n">myStruct</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">_get</span><span class="p">(</span><span class="n">MyStruct</span> <span class="k">memory</span> <span class="n">myStruct</span><span class="p">)</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">myStruct</span><span class="p">.</span><span class="n">addr1</span><span class="p">,</span> <span class="n">myStruct</span><span class="p">.</span><span class="n">addr2</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>After Optimization (Primitive Variables):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">get</span><span class="p">(</span><span class="kt">uint</span> <span class="n">id</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">_get</span><span class="p">(</span><span class="n">myStructs</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">addr1</span><span class="p">,</span> <span class="n">myStructs</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">addr2</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">_get</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr1</span><span class="p">,</span> <span class="kt">address</span> <span class="n">addr2</span><span class="p">)</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">addr1</span><span class="p">,</span> <span class="n">addr2</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="32-use-correct-visibility-modifiers">3.2. Use Correct Visibility Modifiers</h4>
+
+<p>Optimize function visibility:</p>
+
+<ul>
+  <li>Use public if the function is externally called.</li>
+  <li>Use private/internal if it is only used within the contract.</li>
+</ul>
+
+<h4 id="33-remove-modifiers">3.3. Remove Modifiers</h4>
+
+<p>Modifiers increase contract size. Use functions instead.</p>
+
+<p>Before Optimization (Using Modifier):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">modifier</span> <span class="n">checkStuff</span><span class="p">()</span> <span class="p">{}</span>
+<span class="k">function</span> <span class="n">doSomething</span><span class="p">()</span> <span class="n">checkStuff</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>After Optimization (Using Functions):</p>
+
+<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">checkStuff</span><span class="p">()</span> <span class="k">private</span> <span class="p">{}</span>
+<span class="k">function</span> <span class="n">doSomething</span><span class="p">()</span> <span class="p">{</span> <span class="n">checkStuff</span><span class="p">();</span> <span class="p">}</span>
+</code></pre></div></div>
 
 </article>
       </div>

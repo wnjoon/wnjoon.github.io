@@ -3,9 +3,9 @@ layout: post
 title:  "Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" 
 description: Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency. Narwhal was introduced in the paper “Narwhal and Tusk…" 
 # date:   2022-10-26 15:00:00 +0900
-categories: dev
+categories: blockchain
 # tags: [ethereum, solidity, smartcontract]
-keywords: blockchain, consensus
+keywords: blockchain, consensus algorithm, dag
 comments: true
 ---
 

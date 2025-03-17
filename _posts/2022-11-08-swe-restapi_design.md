@@ -3,7 +3,7 @@ layout: post
 title:  "How to make better REST API" 
 description: Introduce 15 steps to make better REST API
 date:   2022-11-08 15:00:00 +0900
-categories: development
+categories: api
 keywords: restapi, web
 comments: true
 ---
