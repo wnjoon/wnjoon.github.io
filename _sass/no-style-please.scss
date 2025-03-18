@@ -29,13 +29,9 @@ html, body { background: black; }
 html { height: 100%; }
 
 body {
-  // color: black;
   color: white;
-  // font-family: "Gowun Dodum", monospace;
   font-family: sans-serif;
-  // font-family: "Gowun Batang", serif;
-  // font-family: monospace;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
   margin: 0;
   min-height: 100%;
@@ -45,11 +41,13 @@ body {
 .post-meta { text-align: right; }
 
 h1 {
-  font-size: 42px;
+  font-size: 43px;
   color: orangered;
 }
 
-h2 {font-size: 30px;}
+h2 {font-size: 35px;}
+h3 {font-size: 25px;}
+h4 {font-size: 20px;}
 
 h2, h3, h4, h5, h6 { margin-top: 2rem; }
 
@@ -69,6 +67,7 @@ a:hover {
 li { 
   margin: 0.4rem 0; 
   color: gray;
+  font-size: 18px;
 }
 
 *:target { background: yellow; }
@@ -93,13 +92,14 @@ table, th, td {
   border: thin solid rgb(132, 32, 32);
   border-collapse: collapse;
   padding: 0.4rem;
-  font-size: 14px;
+  font-size: 17px;
+  text-align: left;
 }
 
 code {
   color: white;
   background: rgb(80, 80, 80);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 div.highlighter-rouge code {
@@ -134,5 +134,5 @@ header h1 {
 blockquote {
   color: black;
   background-color: lightyellow;
-  font-size: 14px;
+  font-size: 18px;
 }
