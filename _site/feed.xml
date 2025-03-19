@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-19T19:15:15+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="contents">Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-19T21:01:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-are-macros-in-rust">What Are Macros in Rust?</a></li>
@@ -336,7 +336,7 @@ cargo <span class="nb">expand</span>
   <li>You need easier debugging -&gt; Functions are better.</li>
   <li>You don’t need compile-time code transformation -&gt; Functions work fine.</li>
   <li>Your macro logic is too complex -&gt; Hard to maintain.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="contents">Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
@@ -476,7 +476,7 @@ cargo <span class="nb">expand</span>
   <li>Large functions (can increase binary size).</li>
   <li>Recursive functions.</li>
   <li>Functions used with pointers or virtual functions (C++).</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="contents">Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#the-problem">The Problem</a></li>
@@ -593,7 +593,7 @@ However, in reality, it always receives an empty string (<code class="language-p
       <li>Pointers (&amp;status): Useful when modifying function behavior explicitly.</li>
     </ul>
   </li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, Deferred functions capture arguments immediately, not when they actually run.]]></summary></entry><entry><title type="html">Using sync.Cond for Goroutine Synchronization in Go</title><link href="http://localhost:4000/2025/03/13/go-sync-cond/" rel="alternate" type="text/html" title="Using sync.Cond for Goroutine Synchronization in Go" /><published>2025-03-13T00:00:00+09:00</published><updated>2025-03-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/13/go-sync-cond</id><content type="html" xml:base="http://localhost:4000/2025/03/13/go-sync-cond/"><![CDATA[<h2 id="contents">Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, Deferred functions capture arguments immediately, not when they actually run.]]></summary></entry><entry><title type="html">Using sync.Cond for Goroutine Synchronization in Go</title><link href="http://localhost:4000/2025/03/13/go-sync-cond/" rel="alternate" type="text/html" title="Using sync.Cond for Goroutine Synchronization in Go" /><published>2025-03-13T00:00:00+09:00</published><updated>2025-03-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/13/go-sync-cond</id><content type="html" xml:base="http://localhost:4000/2025/03/13/go-sync-cond/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-is-synccond">What is <code class="language-plaintext highlighter-rouge">sync.Cond</code>?</a></li>
@@ -851,7 +851,7 @@ However, in reality, it always receives an empty string (<code class="language-p
   <li><code class="language-plaintext highlighter-rouge">Wait()</code> makes goroutines wait, while <code class="language-plaintext highlighter-rouge">Signal()</code> and <code class="language-plaintext highlighter-rouge">Broadcast()</code> notify them.</li>
   <li>Use <code class="language-plaintext highlighter-rouge">Broadcast()</code> when all waiting goroutines should proceed, and use <code class="language-plaintext highlighter-rouge">Signal()</code> when only one goroutine should continue.</li>
   <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is useful for implementing event-based synchronization, such as resource availability or state changes.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change.]]></summary></entry><entry><title type="html">Understanding GasKVStore in Cosmos SDK</title><link href="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/" rel="alternate" type="text/html" title="Understanding GasKVStore in Cosmos SDK" /><published>2025-03-12T00:00:00+09:00</published><updated>2025-03-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore</id><content type="html" xml:base="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/"><![CDATA[<h2 id="contents">Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change.]]></summary></entry><entry><title type="html">Understanding GasKVStore in Cosmos SDK</title><link href="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/" rel="alternate" type="text/html" title="Understanding GasKVStore in Cosmos SDK" /><published>2025-03-12T00:00:00+09:00</published><updated>2025-03-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore</id><content type="html" xml:base="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#overview-of-gaskvstore">Overview of GasKVStore</a></li>
@@ -1074,7 +1074,7 @@ It serves as an identifier for a specific data entry managed by a module.</p>
   <li>GasKVStore ensures real-time tracking of gas consumption during transaction execution, preventing gas limit violations.</li>
   <li>Gas is consumed not only for CPU operations but also for accessing and modifying storage (KVStore).</li>
   <li>Optimizing key and value sizes can help reduce unnecessary gas costs.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="cosmos-sdk" /><summary type="html"><![CDATA[GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures that every read, write, and delete operation consumes gas, helping to prevent transactions from exceeding their gas limits.]]></summary></entry><entry><title type="html">Understanding Channel Iteration in Go: for range vs. select vs. switch</title><link href="http://localhost:4000/2025/03/09/go-channel-iteration/" rel="alternate" type="text/html" title="Understanding Channel Iteration in Go: for range vs. select vs. switch" /><published>2025-03-09T00:00:00+09:00</published><updated>2025-03-09T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/09/go-channel-iteration</id><content type="html" xml:base="http://localhost:4000/2025/03/09/go-channel-iteration/"><![CDATA[<h2 id="contents">Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="cosmos-sdk" /><summary type="html"><![CDATA[GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures that every read, write, and delete operation consumes gas, helping to prevent transactions from exceeding their gas limits.]]></summary></entry><entry><title type="html">Understanding Channel Iteration in Go: for range vs. select vs. switch</title><link href="http://localhost:4000/2025/03/09/go-channel-iteration/" rel="alternate" type="text/html" title="Understanding Channel Iteration in Go: for range vs. select vs. switch" /><published>2025-03-09T00:00:00+09:00</published><updated>2025-03-09T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/09/go-channel-iteration</id><content type="html" xml:base="http://localhost:4000/2025/03/09/go-channel-iteration/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#code-example-donation-goal-tracker">Code Example: Donation Goal Tracker</a></li>
@@ -1257,7 +1257,20 @@ It serves as an identifier for a specific data entry managed by a module.</p>
   <li>Use <code class="language-plaintext highlighter-rouge">for range</code> when working with a single channel that continuously receives values.</li>
   <li>Use <code class="language-plaintext highlighter-rouge">select</code> when handling multiple channels or managing timeouts.</li>
   <li>Avoid <code class="language-plaintext highlighter-rouge">switch</code> for channel reading, as it lacks proper subscription behavior.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, channels are commonly used for communication between goroutines. This post explores different ways to read from channels and handle incoming values efficiently.]]></summary></entry><entry><title type="html">The Power of Daily Plan</title><link href="http://localhost:4000/2025/03/06/power-of-daily-plan/" rel="alternate" type="text/html" title="The Power of Daily Plan" /><published>2025-03-06T00:00:00+09:00</published><updated>2025-03-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/06/power-of-daily-plan</id><content type="html" xml:base="http://localhost:4000/2025/03/06/power-of-daily-plan/"><![CDATA[<h3 id="there-is-a-p-in-my-mbti-result">There is a P in my MBTI result</h3>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, channels are commonly used for communication between goroutines. This post explores different ways to read from channels and handle incoming values efficiently.]]></summary></entry><entry><title type="html">The Power of Daily Plan</title><link href="http://localhost:4000/2025/03/06/power-of-daily-plan/" rel="alternate" type="text/html" title="The Power of Daily Plan" /><published>2025-03-06T00:00:00+09:00</published><updated>2025-03-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/06/power-of-daily-plan</id><content type="html" xml:base="http://localhost:4000/2025/03/06/power-of-daily-plan/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#there-is-a-p-in-my-mbti-result">There is a P in my MBTI result</a></li>
+  <li><a href="#why-planning-matters">Why Planning Matters</a></li>
+  <li><a href="#the-challenges-of-planning">The Challenges of Planning</a></li>
+  <li><a href="#learning-from-the-best">Learning from the Best</a></li>
+  <li><a href="#the-importance-of-planning-in-workplaces">The Importance of Planning in Workplaces</a></li>
+  <li><a href="#if-you-havent-been-planning-start-now">If You Haven’t Been Planning, Start Now</a></li>
+  <li><a href="#if-you-dont-know-where-to-start">If You Don’t Know Where to Start</a></li>
+  <li><a href="#we-cannot-do-everything">We Cannot Do Everything</a></li>
+</ul>
+
+<h2 id="there-is-a-p-in-my-mbti-result">There is a P in my MBTI result</h2>
 
 <p>In other words, I find it difficult to set clear plans, and I am more accustomed to handling things spontaneously. The reason I use the words “difficult” and “accustomed” is not because I dislike planning or prefer working on impulse.</p>
 
@@ -1265,7 +1278,7 @@ It serves as an identifier for a specific data entry managed by a module.</p>
 
 <p>Especially in my profession as a developer, having a well-structured plan is often essential for getting work done effectively.</p>
 
-<h3 id="why-planning-matters">Why Planning Matters</h3>
+<h2 id="why-planning-matters">Why Planning Matters</h2>
 
 <p>People who have achieved great success in life all have one thing in common: they plan their day before they start.</p>
 
@@ -1273,7 +1286,7 @@ It serves as an identifier for a specific data entry managed by a module.</p>
 
 <p>I describe it as “sacred” because it is a moment where we acknowledge the natural limitations of time that we, as humans, cannot escape.</p>
 
-<h3 id="the-challenges-of-planning">The Challenges of Planning</h3>
+<h2 id="the-challenges-of-planning">The Challenges of Planning</h2>
 
 <p>But planning isn’t easy.</p>
 
@@ -1287,7 +1300,7 @@ It serves as an identifier for a specific data entry managed by a module.</p>
 However, I struggle to create detailed plans.
 I leave multiple possibilities open for tasks that may change, so it’s hard for me to set a clear, measurable goal for what I will complete.</p>
 
-<h3 id="learning-from-the-best">Learning from the Best</h3>
+<h2 id="learning-from-the-best">Learning from the Best</h2>
 
 <p>So, how do highly skilled people approach this?</p>
 
@@ -1299,7 +1312,7 @@ They plan their day based on the maximum number of hours they can fully focus on
 <p>Even though their to-do list was short, they carefully considered the importance and urgency of each task.
 This approach made them a smart, efficient, and highly capable worker.</p>
 
-<h3 id="the-importance-of-planning-in-workplaces">The Importance of Planning in Workplaces</h3>
+<h2 id="the-importance-of-planning-in-workplaces">The Importance of Planning in Workplaces</h2>
 
 <p>Many IT companies require employees to plan their daily tasks and share them with the team.
 However, not all workplaces have such systems in place.</p>
@@ -1310,7 +1323,7 @@ However, not all workplaces have such systems in place.</p>
 
 <p>More importantly, it helps you understand your own workload and set priorities to maximize productivity within your available time.</p>
 
-<h3 id="if-you-havent-been-planning-start-now">If You Haven’t Been Planning, Start Now</h3>
+<h2 id="if-you-havent-been-planning-start-now">If You Haven’t Been Planning, Start Now</h2>
 
 <p>Regardless of experience level, if you are still starting your day without a plan, I strongly encourage you to make a change immediately.</p>
 
@@ -1323,7 +1336,7 @@ I realized that changing my deeply ingrained habit of not planning was incredibl
 <p>Even now, I am still working on improving,
 and I am writing this to keep myself motivated.</p>
 
-<h3 id="if-you-dont-know-where-to-start">If You Don’t Know Where to Start</h3>
+<h2 id="if-you-dont-know-where-to-start">If You Don’t Know Where to Start</h2>
 
 <p>That’s okay. Planning is never easy.</p>
 
@@ -1336,14 +1349,13 @@ If you plan too many tasks, you will only end up feeling overwhelmed.</p>
 <p>Instead, prioritize what truly matters within your time constraints,
 and have the courage to delay or eliminate tasks that don’t fit into your schedule.</p>
 
-<h3 id="we-cannot-do-everything">We cannot do everything</h3>
+<h2 id="we-cannot-do-everything">We cannot do everything</h2>
 
 <p>Even the exceptional people we look up to don’t do everything.
 The difference is that they distinguish between what is important and what is not.</p>
 
 <p>They don’t try to do it all.
-Instead, they focus on their priorities with a sense of humility
-— knowing that time is limited, and they must make the most of it.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Even the most exceptional people can’t do everything—they simply prioritize what truly matters, recognizing their limits and making the most of their time with humility.]]></summary></entry><entry><title type="html">Understanding Slice Initialization and Capacity in Go</title><link href="http://localhost:4000/2025/03/02/go-slice-initialization/" rel="alternate" type="text/html" title="Understanding Slice Initialization and Capacity in Go" /><published>2025-03-02T00:00:00+09:00</published><updated>2025-03-02T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/02/go-slice-initialization</id><content type="html" xml:base="http://localhost:4000/2025/03/02/go-slice-initialization/"><![CDATA[<h2 id="contents">Contents</h2>
+Instead, they focus on their priorities with a sense of humility — knowing that time is limited, and they must make the most of it.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Even the most exceptional people can’t do everything—they simply prioritize what truly matters, recognizing their limits and making the most of their time with humility.]]></summary></entry><entry><title type="html">Understanding Slice Initialization and Capacity in Go</title><link href="http://localhost:4000/2025/03/02/go-slice-initialization/" rel="alternate" type="text/html" title="Understanding Slice Initialization and Capacity in Go" /><published>2025-03-02T00:00:00+09:00</published><updated>2025-03-02T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/02/go-slice-initialization</id><content type="html" xml:base="http://localhost:4000/2025/03/02/go-slice-initialization/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#summary">Summary</a></li>
@@ -1427,7 +1439,7 @@ This affects how append operations work:</p>
   <li>s2 was initialized with a length of 1, so it already contains a zero ([0]).</li>
   <li>When appending a new element (1), it exceeds the initial capacity of 1, causing Go to double the capacity to 2.</li>
   <li>On the other hand, s1 starts with length 0, so appending a single element does not exceed its initial capacity.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures.]]></summary></entry><entry><title type="html">DOG: A New Gossip Protocol for CometBFT</title><link href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" rel="alternate" type="text/html" title="DOG: A New Gossip Protocol for CometBFT" /><published>2024-12-26T00:00:00+09:00</published><updated>2024-12-26T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/26/dog-gossip-protocol</id><content type="html" xml:base="http://localhost:4000/2024/12/26/dog-gossip-protocol/"><![CDATA[<h2 id="contents">Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures.]]></summary></entry><entry><title type="html">DOG: A New Gossip Protocol for CometBFT</title><link href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" rel="alternate" type="text/html" title="DOG: A New Gossip Protocol for CometBFT" /><published>2024-12-26T00:00:00+09:00</published><updated>2024-12-26T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/26/dog-gossip-protocol</id><content type="html" xml:base="http://localhost:4000/2024/12/26/dog-gossip-protocol/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#for-the-busy-modern-soul">For the busy modern soul</a></li>
@@ -1557,7 +1569,7 @@ For example, There are 4 nodes A, B, C, D.
 
 <ul>
   <li><a href="https://informal.systems/blog/a-new-mempool-gossip-protocol-for-cometbft">A New Mempool Gossip Protocol for CometBFT</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[DOG(Dynamic Optimal Graph) is a new gossip protocol for CometBFT, reduces the bandwidth consumption by decreasing the duplicated messages.]]></summary></entry><entry><title type="html">Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design</title><link href="http://localhost:4000/2024/12/17/what-is-narwhal/" rel="alternate" type="text/html" title="Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" /><published>2024-12-17T00:00:00+09:00</published><updated>2024-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/17/what-is-narwhal</id><content type="html" xml:base="http://localhost:4000/2024/12/17/what-is-narwhal/"><![CDATA[<h2 id="contents">Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[DOG(Dynamic Optimal Graph) is a new gossip protocol for CometBFT, reduces the bandwidth consumption by decreasing the duplicated messages.]]></summary></entry><entry><title type="html">Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design</title><link href="http://localhost:4000/2024/12/17/what-is-narwhal/" rel="alternate" type="text/html" title="Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" /><published>2024-12-17T00:00:00+09:00</published><updated>2024-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/17/what-is-narwhal</id><content type="html" xml:base="http://localhost:4000/2024/12/17/what-is-narwhal/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-is-narwhal">What is Narwhal?</a></li>

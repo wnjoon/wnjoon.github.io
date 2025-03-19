@@ -76,6 +76,7 @@ li {
 
 *:target {
   background: yellow;
+  color: black;
 }
 
 .w {

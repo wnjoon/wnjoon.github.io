@@ -70,7 +70,10 @@ li {
   font-size: 18px;
 }
 
-*:target { background: yellow; }
+*:target { 
+  background: yellow; 
+  color: black;
+}
 
 .w {
   max-width: 640px;
