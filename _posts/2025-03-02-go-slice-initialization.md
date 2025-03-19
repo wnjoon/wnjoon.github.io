@@ -8,7 +8,7 @@ keywords: go, slice, capacity
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [Summary](#summary)
 - [How to Initialize a Slice](#how-to-initialize-a-slice)

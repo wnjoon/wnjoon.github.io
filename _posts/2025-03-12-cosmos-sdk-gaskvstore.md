@@ -8,7 +8,7 @@ keywords: cosmos-sdk, blockchain
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [Overview of GasKVStore](#overview-of-gaskvstore)
 - [Core Methods of GasKVStore](#core-methods-of-gaskvstore)

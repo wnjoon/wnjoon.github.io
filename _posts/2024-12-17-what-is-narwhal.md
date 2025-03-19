@@ -9,7 +9,7 @@ keywords: blockchain, consensus algorithm, dag
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [What is Narwhal?](#what-is-narwhal)
 - [Worker and Primary](#worker-and-primary)

@@ -8,7 +8,7 @@ keywords: rust, macro, c
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [What Are Macros in Rust?](#what-are-macros-in-rust)
 - [Macros vs. Functions in Rust](#macros-vs-functions-in-rust)

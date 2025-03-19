@@ -8,6 +8,16 @@ keywords: go, interface, design
 comments: true
 ---
 
+## Table of Contents
+
+- [Why Should We Design Applications Based on Interfaces?](#why-should-we-design-applications-based-on-interfaces)
+- [How Interface-Based Design Improves the Development Process](#how-interface-based-design-improves-the-development-process)
+- [Challenges of Interface-Based Design](#challenges-of-interface-based-design)
+- [How Go Supports Interface-Based Design](#how-go-supports-interface-based-design)
+- [Example: Designing an Ethereum Transaction Sender Interface](#example-designing-an-ethereum-transaction-sender-interface)
+- [Advantages of Interface-Based Design](#advantages-of-interface-based-design)
+- [Conclusion](#conclusion)
+
 ## Why Should We Design Applications Based on Interfaces?
 
 Modern software applications are composed of multiple modules that interact with each other. To ensure scalability, maintainability, and flexibility, interface-based design is widely recommended.

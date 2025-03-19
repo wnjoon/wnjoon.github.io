@@ -9,7 +9,7 @@ keywords: blockchain, ethereum, smartcontract, solidity
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [Reentrancy Attack](#reentrancy-attack)
 - [Example: Reentrancy Attack on a Bank Contract](#example-reentrancy-attack-on-a-bank-contract)

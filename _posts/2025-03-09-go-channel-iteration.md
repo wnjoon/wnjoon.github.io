@@ -8,7 +8,7 @@ keywords: go, channel, iteration
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [Code Example: Donation Goal Tracker](#code-example-donation-goal-tracker)
 - [Using for range to Read from a Channel](#using-for-range-to-read-from-a-channel)

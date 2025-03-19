@@ -8,7 +8,18 @@ keywords: essay
 comments: true
 ---
 
-### There is a P in my MBTI result
+## Table of Contents
+
+- [There is a P in my MBTI result](#there-is-a-p-in-my-mbti-result)
+- [Why Planning Matters](#why-planning-matters)
+- [The Challenges of Planning](#the-challenges-of-planning)
+- [Learning from the Best](#learning-from-the-best)
+- [The Importance of Planning in Workplaces](#the-importance-of-planning-in-workplaces)
+- [If You Haven't Been Planning, Start Now](#if-you-havent-been-planning-start-now)
+- [If You Don't Know Where to Start](#if-you-dont-know-where-to-start)
+- [We Cannot Do Everything](#we-cannot-do-everything)
+
+## There is a P in my MBTI result
 
 In other words, I find it difficult to set clear plans, and I am more accustomed to handling things spontaneously. The reason I use the words “difficult” and “accustomed” is not because I dislike planning or prefer working on impulse.
 
@@ -16,7 +27,7 @@ I don’t know about others with a P-type personality, but at least for me, I wa
 
 Especially in my profession as a developer, having a well-structured plan is often essential for getting work done effectively.
 
-### Why Planning Matters
+## Why Planning Matters
 
 People who have achieved great success in life all have one thing in common: they plan their day before they start.
 
@@ -24,7 +35,7 @@ They don’t do this because they have too much or too little time. Instead, the
 
 I describe it as “sacred” because it is a moment where we acknowledge the natural limitations of time that we, as humans, cannot escape.
 
-### The Challenges of Planning
+## The Challenges of Planning
 
 But planning isn’t easy.
 
@@ -36,7 +47,7 @@ Even though I am a P-type, I don’t start my day without any plans at all.
 However, I struggle to create detailed plans.
 I leave multiple possibilities open for tasks that may change, so it’s hard for me to set a clear, measurable goal for what I will complete.
 
-### Learning from the Best
+## Learning from the Best
 
 So, how do highly skilled people approach this?
 
@@ -48,7 +59,7 @@ Within that time, they prioritize the most important tasks instead of simply lis
 Even though their to-do list was short, they carefully considered the importance and urgency of each task.
 This approach made them a smart, efficient, and highly capable worker.
 
-### The Importance of Planning in Workplaces
+## The Importance of Planning in Workplaces
 
 Many IT companies require employees to plan their daily tasks and share them with the team.
 However, not all workplaces have such systems in place.
@@ -59,7 +70,7 @@ This habit offers more than just team alignment and problem-solving efficiency.
 
 More importantly, it helps you understand your own workload and set priorities to maximize productivity within your available time.
 
-### If You Haven’t Been Planning, Start Now
+## If You Haven't Been Planning, Start Now
 
 Regardless of experience level, if you are still starting your day without a plan, I strongly encourage you to make a change immediately.
 
@@ -72,9 +83,9 @@ I realized that changing my deeply ingrained habit of not planning was incredibl
 Even now, I am still working on improving,
 and I am writing this to keep myself motivated.
 
-### If You Don’t Know Where to Start
+## If You Don't Know Where to Start
 
-That’s okay. Planning is never easy.
+That's okay. Planning is never easy.
 
 No one is good at it from the beginning.
 But with time and practice, you will get better at it.
@@ -85,11 +96,10 @@ If you plan too many tasks, you will only end up feeling overwhelmed.
 Instead, prioritize what truly matters within your time constraints,
 and have the courage to delay or eliminate tasks that don’t fit into your schedule.
 
-### We cannot do everything
+## We cannot do everything
 
 Even the exceptional people we look up to don’t do everything.
 The difference is that they distinguish between what is important and what is not.
 
 They don’t try to do it all.
-Instead, they focus on their priorities with a sense of humility
-— knowing that time is limited, and they must make the most of it.
+Instead, they focus on their priorities with a sense of humility — knowing that time is limited, and they must make the most of it.

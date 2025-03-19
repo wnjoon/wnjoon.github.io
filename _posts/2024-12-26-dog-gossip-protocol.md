@@ -9,7 +9,7 @@ keywords: blockchain, cosmos-sdk, gossip, consensus algorithm
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [For the busy modern soul](#for-the-busy-modern-soul)
 - [The usefulness of DOG in the persistent peering network](#the-usefulness-of-dog-in-the-persistent-peering-network)

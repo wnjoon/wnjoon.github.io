@@ -8,7 +8,7 @@ keywords: c, macro, inline
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [What Is an inline Function in C?](#what-is-an-inline-function-in-c)
 - [Why Use inline Functions?](#why-use-inline-functions)

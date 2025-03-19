@@ -8,7 +8,7 @@ keywords: go, defer
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [The Problem](#the-problem)
 - [The Reason why status is not updated](#the-reason-why-status-is-not-updated)

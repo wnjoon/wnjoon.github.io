@@ -8,7 +8,7 @@ keywords: go, channel, mutex, sync, cond
 comments: true
 ---
 
-## Contents
+## Table of Contents
 
 - [What is `sync.Cond`?](#what-is-synccond)
 - [How `sync.Cond` Works](#how-synccond-works)
