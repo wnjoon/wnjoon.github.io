@@ -1,5 +1,482 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-18T18:03:52+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="contents">Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-19T19:15:15+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="contents">Contents</h2>
+
+<ul>
+  <li><a href="#what-are-macros-in-rust">What Are Macros in Rust?</a></li>
+  <li><a href="#macros-vs-functions-in-rust">Macros vs. Functions in Rust</a></li>
+  <li><a href="#compile-time-vs-runtime-execution">Compile-Time vs. Runtime Execution</a></li>
+  <li><a href="#when-should-you-use-macros">When Should You Use Macros?</a></li>
+  <li><a href="#when-should-you-use-functions">When Should You Use Functions?</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="what-are-macros-in-rust">What Are Macros in Rust?</h2>
+
+<p>Macros in Rust allow code to be expanded at compile time and included in the final executable.</p>
+
+<p><strong>Rust documentation commonly refers to macros as “expanded” at compile time.</strong></p>
+
+<ul>
+  <li>However, this term can be <strong>misleading</strong>.</li>
+  <li>The term “expanded” may suggest that the code dynamically changes at runtime. However, Rust macros operate entirely at compile time and do not modify execution at runtime.</li>
+  <li>Instead of just being “expanded,” macros generate code, which is then compiled into the final executable.</li>
+</ul>
+
+<p>A more precise way to explain macros:</p>
+
+<ul>
+  <li>Macros generate code at compile time and include it in the final program.</li>
+  <li>Once the executable is compiled, the macro-generated code is “fixed” and cannot change at runtime.</li>
+</ul>
+
+<h2 id="macros-vs-functions-in-rust">Macros vs. Functions in Rust</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Macros (macro_rules!)</th>
+      <th>Functions (fn)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Code Generation at Compile Time</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Variable Number of Arguments</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Supports Multiple Types</td>
+      <td>Yes (via code generation)</td>
+      <td>Yes (via generics)</td>
+    </tr>
+    <tr>
+      <td>Performance Optimization</td>
+      <td>Yes (no loops, direct code expansion)</td>
+      <td>No (loops execute at runtime)</td>
+    </tr>
+    <tr>
+      <td>Readability &amp; Debugging</td>
+      <td>Hard to debug</td>
+      <td>Easy to debug</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="when-should-you-use-macros">When Should You Use Macros?</h3>
+
+<ul>
+  <li>You need compile-time code generation to optimize performance.</li>
+  <li>You need to support multiple types dynamically.</li>
+  <li>You need variable-length arguments (e.g., <code class="language-plaintext highlighter-rouge">println!</code>).</li>
+</ul>
+
+<h3 id="when-should-you-use-functions">When Should You Use Functions?</h3>
+
+<ul>
+  <li>You need standard logic implementation.</li>
+  <li>You need easier debugging.</li>
+  <li>You have repetitive logic that doesn’t require compile-time expansion.</li>
+</ul>
+
+<h3 id="macros-are-not-just-about-avoiding-code-repetition">Macros are not just about avoiding code repetition</h3>
+
+<ul>
+  <li>If simple repetition is needed, functions are usually a better choice.</li>
+  <li>Use macros when you need compile-time optimizations, dynamic argument handling, or complex code generation.</li>
+</ul>
+
+<h2 id="compile-time-vs-runtime-execution">Compile-Time vs. Runtime Execution</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Compile Time (Macro Expansion)</th>
+      <th>Runtime (Function Execution)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Macros (macro_rules!)</td>
+      <td>Code is expanded at compile time</td>
+      <td>Never executed directly</td>
+    </tr>
+    <tr>
+      <td>Functions (fn)</td>
+      <td>No expansion at compile time</td>
+      <td>Executed during runtime</td>
+    </tr>
+    <tr>
+      <td>Error Detection</td>
+      <td>Errors occur at compile time</td>
+      <td>Errors occur at runtime</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="using-macros-macro_rules">Using Macros (macro_rules!)</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">macro_rules!</span> <span class="n">repeat</span> <span class="p">{</span>
+    <span class="p">(</span><span class="nv">$msg:expr</span><span class="p">,</span> <span class="nv">$count:expr</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
+        <span class="nv">$</span><span class="p">(</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nv">$msg</span><span class="p">);</span> <span class="p">)</span><span class="o">*</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">repeat!</span><span class="p">(</span><span class="s">"Hello, Rust!"</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    
+    <span class="c1">// The macro expands into:</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="s">"Hello, Rust!"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="s">"Hello, Rust!"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="s">"Hello, Rust!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The macro expands the <code class="language-plaintext highlighter-rouge">println!</code> calls at compile time, rather than looping at runtime.</li>
+  <li>When compiled, the executable already contains three <code class="language-plaintext highlighter-rouge">println!</code> statements, eliminating any need for iteration at runtime.</li>
+</ul>
+
+<h3 id="using-functions-fn">Using Functions (fn)</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">repeat</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="o">&amp;</span><span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">usize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="n">count</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">repeat</span><span class="p">(</span><span class="s">"Rust is awesome!"</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The function executes a loop at runtime instead of unrolling at compile time.</li>
+  <li>The compiled binary contains a loop, which adds execution overhead compared to macros.</li>
+</ul>
+
+<h2 id="advantages-of-using-macros">Advantages of Using Macros</h2>
+
+<p>Macros expand code at compile time, reducing runtime overhead.</p>
+
+<ul>
+  <li>Functions require stack management and runtime execution.</li>
+  <li>Macros allow code to be directly inserted into the final program, avoiding function calls.</li>
+  <li>For example, match statements inside macros can be expanded into static branching logic, improving performance.</li>
+</ul>
+
+<h2 id="why-macros-are-hard-to-debug">Why Macros Are Hard to Debug</h2>
+
+<h3 id="macros-expand-into-new-code-before-compiling">Macros Expand Into New Code Before Compiling</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">macro_rules!</span> <span class="n">bad_macro</span> <span class="p">{</span>
+    <span class="p">(</span><span class="nv">$val:expr</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nv">$val</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"True"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"False"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">bad_macro!</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>  <span class="c1">// error</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The macro expands before compilation, replacing <code class="language-plaintext highlighter-rouge">bad_macro!(42)</code>; with:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="mi">42</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"True"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"False"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>But if 42 is not valid in Rust -&gt; this causes a type mismatch.</p>
+
+<p>Rust’s error message points to the expanded code, not the macro definition:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error[E0308]: mismatched types
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:9:5
+  |
+9 |     bad_macro!<span class="o">(</span>42<span class="o">)</span><span class="p">;</span>
+  |     ^^^^^^^^^^^^^ expected <span class="sb">`</span>bool<span class="sb">`</span>, found integer
+  |
+  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span>bool<span class="sb">`</span>
+             found <span class="nb">type</span> <span class="sb">`</span><span class="o">{</span>integer<span class="o">}</span><span class="sb">`</span>
+</code></pre></div></div>
+
+<p>Rust does not indicate that the error originated inside <code class="language-plaintext highlighter-rouge">bad_macro!</code>.
+Instead, it shows an error where the macro was expanded, making debugging more difficult.</p>
+
+<h3 id="debugging-logs-are-limited">Debugging Logs Are Limited</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">macro_rules!</span> <span class="n">debug_macro</span> <span class="p">{</span>
+    <span class="p">(</span><span class="nv">$val:expr</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="nv">$val</span> <span class="o">/</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Runtime error</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">debug_macro!</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>This macro expands before compilation, meaning <code class="language-plaintext highlighter-rouge">let result = 10 / 0;</code> is inserted directly.</li>
+  <li>Rust won’t warn about division by zero at compile time, but it crashes at runtime.</li>
+  <li>Debugging is difficult because Rust does not pinpoint where inside the macro the issue originated.</li>
+</ul>
+
+<h3 id="how-to-debug-macros">How to Debug Macros?</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cargo <span class="nb">install </span>cargo-expand
+cargo <span class="nb">expand</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Use <code class="language-plaintext highlighter-rouge">cargo expand</code> to view the expanded macro output</li>
+</ul>
+
+<h2 id="comparison-with-c-macros">Comparison with C Macros</h2>
+
+<p>Although C and Rust are both compiled languages, Rust macros provide safer and more structured compile-time code generation.</p>
+
+<h3 id="define">#define</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="cp">#define SQUARE(x) (x * x)
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">SQUARE</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: (5 * 5)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>C macros are text replacements, not structured code transformations.</li>
+  <li>They lack type checking and can introduce subtle bugs.</li>
+  <li>Rust macros, in contrast, operate within the compiler and ensure type safety.</li>
+</ul>
+
+<h3 id="inline-functions">inline Functions</h3>
+
+<h4 id="comparison-with-rust-macros">Comparison with Rust Macros</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>C inline Function</th>
+      <th>Rust Macro (macro_rules!)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Compile-Time Expansion</td>
+      <td>Compiler decides whether to inline</td>
+      <td>Always expands at compile time</td>
+    </tr>
+    <tr>
+      <td>Guaranteed Optimization</td>
+      <td>Not always inlined</td>
+      <td>Always replaces code directly</td>
+    </tr>
+    <tr>
+      <td>Code Size Consideration</td>
+      <td>Large functions may not be inlined</td>
+      <td>Can increase code size</td>
+    </tr>
+    <tr>
+      <td>Flexibility</td>
+      <td>Works with fixed types</td>
+      <td>Works with multiple types and patterns</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Compilers may choose not to inline functions for performance reasons.</li>
+  <li>Large or recursive functions will not be inlined.</li>
+  <li>Rust macros, in contrast, always expand before compilation.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p><strong>When to Use Rust Macros?</strong></p>
+
+<ul>
+  <li>You need compile-time code generation for performance.</li>
+  <li>You need flexible, generic behavior across multiple types.</li>
+  <li>You need variadic arguments (e.g., <code class="language-plaintext highlighter-rouge">println!</code>).</li>
+</ul>
+
+<p><strong>When to Avoid Rust Macros?</strong></p>
+
+<ul>
+  <li>You need easier debugging -&gt; Functions are better.</li>
+  <li>You don’t need compile-time code transformation -&gt; Functions work fine.</li>
+  <li>Your macro logic is too complex -&gt; Hard to maintain.</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="contents">Contents</h2>
+
+<ul>
+  <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
+  <li><a href="#why-use-inline-functions">Why Use inline Functions?</a></li>
+  <li><a href="#when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</a></li>
+  <li><a href="#forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="what-is-an-inline-function-in-c">What Is an inline Function in C?</h2>
+
+<p>An <code class="language-plaintext highlighter-rouge">inline</code> function is a special function in C that suggests the compiler replace the function call with its actual code to optimize performance.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: int result = (5 * 5);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When the compiler processes <code class="language-plaintext highlighter-rouge">square(5)</code>, it replaces the function call with its definition: <code class="language-plaintext highlighter-rouge">int result = (5 * 5);</code></li>
+  <li>This eliminates the overhead of function calls, potentially improving performance.</li>
+</ul>
+
+<h2 id="why-use-inline-functions">Why Use inline Functions?</h2>
+
+<ul>
+  <li>Performance Optimization – Reduces function call overhead.</li>
+  <li>Encapsulation – Keeps function logic organized while avoiding extra calls.</li>
+  <li>Reduced Stack Usage – No need to store function call metadata in the stack.</li>
+</ul>
+
+<h2 id="when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</h2>
+
+<p>However, unlike Rust macros, inline in C is just a hint to the compiler—it does not guarantee inlining. The compiler decides whether to actually inline the function based on various optimization criteria.</p>
+
+<p>Despite marking a function as inline, the compiler might not inline it in the following cases:</p>
+
+<h3 id="1️-the-function-is-too-large">1️. The Function Is Too Large</h3>
+
+<p>If a function contains too many instructions, inlining it could increase code size unnecessarily.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">big_function</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Large loop</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Expanding this function in multiple places increases binary size.</li>
+  <li>Too much code duplication can harm performance rather than improve it.</li>
+  <li>The compiler might keep it as a regular function instead.</li>
+</ul>
+
+<h3 id="2-recursive-functions">2. Recursive Functions</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Recursive call</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Inlining a recursive function is impossible in most cases because the function keeps calling itself.</li>
+  <li>The compiler would need to unroll the recursion into a loop, which is not always feasible.</li>
+  <li>If recursion depth is small and known in advance, consider manual loop unrolling instead.</li>
+</ul>
+
+<h3 id="3-function-pointers-prevent-inlining">3. Function Pointers Prevent Inlining</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">func_ptr</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span> <span class="c1">// Assign function to pointer</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func_ptr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>     <span class="c1">// Compiler does not know function at compile time</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When using function pointers, the actual function call is determined at runtime, not at compile time.</li>
+  <li>The compiler cannot replace function calls with direct code expansion because the target function is unknown during compilation.</li>
+  <li>Use direct function calls instead of function pointers when inlining is critical.</li>
+</ul>
+
+<h2 id="forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</h2>
+
+<p>If the compiler ignores inline, you can explicitly force inlining using compiler-specific attributes.</p>
+
+<h3 id="1-gcc--clang-attributealways_inline">1. GCC &amp; Clang: <strong>attribute</strong>((always_inline))</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span> <span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Ensures the function will always be inlined, even if it’s large.</li>
+  <li>Only works if optimizations are enabled (-O2 or higher).</li>
+  <li>Forcing inlining on a large function can increase binary size and reduce cache efficiency.</li>
+</ul>
+
+<h3 id="2-msvc-microsoft-compiler-__forceinline">2. MSVC (Microsoft Compiler): __forceinline</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">__forceinline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Forces the function to be inlined in Microsoft compilers (MSVC).</li>
+  <li>Ensures consistent inlining behavior across different builds.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Use inline for:</p>
+
+<ul>
+  <li>Small, frequently used functions.</li>
+  <li>Performance-sensitive calculations (e.g., mathematical operations).</li>
+  <li>Functions that replace macros for better type safety.</li>
+</ul>
+
+<p>Avoid inline for:</p>
+
+<ul>
+  <li>Large functions (can increase binary size).</li>
+  <li>Recursive functions.</li>
+  <li>Functions used with pointers or virtual functions (C++).</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="contents">Contents</h2>
 
 <ul>
   <li><a href="#the-problem">The Problem</a></li>
@@ -1202,434 +1679,4 @@ Every batch has metadata, including the ID of the batch and worker. A worker who
 
 <ul>
   <li><a href="https://arxiv.org/abs/2105.11827">Narwhal and Tusk: A DAG-based Mempool and Efficient BFT Consensus</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency. Narwhal was introduced in the paper “Narwhal and Tusk…"]]></summary></entry><entry><title type="html">Importance of using interface while construct program and example of using go</title><link href="http://localhost:4000/2023/12/02/go-interface-architecture/" rel="alternate" type="text/html" title="Importance of using interface while construct program and example of using go" /><published>2023-12-02T00:00:00+09:00</published><updated>2023-12-02T00:00:00+09:00</updated><id>http://localhost:4000/2023/12/02/go-interface-architecture</id><content type="html" xml:base="http://localhost:4000/2023/12/02/go-interface-architecture/"><![CDATA[<h2 id="why-should-we-design-applications-based-on-interfaces">Why Should We Design Applications Based on Interfaces?</h2>
-
-<p>Modern software applications are composed of multiple modules that interact with each other. To ensure scalability, maintainability, and flexibility, interface-based design is widely recommended.</p>
-
-<p>Let’s take Netflix as an example. Netflix is not just a video streaming service; it includes user management, subscription payments, recommendations, advertising, and many other services. Each team within Netflix works on different components, often following their own schedules and priorities. Without a well-defined interface-based approach, collaboration and integration would become extremely complex.</p>
-
-<p>The best way to address this challenge is to design and develop applications based on interfaces.</p>
-
-<h2 id="how-interface-based-design-improves-the-development-process">How Interface-Based Design Improves the Development Process</h2>
-
-<p>Let’s assume we’re developing an app that enables users to purchase subscriptions.</p>
-
-<p>Scenario</p>
-
-<ol>
-  <li>Team A is responsible for user management, and Team B is developing the payment system.</li>
-  <li>Team A needs to implement subscription purchases, which depend on Team B’s payment gateway (PG) integration.</li>
-  <li>Team B is busy with other tasks and cannot immediately implement the PG integration. However, Team A cannot wait indefinitely for them to complete it.</li>
-  <li>Team B provides an interface that defines the PG integration structure. Even though the actual implementation is not ready, the interface specifies what the final implementation will look like.</li>
-  <li>Team A develops a mock implementation based on the provided interface and proceeds with subscription feature development.</li>
-  <li>Once Team B completes the real PG integration, Team A replaces the mock implementation with the actual implementation.</li>
-</ol>
-
-<p>By adopting interface-based design, modules remain decoupled and can be developed independently without waiting for other teams.</p>
-
-<h2 id="challenges-of-interface-based-design">Challenges of Interface-Based Design</h2>
-
-<p>Despite its benefits, interface-based design is challenging when business logic is not well-defined.</p>
-
-<ul>
-  <li>Business requirements must be well-analyzed before development to determine what interfaces will be needed.</li>
-  <li>Some Agile methodologies misinterpret speed as skipping planning. Fast development should not mean skipping clear business requirements and interface design.</li>
-  <li>If Team A starts development without a clear understanding of what Team B will deliver, frequent changes to the interface can result in wasted effort.</li>
-  <li>A well-defined interface can reduce development time, not increase it.</li>
-</ul>
-
-<p>To prevent unnecessary changes, a clear interface design should be agreed upon before development begins.</p>
-
-<h2 id="how-go-supports-interface-based-design">How Go Supports Interface-Based Design</h2>
-
-<p>Go encourages interface-based design and provides a simple yet powerful way to implement it.</p>
-
-<p>Key Differences from Java and Other Languages</p>
-
-<ul>
-  <li>No need for explicit interface declarations in implementing structs.</li>
-  <li>No separate interface files are required.</li>
-  <li>If a struct implements all the methods of an interface, it automatically satisfies that interface.</li>
-</ul>
-
-<h3 id="best-practices-for-defining-interfaces-in-go">Best Practices for Defining Interfaces in Go</h3>
-
-<ul>
-  <li>Use meaningful names ending in -er to describe the action performed.</li>
-  <li>Example:
-    <ul>
-      <li>Printer: Prints output</li>
-      <li>Writer: Writes to a file</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="example-designing-an-ethereum-transaction-sender-interface">Example: Designing an Ethereum Transaction Sender Interface</h2>
-
-<p>Let’s define an interface for sending signed Ethereum transactions.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Sender</span> <span class="k">interface</span> <span class="p">{</span>
-    <span class="n">SendTransaction</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">from</span> <span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">to</span> <span class="o">*</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">value</span> <span class="o">*</span><span class="n">big</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="transaction-sending-approaches">Transaction Sending Approaches</h3>
-
-<p>Ethereum transactions can be sent in two ways:</p>
-
-<ul>
-  <li>Synchronous (Sync): Waits until the transaction is mined before returning a response.</li>
-  <li>Asynchronous (Async): Sends the transaction without waiting for confirmation.</li>
-</ul>
-
-<p>Since both approaches use the same parameters, we can define a single <code class="language-plaintext highlighter-rouge">Sender</code> interface.</p>
-
-<h3 id="using-dependency-injection-for-flexibility">Using Dependency Injection for Flexibility</h3>
-
-<p>We create a <code class="language-plaintext highlighter-rouge">TxManager</code> struct that depends on a <code class="language-plaintext highlighter-rouge">Sender</code> interface rather than a specific implementation.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">TxManager</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">sender</span> <span class="n">Sender</span>
-<span class="p">}</span>
-
-<span class="c">// Injects an implementation of Sender into TxManager</span>
-<span class="k">func</span> <span class="n">NewTxManager</span><span class="p">(</span><span class="n">sender</span> <span class="n">Sender</span><span class="p">)</span> <span class="o">*</span><span class="n">TxManager</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">&amp;</span><span class="n">TxManager</span><span class="p">{</span>
-        <span class="n">sender</span><span class="o">:</span> <span class="n">sender</span><span class="p">,</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="different-implementations-of-the-sender-interface">Different Implementations of the Sender Interface</h3>
-
-<p>We now create two different implementations:</p>
-
-<ul>
-  <li>SyncSender: Implements synchronous transactions.</li>
-  <li>AsyncSender: Implements asynchronous transactions.</li>
-  <li>Both implementations satisfy the <code class="language-plaintext highlighter-rouge">Sender</code> interface because they define the required method.</li>
-</ul>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// SyncSender</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">SyncSender</span><span class="p">)</span> <span class="n">NewSyncSender</span><span class="p">()</span> <span class="o">*</span><span class="n">SyncSender</span> <span class="p">{}</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">SyncSender</span><span class="p">)</span> <span class="n">SendTransaction</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">from</span> <span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">to</span> <span class="o">*</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">value</span> <span class="o">*</span><span class="n">big</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
-
-<span class="c">// AsyncSender</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">AsyncSender</span><span class="p">)</span> <span class="n">NewAsyncSender</span><span class="p">()</span> <span class="o">*</span><span class="n">AsyncSender</span> <span class="p">{}</span>
-<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">AsyncSender</span><span class="p">)</span> <span class="n">SendTransaction</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">from</span> <span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">to</span> <span class="o">*</span><span class="n">common</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span> <span class="n">value</span> <span class="o">*</span><span class="n">big</span><span class="o">.</span><span class="n">Int</span><span class="p">,</span> <span class="n">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span>
-</code></pre></div></div>
-
-<h3 id="injecting-the-implementations">Injecting the Implementations</h3>
-
-<p>We can now inject either <code class="language-plaintext highlighter-rouge">SyncSender</code> or <code class="language-plaintext highlighter-rouge">AsyncSender</code> into the TxManager dynamically.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">syncSender</span> <span class="o">:=</span> <span class="n">NewSyncSender</span><span class="p">()</span>
-    <span class="n">asyncSender</span> <span class="o">:=</span> <span class="n">NewAsyncSender</span><span class="p">()</span>
-
-    <span class="c">// Use synchronous transaction processing</span>
-    <span class="n">txm</span> <span class="o">:=</span> <span class="n">NewTxManager</span><span class="p">(</span><span class="n">syncSender</span><span class="p">)</span>
-
-    <span class="c">// Use asynchronous transaction processing</span>
-    <span class="n">txm</span> <span class="o">=</span> <span class="n">NewTxManager</span><span class="p">(</span><span class="n">asyncSender</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="advantages-of-interface-based-design">Advantages of Interface-Based Design</h2>
-
-<h3 id="decouples-modules">Decouples Modules</h3>
-
-<ul>
-  <li>Teams can develop independently without waiting for other teams.</li>
-  <li>Reduces dependencies between different components.</li>
-</ul>
-
-<h3 id="enables-dependency-injection">Enables Dependency Injection</h3>
-
-<ul>
-  <li>Implementations can be easily replaced or modified without changing business logic.</li>
-  <li>Useful for mock testing and swapping different implementations.</li>
-</ul>
-
-<h3 id="enhances-maintainability--scalability">Enhances Maintainability &amp; Scalability</h3>
-
-<ul>
-  <li>Clear separation of concerns makes code easier to maintain.</li>
-  <li>New features can be added without modifying existing components.</li>
-</ul>
-
-<h3 id="encourages-reusability">Encourages Reusability</h3>
-
-<ul>
-  <li>The same interface can have multiple implementations, making it reusable across different scenarios.</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Why should we use interface-based design:</p>
-
-<ul>
-  <li>Modularization – Develop and maintain different parts of a system independently.</li>
-  <li>Flexibility – Swap implementations without changing business logic.</li>
-  <li>Scalability – Extend and modify software without breaking existing functionality.</li>
-  <li>Testing – Use mock implementations for unit tests.</li>
-</ul>]]></content><author><name>wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[By designing software around interfaces, we minimize dependencies, improve collaboration, and build scalable, maintainable systems.]]></summary></entry><entry><title type="html">Custom Errors in Solidity: A Gas-Efficient Alternative</title><link href="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/" rel="alternate" type="text/html" title="Custom Errors in Solidity: A Gas-Efficient Alternative" /><published>2023-08-22T00:00:00+09:00</published><updated>2023-08-22T00:00:00+09:00</updated><id>http://localhost:4000/2023/08/22/blockchain-custom-error-solidity</id><content type="html" xml:base="http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#custom-error">Custom Error</a></li>
-  <li><a href="#how-to-use-custom-errors-in-solidity">How to Use Custom Errors in Solidity</a></li>
-  <li><a href="#how-much-gas-is-saved">How Much Gas is Saved?</a></li>
-  <li><a href="#comparing-yul-code-custom-errors-vs-string-errors">Comparing Yul Code: Custom Errors vs. String Errors</a></li>
-  <li><a href="#decoding-custom-errors-with-ethersjs">Decoding Custom Errors with ethers.js</a></li>
-  <li><a href="#caution-external-call--custom-errors">Caution: external call &amp; Custom Errors</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="custom-error">Custom Error</h2>
-
-<p><a href="https://github.com/ethereum/solidity/releases/tag/v0.8.4">Solidity v0.8.4</a> introduced custom errors, a new way to handle errors in smart contracts. Instead of using string-based revert messages, developers can now define error variables and use them efficiently.</p>
-
-<h3 id="why-use-custom-errors">Why Use Custom Errors?</h3>
-
-<ul>
-  <li>Lower gas costs compared to traditional string-based errors.</li>
-  <li>Reusability in external interfaces or libraries.</li>
-  <li>Easier error management across multiple smart contracts.</li>
-</ul>
-
-<p>Comparison: String-Based vs. Custom Errors</p>
-
-<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Before (Traditional Revert)
-</span><span class="nb">revert</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span> <span class="c1">// No predefined error
-</span>
-<span class="c1">// After (Custom Error)
-</span><span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span>   <span class="c1">// Declare the error
-</span><span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>  <span class="c1">// Use the error
-</span></code></pre></div></div>
-
-<h2 id="how-to-use-custom-errors-in-solidity">How to Use Custom Errors in Solidity</h2>
-
-<h3 id="1-using-revert-with-custom-errors">1. Using revert with Custom Errors</h3>
-
-<p>Custom errors function similar to Solidity’s event mechanism, but must be used with the revert statement.</p>
-
-<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example: Custom Error for Unauthorized Access
-// SPDX-License-Identifier: GPL-3.0
-</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
-
-<span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span> <span class="c1">// Custom error
-</span>
-<span class="k">contract</span> <span class="n">VendingMachine</span> <span class="p">{</span>
-    <span class="kt">address</span> <span class="k">payable</span> <span class="n">owner</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
-
-    <span class="k">function</span> <span class="n">withdraw</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">!=</span> <span class="n">owner</span><span class="p">)</span>
-            <span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>  <span class="c1">// Using custom error with revert statement
-</span>
-        <span class="n">owner</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">revert</code> halts execution and returns the error.</li>
-  <li>As of Solidity v0.8.4, <code class="language-plaintext highlighter-rouge">require</code> does not support custom errors (<a href="https://github.com/ethereum/solidity/issues/11278">Issue in github</a>).</li>
-</ul>
-
-<p>Equivalent Code Transformation between <code class="language-plaintext highlighter-rouge">revert</code> and <code class="language-plaintext highlighter-rouge">require</code>:</p>
-
-<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Traditional require statement:
-</span><span class="nb">require</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="s">"error message"</span><span class="p">);</span>
-
-<span class="c1">// Translates to:
-</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">condition</span><span class="p">)</span> <span class="nb">revert</span> <span class="n">CustomError</span><span class="p">();</span>
-</code></pre></div></div>
-
-<h3 id="2-custom-errors-with-parameters">2. Custom Errors with Parameters</h3>
-
-<p>Custom errors can accept parameters, allowing developers to pass relevant data.</p>
-
-<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example: Custom Error with Parameters
-// SPDX-License-Identifier: GPL-3.0
-</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
-
-<span class="c1">/// Error: Insufficient balance for transfer.
-/// @param available balance available.
-/// @param required requested amount to transfer.
-</span><span class="n">error</span> <span class="n">InsufficientBalance</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">available</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">required</span><span class="p">);</span>
-
-<span class="k">contract</span> <span class="n">TestToken</span> <span class="p">{</span>
-    <span class="k">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="nb">balance</span><span class="p">;</span>
-
-    <span class="k">function</span> <span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="nb">balance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">])</span>
-            <span class="nb">revert</span> <span class="n">InsufficientBalance</span><span class="p">({</span>
-                <span class="n">available</span><span class="o">:</span> <span class="nb">balance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">],</span>
-                <span class="n">required</span><span class="o">:</span> <span class="n">amount</span>
-            <span class="p">});</span>
-
-        <span class="nb">balance</span><span class="p">[</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">amount</span><span class="p">;</span>
-        <span class="nb">balance</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">+=</span> <span class="n">amount</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>The error is ABI-encoded: <code class="language-plaintext highlighter-rouge">abi.encodeWithSignature("InsufficientBalance(uint256,uint256)", balance[msg.sender], amount)</code>.</li>
-  <li>Helps return specific error information to external applications.</li>
-</ul>
-
-<h2 id="how-much-gas-is-saved">How Much Gas is Saved?</h2>
-
-<p>Using <a href="https://github.com/IoBuilders/truffle-contract-size">truffle-contract-size</a>, we compared contract sizes with and without custom errors.</p>
-
-<div class="language-solidity highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example: Vending Machine Contract
-// SPDX-License-Identifier: GPL-3.0
-</span><span class="k">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
-
-<span class="n">error</span> <span class="n">Unauthorized</span><span class="p">();</span> <span class="c1">// Custom error
-</span>
-<span class="k">contract</span> <span class="n">VendingMachine</span> <span class="p">{</span>
-    <span class="kt">address</span> <span class="k">payable</span> <span class="n">owner</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
-
-    <span class="k">function</span> <span class="n">withdraw</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">!=</span> <span class="n">owner</span><span class="p">)</span>
-            <span class="nb">revert</span> <span class="n">Unauthorized</span><span class="p">();</span>  <span class="c1">// With custom error
-</span>            <span class="nb">revert</span><span class="p">(</span><span class="s">"Insufficient funds."</span><span class="p">);</span> <span class="c1">// Without custom error
-</span>
-        <span class="n">owner</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Contract Size Results:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Contract Size</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>With Custom Errors</td>
-      <td>0.33 KiB</td>
-    </tr>
-    <tr>
-      <td>Without Custom Errors</td>
-      <td>0.46 KiB</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Even for simple errors, custom errors reduce contract size by ~0.13 KiB.
-For larger smart contracts, the savings are even more significant.</p>
-
-<h2 id="comparing-yul-code-custom-errors-vs-string-errors">Comparing Yul Code: Custom Errors vs. String Errors</h2>
-
-<p><a href="https://docs.soliditylang.org/en/latest/yul.html">Yul</a> is an intermediate representation for Solidity bytecode.</p>
-
-<h3 id="1-custom-error-revert-unauthorized">1. Custom Error: revert Unauthorized()</h3>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># revert Unauthorized();</span>
-<span class="nb">let </span>free_mem_ptr :<span class="o">=</span> mload<span class="o">(</span>64<span class="o">)</span>
-mstore<span class="o">(</span>free_mem_ptr, 0x82b4290000000000000000000000000000000000000000000000000000000000<span class="o">)</span>
-revert<span class="o">(</span>free_mem_ptr, 4<span class="o">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>0x82b42900: Custom error selector.</li>
-  <li>Minimal gas cost due to compact encoding.</li>
-</ul>
-
-<h3 id="2-string-based-error-revertunauthorized">2. String-Based Error: revert(“Unauthorized”)</h3>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Example: Decoding InsufficientBalance Error</span>
-<span class="c"># revert("Unauthorized");</span>
-<span class="nb">let </span>free_mem_ptr :<span class="o">=</span> mload<span class="o">(</span>64<span class="o">)</span>
-mstore<span class="o">(</span>free_mem_ptr, 0x08c379a000000000000000000000000000000000000000000000000000000000<span class="o">)</span>
-mstore<span class="o">(</span>add<span class="o">(</span>free_mem_ptr, 4<span class="o">)</span>, 32<span class="o">)</span>
-mstore<span class="o">(</span>add<span class="o">(</span>free_mem_ptr, 36<span class="o">)</span>, 12<span class="o">)</span>
-mstore<span class="o">(</span>add<span class="o">(</span>free_mem_ptr, 68<span class="o">)</span>, <span class="s2">"Unauthorized"</span><span class="o">)</span>
-revert<span class="o">(</span>free_mem_ptr, 100<span class="o">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>0x08c379a0: String error selector.</li>
-  <li>More storage operations, higher gas consumption.</li>
-  <li>Longer execution time compared to custom errors.</li>
-</ul>
-
-<h2 id="decoding-custom-errors-with-ethersjs">Decoding Custom Errors with ethers.js</h2>
-
-<p>Custom errors can be decoded in ethers.js to retrieve detailed error information.</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ethers</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ethers</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="c1">// Define an interface to match the custom error</span>
-<span class="kd">const</span> <span class="nx">abi</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="dl">'</span><span class="s1">function InsufficientBalance(uint256 available, uint256 required)</span><span class="dl">'</span><span class="p">,</span>
-<span class="p">];</span>
-
-<span class="kd">const</span> <span class="kr">interface</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">Interface</span><span class="p">(</span><span class="nx">abi</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">error_data</span> <span class="o">=</span>
-  <span class="dl">'</span><span class="s1">0xcf479181000000000000000000000000000000000000</span><span class="dl">'</span> <span class="o">+</span>
-  <span class="dl">'</span><span class="s1">0000000000000000000000000100000000000000000000</span><span class="dl">'</span> <span class="o">+</span>
-  <span class="dl">'</span><span class="s1">0000000000000000000000000000000000000100000000</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">decoded</span> <span class="o">=</span> <span class="kr">interface</span><span class="p">.</span><span class="nx">decodeFunctionData</span><span class="p">(</span>
-  <span class="kr">interface</span><span class="p">.</span><span class="nx">functions</span><span class="p">[</span><span class="dl">'</span><span class="s1">InsufficientBalance(uint256,uint256)</span><span class="dl">'</span><span class="p">],</span>
-  <span class="nx">error_data</span>
-<span class="p">);</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
-  <span class="s2">`Insufficient balance for transfer. `</span> <span class="o">+</span>
-  <span class="s2">`Needed </span><span class="p">${</span><span class="nx">decoded</span><span class="p">.</span><span class="nx">required</span><span class="p">.</span><span class="nx">toString</span><span class="p">()}</span><span class="s2"> but only `</span> <span class="o">+</span>
-  <span class="s2">`</span><span class="p">${</span><span class="nx">decoded</span><span class="p">.</span><span class="nx">available</span><span class="p">.</span><span class="nx">toString</span><span class="p">()}</span><span class="s2"> available.`</span>
-<span class="p">);</span>
-<span class="c1">// Output: Insufficient balance for transfer. Needed 4294967296 but only 256 available.</span>
-</code></pre></div></div>
-
-<ul>
-  <li>ethers.js can decode ABI-encoded errors for better debugging.</li>
-  <li>Error parameters are extracted and converted into human-readable messages.</li>
-</ul>
-
-<h2 id="caution-external-call--custom-errors">Caution: external call &amp; Custom Errors</h2>
-
-<h3 id="smart-contract-compilation--external-calls">Smart Contract Compilation &amp; External Calls</h3>
-
-<p>When compiling a contract:</p>
-
-<ul>
-  <li>The Solidity compiler includes all defined custom errors in the contract’s ABI.</li>
-  <li>However, external calls do not include errors from other contracts.</li>
-</ul>
-
-<h3 id="security-concern-manipulated-error-messages">Security Concern: Manipulated Error Messages</h3>
-
-<ul>
-  <li>Malicious contracts can fake errors by crafting misleading return messages.</li>
-  <li>Developers must verify whether the error originates internally or externally.</li>
-  <li>Use <a href="https://docs.soliditylang.org/en/latest/natspec-format.html">NatSpec</a> documentation to provide clear explanations for custom errors.</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Why Use Custom Errors:</p>
-
-<ul>
-  <li>Lower Gas Costs – Reduces contract size &amp; execution gas.</li>
-  <li>Improved Debugging – Encodes detailed error information.</li>
-  <li>Better Maintainability – Centralized error management across contracts.</li>
-  <li>Efficient ABI Encoding – Works seamlessly with Solidity tooling &amp; ethers.js.</li>
-</ul>
-
-<p>When Should You Use Custom Errors:</p>
-
-<ul>
-  <li>Large contracts with complex logic.</li>
-  <li>Contracts where gas efficiency is critical.</li>
-  <li>Reusable libraries and interfaces.</li>
-</ul>]]></content><author><name>wonjoon</name></author><category term="ethereum" /><summary type="html"><![CDATA[By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution..]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency. Narwhal was introduced in the paper “Narwhal and Tusk…"]]></summary></entry></feed>
