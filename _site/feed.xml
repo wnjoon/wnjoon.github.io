@@ -1,5 +1,323 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-19T21:01:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-21T14:09:30+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</a></li>
+  <li><a href="#handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</a></li>
+  <li><a href="#more-idiomatic-alternatives">More Idiomatic Alternatives</a></li>
+  <li><a href="#comparison-with-go">Comparison with Go</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</h2>
+
+<p>In Rust, functions that can fail typically return a Result&lt;T, E&gt; type. You must handle the result, even if you are confident the operation will succeed.</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">num</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="c1">// Result&lt;i32, ParseIntError&gt;</span>
+</code></pre></div></div>
+
+<p>Trying to ignore the Result leads to a compile-time warning:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>warning: unused <span class="sb">`</span>Result<span class="sb">`</span> that must be used
+ <span class="nt">--</span><span class="o">&gt;</span> main.rs:2:9
+  |
+2 |     <span class="nb">let </span>num <span class="o">=</span> <span class="s2">"42"</span>.parse::&lt;i32&gt;<span class="o">()</span><span class="p">;</span>
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |         |
+  |         this <span class="sb">`</span>Result<span class="sb">`</span> may be an <span class="sb">`</span>Err<span class="sb">`</span> variant, which should be handled
+</code></pre></div></div>
+
+<p>You can’t use the result as if it’s already a number:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">// Ok(42)</span>
+<span class="k">let</span> <span class="n">doubled</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>         <span class="c1">// Error: result is not i32 but Result&lt;i32, _&gt;</span>
+</code></pre></div></div>
+
+<h2 id="handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</h2>
+
+<p>Rust provides several built-in ways to handle Result values.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Panics on Error?</th>
+      <th>Provides Default Value?</th>
+      <th>Custom Message?</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>unwrap()</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+      <td>Quick tests, throwaway code</td>
+    </tr>
+    <tr>
+      <td>expect(“msg”)</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Debugging with context</td>
+    </tr>
+    <tr>
+      <td>unwrap_or(x)</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Fallback/default values</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="unwrap">unwrap()</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>    <span class="c1">// Returns 42</span>
+<span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>   <span class="c1">// Panics!</span>
+</code></pre></div></div>
+
+<p>When an error occurs, <code class="language-plaintext highlighter-rouge">unwrap()</code> panics with a default error message:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'called `Result::unwrap()` on an `Err` value: ParseIntError'</span>
+</code></pre></div></div>
+
+<p>Not safe for production code—use only when you’re absolutely sure it will not fail.</p>
+
+<h3 id="expectcustom-message">expect(“custom message”)</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span>
+    <span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span>
+    <span class="nf">.expect</span><span class="p">(</span><span class="s">"number type is required"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Customizes the panic message:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'number type is required: ParseIntError'</span>
+</code></pre></div></div>
+
+<p>Helps during debugging by giving clearer failure context than <code class="language-plaintext highlighter-rouge">unwrap()</code>.</p>
+
+<h3 id="unwrap_ordefault_value">unwrap_or(default_value)</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap_or</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 0 when parse fails</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{x}"</span><span class="p">);</span> <span class="c1">// Output: 0</span>
+</code></pre></div></div>
+
+<p>No panic. Returns a default fallback instead of crashing.</p>
+
+<h2 id="more-idiomatic-alternatives">More Idiomatic Alternatives</h2>
+
+<p>These methods avoid panic and allow graceful error handling.</p>
+
+<h3 id="pattern-matching-with-match">Pattern Matching with match</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="k">match</span> <span class="n">result</span> <span class="p">{</span>
+    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="nf">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Error occurred: {}"</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="if-let-for-simpler-matching">if let for Simpler Matching</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="k">let</span> <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Not a valid number."</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="propagating-errors-with--operator">Propagating Errors with ? Operator</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">parse_number</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">i32</span><span class="p">,</span> <span class="nn">std</span><span class="p">::</span><span class="nn">num</span><span class="p">::</span><span class="n">ParseIntError</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="s">"42"</span><span class="nf">.parse</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>  <span class="c1">// If parse fails, early return</span>
+    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Only works inside functions that return <code class="language-plaintext highlighter-rouge">Result</code>.</li>
+</ul>
+
+<h2 id="comparison-with-go">Comparison with Go</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rust</th>
+      <th>Go</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>.unwrap()</td>
+      <td>panic(err)</td>
+    </tr>
+    <tr>
+      <td>.unwrap_or(default_value)</td>
+      <td>if err != nil { return default_value }</td>
+    </tr>
+    <tr>
+      <td>.expect(“msg”)</td>
+      <td>panic(“msg: “ + err.Error())</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">Summary</h2>
+
+<p>Rust enforces error handling at compile time to eliminate runtime surprises. You have multiple tools at your disposal—choose based on the level of control and safety you need:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">unwrap()</code> – Fast, but dangerous.</li>
+  <li><code class="language-plaintext highlighter-rouge">expect("msg")</code> – Safer panic with clear context.</li>
+  <li><code class="language-plaintext highlighter-rouge">unwrap_or(default_value)</code> – Clean fallbacks.</li>
+  <li><code class="language-plaintext highlighter-rouge">match</code>, <code class="language-plaintext highlighter-rouge">if let</code>, <code class="language-plaintext highlighter-rouge">?</code> – Idiomatic and safe.</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
+  <li><a href="#why-use-inline-functions">Why Use inline Functions?</a></li>
+  <li><a href="#when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</a></li>
+  <li><a href="#forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="what-is-an-inline-function-in-c">What Is an inline Function in C?</h2>
+
+<p>An <code class="language-plaintext highlighter-rouge">inline</code> function is a special function in C that suggests the compiler replace the function call with its actual code to optimize performance.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: int result = (5 * 5);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When the compiler processes <code class="language-plaintext highlighter-rouge">square(5)</code>, it replaces the function call with its definition: <code class="language-plaintext highlighter-rouge">int result = (5 * 5);</code></li>
+  <li>This eliminates the overhead of function calls, potentially improving performance.</li>
+</ul>
+
+<h2 id="why-use-inline-functions">Why Use inline Functions?</h2>
+
+<ul>
+  <li>Performance Optimization – Reduces function call overhead.</li>
+  <li>Encapsulation – Keeps function logic organized while avoiding extra calls.</li>
+  <li>Reduced Stack Usage – No need to store function call metadata in the stack.</li>
+</ul>
+
+<h2 id="when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</h2>
+
+<p>However, unlike Rust macros, inline in C is just a hint to the compiler—it does not guarantee inlining. The compiler decides whether to actually inline the function based on various optimization criteria.</p>
+
+<p>Despite marking a function as inline, the compiler might not inline it in the following cases:</p>
+
+<h3 id="1️-the-function-is-too-large">1️. The Function Is Too Large</h3>
+
+<p>If a function contains too many instructions, inlining it could increase code size unnecessarily.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">big_function</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Large loop</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Expanding this function in multiple places increases binary size.</li>
+  <li>Too much code duplication can harm performance rather than improve it.</li>
+  <li>The compiler might keep it as a regular function instead.</li>
+</ul>
+
+<h3 id="2-recursive-functions">2. Recursive Functions</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Recursive call</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Inlining a recursive function is impossible in most cases because the function keeps calling itself.</li>
+  <li>The compiler would need to unroll the recursion into a loop, which is not always feasible.</li>
+  <li>If recursion depth is small and known in advance, consider manual loop unrolling instead.</li>
+</ul>
+
+<h3 id="3-function-pointers-prevent-inlining">3. Function Pointers Prevent Inlining</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">func_ptr</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span> <span class="c1">// Assign function to pointer</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func_ptr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>     <span class="c1">// Compiler does not know function at compile time</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When using function pointers, the actual function call is determined at runtime, not at compile time.</li>
+  <li>The compiler cannot replace function calls with direct code expansion because the target function is unknown during compilation.</li>
+  <li>Use direct function calls instead of function pointers when inlining is critical.</li>
+</ul>
+
+<h2 id="forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</h2>
+
+<p>If the compiler ignores inline, you can explicitly force inlining using compiler-specific attributes.</p>
+
+<h3 id="1-gcc--clang-attributealways_inline">1. GCC &amp; Clang: <strong>attribute</strong>((always_inline))</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span> <span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Ensures the function will always be inlined, even if it’s large.</li>
+  <li>Only works if optimizations are enabled (-O2 or higher).</li>
+  <li>Forcing inlining on a large function can increase binary size and reduce cache efficiency.</li>
+</ul>
+
+<h3 id="2-msvc-microsoft-compiler-__forceinline">2. MSVC (Microsoft Compiler): __forceinline</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">__forceinline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Forces the function to be inlined in Microsoft compilers (MSVC).</li>
+  <li>Ensures consistent inlining behavior across different builds.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Use inline for:</p>
+
+<ul>
+  <li>Small, frequently used functions.</li>
+  <li>Performance-sensitive calculations (e.g., mathematical operations).</li>
+  <li>Functions that replace macros for better type safety.</li>
+</ul>
+
+<p>Avoid inline for:</p>
+
+<ul>
+  <li>Large functions (can increase binary size).</li>
+  <li>Recursive functions.</li>
+  <li>Functions used with pointers or virtual functions (C++).</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-are-macros-in-rust">What Are Macros in Rust?</a></li>
@@ -336,147 +654,7 @@ cargo <span class="nb">expand</span>
   <li>You need easier debugging -&gt; Functions are better.</li>
   <li>You don’t need compile-time code transformation -&gt; Functions work fine.</li>
   <li>Your macro logic is too complex -&gt; Hard to maintain.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
-  <li><a href="#why-use-inline-functions">Why Use inline Functions?</a></li>
-  <li><a href="#when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</a></li>
-  <li><a href="#forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="what-is-an-inline-function-in-c">What Is an inline Function in C?</h2>
-
-<p>An <code class="language-plaintext highlighter-rouge">inline</code> function is a special function in C that suggests the compiler replace the function call with its actual code to optimize performance.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span>
-<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: int result = (5 * 5);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>When the compiler processes <code class="language-plaintext highlighter-rouge">square(5)</code>, it replaces the function call with its definition: <code class="language-plaintext highlighter-rouge">int result = (5 * 5);</code></li>
-  <li>This eliminates the overhead of function calls, potentially improving performance.</li>
-</ul>
-
-<h2 id="why-use-inline-functions">Why Use inline Functions?</h2>
-
-<ul>
-  <li>Performance Optimization – Reduces function call overhead.</li>
-  <li>Encapsulation – Keeps function logic organized while avoiding extra calls.</li>
-  <li>Reduced Stack Usage – No need to store function call metadata in the stack.</li>
-</ul>
-
-<h2 id="when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</h2>
-
-<p>However, unlike Rust macros, inline in C is just a hint to the compiler—it does not guarantee inlining. The compiler decides whether to actually inline the function based on various optimization criteria.</p>
-
-<p>Despite marking a function as inline, the compiler might not inline it in the following cases:</p>
-
-<h3 id="1️-the-function-is-too-large">1️. The Function Is Too Large</h3>
-
-<p>If a function contains too many instructions, inlining it could increase code size unnecessarily.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">big_function</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Large loop</span>
-        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Expanding this function in multiple places increases binary size.</li>
-  <li>Too much code duplication can harm performance rather than improve it.</li>
-  <li>The compiler might keep it as a regular function instead.</li>
-</ul>
-
-<h3 id="2-recursive-functions">2. Recursive Functions</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Recursive call</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Inlining a recursive function is impossible in most cases because the function keeps calling itself.</li>
-  <li>The compiler would need to unroll the recursion into a loop, which is not always feasible.</li>
-  <li>If recursion depth is small and known in advance, consider manual loop unrolling instead.</li>
-</ul>
-
-<h3 id="3-function-pointers-prevent-inlining">3. Function Pointers Prevent Inlining</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">func_ptr</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span> <span class="c1">// Assign function to pointer</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func_ptr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>     <span class="c1">// Compiler does not know function at compile time</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>When using function pointers, the actual function call is determined at runtime, not at compile time.</li>
-  <li>The compiler cannot replace function calls with direct code expansion because the target function is unknown during compilation.</li>
-  <li>Use direct function calls instead of function pointers when inlining is critical.</li>
-</ul>
-
-<h2 id="forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</h2>
-
-<p>If the compiler ignores inline, you can explicitly force inlining using compiler-specific attributes.</p>
-
-<h3 id="1-gcc--clang-attributealways_inline">1. GCC &amp; Clang: <strong>attribute</strong>((always_inline))</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span> <span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Ensures the function will always be inlined, even if it’s large.</li>
-  <li>Only works if optimizations are enabled (-O2 or higher).</li>
-  <li>Forcing inlining on a large function can increase binary size and reduce cache efficiency.</li>
-</ul>
-
-<h3 id="2-msvc-microsoft-compiler-__forceinline">2. MSVC (Microsoft Compiler): __forceinline</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">__forceinline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Forces the function to be inlined in Microsoft compilers (MSVC).</li>
-  <li>Ensures consistent inlining behavior across different builds.</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Use inline for:</p>
-
-<ul>
-  <li>Small, frequently used functions.</li>
-  <li>Performance-sensitive calculations (e.g., mathematical operations).</li>
-  <li>Functions that replace macros for better type safety.</li>
-</ul>
-
-<p>Avoid inline for:</p>
-
-<ul>
-  <li>Large functions (can increase binary size).</li>
-  <li>Recursive functions.</li>
-  <li>Functions used with pointers or virtual functions (C++).</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#the-problem">The Problem</a></li>
@@ -1569,126 +1747,4 @@ For example, There are 4 nodes A, B, C, D.
 
 <ul>
   <li><a href="https://informal.systems/blog/a-new-mempool-gossip-protocol-for-cometbft">A New Mempool Gossip Protocol for CometBFT</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[DOG(Dynamic Optimal Graph) is a new gossip protocol for CometBFT, reduces the bandwidth consumption by decreasing the duplicated messages.]]></summary></entry><entry><title type="html">Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design</title><link href="http://localhost:4000/2024/12/17/what-is-narwhal/" rel="alternate" type="text/html" title="Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" /><published>2024-12-17T00:00:00+09:00</published><updated>2024-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/17/what-is-narwhal</id><content type="html" xml:base="http://localhost:4000/2024/12/17/what-is-narwhal/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#what-is-narwhal">What is Narwhal?</a></li>
-  <li><a href="#worker-and-primary">Worker and Primary</a></li>
-  <li><a href="#the-process-of-narwhal">The process of Narwhal</a></li>
-  <li><a href="#narwhal-combined-with-consensus-protocol">Narwhal combined with consensus protocol</a></li>
-  <li><a href="#limitations">Limitations</a></li>
-</ul>
-
-<h2 id="what-is-narwhal">What is Narwhal?</h2>
-
-<p>Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency.</p>
-
-<p>Narwhal was introduced in the paper <a href="https://arxiv.org/abs/2105.11827">“Narwhal and Tusk: A DAG-based Mempool and Efficient BFT Consensus”</a>. Narwhal processes transaction propagation and validation in separate, worker and primary layers to reduce bottlenecks and provide modular-based data availability.</p>
-
-<p>Narwhal uses DAG(Directed Acyclic Graph) to clearly define dependencies between transaction data, thereby maximizing parallelism and scalability. DAG flexibly manages the order of transactions and supports stable data propagation even when the network is massively expanded.</p>
-
-<p><img src="https://github.com/user-attachments/assets/975a0c88-d70b-47c9-b1f8-1f9b0808baf1" alt="The relationship in the process of Narwhal" /></p>
-
-<p><em>@The relationship in the process of Narwhal</em></p>
-
-<h2 id="worker-and-primary">Worker and Primary</h2>
-
-<p>When the client sends a transaction, it goes to the worker located in the node. Transactions are delivered to workers simultaneously, and each worker groups the received transactions into batches.</p>
-
-<p>When transactions accumulate over a certain period or exceed a specified size, the batches created up to that point are transmitted to other nodes.</p>
-
-<p>Nodes validate the received batch and send back a signature of itself to the origin worker. When a worker receives 2f + 1 of the signatures from other nodes, it creates a ‘Mempool block’, including a certificate.</p>
-
-<p><img src="https://github.com/user-attachments/assets/36fc3b5e-1911-4d9d-8b78-8b33c7daa697" alt="The design of the mempool block. r is round, and i is block number" /></p>
-
-<p><em>@The design of the mempool block. r is round, and i is block number</em></p>
-
-<p>The certificate list guarantees that this Mempool block is already validated by 2f + 1 signatures from other nodes is reusable and does not need to re-propagate transactions even though the proposal has failed.</p>
-
-<p>The primary receives Mempool blocks from workers in the same node and creates DAG for managing dependency between transactions. DAG uses authenticated Mempool blocks as nodes, and the relationships (parent-child) between each mempool block as edges connecting the nodes to determine the order of transactions and use them as data for consensus.</p>
-
-<h2 id="the-process-of-narwhal">The process of Narwhal</h2>
-
-<h3 id="1-make-batches-from-transactions-and-broadcast">1. Make batches from transactions and broadcast</h3>
-
-<p>As described above, transactions sent from clients are generated in batches over a certain period or when a certain size is satisfied.</p>
-
-<h3 id="2-get-the-signature-of-thenode">2. Get the signature of the node</h3>
-
-<p>Nodes send back their signature to the origin node worker, not a different worker. When signature data is disseminated randomly, network traffic is increased, and data integrity is difficult to ensure.
-Every batch has metadata, including the ID of the batch and worker. A worker who receives batches can send them back to the origin worker due to their containing worker ID.</p>
-
-<h3 id="3-make-the-mempool-block-with-certification">3. Make the mempool block with certification</h3>
-
-<p>When the worker receives more than 2f + 1 signature from other nodes, the worker creates a ‘Mempool block’ including transaction information, signature, etc.</p>
-
-<p>Mempool block has a certification list, not a single certification to reuse when the proposal is failed. It could be a waste of network resources if the Mempool block has to obtain signatures from other nodes in every round, even though they already made certification from signatures of other nodes in previous rounds.</p>
-
-<h3 id="4-send-dag-to-the-leadernode">4. Send DAG to the leader node</h3>
-
-<p>Validator nodes transmit the DAG generated over a certain period to the primary of the leader node. The leader node arranges Mempool blocks from received DAGs into a single DAG and sends it to other nodes for proposal. Non-validators also generate DAG but do not send it to the leader node.</p>
-
-<h3 id="5-when-the-round-isfailed">5. When the round is failed</h3>
-
-<p>A round is a logical unit of time during which transaction data is propagated through the network and consensus is reached. Round failures can occur due to leader failure, network delays, malicious node behavior, etc.</p>
-
-<p>In Narwhal, a round is defined as a process in which a specific leader is designated, and the leader merges DAG data to attempt consensus.</p>
-
-<h4 id="in-worker">In worker</h4>
-
-<ul>
-  <li>
-    <p>Even though the round failed, a worker maintains the Mempool block and reuses it in the next round.</p>
-  </li>
-  <li>
-    <p>Since the worker continues to collect new transactions from clients regardless of round failure, new transactions are bundled into the next batch, including transactions from the previous batch, and propagated to the network.</p>
-  </li>
-  <li>
-    <p>A batch is converted into a Mempool Block when a worker collects more than 2f+1 signatures from other nodes.</p>
-  </li>
-</ul>
-
-<h4 id="in-primary">In primary</h4>
-
-<ul>
-  <li>Since the previous Mempool block is already allocated in DAG, it can be reused in the next round.</li>
-</ul>
-
-<h2 id="narwhal-combined-with-consensus-protocol">Narwhal combined with consensus protocol</h2>
-
-<p>Most consensus algorithms, including PBFT and Hotstuff, operating with strongly coupled data propagation and consensus in the consensus process, can be improved in performance when they use Narwhal.</p>
-
-<p>Narwhal provides increased network performance from completely separated data propagation and consensus.</p>
-
-<h3 id="data-propagation">Data Propagation</h3>
-
-<ul>
-  <li>
-    <p>In Narwhal, data availability can be ensured by both workers collecting transaction data and primary generating DAG.</p>
-  </li>
-  <li>
-    <p>Since transaction data is propagated independently from the consensus process, the data remains valid even if the consensus fails.</p>
-  </li>
-</ul>
-
-<h3 id="consensus">Consensus</h3>
-
-<ul>
-  <li>Since Narwhal has already completed the data propagation, HotStuff only needs to agree on the DAG state, which is already guaranteed by the worker and primary from Narwhal.</li>
-</ul>
-
-<p><img src="https://github.com/user-attachments/assets/3107439d-ce19-4e25-bf88-483243ad68ac" alt="Differences between Narwhal-based consensus and standalone" /></p>
-
-<p><em>@Differences between Narwhal-based consensus and standalone</em></p>
-
-<h2 id="limitations">Limitations</h2>
-
-<p>Because of the mesh structure in DAG, the complexity and size would be increased rapidly when the network expands and the number of transactions is increased. To solve this, we need a strategy to periodically clean up old Mempool blocks or limit the depth and size of the DAG.</p>
-
-<p>Also, Narwhal maintains previous DAG data, which the proposal failed, and reuses them in the next round. We also need a policy to efficiently discard old data or merge it with additional data.</p>
-
-<h2 id="references">References</h2>
-
-<ul>
-  <li><a href="https://arxiv.org/abs/2105.11827">Narwhal and Tusk: A DAG-based Mempool and Efficient BFT Consensus</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency. Narwhal was introduced in the paper “Narwhal and Tusk…"]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[DOG(Dynamic Optimal Graph) is a new gossip protocol for CometBFT, reduces the bandwidth consumption by decreasing the duplicated messages.]]></summary></entry></feed>
