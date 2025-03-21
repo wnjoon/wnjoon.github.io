@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-21T14:50:36+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-21T15:04:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
@@ -80,6 +80,9 @@
 
 <p>And yes, macOS no longer struggles with Korean fonts or certificates. That ship has sailed.</p>
 
+<p><img src="https://github.com/user-attachments/assets/cd97cb20-e494-43cc-8167-484784e28a2b" alt="Image" />
+@ <a href="https://www.apple.com/kr/macbook-pro/mac-does-that/">And Apple says you can easily switch from Windows to macOS :)</a>.</p>
+
 <h2 id="the-hidden-costs-accessories--compatibility">The Hidden Costs: Accessories &amp; Compatibility</h2>
 
 <p>You might need to buy extra accessories.</p>
@@ -143,7 +146,7 @@
 
 <p>Buy what fits your budget and purpose. Don’t overthink it. And remember — MacBooks are not mandatory for developers.</p>
 
-<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[This post is for those who are considering getting a MacBook but are unsure if they need one.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="macbook" /><summary type="html"><![CDATA[Just because it’s expensive doesn’t mean it’s the right choice — and a MacBook might not be the answer for everyone. This post explores whether a MacBook truly fits your needs, budget, and lifestyle — especially if you’re a student or aspiring developer.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</a></li>
