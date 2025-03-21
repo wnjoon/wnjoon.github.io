@@ -1,5 +1,149 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-21T14:09:30+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-21T14:50:36+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#target-readers">Target Readers</a></li>
+  <li><a href="#introduction-so-many-laptops-why-macbook">Introduction: So Many Laptops, Why MacBook?</a></li>
+  <li><a href="#macbooks-are-pretty-period">MacBooks Are Pretty. Period</a></li>
+  <li><a href="#is-a-macbook-necessary-for-developers">Is a MacBook Necessary for Developers?</a></li>
+  <li><a href="#the-ill-use-it-forever-justification">The “I’ll Use It Forever” Justification</a></li>
+  <li><a href="#is-macos-hard-to-use">Is macOS Hard to Use?</a></li>
+  <li><a href="#the-hidden-costs-accessories--compatibility">The Hidden Costs: Accessories &amp; Compatibility</a></li>
+  <li><a href="#but-what-about-apple-ecosystem--aesthetics">But What About Apple Ecosystem &amp; Aesthetics?</a></li>
+  <li><a href="#can-you-game-on-a-mac">Can You Game on a Mac?</a></li>
+  <li><a href="#final-thoughts">Final Thoughts</a></li>
+</ul>
+
+<h2 id="target-readers">Target Readers</h2>
+
+<ul>
+  <li>Aspiring developers</li>
+  <li>Students looking to buy their first laptop</li>
+  <li>Non-tech users who still want a cool MacBook</li>
+</ul>
+
+<h2 id="introduction-so-many-laptops-why-macbook">Introduction: So Many Laptops, Why MacBook?</h2>
+
+<p>Back in my college days, ThinkPads (a.k.a. the famous red-dotted “bbalkkong”) were the go-to laptops for CS majors. Brands like Dell and HP were also quite popular. Out of patriotism (and practicality), I chose a lightweight 11-inch LG laptop.</p>
+
+<p>Then came the game-changer: the 13-inch Retina MacBook in 2014. I saw that crisp screen once and was sold.</p>
+
+<p>Since then, for over 10 years, my main work machine has always been a MacBook. But now that MacBooks are more popular than ever — especially among developers — it’s worth asking…</p>
+
+<p><strong>“Do you really need a MacBook to become a developer?”</strong></p>
+
+<h2 id="macbooks-are-pretty-period">MacBooks Are Pretty. Period</h2>
+
+<p>Let’s get real. One of the strongest appeals of a MacBook is its beauty. It’s not just a laptop — it’s a fashion statement, a status symbol, and yes, a design masterpiece.</p>
+
+<p>From “Why would you get that overpriced laptop?” to “You must have a MacBook to code!” — the perception of the MacBook in Korea and beyond has changed drastically.</p>
+
+<p>Yes, Apple’s silicon chips are powerful. Yes, Windows laptops are getting pricier too. But ultimately…</p>
+
+<p><strong>“You buy a MacBook first because it looks amazing.”</strong></p>
+
+<p>And honestly, that’s okay.</p>
+
+<h2 id="is-a-macbook-necessary-for-developers">Is a MacBook Necessary for Developers?</h2>
+
+<p>Many say that since macOS is Unix-based, it’s easier for developers — especially those working with Linux servers. That was definitely true… in the past.</p>
+
+<p>But Windows has caught up. With WSL2 (Windows Subsystem for Linux), you can run full Linux environments natively on Windows — no need for virtual machines or complex setups.</p>
+
+<p>Plus, Apple’s shift to ARM-based chips (M1, M2, M3, etc.) created some compatibility issues with traditional x86 Linux environments. While tools like Docker help mitigate that, it’s not all smooth sailing.</p>
+
+<p><strong>“A MacBook might not always be better — just different.”</strong></p>
+
+<p>So no, being a developer doesn’t require a MacBook. Windows with WSL is now more than capable — and in some cases, even better suited for server-side development.</p>
+
+<h2 id="the-ill-use-it-forever-justification">The “I’ll Use It Forever” Justification</h2>
+
+<p>It’s common to see questions like:</p>
+
+<p><strong>“I’m just learning to code now… should I max out the CPU and RAM?”</strong></p>
+
+<p>My take? No. Unless you’re editing 8K videos or training AI models, a base model MacBook Air is more than enough.</p>
+
+<p>I’ve used the 2020 M1 MacBook Pro for over 4 years with zero issues — and I’m a professional developer.</p>
+
+<p><strong>“Buy for your current needs. Upgrade later if you actually need to.”</strong></p>
+
+<p>And yes, 16-inch models look cool, but they’re heavy. If you commute on foot or public transport, go 14-inch or smaller.</p>
+
+<h2 id="is-macos-hard-to-use">Is macOS Hard to Use?</h2>
+
+<p>For lifelong Windows users: yes, at first. macOS does things differently — keyboard shortcuts, window management, file system, etc.</p>
+
+<p>But you’ll adapt. Humans are adaptable creatures.</p>
+
+<p>If you’re used to Microsoft Office or specific Korean software, there might be hiccups — but these days, most major apps support macOS just fine.</p>
+
+<p>And yes, macOS no longer struggles with Korean fonts or certificates. That ship has sailed.</p>
+
+<h2 id="the-hidden-costs-accessories--compatibility">The Hidden Costs: Accessories &amp; Compatibility</h2>
+
+<p>You might need to buy extra accessories.</p>
+
+<ul>
+  <li>USB hubs, dongles, adapters — they add up.</li>
+  <li>Cheaper accessories can cause damage. Get reputable brands.</li>
+</ul>
+
+<p>Windows on Mac? Not easy anymore.</p>
+
+<ul>
+  <li>Since Apple moved to their own chips, BootCamp is gone.</li>
+  <li>You’ll need virtualization software (like Parallels), and even that costs money -  plus a Windows license.</li>
+</ul>
+
+<h2 id="but-what-about-apple-ecosystem--aesthetics">But What About Apple Ecosystem &amp; Aesthetics?</h2>
+
+<p>Some say:</p>
+
+<p><strong>“If you have an iPhone, iPad, AirPods — you should definitely get a MacBook too.”</strong></p>
+
+<p>Not necessarily.</p>
+
+<p>Sure, continuity features like AirDrop or shared clipboard are nice. But you won’t lose much by not having them either.</p>
+
+<p>You don’t need to complete the Apple Infinity Gauntlet.</p>
+
+<p>Also: yes, it looks amazing at Starbucks. My wife uses a Galaxy Book, I still take my MacBook.</p>
+
+<h2 id="can-you-game-on-a-mac">Can You Game on a Mac?</h2>
+
+<p>Short answer: You can. Long answer: It’s not ideal, but it’s getting better.</p>
+
+<p>Cloud gaming, browser-based games, and new compatibility layers (like Wine, Crossover, etc.) help. But if you’re a serious gamer? Stick with Windows.</p>
+
+<p><strong>“But hey, long gaming sessions aren’t healthy anyway.”</strong></p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>I’ve used MacBooks for over 10 years — and never regretted it. But that doesn’t mean it’s the right choice for everyone.</p>
+
+<p>Here’s what I’ll say:</p>
+
+<p>Get a MacBook if:</p>
+
+<ul>
+  <li>You love the design</li>
+  <li>You want a reliable, well-optimized device</li>
+  <li>You value battery life and quiet operation</li>
+  <li>You’re okay adapting to macOS</li>
+</ul>
+
+<p>Don’t get one if:</p>
+
+<ul>
+  <li>You’re on a tight budget</li>
+  <li>You need specific Windows-only software</li>
+  <li>You game a lot</li>
+</ul>
+
+<p>Buy what fits your budget and purpose. Don’t overthink it. And remember — MacBooks are not mandatory for developers.</p>
+
+<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[This post is for those who are considering getting a MacBook but are unsure if they need one.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</a></li>
@@ -1617,134 +1761,4 @@ This affects how append operations work:</p>
   <li>s2 was initialized with a length of 1, so it already contains a zero ([0]).</li>
   <li>When appending a new element (1), it exceeds the initial capacity of 1, causing Go to double the capacity to 2.</li>
   <li>On the other hand, s1 starts with length 0, so appending a single element does not exceed its initial capacity.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures.]]></summary></entry><entry><title type="html">DOG: A New Gossip Protocol for CometBFT</title><link href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" rel="alternate" type="text/html" title="DOG: A New Gossip Protocol for CometBFT" /><published>2024-12-26T00:00:00+09:00</published><updated>2024-12-26T00:00:00+09:00</updated><id>http://localhost:4000/2024/12/26/dog-gossip-protocol</id><content type="html" xml:base="http://localhost:4000/2024/12/26/dog-gossip-protocol/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#for-the-busy-modern-soul">For the busy modern soul</a></li>
-  <li><a href="#the-usefulness-of-dog-in-the-persistent-peering-network">The usefulness of DOG in the persistent peering network</a></li>
-  <li><a href="#comparison-flood-gossip-protocol">Comparison: Flood gossip protocol</a></li>
-</ul>
-
-<h2 id="for-the-busy-modern-soul">For the busy modern soul</h2>
-
-<p>DOG optimizes the path for transmitting transactions to each node.</p>
-
-<ul>
-  <li>When the sent transaction is returned (cycle), it closes the path by sending a <code class="language-plaintext highlighter-rouge">HaveTx</code> message to the peer that sent the transaction.</li>
-  <li><code class="language-plaintext highlighter-rouge">HaveTx</code> message only carries the transaction hash, so there is little network overhead.</li>
-  <li>Gradually remove unnecessary paths to minimize duplicate transactions.
-    <ul>
-      <li>In the paper, It is called a <em>Closed-loop redundancy controller</em> which is a mechanism for the system to monitor the current network status and dynamically adjust the level of redundant propagation.</li>
-    </ul>
-  </li>
-  <li>Finally, a <code class="language-plaintext highlighter-rouge">superposition of directed spanning tree</code> structure is created with each node as the root.</li>
-</ul>
-
-<p><img src="https://github.com/user-attachments/assets/44f98095-8a47-442e-9e26-62c02569e8fb" alt="Initially all routes are open" /></p>
-
-<p><em>@Initially all routes are open</em></p>
-
-<p><img src="https://github.com/user-attachments/assets/19b8b63c-00aa-4b00-92b4-24e2a72c4d7a" alt="The result of directed spanning trees" /></p>
-
-<p><em>@The result: Directed spanning trees, where each node has a single, optimal path to reach every other node.</em></p>
-
-<p>Redundancy Controller is used to set the transaction duplication tolerance range per node.</p>
-
-<ul>
-  <li>Redundancy Level
-    <ul>
-      <li>
-        <p>The percentage of redundancy allowed in the overall transaction flow</p>
-
-        <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Redundancy Level <span class="o">=</span> 1 / Allowable redundancy ratio
-</code></pre></div>        </div>
-      </li>
-      <li>The lower the Redundancy Level, the lower the tolerance for duplicate transactions</li>
-      <li>f.e. <code class="language-plaintext highlighter-rouge">Redundancy Level = 0.5</code> means when 100 different transactions come in, up to 50 duplicate transactions can be received</li>
-      <li>If duplicate transactions are lower than the allowable range, a <code class="language-plaintext highlighter-rouge">ResetRoute</code> message is sent to the peer to reactivate the closed route</li>
-    </ul>
-  </li>
-</ul>
-
-<p>Test Results</p>
-
-<ul>
-  <li>
-    <p>In the test, transactions were transmitted at a speed of 500tx/s for 15 minutes from 200 nodes</p>
-  </li>
-  <li>
-    <p>Mempool: As the path is built, the mempool size and cache hit count gradually decrease</p>
-  </li>
-  <li>Consensus
-    <ul>
-      <li>More stable block production</li>
-      <li>Less additional consensus rounds for the validator is needed</li>
-      <li>8 times less missing validators during voting</li>
-      <li>About 2.7 times less missed blocks</li>
-      <li>Additional 10% reduction in network traffic generated by <code class="language-plaintext highlighter-rouge">BlockPart</code> messages</li>
-    </ul>
-  </li>
-  <li>Resource usage and latency
-    <ul>
-      <li>CPU usage reduced by 43%</li>
-      <li>Memory usage reduced by 10%</li>
-      <li>Total transaction verification time (checkTx) reduced by 10%</li>
-      <li>Average latency: Flood (3.63s), DOG (3.14s)</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="the-usefulness-of-dog-in-the-persistent-peering-network">The usefulness of DOG in the persistent peering network</h2>
-
-<p>Persistent peering network is a network where nodes are connected to each other in a persistent way, meaning that nodes are always connected to each other. All validators are connected to each other, and since there are no multi-hops in the network, all transactions can be propagated directly to all nodes in one hop.</p>
-
-<p>As you may have guessed, DOG is not an advantage in this environment. In a single-hop architecture, where a transaction from A to B does not need to go through C, no duplicate transactions occur. The biggest advantage of DOG is that it optimizes the overall network path by gradually reducing the paths where duplicate transactions can occur, so its use is unnecessary in this environment.</p>
-
-<p>However, this does not mean that DOG is completely unnecessary.</p>
-
-<p>Since it is not guaranteed that all nodes will always maintain connectivity, DOG can maintain network propagation by dynamically reconfiguring the path when a specific network connection becomes unstable.</p>
-
-<p>In addition, even in a direct peering environment, network bandwidth can be further reduced through duplicate transaction filtering. In particular, when unnecessary redundant data is propagated in communication between nodes, DOG can detect and minimize this.</p>
-
-<p>Finally, when the number of network nodes is greatly expanded, it may be realistically difficult to maintain persistent peering, but DOG can maintain efficient propagation even in large-scale networks by optimizing the transaction propagation path.</p>
-
-<h2 id="comparison-flood-gossip-protocol">Comparison: Flood gossip protocol</h2>
-
-<p><code class="language-plaintext highlighter-rouge">Flood</code> gossip protocol broadcasts a transaction to all peers in the network when the transaction is created.</p>
-
-<p>During this process, the same transaction may be transmitted multiple times.
-In a fully connected network, all nodes are directly connected to each other, which increases redundant propagation.</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Flood gossip protocol simply broadcast transactions without checking for duplication, which wastes bandwidth.
-
-For example, There are 4 nodes A, B, C, D.
-
-- If node A sends a transaction to nodes B, C, and D, then B, C, and D also send the same transaction back to each other.
-- Flood simply propagate without checking for transaction duplication, resulting in wasted bandwidth.
-</code></pre></div></div>
-
-<p>As a result, these problems occur:</p>
-
-<ul>
-  <li>Network bandwidth wastes
-    <ul>
-      <li>Duplicate transaction messages are continuously transmitted, which wastes bandwidth unnecessarily.</li>
-    </ul>
-  </li>
-  <li>Performance degradation
-    <ul>
-      <li>Transaction propagation speed may slow down as the network becomes overloaded.</li>
-    </ul>
-  </li>
-  <li>Scalability issues
-    <ul>
-      <li>As the number of network nodes increases, the number of duplicate propagated transactions also increases rapidly.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="references">References</h2>
-
-<ul>
-  <li><a href="https://informal.systems/blog/a-new-mempool-gossip-protocol-for-cometbft">A New Mempool Gossip Protocol for CometBFT</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="blockchain" /><summary type="html"><![CDATA[DOG(Dynamic Optimal Graph) is a new gossip protocol for CometBFT, reduces the bandwidth consumption by decreasing the duplicated messages.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures.]]></summary></entry></feed>
