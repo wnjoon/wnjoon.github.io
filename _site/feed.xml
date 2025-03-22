@@ -1,5 +1,143 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-21T15:04:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-22T11:46:50+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#strings-in-rust">Strings in Rust</a></li>
+  <li><a href="#strings-in-go">Strings in Go</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="strings-in-rust">Strings in Rust</h2>
+
+<h3 id="str--string-slice">&amp;str – String Slice</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"hello"</span><span class="p">;</span> <span class="c1">// &amp;str</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Immutable, read-only reference to a string</li>
+  <li>Stored in static memory (binary section)</li>
+  <li>Does not use the heap</li>
+</ul>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"hello"</span><span class="p">;</span> 
+<span class="c1">// s points to the memory address of the "hello" string</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s">"bye"</span><span class="p">;</span>
+<span class="c1">// s now points to a new memory address for "bye"</span>
+<span class="c1">// The value isn't modified — the reference changes</span>
+
+<span class="c1">// diagram</span>
+<span class="c1">// "string type variable only points to the memory address"</span>
+<span class="c1">// s -&gt; 0x1234["hello"] </span>
+<span class="c1">// s -&gt; 0x5678["bye"]</span>
+</code></pre></div></div>
+
+<h3 id="string--heap-allocated-mutable-string">String – Heap-Allocated Mutable String</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">mut</span> <span class="n">s</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"hello"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Mutable, owns the data</li>
+  <li>Stored on the heap</li>
+  <li>You can modify it using methods like .push_str() and .clear()</li>
+</ul>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">s1</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span> 
+<span class="c1">// creates an empty string</span>
+
+<span class="n">s1</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"hello"</span><span class="p">);</span> <span class="c1">// compile error — not mutable</span>
+
+<span class="k">let</span> <span class="k">mut</span> <span class="n">s2</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span> <span class="c1">// mutable</span>
+
+<span class="n">s2</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"hello"</span><span class="p">);</span>
+<span class="n">s2</span><span class="nf">.push_str</span><span class="p">(</span><span class="s">" world"</span><span class="p">);</span>      <span class="c1">// "hello world"</span>
+</code></pre></div></div>
+
+<h2 id="strings-in-go">Strings in Go</h2>
+
+<h3 id="string">string</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test</span> <span class="o">:=</span> <span class="s">"first"</span>
+<span class="n">test</span> <span class="o">=</span> <span class="s">"second"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Immutable value type</li>
+  <li>Internally, a string is just a struct with a byte pointer and length:</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="kt">string</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">data</span> <span class="o">*</span><span class="kt">byte</span>
+    <span class="nb">len</span>  <span class="kt">int</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Assigning a new string creates a new string object in memory</li>
+  <li>You cannot modify part of a string directly</li>
+</ul>
+
+<h3 id="how-to-modify-strings-in-go">How to “Modify” Strings in Go</h3>
+
+<p>To modify a string in Go, convert it into a mutable byte slice:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">:=</span> <span class="s">"hello"</span>
+<span class="n">b</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>   <span class="c">// Convert to byte slice</span>
+<span class="n">b</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'H'</span>       <span class="c">// Modify</span>
+<span class="n">s2</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>  <span class="c">// Convert back to string</span>
+
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>  <span class="c">// "Hello"</span>
+</code></pre></div></div>
+
+<h2 id="rust-vs-go-strings-at-a-glance">Rust vs Go: Strings at a Glance</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Go</th>
+      <th>Rust</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Immutable string</td>
+      <td>string</td>
+      <td>&amp;str</td>
+    </tr>
+    <tr>
+      <td>Mutable string (heap allocated)</td>
+      <td>[]byte, []rune</td>
+      <td>String</td>
+    </tr>
+    <tr>
+      <td>Modify string variable (new value)</td>
+      <td>s = “new”</td>
+      <td>s = String::from(…)</td>
+    </tr>
+    <tr>
+      <td>Modify string content</td>
+      <td>via []byte conversion</td>
+      <td>via mutable String</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<ul>
+  <li>In both Rust and Go, default strings are immutable — they point to memory, but do not allow direct content modification.</li>
+  <li>To change the content of a <code class="language-plaintext highlighter-rouge">string</code>:
+    <ul>
+      <li>In Rust, use a mutable <code class="language-plaintext highlighter-rouge">String</code></li>
+      <li>In Go, convert to <code class="language-plaintext highlighter-rouge">[]byte</code> or <code class="language-plaintext highlighter-rouge">[]rune</code></li>
+    </ul>
+  </li>
+  <li>If you’re just changing the entire string value, you’re assigning a new memory reference either way.</li>
+  <li>Rust gives more fine-grained control over memory and mutability, while Go keeps things simple but less flexible when it comes to string manipulation.</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#target-readers">Target Readers</a></li>
@@ -1680,88 +1818,4 @@ and have the courage to delay or eliminate tasks that don’t fit into your sche
 The difference is that they distinguish between what is important and what is not.</p>
 
 <p>They don’t try to do it all.
-Instead, they focus on their priorities with a sense of humility — knowing that time is limited, and they must make the most of it.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Even the most exceptional people can’t do everything—they simply prioritize what truly matters, recognizing their limits and making the most of their time with humility.]]></summary></entry><entry><title type="html">Understanding Slice Initialization and Capacity in Go</title><link href="http://localhost:4000/2025/03/02/go-slice-initialization/" rel="alternate" type="text/html" title="Understanding Slice Initialization and Capacity in Go" /><published>2025-03-02T00:00:00+09:00</published><updated>2025-03-02T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/02/go-slice-initialization</id><content type="html" xml:base="http://localhost:4000/2025/03/02/go-slice-initialization/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#summary">Summary</a></li>
-  <li><a href="#how-to-initialize-a-slice">How to Initialize a Slice</a></li>
-  <li><a href="#advantages-of-preallocating-capacity">Advantages of Preallocating Capacity</a></li>
-  <li><a href="#creating-a-slice-with-an-initial-length">Creating a Slice with an Initial Length</a></li>
-</ul>
-
-<h2 id="summary">Summary</h2>
-
-<ol>
-  <li>Preallocating capacity improves performance by reducing the number of reallocations when appending elements.</li>
-  <li>If a slice is initialized with a non-zero length, it is pre-filled with zero values.</li>
-  <li>Appending elements can trigger capacity expansion, usually doubling the size of the underlying array.</li>
-</ol>
-
-<h2 id="how-to-initialize-a-slice">How to Initialize a Slice</h2>
-
-<p>In Go, the following code snippet creates a slice with length 0 and capacity 1:</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Create a slice with length 0 and capacity 1</span>
-<span class="n">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">Length(len)</code>: The number of elements currently stored in the slice. This represents the number of initialized elements.</li>
-  <li><code class="language-plaintext highlighter-rouge">Capacity(cap)</code>: The total allocated size of the underlying array, which determines how many elements can be stored before reallocation is required.</li>
-</ul>
-
-<h2 id="advantages-of-preallocating-capacity">Advantages of Preallocating Capacity</h2>
-
-<p>In Go, when a slice reaches its capacity, the underlying array doubles in size upon expansion.
-If you expect a slice to grow significantly, preallocating capacity can improve performance by reducing memory reallocations.</p>
-
-<p>Here is an example of capacity expansion in slices:</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="c">// Initial capacity of 1</span>
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="c">// Output: 0 1</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span> <span class="c">// Fits within current capacity (1)</span>
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="c">// Output: 1 1</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="m">20</span><span class="p">)</span> <span class="c">// Exceeds capacity → reallocates (new capacity: 2)</span>
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="c">// Output: 2 2</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="m">30</span><span class="p">)</span> <span class="c">// Exceeds capacity again → reallocates (new capacity: 4)</span>
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="c">// Output: 3 4</span>
-</code></pre></div></div>
-
-<ul>
-  <li>When <code class="language-plaintext highlighter-rouge">append</code> is called, if the slice exceeds its current capacity, a new array is allocated with double the previous capacity.</li>
-  <li>This reduces the number of reallocations when appending elements, optimizing performance.</li>
-</ul>
-
-<h2 id="creating-a-slice-with-an-initial-length">Creating a Slice with an Initial Length</h2>
-
-<p>You can also specify the length when initializing a slice:</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s1</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="c">// Length 0, Capacity 1</span>
-<span class="n">s2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="c">// Length 1, Capacity 1</span>
-
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span> <span class="c">// Output: []</span>
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span> <span class="c">// Output: [0]</span>
-</code></pre></div></div>
-
-<h3 id="effect-of-initializing-a-slice-with-a-non-zero-length">Effect of Initializing a Slice with a Non-Zero Length</h3>
-
-<p>If you specify a non-zero length, the slice will be pre-filled with zero values.
-This affects how append operations work:</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s1</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> 
-<span class="n">s2</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> 
-
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="nb">cap</span><span class="p">(</span><span class="n">s1</span><span class="p">))</span> <span class="c">// Output: [1] 1</span>
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="nb">cap</span><span class="p">(</span><span class="n">s2</span><span class="p">))</span> <span class="c">// Output: [0,1] 2</span>
-</code></pre></div></div>
-
-<h3 id="why-does-s2-expand-its-capacity">Why Does s2 Expand Its Capacity?</h3>
-
-<ul>
-  <li>s2 was initialized with a length of 1, so it already contains a zero ([0]).</li>
-  <li>When appending a new element (1), it exceeds the initial capacity of 1, causing Go to double the capacity to 2.</li>
-  <li>On the other hand, s1 starts with length 0, so appending a single element does not exceed its initial capacity.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures.]]></summary></entry></feed>
+Instead, they focus on their priorities with a sense of humility — knowing that time is limited, and they must make the most of it.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Even the most exceptional people can’t do everything—they simply prioritize what truly matters, recognizing their limits and making the most of their time with humility.]]></summary></entry></feed>
