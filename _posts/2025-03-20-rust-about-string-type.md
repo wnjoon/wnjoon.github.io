@@ -101,10 +101,10 @@ fmt.Println(s2)  // "Hello"
 
 | Concept | Go | Rust |
 | --- | --- | --- |
-| Immutable string | string | &str |
-| Mutable string (heap allocated) | []byte, []rune | String |
-| Modify string variable (new value) | s = "new" | s = String::from(...) |
-| Modify string content | via []byte conversion | via mutable String |
+| Immutable string | `string` | `&str` |
+| Mutable string (heap allocated) | `[]byte`, `[]rune` | `String` |
+| Modify string variable (new value) | s = "new" | s = `String::from(...)` |
+| Modify string content | via `[]byte` conversion | via mutable `String` |
 
 ## Conclusion
 
