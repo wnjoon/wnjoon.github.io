@@ -1,161 +1,116 @@
 ---
 layout: post
-title:  "Expression Blocks vs Closures – What’s the Difference?"
-description: "In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func()."
+title:  "Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To"
+description: "Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels."
 categories: rust
 # tags: [ethereum, solidity, smartcontract]
-keywords: rust, expression-block, closure
+keywords: rust, loop-label
 comments: true
 ---
 
 ## Table of Contents
 
-- [Expression Blocks vs Closures](#expression-blocks-vs-closures)
-  - [Key Differences](#key-differences)
-  - [Expression Blocks: Inline One-Time Calculations](#expression-blocks-inline-one-time-calculations)
-  - [Closures: Anonymous Functions for Reuse and Flexibility](#closures-anonymous-functions-for-reuse-and-flexibility)
-- [Comparison with Go](#comparison-with-go)
-- [Summary: When to Use What?](#summary-when-to-use-what)
+- [Why Use Loop Labels in Rust?](#why-use-loop-labels-in-rust)
+- [Using loop with labels](#using-loop-with-labels)
+- [Using while with labels](#using-while-with-labels)
+- [Using for with labels](#using-for-with-labels)
+- [Using continue with labels](#using-continue-with-labels)
+- [Summary](#summary)
 
-## Expression Blocks vs Closures
+## Why Use Loop Labels in Rust?
 
-### Key Differences
+When you have nested loops, calling `break` or `continue` may only affect the nearest loop.
+If you want to target an outer loop, Rust lets you assign a label using the `label_name:` syntax.
 
-| Feature | Expression Block | Closure |
-| --- | --- | --- |
-| What it is | Inline calculation block | Anonymous function |
-| Execution timing | Immediately | When called |
-| Parameters | Not allowed | Allowed |
-| Captures outer variables | No | Yes |
-| Reusable | One-time | Yes |
-| Passable to other funcs | No | Yes |
-| Return value | Last expression | Last expression |
-
-### Expression Blocks: Inline One-Time Calculations
+## Using loop with labels
 
 ```rust
-let y = {
-    let x = 10;
-    x + 5
-};
-println!("{y}"); // 15
-```
+fn main() {
+    let mut count = 0;
 
-- Block used just for computing a value
-- Executed immediately
-- Returns the last expression (no semicolon)
-- Does not take parameters or capture external variables
-- Great for one-off logic that doesn’t need to be reused
+    'counting_up: loop {
+        println!("count = {count}");
+        let mut remaining = 10;
 
-#### When to Use Expression Blocks
+        loop {
+            println!("remaining = {remaining}");
+            
+            if remaining == 9 {
+                break; // exits this inner loop only
+            }
 
-- You need a value from a mini logic block
-- You don’t need parameters
-- You want instant evaluation
-- You’re not planning to reuse the logic
+            if count == 2 {
+                break 'counting_up; // exits the labeled outer loop
+            }
 
-#### Example: Using if, match, or even loop as a value
+            remaining -= 1;
+        }
 
-```rust
-let is_even = {
-    let n = 4;
-    if n % 2 == 0 { true } else { false }
-};
-
-let result = match 2 {
-    1 => "one",
-    2 => "two",
-    _ => "many",
-};
-
-let loop_value = {
-    let mut n = 0;
-    loop {
-        n += 1;
-        if n == 3 { break n * 10; }
+        count += 1;
     }
-};
-// loop_value == 30
-```
 
-**Note: `while` and `for` are statements, not expressions — they can’t be used like this.**
-
-### Closures: Anonymous Functions for Reuse and Flexibility
-
-```rust
-let add = |a: i32, b: i32| a + b;
-let result = add(3, 4); // 7
-```
-
-- Similar to anonymous functions in Go, JavaScript, etc.
-- Executed only when called
-- Can take parameters and capture external variables
-- Useful when passing logic into another function (e.g. `map`, `filter`)
-- Can be reused multiple times
-
-#### When to Use Closures
-
-- You need to reuse logic
-- You want to pass logic as a parameter to another function
-- You need to delay execution
-- You need to capture external values
-
-#### Common Use Cases
-
-##### 1. Parameterized Logic
-
-```rust
-let square = |x| x * x;
-println!("{}", square(5)); // 25
-```
-
-##### 2. Passing to Higher-Order Functions
-
-```rust
-let nums = vec![1, 2, 3];
-let doubled: Vec<_> = nums.iter().map(|x| x * 2).collect();
-// Result: [2, 4, 6]
-```
-
-##### 3. Threaded or Async Code
-
-```rust
-std::thread::spawn(|| {
-    println!("Hello from thread");
-});
-```
-
-##### 4. Capturing External Variables
-
-```rust
-let greeting = "Hi";
-let say_hello = |name| format!("{greeting}, {name}");
-println!("{}", say_hello("Alice")); // "Hi, Alice"
-```
-
-## Comparison with Go
-
-Go only has function literals (`func() { ... }`) — no concept of expression blocks as values.
-
-```go
-val := func() {
-    fmt.Println("hello")
+    println!("End count = {count}");
 }
-val() // Must be called
 ```
 
-In Rust:
+- `break` exits the inner loop
+- `break 'counting_up` exits the outer labeled loop
+- You can apply labels to any loop, not just loop blocks
 
-- Use closures for what you'd use `func() { ... }` in Go
-- Use expression blocks for inline logic to assign values quickly
+## Using while with labels
 
-## Summary: When to Use What?
+```rust
+fn main() {
+    let mut i = 0;
 
-| Situation | Use | Why |
-| --- | --- | --- |
-| Simple inline calculation | Expression block | Less syntax, faster execution |
-| Passing logic to another function | Closure | Closures are first-class citizens |
-| Accepting dynamic inputs | Closure | Accepting dynamic inputs |
-| Passing logic to another function | Closure | Closures take parameters |
-| Referencing external values | Closure | Can capture and use outer scope |
-| Like func() in Go | Closure | Closures = Go's anonymous functions |
+    'outer: while i < 5 {
+        let mut j = 0;
+        while j < 5 {
+            if i == 2 && j == 2 {
+                break 'outer; // exits the outer while loop
+            }
+            j += 1;
+        }
+        i += 1;
+    }
+
+    println!("Done: i = {i}");
+}
+```
+
+## Using for with labels
+
+```rust
+fn main() {
+    'outer: for x in 0..5 {
+        for y in 0..5 {
+            if x == 2 && y == 2 {
+                break 'outer; // exits the outer for loop
+            }
+            println!("x = {x}, y = {y}");
+        }
+    }
+}
+```
+
+## Using continue with labels
+
+```rust
+'outer: for x in 0..3 {
+    for y in 0..3 {
+        if y == 1 {
+            continue 'outer; // skips rest of inner loop and moves to next outer iteration
+        }
+        println!("x = {x}, y = {y}");
+    }
+}
+```
+
+## Summary
+
+| Concept | Description |
+| --- | --- |
+| break | Exits the nearest loop |
+| break 'label | Exits the specific loop with the given label |
+| continue 'label | Skips to the next iteration of the labeled loop |
+| Label works on | `loop`, `while`, `for`, and `continue` |

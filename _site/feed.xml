@@ -1,5 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-24T14:39:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Expression Blocks vs Closures – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Expression Blocks vs Closures – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-24T15:32:20+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
+  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
+  <li><a href="#using-while-with-labels">Using while with labels</a></li>
+  <li><a href="#using-for-with-labels">Using for with labels</a></li>
+  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
+
+<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
+If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
+
+<h2 id="using-loop-with-labels">Using loop with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">loop</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
+            
+            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
+            <span class="p">}</span>
+
+            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
+  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
+  <li>You can apply labels to any loop, not just loop blocks</li>
+</ul>
+
+<h2 id="using-while-with-labels">Using while with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
+            <span class="p">}</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-for-with-labels">Using for with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
+            <span class="p">}</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-continue-with-labels">Using continue with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
+        <span class="p">}</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break</td>
+      <td>Exits the nearest loop</td>
+    </tr>
+    <tr>
+      <td>break ‘label</td>
+      <td>Exits the specific loop with the given label</td>
+    </tr>
+    <tr>
+      <td>continue ‘label</td>
+      <td>Skips to the next iteration of the labeled loop</td>
+    </tr>
+    <tr>
+      <td>Label works on</td>
+      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
@@ -689,147 +814,7 @@
   <li><code class="language-plaintext highlighter-rouge">expect("msg")</code> – Safer panic with clear context.</li>
   <li><code class="language-plaintext highlighter-rouge">unwrap_or(default_value)</code> – Clean fallbacks.</li>
   <li><code class="language-plaintext highlighter-rouge">match</code>, <code class="language-plaintext highlighter-rouge">if let</code>, <code class="language-plaintext highlighter-rouge">?</code> – Idiomatic and safe.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
-  <li><a href="#why-use-inline-functions">Why Use inline Functions?</a></li>
-  <li><a href="#when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</a></li>
-  <li><a href="#forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="what-is-an-inline-function-in-c">What Is an inline Function in C?</h2>
-
-<p>An <code class="language-plaintext highlighter-rouge">inline</code> function is a special function in C that suggests the compiler replace the function call with its actual code to optimize performance.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span>
-<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: int result = (5 * 5);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>When the compiler processes <code class="language-plaintext highlighter-rouge">square(5)</code>, it replaces the function call with its definition: <code class="language-plaintext highlighter-rouge">int result = (5 * 5);</code></li>
-  <li>This eliminates the overhead of function calls, potentially improving performance.</li>
-</ul>
-
-<h2 id="why-use-inline-functions">Why Use inline Functions?</h2>
-
-<ul>
-  <li>Performance Optimization – Reduces function call overhead.</li>
-  <li>Encapsulation – Keeps function logic organized while avoiding extra calls.</li>
-  <li>Reduced Stack Usage – No need to store function call metadata in the stack.</li>
-</ul>
-
-<h2 id="when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</h2>
-
-<p>However, unlike Rust macros, inline in C is just a hint to the compiler—it does not guarantee inlining. The compiler decides whether to actually inline the function based on various optimization criteria.</p>
-
-<p>Despite marking a function as inline, the compiler might not inline it in the following cases:</p>
-
-<h3 id="1️-the-function-is-too-large">1️. The Function Is Too Large</h3>
-
-<p>If a function contains too many instructions, inlining it could increase code size unnecessarily.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">big_function</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Large loop</span>
-        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Expanding this function in multiple places increases binary size.</li>
-  <li>Too much code duplication can harm performance rather than improve it.</li>
-  <li>The compiler might keep it as a regular function instead.</li>
-</ul>
-
-<h3 id="2-recursive-functions">2. Recursive Functions</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Recursive call</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Inlining a recursive function is impossible in most cases because the function keeps calling itself.</li>
-  <li>The compiler would need to unroll the recursion into a loop, which is not always feasible.</li>
-  <li>If recursion depth is small and known in advance, consider manual loop unrolling instead.</li>
-</ul>
-
-<h3 id="3-function-pointers-prevent-inlining">3. Function Pointers Prevent Inlining</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">func_ptr</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span> <span class="c1">// Assign function to pointer</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func_ptr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>     <span class="c1">// Compiler does not know function at compile time</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>When using function pointers, the actual function call is determined at runtime, not at compile time.</li>
-  <li>The compiler cannot replace function calls with direct code expansion because the target function is unknown during compilation.</li>
-  <li>Use direct function calls instead of function pointers when inlining is critical.</li>
-</ul>
-
-<h2 id="forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</h2>
-
-<p>If the compiler ignores inline, you can explicitly force inlining using compiler-specific attributes.</p>
-
-<h3 id="1-gcc--clang-attributealways_inline">1. GCC &amp; Clang: <strong>attribute</strong>((always_inline))</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span> <span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Ensures the function will always be inlined, even if it’s large.</li>
-  <li>Only works if optimizations are enabled (-O2 or higher).</li>
-  <li>Forcing inlining on a large function can increase binary size and reduce cache efficiency.</li>
-</ul>
-
-<h3 id="2-msvc-microsoft-compiler-__forceinline">2. MSVC (Microsoft Compiler): __forceinline</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">__forceinline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Forces the function to be inlined in Microsoft compilers (MSVC).</li>
-  <li>Ensures consistent inlining behavior across different builds.</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Use inline for:</p>
-
-<ul>
-  <li>Small, frequently used functions.</li>
-  <li>Performance-sensitive calculations (e.g., mathematical operations).</li>
-  <li>Functions that replace macros for better type safety.</li>
-</ul>
-
-<p>Avoid inline for:</p>
-
-<ul>
-  <li>Large functions (can increase binary size).</li>
-  <li>Recursive functions.</li>
-  <li>Functions used with pointers or virtual functions (C++).</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-are-macros-in-rust">What Are Macros in Rust?</a></li>
@@ -1166,7 +1151,147 @@ cargo <span class="nb">expand</span>
   <li>You need easier debugging -&gt; Functions are better.</li>
   <li>You don’t need compile-time code transformation -&gt; Functions work fine.</li>
   <li>Your macro logic is too complex -&gt; Hard to maintain.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
+  <li><a href="#why-use-inline-functions">Why Use inline Functions?</a></li>
+  <li><a href="#when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</a></li>
+  <li><a href="#forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="what-is-an-inline-function-in-c">What Is an inline Function in C?</h2>
+
+<p>An <code class="language-plaintext highlighter-rouge">inline</code> function is a special function in C that suggests the compiler replace the function call with its actual code to optimize performance.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: int result = (5 * 5);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When the compiler processes <code class="language-plaintext highlighter-rouge">square(5)</code>, it replaces the function call with its definition: <code class="language-plaintext highlighter-rouge">int result = (5 * 5);</code></li>
+  <li>This eliminates the overhead of function calls, potentially improving performance.</li>
+</ul>
+
+<h2 id="why-use-inline-functions">Why Use inline Functions?</h2>
+
+<ul>
+  <li>Performance Optimization – Reduces function call overhead.</li>
+  <li>Encapsulation – Keeps function logic organized while avoiding extra calls.</li>
+  <li>Reduced Stack Usage – No need to store function call metadata in the stack.</li>
+</ul>
+
+<h2 id="when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</h2>
+
+<p>However, unlike Rust macros, inline in C is just a hint to the compiler—it does not guarantee inlining. The compiler decides whether to actually inline the function based on various optimization criteria.</p>
+
+<p>Despite marking a function as inline, the compiler might not inline it in the following cases:</p>
+
+<h3 id="1️-the-function-is-too-large">1️. The Function Is Too Large</h3>
+
+<p>If a function contains too many instructions, inlining it could increase code size unnecessarily.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">big_function</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Large loop</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Expanding this function in multiple places increases binary size.</li>
+  <li>Too much code duplication can harm performance rather than improve it.</li>
+  <li>The compiler might keep it as a regular function instead.</li>
+</ul>
+
+<h3 id="2-recursive-functions">2. Recursive Functions</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Recursive call</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Inlining a recursive function is impossible in most cases because the function keeps calling itself.</li>
+  <li>The compiler would need to unroll the recursion into a loop, which is not always feasible.</li>
+  <li>If recursion depth is small and known in advance, consider manual loop unrolling instead.</li>
+</ul>
+
+<h3 id="3-function-pointers-prevent-inlining">3. Function Pointers Prevent Inlining</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">func_ptr</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span> <span class="c1">// Assign function to pointer</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func_ptr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>     <span class="c1">// Compiler does not know function at compile time</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When using function pointers, the actual function call is determined at runtime, not at compile time.</li>
+  <li>The compiler cannot replace function calls with direct code expansion because the target function is unknown during compilation.</li>
+  <li>Use direct function calls instead of function pointers when inlining is critical.</li>
+</ul>
+
+<h2 id="forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</h2>
+
+<p>If the compiler ignores inline, you can explicitly force inlining using compiler-specific attributes.</p>
+
+<h3 id="1-gcc--clang-attributealways_inline">1. GCC &amp; Clang: <strong>attribute</strong>((always_inline))</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span> <span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Ensures the function will always be inlined, even if it’s large.</li>
+  <li>Only works if optimizations are enabled (-O2 or higher).</li>
+  <li>Forcing inlining on a large function can increase binary size and reduce cache efficiency.</li>
+</ul>
+
+<h3 id="2-msvc-microsoft-compiler-__forceinline">2. MSVC (Microsoft Compiler): __forceinline</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">__forceinline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Forces the function to be inlined in Microsoft compilers (MSVC).</li>
+  <li>Ensures consistent inlining behavior across different builds.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Use inline for:</p>
+
+<ul>
+  <li>Small, frequently used functions.</li>
+  <li>Performance-sensitive calculations (e.g., mathematical operations).</li>
+  <li>Functions that replace macros for better type safety.</li>
+</ul>
+
+<p>Avoid inline for:</p>
+
+<ul>
+  <li>Large functions (can increase binary size).</li>
+  <li>Recursive functions.</li>
+  <li>Functions used with pointers or virtual functions (C++).</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#the-problem">The Problem</a></li>
@@ -1764,187 +1889,4 @@ It serves as an identifier for a specific data entry managed by a module.</p>
   <li>GasKVStore ensures real-time tracking of gas consumption during transaction execution, preventing gas limit violations.</li>
   <li>Gas is consumed not only for CPU operations but also for accessing and modifying storage (KVStore).</li>
   <li>Optimizing key and value sizes can help reduce unnecessary gas costs.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="cosmos-sdk" /><summary type="html"><![CDATA[GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures that every read, write, and delete operation consumes gas, helping to prevent transactions from exceeding their gas limits.]]></summary></entry><entry><title type="html">Understanding Channel Iteration in Go: for range vs. select vs. switch</title><link href="http://localhost:4000/2025/03/09/go-channel-iteration/" rel="alternate" type="text/html" title="Understanding Channel Iteration in Go: for range vs. select vs. switch" /><published>2025-03-09T00:00:00+09:00</published><updated>2025-03-09T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/09/go-channel-iteration</id><content type="html" xml:base="http://localhost:4000/2025/03/09/go-channel-iteration/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#code-example-donation-goal-tracker">Code Example: Donation Goal Tracker</a></li>
-  <li><a href="#using-for-range-to-read-from-a-channel">Using for range to Read from a Channel</a></li>
-  <li><a href="#using-select-to-listen-for-channel-data">Using select to Listen for Channel Data</a></li>
-  <li><a href="#comparison-table-for-range-vs-select-vs-switch">Comparison Table: <code class="language-plaintext highlighter-rouge">for range</code> vs. <code class="language-plaintext highlighter-rouge">select</code> vs. <code class="language-plaintext highlighter-rouge">switch</code></a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="code-example-donation-goal-tracker">Code Example: Donation Goal Tracker</h2>
-
-<p>Below is a Go program that tracks donations using channels. Two goroutines (<code class="language-plaintext highlighter-rouge">f(10)</code> and <code class="language-plaintext highlighter-rouge">f(15)</code>) listen for updates on the donation balance, and another goroutine increments the balance every second.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-    <span class="s">"fmt"</span>
-    <span class="s">"time"</span>
-<span class="p">)</span>
-
-<span class="k">type</span> <span class="n">Donation</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">balance</span> <span class="kt">int</span>
-    <span class="n">ch</span>      <span class="k">chan</span> <span class="kt">int</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">donation</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Donation</span><span class="p">{</span><span class="n">ch</span><span class="o">:</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="kt">int</span><span class="p">)}</span>
-
-    <span class="c">// Listener Goroutine (Checks if goal amount is reached)</span>
-    <span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="n">balance</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">donation</span><span class="o">.</span><span class="n">ch</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">balance</span> <span class="o">&gt;=</span> <span class="n">goal</span> <span class="p">{</span>
-                <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">balance</span><span class="p">)</span>
-                <span class="k">return</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
-    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">15</span><span class="p">)</span>
-
-    <span class="c">// Updater Goroutine (Increases balance)</span>
-    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">{</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="o">++</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">ch</span> <span class="o">&lt;-</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span>
-        <span class="p">}</span>
-    <span class="p">}()</span>
-
-    <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">25</span> <span class="o">*</span> <span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span> <span class="c">// Keep the program running</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-for-range-to-read-from-a-channel">Using for range to Read from a Channel</h2>
-
-<p>This is same as the previous example, but written in a more concise way.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">balance</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">donation</span><span class="o">.</span><span class="n">ch</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="n">balance</span> <span class="o">&gt;=</span> <span class="n">goal</span> <span class="p">{</span>
-        <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">balance</span><span class="p">)</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="how-for-range-works">How for range Works</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">range donation.ch</code>: Iterates over incoming values from the channel.</li>
-  <li>Each time a new value is sent to <code class="language-plaintext highlighter-rouge">donation.ch</code>, it is immediately read and assigned to <code class="language-plaintext highlighter-rouge">balance</code>.</li>
-  <li>The loop continues waiting for new values until the channel is closed.</li>
-</ul>
-
-<h3 id="key-characteristics-of-for-range">Key Characteristics of for range</h3>
-
-<ul>
-  <li>Automatically waits for new values.</li>
-  <li>Stops when the channel is closed.</li>
-  <li>Simple and efficient for single-channel reading.</li>
-</ul>
-
-<h2 id="using-select-to-listen-for-channel-data">Using select to Listen for Channel Data</h2>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">{</span>
-        <span class="k">select</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="n">balance</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="n">donation</span><span class="o">.</span><span class="n">ch</span><span class="o">:</span> <span class="c">// Process incoming value</span>
-            <span class="k">if</span> <span class="n">balance</span> <span class="o">&gt;=</span> <span class="n">goal</span> <span class="p">{</span>
-                <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">balance</span><span class="p">)</span>
-                <span class="k">return</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="how-select-works">How select Works</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">case balance := &lt;-donation.ch</code>: Reads from the channel only when data is available.</li>
-  <li>Useful when monitoring multiple channels simultaneously.</li>
-  <li>Requires an explicit return or break to exit the loop.</li>
-</ul>
-
-<h3 id="key-characteristics-of-select">Key Characteristics of select</h3>
-
-<ul>
-  <li>Can handle multiple channels.</li>
-  <li>Only executes when a channel has data.</li>
-  <li>Requires an explicit exit condition.</li>
-</ul>
-
-<h2 id="why-switch-is-not-used">Why switch is Not Used</h2>
-
-<p>A switch statement is not suitable for continuously reading from a channel.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">{</span>
-    <span class="n">balance</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="n">donation</span><span class="o">.</span><span class="n">ch</span>
-    <span class="k">switch</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="n">balance</span> <span class="o">&gt;=</span> <span class="n">goal</span><span class="o">:</span>
-        <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">balance</span><span class="p">)</span>
-        <span class="k">return</span>
-    <span class="k">default</span><span class="o">:</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="problems-with-using-switch">Problems with Using switch</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">balance := &lt;-donation.ch</code>: Directly blocks waiting for a value (inefficient).</li>
-  <li><code class="language-plaintext highlighter-rouge">default</code>: Executes unconditionally when no case matches, which prevents proper subscription behavior.</li>
-</ul>
-
-<h3 id="key-characteristics-of-switch">Key Characteristics of switch</h3>
-
-<ul>
-  <li>Cannot wait for channel updates.</li>
-  <li>Inefficient because it forces direct value retrieval.</li>
-  <li><code class="language-plaintext highlighter-rouge">default</code> runs even when there’s no new data.</li>
-</ul>
-
-<h2 id="comparison-table-for-range-vs-select-vs-switch">Comparison Table: for range vs. select vs. switch</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Method</strong></th>
-      <th><strong>How It Works</strong></th>
-      <th><strong>Can Monitor Channels?</strong></th>
-      <th><strong>Exit Condition</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">for range</code></td>
-      <td>Iterates when new values arrive</td>
-      <td>Yes</td>
-      <td>Automatically stops when the channel is closed</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">select</code></td>
-      <td>Handles multiple channels</td>
-      <td>Yes</td>
-      <td>Requires explicit break or return</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">switch</code></td>
-      <td>Simple conditional statement</td>
-      <td>No</td>
-      <td>Must manually read values</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<ul>
-  <li>Use <code class="language-plaintext highlighter-rouge">for range</code> when working with a single channel that continuously receives values.</li>
-  <li>Use <code class="language-plaintext highlighter-rouge">select</code> when handling multiple channels or managing timeouts.</li>
-  <li>Avoid <code class="language-plaintext highlighter-rouge">switch</code> for channel reading, as it lacks proper subscription behavior.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, channels are commonly used for communication between goroutines. This post explores different ways to read from channels and handle incoming values efficiently.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="cosmos-sdk" /><summary type="html"><![CDATA[GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures that every read, write, and delete operation consumes gas, helping to prevent transactions from exceeding their gas limits.]]></summary></entry></feed>
