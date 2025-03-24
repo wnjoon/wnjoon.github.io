@@ -1,5 +1,232 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-22T11:46:50+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-24T14:39:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Expression Blocks vs Closures – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Expression Blocks vs Closures – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
+    <ul>
+      <li><a href="#key-differences">Key Differences</a></li>
+      <li><a href="#expression-blocks-inline-one-time-calculations">Expression Blocks: Inline One-Time Calculations</a></li>
+      <li><a href="#closures-anonymous-functions-for-reuse-and-flexibility">Closures: Anonymous Functions for Reuse and Flexibility</a></li>
+    </ul>
+  </li>
+  <li><a href="#comparison-with-go">Comparison with Go</a></li>
+  <li><a href="#summary-when-to-use-what">Summary: When to Use What?</a></li>
+</ul>
+
+<h2 id="expression-blocks-vs-closures">Expression Blocks vs Closures</h2>
+
+<h3 id="key-differences">Key Differences</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Expression Block</th>
+      <th>Closure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>What it is</td>
+      <td>Inline calculation block</td>
+      <td>Anonymous function</td>
+    </tr>
+    <tr>
+      <td>Execution timing</td>
+      <td>Immediately</td>
+      <td>When called</td>
+    </tr>
+    <tr>
+      <td>Parameters</td>
+      <td>Not allowed</td>
+      <td>Allowed</td>
+    </tr>
+    <tr>
+      <td>Captures outer variables</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Reusable</td>
+      <td>One-time</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Passable to other funcs</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Return value</td>
+      <td>Last expression</td>
+      <td>Last expression</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="expression-blocks-inline-one-time-calculations">Expression Blocks: Inline One-Time Calculations</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+<span class="p">};</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{y}"</span><span class="p">);</span> <span class="c1">// 15</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Block used just for computing a value</li>
+  <li>Executed immediately</li>
+  <li>Returns the last expression (no semicolon)</li>
+  <li>Does not take parameters or capture external variables</li>
+  <li>Great for one-off logic that doesn’t need to be reused</li>
+</ul>
+
+<h4 id="when-to-use-expression-blocks">When to Use Expression Blocks</h4>
+
+<ul>
+  <li>You need a value from a mini logic block</li>
+  <li>You don’t need parameters</li>
+  <li>You want instant evaluation</li>
+  <li>You’re not planning to reuse the logic</li>
+</ul>
+
+<h4 id="example-using-if-match-or-even-loop-as-a-value">Example: Using if, match, or even loop as a value</h4>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">is_even</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="k">true</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="k">false</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="k">match</span> <span class="mi">2</span> <span class="p">{</span>
+    <span class="mi">1</span> <span class="k">=&gt;</span> <span class="s">"one"</span><span class="p">,</span>
+    <span class="mi">2</span> <span class="k">=&gt;</span> <span class="s">"two"</span><span class="p">,</span>
+    <span class="n">_</span> <span class="k">=&gt;</span> <span class="s">"many"</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="k">let</span> <span class="n">loop_value</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">loop</span> <span class="p">{</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span> <span class="k">break</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="c1">// loop_value == 30</span>
+</code></pre></div></div>
+
+<p><strong>Note: <code class="language-plaintext highlighter-rouge">while</code> and <code class="language-plaintext highlighter-rouge">for</code> are statements, not expressions — they can’t be used like this.</strong></p>
+
+<h3 id="closures-anonymous-functions-for-reuse-and-flexibility">Closures: Anonymous Functions for Reuse and Flexibility</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">add</span> <span class="o">=</span> <span class="p">|</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">|</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> <span class="c1">// 7</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Similar to anonymous functions in Go, JavaScript, etc.</li>
+  <li>Executed only when called</li>
+  <li>Can take parameters and capture external variables</li>
+  <li>Useful when passing logic into another function (e.g. <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">filter</code>)</li>
+  <li>Can be reused multiple times</li>
+</ul>
+
+<h4 id="when-to-use-closures">When to Use Closures</h4>
+
+<ul>
+  <li>You need to reuse logic</li>
+  <li>You want to pass logic as a parameter to another function</li>
+  <li>You need to delay execution</li>
+  <li>You need to capture external values</li>
+</ul>
+
+<h4 id="common-use-cases">Common Use Cases</h4>
+
+<h5 id="1-parameterized-logic">1. Parameterized Logic</h5>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">square</span> <span class="o">=</span> <span class="p">|</span><span class="n">x</span><span class="p">|</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">square</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span> <span class="c1">// 25</span>
+</code></pre></div></div>
+
+<h5 id="2-passing-to-higher-order-functions">2. Passing to Higher-Order Functions</h5>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">nums</span> <span class="o">=</span> <span class="nd">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="k">let</span> <span class="n">doubled</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">nums</span><span class="nf">.iter</span><span class="p">()</span><span class="nf">.map</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="nf">.collect</span><span class="p">();</span>
+<span class="c1">// Result: [2, 4, 6]</span>
+</code></pre></div></div>
+
+<h5 id="3-threaded-or-async-code">3. Threaded or Async Code</h5>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">std</span><span class="p">::</span><span class="nn">thread</span><span class="p">::</span><span class="nf">spawn</span><span class="p">(||</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Hello from thread"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h5 id="4-capturing-external-variables">4. Capturing External Variables</h5>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hi"</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">say_hello</span> <span class="o">=</span> <span class="p">|</span><span class="n">name</span><span class="p">|</span> <span class="nd">format!</span><span class="p">(</span><span class="s">"{greeting}, {name}"</span><span class="p">);</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">say_hello</span><span class="p">(</span><span class="s">"Alice"</span><span class="p">));</span> <span class="c1">// "Hi, Alice"</span>
+</code></pre></div></div>
+
+<h2 id="comparison-with-go">Comparison with Go</h2>
+
+<p>Go only has function literals (<code class="language-plaintext highlighter-rouge">func() { ... }</code>) — no concept of expression blocks as values.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">val</span> <span class="o">:=</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">val</span><span class="p">()</span> <span class="c">// Must be called</span>
+</code></pre></div></div>
+
+<p>In Rust:</p>
+
+<ul>
+  <li>Use closures for what you’d use <code class="language-plaintext highlighter-rouge">func() { ... }</code> in Go</li>
+  <li>Use expression blocks for inline logic to assign values quickly</li>
+</ul>
+
+<h2 id="summary-when-to-use-what">Summary: When to Use What?</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Situation</th>
+      <th>Use</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Simple inline calculation</td>
+      <td>Expression block</td>
+      <td>Less syntax, faster execution</td>
+    </tr>
+    <tr>
+      <td>Passing logic to another function</td>
+      <td>Closure</td>
+      <td>Closures are first-class citizens</td>
+    </tr>
+    <tr>
+      <td>Accepting dynamic inputs</td>
+      <td>Closure</td>
+      <td>Accepting dynamic inputs</td>
+    </tr>
+    <tr>
+      <td>Passing logic to another function</td>
+      <td>Closure</td>
+      <td>Closures take parameters</td>
+    </tr>
+    <tr>
+      <td>Referencing external values</td>
+      <td>Closure</td>
+      <td>Can capture and use outer scope</td>
+    </tr>
+    <tr>
+      <td>Like func() in Go</td>
+      <td>Closure</td>
+      <td>Closures = Go’s anonymous functions</td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#strings-in-rust">Strings in Rust</a></li>
@@ -104,23 +331,23 @@
   <tbody>
     <tr>
       <td>Immutable string</td>
-      <td>string</td>
-      <td>&amp;str</td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;str</code></td>
     </tr>
     <tr>
       <td>Mutable string (heap allocated)</td>
-      <td>[]byte, []rune</td>
-      <td>String</td>
+      <td><code class="language-plaintext highlighter-rouge">[]byte</code>, <code class="language-plaintext highlighter-rouge">[]rune</code></td>
+      <td><code class="language-plaintext highlighter-rouge">String</code></td>
     </tr>
     <tr>
       <td>Modify string variable (new value)</td>
       <td>s = “new”</td>
-      <td>s = String::from(…)</td>
+      <td>s = <code class="language-plaintext highlighter-rouge">String::from(...)</code></td>
     </tr>
     <tr>
       <td>Modify string content</td>
-      <td>via []byte conversion</td>
-      <td>via mutable String</td>
+      <td>via <code class="language-plaintext highlighter-rouge">[]byte</code> conversion</td>
+      <td>via mutable <code class="language-plaintext highlighter-rouge">String</code></td>
     </tr>
   </tbody>
 </table>
@@ -1720,102 +1947,4 @@ It serves as an identifier for a specific data entry managed by a module.</p>
   <li>Use <code class="language-plaintext highlighter-rouge">for range</code> when working with a single channel that continuously receives values.</li>
   <li>Use <code class="language-plaintext highlighter-rouge">select</code> when handling multiple channels or managing timeouts.</li>
   <li>Avoid <code class="language-plaintext highlighter-rouge">switch</code> for channel reading, as it lacks proper subscription behavior.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, channels are commonly used for communication between goroutines. This post explores different ways to read from channels and handle incoming values efficiently.]]></summary></entry><entry><title type="html">The Power of Daily Plan</title><link href="http://localhost:4000/2025/03/06/power-of-daily-plan/" rel="alternate" type="text/html" title="The Power of Daily Plan" /><published>2025-03-06T00:00:00+09:00</published><updated>2025-03-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/06/power-of-daily-plan</id><content type="html" xml:base="http://localhost:4000/2025/03/06/power-of-daily-plan/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#there-is-a-p-in-my-mbti-result">There is a P in my MBTI result</a></li>
-  <li><a href="#why-planning-matters">Why Planning Matters</a></li>
-  <li><a href="#the-challenges-of-planning">The Challenges of Planning</a></li>
-  <li><a href="#learning-from-the-best">Learning from the Best</a></li>
-  <li><a href="#the-importance-of-planning-in-workplaces">The Importance of Planning in Workplaces</a></li>
-  <li><a href="#if-you-havent-been-planning-start-now">If You Haven’t Been Planning, Start Now</a></li>
-  <li><a href="#if-you-dont-know-where-to-start">If You Don’t Know Where to Start</a></li>
-  <li><a href="#we-cannot-do-everything">We Cannot Do Everything</a></li>
-</ul>
-
-<h2 id="there-is-a-p-in-my-mbti-result">There is a P in my MBTI result</h2>
-
-<p>In other words, I find it difficult to set clear plans, and I am more accustomed to handling things spontaneously. The reason I use the words “difficult” and “accustomed” is not because I dislike planning or prefer working on impulse.</p>
-
-<p>I don’t know about others with a P-type personality, but at least for me, I want to be more like a J.</p>
-
-<p>Especially in my profession as a developer, having a well-structured plan is often essential for getting work done effectively.</p>
-
-<h2 id="why-planning-matters">Why Planning Matters</h2>
-
-<p>People who have achieved great success in life all have one thing in common: they plan their day before they start.</p>
-
-<p>They don’t do this because they have too much or too little time. Instead, they take a sacred moment to determine the priorities for the day.</p>
-
-<p>I describe it as “sacred” because it is a moment where we acknowledge the natural limitations of time that we, as humans, cannot escape.</p>
-
-<h2 id="the-challenges-of-planning">The Challenges of Planning</h2>
-
-<p>But planning isn’t easy.</p>
-
-<ul>
-  <li>Should I be conservative with my plans to avoid failure?</li>
-  <li>Or should I set goals based on my ambition to complete everything I want?</li>
-  <li>What should I do when unexpected events force me to adjust my plans?</li>
-</ul>
-
-<p>Even though I am a P-type, I don’t start my day without any plans at all.
-However, I struggle to create detailed plans.
-I leave multiple possibilities open for tasks that may change, so it’s hard for me to set a clear, measurable goal for what I will complete.</p>
-
-<h2 id="learning-from-the-best">Learning from the Best</h2>
-
-<p>So, how do highly skilled people approach this?</p>
-
-<p>Someone I deeply admire follows a simple rule:
-They plan their day based on the maximum number of hours they can fully focus on work.</p>
-
-<p>Within that time, they prioritize the most important tasks instead of simply listing everything they need to do.</p>
-
-<p>Even though their to-do list was short, they carefully considered the importance and urgency of each task.
-This approach made them a smart, efficient, and highly capable worker.</p>
-
-<h2 id="the-importance-of-planning-in-workplaces">The Importance of Planning in Workplaces</h2>
-
-<p>Many IT companies require employees to plan their daily tasks and share them with the team.
-However, not all workplaces have such systems in place.</p>
-
-<p>I believe that creating a daily work plan is the single most important task, even if your company doesn’t require it.</p>
-
-<p>This habit offers more than just team alignment and problem-solving efficiency.</p>
-
-<p>More importantly, it helps you understand your own workload and set priorities to maximize productivity within your available time.</p>
-
-<h2 id="if-you-havent-been-planning-start-now">If You Haven’t Been Planning, Start Now</h2>
-
-<p>Regardless of experience level, if you are still starting your day without a plan, I strongly encourage you to make a change immediately.</p>
-
-<p>At first, I also thought, “Why waste time planning? I should just get to work.”
-Because of this mindset, I missed multiple opportunities to build a solid planning habit.</p>
-
-<p>But as my workload grew and I needed to prioritize,
-I realized that changing my deeply ingrained habit of not planning was incredibly difficult.</p>
-
-<p>Even now, I am still working on improving,
-and I am writing this to keep myself motivated.</p>
-
-<h2 id="if-you-dont-know-where-to-start">If You Don’t Know Where to Start</h2>
-
-<p>That’s okay. Planning is never easy.</p>
-
-<p>No one is good at it from the beginning.
-But with time and practice, you will get better at it.</p>
-
-<p>One important thing: don’t be too ambitious.
-If you plan too many tasks, you will only end up feeling overwhelmed.</p>
-
-<p>Instead, prioritize what truly matters within your time constraints,
-and have the courage to delay or eliminate tasks that don’t fit into your schedule.</p>
-
-<h2 id="we-cannot-do-everything">We cannot do everything</h2>
-
-<p>Even the exceptional people we look up to don’t do everything.
-The difference is that they distinguish between what is important and what is not.</p>
-
-<p>They don’t try to do it all.
-Instead, they focus on their priorities with a sense of humility — knowing that time is limited, and they must make the most of it.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Even the most exceptional people can’t do everything—they simply prioritize what truly matters, recognizing their limits and making the most of their time with humility.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, channels are commonly used for communication between goroutines. This post explores different ways to read from channels and handle incoming values efficiently.]]></summary></entry></feed>
