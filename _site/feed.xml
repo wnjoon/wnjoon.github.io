@@ -1,130 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-06-23T13:58:38+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-07-29T08:45:19+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Go 에러 처리, 언제 fmt.Errorf를 쓰고 언제 쓰지 말아야 할까?</title><link href="http://localhost:4000/2025/06/23/fmt-error-handling/" rel="alternate" type="text/html" title="Go 에러 처리, 언제 fmt.Errorf를 쓰고 언제 쓰지 말아야 할까?" /><published>2025-06-23T00:00:00+09:00</published><updated>2025-06-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/06/23/fmt-error-handling</id><content type="html" xml:base="http://localhost:4000/2025/06/23/fmt-error-handling/"><![CDATA[<h2 id="요약">요약</h2>
+
+<ol>
+  <li>모든 에러를 무조건 <code class="language-plaintext highlighter-rouge">fmt.Errorf</code>로 감싸는 것은 좋지 않습니다.</li>
+  <li>에러를 처리하는 라이브러리와의 ‘약속’을 이해하고, 원본 에러를 보존해야 할 때와 컨텍스트를 추가해야 할 때를 구분해야 합니다.</li>
+  <li>함수의 역할을 명확히 나누고, 각 계층에 맞는 책임만 부여하는 것이 견고한 설계 과정에 필요합니다.</li>
+</ol>
+
+<h2 id="fmterrorf를-우아하게-사용하는-방법">fmt.Errorf를 우아하게 사용하는 방법</h2>
+
+<p>모든 서버 개발자는 외부 API 호출과 같은 불안정한 작업을 다뤄야 합니다. 일시적인 네트워크 오류는 언제든 발생할 수 있고, 가장 기본적인 해결책은 ‘재시도’입니다. Go에서는 <code class="language-plaintext highlighter-rouge">cenk/backoff</code> 같은 훌륭한 라이브러리를 사용해 재시도 로직을 쉽게 구현할 수 있죠.</p>
+
+<p>하지만 재시도 로직을 구현할 때, 많은 개발자가 흔히 저지르는 실수가 있습니다. 바로 모든 에러를 무분별하게 <code class="language-plaintext highlighter-rouge">fmt.Errorf</code>로 감싸는 것입니다. 이 글에서는 왜 그것이 ‘안티 패턴’이 될 수 있는지, 그리고 어떻게 하면 더 견고하고 우아하게 에러를 처리할 수 있는지 실제 코드를 통해 알아보겠습니다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">doRetry</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">c</span> <span class="o">*</span><span class="n">Client</span><span class="p">,</span> <span class="n">req</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// ...</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">backoff</span><span class="o">.</span><span class="n">Retry</span><span class="p">(</span><span class="k">func</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+		<span class="k">var</span> <span class="n">err</span> <span class="kt">error</span>
+		<span class="n">bs</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">do</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">err</span> <span class="c">// &lt;-- 왜 여기서는 fmt.Errorf를 쓰지 않을까?</span>
+	<span class="p">},</span> <span class="o">...</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="c">// &lt;-- 왜 여기서는 fmt.Errorf를 사용할까?</span>
+		<span class="k">return</span> <span class="no">nil</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"failed after retries %w"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">bs</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="no">nil</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="1-역할을-분리하자-실무자와-매니저">1. 역할을 분리하자: ‘실무자’와 ‘매니저’</h3>
+
+<p>훌륭한 에러 처리의 첫걸음은 함수의 역할을 명확하게 나누는 것입니다. 위 코드에는 두 명의 핵심 플레이어가 등장합니다.</p>
 
 <ul>
-  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
-  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
-  <li><a href="#using-while-with-labels">Using while with labels</a></li>
-  <li><a href="#using-for-with-labels">Using for with labels</a></li>
-  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
-  <li><a href="#summary">Summary</a></li>
+  <li>실무자 (<code class="language-plaintext highlighter-rouge">do</code> 함수): 이 함수는 단 하나의 임무, 즉 HTTP 요청을 딱 한 번 보내고 그 결과를 가공하지 않고 정직하게 보고하는 역할을 합니다. 성공했는지, 실패했는지, 실패했다면 원인이 무엇인지(원본 에러)를 그대로 반환합니다.</li>
+  <li>매니저 (<code class="language-plaintext highlighter-rouge">doRetry</code> 함수): 실무자에게 일을 시키고, 그 보고를 받아 정책적인 결정을 내립니다. “보고 내용이 ‘일시적인 오류’라면 재시도를 시키고, ‘영구적인 오류’라면 즉시 중단하자. 모든 재시도가 실패하면, 그때 최종 실패 보고를 올리자” 와 같은 결정을 합니다.</li>
 </ul>
 
-<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
+<h3 id="2-비서에게-원본을-그대로-전달하자">2. 비서에게 원본을 그대로 전달하자.</h3>
 
-<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
-If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
+<p><code class="language-plaintext highlighter-rouge">backoff.Retry</code> 라이브러리는 매니저의 비서와 같습니다. 이 비서는 실무자가 제출한 보고서(원본 error)를 보고 재시도 여부를 결정합니다. 만약 보고서에 <code class="language-plaintext highlighter-rouge">backoff.PermanentError</code> 라는 도장이 찍혀 있다면, “아, 이건 재시도해도 소용없는 일이군요”라며 즉시 작업을 중단시킵니다.</p>
 
-<h2 id="using-loop-with-labels">Using loop with labels</h2>
+<p>만약 실무자가 보고하는 과정에서 원본 에러를 <code class="language-plaintext highlighter-rouge">fmt.Errorf("do failed: %w", err)</code>와 같이 자신만의 봉투에 담아 버리면 어떻게 될까요? 비서는 봉투 겉면만 볼 수 있을 뿐, 그 안에 담긴 중요한 ‘PermanentError’ 도장을 보지 못하게 됩니다. 결국 재시도하면 안 되는 일에 불필요한 노력을 쏟는 셈이죠.</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<p>이것이 바로 <code class="language-plaintext highlighter-rouge">backoff.Retry</code>에 전달하는 함수 안에서 <code class="language-plaintext highlighter-rouge">return err</code>를 통해 원본 에러를 그대로 반환해야 하는 이유입니다. 라이브러리와의 약속(Contract)을 지키는 것입니다.</p>
 
-    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<h3 id="3-매니저가-최종적으로-확인한-내용에-대해-컨텍스트-추가하자">3. 매니저가 최종적으로 확인한 내용에 대해 컨텍스트 추가하자.</h3>
 
-        <span class="k">loop</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
-            
-            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
-                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
-            <span class="p">}</span>
+<p>그렇다면 에러에 “재시도 끝에 실패했다”와 같은 구체적인 맥락을 추가하는 작업은 언제 해야 할까요?</p>
 
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
-            <span class="p">}</span>
+<p>바로 매니저가 모든 정책적인 판단을 끝낸 시점입니다. <code class="language-plaintext highlighter-rouge">doRetry</code> 함수는 <code class="language-plaintext highlighter-rouge">backoff.Retry</code>가 가능한 모든 재시도 끝에 최종 적으로 실패를 알렸을 때, 비로소 <code class="language-plaintext highlighter-rouge">fmt.Errorf("failed after retries %w", err)</code>를 통해 더욱 자세한 컨텍스트를 담은 최종 에러를 생성하여 상위 호출자에게 반환합니다.</p>
 
-            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+<p>에러가 발생한 가장 낮은 수준(<code class="language-plaintext highlighter-rouge">do</code> 함수)에서는 원본을 유지하고, 계층을 따라 올라오며 각 계층의 역할에 맞는 컨텍스트를 추가하는 것이 중요합니다. 이것이 바로 Go가 추구하는 에러 처리의 핵심 철학입니다.</p>
+
+<h3 id="4-defer를-사용할-때에는-더욱-주의하자">4. <code class="language-plaintext highlighter-rouge">defer</code>를 사용할 때에는 더욱 주의하자.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">do</code> 함수를 자세히 보면 한 가지 더 재미있는 패턴을 발견할 수 있습니다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">do</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="p">(</span><span class="n">bs</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="n">st</span> <span class="kt">int</span><span class="p">,</span> <span class="n">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span> <span class="c">// &lt;-- 명명된 반환 값(err)</span>
+    <span class="c">// ...</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">HttpClient</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="c">// ...</span>
+    <span class="k">defer</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">closeErr</span> <span class="o">:=</span> <span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">();</span> <span class="n">err</span> <span class="o">==</span> <span class="no">nil</span> <span class="p">{</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="n">closeErr</span> <span class="c">// &lt;-- 반환될 err 변수에 직접 할당</span>
         <span class="p">}</span>
-
-        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
+    <span class="p">}()</span>
+    <span class="c">// ...</span>
+    <span class="k">return</span> <span class="c">// return 뒤에 변수가 없음</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
-  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
-  <li>You can apply labels to any loop, not just loop blocks</li>
-</ul>
+<p><code class="language-plaintext highlighter-rouge">resp.Body.Close()</code>와 같이 최종적으로 사용된 리소스를 정리하는 과정에서도 에러는 발생할 수 있습니다. ‘명명된 반환 값(err)’과 defer를 함께 사용하면, 함수 본문이 성공적으로 실행되었더라도 마지막 정리 과정에서 발생한 에러까지 놓치지 않고 안전하게 최종 반환 값에 포함시킬 수 있습니다. 이것은 매우 실용적이고 견고한 Go의 표준 패턴(idiomatic Go)입니다.</p>
 
-<h2 id="using-while-with-labels">Using while with labels</h2>
+<h4 id="왜-err가-nil일-때만-closeerr를-할당하는가">“왜 err가 nil일 때만 closeErr를 할당하는가?”</h4>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<p>그 이유는 <strong>더 중요한 원인 에러를 덮어쓰지 않기 위해서</strong>입니다. <code class="language-plaintext highlighter-rouge">defer</code> 함수가 실행되는 시점은 <code class="language-plaintext highlighter-rouge">do</code> 함수가 거의 모든 임무를 마치고 반환하기 직전입니다.</p>
 
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
-            <span class="p">}</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
+<p>이때 두 가지 시나리오가 있을 수 있습니다.</p>
 
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
+<p><strong>시나리오 1: 모든 것이 순조롭게 진행되었을 때</strong></p>
 
-<h2 id="using-for-with-labels">Using for with labels</h2>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">HttpClient.Do</code>가 성공하고, <code class="language-plaintext highlighter-rouge">io.ReadAll</code>도 성공적으로 응답을 다 읽었습니다. 아무런 문제가 없었다면, 이때까지 <code class="language-plaintext highlighter-rouge">err</code> 변수는 계속 nil입니다.</li>
+  <li>함수가 종료되기 전 <code class="language-plaintext highlighter-rouge">defer</code>가 실행됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">resp.Body.Close()</code>를 호출해서 뒷정리를 하는데, 이때 갑자기 에러(<code class="language-plaintext highlighter-rouge">closeErr</code>)가 발생합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">if err == nil</code> 조건을 확인하면, 이전에 발생했던 에러가 없기 때문에 true가 됩니다. 즉 <code class="language-plaintext highlighter-rouge">err == nil</code>을 만족하기 때문에, <code class="language-plaintext highlighter-rouge">err = closeErr</code>가 실행됩니다.</li>
+  <li>그 결과 <code class="language-plaintext highlighter-rouge">do</code> 함수는 이 뒷정리 과정에서 발생한 <code class="language-plaintext highlighter-rouge">closeErr</code>를 최종 에러로 반환합니다.</li>
+</ol>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
-            <span class="p">}</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
+<p><strong>시나리오 2: 중간에 이미 문제가 발생했을 때 (더 중요!)</strong></p>
 
-<h2 id="using-continue-with-labels">Using continue with labels</h2>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Http1Client.Do</code>는 성공했지만, <code class="language-plaintext highlighter-rouge">io.ReadAll</code>이 응답을 읽는 도중 네트워크 연결이 끊겨 에러가 발생했습니다. 이 시점에서 <code class="language-plaintext highlighter-rouge">err</code> 변수에는 “네트워크 연결 끊김” 이라는 매우 중요한 원인 에러가 이미 할당되어 있습니다.</li>
+  <li>함수가 종료되기 전 <code class="language-plaintext highlighter-rouge">defer</code>가 실행됩니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">resp.Body.Close()</code>를 호출합니다. 이미 오류(연결이 끊김)가 발생했으니 추가적인 에러(<code class="language-plaintext highlighter-rouge">closeErr</code>)가 발생할 수도 있습니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">if err == nil</code> 조건을 확인하면, 이전에 발생한 에러(네트워크 끊김)가 있기 때문에 false가 됩니다. 즉 <code class="language-plaintext highlighter-rouge">err == nil</code>을 만족하지 않기 때문에, <code class="language-plaintext highlighter-rouge">err = closeErr</code>가 실행되지 않습니다.</li>
+  <li>그 결과 <code class="language-plaintext highlighter-rouge">do</code> 함수는 원래 발생했던 <strong>더 중요한 원인 에러(“네트워크 연결 끊김”)</strong>를 그대로 가지고 반환됩니다.</li>
+</ol>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
-        <span class="p">}</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
+<p>만약 <code class="language-plaintext highlighter-rouge">if err == nil</code> 조건이 없다면 어떻게 될까요? 덜 중요한 <code class="language-plaintext highlighter-rouge">closeErr</code>가 더 중요한 원인 에러를 덮어쓰게 되고, 우리는 진짜 문제가 무엇이었는지 알 수 없게 됩니다.</p>
 
-<h2 id="summary">Summary</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>break</td>
-      <td>Exits the nearest loop</td>
-    </tr>
-    <tr>
-      <td>break ‘label</td>
-      <td>Exits the specific loop with the given label</td>
-    </tr>
-    <tr>
-      <td>continue ‘label</td>
-      <td>Skips to the next iteration of the labeled loop</td>
-    </tr>
-    <tr>
-      <td>Label works on</td>
-      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>Go에서는 <strong>“함수가 실패했다면, 그 최초의 원인을 보존하라”</strong> 는 에러 처리 철학을 가지고 있으며, 위의 예시는 그에 대한 패턴을 잘 보여주고 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[많은 go 개발자가 흔히 저지르는 실수가 있습니다. 바로 모든 에러를 무분별하게 fmt.Errorf로 감싸는 것입니다. 이 글에서는 왜 그것이 '안티 패턴'이 될 수 있는지, 그리고 어떻게 하면 더 견고하고 우아하게 에러를 처리할 수 있는지 실제 코드를 통해 알아봅니다.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
@@ -351,7 +327,132 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
       <td>Closures = Go’s anonymous functions</td>
     </tr>
   </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
+  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
+  <li><a href="#using-while-with-labels">Using while with labels</a></li>
+  <li><a href="#using-for-with-labels">Using for with labels</a></li>
+  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
+
+<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
+If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
+
+<h2 id="using-loop-with-labels">Using loop with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">loop</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
+            
+            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
+            <span class="p">}</span>
+
+            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
+  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
+  <li>You can apply labels to any loop, not just loop blocks</li>
+</ul>
+
+<h2 id="using-while-with-labels">Using while with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
+            <span class="p">}</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-for-with-labels">Using for with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
+            <span class="p">}</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-continue-with-labels">Using continue with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
+        <span class="p">}</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break</td>
+      <td>Exits the nearest loop</td>
+    </tr>
+    <tr>
+      <td>break ‘label</td>
+      <td>Exits the specific loop with the given label</td>
+    </tr>
+    <tr>
+      <td>continue ‘label</td>
+      <td>Skips to the next iteration of the labeled loop</td>
+    </tr>
+    <tr>
+      <td>Label works on</td>
+      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#strings-in-rust">Strings in Rust</a></li>
@@ -489,7 +590,7 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
   </li>
   <li>If you’re just changing the entire string value, you’re assigning a new memory reference either way.</li>
   <li>Rust gives more fine-grained control over memory and mutability, while Go keeps things simple but less flexible when it comes to string manipulation.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#target-readers">Target Readers</a></li>
@@ -636,7 +737,7 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
 
 <p>Buy what fits your budget and purpose. Don’t overthink it. And remember — MacBooks are not mandatory for developers.</p>
 
-<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="macbook" /><summary type="html"><![CDATA[Just because it’s expensive doesn’t mean it’s the right choice — and a MacBook might not be the answer for everyone. This post explores whether a MacBook truly fits your needs, budget, and lifestyle — especially if you’re a student or aspiring developer.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Just because it’s expensive doesn’t mean it’s the right choice — and a MacBook might not be the answer for everyone. This post explores whether a MacBook truly fits your needs, budget, and lifestyle — especially if you’re a student or aspiring developer.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</a></li>
@@ -814,7 +915,7 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
   <li><code class="language-plaintext highlighter-rouge">expect("msg")</code> – Safer panic with clear context.</li>
   <li><code class="language-plaintext highlighter-rouge">unwrap_or(default_value)</code> – Clean fallbacks.</li>
   <li><code class="language-plaintext highlighter-rouge">match</code>, <code class="language-plaintext highlighter-rouge">if let</code>, <code class="language-plaintext highlighter-rouge">?</code> – Idiomatic and safe.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-are-macros-in-rust">What Are Macros in Rust?</a></li>
@@ -1151,7 +1252,7 @@ cargo <span class="nb">expand</span>
   <li>You need easier debugging -&gt; Functions are better.</li>
   <li>You don’t need compile-time code transformation -&gt; Functions work fine.</li>
   <li>Your macro logic is too complex -&gt; Hard to maintain.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="rust" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
@@ -1291,7 +1392,7 @@ cargo <span class="nb">expand</span>
   <li>Large functions (can increase binary size).</li>
   <li>Recursive functions.</li>
   <li>Functions used with pointers or virtual functions (C++).</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="c" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#the-problem">The Problem</a></li>
@@ -1408,7 +1509,7 @@ However, in reality, it always receives an empty string (<code class="language-p
       <li>Pointers (&amp;status): Useful when modifying function behavior explicitly.</li>
     </ul>
   </li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, Deferred functions capture arguments immediately, not when they actually run.]]></summary></entry><entry><title type="html">Using sync.Cond for Goroutine Synchronization in Go</title><link href="http://localhost:4000/2025/03/13/go-sync-cond/" rel="alternate" type="text/html" title="Using sync.Cond for Goroutine Synchronization in Go" /><published>2025-03-13T00:00:00+09:00</published><updated>2025-03-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/13/go-sync-cond</id><content type="html" xml:base="http://localhost:4000/2025/03/13/go-sync-cond/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, Deferred functions capture arguments immediately, not when they actually run.]]></summary></entry><entry><title type="html">Using sync.Cond for Goroutine Synchronization in Go</title><link href="http://localhost:4000/2025/03/13/go-sync-cond/" rel="alternate" type="text/html" title="Using sync.Cond for Goroutine Synchronization in Go" /><published>2025-03-13T00:00:00+09:00</published><updated>2025-03-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/13/go-sync-cond</id><content type="html" xml:base="http://localhost:4000/2025/03/13/go-sync-cond/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#what-is-synccond">What is <code class="language-plaintext highlighter-rouge">sync.Cond</code>?</a></li>
@@ -1666,227 +1767,4 @@ However, in reality, it always receives an empty string (<code class="language-p
   <li><code class="language-plaintext highlighter-rouge">Wait()</code> makes goroutines wait, while <code class="language-plaintext highlighter-rouge">Signal()</code> and <code class="language-plaintext highlighter-rouge">Broadcast()</code> notify them.</li>
   <li>Use <code class="language-plaintext highlighter-rouge">Broadcast()</code> when all waiting goroutines should proceed, and use <code class="language-plaintext highlighter-rouge">Signal()</code> when only one goroutine should continue.</li>
   <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is useful for implementing event-based synchronization, such as resource availability or state changes.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="go" /><summary type="html"><![CDATA[In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change.]]></summary></entry><entry><title type="html">Understanding GasKVStore in Cosmos SDK</title><link href="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/" rel="alternate" type="text/html" title="Understanding GasKVStore in Cosmos SDK" /><published>2025-03-12T00:00:00+09:00</published><updated>2025-03-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore</id><content type="html" xml:base="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#overview-of-gaskvstore">Overview of GasKVStore</a></li>
-  <li><a href="#core-methods-of-gaskvstore">Core Methods of GasKVStore</a></li>
-  <li><a href="#gas-consumption-based-on-key-and-value-size">Gas Consumption Based on Key and Value Size</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="overview-of-gaskvstore">Overview of GasKVStore</h2>
-
-<p>GasKVStore measures gas usage in real-time as internal field values change during transaction execution.
-Each read, write, and delete operation is designed to consume gas, ensuring that gas limits are properly enforced.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Store applies gas tracking to an underlying KVStore. It implements the KVStore interface.</span>
-<span class="k">type</span> <span class="n">Store</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">gasMeter</span>  <span class="n">types</span><span class="o">.</span><span class="n">GasMeter</span>   <span class="c">// GasMeter that tracks gas usage during transactions</span>
-    <span class="n">gasConfig</span> <span class="n">types</span><span class="o">.</span><span class="n">GasConfig</span>  <span class="c">// Configuration for gas costs of read/write/delete operations</span>
-    <span class="n">parent</span>    <span class="n">types</span><span class="o">.</span><span class="n">KVStore</span>    <span class="c">// The underlying KVStore that stores actual data</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="core-methods-of-gaskvstore">Core Methods of GasKVStore</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Method</strong></th>
-      <th><strong>Functionality</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Get(key)</td>
-      <td>Reads the value of a given key and consumes gas proportional to the key size</td>
-    </tr>
-    <tr>
-      <td>Set(key, value)</td>
-      <td>Stores a value for a given key and consumes gas based on both key and value size</td>
-    </tr>
-    <tr>
-      <td>Delete(key)</td>
-      <td>Deletes a key-value pair and consumes a fixed amount of gas</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="1-getkey---read-operation">1. Get(key) - Read Operation</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Get</span><span class="p">(</span><span class="n">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">ReadCostPerByte</span> <span class="o">*</span> <span class="kt">uint64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)),</span> <span class="s">"Read"</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>This function retrieves the value associated with a key.</li>
-  <li>It is similar to searching for a word in a book.</li>
-  <li>The function fetches and returns the data stored in the parent KVStore.</li>
-</ul>
-
-<h3 id="2-setkey-value---write-operation">2. Set(key, value) - Write Operation</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">gasToConsume</span> <span class="o">:=</span> <span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">WriteCostPerByte</span> <span class="o">*</span> <span class="kt">uint64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">gasToConsume</span><span class="p">,</span> <span class="s">"Write"</span><span class="p">)</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>This function stores a new value for a given key.</li>
-  <li>It works like adding new content to a book.</li>
-  <li>The function records or updates data in the parent KVStore.</li>
-</ul>
-
-<h3 id="3-deletekey---delete-operation">3. Delete(key) - Delete Operation</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Delete</span><span class="p">(</span><span class="n">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">DeleteCost</span><span class="p">,</span> <span class="s">"Delete"</span><span class="p">)</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>This function removes the data associated with a given key.</li>
-  <li>It is similar to erasing a word from a book.</li>
-  <li>The function deletes data stored in the parent KVStore.</li>
-</ul>
-
-<h2 id="gas-consumption-based-on-key-and-value-size">Gas Consumption Based on Key and Value Size</h2>
-
-<p>Some methods in GasKVStore consume gas in proportion to the size of the key and value.
-While gas in blockchain systems is often associated with CPU execution costs, the Cosmos SDK includes storage access costs as well.
-Thus, the size of the key affects gas consumption.</p>
-
-<h3 id="what-is-a-key">What is a Key?</h3>
-
-<p>A key is an address that identifies a specific state in the blockchain.
-It serves as an identifier for a specific data entry managed by a module.</p>
-
-<p>Here are some examples:</p>
-
-<h4 id="1-bank-module-storing-account-balances">1. Bank module storing account balances</h4>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"balances/&lt;account_address&gt;"</span>
-<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;account_balance&gt;"</span>
-</code></pre></div></div>
-
-<h4 id="2-staking-module-storing-validator-information">2. Staking module storing validator information</h4>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"validators/&lt;validator_address&gt;"</span>
-<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;validator_info&gt;"</span>
-</code></pre></div></div>
-
-<h4 id="3-ibc-module-storing-channel-information">3. IBC module storing channel information</h4>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"ibc/ports/&lt;port_id&gt;/channels/&lt;channel_id&gt;"</span>
-<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;channel_info&gt;"</span>
-</code></pre></div></div>
-
-<h3 id="why-key-size-affects-gas-consumption">Why Key Size Affects Gas Consumption?</h3>
-
-<ul>
-  <li>In the Cosmos SDK, gas is not only used for computation but also for storage access.</li>
-  <li>Since accessing a key-value store (KVStore) consumes gas, larger keys and values require more gas.</li>
-  <li>The longer the key, the more resources are needed to retrieve and store it, resulting in higher gas costs.</li>
-</ul>
-
-<h3 id="gas-consumption-per-method">Gas Consumption per Method</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Operation</strong></th>
-      <th><strong>Function</strong></th>
-      <th><strong>Gas Consumption Criteria</strong></th>
-      <th><strong>Gas Consumption Amount</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Get(key)</td>
-      <td>Reads the value of a key</td>
-      <td>Proportional to key size</td>
-      <td>Low</td>
-    </tr>
-    <tr>
-      <td>Set(key, value)</td>
-      <td>Stores a new value for a key</td>
-      <td>Proportional to key + value size</td>
-      <td>High</td>
-    </tr>
-    <tr>
-      <td>Delete(key)</td>
-      <td>Deletes a key-value pair</td>
-      <td>Fixed cost (DeleteCost)</td>
-      <td>Medium</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="1-getkey---gas-consumption-for-reads">1. Get(key) - Gas Consumption for Reads</h4>
-
-<p>Gas is consumed in proportion to the key size since retrieving a value requires locating the key in storage.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Example: Retrieving an account balance from the bank module</span>
-<span class="n">store</span> <span class="o">:=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">KVStore</span><span class="p">(</span><span class="n">bankStoreKey</span><span class="p">)</span>
-<span class="n">balanceKey</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"balances/cosmos1xyz..."</span><span class="p">)</span>  <span class="c">// Using account address as key</span>
-<span class="n">balance</span> <span class="o">:=</span> <span class="n">store</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">balanceKey</span><span class="p">)</span>  <span class="c">// Gas is consumed here</span>
-</code></pre></div></div>
-
-<h4 id="2-setkey-value---gas-consumption-for-writes">2. Set(key, value) - Gas Consumption for Writes</h4>
-
-<p>Gas is consumed in proportion to the sum of key and value sizes since writing new data requires additional storage resources.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Example: Storing validator information</span>
-<span class="n">store</span> <span class="o">:=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">KVStore</span><span class="p">(</span><span class="n">stakingStoreKey</span><span class="p">)</span>
-<span class="n">validatorKey</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"validators/valoper1abc..."</span><span class="p">)</span>  
-<span class="n">validatorInfo</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"{status: active, power: 1000}"</span><span class="p">)</span>  
-<span class="n">store</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">validatorKey</span><span class="p">,</span> <span class="n">validatorInfo</span><span class="p">)</span>  <span class="c">// Gas is consumed here</span>
-</code></pre></div></div>
-
-<p>Steps:</p>
-
-<ol>
-  <li>Locate the key “validators/valoper1abc…” in storage (or create a new entry if it does not exist).</li>
-  <li>Store the value “{status: active, power: 1000}”.</li>
-  <li>Consume gas proportional to the size of both the key and value.</li>
-</ol>
-
-<h4 id="3-deletekey---gas-consumption-for-deletes">3. Delete(key) - Gas Consumption for Deletes</h4>
-
-<p>Gas consumption is fixed (DeleteCost), independent of key size.</p>
-
-<p><em>Why is deletion a fixed-cost operation?</em></p>
-
-<ul>
-  <li>Deleting is a simple operation
-    <ul>
-      <li>Writing new data (Set) modifies storage, while deleting data (Delete) simply marks it as removed.</li>
-    </ul>
-  </li>
-  <li>Deletion can be faster than retrieval
-    <ul>
-      <li>Get(key) requires searching for a key, meaning longer keys take longer to process.</li>
-      <li>Delete(key) usually marks data as deleted, which is computationally simpler.</li>
-    </ul>
-  </li>
-  <li>Merkle Tree Structure
-    <ul>
-      <li>The Cosmos SDK uses a Merkle Tree-based IAVL Store, where deletions primarily mark nodes as invalid rather than requiring extensive modifications.</li>
-      <li>As a result, gas does not need to scale with key size.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<ul>
-  <li>GasKVStore ensures real-time tracking of gas consumption during transaction execution, preventing gas limit violations.</li>
-  <li>Gas is consumed not only for CPU operations but also for accessing and modifying storage (KVStore).</li>
-  <li>Optimizing key and value sizes can help reduce unnecessary gas costs.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="cosmos-sdk" /><summary type="html"><![CDATA[GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures that every read, write, and delete operation consumes gas, helping to prevent transactions from exceeding their gas limits.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change.]]></summary></entry></feed>

@@ -4,7 +4,7 @@ author: wonjoon
 title:  "How to Reduce Smart Contract Size" 
 description: Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways.
 # date:   2023-08-21 15:00:00 +0900
-categories: ethereum
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity
 comments: true

@@ -2,7 +2,7 @@
 layout: post
 title:  "Understanding inline Functions in C: When and How They Work"
 description: "inline functions in C allow code to be expanded at compile time and included in the final executable."
-categories: c
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: c, macro, inline
 comments: true

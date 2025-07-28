@@ -2,7 +2,7 @@
 layout: post
 title:  "How macros in Rust work and comparison with C language"
 description: "Macros in Rust allow code to be expanded at compile time and included in the final executable."
-categories: rust
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, macro, c
 comments: true

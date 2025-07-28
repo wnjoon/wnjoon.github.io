@@ -3,7 +3,7 @@ layout: post
 title:  "Managing Complex Application Architectures with Apache Kafka"
 description: Apache Kafka is an open-source distributed event streaming platform originally developed by LinkedIn.
 date:   2022-12-23 15:00:00 +0900
-categories: kafka
+categories: dev
 keywords: kafka
 comments: true
 ---

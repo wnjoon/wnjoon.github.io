@@ -2,7 +2,7 @@
 layout: post
 title:  "defer in Go Doesn’t Always Reflect the Latest Value"
 description: "In Go, Deferred functions capture arguments immediately, not when they actually run."
-categories: go
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: go, defer
 comments: true

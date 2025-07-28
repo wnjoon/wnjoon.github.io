@@ -2,17 +2,26 @@
 # https://github.com/riggraz/no-style-please#customize-the-menu
 
 entries:
-  - title: “Every developer has that blog - half built, never shipped.“ 
-  - title: info
-    entries:
-      - title: about me 
-        url: http://wnjoon.github.io/resume
+  #- title: “Every developer has that blog - half built, never shipped.“ 
+  # - title: info
+  #   entries:
+  #     - title: about me 
+  #       url: http://wnjoon.github.io/resume
   - title: all posts
     post_list:
-      limit: 20
+      limit: 5
       show_more: true
       show_more_text: more...
       show_more_url: archive/index.html
+
+  - title: categories
+    entries:
+      - title: crypto
+        url: /categories/crypto/
+      - title: dev
+        url: /categories/dev/
+      - title: investment
+        url: /categories/investment/
 
   # - title: posts by category
   #   post_list:

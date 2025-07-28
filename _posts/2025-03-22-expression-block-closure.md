@@ -2,7 +2,7 @@
 layout: post
 title:  "Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To"
 description: "Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels."
-categories: rust
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, loop-label
 comments: true

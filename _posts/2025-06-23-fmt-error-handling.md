@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Go 에러 처리, 언제 fmt.Errorf를 쓰고 언제 쓰지 말아야 할까?"
-description: "많은 go 개발자가 흔히 저지르는 실수가 있습니다. 바로 모든 에러를 무분별하게 fmt.Errorf로 감싸는 것입니다. 이 글에서는 왜 그것이 '안티 패턴'이 될 수 있는지, 그리고 어떻게 하면 더 견고하고 우아하게 에러를 처리할 수 있는지 실제 코드를 통해 알아보겠습니다"
-categories: go
+description: "많은 go 개발자가 흔히 저지르는 실수가 있습니다. 바로 모든 에러를 무분별하게 fmt.Errorf로 감싸는 것입니다. 이 글에서는 왜 그것이 '안티 패턴'이 될 수 있는지, 그리고 어떻게 하면 더 견고하고 우아하게 에러를 처리할 수 있는지 실제 코드를 통해 알아봅니다."
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: go, error, fmt.Errorf, error handling, error wrapping
 comments: true

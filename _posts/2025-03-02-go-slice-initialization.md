@@ -2,7 +2,7 @@
 layout: post
 title:  "Understanding Slice Initialization and Capacity in Go"
 description: "Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures."
-categories: go
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: go, slice, capacity
 comments: true

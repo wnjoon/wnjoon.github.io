@@ -1,0 +1,24 @@
+---
+layout: default
+title: "Posts in 'investment' category"
+---
+
+<header>
+  <h1>Posts in 'investment' category</h1>
+</header>
+
+{%- assign category_posts = site.categories['investment'] -%}
+{%- if category_posts.size > 0 -%}
+  <ul>
+    {%- for post in category_posts -%}
+      <li>
+        <span>{{- post.date | date: site.theme_config.date_format -}}</span>
+        <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- else -%}
+  <p>No posts found in the 'investment' category.</p>
+{%- endif -%}
+
+<p><a href="{{ '/' | relative_url }}">← back to home</a></p>

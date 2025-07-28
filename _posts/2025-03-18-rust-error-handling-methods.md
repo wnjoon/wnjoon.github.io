@@ -2,7 +2,7 @@
 layout: post
 title:  "Rust Error Handling: unwrap, expect, and unwrap_or"
 description: "Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result<T, E> effectively using unwrap, expect, unwrap_or, and pattern matching."
-categories: rust
+categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, error, unwrap, expect, pattern matching
 comments: true
