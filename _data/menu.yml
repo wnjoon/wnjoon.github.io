@@ -20,8 +20,22 @@ entries:
         url: /categories/crypto/
       - title: dev
         url: /categories/dev/
+      - title: essay
+        url: /categories/essay/
       - title: investment
         url: /categories/investment/
+
+
+  - title: archive
+    entries:
+      - title: 2025
+        url: /archive/2025/
+      - title: 2024
+        url: /archive/2024/
+      - title: 2023
+        url: /archive/2023/
+      - title: 2022
+        url: /archive/2022/
 
   # - title: posts by category
   #   post_list:

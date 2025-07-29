@@ -1,16 +1,16 @@
 ---
 layout: default
-title: "Posts in 'crypto' category"
+title: "Posts in 'essay' category"
 ---
 
 <header>
-  <h1>Posts in 'crypto' category</h1>
+  <h1>Posts in 'essay' category</h1>
 </header>
 
-{%- assign category_posts = site.categories['crypto'] -%}
+{%- assign category_posts = site.categories['essay'] -%}
 {%- assign filtered_posts = category_posts | where_exp: "post", "post.draft != true" -%}
 
-<p><strong>{{ filtered_posts.size }} posts</strong> in crypto category</p>
+<p><strong>{{ filtered_posts.size }} posts</strong> in essay category</p>
 
 {%- if filtered_posts.size > 0 -%}
   <ul>
@@ -22,7 +22,7 @@ title: "Posts in 'crypto' category"
     {%- endfor -%}
   </ul>
 {%- else -%}
-  <p>No posts found in the 'crypto' category.</p>
+  <p>No posts found in the 'essay' category.</p>
 {%- endif -%}
 
 <p><a href="{{ '/' | relative_url }}">← back to home</a></p>

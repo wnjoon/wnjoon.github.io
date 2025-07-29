@@ -8,11 +8,15 @@ title: "Posts in 'dev' category"
 </header>
 
 {%- assign category_posts = site.categories['dev'] -%}
-{%- if category_posts.size > 0 -%}
+{%- assign filtered_posts = category_posts | where_exp: "post", "post.draft != true" -%}
+
+<p><strong>{{ filtered_posts.size }} posts</strong> in dev category</p>
+
+{%- if filtered_posts.size > 0 -%}
   <ul>
-    {%- for post in category_posts -%}
+    {%- for post in filtered_posts -%}
       <li>
-        <span>{{- post.date | date: site.theme_config.date_format -}}</span>
+        <span>{{ post.date | date: "%Y-%m" }}</span>
         <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
       </li>
     {%- endfor -%}

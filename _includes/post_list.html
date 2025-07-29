@@ -4,17 +4,20 @@
   {%-assign posts = site.posts-%}
 {%-endif-%}
 
-{%-if include.limit and posts.size > include.limit-%}
+{%- comment -%}Filter out draft posts{%- endcomment -%}
+{%-assign filtered_posts = posts | where_exp: "post", "post.draft != true"-%}
+
+{%-if include.limit and filtered_posts.size > include.limit-%}
   {%-assign limit_exceeded = true-%}
 {%-else-%}
   {%-assign limit_exceeded = false-%}
 {%-endif-%}
 
-{%- if posts.size > 0 -%}
+{%- if filtered_posts.size > 0 -%}
   <ul>
-    {%- for post in posts limit: include.limit -%}
+    {%- for post in filtered_posts limit: include.limit -%}
         <li>
-          <span>{{- post.date | date: site.theme_config.date_format -}}</span>
+          <!-- <span>{{- post.date | date: site.theme_config.date_format -}}</span> -->
           <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
         </li>
     {%- endfor -%}
