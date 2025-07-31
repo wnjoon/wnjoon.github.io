@@ -28,8 +28,8 @@
       },
       "datePublished": "{{ page.date | date_to_xmlschema }}",
       "dateModified": "{{ page.date | date_to_xmlschema }}",
-      "image": "{{ page.image | default: 'https://via.placeholder.com/1200x630/2196F3/ffffff?text=' | append: page.title | url_encode }}",
-      {%- if page.schema.howTo -%}
+      "image": "{{ page.image | default: 'https://via.placeholder.com/1200x630/2196F3/ffffff?text=' | append: page.title | url_encode }}"
+      {%- if page.schema.howTo -%},
       "howTo": {
         "@type": "HowTo",
         "name": "{{ page.schema.howTo.name | escape }}",
@@ -43,6 +43,19 @@
           {%- endfor -%}
         ]
       }
+      {%- endif -%}
+      {%- if page.schema.about -%},
+      "about": [
+        {%- for item in page.schema.about -%}
+        {
+          "@type": "{{ item['@type'] | default: 'Thing' }}",
+          "name": "{{ item.name | escape }}"
+          {%- if item.description -%},
+          "description": "{{ item.description | escape }}"
+          {%- endif -%}
+        }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
       {%- endif -%}
     }
   </script>
