@@ -2,12 +2,40 @@
 layout: post
 author: wonjoon
 title:  "How to Reduce Smart Contract Size" 
-description: Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways.
+description: "EIP-170 introduced a smart contract size limit. Learn key strategies like modularization, using libraries, and optimizing code to reduce your contract's size and gas costs."
 # date:   2023-08-21 15:00:00 +0900
 categories: dev
 # tags: [ethereum, solidity, smartcontract]
-keywords: blockchain, ethereum, smartcontract, solidity
+keywords: blockchain, ethereum, smartcontract, solidity, contract size, EIP-170, gas optimization
 comments: true
+
+schema:
+  '@type': TechArticle
+  howTo:
+    '@type': HowTo
+    name: "How to Reduce Smart Contract Size"
+    step:
+      - '@type': HowToStep
+        name: "Split Large Contracts"
+        text: "Break down large contracts into smaller, modular components to improve readability, maintainability, and performance. Group related functions and separate storage-heavy operations."
+      - '@type': HowToStep
+        name: "Use Libraries"
+        text: "Offload reusable code into libraries to reduce the size of the main contract. Libraries are deployed once and can be called by multiple contracts."
+      - '@type': HowToStep
+        name: "Implement Proxies"
+        text: "Use proxy patterns to separate logic from storage. The main contract holds the state, while a separate logic contract is called via delegatecall, keeping the main contract lightweight."
+      - '@type': HowToStep
+        name: "Optimize Functions and Variables"
+        text: "Reduce the number of public functions, inline single-use internal functions, and reuse variables instead of declaring new ones to minimize bytecode."
+      - '@type': HowToStep
+        name: "Use Shorter Error Messages or Custom Errors"
+        text: "Long revert strings increase contract size. Use short error codes or, for Solidity v0.8.4+, use custom errors which are much more gas-efficient."
+      - '@type': HowToStep
+        name: "Adjust Solidity Optimizer Settings"
+        text: "Configure the Solidity compiler optimizer. Set a low 'runs' value for deployment size optimization or a higher value for runtime gas optimization."
+      - '@type': HowToStep
+        name: "Refine Function Parameters and Visibility"
+        text: "Avoid passing structs as parameters; use primitive types instead. Use the correct function visibility (private/internal) where possible, and consider replacing modifiers with internal functions."
 ---
 
 ## Table of Contents
