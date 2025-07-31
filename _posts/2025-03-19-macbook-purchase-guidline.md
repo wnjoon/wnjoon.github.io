@@ -6,6 +6,13 @@ categories: essay
 # tags: [ethereum, solidity, smartcontract]
 keywords: macbook, purchase, guide, student, developer
 comments: true
+author: Wonjoon
+
+schema:
+  '@type': BlogPosting
+  about:
+    - '@type': Thing
+      name: "MacBook"
 ---
 
 ## Table of Contents

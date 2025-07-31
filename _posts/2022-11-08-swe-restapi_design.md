@@ -1,11 +1,65 @@
 ---
 layout: post
 title:  "How to make better REST API" 
-description: Introduce 15 steps to make better REST API
-date:   2022-11-08 15:00:00 +0900
+description: "A well-designed REST API is crucial for modern applications. This guide covers 15 essential best practices for creating scalable, maintainable, and developer-friendly REST APIs."
+date: 2022-11-08 15:00:00 +0900
 categories: dev
-keywords: restapi, web
+keywords: restapi, web, api design, best practices
 comments: true
+author: Wonjoon
+
+schema:
+  '@type': TechArticle
+  howTo:
+    '@type': HowTo
+    name: "How to Make a Better REST API"
+    totalTime: "PT15M" # Reading time estimate (e.g., 15 minutes)
+    step:
+      - '@type': HowToStep
+        name: "Use Clear Naming Conventions"
+        text: "Use plural nouns for resources (e.g., /books), hyphens for separation, and lowercase letters in endpoints. Avoid using verbs in URLs as HTTP methods already define the action."
+      - '@type': HowToStep
+        name: "Use JSON as the Standard Format"
+        text: "Adopt JSON for requests and responses. It's lightweight, human-readable, and widely supported across languages."
+      - '@type': HowToStep
+        name: "Use HTTP Status Codes Properly"
+        text: "Utilize standard HTTP status codes to indicate the outcome of a request (e.g., 200 for success, 404 for not found, 500 for server errors)."
+      - '@type': HowToStep
+        name: "Maintain Consistent Response Formats"
+        text: "Design a consistent and predictable structure for both successful and error responses to improve the developer experience."
+      - '@type': HowToStep
+        name: "Implement Pagination"
+        text: "For endpoints that return large datasets, use pagination (e.g., limit and offset) to prevent performance bottlenecks."
+      - '@type': HowToStep
+        name: "Use PATCH for Partial Updates"
+        text: "Use PATCH instead of PUT when only a few fields of a resource need to be updated. PUT should replace the entire resource."
+      - '@type': HowToStep
+        name: "Provide an Extended Response Option"
+        text: "Offer a query parameter (e.g., ?extended=true) to allow clients to request more detailed information about a resource when needed."
+      - '@type': HowToStep
+        name: "Keep Endpoints Focused"
+        text: "Ensure each endpoint serves a single, clear purpose. Avoid creating endpoints that handle multiple unrelated resources."
+      - '@type': HowToStep
+        name: "Document Your API"
+        text: "Provide clear and comprehensive documentation using tools like Swagger (OpenAPI) to help developers understand and use your API."
+      - '@type': HowToStep
+        name: "Implement Security Best Practices"
+        text: "Enforce HTTPS, use appropriate authentication methods like API Keys or JWT, and configure CORS policies correctly."
+      - '@type': HowToStep
+        name: "Version Your API"
+        text: "Include a version number in your API path (e.g., /v1/books) to manage changes and avoid breaking existing client integrations."
+      - '@type': HowToStep
+        name: "Cache Frequently Used Data"
+        text: "Use HTTP caching headers (e.g., Cache-Control) for resources that do not change often to reduce server load and improve response times."
+      - '@type': HowToStep
+        name: "Use UTC Time Format"
+        text: "Always use the ISO 8601 standard for timestamps in UTC to avoid timezone-related issues."
+      - '@type': HowToStep
+        name: "Provide a Health Check Endpoint"
+        text: "Implement a /health endpoint that monitoring services can use to check the status of your API."
+      - '@type': HowToStep
+        name: "Set API Rate Limits"
+        text: "Protect your API from abuse by implementing rate limiting and throttling. Return a 429 Too Many Requests status code when limits are exceeded."
 ---
 
 ## Table of Contents

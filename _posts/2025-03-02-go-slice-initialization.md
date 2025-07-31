@@ -1,11 +1,19 @@
 ---
 layout: post
 title:  "Understanding Slice Initialization and Capacity in Go"
-description: "Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures."
+description: "Understanding slice capacity behavior is essential for writing efficient Go programs, especially when dealing with large or dynamic data structures. This guide explains how length, capacity, and the append function work together."
 categories: dev
 # tags: [ethereum, solidity, smartcontract]
-keywords: go, slice, capacity
+keywords: go, slice, capacity, make, append
 comments: true
+author: Wonjoon
+
+schema:
+  '@type': TechArticle
+  about:
+    - '@type': Thing
+      name: "Slice in Go"
+      description: "A fundamental data structure in the Go programming language that provides a more flexible view into the elements of an array."
 ---
 
 ## Table of Contents

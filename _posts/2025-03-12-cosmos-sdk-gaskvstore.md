@@ -1,11 +1,19 @@
 ---
 layout: post
 title:  "Understanding GasKVStore in Cosmos SDK"
-description: "GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures that every read, write, and delete operation consumes gas, helping to prevent transactions from exceeding their gas limits."
+description: "GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures every read, write, and delete operation consumes gas, preventing transactions from exceeding their gas limits."
 categories: dev
 # tags: [ethereum, solidity, smartcontract]
-keywords: cosmos-sdk, blockchain
+keywords: cosmos-sdk, blockchain, gaskvstore, gas consumption, kvstore
 comments: true
+author: Wonjoon
+
+schema:
+  '@type': TechArticle
+  about:
+    - '@type': Thing
+      name: "GasKVStore in Cosmos SDK"
+      description: "A core component of the Cosmos SDK that wraps a KVStore to track and charge gas for read, write, and delete operations."
 ---
 
 ## Table of Contents

@@ -1,11 +1,29 @@
 ---
 layout: post
 title:  "Understanding Channel Iteration in Go: for range vs. select vs. switch"
-description: "In Go, channels are commonly used for communication between goroutines. This post explores different ways to read from channels and handle incoming values efficiently."
+description: "In Go, channels are a core feature for goroutine communication. This post explores and compares different methods—for range, select, and switch—to efficiently read from channels."
 categories: dev
 # tags: [ethereum, solidity, smartcontract]
-keywords: go, channel, iteration
+keywords: go, channel, iteration, for range, select, switch, goroutine
 comments: true
+author: Wonjoon
+
+schema:
+  '@type': TechArticle
+  howTo:
+    '@type': HowTo
+    name: "How to Efficiently Read from Channels in Go"
+    description: "Exploring different ways to read from channels and handle incoming values from goroutines."
+    step:
+      - '@type': HowToStep
+        name: "Use `for range` for Single-Channel Reading"
+        text: "`for range` is the simplest and most efficient method for continuously reading all values from a single channel until it is closed. It automatically waits for new data."
+      - '@type': HowToStep
+        name: "Use `select` for Multiple Channels or Timeouts"
+        text: "The `select` statement allows a goroutine to wait on multiple communication operations. Use it when you need to handle more than one channel or implement non-blocking reads and timeouts."
+      - '@type': HowToStep
+        name: "Avoid `switch` for Direct Channel Reading"
+        text: "Using `switch` with a direct channel read (`<-ch`) is inefficient because it blocks the loop. `switch` is not designed to wait for channel updates and is not a suitable tool for this purpose."
 ---
 
 ## Table of Contents

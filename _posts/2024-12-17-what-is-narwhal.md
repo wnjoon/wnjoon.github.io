@@ -1,12 +1,21 @@
 ---
 layout: post
 title:  "Narwhal: Scalable Blockchain Data Propagation with DAG-Based Design" 
-description: Every blockchain should share all transactions with nodes, and it directly affects performance, including throughput and latency. Narwhal was introduced in the paper “Narwhal and Tusk…" 
+description: "Narwhal is a DAG-based mempool that separates transaction propagation from the consensus ordering protocol, enabling high-performance and scalable BFT consensus for blockchains." 
 # date:   2022-10-26 15:00:00 +0900
 categories: dev
 # tags: [ethereum, solidity, smartcontract]
-keywords: blockchain, consensus algorithm, dag
+keywords: blockchain, consensus algorithm, dag, Narwhal, mempool
 comments: true
+author: Wonjoon
+
+schema:
+  '@type': TechArticle
+  about:
+    - '@type': Thing
+      name: "Narwhal Consensus Protocol"
+      description: "A DAG-based mempool and efficient BFT consensus protocol designed for high-throughput blockchains."
+  keywords: "blockchain, consensus algorithm, dag, Narwhal, mempool"
 ---
 
 ## Table of Contents

@@ -4,8 +4,16 @@ title:  "Using sync.Cond for Goroutine Synchronization in Go"
 description: "In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change."
 categories: dev
 # tags: [ethereum, solidity, smartcontract]
-keywords: go, channel, mutex, sync, cond
+keywords: go, channel, mutex, sync, cond, goroutine, synchronization
 comments: true
+author: Wonjoon
+
+schema:
+  '@type': TechArticle
+  about:
+    - '@type': Thing
+      name: "sync.Cond"
+      description: "A synchronization primitive in Go for goroutine coordination."
 ---
 
 ## Table of Contents
