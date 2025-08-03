@@ -2,7 +2,7 @@
 layout: post
 title:  "채권 가격과 금리의 관계: 왜 반대로 움직일까?"
 description: "채권 가격이 오르면 왜 시장 금리는 하락하는지, 그 역학 관계를 설명합니다."
-categories: economy
+categories: investment
 keywords: 채권, 금리, 채권 가격, 채권 수익률, 시장 금리, 이자율, Q&A
 comments: true
 author: Wonjoon
