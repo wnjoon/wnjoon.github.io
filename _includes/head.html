@@ -57,6 +57,25 @@
         {%- endfor -%}
       ]
       {%- endif -%}
+      
+      {%- comment -%} 아래 FAQPage 처리 로직 추가 {%- endcomment -%}
+      {%- if page.schema.mainEntity and page.schema.mainEntity['@type'] == 'FAQPage' -%},
+      "mainEntity": {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {%- for qa in page.schema.mainEntity.mainEntity -%}
+          {
+            "@type": "Question",
+            "name": "{{ qa.name | escape }}",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "{{ qa.acceptedAnswer.text | escape }}"
+            }
+          }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]
+      }
+      {%- endif -%}
     }
   </script>
   {%- endif -%}
