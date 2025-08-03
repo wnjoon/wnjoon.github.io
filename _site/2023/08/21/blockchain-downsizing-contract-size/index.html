@@ -9,8 +9,8 @@
 <meta property="og:title" content="How to Reduce Smart Contract Size" />
 <meta name="author" content="wonjoon" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways." />
-<meta property="og:description" content="Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways." />
+<meta name="description" content="EIP-170 introduced a smart contract size limit. Learn key strategies like modularization, using libraries, and optimizing code to reduce your contract’s size and gas costs." />
+<meta property="og:description" content="EIP-170 introduced a smart contract size limit. Learn key strategies like modularization, using libraries, and optimizing code to reduce your contract’s size and gas costs." />
 <link rel="canonical" href="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/" />
 <meta property="og:url" content="http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/" />
 <meta property="og:site_name" content="//TODO: Write Blog" />
@@ -19,9 +19,56 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="How to Reduce Smart Contract Size" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-08-21T00:00:00+09:00","datePublished":"2023-08-21T00:00:00+09:00","description":"Introduce post from ethereum official blog about how to reduce smart contract size by serveral ways.","headline":"How to Reduce Smart Contract Size","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"},"url":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-08-21T00:00:00+09:00","datePublished":"2023-08-21T00:00:00+09:00","description":"EIP-170 introduced a smart contract size limit. Learn key strategies like modularization, using libraries, and optimizing code to reduce your contract’s size and gas costs.","headline":"How to Reduce Smart Contract Size","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"},"url":"http://localhost:4000/2023/08/21/blockchain-downsizing-contract-size/"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Reduce Smart Contract Size",
+      "name": "How to Reduce Smart Contract Size",
+      "description": "EIP-170 introduced a smart contract size limit. Learn key strategies like modularization, using libraries, and optimizing code to reduce your contract&#39;s size and gas costs.",
+      "author": {
+        "@type": "Person",
+        "name": "wonjoon"
+      },
+      "datePublished": "2023-08-21T00:00:00+09:00",
+      "dateModified": "2023-08-21T00:00:00+09:00",
+      "image": "https%3A%2F%2Fvia.placeholder.com%2F1200x630%2F2196F3%2Fffffff%3Ftext%3DHow+to+Reduce+Smart+Contract+Size",
+      "howTo": {
+        "@type": "HowTo",
+        "name": "How to Reduce Smart Contract Size",
+        "step": [{
+            "@type": "HowToStep",
+            "name": "Split Large Contracts",
+            "text": "Break down large contracts into smaller, modular components to improve readability, maintainability, and performance. Group related functions and separate storage-heavy operations."
+          },{
+            "@type": "HowToStep",
+            "name": "Use Libraries",
+            "text": "Offload reusable code into libraries to reduce the size of the main contract. Libraries are deployed once and can be called by multiple contracts."
+          },{
+            "@type": "HowToStep",
+            "name": "Implement Proxies",
+            "text": "Use proxy patterns to separate logic from storage. The main contract holds the state, while a separate logic contract is called via delegatecall, keeping the main contract lightweight."
+          },{
+            "@type": "HowToStep",
+            "name": "Optimize Functions and Variables",
+            "text": "Reduce the number of public functions, inline single-use internal functions, and reuse variables instead of declaring new ones to minimize bytecode."
+          },{
+            "@type": "HowToStep",
+            "name": "Use Shorter Error Messages or Custom Errors",
+            "text": "Long revert strings increase contract size. Use short error codes or, for Solidity v0.8.4+, use custom errors which are much more gas-efficient."
+          },{
+            "@type": "HowToStep",
+            "name": "Adjust Solidity Optimizer Settings",
+            "text": "Configure the Solidity compiler optimizer. Set a low &#39;runs&#39; value for deployment size optimization or a higher value for runtime gas optimization."
+          },{
+            "@type": "HowToStep",
+            "name": "Refine Function Parameters and Visibility",
+            "text": "Avoid passing structs as parameters; use primitive types instead. Use the correct function visibility (private/internal) where possible, and consider replacing modifiers with internal functions."
+          }]
+      }}
+  </script><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
   <link rel="stylesheet" href="/assets/css/main.css" />
   <link rel="stylesheet" href="/assets/css/syntax.css" />
 </head><body a="white">

@@ -1,5 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-07-31T11:24:37+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?</title><link href="http://localhost:4000/2025/06/23/fmt-error-handling/" rel="alternate" type="text/html" title="Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?" /><published>2025-06-23T00:00:00+09:00</published><updated>2025-06-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/06/23/fmt-error-handling</id><content type="html" xml:base="http://localhost:4000/2025/06/23/fmt-error-handling/"><![CDATA[<h2 id="핵심-요약-tldr">핵심 요약 (TL;DR)</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-03T14:37:00+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">채권 가격과 금리의 관계: 왜 반대로 움직일까?</title><link href="http://localhost:4000/2025/08/03/interest-rate-bonds/" rel="alternate" type="text/html" title="채권 가격과 금리의 관계: 왜 반대로 움직일까?" /><published>2025-08-03T00:00:00+09:00</published><updated>2025-08-03T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/03/interest-rate-bonds</id><content type="html" xml:base="http://localhost:4000/2025/08/03/interest-rate-bonds/"><![CDATA[<p><strong>결론: 채권의 수요가 증가하면, 채권 가격이 상승하고 시장 금리가 하락합니다.</strong></p>
+
+<h3 id="채권의-특징">채권의 특징</h3>
+
+<p>채권 시장을 보다 보면 이런 말을 자주 듣게 됩니다. 주식처럼 가격이 오르면 좋은 것 아닌가? 싶은데, 왜 금리는 반대로 움직이는 걸까요? 이 원리를 알기 위해선 먼저 채권의 기본 특징 한 가지를 이해해야 합니다.</p>
+
+<p>채권은 정부(국채)나 회사(회사채)가 자금을 조달하기 위해 발행하는 일종의 ‘차용증서’입니다. 정부는 일반적으로 매달 정기적으로 경쟁입찰을 통해 국채를 발행하고, 회사는 자금이 필요한 시기에 이사회의 결정을 거쳐 비정기적으로 회사채를 발행합니다.</p>
+
+<p>채권의 대표적인 특징은 아래와 같습니다.</p>
+
+<ul>
+  <li><strong>채권은 발행 시점에 이자와 총량이 고정</strong>된다는 점입니다.</li>
+  <li><strong>한번 발행된 채권은 만기가 되기 전까지 주식처럼 시장에서 자유롭게 거래됩니다.</strong></li>
+  <li>채권은 발행될 때 지급하기로 약속한<strong>표면 이자율과 이자액이 절대 변하지 않습니다</strong>.</li>
+</ul>
+
+<p>특히 마지막 특징인 ‘변하지 않는 표면 이자율과 이자액’이 어떻게 채권 가격과 금리를 반대로 움직이게 만드는지 구체적인 예시로 살펴보겠습니다.</p>
+
+<h3 id="고정된-이자-vs-변동하는-가격">고정된 이자 vs 변동하는 가격</h3>
+
+<p>여기, A회사가 발행한 채권이 있다고 가정해 봅시다.</p>
+
+<ul>
+  <li><strong>채권 가격(발행가):</strong> 10,000원</li>
+  <li><strong>표면 이자율:</strong> 연 5% (매년 500원의 이자를 지급하기로 약속)</li>
+</ul>
+
+<p>이 채권을 발행가인 10,000원에 샀다면, 투자 수익률은 약속 그대로 연 5%입니다.</p>
+
+<p>그런데 이 A회사가 유망하다는 소문이 나면서 채권을 사려는 사람(수요)이 몰렸습니다. 한정된 채권을 사기 위한 경쟁이 붙으면서, 시장 가격이 <strong>10,000원에서 12,000원으로 올랐습니다.</strong></p>
+
+<p>이때 채권의 시장 가격은 12,000원으로 올랐지만, A회사가 지급하기로 약속한 <strong>이자액은 여전히 500원으로 고정</strong>되어 있습니다.</p>
+
+<p>그렇다면 지금 12,000원을 주고 이 채권을 산 사람의 실제 수익률은 어떻게 될까요?</p>
+
+<ul>
+  <li><strong>발행 시점 수익률:</strong> 500원 ÷ 10,000원 = <strong>5%</strong></li>
+  <li><strong>가격 상승 후 수익률:</strong> 500원 ÷ 12,000원 = <strong>약 4.16%</strong></li>
+</ul>
+
+<p>이처럼 채권 가격이 오르니, 투자금 대비 실제 얻게 되는 <strong>‘수익률’은 오히려 떨어졌습니다.</strong> 경제 뉴스에서 말하는 시장 금리는 바로 채권의 실제 수익률을 의미하는 경우가 많습니다. 즉 채권 가격이 오르면서, <strong>금리가 하락(5% → 4.16%)했다고 평가하게 됩니다.</strong></p>]]></content><author><name>Wonjoon</name></author><category term="economy" /><summary type="html"><![CDATA[채권 가격이 오르면 왜 시장 금리는 하락하는지, 그 역학 관계를 설명합니다.]]></summary></entry><entry><title type="html">Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?</title><link href="http://localhost:4000/2025/06/23/fmt-error-handling/" rel="alternate" type="text/html" title="Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?" /><published>2025-06-23T00:00:00+09:00</published><updated>2025-06-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/06/23/fmt-error-handling</id><content type="html" xml:base="http://localhost:4000/2025/06/23/fmt-error-handling/"><![CDATA[<h2 id="핵심-요약-tldr">핵심 요약 (TL;DR)</h2>
 
 <ul>
   <li><strong>언제 <code class="language-plaintext highlighter-rouge">fmt.Errorf</code>를 쓰면 안 되나요?</strong>
@@ -89,7 +129,132 @@
   <li>주요 로직에서 이미 에러가 발생했을 경우 (<code class="language-plaintext highlighter-rouge">err</code>가 <code class="language-plaintext highlighter-rouge">nil</code>이 아닐 때): 덜 중요한 뒷정리 에러는 무시하고, 더 중요한 최초의 원인 에러를 그대로 보존하여 반환합니다.</li>
 </ul>
 
-<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
+  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
+  <li><a href="#using-while-with-labels">Using while with labels</a></li>
+  <li><a href="#using-for-with-labels">Using for with labels</a></li>
+  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
+
+<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
+If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
+
+<h2 id="using-loop-with-labels">Using loop with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">loop</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
+            
+            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
+            <span class="p">}</span>
+
+            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
+  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
+  <li>You can apply labels to any loop, not just loop blocks</li>
+</ul>
+
+<h2 id="using-while-with-labels">Using while with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
+            <span class="p">}</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-for-with-labels">Using for with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
+            <span class="p">}</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-continue-with-labels">Using continue with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
+        <span class="p">}</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break</td>
+      <td>Exits the nearest loop</td>
+    </tr>
+    <tr>
+      <td>break ‘label</td>
+      <td>Exits the specific loop with the given label</td>
+    </tr>
+    <tr>
+      <td>continue ‘label</td>
+      <td>Skips to the next iteration of the labeled loop</td>
+    </tr>
+    <tr>
+      <td>Label works on</td>
+      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
@@ -316,132 +481,7 @@
       <td>Closures = Go’s anonymous functions</td>
     </tr>
   </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
-  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
-  <li><a href="#using-while-with-labels">Using while with labels</a></li>
-  <li><a href="#using-for-with-labels">Using for with labels</a></li>
-  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
-  <li><a href="#summary">Summary</a></li>
-</ul>
-
-<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
-
-<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
-If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
-
-<h2 id="using-loop-with-labels">Using loop with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-
-        <span class="k">loop</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
-            
-            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
-                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
-            <span class="p">}</span>
-
-            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
-  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
-  <li>You can apply labels to any loop, not just loop blocks</li>
-</ul>
-
-<h2 id="using-while-with-labels">Using while with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
-            <span class="p">}</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-for-with-labels">Using for with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
-            <span class="p">}</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-continue-with-labels">Using continue with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
-        <span class="p">}</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="summary">Summary</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>break</td>
-      <td>Exits the nearest loop</td>
-    </tr>
-    <tr>
-      <td>break ‘label</td>
-      <td>Exits the specific loop with the given label</td>
-    </tr>
-    <tr>
-      <td>continue ‘label</td>
-      <td>Skips to the next iteration of the labeled loop</td>
-    </tr>
-    <tr>
-      <td>Label works on</td>
-      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#strings-in-rust">Strings in Rust</a></li>
@@ -1498,262 +1538,4 @@ However, in reality, it always receives an empty string (<code class="language-p
       <li>Pointers (&amp;status): Useful when modifying function behavior explicitly.</li>
     </ul>
   </li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, Deferred functions capture arguments immediately, not when they actually run.]]></summary></entry><entry><title type="html">Using sync.Cond for Goroutine Synchronization in Go</title><link href="http://localhost:4000/2025/03/13/go-sync-cond/" rel="alternate" type="text/html" title="Using sync.Cond for Goroutine Synchronization in Go" /><published>2025-03-13T00:00:00+09:00</published><updated>2025-03-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/13/go-sync-cond</id><content type="html" xml:base="http://localhost:4000/2025/03/13/go-sync-cond/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#what-is-synccond">What is <code class="language-plaintext highlighter-rouge">sync.Cond</code>?</a></li>
-  <li><a href="#how-synccond-works">How <code class="language-plaintext highlighter-rouge">sync.Cond</code> Works</a></li>
-  <li><a href="#example-donation-goal-tracker-using-synccond">Example: Donation Goal Tracker Using <code class="language-plaintext highlighter-rouge">sync.Cond</code></a></li>
-  <li><a href="#comparison-signal-vs-broadcast">Comparison: <code class="language-plaintext highlighter-rouge">Signal()</code> vs. <code class="language-plaintext highlighter-rouge">Broadcast()</code></a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="what-is-synccond">What is sync.Cond?</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is a condition variable that helps synchronize multiple goroutines.</li>
-  <li>It is typically used when one or more goroutines must wait until a shared resource reaches a specific state.</li>
-  <li>One goroutine waits (<code class="language-plaintext highlighter-rouge">Wait()</code>) until a condition is satisfied, and another goroutine notifies (<code class="language-plaintext highlighter-rouge">Signal()</code> or <code class="language-plaintext highlighter-rouge">Broadcast()</code>) the waiting goroutines when the condition is met.</li>
-</ul>
-
-<h2 id="how-synccond-works">How sync.Cond Works</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Method</strong></th>
-      <th><strong>Description</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Wait()</code></td>
-      <td>Makes a goroutine wait until a condition is met (automatically unlocks the mutex)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Signal()</code></td>
-      <td>Wakes only one waiting goroutine (even if multiple goroutines are waiting)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Broadcast()</code></td>
-      <td>Wakes all waiting goroutines</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="example-donation-goal-tracker-using-synccond">Example: Donation Goal Tracker Using sync.Cond</h2>
-
-<p>The following example demonstrates how <code class="language-plaintext highlighter-rouge">sync.Cond</code> can be used to coordinate multiple goroutines that monitor a donation goal.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-    <span class="s">"fmt"</span>
-    <span class="s">"sync"</span>
-    <span class="s">"time"</span>
-<span class="p">)</span>
-
-<span class="k">type</span> <span class="n">Donation</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">cond</span>    <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">Cond</span> <span class="c">// Condition variable</span>
-    <span class="n">balance</span> <span class="kt">int</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">donation</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Donation</span><span class="p">{</span>
-        <span class="n">cond</span><span class="o">:</span> <span class="n">sync</span><span class="o">.</span><span class="n">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span><span class="p">{}),</span> <span class="c">// Create a condition variable with a mutex</span>
-    <span class="p">}</span>
-
-    <span class="c">// Listener goroutine (checks if goal is reached)</span>
-    <span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span> <span class="c">// Acquire mutex lock</span>
-        <span class="k">for</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">goal</span> <span class="p">{</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span> <span class="c">// Wait until balance &gt;= goal</span>
-        <span class="p">}</span>
-        <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
-        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span> <span class="c">// Release mutex lock</span>
-    <span class="p">}</span>
-
-    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
-    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">15</span><span class="p">)</span>
-
-    <span class="c">// Updater goroutine (increments balance)</span>
-    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">{</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="o">++</span> <span class="c">// Increase balance</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Broadcast</span><span class="p">()</span> <span class="c">// Wake all waiting goroutines</span>
-        <span class="p">}</span>
-    <span class="p">}()</span>
-
-    <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">20</span> <span class="o">*</span> <span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span> <span class="c">// Keep program running</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="step-1-creating-a-synccond-object">Step 1: Creating a sync.Cond Object</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Donation</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">cond</span>    <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">Cond</span>  
-    <span class="n">balance</span> <span class="kt">int</span>
-<span class="p">}</span>
-
-<span class="n">donation</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Donation</span><span class="p">{</span>
-    <span class="n">cond</span><span class="o">:</span> <span class="n">sync</span><span class="o">.</span><span class="n">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span><span class="p">{}),</span> 
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">cond</code>: A condition variable based on <code class="language-plaintext highlighter-rouge">sync.Mutex</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> provides synchronization between multiple goroutines using <code class="language-plaintext highlighter-rouge">Wait()</code>, <code class="language-plaintext highlighter-rouge">Signal()</code>, and <code class="language-plaintext highlighter-rouge">Broadcast()</code>.</li>
-</ul>
-
-<h3 id="step-2-listener-goroutine-fgoal-int">Step 2: Listener Goroutine (<code class="language-plaintext highlighter-rouge">f(goal int)</code>)</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>  
-    <span class="k">for</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">goal</span> <span class="p">{</span>
-        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span> <span class="c">// Wait until condition is met</span>
-    <span class="p">}</span>
-    <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span> 
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>How It Works:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">donation.cond.L.Lock()</code>: Acquires mutex lock before checking <code class="language-plaintext highlighter-rouge">donation.balance</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">for donation.balance &lt; goal</code>: Checks if goal is reached.</li>
-  <li><code class="language-plaintext highlighter-rouge">donation.cond.Wait()</code>:
-    <ul>
-      <li>Pauses execution until another goroutine calls <code class="language-plaintext highlighter-rouge">Signal()</code> or <code class="language-plaintext highlighter-rouge">Broadcast()</code>.</li>
-      <li>Automatically releases the mutex lock while waiting.</li>
-    </ul>
-  </li>
-  <li>Once woken up, the goroutine resumes execution, prints the message, and releases the lock (<code class="language-plaintext highlighter-rouge">L.Unlock()</code>).</li>
-</ol>
-
-<h3 id="step-3-updater-goroutine">Step 3: Updater Goroutine</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">{</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="o">++</span>      
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Broadcast</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>How It Works:</p>
-
-<ol>
-  <li>Acquires the lock (<code class="language-plaintext highlighter-rouge">donation.cond.L.Lock()</code>).</li>
-  <li>Increments the balance every second (<code class="language-plaintext highlighter-rouge">donation.balance++</code>).</li>
-  <li>Releases the lock (<code class="language-plaintext highlighter-rouge">donation.cond.L.Unlock()</code>).</li>
-  <li>Calls <code class="language-plaintext highlighter-rouge">donation.cond.Broadcast()</code>:
-    <ul>
-      <li>Wakes up all waiting goroutines.</li>
-      <li>Each waiting goroutine checks if its goal is met and either continues waiting or exits.</li>
-    </ul>
-  </li>
-</ol>
-
-<h3 id="overall-execution-flow">Overall Execution Flow</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Step</strong></th>
-      <th><strong>Active Goroutine(s)</strong></th>
-      <th><strong>Balance</strong></th>
-      <th><strong>After Broadcast()</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>f(10), f(15) (waiting)</td>
-      <td>0</td>
-      <td>Still waiting</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Updater goroutine</td>
-      <td>1 -&gt; 9</td>
-      <td>Still waiting</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Updater goroutine</td>
-      <td>10</td>
-      <td>f(10) wakes up and exits</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>f(15) (still waiting)</td>
-      <td>11 -&gt; 14</td>
-      <td>Still waiting</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Updater goroutine</td>
-      <td>15</td>
-      <td>f(15) wakes up and exits</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Key Observations:</p>
-
-<ul>
-  <li>Each time balance increases, <code class="language-plaintext highlighter-rouge">Broadcast()</code> wakes all waiting goroutines.</li>
-  <li>If a goroutine’s goal is not met, it goes back to <code class="language-plaintext highlighter-rouge">Wait()</code>.</li>
-  <li>If a goroutine’s goal is met, it exits after printing the result.</li>
-  <li>Once all goals are reached, no goroutines are waiting, so <code class="language-plaintext highlighter-rouge">Broadcast()</code> no longer has any effect.</li>
-</ul>
-
-<h2 id="comparison-signal-vs-broadcast">Comparison: Signal() vs. Broadcast()</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Method</strong></th>
-      <th><strong>Behavior</strong></th>
-      <th><strong>Use Case</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Wait()</code></td>
-      <td>Makes a goroutine wait until a condition is met (automatically unlocks the mutex)</td>
-      <td>Used when waiting for a condition</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Signal()</code></td>
-      <td>Wakes only one waiting goroutine (even if multiple goroutines are waiting)</td>
-      <td>Use when a single goroutine should proceed</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Broadcast()</code></td>
-      <td>Wakes all waiting goroutines</td>
-      <td>Use when all goroutines should be notified</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>When to Use <code class="language-plaintext highlighter-rouge">Signal()</code> vs. <code class="language-plaintext highlighter-rouge">Broadcast()</code></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">Signal()</code>: Use when only one goroutine needs to proceed.</li>
-  <li><code class="language-plaintext highlighter-rouge">Broadcast()</code>: Use when all waiting goroutines should be notified (e.g., donation.balance updates).</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> helps synchronize multiple goroutines by allowing them to wait for a condition to be met.</li>
-  <li><code class="language-plaintext highlighter-rouge">Wait()</code> makes goroutines wait, while <code class="language-plaintext highlighter-rouge">Signal()</code> and <code class="language-plaintext highlighter-rouge">Broadcast()</code> notify them.</li>
-  <li>Use <code class="language-plaintext highlighter-rouge">Broadcast()</code> when all waiting goroutines should proceed, and use <code class="language-plaintext highlighter-rouge">Signal()</code> when only one goroutine should continue.</li>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is useful for implementing event-based synchronization, such as resource availability or state changes.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, deferred functions capture arguments immediately, not when they actually run. Learn how to fix this common issue using closures or pointers to ensure your deferred calls use the latest variable values.]]></summary></entry></feed>
