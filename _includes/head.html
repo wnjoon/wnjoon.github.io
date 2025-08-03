@@ -58,7 +58,6 @@
       ]
       {%- endif -%}
       
-      {%- comment -%} 아래 FAQPage 처리 로직 추가 {%- endcomment -%}
       {%- if page.schema.mainEntity and page.schema.mainEntity['@type'] == 'FAQPage' -%},
       "mainEntity": {
         "@type": "FAQPage",

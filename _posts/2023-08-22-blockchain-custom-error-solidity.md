@@ -1,14 +1,44 @@
 ---
 layout: post
 author: wonjoon
-title:  "Custom Errors in Solidity: A Gas-Efficient Alternative" 
-description: By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution..
+title:  "Custom Errors in Solidity: A Gas-Efficient Alternative"
+description: By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution.
 # date:   2023-08-22 15:00:00 +0900
 categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity
 comments: true
+
+schema:
+  '@type': TechArticle
+  about:
+    - '@type': Thing
+      name: "Solidity"
+      description: "An object-oriented, high-level language for implementing smart contracts on various blockchain platforms, most notably Ethereum."
+    - '@type': Thing
+      name: "Gas Optimization"
+      description: "The practice of reducing the computational cost (gas) of executing transactions and deploying smart contracts on the Ethereum blockchain."
+    - '@type': Thing
+      name: "Ethers.js"
+      description: "A complete and compact library for interacting with the Ethereum Blockchain and its ecosystem."
+  howTo:
+    '@type': HowTo
+    name: "How to Use Custom Errors in Solidity"
+    step:
+      - '@type': HowToStep
+        name: "Declare a Custom Error"
+        text: "Define a custom error at the file or contract level using the 'error' keyword. For example, 'error Unauthorized();'. This creates a new, gas-efficient error type."
+      - '@type': HowToStep
+        name: "Use the 'revert' Statement"
+        text: "In your function's logic, use the 'revert' statement with the custom error to halt execution. For instance, 'if (msg.sender != owner) revert Unauthorized();'."
+      - '@type': HowToStep
+        name: "Add Parameters for More Context"
+        text: "Pass dynamic data by defining errors with parameters, like 'error InsufficientBalance(uint256 available, uint256 required);'. This provides detailed information to off-chain applications."
+      - '@type': HowToStep
+        name: "Decode Errors with Ethers.js"
+        text: "On the client side, use libraries like ethers.js to decode custom error data. Create an interface for the error and use it to parse the returned data, making error handling more robust."
 ---
+
 
 ## Table of Contents
 
