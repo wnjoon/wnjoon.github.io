@@ -8,23 +8,29 @@ keywords: go, error, fmt.Errorf, error handling, error wrapping, backoff, idioma
 comments: true
 author: Wonjoon
 schema:
+  '@context': https://schema.org
   '@type': TechArticle
-  howTo:
-    '@type': HowTo
-    name: "Go에서 fmt.Errorf 올바르게 사용하기"
-    step:
-      - '@type': HowToStep
-        name: "역할 분리하기"
-        text: "에러를 발생시키는 '실무자' 함수와 에러를 받아 정책을 결정하는 '매니저' 함수로 역할을 명확히 나눕니다."
-      - '@type': HowToStep
-        name: "라이브러리와의 약속 지키기"
-        text: "재시도 로직처럼 에러의 종류를 확인해야 하는 라이브러리를 사용할 때는, fmt.Errorf로 감싸지 말고 원본 에러를 그대로 반환합니다."
-      - '@type': HowToStep
-        name: "최종 단계에서 컨텍스트 추가하기"
-        text: "모든 정책적 판단이 끝난 후, 상위 호출자에게 에러를 반환하기 직전에 fmt.Errorf를 사용해 명확한 맥락을 추가합니다."
-      - '@type': HowToStep
-        name: "defer에서 안전하게 에러 처리하기"
-        text: "defer 문에서는 '명명된 반환 값'과 `if err == nil` 조건을 함께 사용하여, 더 중요한 원인 에러를 덮어쓰지 않고 최초의 원인을 보존합니다."
+  headline: "SQLite FTS5 깊이 파고들기: 토크나이저와 인덱싱의 모든 것"
+  description: "SQLite의 강력한 전문 검색 확장 기능인 FTS5의 동작 원리부터, 토크나이저(unicode61)와 접두어 인덱스(prefix)의 올바른 이해, 그리고 한글 검색의 한계점까지 자세히 알아봅니다."
+  keywords: "SQLite, FTS5, Full-Text Search, 전문 검색, 데이터베이스, 토크나이저, 인덱싱, unicode61"
+  mainEntity:
+    '@type': FAQPage
+    mainEntity:
+      - '@type': Question
+        name: "Q1: FTS5는 일반적인 LIKE 검색과 무엇이 다른가요?"
+        acceptedAnswer:
+          '@type': Answer
+          text: "LIKE는 텍스트 전체를 일일이 비교하는 방식이라 데이터가 많아지면 매우 느려집니다. 반면, FTS5는 텍스트를 '토큰'이라는 단어 단위로 쪼개 미리 '색인(index)'을 만들어 두기 때문에, 수십만 건의 데이터 속에서도 압도적으로 빠르게 검색할 수 있습니다. 또한, 관련도 순 정렬 등 LIKE에는 없는 고급 검색 기능을 제공합니다."
+      - '@type': Question
+        name: "Q2: `tokenize = 'unicode61'` 옵션을 사용하면 한글 검색에 어떤 한계가 있나요?"
+        acceptedAnswer:
+          '@type': Answer
+          text: "unicode61 토크나이저는 한글의 명사, 조사 같은 형태소를 분석하지 못하고 오직 공백과 문장부호를 기준으로만 단어를 나눕니다. 예를 들어 '최고의'라는 단어를 '최고'와 '의'로 분리하지 못하고 통째로 하나의 토큰으로 인식합니다. 따라서 사용자가 '최고'라고 검색하면 '최고의'가 포함된 문서를 찾지 못하는 한계가 있습니다."
+      - '@type': Question
+        name: "Q3: `prefix` 인덱스를 설정했는데도 왜 '최고'로 검색하면 '최고의'를 찾을 수 없나요?"
+        acceptedAnswer:
+          '@type': Answer
+          text: "prefix 옵션은 새로운 토큰을 만드는 것이 아니라, 이미 존재하는 토큰('최고의')을 더 빨리 찾기 위한 '지름길(색인)'을 추가하는 역할만 합니다. 이 지름길은 검색어 뒤에 * 와일드카드를 붙여 `MATCH '최고*'`와 같이 명시적으로 접두어 검색을 요청할 때만 사용됩니다. * 없이 검색하면 FTS5는 '최고'라는 완전한 토큰을 찾으려 하기 때문에 '최고의'를 찾지 못합니다."
 ---
 
 ## 핵심 요약 (TL;DR)

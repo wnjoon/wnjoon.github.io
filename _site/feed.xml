@@ -1,5 +1,226 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-04T08:00:31+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">채권 가격과 금리의 관계: 왜 반대로 움직일까?</title><link href="http://localhost:4000/2025/08/03/interest-rate-bonds/" rel="alternate" type="text/html" title="채권 가격과 금리의 관계: 왜 반대로 움직일까?" /><published>2025-08-03T00:00:00+09:00</published><updated>2025-08-03T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/03/interest-rate-bonds</id><content type="html" xml:base="http://localhost:4000/2025/08/03/interest-rate-bonds/"><![CDATA[<p><strong>결론: 채권의 수요가 증가하면, 채권 가격이 상승하고 시장 금리가 하락합니다.</strong></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-06T15:12:03+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">SQLite FTS의 토크나이저와 인덱싱에 대해서</title><link href="http://localhost:4000/2025/08/06/sql-fts5/" rel="alternate" type="text/html" title="SQLite FTS의 토크나이저와 인덱싱에 대해서" /><published>2025-08-06T00:00:00+09:00</published><updated>2025-08-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/06/sql-fts5</id><content type="html" xml:base="http://localhost:4000/2025/08/06/sql-fts5/"><![CDATA[<h2 id="목차">목차</h2>
+
+<ul>
+  <li><a href="#전문-검색full-text-search이란">전문 검색(Full-Text Search)이란?</a></li>
+  <li><a href="#fts는-어떻게-동작하나요">FTS는 어떻게 동작하나요?</a></li>
+  <li><a href="#좀더-자세히-알아보기">좀더 자세히 알아보기</a></li>
+  <li><a href="#fts의-장점">FTS의 장점</a></li>
+</ul>
+
+<h2 id="전문-검색full-text-search이란">전문 검색(Full-Text Search)이란?</h2>
+
+<p>우리가 구글에서 “오늘 서울 날씨”라고 검색하면, 구글은 어떻게 요청 데이터를 처리할까요?
+아마도 구글은 ‘오늘’, ‘서울’, ‘날씨’라는 단어가 포함된 수많은 웹페이지 중에서 가장 관련성 높은 문서를 찾아서 보여줄겁니다.</p>
+
+<p>이처럼, 전문 검색(Full-Text Search)은 단순히 문자가 완전히 일치하는지(예: <code class="language-plaintext highlighter-rouge">LIKE '%검색어%'</code>)를 확인하는 것을 넘어, <strong>문장이나 문단 전체에서 특정 단어나 구문이 포함된 문서를 빠르고 효율적으로 찾아주는 기술</strong>입니다. 
+일반적인 데이터베이스 검색(예: <code class="language-plaintext highlighter-rouge">WHERE title = '검색어'</code>)이 책의 ‘목차’에서 제목을 찾는 것이라면, 전문 검색은 일반적으로 책의 맨 뒤에서 볼 수 있는 ‘찾아보기(인덱스)’를 이용해 본문 내용 안에서 단어를 찾는 것과 같습니다.</p>
+
+<p>SQLite 데이터베이스는 이 ‘전문 검색’ 기능을 사용할 수 있도록 해주는 강력한 확장 기능(extension)인 FTS를 제공합니다. ‘FTS’는 Full-Text Search의 약자이고, 뒤에 숫자로 버전을 명시합니다. 예를 들어 FTS5라는 것은 5번째 버전을 의미합니다. <strong>앞으로 설명할 FTS는 FTS5를 의미합니다.</strong></p>
+
+<h2 id="fts는-어떻게-동작하나요">FTS는 어떻게 동작하나요?</h2>
+
+<p>FTS는 일반적인 검색보다 훨씬 빠르고 효율적으로 동작하기 위해, 아래와 같은 과정을 거칩니다.</p>
+
+<h3 id="1-가상-테이블virtual-table-생성">1. 가상 테이블(Virtual Table) 생성</h3>
+
+<p>전문 검색을 할 텍스트 데이터(예: 상품 설명)를 일반 테이블이 아닌 FTS 전용의 ‘가상 테이블(VIRTUAL)’에 저장합니다.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 'product_fts' 라는 이름의 FTS5 가상 테이블을 생성</span>
+<span class="k">CREATE</span> <span class="n">VIRTUAL</span> <span class="k">TABLE</span> <span class="n">product_fts</span> <span class="k">USING</span> <span class="n">fts5</span><span class="p">(</span>
+    <span class="n">Name</span><span class="p">,</span>         <span class="c1">-- 상품명</span>
+    <span class="n">Description</span>   <span class="c1">-- 상품설명</span>
+    <span class="c1">-- , tokenize = 'porter' -- (옵션) 추가적인 토크나이저 설정</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="2-토큰화tokenization">2. 토큰화(Tokenization)</h3>
+
+<p>FTS5 테이블에 텍스트를 저장하면, FTS5는 이 텍스트를 의미 있는 최소 단위의 단어, 즉 <strong>‘토큰(token)’</strong>으로 분해합니다. 예를 들어, “최고의 서울 야경 투어”라는 문장은 ‘최고’, ‘서울’, ‘야경’, ‘투어’ 같은 토큰으로 쪼개지는데, 이 과정에서 ‘의’ 같은 조사는 보통 무시됩니다.</p>
+
+<h3 id="3-인덱싱indexing">3. 인덱싱(Indexing)</h3>
+
+<p>앞에서 쪼개진 토큰들을 바탕으로 ‘역인덱스(inverted index)’라는 특별한 목록을 만듭니다. 이 목록에는 어떤 단어(토큰)가 어떤 문서(row)에 나타나는지에 대한 정보가 기록됩니다.</p>
+
+<p>예를 들어, ‘서울’이 포함된 문서 목록(1, 5, 12)과 ‘야경’이 포함된 문서 목록(1, 7)을 찾아서 아래와 같이 매핑합니다.</p>
+
+<ul>
+  <li>‘서울’ -&gt; 1번, 5번, 12번 문서에 있음</li>
+  <li>‘야경’ -&gt; 1번, 7번 문서에 있음</li>
+</ul>
+
+<h3 id="4-검색search">4. 검색(Search)</h3>
+
+<p>사용자가 <code class="language-plaintext highlighter-rouge">MATCH</code> 연산자를 사용해 “서울 야경”이라고 검색하면, FTS는 앞에서 생성한 역인덱스를 이용해서 ‘서울’과 ‘야경’이 포함된 문서를 빠르게 찾아냅니다. 그리고 두 목록에 공통으로 존재하는 문서를 최종 결과로 반환합니다.</p>
+
+<h2 id="좀더-자세히-알아보기">좀더 자세히 알아보기</h2>
+
+<p>아래와 같이 다양한 옵션을 사용해서 가상 테이블을 설정해봅시다.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">VIRTUAL</span> <span class="k">TABLE</span> <span class="k">table_name</span> <span class="k">USING</span> <span class="n">FTS5</span><span class="p">(</span>
+    <span class="n">id</span> <span class="n">UNINDEXED</span><span class="p">,</span>
+    <span class="n">sub_id</span><span class="p">,</span>
+    <span class="k">comment</span><span class="p">,</span>
+    <span class="n">field</span> <span class="n">UNINDEXED</span><span class="p">,</span>
+    <span class="nb">text</span><span class="p">,</span>
+    <span class="k">prefix</span> <span class="o">=</span> <span class="s1">'1 2 3'</span><span class="p">,</span>
+    <span class="n">tokenize</span> <span class="o">=</span> <span class="s1">'unicode61 remove_diacritics 2'</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>먼저 결론을 말씀드리면, 이 명령어를 통해 대소문자를 무시하고, 발음 기호를 제거하며, 공백/문장부호로 단어를 나누는 규칙으로 sub_id, comment, text 컬럼의 내용을 토큰으로 만들어 저장하는 FTS 테이블을 생성합니다.</p>
+
+<h3 id="검색-대상-컬럼-선정">검색 대상 컬럼 선정</h3>
+
+<p>일부 필드에는 UNINDEXED라는 옵션이 붙어있는 것을 볼수 있는데요, 이 옵션이 붙어있는 컬럼은 테이블에 저장되기는 하지만 전문 검색의 대상이 되지는 않습니다. 즉, MATCH 연산자를 사용해서 이 컬럼들을 검색할 수 없습니다.</p>
+
+<ul>
+  <li>검색 대상: sub_id, comment, text</li>
+  <li>검색 비대상: id, field</li>
+</ul>
+
+<p>검색 대상 컬럼에 있는 텍스트는 토큰으로 분해되어 검색용 인덱스로 만들어집니다.</p>
+
+<h3 id="토큰화tokenization">토큰화(Tokenization)</h3>
+
+<p>토큰화(Tokenization)는 바로 <code class="language-plaintext highlighter-rouge">tokenize</code> 옵션에 의해 결정됩니다. 코드를 보면 <code class="language-plaintext highlighter-rouge">unicode61 remove_diacritics 2</code>라는 옵션이 붙어있는 것을 볼 수 있습니다. 이 옵션은 2가지 옵션을 포함하고 있습니다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">unicode61</code></strong></p>
+
+<p>사용할 토크나이저(Tokenizer, 분해기)의 이름입니다. 이름 그대로 유니코드 6.1 표준에 정의된 규칙에 따라 텍스트를 단어로 분해합니다. 이 분해기는 크게 2가지 특징을 가지고 있습니다.</p>
+
+<ol>
+  <li>Case-insensitive: 대소문자를 구분하지 않습니다. Apple, apple, APPLE은 모두 같은 토큰 ‘apple’로 처리됩니다.</li>
+  <li>Separator: 공백(space), 마침표(.), 쉼표(,) 등 문장 부호를 기준으로 단어를 나눕니다.</li>
+</ol>
+
+<p><strong><code class="language-plaintext highlighter-rouge">remove_diacritics 2</code></strong></p>
+
+<p>토크나이저에 전달하는 추가 옵션입니다. 여기서 diacritic은 발음 구별 기호(예: é, ü, ñ)를 의미하고, 결국 앞에 remove가 붙었다는 것은 발음 기호를 제거하라는 옵션이 됩니다.</p>
+
+<p>예를 들어,</p>
+
+<ul>
+  <li>résumé -&gt; resume로,</li>
+  <li>café -&gt; cafe</li>
+</ul>
+
+<p>로 변환되어 토큰으로 만들어집니다.</p>
+
+<p>그럼 뒤에 숫자는 무엇을 의미할까요? 이러한 기능을 처리하는 내부적인 알고리즘의 버전을 의미합니다. 즉 2버전을 기반으로 발음 기호를 제거하라는 옵션입니다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">prefix</code></strong></p>
+
+<p>단어의 앞부분만으로도 빠르게 검색할 수 있도록 <strong>접두어 인덱스(prefix index)</strong>를 만듭니다. ‘1 2 3’의 의미는 한 글자, 두 글자, 세 글자짜리 접두어에 대한 인덱스를 미리 만들어두겠다는 뜻입니다.</p>
+
+<p>예를 들어, apple이라는 단어가 있다면 a, ap, app에 대한 인덱스가 생성됩니다. 이를 통해 사용자는 ‘app’ 까지만 입력해도 apple을 매우 빠르게 찾아낼 수 있습니다.</p>
+
+<p>자동완성 기능이라고 생각하시면 이해하기 좋습니다.</p>
+
+<h3 id="예시-1-영어-텍스트-토큰-분해-과정">예시 1. 영어 텍스트 토큰 분해 과정</h3>
+
+<p><strong>원본 텍스트 저장</strong></p>
+
+<p>“The best Café in Seoul is near City Hall.” 라는 원본 텍스트가 있다고 가정합니다. 이 텍스트는 <code class="language-plaintext highlighter-rouge">text</code> 컬럼에 저장됩니다.</p>
+
+<p><strong>토큰화 과정</strong></p>
+
+<p>unicode61 토크나이저는 대소문자를 통합하고 문장 부호를 기준으로 단어를 나눕니다.</p>
+
+<p>결과로 [the, best, café, in, seoul, is, near, city, hall]이 생성됩니다.</p>
+
+<p><strong>발음 기호 제거</strong></p>
+
+<p>remove_diacritics 옵션은 발음 기호를 제거합니다. café -&gt; cafe</p>
+
+<p>결과로 [the, best, cafe, in, seoul, is, near, city, hall]이 생성됩니다.</p>
+
+<p><strong>접두어 인덱스 생성</strong></p>
+
+<p>단어의 앞부분만으로도 빠르게 검색할 수 있도록 접두어 인덱스(prefix index)를 만듭니다.</p>
+
+<p>위에서 prefix 뒤에 붙은 ‘1 2 3’의 의미는 한 글자, 두 글자, 세 글자짜리 접두어에 대한 인덱스를 미리 만들어두겠다는 뜻입니다.</p>
+
+<p>예를 들어, apple이라는 단어가 있다면 a, ap, app에 대한 인덱스가 생성됩니다. 덕분에 사용자가 ‘app’까지만 입력해도 apple을 매우 빠르게 찾아낼 수 있습니다. 자동완성과 동일한 기능이라고 볼 수 있습니다.</p>
+
+<h3 id="예시-2-한글-텍스트-토큰-분해-과정">예시 2. 한글 텍스트 토큰 분해 과정</h3>
+
+<p><strong>원본 텍스트 저장</strong></p>
+
+<p>“최고의 서울 야경 투어!”라는 원본 텍스트가 있습니다. 이 텍스트 또한 <code class="language-plaintext highlighter-rouge">text</code> 컬럼에 저장됩니다.</p>
+
+<p><strong>토큰화 과정</strong></p>
+
+<p>여기서 중요한 점이 있습니다. <strong><code class="language-plaintext highlighter-rouge">unicode61</code> 토크나이저는 한글의 형태소(명사, 조사 등)를 분석하는 기능이 없기 때문에, 공백과 문장 부호를 기준으로만 단어를 나눕니다.</strong></p>
+
+<p>그러므로 최종 생성 토큰은 [최고의, 서울, 야경, 투어]가 됩니다.</p>
+
+<p>이때 사용자가 ‘최고’라고 검색하면 어떻게 될까요? 토큰으로 저장된 결과는 ‘최고의’뿐이므로, ‘최고’라는 토큰을 찾을 수 없게 됩니다. 이것이 <code class="language-plaintext highlighter-rouge">unicode61</code> 토크나이저를 한글에 사용할 때의 한계점입니다.
+그래서 일반적으로 더 정확한 한글 검색을 위해서는 별도의 한글 형태소 분석기를 FTS에 연동합니다.</p>
+
+<p>그렇다면 궁금한 점이 생깁니다. 위에서 prefix해서 인덱스를 추가로 생성할 수 있다고 했는데, 그러면 ‘최고의’ 토큰은 [‘최’, ‘최고’, ‘최고의’] 인덱스를 가지게 되니까 ‘최고’를 검색할 때도 ‘최고의’를 찾을 수 있게 되는 거 아닌가?</p>
+
+<p>결론부터 말씀드리면, 아쉽게도 그렇게 동작하지 않습니다.</p>
+
+<p>이유를 명확히 이해하려면 <strong>토큰화(Tokenization)</strong>와 <strong>접두어 인덱싱(Prefix Indexing)</strong>의 역할을 정확하게 이해해야 합니다.</p>
+
+<p>FTS에서 가장 먼저 일어나는 일은 입력된 텍스트에서 ‘단어(토큰)’가 무엇인지 정의하는 것입니다.</p>
+
+<p>위에서 <code class="language-plaintext highlighter-rouge">unicode61</code>은 공백을 기준으로 단어를 나누므로, FTS는 이 텍스트에 최고의, 서울, 야경 이라는 3개의 단어(토큰)만 존재한다고 인식하고 저장합니다. 이 시점에서 FTS의 ‘단어 사전’에는 최고의라는 단어는 있지만, 최고라는 단어는 존재하지 않습니다. 토크나이저가 그렇게 정의했기 때문입니다.</p>
+
+<p>이 다음에 진행되는 prefix (접두어 인덱싱)은 “결정된 단어를 빨리 찾기 위한 ‘색인’ 추가”의 역할을 합니다. 중요한 점은 <strong>‘생성된 색인이 토큰이 되지는 않는다’</strong>는 것입니다. 특정 토큰으로 이동할 수 있는 지름길을 만드는 것이지, 이미 만들어진 토큰을 글자수 단위로 더욱 세밀하게 쪼개서 토큰으로 생성하라는 의미가 아닙니다.</p>
+
+<ul>
+  <li>최고의라는 토큰에 대해: [최 -&gt; 최고의], [최고 -&gt; 최고의]로 가는 지름길을 만듭니다.</li>
+  <li>서울이라는 토큰에 대해: [서 -&gt; 서울], [서울 -&gt; 서울]로 가는 지름길을 만듭니다.</li>
+  <li>야경이라는 토큰에 대해: [야 -&gt; 야경], [야경 -&gt; 야경]로 가는 지름길을 만듭니다.</li>
+</ul>
+
+<p>그러므로 최나 최고가 독립적인 단어로 사전에 추가되는 것이 아니라, 오직 ‘최고의’라는 원본 단어를 더 빨리 찾기 위한 ‘색인’ 또는 ‘포인터’의 역할만 하게 됩니다.</p>
+
+<h3 id="검색-시-어떻게-동작하는가">검색 시 어떻게 동작하는가?</h3>
+
+<p>한글 텍스트를 기준으로 사용자가 검색을 시도하였을 때 어떻게 동작하는지 알아보겠습니다.</p>
+
+<p><strong>CASE 1: … <code class="language-plaintext highlighter-rouge">MATCH '최고'</code> 라고 검색한 경우</strong></p>
+
+<p>FTS는 단어 사전에서 최고라는 토큰이 완벽하게 일치하는 항목이 있는지 먼저 찾습니다. 하지만 단어 사전에는 ‘최고의’만 있을 뿐 ‘최고’라는 단어는 없습니다.</p>
+
+<p>이때 접두어 인덱스는 사용되지 않는데요, 오직 <code class="language-plaintext highlighter-rouge">*</code> 와 함께 사용될 때만 접두어 인덱스는 활성화됩니다.</p>
+
+<p>그러므로 결과적으로 문서를 찾지 못합니다.</p>
+
+<p><strong>CASE 2: … <code class="language-plaintext highlighter-rouge">MATCH '최고*'</code> 라고 검색한 경우</strong></p>
+
+<p>FTS는 검색어 끝에 <code class="language-plaintext highlighter-rouge">*</code>가 붙은 것을 보고, 접두어 인덱스를 활용한 검색을 수행합니다. 접두어 인덱스를 확인한 결과, ‘최고’라는 단어가 ‘최고의’ 토큰을 가리키는 지름길로 등록되어있음을 확인합니다.</p>
+
+<p>이 지름길이 가리키는 ‘최고의’ 토큰이 포함된 문서를 찾아 성공적으로 반환합니다.</p>
+
+<h2 id="fts의-장점">FTS의 장점</h2>
+
+<p>일반적으로 사용되는 <code class="language-plaintext highlighter-rouge">WHERE content LIKE '%검색어%'</code> 방식과 FTS 방식을 간단하게 비교해보면, FTS 방식이 훨씬 빠르고 효율적이라는 것을 알 수 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>FTS (MATCH)</th>
+      <th>일반 검색 (LIKE)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>속도</td>
+      <td>매우 빠름. 미리 만들어 둔 인덱스를 사용해 검색하기 때문에 데이터가 수십만 건이 되어도 성능 저하가 거의 없습니다.</td>
+      <td>매우 느림. 테이블의 모든 데이터를 하나씩 처음부터 끝까지 다 읽어서 비교(Table Full Scan)하기 때문에 데이터가 많아지면 속도가 급격히 느려집니다.</td>
+    </tr>
+    <tr>
+      <td>정확도/기능</td>
+      <td>- 단어(토큰) 단위로 검색하여 더 정확합니다.<br />- AND, OR, NOT 등 논리 연산이 가능합니다.<br />- “서울 야경”처럼 여러 단어가 가까이 있는 문서를 찾는 NEAR 검색도 가능합니다.<br />- 검색 결과의 관련도 순으로 정렬(rank)할 수 있습니다.</td>
+      <td>- 단순히 문자열 포함 여부만 체크합니다.<br />- 복잡한 조건의 검색이 어렵습니다.</td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[FTS5는 SQLite 데이터베이스에서 바로 이 '전문 검색' 기능을 사용할 수 있도록 해주는 강력한 확장 기능(extension)입니다. 'FTS'는 Full-Text Search의 약자입니다.]]></summary></entry><entry><title type="html">채권 가격과 금리의 관계: 왜 반대로 움직일까?</title><link href="http://localhost:4000/2025/08/03/interest-rate-bonds/" rel="alternate" type="text/html" title="채권 가격과 금리의 관계: 왜 반대로 움직일까?" /><published>2025-08-03T00:00:00+09:00</published><updated>2025-08-03T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/03/interest-rate-bonds</id><content type="html" xml:base="http://localhost:4000/2025/08/03/interest-rate-bonds/"><![CDATA[<p><strong>결론: 채권의 수요가 증가하면, 채권 가격이 상승하고 시장 금리가 하락합니다.</strong></p>
 
 <h3 id="채권의-특징">채권의 특징</h3>
 
@@ -39,7 +260,7 @@
   <li><strong>가격 상승 후 수익률:</strong> 500원 ÷ 12,000원 = <strong>약 4.16%</strong></li>
 </ul>
 
-<p>이처럼 채권 가격이 오르니, 투자금 대비 실제 얻게 되는 <strong>‘수익률’은 오히려 떨어졌습니다.</strong> 경제 뉴스에서 말하는 시장 금리는 바로 채권의 실제 수익률을 의미하는 경우가 많습니다. 즉 채권 가격이 오르면서, <strong>금리가 하락(5% → 4.16%)했다고 평가하게 됩니다.</strong></p>]]></content><author><name>Wonjoon</name></author><category term="economy" /><summary type="html"><![CDATA[채권 가격이 오르면 왜 시장 금리는 하락하는지, 그 역학 관계를 설명합니다.]]></summary></entry><entry><title type="html">Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?</title><link href="http://localhost:4000/2025/06/23/fmt-error-handling/" rel="alternate" type="text/html" title="Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?" /><published>2025-06-23T00:00:00+09:00</published><updated>2025-06-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/06/23/fmt-error-handling</id><content type="html" xml:base="http://localhost:4000/2025/06/23/fmt-error-handling/"><![CDATA[<h2 id="핵심-요약-tldr">핵심 요약 (TL;DR)</h2>
+<p>이처럼 채권 가격이 오르니, 투자금 대비 실제 얻게 되는 <strong>‘수익률’은 오히려 떨어졌습니다.</strong> 경제 뉴스에서 말하는 시장 금리는 바로 채권의 실제 수익률을 의미하는 경우가 많습니다. 즉 채권 가격이 오르면서, <strong>금리가 하락(5% → 4.16%)했다고 평가하게 됩니다.</strong></p>]]></content><author><name>Wonjoon</name></author><category term="investment" /><summary type="html"><![CDATA[채권 가격이 오르면 왜 시장 금리는 하락하는지, 그 역학 관계를 설명합니다.]]></summary></entry><entry><title type="html">Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?</title><link href="http://localhost:4000/2025/06/23/fmt-error-handling/" rel="alternate" type="text/html" title="Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?" /><published>2025-06-23T00:00:00+09:00</published><updated>2025-06-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/06/23/fmt-error-handling</id><content type="html" xml:base="http://localhost:4000/2025/06/23/fmt-error-handling/"><![CDATA[<h2 id="핵심-요약-tldr">핵심 요약 (TL;DR)</h2>
 
 <ul>
   <li><strong>언제 <code class="language-plaintext highlighter-rouge">fmt.Errorf</code>를 쓰면 안 되나요?</strong>
@@ -129,132 +350,7 @@
   <li>주요 로직에서 이미 에러가 발생했을 경우 (<code class="language-plaintext highlighter-rouge">err</code>가 <code class="language-plaintext highlighter-rouge">nil</code>이 아닐 때): 덜 중요한 뒷정리 에러는 무시하고, 더 중요한 최초의 원인 에러를 그대로 보존하여 반환합니다.</li>
 </ul>
 
-<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
-  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
-  <li><a href="#using-while-with-labels">Using while with labels</a></li>
-  <li><a href="#using-for-with-labels">Using for with labels</a></li>
-  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
-  <li><a href="#summary">Summary</a></li>
-</ul>
-
-<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
-
-<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
-If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
-
-<h2 id="using-loop-with-labels">Using loop with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-
-        <span class="k">loop</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
-            
-            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
-                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
-            <span class="p">}</span>
-
-            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
-  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
-  <li>You can apply labels to any loop, not just loop blocks</li>
-</ul>
-
-<h2 id="using-while-with-labels">Using while with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
-            <span class="p">}</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-for-with-labels">Using for with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
-            <span class="p">}</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-continue-with-labels">Using continue with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
-        <span class="p">}</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="summary">Summary</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>break</td>
-      <td>Exits the nearest loop</td>
-    </tr>
-    <tr>
-      <td>break ‘label</td>
-      <td>Exits the specific loop with the given label</td>
-    </tr>
-    <tr>
-      <td>continue ‘label</td>
-      <td>Skips to the next iteration of the labeled loop</td>
-    </tr>
-    <tr>
-      <td>Label works on</td>
-      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
@@ -481,7 +577,132 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
       <td>Closures = Go’s anonymous functions</td>
     </tr>
   </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
+  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
+  <li><a href="#using-while-with-labels">Using while with labels</a></li>
+  <li><a href="#using-for-with-labels">Using for with labels</a></li>
+  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
+
+<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
+If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
+
+<h2 id="using-loop-with-labels">Using loop with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">loop</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
+            
+            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
+            <span class="p">}</span>
+
+            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
+  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
+  <li>You can apply labels to any loop, not just loop blocks</li>
+</ul>
+
+<h2 id="using-while-with-labels">Using while with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
+            <span class="p">}</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-for-with-labels">Using for with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
+            <span class="p">}</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-continue-with-labels">Using continue with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
+        <span class="p">}</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break</td>
+      <td>Exits the nearest loop</td>
+    </tr>
+    <tr>
+      <td>break ‘label</td>
+      <td>Exits the specific loop with the given label</td>
+    </tr>
+    <tr>
+      <td>continue ‘label</td>
+      <td>Skips to the next iteration of the labeled loop</td>
+    </tr>
+    <tr>
+      <td>Label works on</td>
+      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#strings-in-rust">Strings in Rust</a></li>
@@ -1421,121 +1642,4 @@ cargo <span class="nb">expand</span>
   <li>Large functions (can increase binary size).</li>
   <li>Recursive functions.</li>
   <li>Functions used with pointers or virtual functions (C++).</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#the-problem">The Problem</a></li>
-  <li><a href="#the-reason-why-status-is-not-updated">The Reason why status is not updated</a></li>
-  <li><a href="#how-to-fix-it">How to Fix It?</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="the-problem">The Problem</h2>
-
-<p>Consider the following Go function:</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">f</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
-    <span class="k">var</span> <span class="n">status</span> <span class="kt">string</span>  <span class="c">// Initialized as an empty string</span>
-    <span class="k">defer</span> <span class="n">notify</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">foo</span><span class="p">();</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="s">"error"</span>  <span class="c">// Status changes here, but defer does not reflect this change</span>
-        <span class="k">return</span> <span class="n">err</span>
-    <span class="p">}</span>
-
-    <span class="n">status</span> <span class="o">=</span> <span class="s">"success"</span>
-    <span class="k">return</span> <span class="no">nil</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>We might expect notify(status) to reflect the latest value of status.
-However, in reality, it always receives an empty string (<code class="language-plaintext highlighter-rouge">""</code>), regardless of how status is updated later.</p>
-
-<h2 id="the-reason-why-status-is-not-updated">The Reason why status is not updated</h2>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">status</span> <span class="kt">string</span> <span class="c">// ""</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">status</code> is initialized as an empty string</li>
-  <li><code class="language-plaintext highlighter-rouge">defer</code> evaluates its arguments immediately when declared.
-    <ul>
-      <li>When <code class="language-plaintext highlighter-rouge">defer notify(status)</code> is called, <code class="language-plaintext highlighter-rouge">status</code> is still an empty string.</li>
-      <li>Thus, <code class="language-plaintext highlighter-rouge">defer</code> captures the empty string(<code class="language-plaintext highlighter-rouge">""</code>) at this moment and never updates, even if <code class="language-plaintext highlighter-rouge">status</code> changes later.</li>
-    </ul>
-  </li>
-  <li>Even though <code class="language-plaintext highlighter-rouge">status</code> is modified in the function, the deferred function call was already bound to the original value of <code class="language-plaintext highlighter-rouge">status</code> (empty string).</li>
-  <li>In Go, when a function is deferred, its arguments are evaluated and stored immediately—not when the function actually executes.</li>
-</ul>
-
-<h2 id="how-to-fix-it">How to Fix It?</h2>
-
-<p>To ensure that notify(status) receives the latest value of status, we can use two different approaches.</p>
-
-<h3 id="1-using-a-closure-anonymous-function">1. Using a Closure (Anonymous Function)</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defer</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span> <span class="n">notify</span><span class="p">(</span><span class="n">status</span><span class="p">)</span> <span class="p">}()</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Instead of immediately passing <code class="language-plaintext highlighter-rouge">status</code> to <code class="language-plaintext highlighter-rouge">notify</code>, we defer an anonymous function.</li>
-  <li>This function captures <code class="language-plaintext highlighter-rouge">status</code> at the moment <code class="language-plaintext highlighter-rouge">defer</code> executes, ensuring it reflects the latest value.</li>
-  <li>When <code class="language-plaintext highlighter-rouge">notify(status)</code> is finally called, it uses the updated value of <code class="language-plaintext highlighter-rouge">status</code>.</li>
-</ul>
-
-<h3 id="2-passing-a-pointer">2. Passing a Pointer</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defer</span> <span class="n">notify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Instead of passing the value of <code class="language-plaintext highlighter-rouge">status</code>, we pass its memory address (<code class="language-plaintext highlighter-rouge">&amp;status</code>).</li>
-  <li>Since <code class="language-plaintext highlighter-rouge">defer</code> captures the pointer, any changes to <code class="language-plaintext highlighter-rouge">status</code> are reflected at execution time.</li>
-  <li>However, this requires modifying <code class="language-plaintext highlighter-rouge">notify</code> to accept a pointer parameter.</li>
-</ul>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// If using a pointer, notify must be updated:</span>
-<span class="c">// Dereference the pointer to get the latest value</span>
-<span class="k">func</span> <span class="n">notify</span><span class="p">(</span><span class="n">status</span> <span class="o">*</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="o">*</span><span class="n">status</span><span class="p">)</span> 
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="3-comparison-of-solutions">3. Comparison of Solutions</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Approach</th>
-      <th>How it Works</th>
-      <th>Requires Function Signature Change?</th>
-      <th>Best Use Case</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Closure (Anonymous Function)</td>
-      <td>Captures <code class="language-plaintext highlighter-rouge">status</code> at execution time</td>
-      <td>No</td>
-      <td>Works for most cases</td>
-    </tr>
-    <tr>
-      <td>Pointer Passing (&amp;status)</td>
-      <td>Passes a pointer, reflects latest value</td>
-      <td>Yes</td>
-      <td>When working with functions that support pointers</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<ul>
-  <li>Deferred functions capture arguments immediately, not when they actually run.</li>
-  <li>If the deferred function needs the latest value, use:
-    <ul>
-      <li>Closures (Anonymous Functions): Recommended, as they don’t require modifying function signatures.</li>
-      <li>Pointers (&amp;status): Useful when modifying function behavior explicitly.</li>
-    </ul>
-  </li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, deferred functions capture arguments immediately, not when they actually run. Learn how to fix this common issue using closures or pointers to ensure your deferred calls use the latest variable values.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry></feed>
