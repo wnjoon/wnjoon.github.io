@@ -1,5 +1,146 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-07T10:31:40+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">스테이블코인의 현주소: 시장의 구성과 주요 플레이어</title><link href="http://localhost:4000/2025/08/07/stable-coin/" rel="alternate" type="text/html" title="스테이블코인의 현주소: 시장의 구성과 주요 플레이어" /><published>2025-08-07T00:00:00+09:00</published><updated>2025-08-07T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/07/stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/08/07/stable-coin/"><![CDATA[<p>최근 금융 및 기술 분야에서 ‘스테이블코인(StableCoin)’이라는 용어가 자주 언급되고 있습니다. 글을 작성하는 시점인 2025년 8월, 카카오는 그룹차원에서 스테이블코인을 위한 TF를 구성(<a href="https://www.mk.co.kr/news/stock/11386047">뉴스</a>)했고, 뒤에서 다룰 글로벌 양대 스테이블코인 발행사 중 하나인 Circle는 대한민국 방문을 계획(<a href="https://www.sedaily.com/NewsView/2GWIS82LOS">뉴스</a>)하고 있습니다.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-14T23:23:23+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A (nearly) no-CSS, fast, minimalist Jekyll theme.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<h2 id="점점-빠르게-변화하는-ai">점점 빠르게 변화하는 AI</h2>
+
+<p>작년과 올해 사이에 삶에서 느껴진 가장 큰 변화가 있다면 AI일 것입니다. 사람과 대화하듯 질문하는 내용에, 사람처럼 대답하는 AI를 보면서 신기해하던게 불과 작년이었는데, 이제는 복잡한 내용을 이해하고 정리하는 것을 넘어서 새로운 것을 만들고 이를 검토하는 것까지 가능할정도로 엄청나게 빠르게 발전하고 있습니다.</p>
+
+<p>작년에 서점에 가면 ‘프롬프트 엔지니어가 되는 방법’이라는 주제의 책들이 굉장히 많았습니다. ‘좋은 질문을 할 수 있는 엔지니어’가 앞으로 AI 시대에 가장 필요할 것이라는 내용이 대다수였죠.</p>
+
+<p>하지만 불과 1년이 채 되지 않은 시점에, 우리는 ‘개같이 말해도 찰떡같이 알아듣는’ AI를 만나고 있습니다. 내가 무엇을 궁금해하는지 모를 정도로 이해하기 어려운 질문을 던지더라도, 100%는 아니지만 그만큼 근접할 정도로 이해하기 위해 노력한 흔적이 뭍은 답변을 제공하는 것을 경험하고 있습니다.</p>
+
+<p>앞에서 이야기할 내용이지만, 현재 AI는 ‘잘 설계된 컨텍스트, 즉 풍부하고 정확한 정보가 주어졌을 때, 매우 복잡한 내용이라 하더라도 정확하게 이해’할 수 있습니다. 하지만 이러한 이해를 바탕으로 무언가를 새롭게 생성하고자 하면, 특히 결과물이 점점 복잡해질수록 일관성이 부족해지거나 중복된 내용이 발생하는 등 생성 능력에 있어서 아직 부족한 점을 보이고 있습니다.</p>
+
+<p>2025년 7월에 작성된 논문 ‘<a href="https://arxiv.org/abs/2507.13334">A Survey of Context Engineering for Large Language Models</a>‘에서는 컨텍스트 엔지니어링에 대해서 소개하고 있습니다. 이 논문은 프롬프트 엔지니어링과 컨텍스트 엔지니어링을 비교하고, 사용자가 더 나은 AI 활용을 위해 어떻게 컨텍스트 엔지니어링을 적용해야하는지에 대해 설명합니다.</p>
+
+<h2 id="프롬프트-엔지니어링과-컨텍스트-엔지니어링">프롬프트 엔지니어링과 컨텍스트 엔지니어링</h2>
+
+<p>프롬프트 엔지니어링은 ‘최고의 답변을 생성할 수 있는 최고의 질문’을 만드는데 집중합니다. 마치 ‘숙련된 수사관이 증인에게서 가장 정확한 진술을 이끌어내기 위해 단어 하나와 뉘앙스 하나까지 신중하게 고르는 것’과 비슷합니다.</p>
+
+<p>하지만 컨텍스트 엔지니어링은 ‘AI가 문제를 해결하고 좋은 답변을 줄 수 있도록 최선을 다해 도와주는 것’과 같습니다. 숙련된 수사관인 AI에게 이제까지 모든 자료가 담긴 사건 파일을 건내주는 것과 같습니다. 이 파일에는 명확한 지시사항, 외부 참고자료, 사용 가능한 도구 목록, 그리고 과거 상호작용 기록등이 포함될 수 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>차원</th>
+      <th>프롬프트 엔지니어링</th>
+      <th>컨텍스트 엔지니어링</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>범위</td>
+      <td>단일 텍스트 입력(프롬프트) 최적화</td>
+      <td>다수의 정보 소스로 구성된 전체 정보 환경 설계</td>
+    </tr>
+    <tr>
+      <td>모델</td>
+      <td>정적인 텍스트 문자열 ($C = \text{prompt}$)</td>
+      <td>동적이고 구조화된 정보 요소들의 조립 ($C = \mathcal{A}(c_1, c_2,…, c_n)$)</td>
+    </tr>
+    <tr>
+      <td>목표</td>
+      <td>특정 프롬프트에 대한 최상의 응답 생성</td>
+      <td>주어진 과제에 대해 보상(품질)을 극대화하는 정보 시스템 최적화</td>
+    </tr>
+    <tr>
+      <td>복잡성</td>
+      <td>수동적, 반복적 시도를 통한 최적의 문구 탐색</td>
+      <td>검색, 선택, 조립 등 여러 기능으로 구성된 시스템 수준의 최적화</td>
+    </tr>
+    <tr>
+      <td>정보 흐름</td>
+      <td>프롬프트 내에 정보가 고정됨</td>
+      <td>외부 데이터베이스, 도구, 메모리 등에서 정보를 동적으로 가져와 활용</td>
+    </tr>
+    <tr>
+      <td>상태 관리</td>
+      <td>주로 상태가 없음 (매번 새로운 대화)</td>
+      <td>메모리 구성요소를 통해 이전 상호작용의 상태를 명시적으로 관리</td>
+    </tr>
+    <tr>
+      <td>확장성</td>
+      <td>프롬프트가 길고 복잡해질수록 취약해짐</td>
+      <td>모듈식 구성 요소를 통해 복잡성을 체계적으로 관리</td>
+    </tr>
+    <tr>
+      <td>오류 분석</td>
+      <td>수동 검사 및 반복적인 프롬프트 수정</td>
+      <td>각 정보 구성 요소(함수)에 대한 체계적인 평가 및 디버깅</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="컨텍스트-엔지니어링의-단계">컨텍스트 엔지니어링의 단계</h2>
+
+<p>논문에서는 컨텍스트 엔지니어링을 크게 3가지 기반 요소로 구성합니다. 이를 제품을 만드는 공급망이라고 할 때, 아래와 같이 표현할 수 있습니다.</p>
+
+<ul>
+  <li>검색 및 생성: 원자재를 조달합니다</li>
+  <li>처리: 공장에서 원자재를 가공합니다.</li>
+  <li>관리: 가공된 제품을 창고에 효율적으로 전달하고 이를 관리합니다.</li>
+</ul>
+
+<h3 id="1-컨텍스트-검색-및-생성">1. 컨텍스트 검색 및 생성</h3>
+
+<p><strong>좋은 프롬프트의 중요성</strong></p>
+
+<p>컨텍스트 엔지니어링에서도 프롬프트 엔지니어링, 즉 좋은 질문은 당연히 중요합니다. 우리는 AI에게 ‘이렇게 답변하게 된 과정을 보여달라고 요청’하거나, ‘하나의 답변 말고 여러 가능성을 동시에 탐색하도록 요청’해야 합니다. 이를 통해 AI가 성급한 결론을 내리지 않고, 여러 가능성을 추론함으로써 가장 효과적인 방향으로 사고를 확장할 수 있도록 도울 수 있습니다.</p>
+
+<p><strong>외부 지식의 활용</strong></p>
+
+<p>AI는 ‘학습한 내용까지만 생각할 수 있다’는 제약이 있습니다. ChatGPT의 경우에도 선택한 모델에 따라 알고 있는 최신 정보가 달라지기도 합니다.</p>
+
+<p>하지만 최근에는 검색 증강 생성(RAG: Retrieval Augmented Generation) 기술을 통해 AI에게 인터넷, 내부 문서와 같은 외부 지식을 답변 생성에 사용할 수 있도록 제공할 수 있습니다. 이는 컨텍스트 엔지니어링 기법에 가장 핵심적인 기술중 하나로, AI가 가지고 있는 큰 문제점 중 하나인 환각(Hallucination)이라고 불리는 거짓된 정보 생성을 크게 줄일 수 있습니다.</p>
+
+<p>초기 RAG가 단순한 사실 검색에 그쳤다면, 최근 RAG 시스템은 크게 2가지로 구분되어 더욱 정교한 방식으로 정보를 처리합니다.</p>
+
+<ul>
+  <li>
+    <p>모듈형(Modular RAG): 사용자는 질문을 더 명확하게 다듬는 ‘질의 재작성’ 모듈, 여러 데이터베이스에서 동시에 정보를 가져오는 ‘다중 소스 검색’ 모듈, 그리고 검색된 정보들 중 가장 유용한 것을 골라내는 ‘재순위화’ 모듈 등을 필요에 따라 자유롭게 조합하여 최적의 RAG 파이프라인을 구축합니다.</p>
+  </li>
+  <li>
+    <p>에이전트(Agentic RAG):  AI는 단순히 정보를 검색하는 것을 넘어, 스스로 ‘조사’를 수행합니다. 복잡한 질문을 받으면 이를 여러 개의 하위 질문으로 분해하고, 각각에 대한 정보를 검색한 뒤, 그 결과들을 종합하여 최종 결론을 도출합니다.</p>
+  </li>
+</ul>
+
+<p>AI는 외부로부터 전달받은 지식을 마인드맵과 같은 그래프 형태로 연결합니다. 이렇게 연결된 정보들은 AI가 연관된 내용을 통한 다단계 추론을 훨씬 정확하게 할 수 있도록 합니다.</p>
+
+<h3 id="2-컨텍스트-처리">2. 컨텍스트 처리</h3>
+
+<p><strong>컨텍스트 크기의 한계</strong></p>
+
+<p>AI는 한번에 처리할 수 있는 정보의 양에 한계를 갖고 있습니다. 우리도 한번에 공부할 수 있는 정보의 양이 한정되어 있듯이, AI 또한 메모리에 한계를 갖고 있습니다. 이로 인해, AI에게 너무 많은 정보를 제공하게 되면 중간 분실(Lost-In-The-Middle) 현상이 발생하기도 합니다. 중간에 있는 정보를 잊어버린채 잘못된 답변을 하거나, 생성된 결과의 일관성이 무너지기도 합니다. 이를 해결하기 위한 다양한 연구들(FlashAttention, Mamba 등)이 있습니다.</p>
+
+<p>사실 이부분은 ‘컴퓨터 또한 메모리라는 한정된 기억공간을 갖는다’는 내용으로 보면, 당연한 결과일 뿐입니다. 다만 인간은 ‘과거를 기억하기 위한 다양한 수단을 사용’하는 것과 달리, AI는 상대적으로 방법과 공간의 한계가 명확합니다.</p>
+
+<p><strong>자발적인 개선</strong></p>
+
+<p>AI는 주어진 컨텍스트를 가지고 자체적인 개선(Self-Refine)이 가능합니다. 스스로 초안을 만들고, 이걸 비평하고, 초안을 수정합니다. 이러한 과정을 계속 반복해서 최적의 결과물을 생성합니다. 이를 다른 관점에서 보면, 우리가 공상 과학에서나 보던 ‘AI는 스스로 성장하고 있다’는 이야기가 현실로 이루어지고 있는 것이죠. 우리는 점점 발전해가는 결과를 얻을 수 있다는 기술적 이점 이면에, 앞으로 어떻게 발전할지 예측할 수 없는 진정한 인공지능을 마주하고 있는지도 모릅니다.</p>
+
+<h3 id="3-컨텍스트-관리">3. 컨텍스트 관리</h3>
+
+<p>AI는 기본적인 대화가 끝나면 모든것을 잊어버립니다. 이를 해결하기 위해, AI는 메모리라는 한정된 기억공간을 갖습니다. 메모리는 작은 공간이라는 제약이 있지만, 빠르게 기억을 불러올 수 있습니다. AI 뿐만 아니라 많은 시스템에서는 ‘자주 사용하는 정보를 메모리에 두고, 장기 기억을 할 수 있는 저장소에서 필요할 때마다 정보를 불러오는 방식’을 사용합니다. MemGPT는 이러한 방식을 통해 정보를 효율적으로 관리할 수 있는 기능(페이징)을 제공합니다.</p>
+
+<p>또한 AI가 사용하는 작업공간, 즉 컨텍스트 창도 한정된 공간을 갖습니다. 모든 정보를 그대로 담을 수 없기 때문에, AI는 이를 압축하여 사용합니다. 컨텍스트 압축을 통해 AI는 핵심만 요약한 ‘요약노트’를 만들어서, 메모리에 더 많은 정보를 효율적으로 저장할 수 있도록 합니다.</p>
+
+<h2 id="우리는-어떻게-ai를-사용하면-좋을까">우리는 어떻게 AI를 사용하면 좋을까?</h2>
+
+<p>논문에서 제공한 내용을 바탕으로, 우리는 ‘AI를 통해 최적의 답변을 얻을 수 있는 방법’을 찾을 수 있습니다.</p>
+
+<ol>
+  <li>작업의 목적을 명확하게 하고, 범위를 최소화 한다.</li>
+</ol>
+
+<p>이는 ‘내가 무엇을 요청하고 싶은지 명확하게 파악’하는 것에서부터 시작합니다. 실생활에서도 그렇듯이, AI에도 좋은 질문, 즉 프롬프트 엔지니어링이 가장 중요합니다. 그리고 이 요청을 가장 작은 단위의 질문으로 나눌 수 있어야 합니다. 질문의 크기가 커질수록 Lost-In-The-Middle 현상이 발생할 가능성이 높아집니다. 논문에서는 ‘중요한 정보가 컨텍스트의 시작 또는 끝에 위치할 때 가장 좋은 성능을 보여준다’고 말합니다.</p>
+
+<p>작업을 요청할때에도 마찬가지입니다. 한번에 많은 작업을 요청하기보다는, 작업을 모듈화하고 단계별로 요청하는 것이 좋습니다.</p>
+
+<ol>
+  <li>최대한의 정보를 제공한다.</li>
+</ol>
+
+<p>사용자가 AI를 사용하는 가장 큰 목적은 ‘빠르게 최적의 결과물을 얻는 것’입니다. 사실 AI에게 정보를 제공하는 것 자체가 또다른 업무일 수 있습니다. 하지만 AI에게 제공하는 정보가 많아질수록, AI가 더욱 양질의 답변을 제공한다는 것은 당연한 결과입니다.</p>
+
+<p>단순히 정보를 많이 주는 것을 넘어, AI가 잘 활용할 수 있는 형태로 정보를 가공하고 이를 조립하여 제공해야 합니다. 정확한 정보가 담긴 전문 지식을 제공해야 하고, AI가 자체적으로 할 수 없는 일을 도울 수 있는 외부 도구(API)를 호출하여 효과적인 작업이 가능하도록 해야 합니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[AI의 이해 능력과 생성 능력 사이의 비대칭성을 설명하고, '프롬프트 엔지니어링'을 넘어 AI의 잠재력을 최대한 활용하기 위한 '컨텍스트 엔지니어링'의 개념, 핵심 단계(검색, 처리, 관리), 그리고 이를 바탕으로 한 최적의 AI 활용 방법을 제시합니다.]]></summary></entry><entry><title type="html">스테이블코인의 현주소: 시장의 구성과 주요 플레이어</title><link href="http://localhost:4000/2025/08/07/stable-coin/" rel="alternate" type="text/html" title="스테이블코인의 현주소: 시장의 구성과 주요 플레이어" /><published>2025-08-07T00:00:00+09:00</published><updated>2025-08-07T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/07/stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/08/07/stable-coin/"><![CDATA[<p>최근 금융 및 기술 분야에서 ‘스테이블코인(StableCoin)’이라는 용어가 자주 언급되고 있습니다. 글을 작성하는 시점인 2025년 8월, 카카오는 그룹차원에서 스테이블코인을 위한 TF를 구성(<a href="https://www.mk.co.kr/news/stock/11386047">뉴스</a>)했고, 뒤에서 다룰 글로벌 양대 스테이블코인 발행사 중 하나인 Circle는 대한민국 방문을 계획(<a href="https://www.sedaily.com/NewsView/2GWIS82LOS">뉴스</a>)하고 있습니다.</p>
 
 <p>그래서 2025년 7월 기준으로 스테이블코인에 대해 정리한 다양한 보고서들중에서 ‘규모가 큰 기관’에서 발행한 보고서가 무엇이 있는지 Perplexity에게 물어보았습니다.</p>
 
@@ -564,132 +705,7 @@
   <li>주요 로직에서 이미 에러가 발생했을 경우 (<code class="language-plaintext highlighter-rouge">err</code>가 <code class="language-plaintext highlighter-rouge">nil</code>이 아닐 때): 덜 중요한 뒷정리 에러는 무시하고, 더 중요한 최초의 원인 에러를 그대로 보존하여 반환합니다.</li>
 </ul>
 
-<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
-  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
-  <li><a href="#using-while-with-labels">Using while with labels</a></li>
-  <li><a href="#using-for-with-labels">Using for with labels</a></li>
-  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
-  <li><a href="#summary">Summary</a></li>
-</ul>
-
-<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
-
-<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
-If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
-
-<h2 id="using-loop-with-labels">Using loop with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-
-        <span class="k">loop</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
-            
-            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
-                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
-            <span class="p">}</span>
-
-            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
-  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
-  <li>You can apply labels to any loop, not just loop blocks</li>
-</ul>
-
-<h2 id="using-while-with-labels">Using while with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
-            <span class="p">}</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-for-with-labels">Using for with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
-            <span class="p">}</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-continue-with-labels">Using continue with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
-        <span class="p">}</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="summary">Summary</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>break</td>
-      <td>Exits the nearest loop</td>
-    </tr>
-    <tr>
-      <td>break ‘label</td>
-      <td>Exits the specific loop with the given label</td>
-    </tr>
-    <tr>
-      <td>continue ‘label</td>
-      <td>Skips to the next iteration of the labeled loop</td>
-    </tr>
-    <tr>
-      <td>Label works on</td>
-      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
@@ -916,7 +932,132 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
       <td>Closures = Go’s anonymous functions</td>
     </tr>
   </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
+  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
+  <li><a href="#using-while-with-labels">Using while with labels</a></li>
+  <li><a href="#using-for-with-labels">Using for with labels</a></li>
+  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
+
+<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
+If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
+
+<h2 id="using-loop-with-labels">Using loop with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">loop</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
+            
+            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
+            <span class="p">}</span>
+
+            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
+  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
+  <li>You can apply labels to any loop, not just loop blocks</li>
+</ul>
+
+<h2 id="using-while-with-labels">Using while with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
+            <span class="p">}</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-for-with-labels">Using for with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
+            <span class="p">}</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-continue-with-labels">Using continue with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
+        <span class="p">}</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break</td>
+      <td>Exits the nearest loop</td>
+    </tr>
+    <tr>
+      <td>break ‘label</td>
+      <td>Exits the specific loop with the given label</td>
+    </tr>
+    <tr>
+      <td>continue ‘label</td>
+      <td>Skips to the next iteration of the labeled loop</td>
+    </tr>
+    <tr>
+      <td>Label works on</td>
+      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#strings-in-rust">Strings in Rust</a></li>
@@ -1379,341 +1520,4 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
   <li><code class="language-plaintext highlighter-rouge">expect("msg")</code> – Safer panic with clear context.</li>
   <li><code class="language-plaintext highlighter-rouge">unwrap_or(default_value)</code> – Clean fallbacks.</li>
   <li><code class="language-plaintext highlighter-rouge">match</code>, <code class="language-plaintext highlighter-rouge">if let</code>, <code class="language-plaintext highlighter-rouge">?</code> – Idiomatic and safe.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry><entry><title type="html">How macros in Rust work and comparison with C language</title><link href="http://localhost:4000/2025/03/17/rust-macro-compare-c/" rel="alternate" type="text/html" title="How macros in Rust work and comparison with C language" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/rust-macro-compare-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/rust-macro-compare-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#what-are-macros-in-rust">What Are Macros in Rust?</a></li>
-  <li><a href="#macros-vs-functions-in-rust">Macros vs. Functions in Rust</a></li>
-  <li><a href="#compile-time-vs-runtime-execution">Compile-Time vs. Runtime Execution</a></li>
-  <li><a href="#when-should-you-use-macros">When Should You Use Macros?</a></li>
-  <li><a href="#when-should-you-use-functions">When Should You Use Functions?</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="what-are-macros-in-rust">What Are Macros in Rust?</h2>
-
-<p>Macros in Rust allow code to be expanded at compile time and included in the final executable.</p>
-
-<p><strong>Rust documentation commonly refers to macros as “expanded” at compile time.</strong></p>
-
-<ul>
-  <li>However, this term can be <strong>misleading</strong>.</li>
-  <li>The term “expanded” may suggest that the code dynamically changes at runtime. However, Rust macros operate entirely at compile time and do not modify execution at runtime.</li>
-  <li>Instead of just being “expanded,” macros generate code, which is then compiled into the final executable.</li>
-</ul>
-
-<p>A more precise way to explain macros:</p>
-
-<ul>
-  <li>Macros generate code at compile time and include it in the final program.</li>
-  <li>Once the executable is compiled, the macro-generated code is “fixed” and cannot change at runtime.</li>
-</ul>
-
-<h2 id="macros-vs-functions-in-rust">Macros vs. Functions in Rust</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Feature</th>
-      <th>Macros (macro_rules!)</th>
-      <th>Functions (fn)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Code Generation at Compile Time</td>
-      <td>Yes</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>Variable Number of Arguments</td>
-      <td>Yes</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>Supports Multiple Types</td>
-      <td>Yes (via code generation)</td>
-      <td>Yes (via generics)</td>
-    </tr>
-    <tr>
-      <td>Performance Optimization</td>
-      <td>Yes (no loops, direct code expansion)</td>
-      <td>No (loops execute at runtime)</td>
-    </tr>
-    <tr>
-      <td>Readability &amp; Debugging</td>
-      <td>Hard to debug</td>
-      <td>Easy to debug</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="when-should-you-use-macros">When Should You Use Macros?</h3>
-
-<ul>
-  <li>You need compile-time code generation to optimize performance.</li>
-  <li>You need to support multiple types dynamically.</li>
-  <li>You need variable-length arguments (e.g., <code class="language-plaintext highlighter-rouge">println!</code>).</li>
-</ul>
-
-<h3 id="when-should-you-use-functions">When Should You Use Functions?</h3>
-
-<ul>
-  <li>You need standard logic implementation.</li>
-  <li>You need easier debugging.</li>
-  <li>You have repetitive logic that doesn’t require compile-time expansion.</li>
-</ul>
-
-<h3 id="macros-are-not-just-about-avoiding-code-repetition">Macros are not just about avoiding code repetition</h3>
-
-<ul>
-  <li>If simple repetition is needed, functions are usually a better choice.</li>
-  <li>Use macros when you need compile-time optimizations, dynamic argument handling, or complex code generation.</li>
-</ul>
-
-<h2 id="compile-time-vs-runtime-execution">Compile-Time vs. Runtime Execution</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Feature</th>
-      <th>Compile Time (Macro Expansion)</th>
-      <th>Runtime (Function Execution)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Macros (macro_rules!)</td>
-      <td>Code is expanded at compile time</td>
-      <td>Never executed directly</td>
-    </tr>
-    <tr>
-      <td>Functions (fn)</td>
-      <td>No expansion at compile time</td>
-      <td>Executed during runtime</td>
-    </tr>
-    <tr>
-      <td>Error Detection</td>
-      <td>Errors occur at compile time</td>
-      <td>Errors occur at runtime</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="using-macros-macro_rules">Using Macros (macro_rules!)</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">macro_rules!</span> <span class="n">repeat</span> <span class="p">{</span>
-    <span class="p">(</span><span class="nv">$msg:expr</span><span class="p">,</span> <span class="nv">$count:expr</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="nv">$</span><span class="p">(</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nv">$msg</span><span class="p">);</span> <span class="p">)</span><span class="o">*</span>
-    <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nd">repeat!</span><span class="p">(</span><span class="s">"Hello, Rust!"</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-    
-    <span class="c1">// The macro expands into:</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="s">"Hello, Rust!"</span><span class="p">);</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="s">"Hello, Rust!"</span><span class="p">);</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="s">"Hello, Rust!"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>The macro expands the <code class="language-plaintext highlighter-rouge">println!</code> calls at compile time, rather than looping at runtime.</li>
-  <li>When compiled, the executable already contains three <code class="language-plaintext highlighter-rouge">println!</code> statements, eliminating any need for iteration at runtime.</li>
-</ul>
-
-<h3 id="using-functions-fn">Using Functions (fn)</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">repeat</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="o">&amp;</span><span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">usize</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="n">count</span> <span class="p">{</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nf">repeat</span><span class="p">(</span><span class="s">"Rust is awesome!"</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>The function executes a loop at runtime instead of unrolling at compile time.</li>
-  <li>The compiled binary contains a loop, which adds execution overhead compared to macros.</li>
-</ul>
-
-<h2 id="advantages-of-using-macros">Advantages of Using Macros</h2>
-
-<p>Macros expand code at compile time, reducing runtime overhead.</p>
-
-<ul>
-  <li>Functions require stack management and runtime execution.</li>
-  <li>Macros allow code to be directly inserted into the final program, avoiding function calls.</li>
-  <li>For example, match statements inside macros can be expanded into static branching logic, improving performance.</li>
-</ul>
-
-<h2 id="why-macros-are-hard-to-debug">Why Macros Are Hard to Debug</h2>
-
-<h3 id="macros-expand-into-new-code-before-compiling">Macros Expand Into New Code Before Compiling</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">macro_rules!</span> <span class="n">bad_macro</span> <span class="p">{</span>
-    <span class="p">(</span><span class="nv">$val:expr</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nv">$val</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"True"</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"False"</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nd">bad_macro!</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>  <span class="c1">// error</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>The macro expands before compilation, replacing <code class="language-plaintext highlighter-rouge">bad_macro!(42)</code>; with:</p>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="mi">42</span> <span class="p">{</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"True"</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"False"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>But if 42 is not valid in Rust -&gt; this causes a type mismatch.</p>
-
-<p>Rust’s error message points to the expanded code, not the macro definition:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error[E0308]: mismatched types
- <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:9:5
-  |
-9 |     bad_macro!<span class="o">(</span>42<span class="o">)</span><span class="p">;</span>
-  |     ^^^^^^^^^^^^^ expected <span class="sb">`</span>bool<span class="sb">`</span>, found integer
-  |
-  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span>bool<span class="sb">`</span>
-             found <span class="nb">type</span> <span class="sb">`</span><span class="o">{</span>integer<span class="o">}</span><span class="sb">`</span>
-</code></pre></div></div>
-
-<p>Rust does not indicate that the error originated inside <code class="language-plaintext highlighter-rouge">bad_macro!</code>.
-Instead, it shows an error where the macro was expanded, making debugging more difficult.</p>
-
-<h3 id="debugging-logs-are-limited">Debugging Logs Are Limited</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">macro_rules!</span> <span class="n">debug_macro</span> <span class="p">{</span>
-    <span class="p">(</span><span class="nv">$val:expr</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="nv">$val</span> <span class="o">/</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Runtime error</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-    <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nd">debug_macro!</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>This macro expands before compilation, meaning <code class="language-plaintext highlighter-rouge">let result = 10 / 0;</code> is inserted directly.</li>
-  <li>Rust won’t warn about division by zero at compile time, but it crashes at runtime.</li>
-  <li>Debugging is difficult because Rust does not pinpoint where inside the macro the issue originated.</li>
-</ul>
-
-<h3 id="how-to-debug-macros">How to Debug Macros?</h3>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cargo <span class="nb">install </span>cargo-expand
-cargo <span class="nb">expand</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Use <code class="language-plaintext highlighter-rouge">cargo expand</code> to view the expanded macro output</li>
-</ul>
-
-<h2 id="comparison-with-c-macros">Comparison with C Macros</h2>
-
-<p>Although C and Rust are both compiled languages, Rust macros provide safer and more structured compile-time code generation.</p>
-
-<h3 id="define">#define</h3>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span>
-<span class="cp">#define SQUARE(x) (x * x)
-</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">SQUARE</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: (5 * 5)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>C macros are text replacements, not structured code transformations.</li>
-  <li>They lack type checking and can introduce subtle bugs.</li>
-  <li>Rust macros, in contrast, operate within the compiler and ensure type safety.</li>
-</ul>
-
-<h3 id="inline-functions">inline Functions</h3>
-
-<h4 id="comparison-with-rust-macros">Comparison with Rust Macros</h4>
-
-<table>
-  <thead>
-    <tr>
-      <th>Feature</th>
-      <th>C inline Function</th>
-      <th>Rust Macro (macro_rules!)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Compile-Time Expansion</td>
-      <td>Compiler decides whether to inline</td>
-      <td>Always expands at compile time</td>
-    </tr>
-    <tr>
-      <td>Guaranteed Optimization</td>
-      <td>Not always inlined</td>
-      <td>Always replaces code directly</td>
-    </tr>
-    <tr>
-      <td>Code Size Consideration</td>
-      <td>Large functions may not be inlined</td>
-      <td>Can increase code size</td>
-    </tr>
-    <tr>
-      <td>Flexibility</td>
-      <td>Works with fixed types</td>
-      <td>Works with multiple types and patterns</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span>
-<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Compilers may choose not to inline functions for performance reasons.</li>
-  <li>Large or recursive functions will not be inlined.</li>
-  <li>Rust macros, in contrast, always expand before compilation.</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p><strong>When to Use Rust Macros?</strong></p>
-
-<ul>
-  <li>You need compile-time code generation for performance.</li>
-  <li>You need flexible, generic behavior across multiple types.</li>
-  <li>You need variadic arguments (e.g., <code class="language-plaintext highlighter-rouge">println!</code>).</li>
-</ul>
-
-<p><strong>When to Avoid Rust Macros?</strong></p>
-
-<ul>
-  <li>You need easier debugging -&gt; Functions are better.</li>
-  <li>You don’t need compile-time code transformation -&gt; Functions work fine.</li>
-  <li>Your macro logic is too complex -&gt; Hard to maintain.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Macros in Rust allow code to be expanded at compile time and included in the final executable.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry></feed>
