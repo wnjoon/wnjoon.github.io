@@ -109,6 +109,7 @@ DEPENDENCIES
   base64
   bigdecimal
   csv
+  jekyll-seo-tag
   kramdown-parser-gfm
   logger
   no-style-please!

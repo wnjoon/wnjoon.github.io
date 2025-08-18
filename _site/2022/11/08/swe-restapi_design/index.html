@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>How to make better REST API</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>How to make better REST API | //TODO: Write Blog</title>
 <meta name="generator" content="Jekyll v3.10.0" />
 <meta property="og:title" content="How to make better REST API" />
 <meta name="author" content="Wonjoon" />
@@ -21,88 +20,19 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Wonjoon"},"dateModified":"2022-11-08T15:00:00+09:00","datePublished":"2022-11-08T15:00:00+09:00","description":"A well-designed REST API is crucial for modern applications. This guide covers 15 essential best practices for creating scalable, maintainable, and developer-friendly REST APIs.","headline":"How to make better REST API","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/11/08/swe-restapi_design/"},"url":"http://localhost:4000/2022/11/08/swe-restapi_design/"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "How to make better REST API",
-      "name": "How to make better REST API",
-      "description": "A well-designed REST API is crucial for modern applications. This guide covers 15 essential best practices for creating scalable, maintainable, and developer-friendly REST APIs.",
-      "author": {
-        "@type": "Person",
-        "name": "Wonjoon"
-      },
-      "datePublished": "2022-11-08T15:00:00+09:00",
-      "dateModified": "2022-11-08T15:00:00+09:00",
-      "image": "https%3A%2F%2Fvia.placeholder.com%2F1200x630%2F2196F3%2Fffffff%3Ftext%3DHow+to+make+better+REST+API",
-      "howTo": {
-        "@type": "HowTo",
-        "name": "How to Make a Better REST API",
-        "step": [{
-            "@type": "HowToStep",
-            "name": "Use Clear Naming Conventions",
-            "text": "Use plural nouns for resources (e.g., /books), hyphens for separation, and lowercase letters in endpoints. Avoid using verbs in URLs as HTTP methods already define the action."
-          },{
-            "@type": "HowToStep",
-            "name": "Use JSON as the Standard Format",
-            "text": "Adopt JSON for requests and responses. It&#39;s lightweight, human-readable, and widely supported across languages."
-          },{
-            "@type": "HowToStep",
-            "name": "Use HTTP Status Codes Properly",
-            "text": "Utilize standard HTTP status codes to indicate the outcome of a request (e.g., 200 for success, 404 for not found, 500 for server errors)."
-          },{
-            "@type": "HowToStep",
-            "name": "Maintain Consistent Response Formats",
-            "text": "Design a consistent and predictable structure for both successful and error responses to improve the developer experience."
-          },{
-            "@type": "HowToStep",
-            "name": "Implement Pagination",
-            "text": "For endpoints that return large datasets, use pagination (e.g., limit and offset) to prevent performance bottlenecks."
-          },{
-            "@type": "HowToStep",
-            "name": "Use PATCH for Partial Updates",
-            "text": "Use PATCH instead of PUT when only a few fields of a resource need to be updated. PUT should replace the entire resource."
-          },{
-            "@type": "HowToStep",
-            "name": "Provide an Extended Response Option",
-            "text": "Offer a query parameter (e.g., ?extended=true) to allow clients to request more detailed information about a resource when needed."
-          },{
-            "@type": "HowToStep",
-            "name": "Keep Endpoints Focused",
-            "text": "Ensure each endpoint serves a single, clear purpose. Avoid creating endpoints that handle multiple unrelated resources."
-          },{
-            "@type": "HowToStep",
-            "name": "Document Your API",
-            "text": "Provide clear and comprehensive documentation using tools like Swagger (OpenAPI) to help developers understand and use your API."
-          },{
-            "@type": "HowToStep",
-            "name": "Implement Security Best Practices",
-            "text": "Enforce HTTPS, use appropriate authentication methods like API Keys or JWT, and configure CORS policies correctly."
-          },{
-            "@type": "HowToStep",
-            "name": "Version Your API",
-            "text": "Include a version number in your API path (e.g., /v1/books) to manage changes and avoid breaking existing client integrations."
-          },{
-            "@type": "HowToStep",
-            "name": "Cache Frequently Used Data",
-            "text": "Use HTTP caching headers (e.g., Cache-Control) for resources that do not change often to reduce server load and improve response times."
-          },{
-            "@type": "HowToStep",
-            "name": "Use UTC Time Format",
-            "text": "Always use the ISO 8601 standard for timestamps in UTC to avoid timezone-related issues."
-          },{
-            "@type": "HowToStep",
-            "name": "Provide a Health Check Endpoint",
-            "text": "Implement a /health endpoint that monitoring services can use to check the status of your API."
-          },{
-            "@type": "HowToStep",
-            "name": "Set API Rate Limits",
-            "text": "Protect your API from abuse by implementing rate limiting and throttling. Return a 429 Too Many Requests status code when limits are exceeded."
-          }]
-      }}
-  </script><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
-  <link rel="stylesheet" href="/assets/css/main.css" />
-  <link rel="stylesheet" href="/assets/css/syntax.css" />
+
+  <meta name="theme-color" content="#eeeeee">
+  <meta name="font-color" content="#222222">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="apple-touch-icon" href="/logo.png">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="16x16">
+  
+  
+    <link rel="alternate" type="application/atom+xml" title="//TODO: Write Blog" href="http://localhost:4000/feed.xml" />
+  
 </head><body a="white">
     <main class="page-content" aria-label="Content">
       <div class="w">

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Custom Errors in Solidity: A Gas-Efficient Alternative</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Custom Errors in Solidity: A Gas-Efficient Alternative | //TODO: Write Blog</title>
 <meta name="generator" content="Jekyll v3.10.0" />
 <meta property="og:title" content="Custom Errors in Solidity: A Gas-Efficient Alternative" />
 <meta name="author" content="wonjoon" />
@@ -21,54 +20,19 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wonjoon"},"dateModified":"2023-08-22T00:00:00+09:00","datePublished":"2023-08-22T00:00:00+09:00","description":"By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution.","headline":"Custom Errors in Solidity: A Gas-Efficient Alternative","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/"},"url":"http://localhost:4000/2023/08/22/blockchain-custom-error-solidity/"}</script>
 <!-- End Jekyll SEO tag -->
-<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="//TODO: Write Blog" /><script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Custom Errors in Solidity: A Gas-Efficient Alternative",
-      "name": "Custom Errors in Solidity: A Gas-Efficient Alternative",
-      "description": "By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution.",
-      "author": {
-        "@type": "Person",
-        "name": "wonjoon"
-      },
-      "datePublished": "2023-08-22T00:00:00+09:00",
-      "dateModified": "2023-08-22T00:00:00+09:00",
-      "image": "https%3A%2F%2Fvia.placeholder.com%2F1200x630%2F2196F3%2Fffffff%3Ftext%3DCustom+Errors+in+Solidity%3A+A+Gas-Efficient+Alternative",
-      "howTo": {
-        "@type": "HowTo",
-        "name": "How to Use Custom Errors in Solidity",
-        "step": [{
-            "@type": "HowToStep",
-            "name": "Declare a Custom Error",
-            "text": "Define a custom error at the file or contract level using the &#39;error&#39; keyword. For example, &#39;error Unauthorized();&#39;. This creates a new, gas-efficient error type."
-          },{
-            "@type": "HowToStep",
-            "name": "Use the &#39;revert&#39; Statement",
-            "text": "In your function&#39;s logic, use the &#39;revert&#39; statement with the custom error to halt execution. For instance, &#39;if (msg.sender != owner) revert Unauthorized();&#39;."
-          },{
-            "@type": "HowToStep",
-            "name": "Add Parameters for More Context",
-            "text": "Pass dynamic data by defining errors with parameters, like &#39;error InsufficientBalance(uint256 available, uint256 required);&#39;. This provides detailed information to off-chain applications."
-          },{
-            "@type": "HowToStep",
-            "name": "Decode Errors with Ethers.js",
-            "text": "On the client side, use libraries like ethers.js to decode custom error data. Create an interface for the error and use it to parse the returned data, making error handling more robust."
-          }]
-      },
-      "about": [{
-          "@type": "Thing",
-          "name": "Solidity",
-          "description": "An object-oriented, high-level language for implementing smart contracts on various blockchain platforms, most notably Ethereum."},{
-          "@type": "Thing",
-          "name": "Gas Optimization",
-          "description": "The practice of reducing the computational cost (gas) of executing transactions and deploying smart contracts on the Ethereum blockchain."},{
-          "@type": "Thing",
-          "name": "Ethers.js",
-          "description": "A complete and compact library for interacting with the Ethereum Blockchain and its ecosystem."}]}
-  </script><link rel="shortcut icon" type="image/x-icon" href="/logo.png" />
-  <link rel="stylesheet" href="/assets/css/main.css" />
-  <link rel="stylesheet" href="/assets/css/syntax.css" />
+
+  <meta name="theme-color" content="#eeeeee">
+  <meta name="font-color" content="#222222">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="apple-touch-icon" href="/logo.png">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/logo.png" sizes="16x16">
+  
+  
+    <link rel="alternate" type="application/atom+xml" title="//TODO: Write Blog" href="http://localhost:4000/feed.xml" />
+  
 </head><body a="white">
     <main class="page-content" aria-label="Content">
       <div class="w">

@@ -1,3 +1,5 @@
 User-agent: *
-Allow: /
+Disallow:
+
+Sitemap: https://wnjoon.github.io/sitemap.xml
 Sitemap: {{ '/sitemap.xml' | relative_url | prepend: site.url }}
