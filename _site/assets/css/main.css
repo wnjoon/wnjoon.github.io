@@ -1,13 +1,87 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap");
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+#theme-toggle {
+  color: black;
+}
+
+body[a="dark"] {
+  background-color: #1c1c1c;
+  color: #f1f1f1;
+}
+body[a="dark"] li {
+  color: #e0d8b0;
+}
+body[a="dark"] a {
+  color: #f1f1f1;
+}
+body[a="dark"] li a {
+  color: #e0d8b0;
+}
+body[a="dark"] a:hover, body[a="dark"] li a:hover {
+  color: #bbbbbb;
+}
+body[a="dark"] h1, body[a="dark"] h2, body[a="dark"] h3, body[a="dark"] h4, body[a="dark"] h5, body[a="dark"] h6 {
+  color: #e0d8b0;
+}
+body[a="dark"] code {
+  background: #333;
+  color: #f1f1f1;
+}
+body[a="dark"] blockquote {
+  background-color: #222;
+  border-color: #444;
+  color: #ccc;
+}
+body[a="dark"] table, body[a="dark"] th, body[a="dark"] td {
+  border-color: #555;
+}
+body[a="dark"] #theme-toggle {
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  body[a="auto"] {
+    background-color: #1c1c1c;
+    color: #f1f1f1;
+  }
+  body[a="auto"] li {
+    color: #e0d8b0;
+  }
+  body[a="auto"] a {
+    color: #f1f1f1;
+  }
+  body[a="auto"] li a {
+    color: #e0d8b0;
+  }
+  body[a="auto"] a:hover, body[a="auto"] li a:hover {
+    color: #bbbbbb;
+  }
+  body[a="auto"] h1, body[a="auto"] h2, body[a="auto"] h3, body[a="auto"] h4, body[a="auto"] h5, body[a="auto"] h6 {
+    color: #e0d8b0;
+  }
+  body[a="auto"] code {
+    background: #333;
+    color: #f1f1f1;
+  }
+  body[a="auto"] blockquote {
+    background-color: #222;
+    border-color: #444;
+    color: #ccc;
+  }
+  body[a="auto"] table, body[a="auto"] th, body[a="auto"] td {
+    border-color: #555;
+  }
+  body[a="auto"] #theme-toggle {
+    color: white;
+  }
+}
 html {
   height: 100%;
 }
 
 body {
   color: black;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
   font-size: 18px;
   line-height: 1.6;
   margin: 0;
@@ -58,7 +132,7 @@ a:hover {
 
 li {
   margin: 0.4rem 0;
-  color: gray;
+  color: black;
   font-size: 18px;
 }
 

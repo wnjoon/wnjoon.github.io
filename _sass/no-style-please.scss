@@ -1,15 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 // -------------- THEME SWITCHER -------------- //
 @mixin dark-appearance {
-  // filter: invert(1);
-  // img {
-  //   filter: invert(1);
+  background-color: #1c1c1c;
+  color: #f1f1f1;
 
-  //   &.ioda { filter: invert(0); }
-  // }
-  // background-color: black
+  li {
+    color: #e0d8b0; // Desaturated yellow for list items
+  }
+
+  a {
+    color: #f1f1f1; // White for links in paragraphs
+  }
+
+  li a {
+    color: #e0d8b0; // Desaturated yellow for links in lists (menus, post lists)
+  }
+
+  a:hover, li a:hover {
+    color: #bbbbbb; // Light gray for link hover
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #e0d8b0; // Desaturated yellow for titles
+  }
+
+  code {
+    background: #333;
+    color: #f1f1f1;
+  }
+
+  blockquote {
+    background-color: #222;
+    border-color: #444;
+    color: #ccc;
+  }
+
+  table, th, td {
+    border-color: #555;
+  }
+
+  #theme-toggle {
+    color: white;
+  }
+}
+
+#theme-toggle {
+  color: black;
 }
 
 body[a="dark"] { @include dark-appearance; }
@@ -30,7 +67,7 @@ html { height: 100%; }
 
 body {
   color: black;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
   font-size: 18px;
   line-height: 1.6;
   margin: 0;
@@ -66,7 +103,7 @@ a:hover {
 
 li { 
   margin: 0.4rem 0; 
-  color: gray;
+  color: black;
   font-size: 18px;
 }
 
