@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-18T10:59:40+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-25T08:24:51+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A blog about software engineering, blockchain, and other development topics.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<h2 id="점점-빠르게-변화하는-ai">점점 빠르게 변화하는 AI</h2>
 
 <p>작년과 올해 사이에 삶에서 느껴진 가장 큰 변화가 있다면 AI일 것입니다. 사람과 대화하듯 질문하는 내용에, 사람처럼 대답하는 AI를 보면서 신기해하던게 불과 작년이었는데, 이제는 복잡한 내용을 이해하고 정리하는 것을 넘어서 새로운 것을 만들고 이를 검토하는 것까지 가능할정도로 엄청나게 빠르게 발전하고 있습니다.</p>
@@ -126,17 +126,13 @@
 
 <p>논문에서 제공한 내용을 바탕으로, 우리는 ‘AI를 통해 최적의 답변을 얻을 수 있는 방법’을 찾을 수 있습니다.</p>
 
-<ol>
-  <li>작업의 목적을 명확하게 하고, 범위를 최소화 한다.</li>
-</ol>
+<p><strong>작업의 목적을 명확하게 하고, 범위를 최소화 한다.</strong></p>
 
 <p>이는 ‘내가 무엇을 요청하고 싶은지 명확하게 파악’하는 것에서부터 시작합니다. 실생활에서도 그렇듯이, AI에도 좋은 질문, 즉 프롬프트 엔지니어링이 가장 중요합니다. 그리고 이 요청을 가장 작은 단위의 질문으로 나눌 수 있어야 합니다. 질문의 크기가 커질수록 Lost-In-The-Middle 현상이 발생할 가능성이 높아집니다. 논문에서는 ‘중요한 정보가 컨텍스트의 시작 또는 끝에 위치할 때 가장 좋은 성능을 보여준다’고 말합니다.</p>
 
 <p>작업을 요청할때에도 마찬가지입니다. 한번에 많은 작업을 요청하기보다는, 작업을 모듈화하고 단계별로 요청하는 것이 좋습니다.</p>
 
-<ol>
-  <li>최대한의 정보를 제공한다.</li>
-</ol>
+<p><strong>최대한의 정보를 제공한다.</strong></p>
 
 <p>사용자가 AI를 사용하는 가장 큰 목적은 ‘빠르게 최적의 결과물을 얻는 것’입니다. 사실 AI에게 정보를 제공하는 것 자체가 또다른 업무일 수 있습니다. 하지만 AI에게 제공하는 정보가 많아질수록, AI가 더욱 양질의 답변을 제공한다는 것은 당연한 결과입니다.</p>
 
@@ -705,7 +701,132 @@
   <li>주요 로직에서 이미 에러가 발생했을 경우 (<code class="language-plaintext highlighter-rouge">err</code>가 <code class="language-plaintext highlighter-rouge">nil</code>이 아닐 때): 덜 중요한 뒷정리 에러는 무시하고, 더 중요한 최초의 원인 에러를 그대로 보존하여 반환합니다.</li>
 </ul>
 
-<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
+  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
+  <li><a href="#using-while-with-labels">Using while with labels</a></li>
+  <li><a href="#using-for-with-labels">Using for with labels</a></li>
+  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
+
+<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
+If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
+
+<h2 id="using-loop-with-labels">Using loop with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">loop</span> <span class="p">{</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
+            
+            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
+            <span class="p">}</span>
+
+            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
+  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
+  <li>You can apply labels to any loop, not just loop blocks</li>
+</ul>
+
+<h2 id="using-while-with-labels">Using while with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
+            <span class="p">}</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-for-with-labels">Using for with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
+            <span class="p">}</span>
+            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-continue-with-labels">Using continue with labels</h2>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
+        <span class="p">}</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break</td>
+      <td>Exits the nearest loop</td>
+    </tr>
+    <tr>
+      <td>break ‘label</td>
+      <td>Exits the specific loop with the given label</td>
+    </tr>
+    <tr>
+      <td>continue ‘label</td>
+      <td>Skips to the next iteration of the labeled loop</td>
+    </tr>
+    <tr>
+      <td>Label works on</td>
+      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
@@ -932,132 +1053,7 @@
       <td>Closures = Go’s anonymous functions</td>
     </tr>
   </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
-  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
-  <li><a href="#using-while-with-labels">Using while with labels</a></li>
-  <li><a href="#using-for-with-labels">Using for with labels</a></li>
-  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
-  <li><a href="#summary">Summary</a></li>
-</ul>
-
-<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
-
-<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
-If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
-
-<h2 id="using-loop-with-labels">Using loop with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-
-        <span class="k">loop</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
-            
-            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
-                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
-            <span class="p">}</span>
-
-            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
-  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
-  <li>You can apply labels to any loop, not just loop blocks</li>
-</ul>
-
-<h2 id="using-while-with-labels">Using while with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
-            <span class="p">}</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-for-with-labels">Using for with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
-            <span class="p">}</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-continue-with-labels">Using continue with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
-        <span class="p">}</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="summary">Summary</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>break</td>
-      <td>Exits the nearest loop</td>
-    </tr>
-    <tr>
-      <td>break ‘label</td>
-      <td>Exits the specific loop with the given label</td>
-    </tr>
-    <tr>
-      <td>continue ‘label</td>
-      <td>Skips to the next iteration of the labeled loop</td>
-    </tr>
-    <tr>
-      <td>Label works on</td>
-      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#strings-in-rust">Strings in Rust</a></li>
@@ -1195,7 +1191,7 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
   </li>
   <li>If you’re just changing the entire string value, you’re assigning a new memory reference either way.</li>
   <li>Rust gives more fine-grained control over memory and mutability, while Go keeps things simple but less flexible when it comes to string manipulation.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">맥북 10년 차 개발자가 전하는 구매 가이드</title><link href="http://localhost:4000/2025/03/20/macbook-purchase-guide/" rel="alternate" type="text/html" title="맥북 10년 차 개발자가 전하는 구매 가이드" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/macbook-purchase-guide</id><content type="html" xml:base="http://localhost:4000/2025/03/20/macbook-purchase-guide/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/20">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[맥북 구매를 고민하는 개발자와 입문자를 위한 10년 차 개발자의 현실적인 구매 가이드. 나에게 맞는 모델 선택, 사양 결정, 그리고 필수 확인 사항까지 담았습니다.]]></summary></entry><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
   <li><a href="#target-readers">Target Readers</a></li>
@@ -1342,182 +1338,4 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
 
 <p>Buy what fits your budget and purpose. Don’t overthink it. And remember — MacBooks are not mandatory for developers.</p>
 
-<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Just because it’s expensive doesn’t mean it’s the right choice — and a MacBook might not be the answer for everyone. This post explores whether a MacBook truly fits your needs, budget, and lifestyle — especially if you’re a student or aspiring developer.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</a></li>
-  <li><a href="#handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</a></li>
-  <li><a href="#more-idiomatic-alternatives">More Idiomatic Alternatives</a></li>
-  <li><a href="#comparison-with-go">Comparison with Go</a></li>
-  <li><a href="#summary">Summary</a></li>
-</ul>
-
-<h2 id="why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</h2>
-
-<p>In Rust, functions that can fail typically return a Result&lt;T, E&gt; type. You must handle the result, even if you are confident the operation will succeed.</p>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">num</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="c1">// Result&lt;i32, ParseIntError&gt;</span>
-</code></pre></div></div>
-
-<p>Trying to ignore the Result leads to a compile-time warning:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>warning: unused <span class="sb">`</span>Result<span class="sb">`</span> that must be used
- <span class="nt">--</span><span class="o">&gt;</span> main.rs:2:9
-  |
-2 |     <span class="nb">let </span>num <span class="o">=</span> <span class="s2">"42"</span>.parse::&lt;i32&gt;<span class="o">()</span><span class="p">;</span>
-  |         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  |         |
-  |         this <span class="sb">`</span>Result<span class="sb">`</span> may be an <span class="sb">`</span>Err<span class="sb">`</span> variant, which should be handled
-</code></pre></div></div>
-
-<p>You can’t use the result as if it’s already a number:</p>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">// Ok(42)</span>
-<span class="k">let</span> <span class="n">doubled</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>         <span class="c1">// Error: result is not i32 but Result&lt;i32, _&gt;</span>
-</code></pre></div></div>
-
-<h2 id="handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</h2>
-
-<p>Rust provides several built-in ways to handle Result values.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Panics on Error?</th>
-      <th>Provides Default Value?</th>
-      <th>Custom Message?</th>
-      <th>Use Case</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>unwrap()</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>No</td>
-      <td>Quick tests, throwaway code</td>
-    </tr>
-    <tr>
-      <td>expect(“msg”)</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>Debugging with context</td>
-    </tr>
-    <tr>
-      <td>unwrap_or(x)</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Fallback/default values</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="unwrap">unwrap()</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>    <span class="c1">// Returns 42</span>
-<span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>   <span class="c1">// Panics!</span>
-</code></pre></div></div>
-
-<p>When an error occurs, <code class="language-plaintext highlighter-rouge">unwrap()</code> panics with a default error message:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'called `Result::unwrap()` on an `Err` value: ParseIntError'</span>
-</code></pre></div></div>
-
-<p>Not safe for production code—use only when you’re absolutely sure it will not fail.</p>
-
-<h3 id="expectcustom-message">expect(“custom message”)</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span>
-    <span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span>
-    <span class="nf">.expect</span><span class="p">(</span><span class="s">"number type is required"</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>Customizes the panic message:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'number type is required: ParseIntError'</span>
-</code></pre></div></div>
-
-<p>Helps during debugging by giving clearer failure context than <code class="language-plaintext highlighter-rouge">unwrap()</code>.</p>
-
-<h3 id="unwrap_ordefault_value">unwrap_or(default_value)</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap_or</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 0 when parse fails</span>
-<span class="nd">println!</span><span class="p">(</span><span class="s">"{x}"</span><span class="p">);</span> <span class="c1">// Output: 0</span>
-</code></pre></div></div>
-
-<p>No panic. Returns a default fallback instead of crashing.</p>
-
-<h2 id="more-idiomatic-alternatives">More Idiomatic Alternatives</h2>
-
-<p>These methods avoid panic and allow graceful error handling.</p>
-
-<h3 id="pattern-matching-with-match">Pattern Matching with match</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
-
-<span class="k">match</span> <span class="n">result</span> <span class="p">{</span>
-    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
-    <span class="nf">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Error occurred: {}"</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="if-let-for-simpler-matching">if let for Simpler Matching</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="k">let</span> <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Not a valid number."</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="propagating-errors-with--operator">Propagating Errors with ? Operator</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">parse_number</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">i32</span><span class="p">,</span> <span class="nn">std</span><span class="p">::</span><span class="nn">num</span><span class="p">::</span><span class="n">ParseIntError</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="s">"42"</span><span class="nf">.parse</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>  <span class="c1">// If parse fails, early return</span>
-    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Only works inside functions that return <code class="language-plaintext highlighter-rouge">Result</code>.</li>
-</ul>
-
-<h2 id="comparison-with-go">Comparison with Go</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Rust</th>
-      <th>Go</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>.unwrap()</td>
-      <td>panic(err)</td>
-    </tr>
-    <tr>
-      <td>.unwrap_or(default_value)</td>
-      <td>if err != nil { return default_value }</td>
-    </tr>
-    <tr>
-      <td>.expect(“msg”)</td>
-      <td>panic(“msg: “ + err.Error())</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="summary">Summary</h2>
-
-<p>Rust enforces error handling at compile time to eliminate runtime surprises. You have multiple tools at your disposal—choose based on the level of control and safety you need:</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">unwrap()</code> – Fast, but dangerous.</li>
-  <li><code class="language-plaintext highlighter-rouge">expect("msg")</code> – Safer panic with clear context.</li>
-  <li><code class="language-plaintext highlighter-rouge">unwrap_or(default_value)</code> – Clean fallbacks.</li>
-  <li><code class="language-plaintext highlighter-rouge">match</code>, <code class="language-plaintext highlighter-rouge">if let</code>, <code class="language-plaintext highlighter-rouge">?</code> – Idiomatic and safe.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry></feed>
+<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Just because it’s expensive doesn’t mean it’s the right choice — and a MacBook might not be the answer for everyone. This post explores whether a MacBook truly fits your needs, budget, and lifestyle — especially if you’re a student or aspiring developer.]]></summary></entry></feed>
