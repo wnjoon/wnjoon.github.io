@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-25T08:30:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-25T08:32:24+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">//TODO: Write Blog</title><subtitle>A blog about software engineering, blockchain, and other development topics.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<h2 id="점점-빠르게-변화하는-ai">점점 빠르게 변화하는 AI</h2>
 
 <p>작년과 올해 사이에 삶에서 느껴진 가장 큰 변화가 있다면 AI일 것입니다. 사람과 대화하듯 질문하는 내용에, 사람처럼 대답하는 AI를 보면서 신기해하던게 불과 작년이었는데, 이제는 복잡한 내용을 이해하고 정리하는 것을 넘어서 새로운 것을 만들고 이를 검토하는 것까지 가능할정도로 엄청나게 빠르게 발전하고 있습니다.</p>
@@ -1191,151 +1191,182 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
   </li>
   <li>If you’re just changing the entire string value, you’re assigning a new memory reference either way.</li>
   <li>Rust gives more fine-grained control over memory and mutability, while Go keeps things simple but less flexible when it comes to string manipulation.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">맥북 10년 차 개발자가 전하는 구매 가이드</title><link href="http://localhost:4000/2025/03/20/macbook-purchase-guide/" rel="alternate" type="text/html" title="맥북 10년 차 개발자가 전하는 구매 가이드" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/macbook-purchase-guide</id><content type="html" xml:base="http://localhost:4000/2025/03/20/macbook-purchase-guide/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/20">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[맥북 구매를 고민하는 개발자와 입문자를 위한 10년 차 개발자의 현실적인 구매 가이드. 나에게 맞는 모델 선택, 사양 결정, 그리고 필수 확인 사항까지 담았습니다.]]></summary></entry><entry><title type="html">Should You Really Get a MacBook?</title><link href="http://localhost:4000/2025/03/19/macbook-purchase-guidline/" rel="alternate" type="text/html" title="Should You Really Get a MacBook?" /><published>2025-03-19T00:00:00+09:00</published><updated>2025-03-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/19/macbook-purchase-guidline</id><content type="html" xml:base="http://localhost:4000/2025/03/19/macbook-purchase-guidline/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">맥북 10년 차 개발자가 전하는 구매 가이드</title><link href="http://localhost:4000/2025/03/20/macbook-purchase-guide/" rel="alternate" type="text/html" title="맥북 10년 차 개발자가 전하는 구매 가이드" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/macbook-purchase-guide</id><content type="html" xml:base="http://localhost:4000/2025/03/20/macbook-purchase-guide/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/20">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[맥북 구매를 고민하는 개발자와 입문자를 위한 10년 차 개발자의 현실적인 구매 가이드. 나에게 맞는 모델 선택, 사양 결정, 그리고 필수 확인 사항까지 담았습니다.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
-  <li><a href="#target-readers">Target Readers</a></li>
-  <li><a href="#introduction-so-many-laptops-why-macbook">Introduction: So Many Laptops, Why MacBook?</a></li>
-  <li><a href="#macbooks-are-pretty-period">MacBooks Are Pretty. Period</a></li>
-  <li><a href="#is-a-macbook-necessary-for-developers">Is a MacBook Necessary for Developers?</a></li>
-  <li><a href="#the-ill-use-it-forever-justification">The “I’ll Use It Forever” Justification</a></li>
-  <li><a href="#is-macos-hard-to-use">Is macOS Hard to Use?</a></li>
-  <li><a href="#the-hidden-costs-accessories--compatibility">The Hidden Costs: Accessories &amp; Compatibility</a></li>
-  <li><a href="#but-what-about-apple-ecosystem--aesthetics">But What About Apple Ecosystem &amp; Aesthetics?</a></li>
-  <li><a href="#can-you-game-on-a-mac">Can You Game on a Mac?</a></li>
-  <li><a href="#final-thoughts">Final Thoughts</a></li>
+  <li><a href="#why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</a></li>
+  <li><a href="#handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</a></li>
+  <li><a href="#more-idiomatic-alternatives">More Idiomatic Alternatives</a></li>
+  <li><a href="#comparison-with-go">Comparison with Go</a></li>
+  <li><a href="#summary">Summary</a></li>
 </ul>
 
-<h2 id="target-readers">Target Readers</h2>
+<h2 id="why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</h2>
+
+<p>In Rust, functions that can fail typically return a Result&lt;T, E&gt; type. You must handle the result, even if you are confident the operation will succeed.</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">num</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="c1">// Result&lt;i32, ParseIntError&gt;</span>
+</code></pre></div></div>
+
+<p>Trying to ignore the Result leads to a compile-time warning:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>warning: unused <span class="sb">`</span>Result<span class="sb">`</span> that must be used
+ <span class="nt">--</span><span class="o">&gt;</span> main.rs:2:9
+  |
+2 |     <span class="nb">let </span>num <span class="o">=</span> <span class="s2">"42"</span>.parse::&lt;i32&gt;<span class="o">()</span><span class="p">;</span>
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |         |
+  |         this <span class="sb">`</span>Result<span class="sb">`</span> may be an <span class="sb">`</span>Err<span class="sb">`</span> variant, which should be handled
+</code></pre></div></div>
+
+<p>You can’t use the result as if it’s already a number:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">// Ok(42)</span>
+<span class="k">let</span> <span class="n">doubled</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>         <span class="c1">// Error: result is not i32 but Result&lt;i32, _&gt;</span>
+</code></pre></div></div>
+
+<h2 id="handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</h2>
+
+<p>Rust provides several built-in ways to handle Result values.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Panics on Error?</th>
+      <th>Provides Default Value?</th>
+      <th>Custom Message?</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>unwrap()</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+      <td>Quick tests, throwaway code</td>
+    </tr>
+    <tr>
+      <td>expect(“msg”)</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Debugging with context</td>
+    </tr>
+    <tr>
+      <td>unwrap_or(x)</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Fallback/default values</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="unwrap">unwrap()</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>    <span class="c1">// Returns 42</span>
+<span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>   <span class="c1">// Panics!</span>
+</code></pre></div></div>
+
+<p>When an error occurs, <code class="language-plaintext highlighter-rouge">unwrap()</code> panics with a default error message:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'called `Result::unwrap()` on an `Err` value: ParseIntError'</span>
+</code></pre></div></div>
+
+<p>Not safe for production code—use only when you’re absolutely sure it will not fail.</p>
+
+<h3 id="expectcustom-message">expect(“custom message”)</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span>
+    <span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span>
+    <span class="nf">.expect</span><span class="p">(</span><span class="s">"number type is required"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Customizes the panic message:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'number type is required: ParseIntError'</span>
+</code></pre></div></div>
+
+<p>Helps during debugging by giving clearer failure context than <code class="language-plaintext highlighter-rouge">unwrap()</code>.</p>
+
+<h3 id="unwrap_ordefault_value">unwrap_or(default_value)</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap_or</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 0 when parse fails</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{x}"</span><span class="p">);</span> <span class="c1">// Output: 0</span>
+</code></pre></div></div>
+
+<p>No panic. Returns a default fallback instead of crashing.</p>
+
+<h2 id="more-idiomatic-alternatives">More Idiomatic Alternatives</h2>
+
+<p>These methods avoid panic and allow graceful error handling.</p>
+
+<h3 id="pattern-matching-with-match">Pattern Matching with match</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="k">match</span> <span class="n">result</span> <span class="p">{</span>
+    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="nf">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Error occurred: {}"</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="if-let-for-simpler-matching">if let for Simpler Matching</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="k">let</span> <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Not a valid number."</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="propagating-errors-with--operator">Propagating Errors with ? Operator</h3>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">parse_number</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">i32</span><span class="p">,</span> <span class="nn">std</span><span class="p">::</span><span class="nn">num</span><span class="p">::</span><span class="n">ParseIntError</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="s">"42"</span><span class="nf">.parse</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>  <span class="c1">// If parse fails, early return</span>
+    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <ul>
-  <li>Aspiring developers</li>
-  <li>Students looking to buy their first laptop</li>
-  <li>Non-tech users who still want a cool MacBook</li>
+  <li>Only works inside functions that return <code class="language-plaintext highlighter-rouge">Result</code>.</li>
 </ul>
 
-<h2 id="introduction-so-many-laptops-why-macbook">Introduction: So Many Laptops, Why MacBook?</h2>
+<h2 id="comparison-with-go">Comparison with Go</h2>
 
-<p>Back in my college days, ThinkPads (a.k.a. the famous red-dotted “bbalkkong”) were the go-to laptops for CS majors. Brands like Dell and HP were also quite popular. Out of patriotism (and practicality), I chose a lightweight 11-inch LG laptop.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Rust</th>
+      <th>Go</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>.unwrap()</td>
+      <td>panic(err)</td>
+    </tr>
+    <tr>
+      <td>.unwrap_or(default_value)</td>
+      <td>if err != nil { return default_value }</td>
+    </tr>
+    <tr>
+      <td>.expect(“msg”)</td>
+      <td>panic(“msg: “ + err.Error())</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Then came the game-changer: the 13-inch Retina MacBook in 2014. I saw that crisp screen once and was sold.</p>
+<h2 id="summary">Summary</h2>
 
-<p>Since then, for over 10 years, my main work machine has always been a MacBook. But now that MacBooks are more popular than ever — especially among developers — it’s worth asking…</p>
-
-<p><strong>“Do you really need a MacBook to become a developer?”</strong></p>
-
-<h2 id="macbooks-are-pretty-period">MacBooks Are Pretty. Period</h2>
-
-<p>Let’s get real. One of the strongest appeals of a MacBook is its beauty. It’s not just a laptop — it’s a fashion statement, a status symbol, and yes, a design masterpiece.</p>
-
-<p>From “Why would you get that overpriced laptop?” to “You must have a MacBook to code!” — the perception of the MacBook in Korea and beyond has changed drastically.</p>
-
-<p>Yes, Apple’s silicon chips are powerful. Yes, Windows laptops are getting pricier too. But ultimately…</p>
-
-<p><strong>“You buy a MacBook first because it looks amazing.”</strong></p>
-
-<p>And honestly, that’s okay.</p>
-
-<h2 id="is-a-macbook-necessary-for-developers">Is a MacBook Necessary for Developers?</h2>
-
-<p>Many say that since macOS is Unix-based, it’s easier for developers — especially those working with Linux servers. That was definitely true… in the past.</p>
-
-<p>But Windows has caught up. With WSL2 (Windows Subsystem for Linux), you can run full Linux environments natively on Windows — no need for virtual machines or complex setups.</p>
-
-<p>Plus, Apple’s shift to ARM-based chips (M1, M2, M3, etc.) created some compatibility issues with traditional x86 Linux environments. While tools like Docker help mitigate that, it’s not all smooth sailing.</p>
-
-<p><strong>“A MacBook might not always be better — just different.”</strong></p>
-
-<p>So no, being a developer doesn’t require a MacBook. Windows with WSL is now more than capable — and in some cases, even better suited for server-side development.</p>
-
-<h2 id="the-ill-use-it-forever-justification">The “I’ll Use It Forever” Justification</h2>
-
-<p>It’s common to see questions like:</p>
-
-<p><strong>“I’m just learning to code now… should I max out the CPU and RAM?”</strong></p>
-
-<p>My take? No. Unless you’re editing 8K videos or training AI models, a base model MacBook Air is more than enough.</p>
-
-<p>I’ve used the 2020 M1 MacBook Pro for over 4 years with zero issues — and I’m a professional developer.</p>
-
-<p><strong>“Buy for your current needs. Upgrade later if you actually need to.”</strong></p>
-
-<p>And yes, 16-inch models look cool, but they’re heavy. If you commute on foot or public transport, go 14-inch or smaller.</p>
-
-<h2 id="is-macos-hard-to-use">Is macOS Hard to Use?</h2>
-
-<p>For lifelong Windows users: yes, at first. macOS does things differently — keyboard shortcuts, window management, file system, etc.</p>
-
-<p>But you’ll adapt. Humans are adaptable creatures.</p>
-
-<p>If you’re used to Microsoft Office or specific Korean software, there might be hiccups — but these days, most major apps support macOS just fine.</p>
-
-<p>And yes, macOS no longer struggles with Korean fonts or certificates. That ship has sailed.</p>
-
-<p><img src="https://github.com/user-attachments/assets/cd97cb20-e494-43cc-8167-484784e28a2b" alt="Image" />
-@ <a href="https://www.apple.com/kr/macbook-pro/mac-does-that/">And Apple says you can easily switch from Windows to macOS :)</a>.</p>
-
-<h2 id="the-hidden-costs-accessories--compatibility">The Hidden Costs: Accessories &amp; Compatibility</h2>
-
-<p>You might need to buy extra accessories.</p>
+<p>Rust enforces error handling at compile time to eliminate runtime surprises. You have multiple tools at your disposal—choose based on the level of control and safety you need:</p>
 
 <ul>
-  <li>USB hubs, dongles, adapters — they add up.</li>
-  <li>Cheaper accessories can cause damage. Get reputable brands.</li>
-</ul>
-
-<p>Windows on Mac? Not easy anymore.</p>
-
-<ul>
-  <li>Since Apple moved to their own chips, BootCamp is gone.</li>
-  <li>You’ll need virtualization software (like Parallels), and even that costs money -  plus a Windows license.</li>
-</ul>
-
-<h2 id="but-what-about-apple-ecosystem--aesthetics">But What About Apple Ecosystem &amp; Aesthetics?</h2>
-
-<p>Some say:</p>
-
-<p><strong>“If you have an iPhone, iPad, AirPods — you should definitely get a MacBook too.”</strong></p>
-
-<p>Not necessarily.</p>
-
-<p>Sure, continuity features like AirDrop or shared clipboard are nice. But you won’t lose much by not having them either.</p>
-
-<p>You don’t need to complete the Apple Infinity Gauntlet.</p>
-
-<p>Also: yes, it looks amazing at Starbucks. My wife uses a Galaxy Book, I still take my MacBook.</p>
-
-<h2 id="can-you-game-on-a-mac">Can You Game on a Mac?</h2>
-
-<p>Short answer: You can. Long answer: It’s not ideal, but it’s getting better.</p>
-
-<p>Cloud gaming, browser-based games, and new compatibility layers (like Wine, Crossover, etc.) help. But if you’re a serious gamer? Stick with Windows.</p>
-
-<p><strong>“But hey, long gaming sessions aren’t healthy anyway.”</strong></p>
-
-<h2 id="final-thoughts">Final Thoughts</h2>
-
-<p>I’ve used MacBooks for over 10 years — and never regretted it. But that doesn’t mean it’s the right choice for everyone.</p>
-
-<p>Here’s what I’ll say:</p>
-
-<p>Get a MacBook if:</p>
-
-<ul>
-  <li>You love the design</li>
-  <li>You want a reliable, well-optimized device</li>
-  <li>You value battery life and quiet operation</li>
-  <li>You’re okay adapting to macOS</li>
-</ul>
-
-<p>Don’t get one if:</p>
-
-<ul>
-  <li>You’re on a tight budget</li>
-  <li>You need specific Windows-only software</li>
-  <li>You game a lot</li>
-</ul>
-
-<p>Buy what fits your budget and purpose. Don’t overthink it. And remember — MacBooks are not mandatory for developers.</p>
-
-<p>Hope this post helps you make a better decision!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Just because it’s expensive doesn’t mean it’s the right choice — and a MacBook might not be the answer for everyone. This post explores whether a MacBook truly fits your needs, budget, and lifestyle — especially if you’re a student or aspiring developer.]]></summary></entry></feed>
+  <li><code class="language-plaintext highlighter-rouge">unwrap()</code> – Fast, but dangerous.</li>
+  <li><code class="language-plaintext highlighter-rouge">expect("msg")</code> – Safer panic with clear context.</li>
+  <li><code class="language-plaintext highlighter-rouge">unwrap_or(default_value)</code> – Clean fallbacks.</li>
+  <li><code class="language-plaintext highlighter-rouge">match</code>, <code class="language-plaintext highlighter-rouge">if let</code>, <code class="language-plaintext highlighter-rouge">?</code> – Idiomatic and safe.</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry></feed>

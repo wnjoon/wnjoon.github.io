@@ -7,6 +7,7 @@ categories: essay
 keywords: macbook, purchase, guide, student, developer
 comments: true
 author: Wonjoon
+draft: true
 ---
 
 ## Table of Contents
