@@ -36,6 +36,8 @@ entries:
         url: /archive/2023/
       - title: 2022
         url: /archive/2022/
+      - title: 2021
+        url: /archive/2021/
 
   # - title: posts by category
   #   post_list:
