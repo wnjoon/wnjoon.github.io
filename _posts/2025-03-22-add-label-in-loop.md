@@ -6,6 +6,7 @@ categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, expression-block, closure
 comments: true
+draft: true
 ---
 
 ## Table of Contents

@@ -6,6 +6,7 @@ categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, string, go
 comments: true
+draft: true
 ---
 
 ## Table of Contents

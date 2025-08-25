@@ -6,6 +6,7 @@ categories: dev
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, error, unwrap, expect, pattern matching
 comments: true
+draft: true
 ---
 
 ## Table of Contents

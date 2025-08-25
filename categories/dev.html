@@ -16,8 +16,8 @@ title: "Posts in 'dev' category"
   <ul>
     {%- for post in filtered_posts -%}
       <li>
-        <span>{{ post.date | date: "%Y-%m" }}</span>
-        <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
+        <span>{{ post.date | date: "%Y-%m" }}</span>&nbsp;
+        {%- if post.external_url -%}<a href="{{ post.external_url }}" target="_blank">{{ post.title | downcase }}</a>{%- else -%}<a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- endif -%}
       </li>
     {%- endfor -%}
   </ul>

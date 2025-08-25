@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-25T09:09:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">wxnjxxn.log</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-25T09:30:33+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">wxnjxxn.log</title><subtitle>A blog about software engineering, blockchain, and other development topics.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<h2 id="점점-빠르게-변화하는-ai">점점 빠르게 변화하는 AI</h2>
 
 <p>작년과 올해 사이에 삶에서 느껴진 가장 큰 변화가 있다면 AI일 것입니다. 사람과 대화하듯 질문하는 내용에, 사람처럼 대답하는 AI를 보면서 신기해하던게 불과 작년이었는데, 이제는 복잡한 내용을 이해하고 정리하는 것을 넘어서 새로운 것을 만들고 이를 검토하는 것까지 가능할정도로 엄청나게 빠르게 발전하고 있습니다.</p>
@@ -701,480 +701,249 @@
   <li>주요 로직에서 이미 에러가 발생했을 경우 (<code class="language-plaintext highlighter-rouge">err</code>가 <code class="language-plaintext highlighter-rouge">nil</code>이 아닐 때): 덜 중요한 뒷정리 에러는 무시하고, 더 중요한 최초의 원인 에러를 그대로 보존하여 반환합니다.</li>
 </ul>
 
-<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To</title><link href="http://localhost:4000/2025/03/22/expression-block-closure/" rel="alternate" type="text/html" title="Using labels while looping in Rust: Breaking or Continuing Exactly Where You Mean To" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/expression-block-closure</id><content type="html" xml:base="http://localhost:4000/2025/03/22/expression-block-closure/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+<p>이는 “함수가 실패했다면, 그 최초의 원인을 보존하라”는 Go의 중요한 에러 처리 철학을 잘 보여줍니다</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다.]]></summary></entry><entry><title type="html">맥북 10년 차 개발자가 전하는 구매 가이드</title><link href="http://localhost:4000/2025/03/20/macbook-purchase-guide/" rel="alternate" type="text/html" title="맥북 10년 차 개발자가 전하는 구매 가이드" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/macbook-purchase-guide</id><content type="html" xml:base="http://localhost:4000/2025/03/20/macbook-purchase-guide/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/20">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[맥북 구매를 고민하는 개발자와 입문자를 위한 10년 차 개발자의 현실적인 구매 가이드. 나에게 맞는 모델 선택, 사양 결정, 그리고 필수 확인 사항까지 담았습니다.]]></summary></entry><entry><title type="html">Understanding inline Functions in C: When and How They Work</title><link href="http://localhost:4000/2025/03/17/inline-function-c/" rel="alternate" type="text/html" title="Understanding inline Functions in C: When and How They Work" /><published>2025-03-17T00:00:00+09:00</published><updated>2025-03-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/17/inline-function-c</id><content type="html" xml:base="http://localhost:4000/2025/03/17/inline-function-c/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
-  <li><a href="#why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</a></li>
-  <li><a href="#using-loop-with-labels">Using loop with labels</a></li>
-  <li><a href="#using-while-with-labels">Using while with labels</a></li>
-  <li><a href="#using-for-with-labels">Using for with labels</a></li>
-  <li><a href="#using-continue-with-labels">Using continue with labels</a></li>
-  <li><a href="#summary">Summary</a></li>
-</ul>
-
-<h2 id="why-use-loop-labels-in-rust">Why Use Loop Labels in Rust?</h2>
-
-<p>When you have nested loops, calling <code class="language-plaintext highlighter-rouge">break</code> or <code class="language-plaintext highlighter-rouge">continue</code> may only affect the nearest loop.
-If you want to target an outer loop, Rust lets you assign a label using the <code class="language-plaintext highlighter-rouge">label_name:</code> syntax.</p>
-
-<h2 id="using-loop-with-labels">Using loop with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'counting_up</span><span class="p">:</span> <span class="k">loop</span> <span class="p">{</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"count = {count}"</span><span class="p">);</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">remaining</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-
-        <span class="k">loop</span> <span class="p">{</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"remaining = {remaining}"</span><span class="p">);</span>
-            
-            <span class="k">if</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
-                <span class="k">break</span><span class="p">;</span> <span class="c1">// exits this inner loop only</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'counting_up</span><span class="p">;</span> <span class="c1">// exits the labeled outer loop</span>
-            <span class="p">}</span>
-
-            <span class="n">remaining</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"End count = {count}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">break</code> exits the inner loop</li>
-  <li><code class="language-plaintext highlighter-rouge">break 'counting_up</code> exits the outer labeled loop</li>
-  <li>You can apply labels to any loop, not just loop blocks</li>
-</ul>
-
-<h2 id="using-while-with-labels">Using while with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="k">mut</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer while loop</span>
-            <span class="p">}</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Done: i = {i}"</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-for-with-labels">Using for with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-                <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// exits the outer for loop</span>
-            <span class="p">}</span>
-            <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="using-continue-with-labels">Using continue with labels</h2>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">'outer</span><span class="p">:</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">3</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-            <span class="k">continue</span> <span class="nv">'outer</span><span class="p">;</span> <span class="c1">// skips rest of inner loop and moves to next outer iteration</span>
-        <span class="p">}</span>
-        <span class="nd">println!</span><span class="p">(</span><span class="s">"x = {x}, y = {y}"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="summary">Summary</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Concept</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>break</td>
-      <td>Exits the nearest loop</td>
-    </tr>
-    <tr>
-      <td>break ‘label</td>
-      <td>Exits the specific loop with the given label</td>
-    </tr>
-    <tr>
-      <td>continue ‘label</td>
-      <td>Skips to the next iteration of the labeled loop</td>
-    </tr>
-    <tr>
-      <td>Label works on</td>
-      <td><code class="language-plaintext highlighter-rouge">loop</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">for</code>, and <code class="language-plaintext highlighter-rouge">continue</code></td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Rust allows you to label loops and precisely control break and continue flow — even across nested loop, while, and for blocks. Learn how to avoid confusion in complex loop structures with simple, powerful labels.]]></summary></entry><entry><title type="html">Expression Blocks vs Closures in Rust – What’s the Difference?</title><link href="http://localhost:4000/2025/03/22/add-label-in-loop/" rel="alternate" type="text/html" title="Expression Blocks vs Closures in Rust – What’s the Difference?" /><published>2025-03-22T00:00:00+09:00</published><updated>2025-03-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/22/add-label-in-loop</id><content type="html" xml:base="http://localhost:4000/2025/03/22/add-label-in-loop/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#expression-blocks-vs-closures">Expression Blocks vs Closures</a>
-    <ul>
-      <li><a href="#key-differences">Key Differences</a></li>
-      <li><a href="#expression-blocks-inline-one-time-calculations">Expression Blocks: Inline One-Time Calculations</a></li>
-      <li><a href="#closures-anonymous-functions-for-reuse-and-flexibility">Closures: Anonymous Functions for Reuse and Flexibility</a></li>
-    </ul>
-  </li>
-  <li><a href="#comparison-with-go">Comparison with Go</a></li>
-  <li><a href="#summary-when-to-use-what">Summary: When to Use What?</a></li>
-</ul>
-
-<h2 id="expression-blocks-vs-closures">Expression Blocks vs Closures</h2>
-
-<h3 id="key-differences">Key Differences</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Feature</th>
-      <th>Expression Block</th>
-      <th>Closure</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>What it is</td>
-      <td>Inline calculation block</td>
-      <td>Anonymous function</td>
-    </tr>
-    <tr>
-      <td>Execution timing</td>
-      <td>Immediately</td>
-      <td>When called</td>
-    </tr>
-    <tr>
-      <td>Parameters</td>
-      <td>Not allowed</td>
-      <td>Allowed</td>
-    </tr>
-    <tr>
-      <td>Captures outer variables</td>
-      <td>No</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>Reusable</td>
-      <td>One-time</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>Passable to other funcs</td>
-      <td>No</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>Return value</td>
-      <td>Last expression</td>
-      <td>Last expression</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="expression-blocks-inline-one-time-calculations">Expression Blocks: Inline One-Time Calculations</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
-<span class="p">};</span>
-<span class="nd">println!</span><span class="p">(</span><span class="s">"{y}"</span><span class="p">);</span> <span class="c1">// 15</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Block used just for computing a value</li>
-  <li>Executed immediately</li>
-  <li>Returns the last expression (no semicolon)</li>
-  <li>Does not take parameters or capture external variables</li>
-  <li>Great for one-off logic that doesn’t need to be reused</li>
-</ul>
-
-<h4 id="when-to-use-expression-blocks">When to Use Expression Blocks</h4>
-
-<ul>
-  <li>You need a value from a mini logic block</li>
-  <li>You don’t need parameters</li>
-  <li>You want instant evaluation</li>
-  <li>You’re not planning to reuse the logic</li>
-</ul>
-
-<h4 id="example-using-if-match-or-even-loop-as-a-value">Example: Using if, match, or even loop as a value</h4>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">is_even</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="k">true</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="k">false</span> <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="k">match</span> <span class="mi">2</span> <span class="p">{</span>
-    <span class="mi">1</span> <span class="k">=&gt;</span> <span class="s">"one"</span><span class="p">,</span>
-    <span class="mi">2</span> <span class="k">=&gt;</span> <span class="s">"two"</span><span class="p">,</span>
-    <span class="n">_</span> <span class="k">=&gt;</span> <span class="s">"many"</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="k">let</span> <span class="n">loop_value</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="k">mut</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">loop</span> <span class="p">{</span>
-        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span> <span class="k">break</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="c1">// loop_value == 30</span>
-</code></pre></div></div>
-
-<p><strong>Note: <code class="language-plaintext highlighter-rouge">while</code> and <code class="language-plaintext highlighter-rouge">for</code> are statements, not expressions — they can’t be used like this.</strong></p>
-
-<h3 id="closures-anonymous-functions-for-reuse-and-flexibility">Closures: Anonymous Functions for Reuse and Flexibility</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">add</span> <span class="o">=</span> <span class="p">|</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">|</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-<span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> <span class="c1">// 7</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Similar to anonymous functions in Go, JavaScript, etc.</li>
-  <li>Executed only when called</li>
-  <li>Can take parameters and capture external variables</li>
-  <li>Useful when passing logic into another function (e.g. <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">filter</code>)</li>
-  <li>Can be reused multiple times</li>
-</ul>
-
-<h4 id="when-to-use-closures">When to Use Closures</h4>
-
-<ul>
-  <li>You need to reuse logic</li>
-  <li>You want to pass logic as a parameter to another function</li>
-  <li>You need to delay execution</li>
-  <li>You need to capture external values</li>
-</ul>
-
-<h4 id="common-use-cases">Common Use Cases</h4>
-
-<h5 id="1-parameterized-logic">1. Parameterized Logic</h5>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">square</span> <span class="o">=</span> <span class="p">|</span><span class="n">x</span><span class="p">|</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
-<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">square</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span> <span class="c1">// 25</span>
-</code></pre></div></div>
-
-<h5 id="2-passing-to-higher-order-functions">2. Passing to Higher-Order Functions</h5>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">nums</span> <span class="o">=</span> <span class="nd">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
-<span class="k">let</span> <span class="n">doubled</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">nums</span><span class="nf">.iter</span><span class="p">()</span><span class="nf">.map</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="nf">.collect</span><span class="p">();</span>
-<span class="c1">// Result: [2, 4, 6]</span>
-</code></pre></div></div>
-
-<h5 id="3-threaded-or-async-code">3. Threaded or Async Code</h5>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">std</span><span class="p">::</span><span class="nn">thread</span><span class="p">::</span><span class="nf">spawn</span><span class="p">(||</span> <span class="p">{</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Hello from thread"</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div></div>
-
-<h5 id="4-capturing-external-variables">4. Capturing External Variables</h5>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hi"</span><span class="p">;</span>
-<span class="k">let</span> <span class="n">say_hello</span> <span class="o">=</span> <span class="p">|</span><span class="n">name</span><span class="p">|</span> <span class="nd">format!</span><span class="p">(</span><span class="s">"{greeting}, {name}"</span><span class="p">);</span>
-<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">say_hello</span><span class="p">(</span><span class="s">"Alice"</span><span class="p">));</span> <span class="c1">// "Hi, Alice"</span>
-</code></pre></div></div>
-
-<h2 id="comparison-with-go">Comparison with Go</h2>
-
-<p>Go only has function literals (<code class="language-plaintext highlighter-rouge">func() { ... }</code>) — no concept of expression blocks as values.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">val</span> <span class="o">:=</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="n">val</span><span class="p">()</span> <span class="c">// Must be called</span>
-</code></pre></div></div>
-
-<p>In Rust:</p>
-
-<ul>
-  <li>Use closures for what you’d use <code class="language-plaintext highlighter-rouge">func() { ... }</code> in Go</li>
-  <li>Use expression blocks for inline logic to assign values quickly</li>
-</ul>
-
-<h2 id="summary-when-to-use-what">Summary: When to Use What?</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Situation</th>
-      <th>Use</th>
-      <th>Why</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Simple inline calculation</td>
-      <td>Expression block</td>
-      <td>Less syntax, faster execution</td>
-    </tr>
-    <tr>
-      <td>Passing logic to another function</td>
-      <td>Closure</td>
-      <td>Closures are first-class citizens</td>
-    </tr>
-    <tr>
-      <td>Accepting dynamic inputs</td>
-      <td>Closure</td>
-      <td>Accepting dynamic inputs</td>
-    </tr>
-    <tr>
-      <td>Passing logic to another function</td>
-      <td>Closure</td>
-      <td>Closures take parameters</td>
-    </tr>
-    <tr>
-      <td>Referencing external values</td>
-      <td>Closure</td>
-      <td>Can capture and use outer scope</td>
-    </tr>
-    <tr>
-      <td>Like func() in Go</td>
-      <td>Closure</td>
-      <td>Closures = Go’s anonymous functions</td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func().]]></summary></entry><entry><title type="html">Understanding String Types in Rust and Go</title><link href="http://localhost:4000/2025/03/20/rust-about-string-type/" rel="alternate" type="text/html" title="Understanding String Types in Rust and Go" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/rust-about-string-type</id><content type="html" xml:base="http://localhost:4000/2025/03/20/rust-about-string-type/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#strings-in-rust">Strings in Rust</a></li>
-  <li><a href="#strings-in-go">Strings in Go</a></li>
+  <li><a href="#what-is-an-inline-function-in-c">What Is an inline Function in C?</a></li>
+  <li><a href="#why-use-inline-functions">Why Use inline Functions?</a></li>
+  <li><a href="#when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</a></li>
+  <li><a href="#forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</a></li>
   <li><a href="#conclusion">Conclusion</a></li>
 </ul>
 
-<h2 id="strings-in-rust">Strings in Rust</h2>
+<h2 id="what-is-an-inline-function-in-c">What Is an inline Function in C?</h2>
 
-<h3 id="str--string-slice">&amp;str – String Slice</h3>
+<p>An <code class="language-plaintext highlighter-rouge">inline</code> function is a special function in C that suggests the compiler replace the function call with its actual code to optimize performance.</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"hello"</span><span class="p">;</span> <span class="c1">// &amp;str</span>
-</code></pre></div></div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
 
-<ul>
-  <li>Immutable, read-only reference to a string</li>
-  <li>Stored in static memory (binary section)</li>
-  <li>Does not use the heap</li>
-</ul>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"hello"</span><span class="p">;</span> 
-<span class="c1">// s points to the memory address of the "hello" string</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="s">"bye"</span><span class="p">;</span>
-<span class="c1">// s now points to a new memory address for "bye"</span>
-<span class="c1">// The value isn't modified — the reference changes</span>
-
-<span class="c1">// diagram</span>
-<span class="c1">// "string type variable only points to the memory address"</span>
-<span class="c1">// s -&gt; 0x1234["hello"] </span>
-<span class="c1">// s -&gt; 0x5678["bye"]</span>
-</code></pre></div></div>
-
-<h3 id="string--heap-allocated-mutable-string">String – Heap-Allocated Mutable String</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">mut</span> <span class="n">s</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"hello"</span><span class="p">);</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Mutable, owns the data</li>
-  <li>Stored on the heap</li>
-  <li>You can modify it using methods like .push_str() and .clear()</li>
-</ul>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">s1</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span> 
-<span class="c1">// creates an empty string</span>
-
-<span class="n">s1</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"hello"</span><span class="p">);</span> <span class="c1">// compile error — not mutable</span>
-
-<span class="k">let</span> <span class="k">mut</span> <span class="n">s2</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span> <span class="c1">// mutable</span>
-
-<span class="n">s2</span> <span class="o">=</span> <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="s">"hello"</span><span class="p">);</span>
-<span class="n">s2</span><span class="nf">.push_str</span><span class="p">(</span><span class="s">" world"</span><span class="p">);</span>      <span class="c1">// "hello world"</span>
-</code></pre></div></div>
-
-<h2 id="strings-in-go">Strings in Go</h2>
-
-<h3 id="string">string</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test</span> <span class="o">:=</span> <span class="s">"first"</span>
-<span class="n">test</span> <span class="o">=</span> <span class="s">"second"</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Immutable value type</li>
-  <li>Internally, a string is just a struct with a byte pointer and length:</li>
-</ul>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="kt">string</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">data</span> <span class="o">*</span><span class="kt">byte</span>
-    <span class="nb">len</span>  <span class="kt">int</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Expands to: int result = (5 * 5);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <ul>
-  <li>Assigning a new string creates a new string object in memory</li>
-  <li>You cannot modify part of a string directly</li>
+  <li>When the compiler processes <code class="language-plaintext highlighter-rouge">square(5)</code>, it replaces the function call with its definition: <code class="language-plaintext highlighter-rouge">int result = (5 * 5);</code></li>
+  <li>This eliminates the overhead of function calls, potentially improving performance.</li>
 </ul>
 
-<h3 id="how-to-modify-strings-in-go">How to “Modify” Strings in Go</h3>
+<h2 id="why-use-inline-functions">Why Use inline Functions?</h2>
 
-<p>To modify a string in Go, convert it into a mutable byte slice:</p>
+<ul>
+  <li>Performance Optimization – Reduces function call overhead.</li>
+  <li>Encapsulation – Keeps function logic organized while avoiding extra calls.</li>
+  <li>Reduced Stack Usage – No need to store function call metadata in the stack.</li>
+</ul>
 
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">:=</span> <span class="s">"hello"</span>
-<span class="n">b</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>   <span class="c">// Convert to byte slice</span>
-<span class="n">b</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'H'</span>       <span class="c">// Modify</span>
-<span class="n">s2</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>  <span class="c">// Convert back to string</span>
+<h2 id="when-does-the-compiler-ignore-inline">When Does the Compiler Ignore inline?</h2>
 
-<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>  <span class="c">// "Hello"</span>
+<p>However, unlike Rust macros, inline in C is just a hint to the compiler—it does not guarantee inlining. The compiler decides whether to actually inline the function based on various optimization criteria.</p>
+
+<p>Despite marking a function as inline, the compiler might not inline it in the following cases:</p>
+
+<h3 id="1️-the-function-is-too-large">1️. The Function Is Too Large</h3>
+
+<p>If a function contains too many instructions, inlining it could increase code size unnecessarily.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">big_function</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Large loop</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
-<h2 id="rust-vs-go-strings-at-a-glance">Rust vs Go: Strings at a Glance</h2>
+<ul>
+  <li>Expanding this function in multiple places increases binary size.</li>
+  <li>Too much code duplication can harm performance rather than improve it.</li>
+  <li>The compiler might keep it as a regular function instead.</li>
+</ul>
+
+<h3 id="2-recursive-functions">2. Recursive Functions</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Recursive call</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Inlining a recursive function is impossible in most cases because the function keeps calling itself.</li>
+  <li>The compiler would need to unroll the recursion into a loop, which is not always feasible.</li>
+  <li>If recursion depth is small and known in advance, consider manual loop unrolling instead.</li>
+</ul>
+
+<h3 id="3-function-pointers-prevent-inlining">3. Function Pointers Prevent Inlining</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">func_ptr</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span> <span class="c1">// Assign function to pointer</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func_ptr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>     <span class="c1">// Compiler does not know function at compile time</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>When using function pointers, the actual function call is determined at runtime, not at compile time.</li>
+  <li>The compiler cannot replace function calls with direct code expansion because the target function is unknown during compilation.</li>
+  <li>Use direct function calls instead of function pointers when inlining is critical.</li>
+</ul>
+
+<h2 id="forcing-the-compiler-to-inline-a-function">Forcing the Compiler to Inline a Function</h2>
+
+<p>If the compiler ignores inline, you can explicitly force inlining using compiler-specific attributes.</p>
+
+<h3 id="1-gcc--clang-attributealways_inline">1. GCC &amp; Clang: <strong>attribute</strong>((always_inline))</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">inline</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span> <span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Ensures the function will always be inlined, even if it’s large.</li>
+  <li>Only works if optimizations are enabled (-O2 or higher).</li>
+  <li>Forcing inlining on a large function can increase binary size and reduce cache efficiency.</li>
+</ul>
+
+<h3 id="2-msvc-microsoft-compiler-__forceinline">2. MSVC (Microsoft Compiler): __forceinline</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">__forceinline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Forces the function to be inlined in Microsoft compilers (MSVC).</li>
+  <li>Ensures consistent inlining behavior across different builds.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Use inline for:</p>
+
+<ul>
+  <li>Small, frequently used functions.</li>
+  <li>Performance-sensitive calculations (e.g., mathematical operations).</li>
+  <li>Functions that replace macros for better type safety.</li>
+</ul>
+
+<p>Avoid inline for:</p>
+
+<ul>
+  <li>Large functions (can increase binary size).</li>
+  <li>Recursive functions.</li>
+  <li>Functions used with pointers or virtual functions (C++).</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[inline functions in C allow code to be expanded at compile time and included in the final executable.]]></summary></entry><entry><title type="html">defer in Go Doesn’t Always Reflect the Latest Value</title><link href="http://localhost:4000/2025/03/14/go-defer-value/" rel="alternate" type="text/html" title="defer in Go Doesn’t Always Reflect the Latest Value" /><published>2025-03-14T00:00:00+09:00</published><updated>2025-03-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/14/go-defer-value</id><content type="html" xml:base="http://localhost:4000/2025/03/14/go-defer-value/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#the-problem">The Problem</a></li>
+  <li><a href="#the-reason-why-status-is-not-updated">The Reason why status is not updated</a></li>
+  <li><a href="#how-to-fix-it">How to Fix It?</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="the-problem">The Problem</h2>
+
+<p>Consider the following Go function:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">f</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">status</span> <span class="kt">string</span>  <span class="c">// Initialized as an empty string</span>
+    <span class="k">defer</span> <span class="n">notify</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">foo</span><span class="p">();</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s">"error"</span>  <span class="c">// Status changes here, but defer does not reflect this change</span>
+        <span class="k">return</span> <span class="n">err</span>
+    <span class="p">}</span>
+
+    <span class="n">status</span> <span class="o">=</span> <span class="s">"success"</span>
+    <span class="k">return</span> <span class="no">nil</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We might expect notify(status) to reflect the latest value of status.
+However, in reality, it always receives an empty string (<code class="language-plaintext highlighter-rouge">""</code>), regardless of how status is updated later.</p>
+
+<h2 id="the-reason-why-status-is-not-updated">The Reason why status is not updated</h2>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">status</span> <span class="kt">string</span> <span class="c">// ""</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">status</code> is initialized as an empty string</li>
+  <li><code class="language-plaintext highlighter-rouge">defer</code> evaluates its arguments immediately when declared.
+    <ul>
+      <li>When <code class="language-plaintext highlighter-rouge">defer notify(status)</code> is called, <code class="language-plaintext highlighter-rouge">status</code> is still an empty string.</li>
+      <li>Thus, <code class="language-plaintext highlighter-rouge">defer</code> captures the empty string(<code class="language-plaintext highlighter-rouge">""</code>) at this moment and never updates, even if <code class="language-plaintext highlighter-rouge">status</code> changes later.</li>
+    </ul>
+  </li>
+  <li>Even though <code class="language-plaintext highlighter-rouge">status</code> is modified in the function, the deferred function call was already bound to the original value of <code class="language-plaintext highlighter-rouge">status</code> (empty string).</li>
+  <li>In Go, when a function is deferred, its arguments are evaluated and stored immediately—not when the function actually executes.</li>
+</ul>
+
+<h2 id="how-to-fix-it">How to Fix It?</h2>
+
+<p>To ensure that notify(status) receives the latest value of status, we can use two different approaches.</p>
+
+<h3 id="1-using-a-closure-anonymous-function">1. Using a Closure (Anonymous Function)</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defer</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span> <span class="n">notify</span><span class="p">(</span><span class="n">status</span><span class="p">)</span> <span class="p">}()</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Instead of immediately passing <code class="language-plaintext highlighter-rouge">status</code> to <code class="language-plaintext highlighter-rouge">notify</code>, we defer an anonymous function.</li>
+  <li>This function captures <code class="language-plaintext highlighter-rouge">status</code> at the moment <code class="language-plaintext highlighter-rouge">defer</code> executes, ensuring it reflects the latest value.</li>
+  <li>When <code class="language-plaintext highlighter-rouge">notify(status)</code> is finally called, it uses the updated value of <code class="language-plaintext highlighter-rouge">status</code>.</li>
+</ul>
+
+<h3 id="2-passing-a-pointer">2. Passing a Pointer</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defer</span> <span class="n">notify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Instead of passing the value of <code class="language-plaintext highlighter-rouge">status</code>, we pass its memory address (<code class="language-plaintext highlighter-rouge">&amp;status</code>).</li>
+  <li>Since <code class="language-plaintext highlighter-rouge">defer</code> captures the pointer, any changes to <code class="language-plaintext highlighter-rouge">status</code> are reflected at execution time.</li>
+  <li>However, this requires modifying <code class="language-plaintext highlighter-rouge">notify</code> to accept a pointer parameter.</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// If using a pointer, notify must be updated:</span>
+<span class="c">// Dereference the pointer to get the latest value</span>
+<span class="k">func</span> <span class="n">notify</span><span class="p">(</span><span class="n">status</span> <span class="o">*</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="o">*</span><span class="n">status</span><span class="p">)</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="3-comparison-of-solutions">3. Comparison of Solutions</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Concept</th>
-      <th>Go</th>
-      <th>Rust</th>
+      <th>Approach</th>
+      <th>How it Works</th>
+      <th>Requires Function Signature Change?</th>
+      <th>Best Use Case</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Immutable string</td>
-      <td><code class="language-plaintext highlighter-rouge">string</code></td>
-      <td><code class="language-plaintext highlighter-rouge">&amp;str</code></td>
+      <td>Closure (Anonymous Function)</td>
+      <td>Captures <code class="language-plaintext highlighter-rouge">status</code> at execution time</td>
+      <td>No</td>
+      <td>Works for most cases</td>
     </tr>
     <tr>
-      <td>Mutable string (heap allocated)</td>
-      <td><code class="language-plaintext highlighter-rouge">[]byte</code>, <code class="language-plaintext highlighter-rouge">[]rune</code></td>
-      <td><code class="language-plaintext highlighter-rouge">String</code></td>
-    </tr>
-    <tr>
-      <td>Modify string variable (new value)</td>
-      <td>s = “new”</td>
-      <td>s = <code class="language-plaintext highlighter-rouge">String::from(...)</code></td>
-    </tr>
-    <tr>
-      <td>Modify string content</td>
-      <td>via <code class="language-plaintext highlighter-rouge">[]byte</code> conversion</td>
-      <td>via mutable <code class="language-plaintext highlighter-rouge">String</code></td>
+      <td>Pointer Passing (&amp;status)</td>
+      <td>Passes a pointer, reflects latest value</td>
+      <td>Yes</td>
+      <td>When working with functions that support pointers</td>
     </tr>
   </tbody>
 </table>
@@ -1182,191 +951,492 @@ If you want to target an outer loop, Rust lets you assign a label using the <cod
 <h2 id="conclusion">Conclusion</h2>
 
 <ul>
-  <li>In both Rust and Go, default strings are immutable — they point to memory, but do not allow direct content modification.</li>
-  <li>To change the content of a <code class="language-plaintext highlighter-rouge">string</code>:
+  <li>Deferred functions capture arguments immediately, not when they actually run.</li>
+  <li>If the deferred function needs the latest value, use:
     <ul>
-      <li>In Rust, use a mutable <code class="language-plaintext highlighter-rouge">String</code></li>
-      <li>In Go, convert to <code class="language-plaintext highlighter-rouge">[]byte</code> or <code class="language-plaintext highlighter-rouge">[]rune</code></li>
+      <li>Closures (Anonymous Functions): Recommended, as they don’t require modifying function signatures.</li>
+      <li>Pointers (&amp;status): Useful when modifying function behavior explicitly.</li>
     </ul>
   </li>
-  <li>If you’re just changing the entire string value, you’re assigning a new memory reference either way.</li>
-  <li>Rust gives more fine-grained control over memory and mutability, while Go keeps things simple but less flexible when it comes to string manipulation.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you.]]></summary></entry><entry><title type="html">맥북 10년 차 개발자가 전하는 구매 가이드</title><link href="http://localhost:4000/2025/03/20/macbook-purchase-guide/" rel="alternate" type="text/html" title="맥북 10년 차 개발자가 전하는 구매 가이드" /><published>2025-03-20T00:00:00+09:00</published><updated>2025-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/20/macbook-purchase-guide</id><content type="html" xml:base="http://localhost:4000/2025/03/20/macbook-purchase-guide/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/20">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[맥북 구매를 고민하는 개발자와 입문자를 위한 10년 차 개발자의 현실적인 구매 가이드. 나에게 맞는 모델 선택, 사양 결정, 그리고 필수 확인 사항까지 담았습니다.]]></summary></entry><entry><title type="html">Rust Error Handling: unwrap, expect, and unwrap_or</title><link href="http://localhost:4000/2025/03/18/rust-error-handling-methods/" rel="alternate" type="text/html" title="Rust Error Handling: unwrap, expect, and unwrap_or" /><published>2025-03-18T00:00:00+09:00</published><updated>2025-03-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/18/rust-error-handling-methods</id><content type="html" xml:base="http://localhost:4000/2025/03/18/rust-error-handling-methods/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, deferred functions capture arguments immediately, not when they actually run. Learn how to fix this common issue using closures or pointers to ensure your deferred calls use the latest variable values.]]></summary></entry><entry><title type="html">Using sync.Cond for Goroutine Synchronization in Go</title><link href="http://localhost:4000/2025/03/13/go-sync-cond/" rel="alternate" type="text/html" title="Using sync.Cond for Goroutine Synchronization in Go" /><published>2025-03-13T00:00:00+09:00</published><updated>2025-03-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/13/go-sync-cond</id><content type="html" xml:base="http://localhost:4000/2025/03/13/go-sync-cond/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
-  <li><a href="#why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</a></li>
-  <li><a href="#handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</a></li>
-  <li><a href="#more-idiomatic-alternatives">More Idiomatic Alternatives</a></li>
-  <li><a href="#comparison-with-go">Comparison with Go</a></li>
-  <li><a href="#summary">Summary</a></li>
+  <li><a href="#what-is-synccond">What is <code class="language-plaintext highlighter-rouge">sync.Cond</code>?</a></li>
+  <li><a href="#how-synccond-works">How <code class="language-plaintext highlighter-rouge">sync.Cond</code> Works</a></li>
+  <li><a href="#example-donation-goal-tracker-using-synccond">Example: Donation Goal Tracker Using <code class="language-plaintext highlighter-rouge">sync.Cond</code></a></li>
+  <li><a href="#comparison-signal-vs-broadcast">Comparison: <code class="language-plaintext highlighter-rouge">Signal()</code> vs. <code class="language-plaintext highlighter-rouge">Broadcast()</code></a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
 </ul>
 
-<h2 id="why-rust-forces-you-to-handle-errors">Why Rust Forces You to Handle Errors</h2>
+<h2 id="what-is-synccond">What is sync.Cond?</h2>
 
-<p>In Rust, functions that can fail typically return a Result&lt;T, E&gt; type. You must handle the result, even if you are confident the operation will succeed.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is a condition variable that helps synchronize multiple goroutines.</li>
+  <li>It is typically used when one or more goroutines must wait until a shared resource reaches a specific state.</li>
+  <li>One goroutine waits (<code class="language-plaintext highlighter-rouge">Wait()</code>) until a condition is satisfied, and another goroutine notifies (<code class="language-plaintext highlighter-rouge">Signal()</code> or <code class="language-plaintext highlighter-rouge">Broadcast()</code>) the waiting goroutines when the condition is met.</li>
+</ul>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">num</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="c1">// Result&lt;i32, ParseIntError&gt;</span>
-</code></pre></div></div>
-
-<p>Trying to ignore the Result leads to a compile-time warning:</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>warning: unused <span class="sb">`</span>Result<span class="sb">`</span> that must be used
- <span class="nt">--</span><span class="o">&gt;</span> main.rs:2:9
-  |
-2 |     <span class="nb">let </span>num <span class="o">=</span> <span class="s2">"42"</span>.parse::&lt;i32&gt;<span class="o">()</span><span class="p">;</span>
-  |         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  |         |
-  |         this <span class="sb">`</span>Result<span class="sb">`</span> may be an <span class="sb">`</span>Err<span class="sb">`</span> variant, which should be handled
-</code></pre></div></div>
-
-<p>You can’t use the result as if it’s already a number:</p>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">// Ok(42)</span>
-<span class="k">let</span> <span class="n">doubled</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>         <span class="c1">// Error: result is not i32 but Result&lt;i32, _&gt;</span>
-</code></pre></div></div>
-
-<h2 id="handling-errors-unwrap-expect-unwrap_or">Handling Errors: unwrap, expect, unwrap_or</h2>
-
-<p>Rust provides several built-in ways to handle Result values.</p>
+<h2 id="how-synccond-works">How sync.Cond Works</h2>
 
 <table>
   <thead>
     <tr>
-      <th>Method</th>
-      <th>Panics on Error?</th>
-      <th>Provides Default Value?</th>
-      <th>Custom Message?</th>
-      <th>Use Case</th>
+      <th><strong>Method</strong></th>
+      <th><strong>Description</strong></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>unwrap()</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>No</td>
-      <td>Quick tests, throwaway code</td>
+      <td><code class="language-plaintext highlighter-rouge">Wait()</code></td>
+      <td>Makes a goroutine wait until a condition is met (automatically unlocks the mutex)</td>
     </tr>
     <tr>
-      <td>expect(“msg”)</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>Debugging with context</td>
+      <td><code class="language-plaintext highlighter-rouge">Signal()</code></td>
+      <td>Wakes only one waiting goroutine (even if multiple goroutines are waiting)</td>
     </tr>
     <tr>
-      <td>unwrap_or(x)</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Fallback/default values</td>
+      <td><code class="language-plaintext highlighter-rouge">Broadcast()</code></td>
+      <td>Wakes all waiting goroutines</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="unwrap">unwrap()</h3>
+<h2 id="example-donation-goal-tracker-using-synccond">Example: Donation Goal Tracker Using sync.Cond</h2>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>    <span class="c1">// Returns 42</span>
-<span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>   <span class="c1">// Panics!</span>
-</code></pre></div></div>
+<p>The following example demonstrates how <code class="language-plaintext highlighter-rouge">sync.Cond</code> can be used to coordinate multiple goroutines that monitor a donation goal.</p>
 
-<p>When an error occurs, <code class="language-plaintext highlighter-rouge">unwrap()</code> panics with a default error message:</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'called `Result::unwrap()` on an `Err` value: ParseIntError'</span>
-</code></pre></div></div>
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"fmt"</span>
+    <span class="s">"sync"</span>
+    <span class="s">"time"</span>
+<span class="p">)</span>
 
-<p>Not safe for production code—use only when you’re absolutely sure it will not fail.</p>
+<span class="k">type</span> <span class="n">Donation</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">cond</span>    <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">Cond</span> <span class="c">// Condition variable</span>
+    <span class="n">balance</span> <span class="kt">int</span>
+<span class="p">}</span>
 
-<h3 id="expectcustom-message">expect(“custom message”)</h3>
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">donation</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Donation</span><span class="p">{</span>
+        <span class="n">cond</span><span class="o">:</span> <span class="n">sync</span><span class="o">.</span><span class="n">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span><span class="p">{}),</span> <span class="c">// Create a condition variable with a mutex</span>
+    <span class="p">}</span>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span>
-    <span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span>
-    <span class="nf">.expect</span><span class="p">(</span><span class="s">"number type is required"</span><span class="p">);</span>
-</code></pre></div></div>
+    <span class="c">// Listener goroutine (checks if goal is reached)</span>
+    <span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span> <span class="c">// Acquire mutex lock</span>
+        <span class="k">for</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">goal</span> <span class="p">{</span>
+            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span> <span class="c">// Wait until balance &gt;= goal</span>
+        <span class="p">}</span>
+        <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
+        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span> <span class="c">// Release mutex lock</span>
+    <span class="p">}</span>
 
-<p>Customizes the panic message:</p>
+    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
+    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">15</span><span class="p">)</span>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>thread <span class="s1">'main'</span> panicked at <span class="s1">'number type is required: ParseIntError'</span>
-</code></pre></div></div>
+    <span class="c">// Updater goroutine (increments balance)</span>
+    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">{</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
+            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+            <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="o">++</span> <span class="c">// Increase balance</span>
+            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
+            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Broadcast</span><span class="p">()</span> <span class="c">// Wake all waiting goroutines</span>
+        <span class="p">}</span>
+    <span class="p">}()</span>
 
-<p>Helps during debugging by giving clearer failure context than <code class="language-plaintext highlighter-rouge">unwrap()</code>.</p>
-
-<h3 id="unwrap_ordefault_value">unwrap_or(default_value)</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">"abc"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span><span class="nf">.unwrap_or</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 0 when parse fails</span>
-<span class="nd">println!</span><span class="p">(</span><span class="s">"{x}"</span><span class="p">);</span> <span class="c1">// Output: 0</span>
-</code></pre></div></div>
-
-<p>No panic. Returns a default fallback instead of crashing.</p>
-
-<h2 id="more-idiomatic-alternatives">More Idiomatic Alternatives</h2>
-
-<p>These methods avoid panic and allow graceful error handling.</p>
-
-<h3 id="pattern-matching-with-match">Pattern Matching with match</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">();</span>
-
-<span class="k">match</span> <span class="n">result</span> <span class="p">{</span>
-    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
-    <span class="nf">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"Error occurred: {}"</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">20</span> <span class="o">*</span> <span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span> <span class="c">// Keep program running</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="if-let-for-simpler-matching">if let for Simpler Matching</h3>
+<h3 id="step-1-creating-a-synccond-object">Step 1: Creating a sync.Cond Object</h3>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="k">let</span> <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="s">"42"</span><span class="py">.parse</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Parsed number: {}"</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"Not a valid number."</span><span class="p">);</span>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Donation</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">cond</span>    <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">Cond</span>  
+    <span class="n">balance</span> <span class="kt">int</span>
 <span class="p">}</span>
-</code></pre></div></div>
 
-<h3 id="propagating-errors-with--operator">Propagating Errors with ? Operator</h3>
-
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">parse_number</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">i32</span><span class="p">,</span> <span class="nn">std</span><span class="p">::</span><span class="nn">num</span><span class="p">::</span><span class="n">ParseIntError</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="s">"42"</span><span class="nf">.parse</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>  <span class="c1">// If parse fails, early return</span>
-    <span class="nf">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">donation</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Donation</span><span class="p">{</span>
+    <span class="n">cond</span><span class="o">:</span> <span class="n">sync</span><span class="o">.</span><span class="n">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span><span class="p">{}),</span> 
 <span class="p">}</span>
 </code></pre></div></div>
 
 <ul>
-  <li>Only works inside functions that return <code class="language-plaintext highlighter-rouge">Result</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">cond</code>: A condition variable based on <code class="language-plaintext highlighter-rouge">sync.Mutex</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> provides synchronization between multiple goroutines using <code class="language-plaintext highlighter-rouge">Wait()</code>, <code class="language-plaintext highlighter-rouge">Signal()</code>, and <code class="language-plaintext highlighter-rouge">Broadcast()</code>.</li>
 </ul>
 
-<h2 id="comparison-with-go">Comparison with Go</h2>
+<h3 id="step-2-listener-goroutine-fgoal-int">Step 2: Listener Goroutine (<code class="language-plaintext highlighter-rouge">f(goal int)</code>)</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>  
+    <span class="k">for</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">goal</span> <span class="p">{</span>
+        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span> <span class="c">// Wait until condition is met</span>
+    <span class="p">}</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
+    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>How It Works:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">donation.cond.L.Lock()</code>: Acquires mutex lock before checking <code class="language-plaintext highlighter-rouge">donation.balance</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">for donation.balance &lt; goal</code>: Checks if goal is reached.</li>
+  <li><code class="language-plaintext highlighter-rouge">donation.cond.Wait()</code>:
+    <ul>
+      <li>Pauses execution until another goroutine calls <code class="language-plaintext highlighter-rouge">Signal()</code> or <code class="language-plaintext highlighter-rouge">Broadcast()</code>.</li>
+      <li>Automatically releases the mutex lock while waiting.</li>
+    </ul>
+  </li>
+  <li>Once woken up, the goroutine resumes execution, prints the message, and releases the lock (<code class="language-plaintext highlighter-rouge">L.Unlock()</code>).</li>
+</ol>
+
+<h3 id="step-3-updater-goroutine">Step 3: Updater Goroutine</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">{</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
+    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+    <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="o">++</span>      
+    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
+    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Broadcast</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>How It Works:</p>
+
+<ol>
+  <li>Acquires the lock (<code class="language-plaintext highlighter-rouge">donation.cond.L.Lock()</code>).</li>
+  <li>Increments the balance every second (<code class="language-plaintext highlighter-rouge">donation.balance++</code>).</li>
+  <li>Releases the lock (<code class="language-plaintext highlighter-rouge">donation.cond.L.Unlock()</code>).</li>
+  <li>Calls <code class="language-plaintext highlighter-rouge">donation.cond.Broadcast()</code>:
+    <ul>
+      <li>Wakes up all waiting goroutines.</li>
+      <li>Each waiting goroutine checks if its goal is met and either continues waiting or exits.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="overall-execution-flow">Overall Execution Flow</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Rust</th>
-      <th>Go</th>
+      <th><strong>Step</strong></th>
+      <th><strong>Active Goroutine(s)</strong></th>
+      <th><strong>Balance</strong></th>
+      <th><strong>After Broadcast()</strong></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>.unwrap()</td>
-      <td>panic(err)</td>
+      <td>1</td>
+      <td>f(10), f(15) (waiting)</td>
+      <td>0</td>
+      <td>Still waiting</td>
     </tr>
     <tr>
-      <td>.unwrap_or(default_value)</td>
-      <td>if err != nil { return default_value }</td>
+      <td>2</td>
+      <td>Updater goroutine</td>
+      <td>1 -&gt; 9</td>
+      <td>Still waiting</td>
     </tr>
     <tr>
-      <td>.expect(“msg”)</td>
-      <td>panic(“msg: “ + err.Error())</td>
+      <td>3</td>
+      <td>Updater goroutine</td>
+      <td>10</td>
+      <td>f(10) wakes up and exits</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>f(15) (still waiting)</td>
+      <td>11 -&gt; 14</td>
+      <td>Still waiting</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Updater goroutine</td>
+      <td>15</td>
+      <td>f(15) wakes up and exits</td>
     </tr>
   </tbody>
 </table>
 
-<h2 id="summary">Summary</h2>
-
-<p>Rust enforces error handling at compile time to eliminate runtime surprises. You have multiple tools at your disposal—choose based on the level of control and safety you need:</p>
+<p>Key Observations:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">unwrap()</code> – Fast, but dangerous.</li>
-  <li><code class="language-plaintext highlighter-rouge">expect("msg")</code> – Safer panic with clear context.</li>
-  <li><code class="language-plaintext highlighter-rouge">unwrap_or(default_value)</code> – Clean fallbacks.</li>
-  <li><code class="language-plaintext highlighter-rouge">match</code>, <code class="language-plaintext highlighter-rouge">if let</code>, <code class="language-plaintext highlighter-rouge">?</code> – Idiomatic and safe.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Learn how Rust enforces error handling at compile time and explore different techniques for dealing with Result effectively using unwrap, expect, unwrap_or, and pattern matching.]]></summary></entry></feed>
+  <li>Each time balance increases, <code class="language-plaintext highlighter-rouge">Broadcast()</code> wakes all waiting goroutines.</li>
+  <li>If a goroutine’s goal is not met, it goes back to <code class="language-plaintext highlighter-rouge">Wait()</code>.</li>
+  <li>If a goroutine’s goal is met, it exits after printing the result.</li>
+  <li>Once all goals are reached, no goroutines are waiting, so <code class="language-plaintext highlighter-rouge">Broadcast()</code> no longer has any effect.</li>
+</ul>
+
+<h2 id="comparison-signal-vs-broadcast">Comparison: Signal() vs. Broadcast()</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Method</strong></th>
+      <th><strong>Behavior</strong></th>
+      <th><strong>Use Case</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Wait()</code></td>
+      <td>Makes a goroutine wait until a condition is met (automatically unlocks the mutex)</td>
+      <td>Used when waiting for a condition</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Signal()</code></td>
+      <td>Wakes only one waiting goroutine (even if multiple goroutines are waiting)</td>
+      <td>Use when a single goroutine should proceed</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Broadcast()</code></td>
+      <td>Wakes all waiting goroutines</td>
+      <td>Use when all goroutines should be notified</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When to Use <code class="language-plaintext highlighter-rouge">Signal()</code> vs. <code class="language-plaintext highlighter-rouge">Broadcast()</code></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Signal()</code>: Use when only one goroutine needs to proceed.</li>
+  <li><code class="language-plaintext highlighter-rouge">Broadcast()</code>: Use when all waiting goroutines should be notified (e.g., donation.balance updates).</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> helps synchronize multiple goroutines by allowing them to wait for a condition to be met.</li>
+  <li><code class="language-plaintext highlighter-rouge">Wait()</code> makes goroutines wait, while <code class="language-plaintext highlighter-rouge">Signal()</code> and <code class="language-plaintext highlighter-rouge">Broadcast()</code> notify them.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">Broadcast()</code> when all waiting goroutines should proceed, and use <code class="language-plaintext highlighter-rouge">Signal()</code> when only one goroutine should continue.</li>
+  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is useful for implementing event-based synchronization, such as resource availability or state changes.</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change.]]></summary></entry><entry><title type="html">Understanding GasKVStore in Cosmos SDK</title><link href="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/" rel="alternate" type="text/html" title="Understanding GasKVStore in Cosmos SDK" /><published>2025-03-12T00:00:00+09:00</published><updated>2025-03-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore</id><content type="html" xml:base="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#overview-of-gaskvstore">Overview of GasKVStore</a></li>
+  <li><a href="#core-methods-of-gaskvstore">Core Methods of GasKVStore</a></li>
+  <li><a href="#gas-consumption-based-on-key-and-value-size">Gas Consumption Based on Key and Value Size</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="overview-of-gaskvstore">Overview of GasKVStore</h2>
+
+<p>GasKVStore measures gas usage in real-time as internal field values change during transaction execution.
+Each read, write, and delete operation is designed to consume gas, ensuring that gas limits are properly enforced.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Store applies gas tracking to an underlying KVStore. It implements the KVStore interface.</span>
+<span class="k">type</span> <span class="n">Store</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">gasMeter</span>  <span class="n">types</span><span class="o">.</span><span class="n">GasMeter</span>   <span class="c">// GasMeter that tracks gas usage during transactions</span>
+    <span class="n">gasConfig</span> <span class="n">types</span><span class="o">.</span><span class="n">GasConfig</span>  <span class="c">// Configuration for gas costs of read/write/delete operations</span>
+    <span class="n">parent</span>    <span class="n">types</span><span class="o">.</span><span class="n">KVStore</span>    <span class="c">// The underlying KVStore that stores actual data</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="core-methods-of-gaskvstore">Core Methods of GasKVStore</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Method</strong></th>
+      <th><strong>Functionality</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Get(key)</td>
+      <td>Reads the value of a given key and consumes gas proportional to the key size</td>
+    </tr>
+    <tr>
+      <td>Set(key, value)</td>
+      <td>Stores a value for a given key and consumes gas based on both key and value size</td>
+    </tr>
+    <tr>
+      <td>Delete(key)</td>
+      <td>Deletes a key-value pair and consumes a fixed amount of gas</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="1-getkey---read-operation">1. Get(key) - Read Operation</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Get</span><span class="p">(</span><span class="n">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">ReadCostPerByte</span> <span class="o">*</span> <span class="kt">uint64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)),</span> <span class="s">"Read"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>This function retrieves the value associated with a key.</li>
+  <li>It is similar to searching for a word in a book.</li>
+  <li>The function fetches and returns the data stored in the parent KVStore.</li>
+</ul>
+
+<h3 id="2-setkey-value---write-operation">2. Set(key, value) - Write Operation</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">gasToConsume</span> <span class="o">:=</span> <span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">WriteCostPerByte</span> <span class="o">*</span> <span class="kt">uint64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">gasToConsume</span><span class="p">,</span> <span class="s">"Write"</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>This function stores a new value for a given key.</li>
+  <li>It works like adding new content to a book.</li>
+  <li>The function records or updates data in the parent KVStore.</li>
+</ul>
+
+<h3 id="3-deletekey---delete-operation">3. Delete(key) - Delete Operation</h3>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Delete</span><span class="p">(</span><span class="n">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">DeleteCost</span><span class="p">,</span> <span class="s">"Delete"</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>This function removes the data associated with a given key.</li>
+  <li>It is similar to erasing a word from a book.</li>
+  <li>The function deletes data stored in the parent KVStore.</li>
+</ul>
+
+<h2 id="gas-consumption-based-on-key-and-value-size">Gas Consumption Based on Key and Value Size</h2>
+
+<p>Some methods in GasKVStore consume gas in proportion to the size of the key and value.
+While gas in blockchain systems is often associated with CPU execution costs, the Cosmos SDK includes storage access costs as well.
+Thus, the size of the key affects gas consumption.</p>
+
+<h3 id="what-is-a-key">What is a Key?</h3>
+
+<p>A key is an address that identifies a specific state in the blockchain.
+It serves as an identifier for a specific data entry managed by a module.</p>
+
+<p>Here are some examples:</p>
+
+<h4 id="1-bank-module-storing-account-balances">1. Bank module storing account balances</h4>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"balances/&lt;account_address&gt;"</span>
+<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;account_balance&gt;"</span>
+</code></pre></div></div>
+
+<h4 id="2-staking-module-storing-validator-information">2. Staking module storing validator information</h4>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"validators/&lt;validator_address&gt;"</span>
+<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;validator_info&gt;"</span>
+</code></pre></div></div>
+
+<h4 id="3-ibc-module-storing-channel-information">3. IBC module storing channel information</h4>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"ibc/ports/&lt;port_id&gt;/channels/&lt;channel_id&gt;"</span>
+<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;channel_info&gt;"</span>
+</code></pre></div></div>
+
+<h3 id="why-key-size-affects-gas-consumption">Why Key Size Affects Gas Consumption?</h3>
+
+<ul>
+  <li>In the Cosmos SDK, gas is not only used for computation but also for storage access.</li>
+  <li>Since accessing a key-value store (KVStore) consumes gas, larger keys and values require more gas.</li>
+  <li>The longer the key, the more resources are needed to retrieve and store it, resulting in higher gas costs.</li>
+</ul>
+
+<h3 id="gas-consumption-per-method">Gas Consumption per Method</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Operation</strong></th>
+      <th><strong>Function</strong></th>
+      <th><strong>Gas Consumption Criteria</strong></th>
+      <th><strong>Gas Consumption Amount</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Get(key)</td>
+      <td>Reads the value of a key</td>
+      <td>Proportional to key size</td>
+      <td>Low</td>
+    </tr>
+    <tr>
+      <td>Set(key, value)</td>
+      <td>Stores a new value for a key</td>
+      <td>Proportional to key + value size</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Delete(key)</td>
+      <td>Deletes a key-value pair</td>
+      <td>Fixed cost (DeleteCost)</td>
+      <td>Medium</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="1-getkey---gas-consumption-for-reads">1. Get(key) - Gas Consumption for Reads</h4>
+
+<p>Gas is consumed in proportion to the key size since retrieving a value requires locating the key in storage.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Example: Retrieving an account balance from the bank module</span>
+<span class="n">store</span> <span class="o">:=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">KVStore</span><span class="p">(</span><span class="n">bankStoreKey</span><span class="p">)</span>
+<span class="n">balanceKey</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"balances/cosmos1xyz..."</span><span class="p">)</span>  <span class="c">// Using account address as key</span>
+<span class="n">balance</span> <span class="o">:=</span> <span class="n">store</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">balanceKey</span><span class="p">)</span>  <span class="c">// Gas is consumed here</span>
+</code></pre></div></div>
+
+<h4 id="2-setkey-value---gas-consumption-for-writes">2. Set(key, value) - Gas Consumption for Writes</h4>
+
+<p>Gas is consumed in proportion to the sum of key and value sizes since writing new data requires additional storage resources.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Example: Storing validator information</span>
+<span class="n">store</span> <span class="o">:=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">KVStore</span><span class="p">(</span><span class="n">stakingStoreKey</span><span class="p">)</span>
+<span class="n">validatorKey</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"validators/valoper1abc..."</span><span class="p">)</span>  
+<span class="n">validatorInfo</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"{status: active, power: 1000}"</span><span class="p">)</span>  
+<span class="n">store</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">validatorKey</span><span class="p">,</span> <span class="n">validatorInfo</span><span class="p">)</span>  <span class="c">// Gas is consumed here</span>
+</code></pre></div></div>
+
+<p>Steps:</p>
+
+<ol>
+  <li>Locate the key “validators/valoper1abc…” in storage (or create a new entry if it does not exist).</li>
+  <li>Store the value “{status: active, power: 1000}”.</li>
+  <li>Consume gas proportional to the size of both the key and value.</li>
+</ol>
+
+<h4 id="3-deletekey---gas-consumption-for-deletes">3. Delete(key) - Gas Consumption for Deletes</h4>
+
+<p>Gas consumption is fixed (DeleteCost), independent of key size.</p>
+
+<p><em>Why is deletion a fixed-cost operation?</em></p>
+
+<ul>
+  <li>Deleting is a simple operation
+    <ul>
+      <li>Writing new data (Set) modifies storage, while deleting data (Delete) simply marks it as removed.</li>
+    </ul>
+  </li>
+  <li>Deletion can be faster than retrieval
+    <ul>
+      <li>Get(key) requires searching for a key, meaning longer keys take longer to process.</li>
+      <li>Delete(key) usually marks data as deleted, which is computationally simpler.</li>
+    </ul>
+  </li>
+  <li>Merkle Tree Structure
+    <ul>
+      <li>The Cosmos SDK uses a Merkle Tree-based IAVL Store, where deletions primarily mark nodes as invalid rather than requiring extensive modifications.</li>
+      <li>As a result, gas does not need to scale with key size.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<ul>
+  <li>GasKVStore ensures real-time tracking of gas consumption during transaction execution, preventing gas limit violations.</li>
+  <li>Gas is consumed not only for CPU operations but also for accessing and modifying storage (KVStore).</li>
+  <li>Optimizing key and value sizes can help reduce unnecessary gas costs.</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures every read, write, and delete operation consumes gas, preventing transactions from exceeding their gas limits.]]></summary></entry></feed>

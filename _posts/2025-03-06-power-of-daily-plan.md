@@ -6,6 +6,7 @@ categories: essay
 # tags: [ethereum, solidity, smartcontract]
 keywords: essay
 comments: true
+draft: true
 ---
 
 ## Table of Contents
