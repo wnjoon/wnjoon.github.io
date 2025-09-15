@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "스테이블코인에 대한 한 개발자의 생각"
+title:  "스테이블코인에 대한 개인적인 생각"
 description: "CBDC, 토큰증권을 개발한 블록체인 개발자로서 스테이블코인을 바라보는 개인적인 생각을 정리했습니다."
 categories: crypto
 draft: false
@@ -11,7 +11,7 @@ external_url: https://brunch.co.kr/@wallee/23
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
-  "headline": "스테이블코인에 대한 한 개발자의 생각"
+  "headline": "스테이블코인에 대한 개인적인 생각"
   "description": "CBDC 파일럿과 토큰증권(STO) 플랫폼 개발 경험을 바탕으로, 최근 화두가 되고 있는 스테이블코인이 국내 일반 사용자에게 정말 필요한지, 그리고 블록체인 기술이 가진 진정한 가치는 무엇인지에 대한 개인적인 고찰을 담았습니다."
   "keywords": "스테이블코인, 블록체인, CBDC, 토큰증권, STO, RWA, 원화 스테이블코인, 개발자, 금융 혁신"
   "url": "https://brunch.co.kr/@wallee/23"
