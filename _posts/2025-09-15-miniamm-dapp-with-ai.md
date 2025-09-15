@@ -39,7 +39,9 @@ schema:
 
 Hell-Month는 Web3 커뮤니티 빌더이자 개발자인 [Joel Mun님이 4주 동안 진행한 강의](https://www.linkedin.com/posts/7oelm_%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%A1%B0%EC%97%98%EA%B3%BC-web3-%EC%82%BD%EC%A7%88-activity-7360115833097908225-HMuM?utm_source=share&utm_medium=member_desktop&rcm=ACoAACX_74kB5FHdEvU5kLzcald4RDFZSjBrrKA) 입니다. Uniswap과 AMM(Autonomous Market Maker)에 대해 배우고 직접 개발까지 해볼 수 있는 소중한 기회였죠.
 
-Uniswap이 무엇인지, AMM은 어떻게 동작하고 왜 필요한지 등 바쁜 와중에도 열정적으로 강의해주시고 직접 과제까지 만들어주셔서 정말 많은 것을 배울 수 있었습니다. 이 글을 쓰는 시점에도 아직 강의와 과제가 남아있지만, 가장 최근에 진행한 dApp 만들기 과제를 통해 느낀 점을 먼저 정리하고 싶었습니다.
+Uniswap이 무엇인지, AMM은 어떻게 동작하고 왜 필요한지 등 바쁜 와중에도 열정적으로 강의해주시고 직접 과제까지 만들어주셔서 정말 많은 것을 배울 수 있었습니다. 이 글을 쓰는 시점에도 아직 강의와 과제가 남아있지만, 가장 최근에 진행한 dApp 만들기 과제를 통해 느낀 점을 먼저 정리하고 싶었습니다. 
+
+결과물은 [github](https://github.com/wnjoon/cohort-1-assignments-public/tree/assignment-4/4)에 올려두었습니다.
 
 ## 넘지 못했던 벽, 프론트엔드
 

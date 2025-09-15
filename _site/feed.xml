@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-15T16:18:10+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-15T17:12:29+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">백엔드 개발자의 AI로 아주 작은 dApp 만들기</title><link href="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai/" rel="alternate" type="text/html" title="백엔드 개발자의 AI로 아주 작은 dApp 만들기" /><published>2025-09-15T00:00:00+09:00</published><updated>2025-09-15T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/15/miniamm-dapp-with-ai</id><content type="html" xml:base="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai/"><![CDATA[<h2 id="hell-month">Hell-Month</h2>
 
 <p>Hell-Month는 Web3 커뮤니티 빌더이자 개발자인 <a href="https://www.linkedin.com/posts/7oelm_%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%A1%B0%EC%97%98%EA%B3%BC-web3-%EC%82%BD%EC%A7%88-activity-7360115833097908225-HMuM?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAACX_74kB5FHdEvU5kLzcald4RDFZSjBrrKA">Joel Mun님이 4주 동안 진행한 강의</a> 입니다. Uniswap과 AMM(Autonomous Market Maker)에 대해 배우고 직접 개발까지 해볼 수 있는 소중한 기회였죠.</p>
 
 <p>Uniswap이 무엇인지, AMM은 어떻게 동작하고 왜 필요한지 등 바쁜 와중에도 열정적으로 강의해주시고 직접 과제까지 만들어주셔서 정말 많은 것을 배울 수 있었습니다. 이 글을 쓰는 시점에도 아직 강의와 과제가 남아있지만, 가장 최근에 진행한 dApp 만들기 과제를 통해 느낀 점을 먼저 정리하고 싶었습니다.</p>
+
+<p>결과물은 <a href="https://github.com/wnjoon/cohort-1-assignments-public/tree/assignment-4/4">github</a>에 올려두었습니다.</p>
 
 <h2 id="넘지-못했던-벽-프론트엔드">넘지 못했던 벽, 프론트엔드</h2>
 
