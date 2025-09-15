@@ -1,5 +1,139 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-25T10:16:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">xonxoon.log</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/22">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[AI의 이해 능력과 생성 능력 사이의 비대칭성을 설명하고, '프롬프트 엔지니어링'을 넘어 AI의 잠재력을 최대한 활용하기 위한 '컨텍스트 엔지니어링'의 개념, 핵심 단계(검색, 처리, 관리), 그리고 이를 바탕으로 한 최적의 AI 활용 방법을 제시합니다.]]></summary></entry><entry><title type="html">스테이블코인의 현주소: 시장의 구성과 주요 플레이어</title><link href="http://localhost:4000/2025/08/07/stable-coin/" rel="alternate" type="text/html" title="스테이블코인의 현주소: 시장의 구성과 주요 플레이어" /><published>2025-08-07T00:00:00+09:00</published><updated>2025-08-07T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/07/stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/08/07/stable-coin/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/21">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="crypto" /><summary type="html"><![CDATA[2025년 기준, 스테이블코인의 정의와 1달러 가치를 유지하는 차익거래 원리, 시장 발전 과정, USDT·USDC 등 주요 플레이어 분석 및 미래 전망을 다룹니다.]]></summary></entry><entry><title type="html">SQLite FTS의 토크나이저와 인덱싱에 대해서</title><link href="http://localhost:4000/2025/08/06/sql-fts5/" rel="alternate" type="text/html" title="SQLite FTS의 토크나이저와 인덱싱에 대해서" /><published>2025-08-06T00:00:00+09:00</published><updated>2025-08-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/06/sql-fts5</id><content type="html" xml:base="http://localhost:4000/2025/08/06/sql-fts5/"><![CDATA[<h2 id="목차">목차</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-15T12:34:46+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">xonxoon.log</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">백엔드 개발자의 AI로 아주 작은 dApp 만들기</title><link href="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai/" rel="alternate" type="text/html" title="백엔드 개발자의 AI로 아주 작은 dApp 만들기" /><published>2025-09-15T00:00:00+09:00</published><updated>2025-09-15T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/15/miniamm-dapp-with-ai</id><content type="html" xml:base="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai/"><![CDATA[<h2 id="hell-month">Hell-Month</h2>
+
+<p>Hell-Month는 Web3 커뮤니티 빌더이자 개발자인 <a href="https://www.linkedin.com/posts/7oelm_%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%A1%B0%EC%97%98%EA%B3%BC-web3-%EC%82%BD%EC%A7%88-activity-7360115833097908225-HMuM?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAACX_74kB5FHdEvU5kLzcald4RDFZSjBrrKA">Joel Mun님이 4주 동안 진행한 강의</a> 입니다. Uniswap과 AMM(Autonomous Market Maker)에 대해 배우고 직접 개발까지 해볼 수 있는 소중한 기회였죠.</p>
+
+<p>Uniswap이 무엇인지, AMM은 어떻게 동작하고 왜 필요한지 등 바쁜 와중에도 열정적으로 강의해주시고 직접 과제까지 만들어주셔서 정말 많은 것을 배울 수 있었습니다. 이 글을 쓰는 시점에도 아직 강의와 과제가 남아있지만, 가장 최근에 진행한 dApp 만들기 과제를 통해 느낀 점을 먼저 정리하고 싶었습니다.</p>
+
+<p>Hell-Month는 Web3 Community Builder이자 개발자인 로, Uniswap과 AMM에 대해 배우고 직접 이를 개발해볼 수 있는 좋은 기회였습니다.</p>
+
+<h2 id="넘지-못했던-벽-프론트엔드">넘지 못했던 벽, 프론트엔드</h2>
+
+<p>비개발자들은 ‘어차피 다 같은 개발 아니야?’라고 생각할지 모르지만, 프론트엔드와 백엔드는 정말 다른 세계입니다. 뛰어난 풀스택(Full Stack) 개발자가 되려면 두 배, 아니 그 이상의 노력이 필요하죠. 대부분의 직장인 개발자는 둘 중 하나의 영역에 속해있지만, 개인 서비스를 만들고 싶다면 두 분야를 모두 알아야만 합니다.</p>
+
+<p>저 역시 서비스 개발자가 되고 싶다는 생각에 여러 번 프론트엔드에 도전했습니다. 하지만 당장 업무에 쓰는 백엔드 기술 하나만 제대로 파고들기에도 벅찬 현실 속에서, 사용하지도 않는 프론트엔드를 개념부터 공부하기란 쉽지 않았습니다.</p>
+
+<p>과거 갑작스러운 프로젝트 투입으로 프론트엔드를 경험했던 후배가 혼자서 서비스를 뚝딱 만들어내는 모습을 보며 부러워했던 기억이 납니다. 당시에는 원치 않는 업무를 맡아 힘들어하는 후배가 안쓰럽기만 했는데, 돌이켜보면 역시 개발자는 직접 부딪쳐야 성장한다는 것을 그 친구를 통해 깨달을 수 있었습니다.</p>
+
+<h2 id="ai로-프론트엔드를-띄워보다">AI로 프론트엔드를 띄워보다</h2>
+
+<p>개인적으로 프론트엔드 개발이 AI의 도움을 받기 좋은 이유는 다음과 같다고 생각합니다.</p>
+
+<ul>
+  <li>정형화된 패턴: 사람들이 선호하는 웹사이트의 화면 구성과 기능은 대부분 비슷합니다.</li>
+  <li>풍부한 학습 데이터: AI는 수많은 웹사이트를 학습해 가장 보편적이고 효율적인 방법을 제안할 수 있습니다.</li>
+  <li>발전하는 개발 도구: 배포와 관리를 쉽게 해주는 도구들이 계속해서 등장하고 있습니다.</li>
+</ul>
+
+<p>결론적으로 AI를 이용하면 ‘남들이 만드는 것과 비슷한 웹사이트’는 충분히 만들 수 있다는 것이죠. 마침 이번 Hell-Month의 과제가 <strong>‘AI를 활용해 AMM 기반 dApp 개발하기’</strong>였기에, 제대로 AI를 이용해보기로 마음먹었습니다.</p>
+
+<p>참고로 제가 사용하고 있는 AI 도구들을 나열해보면,</p>
+
+<ul>
+  <li>windsurf: AI 기반 IDE 도구로, 많은 사람들이 cursor를 사용할때 가격이 저렴하다는 이유로 windsurf의 초기버전부터 사용했습니다. 덕분에 아직도 $10의 요금제를 사용하고 있습니다(얼리버드 사용자 특전).</li>
+  <li>gemini: 무료 크레딧을 얻게 되어 사용중입니다. 개인적으로 코딩에는 gpt보다 gemini가 더 정확하게 알려주는 것 같습니다. 대신 회화와 같이 실제 사람과의 interaction을 원한다면 gpt가 더 좋을 것 같습니다.</li>
+</ul>
+
+<p>추가로 windsurf에서 코딩에 사용한 모델은 claude-sonnet-4입니다. 최근에 claude code를 결제해서 유료버전을 사용해볼까 굉장히 고민하고 있습니다. 아무래도 가격이 비싸고, 저는 실제로 코드를 하나씩 확인하면서 리팩토링하는 것을 주로 업무로 하다보니, 웹서비스를 하나부터 열까지 AI에게 맡길만한 일의 필요성을 느끼지 못하고 있었습니다. 하지만 이번에 진행한 과제에서는 ‘프론트엔드에 대해 전혀 모르는 백엔드 개발자가 미리 만들어놓은 솔리디티 컨트랙트만 가지고 컨텍스트 프로그래밍을 하는 것’이었기 때문에, claude-sonnet-4의 성능을 시험해보고 싶어서 사용했습니다. 물론 현재 시점으로 windsurf에서 claude-sonnet-4는 다른 모델들보다 토큰비용이 2배정도 들어갑니다.</p>
+
+<blockquote>
+  <p>opus-4는 훨씬 많은 토큰비용 + 엔트로픽에서 API 키를 별도로 받은 후 비용을 충전해서 사용해야 했기 때문에, 이번 과제를 통해 일명 ‘바이브 코딩’을 테스트해보는 용도로는 적합하지 않다고 판단했습니다. 하지만 이에 대한 생각도 이후에 기술하겠습니다.</p>
+</blockquote>
+
+<h2 id="rule-만들기">rule 만들기</h2>
+
+<p>수많은 영상에서 ‘AI 에이전트를 사용하기 전에 먼저 좋은 rule과 컨텍스트를 에이전트에게 주입’할 것을 추천합니다. 최근에 읽었던 책인 <a href="https://product.kyobobook.co.kr/detail/S000215838626">듀얼 브레인</a>에서도, AI에게 더 많이 설명할수록 그 내용을 기반으로 더 풍부한 답변을 줄 수 있다고 언급합니다. 사실 이건 너무 당연한 이야기입니다. AI가 우리의 생각을 읽고 답변할 수 없기 때문에, 우리는 원하는 답변을 얻기 위한 최대한의 정보를 AI에게 제공할 수 있어야 합니다. 그리고 우리가 원하는 방향으로 일이 진행되기 위한 가이드도 제공해야 합니다. 앞에서도 말했지만, AI는 우리의 생각을 읽을 수 없기 때문입니다. 물론 우리같은 사람도 다른 사람의 생각을 읽을 수 없죠.</p>
+
+<p>사실 저는 지금까지 AI를 사용하면서 한번도 rule을 만들어본적은 없습니다. 문제가 있을법한 코드의 위치를 알려주고, 어느 부분에 문제가 있을것 같은지 제 생각을 정리하면서 대화형으로 문제를 해결해갔습니다. 하지만 이번 과제처럼 완전히 무에서 유를 창조하는 일을 AI에게 맡겨보는 것은 처음이었기 때문에, 제대로 rule을 만들어보자고 생각했습니다.</p>
+
+<p>좋은 rule을 만드는 구조는 크게 아래와 같다고 합니다.</p>
+
+<ul>
+  <li>서비스 개발의 목적, 원하는 결과물에 대해서 최대한 구체적으로 설명할 수 있어야 한다.</li>
+  <li>사용하고자 하는 기술 스택에 대해서 명확하게 정의해야 한다.</li>
+  <li>단계별로 업무를 진행할 수 있도록 가이드 해야 한다. AI 또한 이를 명확히 해주지 않으면 여러개의 업무를 마구잡이로 실행할 가능성이 존재하기 때문이다. 그래서 체크박스 등을 통해 하나씩 업무를 해결하고 단계적으로 이를 확인받도록 해야 한다.</li>
+  <li>AI가 자동으로 코드를 수정하거나 다음 단계로 넘어갈 수도 있다. 이를 원치 않으면 명확하게 지시할 수 있어야 한다.</li>
+</ul>
+
+<p>이 외에도 여러가지가 있었지만, 우선 위의 4가지를 기준으로 아래와 같은 rule을 만들어보았습니다.</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># MiniAMM DApp 개발 체크리스트</span>
+
+<span class="gu">## 1단계: 프로젝트 초기 설정</span>
+<span class="p">-</span> [x] Next.js + Typescript 프로젝트 생성
+<span class="p">-</span> [x] Ethers.js, RainbowKit, Wagmi 등 필수 라이브러리 설치
+<span class="p">-</span> [x] TypeChain 설치 및 ABI로부터 타입스크립트 연동을 위한 설정
+<span class="p">-</span> [x] 각 컨트랙트 주소를 관리하기 위한 <span class="sb">`static`</span> 변수 또는 환경변수 파일 설정
+
+<span class="gu">## 2단계: 지갑 연결 및 기본 UI 구성</span>
+<span class="p">-</span> [x] RainbowKit을 사용한 지갑 연결 버튼 및 기능 구현
+<span class="p">-</span> [x] 지갑이 연결되지 않았을 때의 초기 화면 구성
+<span class="p">    -</span> [x] MiniAMM의 전체 유동성(TokenA, TokenB 수량) 표시
+<span class="p">-</span> [x] 지갑 연결 후 사용자 정보 표시 UI 추가
+<span class="p">    -</span> [x] 사용자의 TokenA, TokenB 보유량 표시
+<span class="p">    -</span> [x] 사용자의 LP 토큰 보유량 표시
+<span class="p">-</span> [x] 트랜잭션 오류 메시지를 보여줄 UI 공간 확보
+
+<span class="gu">## 3단계: Mock 토큰 발행 기능 구현</span>
+<span class="p">-</span> [x] TokenA, TokenB를 각각 발행할 수 있는 UI (입력창, 발행 버튼) 구현
+<span class="p">-</span> [x] '발행' 버튼 클릭 시 MockERC20 컨트랙트의 <span class="sb">`freeMintToSender`</span> 함수 호출 로직 구현
+<span class="p">-</span> [x] 토큰 발행 후 사용자의 토큰 보유량 실시간 업데이트
+<span class="p">-</span> [x] 발행 과정에서 발생하는 오류 처리 및 메시지 표시
+
+<span class="gu">## 4단계: 유동성 공급 기능 구현</span>
+<span class="p">-</span> [x] 공급할 TokenA, TokenB의 수량을 입력할 수 있는 UI 구현
+<span class="p">-</span> [x] '유동성 공급' 버튼 클릭 시 MiniAMM 컨트랙트의 <span class="sb">`addLiquidity`</span> 함수 호출 로직 구현
+<span class="p">-</span> [x] 유동성 공급 후 사용자의 LP 토큰 보유량 및 전체 유동성 ㅁ실시간 업데이트
+<span class="p">-</span> [x] 유동성 공급 과정에서 발생하는 오류(예: 보유량 부족) 처리 및 메시지 표시
+<span class="p">-</span> [x] 자동 approve 기능: 버튼 클릭 시 필요한 토큰 승인을 자동으로 처리
+<span class="p">-</span> [x] 잔액 검증: 트랜잭션 실행 전 사용자 토큰 보유량 확인 및 부족 시 오류 표시
+<span class="p">-</span> [x] 단계별 진행 상황 표시: approve → add liquidity 과정을 사용자에게 명확히 안내
+
+<span class="gu">## 5단계: 스왑 기능 구현</span>
+<span class="p">-</span> [x] 스왑할 토큰 종류(A→B, B→A) 선택 및 수량 입력 UI 구현
+<span class="p">-</span> [x] 입력된 수량에 따라 예상되는 스왑 결과 수량을 실시간으로 계산하여 표시
+<span class="p">-</span> [x] '스왑' 버튼 클릭 시 MiniAMM 컨트랙트의 <span class="sb">`swap`</span> 함수 호출 로직 구현
+<span class="p">-</span> [x] 트랜잭션 처리 중 '스왑' 버튼 비활성화 처리
+<span class="p">-</span> [x] 스왑 완료 후 사용자의 토큰 보유량 및 전체 유동성 실시간 업데이트
+<span class="p">-</span> [x] 스왑 과정에서 발생하는 오류 처리 및 메시지 표시
+
+<span class="gu">## 6단계: 유동성 해제 기능 구현</span>
+<span class="p">-</span> [x] 해제할 LP 토큰의 수량을 입력할 수 있는 UI 구현
+<span class="p">-</span> [x] '유동성 해제' 버튼 클릭 시 MiniAMM 컨트랙트의 <span class="sb">`removeLiquidity`</span> 함수 호출 로직 구현
+<span class="p">-</span> [x] 트랜잭션 처리 중 '해제' 버튼 비활성화 처리
+<span class="p">-</span> [x] 유동성 해제 완료 후 사용자의 토큰/LP 보유량 및 전체 유동성 실시간 업데이트
+<span class="p">-</span> [x] 유동성 해제 과정에서 발생하는 오류 처리 및 메시지 표시
+
+<span class="gu">## 7단계: 배포</span>
+<span class="p">-</span> [x] Cloudflare Pages를 통한 웹 애플리케이션 배포 준비
+<span class="p">-</span> [x] Next.js 정적 빌드 설정 (output: 'export')
+<span class="p">-</span> [x] TypeScript 오류 수정 (any → unknown 타입 변경)
+<span class="p">-</span> [x] Wrangler CLI 설치 및 Cloudflare 인증
+<span class="p">-</span> [x] Cloudflare Pages 프로젝트 생성 (miniamm-dapp)
+<span class="p">-</span> [x] 최종 테스트 및 배포 완료
+
+<span class="gs">**배포 결과:**</span>
+<span class="p">-</span> 메인 도메인: https://miniamm-dapp.pages.dev ✅ (정상 동작)
+<span class="p">-</span> 배포 URL: https://27e7e9a0.miniamm-dapp.pages.dev ⚠️ (SSL 오류 - 정상적인 현상)
+<span class="p">-</span> 업로드된 파일: 200개
+<span class="p">-</span> 배포 상태: 성공
+</code></pre></div></div>
+
+<p>위의 내용은 제가 최종적으로 개발을 마무리한 결과입니다. 총 7단계로 개발범위를 나누어보았고, 각 단계별로 소항목을 체크박스 형식으로 구성해서 하나씩 해결할때마다 체크박스에 표시하도록 했습니다.</p>
+
+<p>체크박스 형식을 사용하게 된 가장 큰 이유중 하나는, AI의 기억력에 한계가 있기 때문이었습니다. 자신이 이제까지 진행한 내용을 글로 남겨놓았기 때문에, 항상 이 파일을 기준으로 진행시켜서 이미 완료된 업무를 중복해서 진행함으로 토큰을 낭비하지 않게 했습니다. 추가로 각 단계별로 완료될때마다 저에게 최종적인 확인을 받도록 했는데요, 이렇게 했음에도 불구하고 중간에 자기 마음대로 다음 단계로 넘어가서 기능을 구현하는 경우도 있었습니다. 이부분을 막기 위한 더 좋은 컨텍스트 작성 방법이 있는지 확인해야겠다고 생각했습니다.</p>
+
+<p>또한 각 단계가 마무리될때마다 꼭 커밋을 해야겠더라구요. 간혹 AI가 이미 잘 작성되어서 확인이 끝난 기능임에도 불구하고, 다음 단계의 기능을 개발하면서 이전에 개발완료된 기능을 자기 마음대로 고치는 경우도 있었습니다. 코드의 갯수가 많아질수록 사용자가 예측하지 못한 변경이 발생해서 프로그램이 잘못되는 경우, 어디서 문제가 발생했는지 추적하는게 어려웠습니다. 가장 좋은 방식은 개발 단계마다 최대한 많은 횟수로 커밋을 하면 좋겠지만, 이러면 너무 많은 히스토리가 남아서 오히려 추적을 방해할 수도 있다 생각했습니다. 그래서 각 단계별로 완료될때마다 커밋을 직접 했습니다. 나중에 컨텍스트 작성 능력이 더 발전하면, AI가 직접 커밋을 하도록 하는것도 좋을것 같았습니다.</p>
+
+<h2 id="사용-후기">사용 후기</h2>
+
+<p>실제로 사용해본 결과 위의 단계 중 6단계까지는 거의 실수없이 개발을 완료했습니다. 단계별로 테스트하면서 제가 예상했던 것과 다른 결과가 나오는 경우, 에러 메시지와 함께 원하는 결과를 잘 설명해주면 거의 1-2번만에 에러를 해결해주는 모습도 보여줬습니다.</p>
+
+<p>하지만 배포처럼 외부 서비스를 이용하는 작업에는 약간의 가이드가 필요했습니다. 저는 Cloudflare Pages를 이용해 배포하려 했는데, 제 경험 부족도 있었지만 AI가 계속해서 ERR_SSL_VERSION_OR_CIPHER_MISMATCH 오류를 뿜어내며 해결하지 못해 한참 애를 먹었습니다. 나중에 알고 보니, 이 SSL 오류는 Cloudflare Pages 배포 시 일시적으로 발생할 수 있는 일반적인 현상이었습니다. 메인 도메인이 정상 작동하면 배포는 성공한 것이었죠.</p>
+
+<p>재미있는 것은, 위의 내용을 알려준것도 AI였다는 것입니다. 계속 오류가 해결되지 않아서 코드를 이전 단계를 완료한 버전으로 되돌리고, 새로운 AI 창을 열어서 다시 대화를 시도했습니다. 이전 단계까지 완료되었다는 체크박스를 확인해서 다시 배포를 시도해보도록 했습니다. AI가 자신이 진행했던 히스토리를 복기할 수 있도록 문서를 유지하는 것의 중요성을 다시 알 수 있었고, AI도 항상 동일한 결과를 만들어내지 못하기 때문에, 얼만큼 더 많은 정보를 제공하느냐가 확실히 중요한 부분이라는 것을 알았습니다.</p>
+
+<p>추가로 이번 과제를 통해 ‘일반 사용자들이 생각하고 구현하고자 하는 서비스는 거의 AI를 이용해서 만들어낼 수 있겠다’는 생각이 들었습니다. 복잡한 시스템인 경우에는 좀더 시도해봐야겠지만, 왠만한 기능 구현은 AI를 이용해서 할 수 있었습니다. 다만, 많은 사람들이 이야기하는 ‘바이브코딩에 대한 현실의 자각’은 필요한 것으로 보였습니다. IT에 대해 지식이 전혀 없거나, 혹은 지식이 부족한 사람들의 경우에는 아무리 AI가 서비스를 만들어준다 하더라도 이걸 확인하는 것이 어려울 것 같았습니다. 결국 ‘제대로 일하고 있는지 검토하는 능력’이 확실히 필요해보였습니다. 하나의 기술에 대한 깊은 이해도를 가진 사람이 되는것이 예전에는 중요했다면, 지금은 내가 개발하고자 하는 서비스에 필요한 기능을 빠르게 선택하고 새로운 기능을 빠르게 이해해서 AI에게 다양한 선택지와 정보를 풍부하게 제공할 수 있는 사람이 되는것이 중요한 시대가 되어가고 있다 생각했습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[프론트엔드에 대해 전혀 모르는 백엔드 개발자가 AI만 사용해서 매우 작은 AMM 기반 dApp을 개발해보는 과정을 정리했습니다. 이 모든 과정은 Hell-Month라고 하는 단기 프로젝트에서 진행하였습니다.]]></summary></entry><entry><title type="html">스테이블코인에 대한 한 개발자의 생각</title><link href="http://localhost:4000/2025/09/12/thoughts-stable-coin/" rel="alternate" type="text/html" title="스테이블코인에 대한 한 개발자의 생각" /><published>2025-09-12T00:00:00+09:00</published><updated>2025-09-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/12/thoughts-stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/09/12/thoughts-stable-coin/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/23">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="crypto" /><summary type="html"><![CDATA[CBDC, 토큰증권을 개발한 블록체인 개발자로서 스테이블코인을 바라보는 개인적인 생각을 정리했습니다.]]></summary></entry><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/22">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[AI의 이해 능력과 생성 능력 사이의 비대칭성을 설명하고, '프롬프트 엔지니어링'을 넘어 AI의 잠재력을 최대한 활용하기 위한 '컨텍스트 엔지니어링'의 개념, 핵심 단계(검색, 처리, 관리), 그리고 이를 바탕으로 한 최적의 AI 활용 방법을 제시합니다.]]></summary></entry><entry><title type="html">스테이블코인의 현주소: 시장의 구성과 주요 플레이어</title><link href="http://localhost:4000/2025/08/07/stable-coin/" rel="alternate" type="text/html" title="스테이블코인의 현주소: 시장의 구성과 주요 플레이어" /><published>2025-08-07T00:00:00+09:00</published><updated>2025-08-07T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/07/stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/08/07/stable-coin/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/21">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="crypto" /><summary type="html"><![CDATA[2025년 기준, 스테이블코인의 정의와 1달러 가치를 유지하는 차익거래 원리, 시장 발전 과정, USDT·USDC 등 주요 플레이어 분석 및 미래 전망을 다룹니다.]]></summary></entry><entry><title type="html">SQLite FTS의 토크나이저와 인덱싱에 대해서</title><link href="http://localhost:4000/2025/08/06/sql-fts5/" rel="alternate" type="text/html" title="SQLite FTS의 토크나이저와 인덱싱에 대해서" /><published>2025-08-06T00:00:00+09:00</published><updated>2025-08-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/06/sql-fts5</id><content type="html" xml:base="http://localhost:4000/2025/08/06/sql-fts5/"><![CDATA[<h2 id="목차">목차</h2>
 
 <ul>
   <li><a href="#전문-검색full-text-search이란">전문 검색(Full-Text Search)이란?</a></li>
@@ -607,485 +741,4 @@ However, in reality, it always receives an empty string (<code class="language-p
       <li>Pointers (&amp;status): Useful when modifying function behavior explicitly.</li>
     </ul>
   </li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, deferred functions capture arguments immediately, not when they actually run. Learn how to fix this common issue using closures or pointers to ensure your deferred calls use the latest variable values.]]></summary></entry><entry><title type="html">Using sync.Cond for Goroutine Synchronization in Go</title><link href="http://localhost:4000/2025/03/13/go-sync-cond/" rel="alternate" type="text/html" title="Using sync.Cond for Goroutine Synchronization in Go" /><published>2025-03-13T00:00:00+09:00</published><updated>2025-03-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/13/go-sync-cond</id><content type="html" xml:base="http://localhost:4000/2025/03/13/go-sync-cond/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#what-is-synccond">What is <code class="language-plaintext highlighter-rouge">sync.Cond</code>?</a></li>
-  <li><a href="#how-synccond-works">How <code class="language-plaintext highlighter-rouge">sync.Cond</code> Works</a></li>
-  <li><a href="#example-donation-goal-tracker-using-synccond">Example: Donation Goal Tracker Using <code class="language-plaintext highlighter-rouge">sync.Cond</code></a></li>
-  <li><a href="#comparison-signal-vs-broadcast">Comparison: <code class="language-plaintext highlighter-rouge">Signal()</code> vs. <code class="language-plaintext highlighter-rouge">Broadcast()</code></a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="what-is-synccond">What is sync.Cond?</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is a condition variable that helps synchronize multiple goroutines.</li>
-  <li>It is typically used when one or more goroutines must wait until a shared resource reaches a specific state.</li>
-  <li>One goroutine waits (<code class="language-plaintext highlighter-rouge">Wait()</code>) until a condition is satisfied, and another goroutine notifies (<code class="language-plaintext highlighter-rouge">Signal()</code> or <code class="language-plaintext highlighter-rouge">Broadcast()</code>) the waiting goroutines when the condition is met.</li>
-</ul>
-
-<h2 id="how-synccond-works">How sync.Cond Works</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Method</strong></th>
-      <th><strong>Description</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Wait()</code></td>
-      <td>Makes a goroutine wait until a condition is met (automatically unlocks the mutex)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Signal()</code></td>
-      <td>Wakes only one waiting goroutine (even if multiple goroutines are waiting)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Broadcast()</code></td>
-      <td>Wakes all waiting goroutines</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="example-donation-goal-tracker-using-synccond">Example: Donation Goal Tracker Using sync.Cond</h2>
-
-<p>The following example demonstrates how <code class="language-plaintext highlighter-rouge">sync.Cond</code> can be used to coordinate multiple goroutines that monitor a donation goal.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-    <span class="s">"fmt"</span>
-    <span class="s">"sync"</span>
-    <span class="s">"time"</span>
-<span class="p">)</span>
-
-<span class="k">type</span> <span class="n">Donation</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">cond</span>    <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">Cond</span> <span class="c">// Condition variable</span>
-    <span class="n">balance</span> <span class="kt">int</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">donation</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Donation</span><span class="p">{</span>
-        <span class="n">cond</span><span class="o">:</span> <span class="n">sync</span><span class="o">.</span><span class="n">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span><span class="p">{}),</span> <span class="c">// Create a condition variable with a mutex</span>
-    <span class="p">}</span>
-
-    <span class="c">// Listener goroutine (checks if goal is reached)</span>
-    <span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span> <span class="c">// Acquire mutex lock</span>
-        <span class="k">for</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">goal</span> <span class="p">{</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span> <span class="c">// Wait until balance &gt;= goal</span>
-        <span class="p">}</span>
-        <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
-        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span> <span class="c">// Release mutex lock</span>
-    <span class="p">}</span>
-
-    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
-    <span class="k">go</span> <span class="n">f</span><span class="p">(</span><span class="m">15</span><span class="p">)</span>
-
-    <span class="c">// Updater goroutine (increments balance)</span>
-    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">{</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="o">++</span> <span class="c">// Increase balance</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
-            <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Broadcast</span><span class="p">()</span> <span class="c">// Wake all waiting goroutines</span>
-        <span class="p">}</span>
-    <span class="p">}()</span>
-
-    <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">20</span> <span class="o">*</span> <span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span> <span class="c">// Keep program running</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="step-1-creating-a-synccond-object">Step 1: Creating a sync.Cond Object</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Donation</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">cond</span>    <span class="o">*</span><span class="n">sync</span><span class="o">.</span><span class="n">Cond</span>  
-    <span class="n">balance</span> <span class="kt">int</span>
-<span class="p">}</span>
-
-<span class="n">donation</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Donation</span><span class="p">{</span>
-    <span class="n">cond</span><span class="o">:</span> <span class="n">sync</span><span class="o">.</span><span class="n">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span><span class="p">{}),</span> 
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">cond</code>: A condition variable based on <code class="language-plaintext highlighter-rouge">sync.Mutex</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> provides synchronization between multiple goroutines using <code class="language-plaintext highlighter-rouge">Wait()</code>, <code class="language-plaintext highlighter-rouge">Signal()</code>, and <code class="language-plaintext highlighter-rouge">Broadcast()</code>.</li>
-</ul>
-
-<h3 id="step-2-listener-goroutine-fgoal-int">Step 2: Listener Goroutine (<code class="language-plaintext highlighter-rouge">f(goal int)</code>)</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">goal</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>  
-    <span class="k">for</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">goal</span> <span class="p">{</span>
-        <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span> <span class="c">// Wait until condition is met</span>
-    <span class="p">}</span>
-    <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%d goal reached</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span> 
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>How It Works:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">donation.cond.L.Lock()</code>: Acquires mutex lock before checking <code class="language-plaintext highlighter-rouge">donation.balance</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">for donation.balance &lt; goal</code>: Checks if goal is reached.</li>
-  <li><code class="language-plaintext highlighter-rouge">donation.cond.Wait()</code>:
-    <ul>
-      <li>Pauses execution until another goroutine calls <code class="language-plaintext highlighter-rouge">Signal()</code> or <code class="language-plaintext highlighter-rouge">Broadcast()</code>.</li>
-      <li>Automatically releases the mutex lock while waiting.</li>
-    </ul>
-  </li>
-  <li>Once woken up, the goroutine resumes execution, prints the message, and releases the lock (<code class="language-plaintext highlighter-rouge">L.Unlock()</code>).</li>
-</ol>
-
-<h3 id="step-3-updater-goroutine">Step 3: Updater Goroutine</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">{</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">balance</span><span class="o">++</span>      
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
-    <span class="n">donation</span><span class="o">.</span><span class="n">cond</span><span class="o">.</span><span class="n">Broadcast</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>How It Works:</p>
-
-<ol>
-  <li>Acquires the lock (<code class="language-plaintext highlighter-rouge">donation.cond.L.Lock()</code>).</li>
-  <li>Increments the balance every second (<code class="language-plaintext highlighter-rouge">donation.balance++</code>).</li>
-  <li>Releases the lock (<code class="language-plaintext highlighter-rouge">donation.cond.L.Unlock()</code>).</li>
-  <li>Calls <code class="language-plaintext highlighter-rouge">donation.cond.Broadcast()</code>:
-    <ul>
-      <li>Wakes up all waiting goroutines.</li>
-      <li>Each waiting goroutine checks if its goal is met and either continues waiting or exits.</li>
-    </ul>
-  </li>
-</ol>
-
-<h3 id="overall-execution-flow">Overall Execution Flow</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Step</strong></th>
-      <th><strong>Active Goroutine(s)</strong></th>
-      <th><strong>Balance</strong></th>
-      <th><strong>After Broadcast()</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>f(10), f(15) (waiting)</td>
-      <td>0</td>
-      <td>Still waiting</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Updater goroutine</td>
-      <td>1 -&gt; 9</td>
-      <td>Still waiting</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Updater goroutine</td>
-      <td>10</td>
-      <td>f(10) wakes up and exits</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>f(15) (still waiting)</td>
-      <td>11 -&gt; 14</td>
-      <td>Still waiting</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Updater goroutine</td>
-      <td>15</td>
-      <td>f(15) wakes up and exits</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Key Observations:</p>
-
-<ul>
-  <li>Each time balance increases, <code class="language-plaintext highlighter-rouge">Broadcast()</code> wakes all waiting goroutines.</li>
-  <li>If a goroutine’s goal is not met, it goes back to <code class="language-plaintext highlighter-rouge">Wait()</code>.</li>
-  <li>If a goroutine’s goal is met, it exits after printing the result.</li>
-  <li>Once all goals are reached, no goroutines are waiting, so <code class="language-plaintext highlighter-rouge">Broadcast()</code> no longer has any effect.</li>
-</ul>
-
-<h2 id="comparison-signal-vs-broadcast">Comparison: Signal() vs. Broadcast()</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Method</strong></th>
-      <th><strong>Behavior</strong></th>
-      <th><strong>Use Case</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Wait()</code></td>
-      <td>Makes a goroutine wait until a condition is met (automatically unlocks the mutex)</td>
-      <td>Used when waiting for a condition</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Signal()</code></td>
-      <td>Wakes only one waiting goroutine (even if multiple goroutines are waiting)</td>
-      <td>Use when a single goroutine should proceed</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Broadcast()</code></td>
-      <td>Wakes all waiting goroutines</td>
-      <td>Use when all goroutines should be notified</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>When to Use <code class="language-plaintext highlighter-rouge">Signal()</code> vs. <code class="language-plaintext highlighter-rouge">Broadcast()</code></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">Signal()</code>: Use when only one goroutine needs to proceed.</li>
-  <li><code class="language-plaintext highlighter-rouge">Broadcast()</code>: Use when all waiting goroutines should be notified (e.g., donation.balance updates).</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> helps synchronize multiple goroutines by allowing them to wait for a condition to be met.</li>
-  <li><code class="language-plaintext highlighter-rouge">Wait()</code> makes goroutines wait, while <code class="language-plaintext highlighter-rouge">Signal()</code> and <code class="language-plaintext highlighter-rouge">Broadcast()</code> notify them.</li>
-  <li>Use <code class="language-plaintext highlighter-rouge">Broadcast()</code> when all waiting goroutines should proceed, and use <code class="language-plaintext highlighter-rouge">Signal()</code> when only one goroutine should continue.</li>
-  <li><code class="language-plaintext highlighter-rouge">sync.Cond</code> is useful for implementing event-based synchronization, such as resource availability or state changes.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, sync.Cond is a synchronization primitive that allows goroutines to efficiently wait until a certain condition is met. It helps coordinate multiple goroutines by providing a mechanism to wait (Wait()) and notify (Signal() or Broadcast()) when conditions change.]]></summary></entry><entry><title type="html">Understanding GasKVStore in Cosmos SDK</title><link href="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/" rel="alternate" type="text/html" title="Understanding GasKVStore in Cosmos SDK" /><published>2025-03-12T00:00:00+09:00</published><updated>2025-03-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore</id><content type="html" xml:base="http://localhost:4000/2025/03/12/cosmos-sdk-gaskvstore/"><![CDATA[<h2 id="table-of-contents">Table of Contents</h2>
-
-<ul>
-  <li><a href="#overview-of-gaskvstore">Overview of GasKVStore</a></li>
-  <li><a href="#core-methods-of-gaskvstore">Core Methods of GasKVStore</a></li>
-  <li><a href="#gas-consumption-based-on-key-and-value-size">Gas Consumption Based on Key and Value Size</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="overview-of-gaskvstore">Overview of GasKVStore</h2>
-
-<p>GasKVStore measures gas usage in real-time as internal field values change during transaction execution.
-Each read, write, and delete operation is designed to consume gas, ensuring that gas limits are properly enforced.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Store applies gas tracking to an underlying KVStore. It implements the KVStore interface.</span>
-<span class="k">type</span> <span class="n">Store</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">gasMeter</span>  <span class="n">types</span><span class="o">.</span><span class="n">GasMeter</span>   <span class="c">// GasMeter that tracks gas usage during transactions</span>
-    <span class="n">gasConfig</span> <span class="n">types</span><span class="o">.</span><span class="n">GasConfig</span>  <span class="c">// Configuration for gas costs of read/write/delete operations</span>
-    <span class="n">parent</span>    <span class="n">types</span><span class="o">.</span><span class="n">KVStore</span>    <span class="c">// The underlying KVStore that stores actual data</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="core-methods-of-gaskvstore">Core Methods of GasKVStore</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Method</strong></th>
-      <th><strong>Functionality</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Get(key)</td>
-      <td>Reads the value of a given key and consumes gas proportional to the key size</td>
-    </tr>
-    <tr>
-      <td>Set(key, value)</td>
-      <td>Stores a value for a given key and consumes gas based on both key and value size</td>
-    </tr>
-    <tr>
-      <td>Delete(key)</td>
-      <td>Deletes a key-value pair and consumes a fixed amount of gas</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="1-getkey---read-operation">1. Get(key) - Read Operation</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Get</span><span class="p">(</span><span class="n">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">ReadCostPerByte</span> <span class="o">*</span> <span class="kt">uint64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)),</span> <span class="s">"Read"</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>This function retrieves the value associated with a key.</li>
-  <li>It is similar to searching for a word in a book.</li>
-  <li>The function fetches and returns the data stored in the parent KVStore.</li>
-</ul>
-
-<h3 id="2-setkey-value---write-operation">2. Set(key, value) - Write Operation</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">gasToConsume</span> <span class="o">:=</span> <span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">WriteCostPerByte</span> <span class="o">*</span> <span class="kt">uint64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">gasToConsume</span><span class="p">,</span> <span class="s">"Write"</span><span class="p">)</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>This function stores a new value for a given key.</li>
-  <li>It works like adding new content to a book.</li>
-  <li>The function records or updates data in the parent KVStore.</li>
-</ul>
-
-<h3 id="3-deletekey---delete-operation">3. Delete(key) - Delete Operation</h3>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span><span class="n">GasKVStore</span><span class="p">)</span> <span class="n">Delete</span><span class="p">(</span><span class="n">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">meter</span><span class="o">.</span><span class="n">ConsumeGas</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">gasConfig</span><span class="o">.</span><span class="n">DeleteCost</span><span class="p">,</span> <span class="s">"Delete"</span><span class="p">)</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>This function removes the data associated with a given key.</li>
-  <li>It is similar to erasing a word from a book.</li>
-  <li>The function deletes data stored in the parent KVStore.</li>
-</ul>
-
-<h2 id="gas-consumption-based-on-key-and-value-size">Gas Consumption Based on Key and Value Size</h2>
-
-<p>Some methods in GasKVStore consume gas in proportion to the size of the key and value.
-While gas in blockchain systems is often associated with CPU execution costs, the Cosmos SDK includes storage access costs as well.
-Thus, the size of the key affects gas consumption.</p>
-
-<h3 id="what-is-a-key">What is a Key?</h3>
-
-<p>A key is an address that identifies a specific state in the blockchain.
-It serves as an identifier for a specific data entry managed by a module.</p>
-
-<p>Here are some examples:</p>
-
-<h4 id="1-bank-module-storing-account-balances">1. Bank module storing account balances</h4>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"balances/&lt;account_address&gt;"</span>
-<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;account_balance&gt;"</span>
-</code></pre></div></div>
-
-<h4 id="2-staking-module-storing-validator-information">2. Staking module storing validator information</h4>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"validators/&lt;validator_address&gt;"</span>
-<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;validator_info&gt;"</span>
-</code></pre></div></div>
-
-<h4 id="3-ibc-module-storing-channel-information">3. IBC module storing channel information</h4>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key</span> <span class="o">=</span> <span class="s">"ibc/ports/&lt;port_id&gt;/channels/&lt;channel_id&gt;"</span>
-<span class="n">value</span> <span class="o">=</span> <span class="s">"&lt;channel_info&gt;"</span>
-</code></pre></div></div>
-
-<h3 id="why-key-size-affects-gas-consumption">Why Key Size Affects Gas Consumption?</h3>
-
-<ul>
-  <li>In the Cosmos SDK, gas is not only used for computation but also for storage access.</li>
-  <li>Since accessing a key-value store (KVStore) consumes gas, larger keys and values require more gas.</li>
-  <li>The longer the key, the more resources are needed to retrieve and store it, resulting in higher gas costs.</li>
-</ul>
-
-<h3 id="gas-consumption-per-method">Gas Consumption per Method</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>Operation</strong></th>
-      <th><strong>Function</strong></th>
-      <th><strong>Gas Consumption Criteria</strong></th>
-      <th><strong>Gas Consumption Amount</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Get(key)</td>
-      <td>Reads the value of a key</td>
-      <td>Proportional to key size</td>
-      <td>Low</td>
-    </tr>
-    <tr>
-      <td>Set(key, value)</td>
-      <td>Stores a new value for a key</td>
-      <td>Proportional to key + value size</td>
-      <td>High</td>
-    </tr>
-    <tr>
-      <td>Delete(key)</td>
-      <td>Deletes a key-value pair</td>
-      <td>Fixed cost (DeleteCost)</td>
-      <td>Medium</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="1-getkey---gas-consumption-for-reads">1. Get(key) - Gas Consumption for Reads</h4>
-
-<p>Gas is consumed in proportion to the key size since retrieving a value requires locating the key in storage.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Example: Retrieving an account balance from the bank module</span>
-<span class="n">store</span> <span class="o">:=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">KVStore</span><span class="p">(</span><span class="n">bankStoreKey</span><span class="p">)</span>
-<span class="n">balanceKey</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"balances/cosmos1xyz..."</span><span class="p">)</span>  <span class="c">// Using account address as key</span>
-<span class="n">balance</span> <span class="o">:=</span> <span class="n">store</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">balanceKey</span><span class="p">)</span>  <span class="c">// Gas is consumed here</span>
-</code></pre></div></div>
-
-<h4 id="2-setkey-value---gas-consumption-for-writes">2. Set(key, value) - Gas Consumption for Writes</h4>
-
-<p>Gas is consumed in proportion to the sum of key and value sizes since writing new data requires additional storage resources.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Example: Storing validator information</span>
-<span class="n">store</span> <span class="o">:=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">KVStore</span><span class="p">(</span><span class="n">stakingStoreKey</span><span class="p">)</span>
-<span class="n">validatorKey</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"validators/valoper1abc..."</span><span class="p">)</span>  
-<span class="n">validatorInfo</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">"{status: active, power: 1000}"</span><span class="p">)</span>  
-<span class="n">store</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">validatorKey</span><span class="p">,</span> <span class="n">validatorInfo</span><span class="p">)</span>  <span class="c">// Gas is consumed here</span>
-</code></pre></div></div>
-
-<p>Steps:</p>
-
-<ol>
-  <li>Locate the key “validators/valoper1abc…” in storage (or create a new entry if it does not exist).</li>
-  <li>Store the value “{status: active, power: 1000}”.</li>
-  <li>Consume gas proportional to the size of both the key and value.</li>
-</ol>
-
-<h4 id="3-deletekey---gas-consumption-for-deletes">3. Delete(key) - Gas Consumption for Deletes</h4>
-
-<p>Gas consumption is fixed (DeleteCost), independent of key size.</p>
-
-<p><em>Why is deletion a fixed-cost operation?</em></p>
-
-<ul>
-  <li>Deleting is a simple operation
-    <ul>
-      <li>Writing new data (Set) modifies storage, while deleting data (Delete) simply marks it as removed.</li>
-    </ul>
-  </li>
-  <li>Deletion can be faster than retrieval
-    <ul>
-      <li>Get(key) requires searching for a key, meaning longer keys take longer to process.</li>
-      <li>Delete(key) usually marks data as deleted, which is computationally simpler.</li>
-    </ul>
-  </li>
-  <li>Merkle Tree Structure
-    <ul>
-      <li>The Cosmos SDK uses a Merkle Tree-based IAVL Store, where deletions primarily mark nodes as invalid rather than requiring extensive modifications.</li>
-      <li>As a result, gas does not need to scale with key size.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<ul>
-  <li>GasKVStore ensures real-time tracking of gas consumption during transaction execution, preventing gas limit violations.</li>
-  <li>Gas is consumed not only for CPU operations but also for accessing and modifying storage (KVStore).</li>
-  <li>Optimizing key and value sizes can help reduce unnecessary gas costs.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[GasKVStore is a core component of the Cosmos SDK that tracks gas consumption in real-time during transaction execution. It ensures every read, write, and delete operation consumes gas, preventing transactions from exceeding their gas limits.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[In Go, deferred functions capture arguments immediately, not when they actually run. Learn how to fix this common issue using closures or pointers to ensure your deferred calls use the latest variable values.]]></summary></entry></feed>
