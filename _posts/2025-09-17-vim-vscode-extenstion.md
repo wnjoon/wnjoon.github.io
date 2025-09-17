@@ -59,7 +59,9 @@ schema:
 
 한참뒤에 다시 또 욕심이 생겨서 vim extension을 설치했지만, 이 과정은 그냥 도르마무마냥 반복되고 있었습니다.
 
-![](https://img.extmovie.com/files/attach/images/135/139/200/068/873e05f63a07c1cbd17782f793d970bf.gif)
+<!-- ![](https://img.extmovie.com/files/attach/images/135/139/200/068/873e05f63a07c1cbd17782f793d970bf.gif) -->
+![](https://velog.velcdn.com/images/wnjoon/post/5bcb4010-a9a1-4641-a9e4-7323deafdd0d/image.gif)
+
 
 ## 단축키를 바로 확인할 수는 없을까?
 
@@ -99,7 +101,6 @@ schema:
 gemini는 저의 애틋한 마음을 알아주었고, claude code가 잘 이해하고 개발해줄 수 있도록 멋드러진 CLAUDE.md를 작성해주었습니다. 물론 채팅을 하면서 생기는 문제점이나 고민들을 해결해가면서 아래와 같이 최종본을 다듬어갔습니다.
 
 - 사용한 CLAUDE.md 파일은 [여기](https://github.com/wnjoon/vscode-vm-cheet-sheet/blob/main/CLAUDE.md)에서 확인할 수 있습니다.
-
 
 ## claude code에게 CLAUDE.md를 참고하여 개발하도록 요청하기
 
