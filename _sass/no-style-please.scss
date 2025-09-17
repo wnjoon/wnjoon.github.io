@@ -25,6 +25,10 @@
     color: #e0d8b0; // Desaturated yellow for titles
   }
 
+  article h1 {
+    border-bottom-color: #444; // Darker border for dark mode
+  }
+
   code {
     background: #333;
     color: #f1f1f1;
@@ -80,6 +84,12 @@ body {
 h1 {
   font-size: 43px;
   color: rgb(0, 0, 0);
+}
+
+article h1 {
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e0e0e0;
 }
 
 h2 {font-size: 35px;}
