@@ -59,8 +59,8 @@ Hammerspoon은 Lua라는 스크립트를 사용해서 MacOS의 일부 기능을 
 
 Hammerspoon을 설치하면 메뉴바에 망치모양의 아이콘이 표시됩니다. 
 
-- Open Config: Hammerspoon은 기본적으로 ~/Users/<YOUR_USERNAME>/.hammerspoon/init.lua 파일을 통해 스크립트를 설정할 수 있습니다. 해당 메뉴는 이 설정 파일을 불러옵니다.
-- Reload Config: ~/Users/<YOUR_USERNAME>/.hammerspoon/init.lua 파일에 작성된 설정값으로 Hammerspoon을 재시작합니다. 변경된 스크립트를 즉시 적용할 때 사용합니다.
+- Open Config: Hammerspoon은 기본적으로 `~/Users/<YOUR_USERNAME>/.hammerspoon/init.lua` 파일을 통해 스크립트를 설정할 수 있습니다. 해당 메뉴는 이 설정 파일을 불러옵니다.
+- Reload Config: `~/Users/<YOUR_USERNAME>/.hammerspoon/init.lua` 파일에 작성된 설정값으로 Hammerspoon을 재시작합니다. 변경된 스크립트를 즉시 적용할 때 사용합니다.
 - Console: Hammerspoon의 콘솔을 열어 스크립트를 실행하거나 디버깅할 때 사용합니다. 
 
 이 외에도 몇가지 메뉴들이 있지만, 일반적인 다른 앱들과 동일한 성격을 가집니다.
