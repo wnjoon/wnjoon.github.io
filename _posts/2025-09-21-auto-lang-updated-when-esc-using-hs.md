@@ -97,45 +97,66 @@ end)
 위에서 얻은 bundle ID를 이용하여 스크립트를 작성했습니다.
 
 ```lua
--- ID of target application
--- This value is used for matching the application that the ESC key is pressed in.
+-- ID of the target application.
 local targetAppBundleID = "com.exafunction.windsurf"
 
--- When reloading the configuration, stop the existing listener to prevent conflicts.
+-- If a listener already exists upon reloading the config, stop it to prevent conflicts.
 if escape_keyevent then
     escape_keyevent:stop()
 end
 
--- Create a new listener for ESC key press
+-- Create a new event tap listener for key down events.
 escape_keyevent = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(event)
-    -- check if ESC key is pressed
-    if hs.keycodes.map[event:getKeyCode()] == 'escape' then
+    local flags = event:getFlags()
+    local keycode = hs.keycodes.map[event:getKeyCode()]
+    local frontApp = hs.application.frontmostApplication()
 
-        -- IMPORTANT: delay 0.05s to resolve timing issues
-        -- this is because the ESC key press event is triggered before the application is focused
-        hs.timer.doAfter(0.05, function()
-            local frontApp = hs.application.frontmostApplication()
+    -- 1. First, check if a key was pressed within the target application.
+    if frontApp and frontApp:bundleID() == targetAppBundleID then
 
-            if frontApp then
-                -- FOR DEBUGGING: print activated app ID in console
-                -- print("ESC detected. Current app: " .. frontApp:bundleID())
+        -- 2. Check if the pressed key is ESC or the Ctrl+C combination.
+        if keycode == 'escape' or (keycode == 'c' and flags.ctrl) then
 
-                -- check if the activated app is the target app
-                if frontApp:bundleID() == targetAppBundleID then
-                    local input_english = "com.apple.keylayout.ABC"
-                    if hs.keycodes.currentSourceID() ~= input_english then
+            -- Add a 0.05-second delay to resolve timing issues.
+            hs.timer.doAfter(0.03, function()
+                local input_english = "com.apple.keylayout.ABC"
+                local current_source = hs.keycodes.currentSourceID()
+
+                -- [CASE 1] If the ESC key was pressed (original logic).
+                if keycode == 'escape' then
+                    if current_source ~= input_english then
                         hs.keycodes.currentSourceID(input_english)
+                        -- print("ESC pressed: Switched to English.")
+                    end
+                
+                -- [CASE 2] If the Ctrl+C key combination was pressed (new logic).
+                elseif keycode == 'c' and flags.ctrl then
+                    -- Perform this special action only if the current input source is not English.
+                    if current_source ~= input_english then
+                        -- print("Ctrl+C (in non-English): Intercepted.")
+                        -- a. Change the input source to English.
+                        hs.keycodes.currentSourceID(input_english)
+                        -- b. Simulate an ESC key press.
+                        hs.eventtap.keyStroke({}, 'escape')
+                        -- print("--> Switched to English and sent ESC.")
+                        -- c. Block the original Ctrl+C event from being processed. (Crucial)
+                        return true
                     end
                 end
-            end
-        end)
+            end)
+        end
     end
+
+    -- Allow all other key events to pass through.
+    return false
 end)
 
--- Start the listener
+-- Start the listener.
 escape_keyevent:start()
 ```
 
-중간에 보면 0.05s의 delay를 주는 부분이 있는데요, 이는 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문입니다. 이 부분이 없는 상태에서 작성했더니, 어느 시점에서는 아무리 esc 키를 눌러도 영문으로 전환되지 않았습니다. 확인해보니 실제로 esc가 동작하지 않더라구요. 정확한 원인을 파악하지는 못했지만, 아마 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문이라고 생각했고 해당 부분을 적용한 뒤에는 문제가 없었습니다. 
+1. 중간에 보면 0.03s의 delay를 주는 부분이 있는데요, 이는 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문입니다. 이 부분이 없는 상태에서 작성했더니, 어느 시점에서는 아무리 esc 키를 눌러도 영문으로 전환되지 않았습니다. 확인해보니 실제로 esc가 동작하지 않더라구요. 정확한 원인을 파악하지는 못했지만, 아마 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문이라고 생각했고 해당 부분을 적용한 뒤에는 문제가 없었습니다. 
+
+2. vim에서는 ctrl+c가 esc와 동일한 역할을 하는데요, 그래서 대부분 esc를 누르지 않고 ctrl+c를 사용합니다. 문제는 한글로 입력할 경우 ctrl+ㅊ으로 입력이 되어서 esc가 정상적으로 동작하지 않았습니다. 이를 해결하기 위해서 별도의 조건을 추가하였습니다.
 
 혹시나 저와 같이 이러한 불편을 겪고계신 분들이 있다면 도움이 되었길 바랍니다.
