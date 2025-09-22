@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-21T14:52:41+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-22T10:11:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Meetup에 푹 절여진(?) 한주</title><link href="http://localhost:4000/2025/09/21/meetup-addict/" rel="alternate" type="text/html" title="Meetup에 푹 절여진(?) 한주" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/meetup-addict</id><content type="html" xml:base="http://localhost:4000/2025/09/21/meetup-addict/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/26">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다.]]></summary></entry><entry><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
 
 <p>개발자라면 영어를 사용해서 주석을 작성하는것이 당연히 좋겠지만, 사실 한국인의 경우에는 모국어로 주석을 다는것만큼 빠르고 편리한 것이 없죠. 저도 되도록이면 영어를 사용하려고 노력하지만, 지금같이 포스팅을 작성하거나 제가 빠르게 이해하기 위한 글이나 주석을 작성할 때에는 일반적으로 한국어를 사용하곤 합니다.</p>
 
@@ -20,8 +20,8 @@
 <p>Hammerspoon을 설치하면 메뉴바에 망치모양의 아이콘이 표시됩니다.</p>
 
 <ul>
-  <li>Open Config: Hammerspoon은 기본적으로 ~/Users/<YOUR_USERNAME>/.hammerspoon/init.lua 파일을 통해 스크립트를 설정할 수 있습니다. 해당 메뉴는 이 설정 파일을 불러옵니다.</YOUR_USERNAME></li>
-  <li>Reload Config: ~/Users/<YOUR_USERNAME>/.hammerspoon/init.lua 파일에 작성된 설정값으로 Hammerspoon을 재시작합니다. 변경된 스크립트를 즉시 적용할 때 사용합니다.</YOUR_USERNAME></li>
+  <li>Open Config: Hammerspoon은 기본적으로 <code class="language-plaintext highlighter-rouge">~/Users/&lt;YOUR_USERNAME&gt;/.hammerspoon/init.lua</code> 파일을 통해 스크립트를 설정할 수 있습니다. 해당 메뉴는 이 설정 파일을 불러옵니다.</li>
+  <li>Reload Config: <code class="language-plaintext highlighter-rouge">~/Users/&lt;YOUR_USERNAME&gt;/.hammerspoon/init.lua</code> 파일에 작성된 설정값으로 Hammerspoon을 재시작합니다. 변경된 스크립트를 즉시 적용할 때 사용합니다.</li>
   <li>Console: Hammerspoon의 콘솔을 열어 스크립트를 실행하거나 디버깅할 때 사용합니다.</li>
 </ul>
 
@@ -574,44 +574,4 @@
       <td>- 단순히 문자열 포함 여부만 체크합니다.<br />- 복잡한 조건의 검색이 어렵습니다.</td>
     </tr>
   </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[FTS5는 SQLite 데이터베이스에서 바로 이 '전문 검색' 기능을 사용할 수 있도록 해주는 강력한 확장 기능(extension)입니다. 'FTS'는 Full-Text Search의 약자입니다.]]></summary></entry><entry><title type="html">채권 가격과 금리의 관계: 왜 반대로 움직일까?</title><link href="http://localhost:4000/2025/08/03/interest-rate-bonds/" rel="alternate" type="text/html" title="채권 가격과 금리의 관계: 왜 반대로 움직일까?" /><published>2025-08-03T00:00:00+09:00</published><updated>2025-08-03T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/03/interest-rate-bonds</id><content type="html" xml:base="http://localhost:4000/2025/08/03/interest-rate-bonds/"><![CDATA[<p><strong>결론: 채권의 수요가 증가하면, 채권 가격이 상승하고 시장 금리가 하락합니다.</strong></p>
-
-<h3 id="채권의-특징">채권의 특징</h3>
-
-<p>채권 시장을 보다 보면 이런 말을 자주 듣게 됩니다. 주식처럼 가격이 오르면 좋은 것 아닌가? 싶은데, 왜 금리는 반대로 움직이는 걸까요? 이 원리를 알기 위해선 먼저 채권의 기본 특징 한 가지를 이해해야 합니다.</p>
-
-<p>채권은 정부(국채)나 회사(회사채)가 자금을 조달하기 위해 발행하는 일종의 ‘차용증서’입니다. 정부는 일반적으로 매달 정기적으로 경쟁입찰을 통해 국채를 발행하고, 회사는 자금이 필요한 시기에 이사회의 결정을 거쳐 비정기적으로 회사채를 발행합니다.</p>
-
-<p>채권의 대표적인 특징은 아래와 같습니다.</p>
-
-<ul>
-  <li><strong>채권은 발행 시점에 이자와 총량이 고정</strong>된다는 점입니다.</li>
-  <li><strong>한번 발행된 채권은 만기가 되기 전까지 주식처럼 시장에서 자유롭게 거래됩니다.</strong></li>
-  <li>채권은 발행될 때 지급하기로 약속한<strong>표면 이자율과 이자액이 절대 변하지 않습니다</strong>.</li>
-</ul>
-
-<p>특히 마지막 특징인 ‘변하지 않는 표면 이자율과 이자액’이 어떻게 채권 가격과 금리를 반대로 움직이게 만드는지 구체적인 예시로 살펴보겠습니다.</p>
-
-<h3 id="고정된-이자-vs-변동하는-가격">고정된 이자 vs 변동하는 가격</h3>
-
-<p>여기, A회사가 발행한 채권이 있다고 가정해 봅시다.</p>
-
-<ul>
-  <li><strong>채권 가격(발행가):</strong> 10,000원</li>
-  <li><strong>표면 이자율:</strong> 연 5% (매년 500원의 이자를 지급하기로 약속)</li>
-</ul>
-
-<p>이 채권을 발행가인 10,000원에 샀다면, 투자 수익률은 약속 그대로 연 5%입니다.</p>
-
-<p>그런데 이 A회사가 유망하다는 소문이 나면서 채권을 사려는 사람(수요)이 몰렸습니다. 한정된 채권을 사기 위한 경쟁이 붙으면서, 시장 가격이 <strong>10,000원에서 12,000원으로 올랐습니다.</strong></p>
-
-<p>이때 채권의 시장 가격은 12,000원으로 올랐지만, A회사가 지급하기로 약속한 <strong>이자액은 여전히 500원으로 고정</strong>되어 있습니다.</p>
-
-<p>그렇다면 지금 12,000원을 주고 이 채권을 산 사람의 실제 수익률은 어떻게 될까요?</p>
-
-<ul>
-  <li><strong>발행 시점 수익률:</strong> 500원 ÷ 10,000원 = <strong>5%</strong></li>
-  <li><strong>가격 상승 후 수익률:</strong> 500원 ÷ 12,000원 = <strong>약 4.16%</strong></li>
-</ul>
-
-<p>이처럼 채권 가격이 오르니, 투자금 대비 실제 얻게 되는 <strong>‘수익률’은 오히려 떨어졌습니다.</strong> 경제 뉴스에서 말하는 시장 금리는 바로 채권의 실제 수익률을 의미하는 경우가 많습니다. 즉 채권 가격이 오르면서, <strong>금리가 하락(5% → 4.16%)했다고 평가하게 됩니다.</strong></p>]]></content><author><name>Wonjoon</name></author><category term="investment" /><summary type="html"><![CDATA[채권 가격이 오르면 왜 시장 금리는 하락하는지, 그 역학 관계를 설명합니다.]]></summary></entry></feed>
+</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[FTS5는 SQLite 데이터베이스에서 바로 이 '전문 검색' 기능을 사용할 수 있도록 해주는 강력한 확장 기능(extension)입니다. 'FTS'는 Full-Text Search의 약자입니다.]]></summary></entry></feed>
