@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-22T10:11:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-22T17:43:28+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
 </subtitle><author><name>Wonjoon</name></author><entry><title type="html">Meetup에 푹 절여진(?) 한주</title><link href="http://localhost:4000/2025/09/21/meetup-addict/" rel="alternate" type="text/html" title="Meetup에 푹 절여진(?) 한주" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/meetup-addict</id><content type="html" xml:base="http://localhost:4000/2025/09/21/meetup-addict/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/26">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다.]]></summary></entry><entry><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
 
 <p>개발자라면 영어를 사용해서 주석을 작성하는것이 당연히 좋겠지만, 사실 한국인의 경우에는 모국어로 주석을 다는것만큼 빠르고 편리한 것이 없죠. 저도 되도록이면 영어를 사용하려고 노력하지만, 지금같이 포스팅을 작성하거나 제가 빠르게 이해하기 위한 글이나 주석을 작성할 때에는 일반적으로 한국어를 사용하곤 합니다.</p>
@@ -57,46 +57,72 @@
 
 <p>위에서 얻은 bundle ID를 이용하여 스크립트를 작성했습니다.</p>
 
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- ID of target application</span>
-<span class="c1">-- This value is used for matching the application that the ESC key is pressed in.</span>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- ID of the target application.</span>
 <span class="kd">local</span> <span class="n">targetAppBundleID</span> <span class="o">=</span> <span class="s2">"com.exafunction.windsurf"</span>
 
-<span class="c1">-- When reloading the configuration, stop the existing listener to prevent conflicts.</span>
+<span class="c1">-- If a listener already exists upon reloading the config, stop it to prevent conflicts.</span>
 <span class="k">if</span> <span class="n">escape_keyevent</span> <span class="k">then</span>
     <span class="n">escape_keyevent</span><span class="p">:</span><span class="n">stop</span><span class="p">()</span>
 <span class="k">end</span>
 
-<span class="c1">-- Create a new listener for ESC key press</span>
+<span class="c1">-- Create a new event tap listener for key down events.</span>
 <span class="n">escape_keyevent</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">eventtap</span><span class="p">.</span><span class="n">new</span><span class="p">({</span><span class="n">hs</span><span class="p">.</span><span class="n">eventtap</span><span class="p">.</span><span class="n">event</span><span class="p">.</span><span class="n">types</span><span class="p">.</span><span class="n">keyDown</span><span class="p">},</span> <span class="k">function</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-    <span class="c1">-- check if ESC key is pressed</span>
-    <span class="k">if</span> <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">map</span><span class="p">[</span><span class="n">event</span><span class="p">:</span><span class="n">getKeyCode</span><span class="p">()]</span> <span class="o">==</span> <span class="s1">'escape'</span> <span class="k">then</span>
+    <span class="kd">local</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">event</span><span class="p">:</span><span class="n">getFlags</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">keycode</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">map</span><span class="p">[</span><span class="n">event</span><span class="p">:</span><span class="n">getKeyCode</span><span class="p">()]</span>
+    <span class="kd">local</span> <span class="n">frontApp</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">application</span><span class="p">.</span><span class="n">frontmostApplication</span><span class="p">()</span>
 
-        <span class="c1">-- IMPORTANT: delay 0.05s to resolve timing issues</span>
-        <span class="c1">-- this is because the ESC key press event is triggered before the application is focused</span>
-        <span class="n">hs</span><span class="p">.</span><span class="n">timer</span><span class="p">.</span><span class="n">doAfter</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">05</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span>
-            <span class="kd">local</span> <span class="n">frontApp</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">application</span><span class="p">.</span><span class="n">frontmostApplication</span><span class="p">()</span>
+    <span class="c1">-- 1. First, check if a key was pressed within the target application.</span>
+    <span class="k">if</span> <span class="n">frontApp</span> <span class="ow">and</span> <span class="n">frontApp</span><span class="p">:</span><span class="n">bundleID</span><span class="p">()</span> <span class="o">==</span> <span class="n">targetAppBundleID</span> <span class="k">then</span>
 
-            <span class="k">if</span> <span class="n">frontApp</span> <span class="k">then</span>
-                <span class="c1">-- FOR DEBUGGING: print activated app ID in console</span>
-                <span class="c1">-- print("ESC detected. Current app: " .. frontApp:bundleID())</span>
+        <span class="c1">-- 2. Check if the pressed key is ESC or the Ctrl+C combination.</span>
+        <span class="k">if</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">'escape'</span> <span class="ow">or</span> <span class="p">(</span><span class="n">keycode</span> <span class="o">==</span> <span class="s1">'c'</span> <span class="ow">and</span> <span class="n">flags</span><span class="p">.</span><span class="n">ctrl</span><span class="p">)</span> <span class="k">then</span>
 
-                <span class="c1">-- check if the activated app is the target app</span>
-                <span class="k">if</span> <span class="n">frontApp</span><span class="p">:</span><span class="n">bundleID</span><span class="p">()</span> <span class="o">==</span> <span class="n">targetAppBundleID</span> <span class="k">then</span>
-                    <span class="kd">local</span> <span class="n">input_english</span> <span class="o">=</span> <span class="s2">"com.apple.keylayout.ABC"</span>
-                    <span class="k">if</span> <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">currentSourceID</span><span class="p">()</span> <span class="o">~=</span> <span class="n">input_english</span> <span class="k">then</span>
+            <span class="c1">-- Add a 0.05-second delay to resolve timing issues.</span>
+            <span class="n">hs</span><span class="p">.</span><span class="n">timer</span><span class="p">.</span><span class="n">doAfter</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">03</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span>
+                <span class="kd">local</span> <span class="n">input_english</span> <span class="o">=</span> <span class="s2">"com.apple.keylayout.ABC"</span>
+                <span class="kd">local</span> <span class="n">current_source</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">currentSourceID</span><span class="p">()</span>
+
+                <span class="c1">-- [CASE 1] If the ESC key was pressed (original logic).</span>
+                <span class="k">if</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">'escape'</span> <span class="k">then</span>
+                    <span class="k">if</span> <span class="n">current_source</span> <span class="o">~=</span> <span class="n">input_english</span> <span class="k">then</span>
                         <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">currentSourceID</span><span class="p">(</span><span class="n">input_english</span><span class="p">)</span>
+                        <span class="c1">-- print("ESC pressed: Switched to English.")</span>
+                    <span class="k">end</span>
+                
+                <span class="c1">-- [CASE 2] If the Ctrl+C key combination was pressed (new logic).</span>
+                <span class="k">elseif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">'c'</span> <span class="ow">and</span> <span class="n">flags</span><span class="p">.</span><span class="n">ctrl</span> <span class="k">then</span>
+                    <span class="c1">-- Perform this special action only if the current input source is not English.</span>
+                    <span class="k">if</span> <span class="n">current_source</span> <span class="o">~=</span> <span class="n">input_english</span> <span class="k">then</span>
+                        <span class="c1">-- print("Ctrl+C (in non-English): Intercepted.")</span>
+                        <span class="c1">-- a. Change the input source to English.</span>
+                        <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">currentSourceID</span><span class="p">(</span><span class="n">input_english</span><span class="p">)</span>
+                        <span class="c1">-- b. Simulate an ESC key press.</span>
+                        <span class="n">hs</span><span class="p">.</span><span class="n">eventtap</span><span class="p">.</span><span class="n">keyStroke</span><span class="p">({},</span> <span class="s1">'escape'</span><span class="p">)</span>
+                        <span class="c1">-- print("--&gt; Switched to English and sent ESC.")</span>
+                        <span class="c1">-- c. Block the original Ctrl+C event from being processed. (Crucial)</span>
+                        <span class="k">return</span> <span class="kc">true</span>
                     <span class="k">end</span>
                 <span class="k">end</span>
-            <span class="k">end</span>
-        <span class="k">end</span><span class="p">)</span>
+            <span class="k">end</span><span class="p">)</span>
+        <span class="k">end</span>
     <span class="k">end</span>
+
+    <span class="c1">-- Allow all other key events to pass through.</span>
+    <span class="k">return</span> <span class="kc">false</span>
 <span class="k">end</span><span class="p">)</span>
 
-<span class="c1">-- Start the listener</span>
+<span class="c1">-- Start the listener.</span>
 <span class="n">escape_keyevent</span><span class="p">:</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p>중간에 보면 0.05s의 delay를 주는 부분이 있는데요, 이는 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문입니다. 이 부분이 없는 상태에서 작성했더니, 어느 시점에서는 아무리 esc 키를 눌러도 영문으로 전환되지 않았습니다. 확인해보니 실제로 esc가 동작하지 않더라구요. 정확한 원인을 파악하지는 못했지만, 아마 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문이라고 생각했고 해당 부분을 적용한 뒤에는 문제가 없었습니다.</p>
+<ol>
+  <li>
+    <p>중간에 보면 0.03s의 delay를 주는 부분이 있는데요, 이는 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문입니다. 이 부분이 없는 상태에서 작성했더니, 어느 시점에서는 아무리 esc 키를 눌러도 영문으로 전환되지 않았습니다. 확인해보니 실제로 esc가 동작하지 않더라구요. 정확한 원인을 파악하지는 못했지만, 아마 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문이라고 생각했고 해당 부분을 적용한 뒤에는 문제가 없었습니다.</p>
+  </li>
+  <li>
+    <p>vim에서는 ctrl+c가 esc와 동일한 역할을 하는데요, 그래서 대부분 esc를 누르지 않고 ctrl+c를 사용합니다. 문제는 한글로 입력할 경우 ctrl+ㅊ으로 입력이 되어서 esc가 정상적으로 동작하지 않았습니다. 이를 해결하기 위해서 별도의 조건을 추가하였습니다.</p>
+  </li>
+</ol>
 
 <p>혹시나 저와 같이 이러한 불편을 겪고계신 분들이 있다면 도움이 되었길 바랍니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[한국인들이 vim을 사용할때 자주 겪는 어려움 중 하나는 한글로 주석을 작성하다가 mode를 바꾸면 한글이 계속 인식되어 있어서 한영전환을 한번 더 해줘야 한다는 것이다. 이게 생각보다 생산성을 엄청나게 저하시키는데, 많은 곳에서 hammerspoon을 사용해서 이를 해결하고 있어서 이를 공유한다.]]></summary></entry><entry><title type="html">Claude Code를 활용한 vim cheatsheet vscode extension 개발기</title><link href="http://localhost:4000/2025/09/17/vim-vscode-extenstion/" rel="alternate" type="text/html" title="Claude Code를 활용한 vim cheatsheet vscode extension 개발기" /><published>2025-09-17T00:00:00+09:00</published><updated>2025-09-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/17/vim-vscode-extenstion</id><content type="html" xml:base="http://localhost:4000/2025/09/17/vim-vscode-extenstion/"><![CDATA[<h2 id="hhkb-배열의-키보드를-구매한-것이-시작이었다">HHKB 배열의 키보드를 구매한 것이 시작이었다</h2>
 
