@@ -1,5 +1,162 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-22T17:44:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry><title type="html">Meetup에 푹 절여진(?) 한주</title><link href="http://localhost:4000/2025/09/21/meetup-addict/" rel="alternate" type="text/html" title="Meetup에 푹 절여진(?) 한주" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/meetup-addict</id><content type="html" xml:base="http://localhost:4000/2025/09/21/meetup-addict/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/26">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다.]]></summary></entry><entry><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-10-29T17:40:42+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry><title type="html">회고록:10월</title><link href="http://localhost:4000/2025/10/29/retrospect/" rel="alternate" type="text/html" title="회고록:10월" /><published>2025-10-29T00:00:00+09:00</published><updated>2025-10-29T00:00:00+09:00</updated><id>http://localhost:4000/2025/10/29/retrospect</id><content type="html" xml:base="http://localhost:4000/2025/10/29/retrospect/"><![CDATA[<h2 id="추석">추석</h2>
+
+<p>10월에는 한국 고유의 명절 추석이 있었다. 올해 추석은 휴일을 포함해서 약 10일간 쉴 수 있는 시간이었는데, 마침 아내가 직장에서 대기발령을 하라는 요청을 받아서 부득이(?)하게 명절내내 본가에 내려가지 않았다.</p>
+
+<p>사실 나는 ‘명절때 조부모댁에 가지 않고 집에 머무르는 것’을 엄청나게 하고싶어했다. 우리 집에서는 상상도 못할 일이었고, 내 기억에 고3 수험생 시절과 피치못한 사정이 아니고서는 항상 추석에는 조부모댁에 갔었다. 심지어 기억나는 ‘피치못할 사정’에는 해외에 있는 바람에 가지 못한 경우 뿐이었던 것 같다.</p>
+
+<p>아내는, 사실 본인의 의지와 전혀 관련없는 대기발령이었지만, 나에게 굉장히 미안해했다. 혼자서라도 본가에 다녀오고싶으면 그렇게 하라고 했지만, 나는 단칼에 거절했다. 37년을 살면서 처음으로 아무런 문제 없이 추석에 집에만 있을 수 있는 시간인데, 부모님께는 조금 죄송하지만 정말 행복했다.</p>
+
+<p>다행이 아내가 출근하는 상황은 아니었기 때문에, 원래는 날씨 좋은날에 등산도 가고 맛있는것도 먹으러 가려고 했다. 하지만 이것도 하늘의 장난인지, 이번 추석에는 비가 정말 많이 왔다. 날씨가 좋은적이 없었다. 덕분에 집에서 내내 쉬게 되었고, 이 때문에 <a href="#고스트-오브-요테이">절대 손을 대서는 안될 녀석</a>을 시작하고야 말았다.</p>
+
+<h2 id="고스트-오브-요테이">고스트 오브 요테이</h2>
+
+<p>10월 2일. 내가 생각하기엔 매우 계획적인 날짜인 추석의 시작일에, 플레이스테이션 게임이 발매되었다. 꽤 많은 사람들이 역작이라고 표현하였고, 최근에 재미있게 보던 유투버가 이 게임을 리뷰하는것(<a href="https://youtu.be/UfHoEuXIiRU?si=QIzXEQgBsvvNiNvc">영상</a>)을 보게 되면서 ‘추석에 딱히 할것도 없는데 게임이나 해볼까?’ 하는 정말 발칙한 생각을 하게 되었다.</p>
+
+<blockquote>
+  <p>참고로 이 유튜버의 <a href="https://youtu.be/-Zk-WyCoIbU?si=2XPvY2ygu3_S7oGi">영상</a>을 재미있게 보고나서, 좋은 핸드폰이 필요없다고 아이폰 13 미니의 배터리를 교체하려던 아내가 17 프로를 구매해버렸다.</p>
+</blockquote>
+
+<p><img src="https://i.namu.wiki/i/6sQwLV8r1RxNIhUMPuxHg9iA3B42_2QQbA43Fheemfpy-Cgmz2OHFgDqDHyBBBtwafzmrD6e6Lzcy1H4u7MR4by2edThhgozVKCsLyEQnh78qbrwr2is3aseVAi9dlWTXH8H6Z1mdW-CqYCp3iF6ZQ.webp" alt="image" /></p>
+
+<p>원래 이번 추석에는 책과 강의를 열심히 들으면서 나의 실력을 마음껏 향상시키는 상상을 하고 있었는데, 연휴에 마냥 재미없게 보내는것도 잘못된 생각인것만 같아 거금을 주고 게임을 구매했다. 사람들이 여주 얼굴이 못생겨서 게임하기 싫다고하는데, 나는 그냥 괜찮게 생겼다고 생각한다.</p>
+
+<p>길게 말할 필요 없이, 약 4-5일가량을 하루에 7시간 가까이 게임에 빠져버렸다. 심지어 이 게임은 본 스토리만 있는게 아니라 주변에 발생하는 여러 서브스토리들이 많은데, 추석 연휴기간동안 본편 스토리를 포함해서 대략 60%에 달하는 이야기를 완주해버렸다.</p>
+
+<blockquote>
+  <p>현재는 대략 61시간의 게임 플레이와 85%의 트로피를 완료했다. 더이상은 하면 안될것 같다.</p>
+</blockquote>
+
+<h2 id="공유-오피스">공유 오피스</h2>
+
+<p>그래서였을까, 10월 중순이 넘어가면서 문득 이번달에 내가 뭘 했는지 도저히 생각이 나지 않았다. 아내에게 진지하게 고민을 털어놓으니, 우선 추석 연휴가 길어서 실제로 일한 시간이 적어서고, 두번째는 계속 재택을 하다보니 점점 집에서 일이 잘되는 시간보다 무기력하게 지내는 시간이 늘어나는 것 같다고 했다.</p>
+
+<p>사실 재택을 하게되면 ‘내가 집중할 수 있는 시간을 최대한으로 사용할 수 있다’는 엄청난 장점이 있다. 물론 출퇴근에 낭비되는 시간과 체력도 없고, 그로인해 받는 스트레스도 현저히 적다. 하지만 이 장점 이면에는 내가 그만큼 집중하는 시간을 만들어서 효율적으로 사용해야 한다는 압박도 있다.</p>
+
+<p>이러면 안된다는 생각에 이것저것 알아보다가 <a href="https://fivespot.io/">파이브스팟</a>에서 운영하는 무제한 공유오피스 입장권을 구매했다. 이걸 사용하면 전국에 약 250개 가까이 되는 제휴 카페, 공유오피스, 그리고 패스트파이브에서 운영하는 파이브스팟 오피스를 마음껏 이용할 수 있다. 나는 집에서 대략 차로 10분정도 걸리는 고척점과 그나마 가까운 영등포점, 여의도점을 주로 이용하고 있다. 확실히 카페에서 하는것보다 훨씬 안정적이고 쾌적하다. 그리고 모두가 집중하고 있는 공간에서 같이 집중하다보니 일의 효율도 훨씬 높아졌다. 매달 들어가는 돈이 대략 15만원정도 되는데, 이 돈을 아까워하는 것보다 15만원어치의 효율과 더 많은 기회를 찾아보라는 아내의 현명한 대답이 기억난다. 역시 현명한 아내는 남편을 성장하게 한다.</p>
+
+<blockquote>
+  <p>참고로 추천인 코드를 입력하면 가입 시 할인받을 수 있다: <strong>S1VCY4</strong></p>
+</blockquote>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[10월에는 한국 고유의 명절 추석으로 인해 자그마치 10일간의 휴일이 있었다. 그래서 그런가, 10월은 너무 빠르게 지나갔다. 내가 무엇을 했는지 기억하지도 못할정도로.]]></summary></entry><entry><title type="html">회고록:9월</title><link href="http://localhost:4000/2025/09/30/retrospect/" rel="alternate" type="text/html" title="회고록:9월" /><published>2025-09-30T00:00:00+09:00</published><updated>2025-09-30T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/30/retrospect</id><content type="html" xml:base="http://localhost:4000/2025/09/30/retrospect/"><![CDATA[<h2 id="uniswap-강의-참여">Uniswap 강의 참여</h2>
+
+<p>8월말이었나, 링크드인에 아래와 같은 포스트가 올라왔다. 먼저 나는 저 사람을 당시에는 몰랐고, 누군가가 좋아요를 눌렀던 탓에 나에게도 피드가 뜬것 같았다.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/53b25df3-0cd3-422a-97cf-247094319dfe/image.png" alt="image" /></p>
+
+<p><br /></p>
+
+<p>올해 5월 이후로 블록체인과 관련된 커리어를 쌓고 있지는 않지만, 그래도 약 6년간 몸담았던 분야다보니 계속해서 관심을 갖고는 있었다. 그러던중 평소에 배우고싶었던 Uniswap이라는 프로젝트에 대한 무료 강의가 나에게 노출되었고, 정말 아무런 고민도 없이 신청했다.</p>
+
+<p>강의는 4주동안 진행되었고, 매주 <strong>생각보다 시간을 많이 소요하는</strong> 과제들이 부여되었다. 스마트 컨트랙트 개발할 때 Truffle, Hardhat만 사용해봤는데, 이번에 Foundry의 사용법에 대해서도 배울 수 있었고, Uniswap의 동작 방식에 대해서도 이해할 수 있었다. 직접 AMM을 스마트 컨트랙트로 구현해보았고, 구현한 컨트랙트를 사용해서 직접 토큰을 교환할 수 있는 웹페이지도 만들어보았다. <a href="https://wnjoon.github.io/2025/09/15/miniamm-dapp-with-ai/">이전 포스트 ‘백엔드 개발자의 AI로 아주 작은 dApp 만들기’</a>에서도 적었듯이, 프론트엔드에 대해 경험이 없었던 나에게 이번 강의에서 진행된 모든 과제들은 정말 많은 도움이 되었다.</p>
+
+<p>사실 강의만큼이나 과제를 만드는 것이 정말 쉽지 않은 부분인데, 좋은 마음으로 모든것을 정말 좋은 퀄리티로 제공해준 <a href="https://www.linkedin.com/in/7oelm/">Joel Mun</a>님께 <em>비록 이 글을 보지 않겠지만</em> 다시한번 감사의 인사를 전하고싶다. 기대에 부응(?)하기 위해 정말 열심히 과제를 했고, 최종적으로 이번 강의의 수료자로 이름이 올라갔고 졸업생 채널에 초대되었다 🎉.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/d762c192-5e0f-46d9-970c-c0f58c34e748/image.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h2 id="밋업-더하기-밋업은-밋업의-연속">밋업 더하기 밋업은 밋업의 연속</h2>
+
+<p>5월부터 일하고있는 회사가 전면적으로 재택이 가능하다보니, 1주일동안 나가는 횟수도 거의 없고 심지어 만나는 사람도 없는 경우가 많았다. 지난달에는 내가 사람좀 만나고 다녔으면 좋겠다는 아내의 바램에 따라 <a href="https://www.careerday.jobs/club">커리어데이에서 운영하는 디너클럽</a>에도 참석했다.</p>
+
+<blockquote>
+  <p>디너클럽에 대한 후기는 나중에 올릴지 모르겠지만, 정말 좋은 시간이었다. 특히 다양한 직업 속에서 공통된 주제들이 나올 수 있을 법한 사람들을 어떻게 이렇게 모아줄 수 있는지 신기했다. 혹은 모든 직장인이 비슷한 관심거리를 갖고있어서는 아니었을까 하는 생각도 든다.</p>
+</blockquote>
+
+<p>특히 아내는 개발자들이 밋업을 통해 공통된 관심사와 주제를 가지고 만난다는 것을 좋아했다. 그래서 나에게도 밋업이 있으면 자주 나가서 사람들과 교류하고 인사이트를 얻고 오기를 바랬는데, 문제는 코로나 이후로 예전만큼 밋업이 활발하지 않았고, 그마저도 내가 관심있는 주제들에 대해 열린 밋업은 열리지 않았다.</p>
+
+<p>그런데 신기하게도 이번 9월은 내가 관심있는 밋업들이 정말 많이 열렸다. 밋업과 북토크를 포함해서 무려 5개의 모임에 참석했다.</p>
+
+<p><strong>ZZIN’ Web3 Builders 2025</strong></p>
+
+<p>위에서 언급한 Uniswap 강의를 진행한 Joel님과 블록체인 빌더에서 꽤 이름이 있는 <a href="https://www.linkedin.com/in/learner-bora/">Bora</a>님이 주최한 ‘Web3 개발자 지망생을 위한 밋업’에 참여했다. 사실 Web3 커뮤니티에 큰 관심이 있는것은 아니었지만, 강의를 진행한 Joel님이 헬퍼를 모집하면서 뭔가 도움을 줄 수 있을것 같아 참여했다 (사실 Web3 개발자가 되기 위한 사람들에게 도움을 주기 위한 모임이라는 것을 밋업 당일에 알았다).</p>
+
+<p>생각이상으로 많은 사람들(약 100명 이상)이 참여했는데, 헬퍼로 돌아다니면서 이런저런 이야기도 귓동냥으로 듣고 링크드인에서만 보던 사람들과 인사도 하는 좋은 시간이었다. 특히 평소에 관심이 많은 스테이블코인에 대해 유명한 책도 쓰신 분이 참여하셨는데, 덕분에 아래에 언급할 북토크에도 참여할 수 있는 기회도 생겼다.</p>
+
+<p><strong>북토크: 스테이블코인의 시대</strong></p>
+
+<p>최근에 스테이블코인에 대해 나온 책중 ‘스테이블코인의 시대’라는 책의 저자인 <a href="https://www.linkedin.com/in/seon-min-yi-21a741151/">Seon Min Yi</a>님이 주최한 북토크에 참여했다. 사실 참여하게 된 계기가 좀 재미있는데, ‘ZZIN’ Web3 Builders 2025’ 밋업에 작가님이 참여하신걸 보고 인사를 드리고 싶었으나, 너무 인기가 많으셔서 멀리서만 지켜볼 수 밖에 없던게 아쉬워서, 밋업이 끝난 후에 개인적으로 링크드인 메시지를 드렸다.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/cd07299c-69c5-4a8c-84df-434de285112b/image.png" alt="image" /></p>
+
+<p><br /></p>
+
+<p>마지막에 ‘시간이 괜찮으시면 커피챗을 꼭 하고싶다’고 적었는데, 반대로 작가님께서 이번 북토크가 이미 신청은 마감되었지만 와도 된다고 자리를 열어주셔서 기쁜 마음에 참여할 수 있었다. 역시 두드린 사람만이 기회를 잡을 수 있다는 생각이 들었다.</p>
+
+<p>사실 나는 스테이블코인에 대해 계속해서 의문을 가지고 있다. CBDC, 토큰증권 등 여러 블록체인 프로젝트를 지나면서 생긴 의심이랄까. 혹은 ‘그래서 스테이블코인, 특히 원화 스테이블코인이 꼭 필요한 이유는 뭐야?’는 질문의 답변을 할 정도로 아직 지식이 부족하기 때문이라고 생각했다. 이번 북토크에도 중간에 패널 토론 시간이 있었고, 나서기 좋아하는 성격상 손을 들고 질문했다.</p>
+
+<p>“스테이블코인이 발행되면 국채 매입을 통한 국가 재정이 늘어나기 때문에 국가 입장에서는 좋을 것 같은데요, 그럼 스테이블코인 발행을 통한 기업과 우리같은 사용자들은 뭐가 좋아지나요?”</p>
+
+<p>아뿔사, 앞에 ‘원화’를 붙이는 것을 잊었다. 패널 모더레이터분은 “USDT, USDC가 얼마나 돈을 버는지 먼저 말씀드려야 할 것 같은데요?” 라고 말씀하셨지만, 그건 나도 알고 있는 사실이었다. 나서기 좋아하지만 질문할때 항상 긴장하는 성격탓에 어떻게 질문할지 적어놓고도 핵심적인 내용이 비어있는 질문을 하고 말았다. 어찌되었든 작가님을 포함한 패널분들은 나의 질문에 매우 성심성의껏 답변해주셨다.</p>
+
+<p>그런데 이 북토크에서 가장 의미있던 시간은, 사실 북토크가 모두 종료되고 사인회가 열리는 도중이었다. 사인회가 있을거라고 생각하지 못하고 구매한 책을 집에 두고왔지만, 그래도 이런 자리를 참여하게 해주신 작가님께 고마운 마음이 있어 꼭 인사를 드리고 집에 돌아가야겠다고 생각했다. 하지만 사인 줄이 생각보다 길어서 좀 기다리는 중이었는데, 패널 토론자였던 <a href="https://www.linkedin.com/in/junyoung-jeong-703306113/">Junyoung Jeong</a> 님께서 먼저 인사를 걸어주셨다. 서로 인사를 나누고 이야기를 하던도중, 갑자기 내가 정말로 궁금했던 질문이 입밖으로 나왔다.</p>
+
+<p>“스테이블코인이 요즘 다시 부상하고있는데, 다시 블록체인 개발자로 돌아가야할까요?”</p>
+
+<p>사실 최근에 스테이블코인이 다시 부상하면서, 꽤 많은 블록체인 기업에서 면접 제안을 받는다. 뒤에서도 이야기하겠지만, 나는 앞으로 특정 분야에 전문성을 갖는 개발자가 아닌 AI를 활용해서 목표하는 바를 명확하게 계획하고 이를 에이전트에게 정확하게 지시하고 돌아오는 결과에 대해 검토하고 제대로 질문하는 개발자가 필요한 시대가 오고 있다고 생각한다. 이러한 생각을 하게 된 계기에 대해서는 나중에 따로 포스팅할 기회가 있으면 좋겠지만, 그러다보니 ‘내가 생각한 방식대로 앞으로 나아가야할지, 아니면 시대의 흐름에 다시 몸을 맡겨야할지’에 대한 고민이 있었던 것이다.</p>
+
+<p>그런데 돌아온 대답은 굉장히 간단했다.</p>
+
+<p>“아니요. 결국 스테이블코인은 비지니스가 중요할겁니다.”</p>
+
+<p>앞으로의 개발자의 방향성에 대해 내가 생각하고 있는 바가 틀릴수도 있다. 하지만 이 대답을 통해 그 결심을 믿고 앞으로 계속 나아보기로 했다.</p>
+
+<p><strong>AI 밋업 3종세트</strong></p>
+
+<p>9월 한달동안 KBW(Korea Blockchain Week) 2025의 영향으로 수많은 블록체인 관련 밋업들이 열렸는데, 그 안에서도 AI에 대한 알짜배기 밋업들이 있었다.</p>
+
+<p>나는 AI 자체의 기술에는 관심이 없다. 그 분야는 이미 엄청난 전문가들이 있고, 내가 이 사람들보다 더 뛰어난 AI 엔지니어가 될 것이라고 생각하지는 않는다. 다만 AI 에이전트를 잘 다루는 개발자, 그리고 AI 에이전트를 잘 만드는 개발자가 되는것은 충분히 시도할만하다고 생각한다. 특히 지금 회사에서 AI 에이전트를 만드는 계획도 있었기 때문에, 이와 관련된 밋업들이 생기면 바로 신청해서 다녀왔다.</p>
+
+<p>특히 Claude Code에 대해 많은 관심이 있었다. ChatGPT, Gemini도 충분히 업무에서 활용하고 있었고 심지어 IDE는 Windsurf를 사용하고 있었지만, 많은 개발자들이 Claude Code를 사용하고 있었고 심지어 일부는 $200 달러를 매달 지불하면서 대부분의 업무를 AI 에이전트를 통해 처리한다는 것이 흥미로웠다. 그래서 이번달 초에 $100 요금제를 구독했는데, 막상 구독하고보니 어떻게 이걸 효율적으로 쓸 수 있는지 모르는 상태다보니 아까운 내 구독료만 낭비되고 있다는 생각이 들었다.</p>
+
+<p>그래서 총 3군데의 AI 관련 밋업에 참석했다. <strong>AWSKRUG, Claude Code Seoul</strong> 밋업에서는 Claude Code를 사용하는 방법에 대한 인사이트를 얻을 수 있었다. 그리고 <strong>AI Builder Seoul</strong> 밋업에서는 실제로 AI 에이전트를 구축하고 이를 통해 서비스를 만들어본 경험에 대해서 배울 수 있었다.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/2a585316-12f0-4313-9407-4f0a8177de7d/image.png" alt="" /></p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/3f7f1ab4-a91e-4e00-bcf8-4f1975ee7fa0/image.png" alt="" /></p>
+
+<p><br /></p>
+
+<p>3군데 밋업 모두에서 느낀 내용을 종합해서 정리해보면,</p>
+<ul>
+  <li>대부분의 개발자들은 AI에게 단순한 질문으로부터 얻은 코드를 복사하고 붙여넣기 하고있다. 이것은 단순히 ‘내 수고로움을 줄이는 노동의 감소’의 의미 이상이 되지 않는다.</li>
+  <li>하지만 AI를 정말 잘 사용하는 상위 1%의 개발자들은, AI를 또한명의 직원으로 고용한것처럼 사용한다. 계획하고 검토하는 인간의 일을 수행할 뿐, 모든 노동 작업들을 AI를 통해 수행한다.</li>
+  <li>이를 위해 ‘정말로 잘 설명하고, 계획하고, 작업을 지시하는’ 연습이 필요하다. 이것은 단순히 기술 사용의 능숙함이 아니라, 만들고자 하는 상품에 대해 명확하고 빠르게 이해하고 이를 잘 지시할 수 있는 능력이다. 결국에는 AI가 있다고 해서 새로운 기술이 필요한게 아니다. 뛰어난 시니어 개발자가 되는 기준은 변한게 없다. 단지 시니어 개발자가 되는 기간이 전보다 훨씬 짧아졌을 뿐이다.</li>
+</ul>
+
+<blockquote>
+  <p>밋업에 대해 조금 더 자세히 정리한 내용은 브런치에 올린 포스트 <a href="https://brunch.co.kr/@wallee/26">Meetup에 푹 절여진(?) 한주</a>를 참고해주세요.</p>
+</blockquote>
+
+<h2 id="50만원-그까이꺼">50만원. 그까이꺼!</h2>
+
+<p>위에서 말한 AI 에이전트를 잘 사용하는 방법과, AI 에이전트를 구축하는 방법을 알기 위해 강의와 책을 구매했다. 강의는 NomadCoder의 <a href="https://nomadcoders.co/ai-agents-masterclass">AI Agents 마스터클래스</a>이고, 책은 <a href="https://product.kyobobook.co.kr/detail/S000217402731">한 걸음 앞선 개발자가 지금 꼭 알아야 할 클로드 코드</a>이다. 총 50만원 정도가 들었는데, 돈이 아깝지 않으려면 정말 열심히 들어야겠다 💸. 10월안에 강의와 책 모두 끝내려고 한다.</p>
+
+<p>나는 배움에 대해 조금 인색(?)한 편이다. 특히 개발자와 관련된 학습은 유튜브나 인터넷에서 무료로 할 수 있는게 많아서 그런것 같다. 하지만 결국 좋은 정보를 찾는 과정에서 시간도 낭비되고 무료 강의인 경우 대부분은 품질이나 내용이 좋지 않거나 마지막에는 유료 강의 등록을 요구하는 경우들이 많다는 생각에, 적지 않지만 앞으로의 발전을 위해 과감하게 구매했다.</p>
+
+<h2 id="수영-시작">수영 시작</h2>
+
+<p>어렸을때 수영 선수반까지 할정도로 나는 수영을 좋아한다. (대전에서도 안했지만) 서울에 올라와서도 수영을 하고싶어서 여러곳을 찾아다녔지만, 회사 시간도 그렇고 등록하기도 어려워서 하지 못했었다. 그러다가 최근 집 근처에 있는 문화체육센터에서 진행하는 새벽 수영 등록에 성공했고, 일주일에 3번 아침 7시부터 한시간동안 수영을 하고있다. 최근에는 <strong>이유는 잘 모르지만</strong> 어렸을때 성장에 방해된다는 이유로 배우지 못했던 접영을 배우기 시작했다. 참고로 나는 선수반까지 했지만, 접영은 전혀 할 줄 모르는 상태였다.</p>
+
+<h2 id="재택근무-이후에-생긴-익숙해짐과-나태해짐-그-사이">재택근무 이후에 생긴 익숙해짐과 나태해짐 그 사이</h2>
+
+<p>확실히 재택근무를 하면 업무에 집중할 수 있는 시간을 내가 선택할 수 있다는 장점이 있다. 가장 좋은 상황은 아침 일찍부터 업무의 몰입에 들어간 상태인데, 이동하는 시간, 누군가와 점심을 먹는 시간 등 몰입을 방해할만한 요소들이 전부 제거되기 때문에 하루 종일 일에 완전히 몰두한 상태로 엄청나게 높은 퍼포먼스를 발휘할 수 있다.</p>
+
+<p>하지만 이와 완전히 반대되는 상황은, 아침에 몰두하지 못한 상태를 혼자서 이겨내야하고, 이를 이겨내지 못하면 위에서 얻은 것만큼 최적의 퍼포먼스를 낼 수 없다는 것이다. 책 ‘<a href="https://product.kyobobook.co.kr/detail/S000211596949">개발자, 오늘도 마음 튼튼하게 성장하기</a>‘에서는 아침에 잠시 밖에 산책을 다녀오는 것처럼 ‘출근을 모방하는 태도’를 루틴으로 만드는 것을 추천했다.</p>
+
+<p>결국 어떤 방법이던지 루틴을 만드는 것이 굉장히 중요한데, 앞으로 해외에서 일하게 될 상황을 고려할때 이러한 습관을 만드는 연습은 꼭 필요하다고 생각했다. 몸이 편한 것에 안주하는 것이 아니라, 내가 사용할 수 있는 시간이 늘어났다는 것에 더 집중하는 태도가 필요한 것 같다.</p>
+
+<p>이제 2025년도 3분기가 지나고, 총 3개월만 남았다. 남은 시간도 더 많이 경험하고 성장하자!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다.]]></summary></entry><entry><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
 
 <p>개발자라면 영어를 사용해서 주석을 작성하는것이 당연히 좋겠지만, 사실 한국인의 경우에는 모국어로 주석을 다는것만큼 빠르고 편리한 것이 없죠. 저도 되도록이면 영어를 사용하려고 노력하지만, 지금같이 포스팅을 작성하거나 제가 빠르게 이해하기 위한 글이나 주석을 작성할 때에는 일반적으로 한국어를 사용하곤 합니다.</p>
 
@@ -124,7 +281,7 @@
   </li>
 </ol>
 
-<p>혹시나 저와 같이 이러한 불편을 겪고계신 분들이 있다면 도움이 되었길 바랍니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[한국인들이 vim을 사용할때 자주 겪는 어려움 중 하나는 한글로 주석을 작성하다가 mode를 바꾸면 한글이 계속 인식되어 있어서 한영전환을 한번 더 해줘야 한다는 것이다. 이게 생각보다 생산성을 엄청나게 저하시키는데, 많은 곳에서 hammerspoon을 사용해서 이를 해결하고 있어서 이를 공유한다.]]></summary></entry><entry><title type="html">Claude Code를 활용한 vim cheatsheet vscode extension 개발기</title><link href="http://localhost:4000/2025/09/17/vim-vscode-extenstion/" rel="alternate" type="text/html" title="Claude Code를 활용한 vim cheatsheet vscode extension 개발기" /><published>2025-09-17T00:00:00+09:00</published><updated>2025-09-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/17/vim-vscode-extenstion</id><content type="html" xml:base="http://localhost:4000/2025/09/17/vim-vscode-extenstion/"><![CDATA[<h2 id="hhkb-배열의-키보드를-구매한-것이-시작이었다">HHKB 배열의 키보드를 구매한 것이 시작이었다</h2>
+<p>혹시나 저와 같이 이러한 불편을 겪고계신 분들이 있다면 도움이 되었길 바랍니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[한국인들이 vim을 사용할때 자주 겪는 어려움 중 하나는 한글로 주석을 작성하다가 mode를 바꾸면 한글이 계속 인식되어 있어서 한영전환을 한번 더 해줘야 한다는 것이다. 이게 생각보다 생산성을 엄청나게 저하시키는데, 많은 곳에서 hammerspoon을 사용해서 이를 해결하고 있어서 이를 공유한다.]]></summary></entry><entry><title type="html">Meetup에 푹 절여진(?) 한주</title><link href="http://localhost:4000/2025/09/21/meetup-addict/" rel="alternate" type="text/html" title="Meetup에 푹 절여진(?) 한주" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/meetup-addict</id><content type="html" xml:base="http://localhost:4000/2025/09/21/meetup-addict/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/26">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다.]]></summary></entry><entry><title type="html">Claude Code를 활용한 vim cheatsheet vscode extension 개발기</title><link href="http://localhost:4000/2025/09/17/vim-vscode-extenstion/" rel="alternate" type="text/html" title="Claude Code를 활용한 vim cheatsheet vscode extension 개발기" /><published>2025-09-17T00:00:00+09:00</published><updated>2025-09-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/17/vim-vscode-extenstion</id><content type="html" xml:base="http://localhost:4000/2025/09/17/vim-vscode-extenstion/"><![CDATA[<h2 id="hhkb-배열의-키보드를-구매한-것이-시작이었다">HHKB 배열의 키보드를 구매한 것이 시작이었다</h2>
 
 <p>제 아내를 포함해서 저와 가까운 사람들이 항상 하는 이야기가 있습니다. 제가 물욕이 없다는 것입니다. 저는 개발자치고는 주변기기에 관심도 욕심도 없어서 주는대로 사용하는 편인데요, 여느때처럼 그냥 개발을 하다가 문득 이 상황이 지루하다고 느껴진 때가 있었습니다. 남들처럼 달그락 소리가 나는 멋진 키보드가 한번 써보고 싶었달까요. 그리고 제가 또 평범한건 별로 안좋아합니다.</p>
 
@@ -379,225 +536,4 @@
 
 <p>재미있는 것은, 위의 내용을 알려준것도 AI였다는 것입니다. 계속 오류가 해결되지 않아서 코드를 이전 단계를 완료한 버전으로 되돌리고, 새로운 AI 창을 열어서 다시 대화를 시도했습니다. 이전 단계까지 완료되었다는 체크박스를 확인해서 다시 배포를 시도해보도록 했습니다. AI가 자신이 진행했던 히스토리를 복기할 수 있도록 문서를 유지하는 것의 중요성을 다시 알 수 있었고, AI도 항상 동일한 결과를 만들어내지 못하기 때문에, 얼만큼 더 많은 정보를 제공하느냐가 확실히 중요한 부분이라는 것을 알았습니다.</p>
 
-<p>추가로 이번 과제를 통해 ‘일반 사용자들이 생각하고 구현하고자 하는 서비스는 거의 AI를 이용해서 만들어낼 수 있겠다’는 생각이 들었습니다. 복잡한 시스템인 경우에는 좀더 시도해봐야겠지만, 왠만한 기능 구현은 AI를 이용해서 할 수 있었습니다. 다만, 많은 사람들이 이야기하는 ‘바이브코딩에 대한 현실의 자각’은 필요한 것으로 보였습니다. IT에 대해 지식이 전혀 없거나, 혹은 지식이 부족한 사람들의 경우에는 아무리 AI가 서비스를 만들어준다 하더라도 이걸 확인하는 것이 어려울 것 같았습니다. 결국 ‘제대로 일하고 있는지 검토하는 능력’이 확실히 필요해보였습니다. 하나의 기술에 대한 깊은 이해도를 가진 사람이 되는것이 예전에는 중요했다면, 지금은 내가 개발하고자 하는 서비스에 필요한 기능을 빠르게 선택하고 새로운 기능을 빠르게 이해해서 AI에게 다양한 선택지와 정보를 풍부하게 제공할 수 있는 사람이 되는것이 중요한 시대가 되어가고 있다 생각했습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[프론트엔드에 대해 전혀 모르는 백엔드 개발자가 AI만 사용해서 매우 작은 AMM 기반 dApp을 개발해보는 과정을 정리했습니다. 이 모든 과정은 Hell-Month라고 하는 단기 프로젝트에서 진행하였습니다.]]></summary></entry><entry><title type="html">개발자라면 이 책을 꼭 읽어보세요</title><link href="http://localhost:4000/2025/09/15/tobe-good-developer/" rel="alternate" type="text/html" title="개발자라면 이 책을 꼭 읽어보세요" /><published>2025-09-15T00:00:00+09:00</published><updated>2025-09-15T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/15/%08tobe-good-developer</id><content type="html" xml:base="http://localhost:4000/2025/09/15/tobe-good-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/24">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[대부분의 개발 서적이 기술에 대해 이야기할 때, 이 책은 좋은 개발자가 되기 위한 태도, 습관, 그리고 일하는 방식에 대해 이야기합니다. 이 책의 핵심 내용을 요약하고 공유합니다.]]></summary></entry><entry><title type="html">스테이블코인에 대한 개인적인 생각</title><link href="http://localhost:4000/2025/09/12/thoughts-stable-coin/" rel="alternate" type="text/html" title="스테이블코인에 대한 개인적인 생각" /><published>2025-09-12T00:00:00+09:00</published><updated>2025-09-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/12/thoughts-stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/09/12/thoughts-stable-coin/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/23">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="crypto" /><summary type="html"><![CDATA[CBDC, 토큰증권을 개발한 블록체인 개발자로서 스테이블코인을 바라보는 개인적인 생각을 정리했습니다.]]></summary></entry><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/22">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[AI의 이해 능력과 생성 능력 사이의 비대칭성을 설명하고, '프롬프트 엔지니어링'을 넘어 AI의 잠재력을 최대한 활용하기 위한 '컨텍스트 엔지니어링'의 개념, 핵심 단계(검색, 처리, 관리), 그리고 이를 바탕으로 한 최적의 AI 활용 방법을 제시합니다.]]></summary></entry><entry><title type="html">스테이블코인의 현주소: 시장의 구성과 주요 플레이어</title><link href="http://localhost:4000/2025/08/07/stable-coin/" rel="alternate" type="text/html" title="스테이블코인의 현주소: 시장의 구성과 주요 플레이어" /><published>2025-08-07T00:00:00+09:00</published><updated>2025-08-07T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/07/stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/08/07/stable-coin/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/21">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="crypto" /><summary type="html"><![CDATA[2025년 기준, 스테이블코인의 정의와 1달러 가치를 유지하는 차익거래 원리, 시장 발전 과정, USDT·USDC 등 주요 플레이어 분석 및 미래 전망을 다룹니다.]]></summary></entry><entry><title type="html">SQLite FTS의 토크나이저와 인덱싱에 대해서</title><link href="http://localhost:4000/2025/08/06/sql-fts5/" rel="alternate" type="text/html" title="SQLite FTS의 토크나이저와 인덱싱에 대해서" /><published>2025-08-06T00:00:00+09:00</published><updated>2025-08-06T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/06/sql-fts5</id><content type="html" xml:base="http://localhost:4000/2025/08/06/sql-fts5/"><![CDATA[<h2 id="목차">목차</h2>
-
-<ul>
-  <li><a href="#전문-검색full-text-search이란">전문 검색(Full-Text Search)이란?</a></li>
-  <li><a href="#fts는-어떻게-동작하나요">FTS는 어떻게 동작하나요?</a></li>
-  <li><a href="#좀더-자세히-알아보기">좀더 자세히 알아보기</a></li>
-  <li><a href="#fts의-장점">FTS의 장점</a></li>
-</ul>
-
-<h2 id="전문-검색full-text-search이란">전문 검색(Full-Text Search)이란?</h2>
-
-<p>우리가 구글에서 “오늘 서울 날씨”라고 검색하면, 구글은 어떻게 요청 데이터를 처리할까요?
-아마도 구글은 ‘오늘’, ‘서울’, ‘날씨’라는 단어가 포함된 수많은 웹페이지 중에서 가장 관련성 높은 문서를 찾아서 보여줄겁니다.</p>
-
-<p>이처럼, 전문 검색(Full-Text Search)은 단순히 문자가 완전히 일치하는지(예: <code class="language-plaintext highlighter-rouge">LIKE '%검색어%'</code>)를 확인하는 것을 넘어, <strong>문장이나 문단 전체에서 특정 단어나 구문이 포함된 문서를 빠르고 효율적으로 찾아주는 기술</strong>입니다. 
-일반적인 데이터베이스 검색(예: <code class="language-plaintext highlighter-rouge">WHERE title = '검색어'</code>)이 책의 ‘목차’에서 제목을 찾는 것이라면, 전문 검색은 일반적으로 책의 맨 뒤에서 볼 수 있는 ‘찾아보기(인덱스)’를 이용해 본문 내용 안에서 단어를 찾는 것과 같습니다.</p>
-
-<p>SQLite 데이터베이스는 이 ‘전문 검색’ 기능을 사용할 수 있도록 해주는 강력한 확장 기능(extension)인 FTS를 제공합니다. ‘FTS’는 Full-Text Search의 약자이고, 뒤에 숫자로 버전을 명시합니다. 예를 들어 FTS5라는 것은 5번째 버전을 의미합니다. <strong>앞으로 설명할 FTS는 FTS5를 의미합니다.</strong></p>
-
-<h2 id="fts는-어떻게-동작하나요">FTS는 어떻게 동작하나요?</h2>
-
-<p>FTS는 일반적인 검색보다 훨씬 빠르고 효율적으로 동작하기 위해, 아래와 같은 과정을 거칩니다.</p>
-
-<h3 id="1-가상-테이블virtual-table-생성">1. 가상 테이블(Virtual Table) 생성</h3>
-
-<p>전문 검색을 할 텍스트 데이터(예: 상품 설명)를 일반 테이블이 아닌 FTS 전용의 ‘가상 테이블(VIRTUAL)’에 저장합니다.</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 'product_fts' 라는 이름의 FTS5 가상 테이블을 생성</span>
-<span class="k">CREATE</span> <span class="n">VIRTUAL</span> <span class="k">TABLE</span> <span class="n">product_fts</span> <span class="k">USING</span> <span class="n">fts5</span><span class="p">(</span>
-    <span class="n">Name</span><span class="p">,</span>         <span class="c1">-- 상품명</span>
-    <span class="n">Description</span>   <span class="c1">-- 상품설명</span>
-    <span class="c1">-- , tokenize = 'porter' -- (옵션) 추가적인 토크나이저 설정</span>
-<span class="p">);</span>
-</code></pre></div></div>
-
-<h3 id="2-토큰화tokenization">2. 토큰화(Tokenization)</h3>
-
-<p>FTS5 테이블에 텍스트를 저장하면, FTS5는 이 텍스트를 의미 있는 최소 단위의 단어, 즉 <strong>‘토큰(token)’</strong>으로 분해합니다. 예를 들어, “최고의 서울 야경 투어”라는 문장은 ‘최고’, ‘서울’, ‘야경’, ‘투어’ 같은 토큰으로 쪼개지는데, 이 과정에서 ‘의’ 같은 조사는 보통 무시됩니다.</p>
-
-<h3 id="3-인덱싱indexing">3. 인덱싱(Indexing)</h3>
-
-<p>앞에서 쪼개진 토큰들을 바탕으로 ‘역인덱스(inverted index)’라는 특별한 목록을 만듭니다. 이 목록에는 어떤 단어(토큰)가 어떤 문서(row)에 나타나는지에 대한 정보가 기록됩니다.</p>
-
-<p>예를 들어, ‘서울’이 포함된 문서 목록(1, 5, 12)과 ‘야경’이 포함된 문서 목록(1, 7)을 찾아서 아래와 같이 매핑합니다.</p>
-
-<ul>
-  <li>‘서울’ -&gt; 1번, 5번, 12번 문서에 있음</li>
-  <li>‘야경’ -&gt; 1번, 7번 문서에 있음</li>
-</ul>
-
-<h3 id="4-검색search">4. 검색(Search)</h3>
-
-<p>사용자가 <code class="language-plaintext highlighter-rouge">MATCH</code> 연산자를 사용해 “서울 야경”이라고 검색하면, FTS는 앞에서 생성한 역인덱스를 이용해서 ‘서울’과 ‘야경’이 포함된 문서를 빠르게 찾아냅니다. 그리고 두 목록에 공통으로 존재하는 문서를 최종 결과로 반환합니다.</p>
-
-<h2 id="좀더-자세히-알아보기">좀더 자세히 알아보기</h2>
-
-<p>아래와 같이 다양한 옵션을 사용해서 가상 테이블을 설정해봅시다.</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">VIRTUAL</span> <span class="k">TABLE</span> <span class="k">table_name</span> <span class="k">USING</span> <span class="n">FTS5</span><span class="p">(</span>
-    <span class="n">id</span> <span class="n">UNINDEXED</span><span class="p">,</span>
-    <span class="n">sub_id</span><span class="p">,</span>
-    <span class="k">comment</span><span class="p">,</span>
-    <span class="n">field</span> <span class="n">UNINDEXED</span><span class="p">,</span>
-    <span class="nb">text</span><span class="p">,</span>
-    <span class="k">prefix</span> <span class="o">=</span> <span class="s1">'1 2 3'</span><span class="p">,</span>
-    <span class="n">tokenize</span> <span class="o">=</span> <span class="s1">'unicode61 remove_diacritics 2'</span>
-<span class="p">)</span>
-</code></pre></div></div>
-
-<p>먼저 결론을 말씀드리면, 이 명령어를 통해 대소문자를 무시하고, 발음 기호를 제거하며, 공백/문장부호로 단어를 나누는 규칙으로 sub_id, comment, text 컬럼의 내용을 토큰으로 만들어 저장하는 FTS 테이블을 생성합니다.</p>
-
-<h3 id="검색-대상-컬럼-선정">검색 대상 컬럼 선정</h3>
-
-<p>일부 필드에는 UNINDEXED라는 옵션이 붙어있는 것을 볼수 있는데요, 이 옵션이 붙어있는 컬럼은 테이블에 저장되기는 하지만 전문 검색의 대상이 되지는 않습니다. 즉, MATCH 연산자를 사용해서 이 컬럼들을 검색할 수 없습니다.</p>
-
-<ul>
-  <li>검색 대상: sub_id, comment, text</li>
-  <li>검색 비대상: id, field</li>
-</ul>
-
-<p>검색 대상 컬럼에 있는 텍스트는 토큰으로 분해되어 검색용 인덱스로 만들어집니다.</p>
-
-<h3 id="토큰화tokenization">토큰화(Tokenization)</h3>
-
-<p>토큰화(Tokenization)는 바로 <code class="language-plaintext highlighter-rouge">tokenize</code> 옵션에 의해 결정됩니다. 코드를 보면 <code class="language-plaintext highlighter-rouge">unicode61 remove_diacritics 2</code>라는 옵션이 붙어있는 것을 볼 수 있습니다. 이 옵션은 2가지 옵션을 포함하고 있습니다.</p>
-
-<p><strong><code class="language-plaintext highlighter-rouge">unicode61</code></strong></p>
-
-<p>사용할 토크나이저(Tokenizer, 분해기)의 이름입니다. 이름 그대로 유니코드 6.1 표준에 정의된 규칙에 따라 텍스트를 단어로 분해합니다. 이 분해기는 크게 2가지 특징을 가지고 있습니다.</p>
-
-<ol>
-  <li>Case-insensitive: 대소문자를 구분하지 않습니다. Apple, apple, APPLE은 모두 같은 토큰 ‘apple’로 처리됩니다.</li>
-  <li>Separator: 공백(space), 마침표(.), 쉼표(,) 등 문장 부호를 기준으로 단어를 나눕니다.</li>
-</ol>
-
-<p><strong><code class="language-plaintext highlighter-rouge">remove_diacritics 2</code></strong></p>
-
-<p>토크나이저에 전달하는 추가 옵션입니다. 여기서 diacritic은 발음 구별 기호(예: é, ü, ñ)를 의미하고, 결국 앞에 remove가 붙었다는 것은 발음 기호를 제거하라는 옵션이 됩니다.</p>
-
-<p>예를 들어,</p>
-
-<ul>
-  <li>résumé -&gt; resume로,</li>
-  <li>café -&gt; cafe</li>
-</ul>
-
-<p>로 변환되어 토큰으로 만들어집니다.</p>
-
-<p>그럼 뒤에 숫자는 무엇을 의미할까요? 이러한 기능을 처리하는 내부적인 알고리즘의 버전을 의미합니다. 즉 2버전을 기반으로 발음 기호를 제거하라는 옵션입니다.</p>
-
-<p><strong><code class="language-plaintext highlighter-rouge">prefix</code></strong></p>
-
-<p>단어의 앞부분만으로도 빠르게 검색할 수 있도록 <strong>접두어 인덱스(prefix index)</strong>를 만듭니다. ‘1 2 3’의 의미는 한 글자, 두 글자, 세 글자짜리 접두어에 대한 인덱스를 미리 만들어두겠다는 뜻입니다.</p>
-
-<p>예를 들어, apple이라는 단어가 있다면 a, ap, app에 대한 인덱스가 생성됩니다. 이를 통해 사용자는 ‘app’ 까지만 입력해도 apple을 매우 빠르게 찾아낼 수 있습니다.</p>
-
-<p>자동완성 기능이라고 생각하시면 이해하기 좋습니다.</p>
-
-<h3 id="예시-1-영어-텍스트-토큰-분해-과정">예시 1. 영어 텍스트 토큰 분해 과정</h3>
-
-<p><strong>원본 텍스트 저장</strong></p>
-
-<p>“The best Café in Seoul is near City Hall.” 라는 원본 텍스트가 있다고 가정합니다. 이 텍스트는 <code class="language-plaintext highlighter-rouge">text</code> 컬럼에 저장됩니다.</p>
-
-<p><strong>토큰화 과정</strong></p>
-
-<p>unicode61 토크나이저는 대소문자를 통합하고 문장 부호를 기준으로 단어를 나눕니다.</p>
-
-<p>결과로 [the, best, café, in, seoul, is, near, city, hall]이 생성됩니다.</p>
-
-<p><strong>발음 기호 제거</strong></p>
-
-<p>remove_diacritics 옵션은 발음 기호를 제거합니다. café -&gt; cafe</p>
-
-<p>결과로 [the, best, cafe, in, seoul, is, near, city, hall]이 생성됩니다.</p>
-
-<p><strong>접두어 인덱스 생성</strong></p>
-
-<p>단어의 앞부분만으로도 빠르게 검색할 수 있도록 접두어 인덱스(prefix index)를 만듭니다.</p>
-
-<p>위에서 prefix 뒤에 붙은 ‘1 2 3’의 의미는 한 글자, 두 글자, 세 글자짜리 접두어에 대한 인덱스를 미리 만들어두겠다는 뜻입니다.</p>
-
-<p>예를 들어, apple이라는 단어가 있다면 a, ap, app에 대한 인덱스가 생성됩니다. 덕분에 사용자가 ‘app’까지만 입력해도 apple을 매우 빠르게 찾아낼 수 있습니다. 자동완성과 동일한 기능이라고 볼 수 있습니다.</p>
-
-<h3 id="예시-2-한글-텍스트-토큰-분해-과정">예시 2. 한글 텍스트 토큰 분해 과정</h3>
-
-<p><strong>원본 텍스트 저장</strong></p>
-
-<p>“최고의 서울 야경 투어!”라는 원본 텍스트가 있습니다. 이 텍스트 또한 <code class="language-plaintext highlighter-rouge">text</code> 컬럼에 저장됩니다.</p>
-
-<p><strong>토큰화 과정</strong></p>
-
-<p>여기서 중요한 점이 있습니다. <strong><code class="language-plaintext highlighter-rouge">unicode61</code> 토크나이저는 한글의 형태소(명사, 조사 등)를 분석하는 기능이 없기 때문에, 공백과 문장 부호를 기준으로만 단어를 나눕니다.</strong></p>
-
-<p>그러므로 최종 생성 토큰은 [최고의, 서울, 야경, 투어]가 됩니다.</p>
-
-<p>이때 사용자가 ‘최고’라고 검색하면 어떻게 될까요? 토큰으로 저장된 결과는 ‘최고의’뿐이므로, ‘최고’라는 토큰을 찾을 수 없게 됩니다. 이것이 <code class="language-plaintext highlighter-rouge">unicode61</code> 토크나이저를 한글에 사용할 때의 한계점입니다.
-그래서 일반적으로 더 정확한 한글 검색을 위해서는 별도의 한글 형태소 분석기를 FTS에 연동합니다.</p>
-
-<p>그렇다면 궁금한 점이 생깁니다. 위에서 prefix해서 인덱스를 추가로 생성할 수 있다고 했는데, 그러면 ‘최고의’ 토큰은 [‘최’, ‘최고’, ‘최고의’] 인덱스를 가지게 되니까 ‘최고’를 검색할 때도 ‘최고의’를 찾을 수 있게 되는 거 아닌가?</p>
-
-<p>결론부터 말씀드리면, 아쉽게도 그렇게 동작하지 않습니다.</p>
-
-<p>이유를 명확히 이해하려면 <strong>토큰화(Tokenization)</strong>와 <strong>접두어 인덱싱(Prefix Indexing)</strong>의 역할을 정확하게 이해해야 합니다.</p>
-
-<p>FTS에서 가장 먼저 일어나는 일은 입력된 텍스트에서 ‘단어(토큰)’가 무엇인지 정의하는 것입니다.</p>
-
-<p>위에서 <code class="language-plaintext highlighter-rouge">unicode61</code>은 공백을 기준으로 단어를 나누므로, FTS는 이 텍스트에 최고의, 서울, 야경 이라는 3개의 단어(토큰)만 존재한다고 인식하고 저장합니다. 이 시점에서 FTS의 ‘단어 사전’에는 최고의라는 단어는 있지만, 최고라는 단어는 존재하지 않습니다. 토크나이저가 그렇게 정의했기 때문입니다.</p>
-
-<p>이 다음에 진행되는 prefix (접두어 인덱싱)은 “결정된 단어를 빨리 찾기 위한 ‘색인’ 추가”의 역할을 합니다. 중요한 점은 <strong>‘생성된 색인이 토큰이 되지는 않는다’</strong>는 것입니다. 특정 토큰으로 이동할 수 있는 지름길을 만드는 것이지, 이미 만들어진 토큰을 글자수 단위로 더욱 세밀하게 쪼개서 토큰으로 생성하라는 의미가 아닙니다.</p>
-
-<ul>
-  <li>최고의라는 토큰에 대해: [최 -&gt; 최고의], [최고 -&gt; 최고의]로 가는 지름길을 만듭니다.</li>
-  <li>서울이라는 토큰에 대해: [서 -&gt; 서울], [서울 -&gt; 서울]로 가는 지름길을 만듭니다.</li>
-  <li>야경이라는 토큰에 대해: [야 -&gt; 야경], [야경 -&gt; 야경]로 가는 지름길을 만듭니다.</li>
-</ul>
-
-<p>그러므로 최나 최고가 독립적인 단어로 사전에 추가되는 것이 아니라, 오직 ‘최고의’라는 원본 단어를 더 빨리 찾기 위한 ‘색인’ 또는 ‘포인터’의 역할만 하게 됩니다.</p>
-
-<h3 id="검색-시-어떻게-동작하는가">검색 시 어떻게 동작하는가?</h3>
-
-<p>한글 텍스트를 기준으로 사용자가 검색을 시도하였을 때 어떻게 동작하는지 알아보겠습니다.</p>
-
-<p><strong>CASE 1: … <code class="language-plaintext highlighter-rouge">MATCH '최고'</code> 라고 검색한 경우</strong></p>
-
-<p>FTS는 단어 사전에서 최고라는 토큰이 완벽하게 일치하는 항목이 있는지 먼저 찾습니다. 하지만 단어 사전에는 ‘최고의’만 있을 뿐 ‘최고’라는 단어는 없습니다.</p>
-
-<p>이때 접두어 인덱스는 사용되지 않는데요, 오직 <code class="language-plaintext highlighter-rouge">*</code> 와 함께 사용될 때만 접두어 인덱스는 활성화됩니다.</p>
-
-<p>그러므로 결과적으로 문서를 찾지 못합니다.</p>
-
-<p><strong>CASE 2: … <code class="language-plaintext highlighter-rouge">MATCH '최고*'</code> 라고 검색한 경우</strong></p>
-
-<p>FTS는 검색어 끝에 <code class="language-plaintext highlighter-rouge">*</code>가 붙은 것을 보고, 접두어 인덱스를 활용한 검색을 수행합니다. 접두어 인덱스를 확인한 결과, ‘최고’라는 단어가 ‘최고의’ 토큰을 가리키는 지름길로 등록되어있음을 확인합니다.</p>
-
-<p>이 지름길이 가리키는 ‘최고의’ 토큰이 포함된 문서를 찾아 성공적으로 반환합니다.</p>
-
-<h2 id="fts의-장점">FTS의 장점</h2>
-
-<p>일반적으로 사용되는 <code class="language-plaintext highlighter-rouge">WHERE content LIKE '%검색어%'</code> 방식과 FTS 방식을 간단하게 비교해보면, FTS 방식이 훨씬 빠르고 효율적이라는 것을 알 수 있습니다.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>구분</th>
-      <th>FTS (MATCH)</th>
-      <th>일반 검색 (LIKE)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>속도</td>
-      <td>매우 빠름. 미리 만들어 둔 인덱스를 사용해 검색하기 때문에 데이터가 수십만 건이 되어도 성능 저하가 거의 없습니다.</td>
-      <td>매우 느림. 테이블의 모든 데이터를 하나씩 처음부터 끝까지 다 읽어서 비교(Table Full Scan)하기 때문에 데이터가 많아지면 속도가 급격히 느려집니다.</td>
-    </tr>
-    <tr>
-      <td>정확도/기능</td>
-      <td>- 단어(토큰) 단위로 검색하여 더 정확합니다.<br />- AND, OR, NOT 등 논리 연산이 가능합니다.<br />- “서울 야경”처럼 여러 단어가 가까이 있는 문서를 찾는 NEAR 검색도 가능합니다.<br />- 검색 결과의 관련도 순으로 정렬(rank)할 수 있습니다.</td>
-      <td>- 단순히 문자열 포함 여부만 체크합니다.<br />- 복잡한 조건의 검색이 어렵습니다.</td>
-    </tr>
-  </tbody>
-</table>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[FTS5는 SQLite 데이터베이스에서 바로 이 '전문 검색' 기능을 사용할 수 있도록 해주는 강력한 확장 기능(extension)입니다. 'FTS'는 Full-Text Search의 약자입니다.]]></summary></entry></feed>
+<p>추가로 이번 과제를 통해 ‘일반 사용자들이 생각하고 구현하고자 하는 서비스는 거의 AI를 이용해서 만들어낼 수 있겠다’는 생각이 들었습니다. 복잡한 시스템인 경우에는 좀더 시도해봐야겠지만, 왠만한 기능 구현은 AI를 이용해서 할 수 있었습니다. 다만, 많은 사람들이 이야기하는 ‘바이브코딩에 대한 현실의 자각’은 필요한 것으로 보였습니다. IT에 대해 지식이 전혀 없거나, 혹은 지식이 부족한 사람들의 경우에는 아무리 AI가 서비스를 만들어준다 하더라도 이걸 확인하는 것이 어려울 것 같았습니다. 결국 ‘제대로 일하고 있는지 검토하는 능력’이 확실히 필요해보였습니다. 하나의 기술에 대한 깊은 이해도를 가진 사람이 되는것이 예전에는 중요했다면, 지금은 내가 개발하고자 하는 서비스에 필요한 기능을 빠르게 선택하고 새로운 기능을 빠르게 이해해서 AI에게 다양한 선택지와 정보를 풍부하게 제공할 수 있는 사람이 되는것이 중요한 시대가 되어가고 있다 생각했습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[프론트엔드에 대해 전혀 모르는 백엔드 개발자가 AI만 사용해서 매우 작은 AMM 기반 dApp을 개발해보는 과정을 정리했습니다. 이 모든 과정은 Hell-Month라고 하는 단기 프로젝트에서 진행하였습니다.]]></summary></entry><entry><title type="html">개발자라면 이 책을 꼭 읽어보세요</title><link href="http://localhost:4000/2025/09/15/tobe-good-developer/" rel="alternate" type="text/html" title="개발자라면 이 책을 꼭 읽어보세요" /><published>2025-09-15T00:00:00+09:00</published><updated>2025-09-15T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/15/%08tobe-good-developer</id><content type="html" xml:base="http://localhost:4000/2025/09/15/tobe-good-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/24">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[대부분의 개발 서적이 기술에 대해 이야기할 때, 이 책은 좋은 개발자가 되기 위한 태도, 습관, 그리고 일하는 방식에 대해 이야기합니다. 이 책의 핵심 내용을 요약하고 공유합니다.]]></summary></entry><entry><title type="html">스테이블코인에 대한 개인적인 생각</title><link href="http://localhost:4000/2025/09/12/thoughts-stable-coin/" rel="alternate" type="text/html" title="스테이블코인에 대한 개인적인 생각" /><published>2025-09-12T00:00:00+09:00</published><updated>2025-09-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/12/thoughts-stable-coin</id><content type="html" xml:base="http://localhost:4000/2025/09/12/thoughts-stable-coin/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/23">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="crypto" /><summary type="html"><![CDATA[CBDC, 토큰증권을 개발한 블록체인 개발자로서 스테이블코인을 바라보는 개인적인 생각을 정리했습니다.]]></summary></entry><entry><title type="html">컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법</title><link href="http://localhost:4000/2025/08/14/context-engineering/" rel="alternate" type="text/html" title="컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법" /><published>2025-08-14T00:00:00+09:00</published><updated>2025-08-14T00:00:00+09:00</updated><id>http://localhost:4000/2025/08/14/context-engineering</id><content type="html" xml:base="http://localhost:4000/2025/08/14/context-engineering/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/22">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[AI의 이해 능력과 생성 능력 사이의 비대칭성을 설명하고, '프롬프트 엔지니어링'을 넘어 AI의 잠재력을 최대한 활용하기 위한 '컨텍스트 엔지니어링'의 개념, 핵심 단계(검색, 처리, 관리), 그리고 이를 바탕으로 한 최적의 AI 활용 방법을 제시합니다.]]></summary></entry></feed>

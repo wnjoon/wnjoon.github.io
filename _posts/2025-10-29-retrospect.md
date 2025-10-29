@@ -4,7 +4,7 @@ title:  "회고록:10월"
 description: "10월에는 한국 고유의 명절 추석으로 인해 자그마치 10일간의 휴일이 있었다. 그래서 그런가, 10월은 너무 빠르게 지나갔다. 내가 무엇을 했는지 기억하지도 못할정도로."
 categories: essay 
 draft: false
-keywords: "회고록, retrospect, Shared Office, 공유오피스, 파이브스팟, 고스트"
+keywords: "회고록, retrospect, Shared Office, 공유오피스, 파이브스팟, 고스트 오브 요테이"
 comments: true
 schema:
   "@context": "https://schema.org"
@@ -15,7 +15,7 @@ schema:
   "author":
     "@type": "Person"
     "name": "xonxoon"
-  "datePublished": "2025-10-30"
+  "datePublished": "2025-10-29"
 ---
 
 ## 추석
