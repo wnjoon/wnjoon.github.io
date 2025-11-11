@@ -3,6 +3,7 @@ layout: post
 title:  "스테이블코인에 대한 개인적인 생각"
 description: "CBDC, 토큰증권을 개발한 블록체인 개발자로서 스테이블코인을 바라보는 개인적인 생각을 정리했습니다."
 categories: crypto
+lang: ko
 draft: false
 # tags: [blockchain, stablecoin, CBDC, STO]
 keywords: CBDC, 토큰증권, 스테이블코인, 블록체인, RWA, 원화 스테이블코인

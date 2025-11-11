@@ -4,6 +4,7 @@ title:  "vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with 
 description: "한국인들이 vim을 사용할때 자주 겪는 어려움 중 하나는 한글로 주석을 작성하다가 mode를 바꾸면 한글이 계속 인식되어 있어서 한영전환을 한번 더 해줘야 한다는 것이다. 이게 생각보다 생산성을 엄청나게 저하시키는데, 많은 곳에서 hammerspoon을 사용해서 이를 해결하고 있어서 이를 공유한다."
 categories: dev
 draft: false
+lang: ko
 keywords: "vim, hammerspoon, auto lang update"
 comments: true
 # external_url: https://brunch.co.kr/@wallee/25"

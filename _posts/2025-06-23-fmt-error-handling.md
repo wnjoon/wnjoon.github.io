@@ -3,6 +3,7 @@ layout: post
 title:  "Go 에러 처리: fmt.Errorf는 언제, 어떻게 사용해야 할까요?"
 description: "Go 언어에서 fmt.Errorf를 올바르게 사용하는 방법을 알아봅니다. 모든 에러를 fmt.Errorf로 감싸는 것이 왜 안티 패턴인지, 재시도 로직과 에러 래핑(wrapping)의 모범 사례를 실제 코드를 통해 명확히 설명합니다."
 categories: dev
+lang: ko
 # tags: [ethereum, solidity, smartcontract]
 keywords: go, error, fmt.Errorf, error handling, error wrapping, backoff, idiomatic go
 comments: true

@@ -4,6 +4,7 @@ title:  "Understanding Reentrancy Attacks in Smart Contracts"
 description: A reentrancy attack occurs when an external malicious contract repeatedly calls a vulnerable contract’s function before the previous execution is completed.
 # date:   2022-10-26 15:00:00 +0900
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity
 comments: true

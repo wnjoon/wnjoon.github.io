@@ -3,6 +3,7 @@ layout: post
 title:  "Understanding String Types in Rust and Go"
 description: "In this post, we compare how strings work in Rust and Go — especially in terms of mutability, memory handling, and how to modify them. If you’ve ever wondered why Rust has both &str and String, or why Go strings can’t be changed directly, this breakdown is for you."
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, string, go
 comments: true

@@ -4,6 +4,7 @@ title:  "바이브 코딩이란 단어는 적절하지 않다"
 description: "바이브 코딩이란 개발자가 생성형 인공지능의 도움을 받아 코드를 작성하는 행위를 일컫는 신조어로 프로그래밍을 할 때 사전에 엄밀한 논리나 설계를 바탕으로 하지 않고 직감과 느낌에 의존한다는 의미로 바이브 코딩이라는 이름이 붙었다. 바이브 코딩이라는 단어는 잘못되었다는 나의 생각을 공유하고싶다."
 categories: essay
 draft: false
+lang: ko
 keywords: "AI, 바이브 코딩, 생성형 인공지능, 개발자"
 comments: true
 external_url: https://brunch.co.kr/@wallee/25

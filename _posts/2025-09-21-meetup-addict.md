@@ -3,6 +3,7 @@ layout: post
 title:  "Meetup에 푹 절여진(?) 한주"                                                     
 description: "예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다."
 categories: dev
+lang: ko
 draft: false
 keywords: "Meetup, Blockchain, Web3, AI, Claude Code, AWS, AWSKRUG"
 comments: true

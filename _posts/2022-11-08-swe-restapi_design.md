@@ -4,6 +4,7 @@ title:  "How to make better REST API"
 description: "A well-designed REST API is crucial for modern applications. This guide covers 15 essential best practices for creating scalable, maintainable, and developer-friendly REST APIs."
 date: 2022-11-08 15:00:00 +0900
 categories: dev
+lang: en
 keywords: restapi, web, api design, best practices
 comments: true
 author: Wonjoon

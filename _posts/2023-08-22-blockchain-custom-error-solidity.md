@@ -5,6 +5,7 @@ title:  "Custom Errors in Solidity: A Gas-Efficient Alternative"
 description: By adopting custom errors, Solidity developers can write more efficient and scalable smart contracts, saving gas and improving contract execution.
 # date:   2023-08-22 15:00:00 +0900
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity
 comments: true

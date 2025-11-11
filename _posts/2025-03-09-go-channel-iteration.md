@@ -3,6 +3,7 @@ layout: post
 title:  "Understanding Channel Iteration in Go: for range vs. select vs. switch"
 description: "In Go, channels are a core feature for goroutine communication. This post explores and compares different methods—for range, select, and switch—to efficiently read from channels."
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: go, channel, iteration, for range, select, switch, goroutine
 comments: true

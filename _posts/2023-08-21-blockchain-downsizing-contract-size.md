@@ -5,6 +5,7 @@ title:  "How to Reduce Smart Contract Size"
 description: "EIP-170 introduced a smart contract size limit. Learn key strategies like modularization, using libraries, and optimizing code to reduce your contract's size and gas costs."
 # date:   2023-08-21 15:00:00 +0900
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity, contract size, EIP-170, gas optimization
 comments: true

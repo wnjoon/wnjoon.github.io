@@ -4,6 +4,7 @@ title: "Implementation of Multi-Party Matching Trade using Smart Contract"
 description: Blockchain-based multi-party matching could provide secure & transparent unlisted stock trading. However, challenges in speed and efficiency need to be addressed before full adoption in financial markets.
 # date:  2023-02-13 15:00:00 +0900
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, ethereum, smartcontract, solidity, securities
 comments: true

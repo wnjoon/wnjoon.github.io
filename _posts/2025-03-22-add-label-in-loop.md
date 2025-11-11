@@ -3,6 +3,7 @@ layout: post
 title:  "Expression Blocks vs Closures in Rust – What’s the Difference?"
 description: "In Rust, both expression blocks ({}) and closures (|| {}) can return values — but they serve different purposes. This post breaks down their differences, when to use each, and how they compare to Go’s func()."
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: rust, expression-block, closure
 comments: true

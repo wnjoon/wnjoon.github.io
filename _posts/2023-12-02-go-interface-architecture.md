@@ -4,6 +4,7 @@ author: wonjoon
 title:  "Importance of using interface while construct program and example of using go" 
 description: By designing software around interfaces, we minimize dependencies, improve collaboration, and build scalable, maintainable systems.
 categories: dev
+lang: en
 keywords: go, interface, design
 comments: true
 ---

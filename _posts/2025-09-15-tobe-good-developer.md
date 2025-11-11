@@ -4,6 +4,7 @@ title:  "개발자라면 이 책을 꼭 읽어보세요"
 description: "대부분의 개발 서적이 기술에 대해 이야기할 때, 이 책은 좋은 개발자가 되기 위한 태도, 습관, 그리고 일하는 방식에 대해 이야기합니다. 이 책의 핵심 내용을 요약하고 공유합니다."
 categories: essay
 draft: false
+lang: ko
 keywords: "개발자 자기계발, 딥워크, 생산성, 시니어 개발자, 습관, 번아웃, 성장 마인드셋, 책 추천"
 comments: true
 external_url: https://brunch.co.kr/@wallee/24

@@ -6,6 +6,7 @@ categories: essay
 keywords: "아이패드, 개발자 아이패드, 아이패드 활용, 아이패드 생산성, 코딩, 원격 데스크톱"
 comments: true
 author: Wonjoon
+lang: ko
 draft: false
 external_url: https://brunch.co.kr/@wallee/15
 schema:

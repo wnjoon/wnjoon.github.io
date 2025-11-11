@@ -3,6 +3,7 @@ layout: post
 title:  "defer in Go Doesn’t Always Reflect the Latest Value"
 description: "In Go, deferred functions capture arguments immediately, not when they actually run. Learn how to fix this common issue using closures or pointers to ensure your deferred calls use the latest variable values."
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: go, defer, closure, pointer, error handling
 comments: true

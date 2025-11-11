@@ -4,6 +4,7 @@ title:  "DOG: A New Gossip Protocol for CometBFT"
 description: "DOG (Dynamic Optimal Graph) is a new gossip protocol for CometBFT that reduces bandwidth consumption by optimizing transaction propagation paths and minimizing duplicate messages."
 # date:   2022-10-26 15:00:00 +0900
 categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: blockchain, cosmos-sdk, gossip, consensus algorithm, CometBFT, DOG protocol
 comments: true

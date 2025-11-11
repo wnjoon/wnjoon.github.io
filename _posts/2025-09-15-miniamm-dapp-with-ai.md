@@ -3,6 +3,7 @@ layout: post
 title:  "백엔드 개발자의 AI로 아주 작은 dApp 만들기"
 description: "프론트엔드에 대해 전혀 모르는 백엔드 개발자가 AI만 사용해서 매우 작은 AMM 기반 dApp을 개발해보는 과정을 정리했습니다. 이 모든 과정은 Hell-Month라고 하는 단기 프로젝트에서 진행하였습니다."
 categories: dev
+lang: ko
 draft: false
 # tags: [blockchain, stablecoin, CBDC, STO]
 keywords: Uniswap, AMM, dApp, AI, 프론트엔드 개발, gemini, claude, windsurf

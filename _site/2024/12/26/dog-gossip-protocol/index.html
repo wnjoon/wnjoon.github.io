@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko"><head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
@@ -7,7 +7,7 @@
 <meta name="generator" content="Jekyll v3.10.0" />
 <meta property="og:title" content="DOG: A New Gossip Protocol for CometBFT" />
 <meta name="author" content="Wonjoon" />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content="en" />
 <meta name="description" content="DOG (Dynamic Optimal Graph) is a new gossip protocol for CometBFT that reduces bandwidth consumption by optimizing transaction propagation paths and minimizing duplicate messages." />
 <meta property="og:description" content="DOG (Dynamic Optimal Graph) is a new gossip protocol for CometBFT that reduces bandwidth consumption by optimizing transaction propagation paths and minimizing duplicate messages." />
 <link rel="canonical" href="http://localhost:4000/2024/12/26/dog-gossip-protocol/" />
@@ -33,9 +33,13 @@
   
     <link rel="alternate" type="application/atom+xml" title="blog.wonjoon" href="http://localhost:4000/feed.xml" />
   
+  <script src="/assets/js/lang-filter.js"></script>
 </head><body a="white">
-    <div style="position: fixed; top: 1rem; right: 1.5rem; z-index: 100;">
-      <button id="theme-toggle" style="background: none; border: none; cursor: pointer; padding: 0; color: black;"></button>
+    <div style="position: fixed; top: 1rem; right: 1.5rem; z-index: 100; display: flex; gap: 1rem; align-items: center;"><div class="lang-switcher">
+  <button class="lang-btn" data-lang="ko" title="한국어">🇰🇷</button>
+  <button class="lang-btn" data-lang="en" title="English">🇺🇸</button>
+</div>
+<button id="theme-toggle" style="background: none; border: none; cursor: pointer; padding: 0; color: black;"></button>
     </div>
     <main class="page-content" aria-label="Content">
       <div class="w">

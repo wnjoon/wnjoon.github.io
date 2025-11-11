@@ -2,7 +2,8 @@
 <html lang="{{ page.lang | default: "ko" }}">
   {%- include head.html -%}
   <body a="{{ site.theme_config.appearance | default: "auto" }}">
-    <div style="position: fixed; top: 1rem; right: 1.5rem; z-index: 100;">
+    <div style="position: fixed; top: 1rem; right: 1.5rem; z-index: 100; display: flex; gap: 1rem; align-items: center;">
+      {%- include lang_switcher.html -%}
       <button id="theme-toggle" style="background: none; border: none; cursor: pointer; padding: 0; color: black;"></button>
     </div>
     <main class="page-content" aria-label="Content">

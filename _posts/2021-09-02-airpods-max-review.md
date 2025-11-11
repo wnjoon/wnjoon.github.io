@@ -6,6 +6,7 @@ categories: essay
 keywords: "에어팟 맥스, 에어팟 맥스 후기, 헤드폰, 노이즈 캔슬링, 애플, AirPods Max"
 comments: true
 author: Wonjoon
+lang: ko
 draft: false
 external_url: https://brunch.co.kr/@wallee/17
 schema:

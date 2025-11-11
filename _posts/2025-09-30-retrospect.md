@@ -4,6 +4,7 @@ title:  "회고록:9월"
 description: "2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다."
 categories: essay 
 draft: false
+lang: ko
 keywords: "회고록, retrospect, Meetup, Stablecoin, future consideration, AI, Claude Code, AWS, AWSKRUG"
 comments: true
 schema:

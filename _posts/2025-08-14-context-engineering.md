@@ -3,6 +3,7 @@ layout: post
 title:  "컨텍스트 엔지니어링: AI를 효과적으로 사용하는 방법"
 description: "AI의 이해 능력과 생성 능력 사이의 비대칭성을 설명하고, '프롬프트 엔지니어링'을 넘어 AI의 잠재력을 최대한 활용하기 위한 '컨텍스트 엔지니어링'의 개념, 핵심 단계(검색, 처리, 관리), 그리고 이를 바탕으로 한 최적의 AI 활용 방법을 제시합니다."
 categories: dev
+lang: ko
 draft: false
 # tags: [ethereum, solidity, smartcontract]
 keywords: 컨텍스트 엔지니어링, 프롬프트 엔지니어링, AI, 인공지능, LLM, 대규모 언어 모델, RAG, 검색 증강 생성, AI 활용법, Context Engineering

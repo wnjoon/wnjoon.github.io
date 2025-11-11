@@ -4,9 +4,9 @@ title:  "Claude Code를 활용한 vim cheatsheet vscode extension 개발기"
 description: "HHKB 배열의 키보드는 구매했는데, 모르는 단축어가 나올때마다 웹사이트를 찾는것이 너무 귀찮아서 vim을 설치했다 지웠다만 수없이 반복했습니다. 차라리 vscode에서 단축어를 바로바로 알려줄수만 있으면 좋겠다고 생각해서, claude code를 사용해서 vscode extension을 만들어본 경험을 공유합니다."
 categories: dev
 draft: false
+lang: ko
 keywords: "AI, Claude Code, vim cheatsheet, vscode extension"
 comments: true
-# external_url: https://brunch.co.kr/@wallee/25"
 schema:
   "@context": "https://schema.org"
   "@type": "BlogPosting"
@@ -20,7 +20,7 @@ schema:
   "datePublished": "2025-09-17"
   "mainEntityOfPage":
     "@type": "WebPage"
-    "@id": "여기에-블로그-포스트의-전체-URL을-입력하세요"
+    "@id": "https://wnjoon.github.io/2025/09/17/vim-vscode-extenstion/"
   "mainEntity": 
     "@type": "FAQPage"
     "mainEntity":

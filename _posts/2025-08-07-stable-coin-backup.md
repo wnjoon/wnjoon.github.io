@@ -3,6 +3,7 @@ layout: post
 title:  "스테이블코인의 현주소: 시장의 구성과 주요 플레이어"
 description: "2025년 기준, 스테이블코인의 정의와 1달러 가치를 유지하는 차익거래 원리, 시장 발전 과정, USDT·USDC 등 주요 플레이어 분석 및 미래 전망을 다룹니다."
 categories: crypto
+lang: ko
 draft: true
 # tags: [ethereum, solidity, smartcontract]
 keywords: stablecoin, crypto, stablecoin market, stablecoin trends, stablecoin impact, stablecoin future, 스테이블코인, 암호화폐, USDT, USDC, PYUSD, MiCA, 스테이블코인 규제, 스테이블코인 원리, 차익거래, RWA

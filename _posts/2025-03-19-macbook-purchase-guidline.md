@@ -2,7 +2,8 @@
 layout: post
 title:  "Should You Really Get a MacBook?"
 description: "Just because it’s expensive doesn’t mean it’s the right choice — and a MacBook might not be the answer for everyone. This post explores whether a MacBook truly fits your needs, budget, and lifestyle — especially if you’re a student or aspiring developer."
-categories: essay
+categories: dev
+lang: en
 # tags: [ethereum, solidity, smartcontract]
 keywords: macbook, purchase, guide, student, developer
 comments: true

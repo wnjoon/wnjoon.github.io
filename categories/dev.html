@@ -15,7 +15,7 @@ title: "Posts in 'dev' category"
 {%- if filtered_posts.size > 0 -%}
   <ul>
     {%- for post in filtered_posts -%}
-      <li>
+      <li class="post-item" data-lang="{{ post.lang | default: 'ko' }}">
         <span>{{ post.date | date: "%Y-%m" }}</span>&nbsp;
         {%- if post.external_url -%}<a href="{{ post.external_url }}" target="_blank">{{ post.title | downcase }}</a>{%- else -%}<a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- endif -%}
       </li>

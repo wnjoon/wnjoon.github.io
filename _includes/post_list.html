@@ -15,8 +15,8 @@
 
 {%- if filtered_posts.size > 0 -%}
   <ul>
-    {%- for post in filtered_posts limit: include.limit -%}
-        <li>
+    {%- for post in filtered_posts -%}
+        <li class="post-item" data-lang="{{ post.lang | default: 'ko' }}" data-index="{{ forloop.index }}">
           <!-- <span>{{- post.date | date: site.theme_config.date_format -}}</span> -->
           {%- if post.external_url -%}
             <a href="{{ post.external_url }}" target="_blank">{{ post.title | downcase }}</a>
@@ -25,8 +25,10 @@
           {%- endif -%}
         </li>
     {%- endfor -%}
-    {%- if include.show_more and limit_exceeded -%}
-      <li><a href="{{ include.show_more_url }}">{{ include.show_more_text | default: "Show more..." }}</a></li>
-    {%- endif -%}
   </ul>
+  {%- if include.show_more and include.show_more_url -%}
+    <div class="show-more-container">
+      <a href="{{ include.show_more_url }}" class="show-more-link">{{ include.show_more_text | default: "Show more..." }}</a>
+    </div>
+  {%- endif -%}
 {%- endif -%}
