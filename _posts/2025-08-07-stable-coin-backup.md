@@ -1,189 +1,188 @@
 ---
 layout: post
-title:  "스테이블코인의 현주소: 시장의 구성과 주요 플레이어"
-description: "2025년 기준, 스테이블코인의 정의와 1달러 가치를 유지하는 차익거래 원리, 시장 발전 과정, USDT·USDC 등 주요 플레이어 분석 및 미래 전망을 다룹니다."
+title:  "The Current State of Stablecoins: Market Structure and Key Players"
+description: "As of 2025, this post covers the definition of stablecoins, the arbitrage principle that maintains their $1 value, the market's development process, analysis of major players like USDT and USDC, and future prospects."
 categories: crypto
-lang: ko
-draft: true
-# tags: [ethereum, solidity, smartcontract]
-keywords: stablecoin, crypto, stablecoin market, stablecoin trends, stablecoin impact, stablecoin future, 스테이블코인, 암호화폐, USDT, USDC, PYUSD, MiCA, 스테이블코인 규제, 스테이블코인 원리, 차익거래, RWA
+lang: en
+draft: false
+keywords: stablecoin, crypto, stablecoin market, stablecoin trends, stablecoin impact, stablecoin future, MiCA, stablecoin regulation, stablecoin principles, arbitrage, RWA
 comments: true
 schema:
   '@context': https://schema.org
   '@type': Article
-  headline: "스테이블코인의 현주소: 시장의 구성과 주요 플레이어"
-  description: "2025년 기준, 스테이블코인의 정의와 1달러 가치를 유지하는 차익거래 원리, 시장 발전 과정, USDT·USDC 등 주요 플레이어 분석 및 미래 전망을 다룹니다."
-  keywords: "stablecoin, crypto, stablecoin market, stablecoin trends, stablecoin impact, stablecoin future, 스테이블코인, 암호화폐, USDT, USDC, PYUSD, MiCA, 스테이블코인 규제, 스테이블코인 원리, 차익거래, RWA"
+  headline: "The Current State of Stablecoins: Market Structure and Key Players"
+  description: "As of 2025, this post covers the definition of stablecoins, the arbitrage principle that maintains their $1 value, the market's development process, analysis of major players like USDT and USDC, and future prospects."
+  keywords: "stablecoin, crypto, stablecoin market, stablecoin trends, stablecoin impact, stablecoin future, USDT, USDC, PYUSD, MiCA, stablecoin regulation, stablecoin principles, arbitrage, RWA"
   mainEntity:
     '@type': FAQPage
     mainEntity:
       - '@type': Question
-        name: "Q1: 스테이블코인은 어떻게 시장 변동에도 1달러 가치를 유지할 수 있나요?"
+        name: "Q1: How do stablecoins maintain their $1 value despite market volatility?"
         acceptedAnswer:
           '@type': Answer
-          text: "발행사와 지정된 차익거래자 간의 '차익거래' 메커니즘을 통해 유지됩니다. 시장 가격이 1달러보다 높으면 차익거래자가 코인을 발행해 팔면서 공급을 늘려 가격을 낮추고, 1달러보다 낮으면 시장에서 코인을 사들여 상환하면서 공급을 줄여 가격을 높이는 자동 조절 원리가 작동합니다."
+          text: "They maintain their value through an 'arbitrage' mechanism between the issuer and designated arbitrageurs. If the market price goes above $1, arbitrageurs issue new coins to sell, increasing supply and lowering the price. If it falls below $1, they buy coins from the market and redeem them, reducing supply and raising the price. This self-regulating principle is at work."
       - '@type': Question
-        name: "Q2: 시장 1, 2위인 USDT와 USDC의 가장 큰 차이점은 무엇인가요?"
+        name: "Q2: What is the biggest difference between the top two players, USDT and USDC?"
         acceptedAnswer:
           '@type': Answer
-          text: "USDT(테더)는 가장 먼저 시장에 진입하여 압도적인 유동성과 사용자 수를 확보한 것이 강점이지만, 규제 투명성 면에서 종종 의문이 제기됩니다. 반면 USDC(서클)는 규제를 적극적으로 준수하고 준비금을 투명하게 공개하는 '신뢰' 전략을 통해 기관 및 제도권 시장을 중심으로 빠르게 성장하고 있습니다."
+          text: "USDT (Tether) has the advantage of being the first to market, securing overwhelming liquidity and user numbers, but its regulatory transparency is often questioned. In contrast, USDC (Circle) is growing rapidly, especially in institutional and regulated markets, through a 'trust' strategy of actively complying with regulations and transparently disclosing its reserves."
       - '@type': Question
-        name: "Q3: 미국과 유럽의 스테이블코인 규제는 시장에 어떤 영향을 미치고 있나요?"
+        name: "Q3: How are US and European stablecoin regulations affecting the market?"
         acceptedAnswer:
           '@type': Answer
-          text: "규제는 시장을 '규제 준수 코인(예: USDC)'과 '비준수 코인(예: USDT)'으로 나누는 분화 효과를 낳고 있습니다. 또한, 감사 및 투명성 확보에 드는 비용이 증가하면서 신규 사업자의 진입 장벽이 높아지고, 자본력이 풍부한 대형 발행사에게 유리한 환경이 조성되고 있습니다."
+          text: "Regulation is having a divergent effect, dividing the market into 'compliant coins' (e.g., USDC) and 'non-compliant coins' (e.g., USDT). Additionally, the rising costs of audits and ensuring transparency are increasing the entry barriers for new operators, creating an environment that favors large, well-capitalized issuers."
 ---
 
-최근 금융 및 기술 분야에서 '스테이블코인(StableCoin)'이라는 용어가 자주 언급되고 있습니다. 글을 작성하는 시점인 2025년 8월, 카카오는 그룹차원에서 스테이블코인을 위한 TF를 구성([뉴스](https://www.mk.co.kr/news/stock/11386047))했고, 뒤에서 다룰 글로벌 양대 스테이블코인 발행사 중 하나인 Circle는 대한민국 방문을 계획([뉴스](https://www.sedaily.com/NewsView/2GWIS82LOS))하고 있습니다. 
+Recently, the term 'Stablecoin' has been frequently mentioned in the financial and technology sectors. As of August 2025, when this article is being written, Kakao has formed a group-level task force for stablecoins ([News](https://www.mk.co.kr/news/stock/11386047)), and Circle, one of the two major global stablecoin issuers we will discuss, is planning a visit to South Korea ([News](https://www.sedaily.com/NewsView/2GWIS82LOS)).
 
-그래서 2025년 7월 기준으로 스테이블코인에 대해 정리한 다양한 보고서들중에서 '규모가 큰 기관'에서 발행한 보고서가 무엇이 있는지 Perplexity에게 물어보았습니다.
+So, I asked Perplexity what reports issued by 'large institutions' have summarized stablecoins as of July 2025.
 
-| |기관‧발행처|보고서·글 제목 (발행일)|핵심 내용|
+| |Institution/Publisher|Report/Article Title (Publication Date)|Core Content|
 |---|---|---|---|
-|✔️|McKinsey & Company|The stable door opens: how tokenized cash enables next-gen payments (2025-07-21)|- 2025년이 스테이블코인 성장의 분기점이라 진단<br>- EU MiCA·영국 FSMA·美 GENIUS Act 등 글로벌 규제 총정리<br>- 지급결제·증권결제·자산토큰화 시나리오와 시장 규모 추정|
-|✔️|CertiK Skynet|2025년 상반기 스테이블코인 종합 보고서 (2025-07-23)|- 총 공급 2,500억달러·월 결제 1.4조달러 등 실측 데이터 제시<br>- 보안 사고·준비금 투명성·규제 리스크 분석|
-|✔️|Samsung Securities 리서치센터|스테이블코인 통화 패권 경쟁, 새로운 기회? (2025-06-13)|- 달러 패권 수호 vs 각국 통화주권 경쟁 구도 해석<br>- USDT·USDC 독점 구조 속 신규 프로젝트 전략 비교|
-| |TRM Labs|Stablecoins – Risks & Compliance Cheat-Sheet (2025-05-28)|- FATF Travel Rule·AML/KYC 체크리스트<br>- 온체인 포렌식 사례와 발행사 제재 위험|
-|✔️|Amberdata|Stablecoin Q1 2025: Insights on Trends & Regulation (2025-05-16)|- 분기별 발행/상환(issuance) 차트로 수요 분석<br>- Circle-ICE 제휴, FDUSD 디페깅 등 사건별 영향 평가|
-| |FXC Intelligence|State of Stablecoins in Cross-border Payments 2025 (2025-07-22)|- 송금·무역결제 수수료 절감 사례, 금융기관 인터뷰|
-|✔️|국제결제은행(BIS)|Stablecoins and Safe-Asset Pricing (요약 기사 2025-07-25)|- 안전자산 부족과 ‘코인런’ 시나리오 경고<br>- 스테이블코인 금리·레포시장 연계 가능성 제시|
+|✔️|McKinsey & Company|The stable door opens: how tokenized cash enables next-gen payments (2025-07-21)|- Diagnoses 2025 as an inflection point for stablecoin growth<br>- Comprehensive summary of global regulations: EU MiCA, UK FSMA, US GENIUS Act<br>- Scenarios and market size estimation for payments, securities settlement, and asset tokenization|
+|✔️|CertiK Skynet|H1 2025 Comprehensive Stablecoin Report (2025-07-23)|- Presents measured data: total supply $250B, monthly payment volume $1.4T<br>- Analysis of security incidents, reserve transparency, and regulatory risks|
+|✔️|Samsung Securities Research Center|Stablecoin Currency Hegemony Competition, a New Opportunity? (2025-06-13)|- Interprets the conflict: dollar hegemony defense vs. national currency sovereignty<br>- Compares strategies of new projects amidst the USDT/USDC duopoly|
+| |TRM Labs|Stablecoins – Risks & Compliance Cheat-Sheet (2025-05-28)|- FATF Travel Rule & AML/KYC checklists<br>- On-chain forensic cases and issuer sanction risks|
+|✔️|Amberdata|Stablecoin Q1 2025: Insights on Trends & Regulation (2025-05-16)|- Demand analysis with quarterly issuance/redemption charts<br>- Impact assessment of events: Circle-ICE partnership, FDUSD de-pegging|
+| |FXC Intelligence|State of Stablecoins in Cross-border Payments 2025 (2025-07-22)|- Case studies on remittance/trade settlement fee reductions, financial institution interviews|
+|✔️|Bank for International Settlements (BIS)|Stablecoins and Safe-Asset Pricing (Summary Article 2025-07-25)|- Warning on safe-asset shortage and 'coin run' scenarios<br>- Suggests potential links between stablecoins, interest rates, and the repo market|
 
-위의 내용 중 총 5개의 보고서를 추려서, NotebookLM을 이용해 전체적인 흐름과 내용을 정리해달라고 요청했습니다. 그리고 이 내용을 기반으로 글을 작성해보았습니다.
+From the list above, I selected five reports and asked NotebookLM to summarize the overall flow and content. I then wrote this article based on that summary.
 
-## 스테이블코인이란 무엇인가?
+## What is a Stablecoin?
 
-스테이블코인은 이름 그대로 **'가치가 안정적으로 유지되도록 설계된 디지털 자산'**을 의미합니다. 일반적으로 미국 달러 등 특정 법정화폐의 가치에 1:1로 연동(pegging)되는데, 쉽게 말하면 **1개의 스테이블코인이 항상 1달러의 가치를 유지**하도록 설계하는 것입니다.
+As the name suggests, a stablecoin is a **'digital asset designed to maintain a stable value.'** It is generally pegged 1:1 to the value of a specific fiat currency, such as the US dollar. In simple terms, it is designed so that **1 stablecoin always maintains a value of $1**.
 
-이점이 가격 변동성이 큰 다른 암호화폐와 스테이블코인이 구별되는 가장 큰 특징입니다. 이러한 가치 안정성은 보통 **발행된 코인의 수량만큼 실제 현금이나 미국 단기 국채(T-bill)와 같은 현금성 자산을 준비금으로 보유**함으로써 담보됩니다.
+This is the biggest feature that distinguishes stablecoins from other cryptocurrencies with high price volatility. This value stability is usually secured by **holding reserves of cash or cash equivalents, such as US Treasury bills (T-bills), equal to the amount of coins issued**.
 
-> 준비금이란, 기업이 미래의 불확실한 상황에 대비하여 미리 적립해두는 자금을 의미합니다. 기업의 안정성을 위해 법적으로 강제되는 법정준비근과 기업의 판단하에 자율적으로 하는 임의준비금으로 구분됩니다. 이러한 준비금은 자본의 보전, 배당 재원 제한 등 다양한 목적으로 사용됩니다. 
+> Reserves refer to funds set aside in advance by a company to prepare for future uncertain situations. They are divided into legal reserves, which are legally mandated for corporate stability, and voluntary reserves, which are at the-company's discretion. These reserves are used for various purposes, such as capital preservation and limiting dividend sources.
 
-사실 스테이블코인이 갑자기 등장한 것은 아닙니다. 가장 처음으로 스테이블코인이 등장한 것은 2014년으로, 미국 국채와 같이 안정적인 자산을 이용하여 변동성을 낮추고자 하는 목적으로 만들어졌습니다. 2025년 상반기 기준으로 스테이블코인의 전체 시장 규모는 약 **2,520억 달러(약 350조 원)**에 이르렀고, 월간 결제 및 전송량은 **1조 3,900억 달러(약 1,930조 원)**를 기록했습니다. 이 수치들은 스테이블코인이 디지털 자산 생태계 내에서 상당한 규모를 가진 하나의 분야로 자리 잡았음을 보여줍니다.
+In fact, stablecoins did not appear suddenly. The first stablecoin emerged in 2014, created with the aim of reducing volatility by using stable assets like US Treasury bonds. As of the first half of 2025, the total stablecoin market size has reached approximately **$252 billion (about 350 trillion KRW)**, with a monthly payment and transfer volume of **$1.39 trillion (about 1,930 trillion KRW)**. These figures show that stablecoins have established themselves as a significant sector within the digital asset ecosystem.
 
 
-### 어떻게 스테이블코인은 1:1 가치를 유지할 수 있을까?
+### How Can Stablecoins Maintain Their 1:1 Value?
 
-그렇다면 질문이 생깁니다. 사용자들이 코인을 사고팔 때 수요와 공급에 따라 가격이 변동할텐데, 어떻게 1달러 가치가 유지될 수 있는걸까요? 
+This raises a question. When users buy and sell coins, the price should fluctuate according to supply and demand, so how can the $1 value be maintained?
 
-스테이블코인은 **'차익거래(Arbitrage)'의 원리**로 1달러 가치를 유지할 수 있습니다. 시장의 가격이 1달러에서 벗어나면, 차익거래자들이 이익을 얻기 위해 개입하여 가격을 다시 1달러로 되돌려 놓는 과정에서 자연스럽게 1:1 가치가 유지됩니다. 
+Stablecoins maintain their $1 value through the principle of **'Arbitrage.'** When the market price deviates from $1, arbitrageurs intervene to make a profit, and in the process of restoring the price to $1, the 1:1 value is naturally maintained.
 
-먼저 차익거래의 원리를 설명하기 전에, 발행사, 차익거래자, 일반투자자에 대해 알아볼 필요가 있습니다.
+Before explaining the principle of arbitrage, it's necessary to understand the issuers, arbitrageurs, and general investors.
 
-**발행사**
+**Issuer**
 
-- 스테이블코인을 만들고(발행), 없애는(소각/상환) 주체입니다.
-- 예를 들어 USDT라는 스테이블코인을 만드는 테더사(Tether Limited)가 이에 해당합니다.
-- 발행사는 발행한 스테이블코인의 총량 이상으로 준비금을 보유하고 있어야 합니다. 이때 준비금은 실제 달러나 국채등의 현금성 자산으로 보유되어야 합니다. 이를 통해 스테이블코인의 가치를 1:1로 유지할 수 있습니다.
+- The entity that creates (issues) and destroys (burns/redeems) stablecoins.
+- For example, Tether Limited, which makes the stablecoin USDT, falls into this category.
+- The issuer must hold reserves greater than or equal to the total amount of stablecoins issued. These reserves must be held in actual dollars or cash equivalents like government bonds. This allows the value of the stablecoin to be maintained 1:1.
 
-**차익거래자**
+**Arbitrageur**
 
-- 스테이블코인의 시장 가격이 법정화폐(미국 달러 등)와 괴리가 생길 경우, 발행사와 거래하여 차익을 실현하고 가격을 안정시키는 주체입니다.
-- 차익거래자는 아무나 될 수 없습니다. KYC/AML등 엄격한 고객확인이 가능해야 하고, 발행사와 직접 계약을 체결해야 합니다.
-- 주로 대형 암호화폐 거래소(Binance, Kraken 등), 대규모 자금을 운용하는 암호화폐 펀드, 전문 트레이딩 회사등이 이에 해당합니다.
-- 예로 테더사는 발행 및 상환의 최소 단위를 10만달러(한화 약 1억 4천만원)로 설정하고 있습니다.
+- An entity that profits by trading with the issuer when a gap (disparity) occurs between the stablecoin's market price and the fiat currency (e.g., US dollar), thereby stabilizing the price.
+- Not just anyone can be an arbitrageur. They must be able to pass strict customer verification (KYC/AML) and must have a direct contract with the issuer.
+- This typically includes large cryptocurrency exchanges (like Binance, Kraken), large crypto funds, and professional trading firms.
+- For example, Tether sets the minimum unit for issuance and redemption at $100,000 (about 140 million KRW).
 
-**일반투자자**
+**General Investor**
 
-- 암호화폐 거래소를 통해 시장가격에 따라 스테이블코인을 사고팝니다. 
-- 스테이블코인의 수요와 공급에 영향을 주기 때문에, 시장가격이 변동되는 원인이 됩니다.
+- Buys and sells stablecoins on cryptocurrency exchanges according to the market price.
+- They influence the supply and demand of stablecoins, which is the cause of market price fluctuations.
 
-그렇다면 차익거래가 어떻게 작동하는지 2가지 상황을 통해 살펴보겠습니다. 여기서는 USDT를 예시로 설명하겠습니다.
+Now, let's look at how arbitrage works in two situations. We'll use USDT as an example.
 
-**상황 1: 수요 증가로 가격이 1달러보다 높아질 때**
+**Situation 1: Price Rises Above $1 Due to Increased Demand**
 
-1. 시장에서 USDT 가격이 1.01달러가 되면, 차익거래자는 발행사에 1달러를 주고 1 USDT를 발행받습니다. (오른가격으로 발행하지 않습니다)
-2. 이 1 USDT를 시장에 즉시 팔아 1.01달러를 얻고, 0.01달러의 차익을 봅니다.
-3. 이 차익거래가 계속되면 시장에 USDT 공급이 늘어나면서 가격은 다시 1달러로 내려옵니다.
+1.  When the market price of USDT becomes $1.01, an arbitrageur gives $1 to the issuer and receives 1 USDT (it is not issued at the higher price).
+2.  They immediately sell this 1 USDT on the market for $1.01, making a profit of $0.01.
+3.  As this arbitrage continues, the supply of USDT in the market increases, and the price comes back down to $1.
 
-**상황 2: 공급 증가로 가격이 1달러보다 낮아질 때**
+**Situation 2: Price Falls Below $1 Due to Increased Supply**
 
-1. 시장에서 USDT 가격이 0.99달러로 떨어지면, 차익거래자는 시장에서 0.99달러로 1 USDT를 삽니다.
-2. 이 1 USDT를 발행사에 가져가 1달러로 상환받고, 0.01달러의 차익을 봅니다.
-3. 이 차익거래가 계속되면 시장의 USDT 수요가 늘어나면서 가격은 다시 1달러로 올라갑니다.
+1.  When the market price of USDT drops to $0.99, an arbitrageur buys 1 USDT from the market for $0.99.
+2.  They take this 1 USDT to the issuer and redeem it for $1, making a profit of $0.01.
+3.  As this arbitrage continues, the demand for USDT in the market increases, and the price goes back up to $1.
 
-이처럼 차익거래는 스테이블코인의 가격을 1달러라는 기준점에 묶어두는 '보이지 않는 손' 역할을 합니다. 물론 이 메커니즘은 **"발행사가 1:1 준비금을 잘 보유하고 있고, 언제든 교환해 줄 것이다"**라는 시장의 신뢰가 있을 때만 원활히 작동합니다.
+In this way, arbitrage acts as an 'invisible hand' that keeps the stablecoin's price pegged to the $1 benchmark. Of course, this mechanism only works smoothly when there is market trust that **"the issuer holds 1:1 reserves and will exchange them at any time."**
 
-## 스테이블코인 시장의 발전 과정
+## The Evolution of the Stablecoin Market
 
-### 2021~2023년: 시장 성장과 안정성 테스트
+### 2021-2023: Market Growth and Stability Tests
 
-이 시기 스테이블코인 시장은 암호화폐 시장 전반의 성장과 함께 규모가 커졌습니다. USDT와 USDC가 시장의 대부분을 점유하는 양강 구도가 형성되었죠. 한편, 2023년 3월 실리콘밸리 은행(SVB) 파산의 여파로 USDC의 1달러 페깅이 일시적으로 흔들리는 사건이 발생했습니다. 이는 스테이블코인의 안정성이 전적으로 발행사의 준비금 관리 능력에 달려있다는 점과 잠재적 리스크를 시장에 명확히 보여준 사례가 되었습니다.
+During this period, the stablecoin market grew in scale along with the overall growth of the cryptocurrency market. A duopoly structure formed, with USDT and USDC occupying most of the market. Meanwhile, in March 2023, in the aftermath of the Silicon Valley Bank (SVB) collapse, USDC's $1 peg was temporarily shaken. This event clearly demonstrated to the market that the stability of stablecoins depends entirely on the issuer's reserve management capabilities and highlighted potential risks.
 
-### 2024년: 거래 규모의 확대와 네트워크 확장
+### 2024: Expansion of Transaction Volume and Network
 
-2024년에는 스테이블코인의 연간 거래량이 27조 달러를 넘어서며 활용도가 크게 증가했습니다. 이 과정에서 사용자들은 거래 효율성(속도, 비용)을 중시하기 시작했고, 이더리움 외에 솔라나(Solana)와 같은 대체 블록체인 네트워크에서의 스테이블코인 거래량이 크게 늘어나는 등 네트워크의 확장이 뚜렷해졌습니다.
+In 2024, the annual transaction volume of stablecoins exceeded $27 trillion, indicating a significant increase in their utilization. In this process, users began to prioritize transaction efficiency (speed, cost), and stablecoin transaction volume on alternative blockchain networks like Solana, in addition to Ethereum, increased significantly, showing clear network expansion.
 
-### 2025년 상반기: 정책적 관심 증대와 시장 구도 변화
+### First Half of 2025: Increased Policy Interest and Market Structure Changes
 
-**미국의 정책 변화**
+**US Policy Changes**
 
-시장의 규모가 커지자 정책적 관심도 높아졌습니다. 1월 23일, 미국 대통령은 행정명령을 통해 민간이 발행하는 법정화폐 기반 스테이블코인을 지원하는 방향성을 제시했습니다. 
+As the market size grew, so did policy interest. On January 23, the US President issued an executive order setting a direction to support privately issued, fiat-backed stablecoins.
 
-이 행정명령은 중앙은행이 직접 발행하는 디지털화폐인 CBDC(Central Bank Digital Currency)에도 영향을 미쳤습니다. 2025년에는 하원의원 '톰 에머(Tom Emmer)'가 연준이 디지털 통화를 개발하거나 배포하는 것을 차단하는 법안을 발의했습니다. 이를 통해 CBDC 발행을 전면 금지하는 'Anti-CBDC Surveillance State Act'가 상·하원에서 동시 심의되고 있습니다. 결국 CBDC 개발을 중단하고 fiat-backed 스테이블코인 지원을 지시하는 등, 스테이블코인을 금융 시스템의 한 요소로 인식하기 시작했다는 정책적인 변화가 나타났습니다 ([뉴스](https://www.g-enews.com/article/Global-Biz/2025/07/202507041553356500906806b77b_1)). 
+This executive order also affected CBDC (Central Bank Digital Currency), which is a digital currency issued directly by the central bank. In 2025, Representative Tom Emmer introduced a bill to block the Federal Reserve from developing or deploying a digital currency. As a result, the 'Anti-CBDC Surveillance State Act,' which would completely ban CBDC issuance, is being deliberated in both the House and Senate. Ultimately, a policy shift has emerged, such as halting CBDC development and directing support for fiat-backed stablecoins, indicating that stablecoins are beginning to be recognized as an element of the financial system ([News](https://www.g-enews.com/article/Global-Biz/2025/07/202507041553356500906806b77b_1)).
 
-> fiat-backed: 스테이블코인이 법정화폐(fiat)를 담보로 한다는 의미입니다. 여기서 법정화폐는 미국달러와 같이 정부가 가치를 보증하고 발행하는 실제 돈을 의미합니다. USDT, USDC, PYUSD 등 대부분의 스테이블코인이 이에 해당합니다. 대부분의 스테이블코인은 미국 단기채권을 준비금으로 보유하고 있습니다. BIS 보고서에 따르면, 스테이블코인 순유입은 단기 국채(T-bill) 수익률을 하락시키는 경향이 있는데, 약 2표준편차(약 35억 달러)의 스테이블코인이 유입될 경우 3개월 만기 국채 수익률은 10일 이내에 약 2~2.5bp(베이시스 포인트) 하락시킵니다.
+> **fiat-backed**: This means the stablecoin is collateralized by fiat currency. Here, fiat currency refers to real money issued and guaranteed by a government, like the US dollar. Most stablecoins, including USDT, USDC, and PYUSD, fall into this category. Most stablecoins hold short-term US Treasury bonds as reserves. According to a BIS report, stablecoin net inflows tend to lower short-term T-bill yields. A stablecoin inflow of about 2 standard deviations (approx. $3.5 billion) lowers the 3-month T-bill yield by about 2-2.5 bp (basis points) within 10 days.
 
-**유럽의 MiCA 규제**
+**Europe's MiCA Regulation**
 
-MiCA(Markets in Crypto-Assets Regulation)는 유럽 연합이 암호화폐 시장의 투명성과 안정성을 높이고 투자자를 보호하기 위해 마련된 법률입니다. ([링크](https://kdaxa.org/support/report.php?mNum=3&sNum=2&boardid=data&mode=view&idx=202))
+MiCA (Markets in Crypto-Assets Regulation) is a law established by the European Union to increase transparency and stability in the crypto-asset market and to protect investors. ([Link](https://kdaxa.org/support/report.php?mNum=3&sNum=2&boardid=data&mode=view&idx=202))
 
-- 가상자산을 발행하는 사업자들은 백서를 의무적으로 발행해야 합니다.
-- 가상자산 서비스 제공업체들은 일정 수준 이상의 자본과 위험관리를 충족해야 합니다.
-- 가상자산 서비스 제공업체는 자금세탁방지 및 테러자금 조달 방지 등 내부 관리 체계를 구축해야 합니다.
-- 스테이블코인은 일반적으로 통용되는 가상자산과는 다르게 규제 대상이 됩니다.
+- Businesses issuing virtual assets must mandatorily publish a white paper.
+- Virtual asset service providers must meet certain levels of capital and risk management.
+- Virtual asset service providers must establish internal control systems for anti-money laundering and anti-terrorist financing.
+- Stablecoins are subject to different regulations than generally accepted virtual assets.
 
-실제로 2024년 6월 MiCA가 최초로 시행된 이후 2024년 12월 이 법의 완전한 시행이 이뤄졌을 때, 테더사는 MiCA 기준을 충족하지 못해 유럽 시장에서 철수하였습니다. 현재 테더사는 유럽 지역 협력사의 스테이블코인 발행을 지원하는 방식으로 유럽 시장에 진출하는 방향을 계획하고 있습니다. 
+In fact, after MiCA was first implemented in June 2024 and fully enforced in December 2024, Tether withdrew from the European market as it did not meet the MiCA standards. Currently, Tether plans to enter the European market by supporting the issuance of stablecoins by European partners.
 
-그 외에도 영국, 싱가포르, 홍콩, 일본 등도 스테이블코인 규제 프레임워크를 도입하거나 추진하고 있습니다.
+In addition, the UK, Singapore, Hong Kong, and Japan are also introducing or promoting stablecoin regulatory frameworks.
 
-**규제의 배경: 보안 리스크** 
+**Background of Regulation: Security Risks**
 
-이렇게 다양한 국가에서 높은 규제를 요구하는 이유는, 스테이블코인 시장에서 발생한 다양한 보안사고와 리스크 떄문입니다. 2025년 상반기에만 총 344건의 가상자산 보안 사고로 인해 약 24.7억 달러의 피해가 발생하였습니다. 이전에 보안 사고 원인의 높은 비율을 차지하던 스마트 컨트랙트 코드의 취약점보다는, 개인키 관리 실패, 유동성 풀의 논리적 결함 등 운영상 허점이 더 큰 비율을 차지했습니다. 예를 들어 Bybit에서 발생한 약 15억 달러의 피해나 Infin에서의 4,950만 달러의 손실 모두 해킹에서 비롯되었습니다. 또한 스테이블코인 보유자는 발행사 파산 시 법적으로 무담보 채권자로 취급될 수 있으며, 중앙은행이나 정부의 보호를 보장받지 못할 수 있다는 문제도 존재합니다.
+The reason for these high regulatory demands in various countries is the various security incidents and risks that have occurred in the stablecoin market. In the first half of 2025 alone, there were 344 virtual asset security incidents, resulting in approximately $2.47 billion in damages. Rather than vulnerabilities in smart contract code, which previously accounted for a high percentage of security incident causes, operational loopholes such as private key mismanagement and logical flaws in liquidity pools now account for a larger share. For example, the approximately $1.5 billion in damages at Bybit and the $49.5 million loss at Infin both stemmed from hacking. There is also the problem that stablecoin holders may be treated as legally unsecured creditors in the event of an issuer's bankruptcy and may not be guaranteed protection by the central bank or government.
 
-**규제가 시장에 미치는 영향**
+**The Impact of Regulation on the Market**
 
-하지만 이러한 규제가 시장에 미치는 영향은 생각보다 크고 복잡합니다. 먼저 규제 요건을 충족하는 '컴플라이언스 리더'와 규제를 회피하거나 충족하지 못하는 '비준수 잔류자' 간의 격차가 뚜렷해지고 있습니다. 심지어 USDT는 가장 먼저 시장에 진입한, 그리고 가장 큰 규모를 자랑하지만 반대로 MiCA 규제를 충족하지 못한 비준수 잔류자이기도 합니다. 
+However, the impact of these regulations on the market is larger and more complex than one might think. First, a clear gap is emerging between 'compliance leaders' who meet regulatory requirements and 'non-compliant laggards' who evade or fail to meet regulations. Even USDT, the first to market and the largest in scale, is also a non-compliant laggard that failed to meet MiCA regulations.
 
-또한 규제가 엄격해지면서, 보안 감사나 투명성 확보에 대한 기준이 높아졌습니다. 예로 USDC를 발행하는 써클(Circle)사는 연간 5,000만 달러를 투명성 확보를 위해 지출하고 있습니다. 이러한 영향은 발행사의 크기 또한 중요해지게 되는데요, 결국 대형 발행자에게 유리한 환경이 조성됩니다. 
+Furthermore, as regulations become stricter, standards for security audits and transparency have risen. For example, Circle, the issuer of USDC, spends $50 million annually to ensure transparency. This impact also makes the size of the issuer important; ultimately, an environment favorable to large issuers is being created.
 
-## 주요 스테이블코인과 시장 구도
+## Major Stablecoins and Market Structure
 
-2025년 기준으로, 스테이블코인 시장은 뚜렷한 특징을 가진 몇몇 주요 플레이어들이 경쟁하고 있습니다.
+As of 2025, the stablecoin market is a competitive landscape with several key players, each with distinct characteristics.
 
-**USDT (테더)**
+**USDT (Tether)**
 
-2025년 상반기 기준 유통량 약 1,540억 달러로, 시장에서 가장 큰 규모와 유동성을 차지하고 있습니다. 특히 수수료가 저렴한 트론(TRON) 네트워크에서 전체 공급량의 절반 이상이 유통되며 높은 거래 활성도를 보입니다. 
+With a circulating supply of approximately $154 billion as of the first half of 2025, it holds the largest market share and liquidity. In particular, it shows high transaction activity, with more than half of its total supply circulating on the TRON network, which has low fees.
 
-> 트론은 2017년 저스틴 선(Justin Sun)이 만든 블록체인 네트워크로, 거의 무료에 가까운 수수료와 초당 2,000건의 거래(2,000TPS)를 처리할 수 있을 정도로 빠른 속도를 제공합니다.
+> Tron is a blockchain network created by Justin Sun in 2017. It offers nearly free transaction fees and fast speeds, capable of processing 2,000 transactions per second (2,000 TPS).
 
-USDT는 가장 먼저 시장에 진입하여 많은 사용자를 보유하게 되었고, 이를 통해 안정적인 유동성을 확보하고 있습니다. 다만 과거부터 준비금 구성의 투명성과 관련하여 여러 논의가 있어왔고, 최근 MiCA를 충족하지 못해 유럽 시장에서 철수한 상태입니다. 앞으로 유럽 뿐만 아니라 전 세계 시장에서 점점 강화되고 있는 규제 환경에 어떻게 대응할 것인지가 중요한 상황입니다.
+USDT was the first to enter the market, acquiring many users and securing stable liquidity. However, it has faced various discussions regarding the transparency of its reserve composition since the past, and it recently withdrew from the European market for failing to meet MiCA. How it will respond to the increasingly strengthening regulatory environment not only in Europe but also worldwide is a critical issue.
 
-**USDC (써클)**
+**USDC (Circle)**
 
-2025년 상반기 기준 공급량 약 610억 달러로, USDT와 함께 시장에서 두 번째로 큰 규모를 차지하고 있습니다. 특히 써클사는 정기적인 회계 감사를 통해 준비금을 투명하게 공개하고, 미국 등 주요국의 규제 프레임워크를 적극적으로 준수하는 전략을 취합니다. 
+With a supply of approximately $61 billion as of the first half of 2025, it is the second-largest player in the market alongside USDT. Circle, in particular, employs a strategy of transparently disclosing its reserves through regular audits and actively complying with the regulatory frameworks of major countries like the US.
 
-2025년에는 성공적으로 기업공개(IPO)를 마쳤으며, 비자(Visa), 블랙록(BlackRock) 등 전통 금융 기업들과의 파트너십을 통해 제도권 시장으로의 확장을 모색하고 있습니다. 또한 MiCA의 규제 준수를 위해 프랑스에 별도 법인을 설립하고 새로운 발행구조를 도입하고 있습니다.
+In 2025, it successfully completed its IPO and is seeking to expand into the institutional market through partnerships with traditional financial companies like Visa and BlackRock. It is also establishing a separate corporation in France and introducing a new issuance structure to comply with MiCA regulations.
 
-**PYUSD (페이팔)**
+**PYUSD (PayPal)**
 
-2025년 상반기에 시가총액이 두 배 이상 증가하며 빠르게 점유율을 높이고 있습니다. 특히 글로벌 결제 플랫폼인 페이팔의 검증된 인프라와 약 4억명의 사용자를 이미 확보하고 있다는 큰 장점이 있습니다. 빠른 거래 속도를 위해 솔라나 네트워크를 도입하고, 보유자에게 연 3.7%의 보상을 제공하는 등 후발 주자로서 사용자 채택을 늘리기 위한 적극적인 전략을 펼치고 있습니다.
+Its market capitalization more than doubled in the first half of 2025, rapidly increasing its market share. Its significant advantages include PayPal's proven infrastructure and its existing user base of about 400 million. As a latecomer, it is pursuing aggressive strategies to increase user adoption, such as introducing the Solana network for fast transaction speeds and offering a 3.7% annual reward to holders.
 
-**DAI (메이커다오)**
+**DAI (MakerDAO)**
 
-특정 중앙화된 발행사 없이, 프로토콜에 의해 관리되는 '탈중앙화' 모델을 대표합니다. 최근에는 'USDS'로 리브랜딩하고 여러 블록체인으로 확장하는 등 발전을 모색하고 있습니다.
+Represents a 'decentralized' model managed by a protocol, without a specific centralized issuer. It is recently seeking development by rebranding to 'USDS' and expanding to multiple blockchains.
 
-**FDUSD (퍼스트 디지털 USD)**
+**FDUSD (First Digital USD)**
 
-2025년 3월, 시장의 루머로 디페깅 위기를 겪었으나, 발행사가 신속하게 준비금 내역을 공개하며 12시간 만에 가치를 회복했습니다. 이는 중앙화 스테이블코인의 위기관리 능력과 투명성의 중요성을 보여준 사례로 분석됩니다.
+In March 2025, it faced a de-pegging crisis due to market rumors but recovered its value within 12 hours after the issuer promptly disclosed its reserve details. This is analyzed as a case that demonstrated the crisis management capabilities and the importance of transparency for centralized stablecoins.
 
-## 미래 전망 및 시사점
+## Future Outlook and Implications
 
-최근에는 RWA를 담보로 발행하는 'RWA 담보형 스테이블코인'과 '수익 발생형 스테이블코인'이 스테이블코인 시장에서 성장하는 추세입니다. RWA(Real-World Asset) 토큰은 현실 세계에 존재하는 실물 자산을 블록체인 기술을 통해 디지털화한 것으로, 부동산, 미술품, 금, 채권, 저작권 등 우리가 현실에서 소유하고 거래하는 자산들의 소유권을 블록체인 상에 기록하여 토큰 형태로 만든 것을 의미합니다. 일부에서는 2025년 연말까지 이러한 형식의 스테이블코인이 전체 시장 규모의 8~10%를 차지할 것으로 예상하고 있습니다.
+Recently, 'RWA-backed stablecoins' issued with RWAs as collateral and 'yield-bearing stablecoins' are growing trends in the stablecoin market. RWA (Real-World Asset) tokens are real-world assets digitized through blockchain technology. This means ownership of assets we own and trade in reality—such as real estate, art, gold, bonds, and copyrights—is recorded on the blockchain in the form of tokens. Some predict that this type of stablecoin will account for 8-10% of the total market size by the end of 2025.
 
-또한 Société Générale, Santander, Bank of America 등 주요 은행 및 Visa, Stripe와 같은 결제 네트워크가 스테이블코인 파일럿 프로그램을 확대하고 있습니다. 이는 전통 금융 시스템과 스테이블코인의 통합이 점점 가속화되고 있음을 보여줍니다.
+Furthermore, major banks like Société Générale, Santander, and Bank of America, as well as payment networks like Visa and Stripe, are expanding their stablecoin pilot programs. This shows that the integration of traditional financial systems and stablecoins is accelerating.
 
-대한민국에서도 한국형 스테이블코인의 제도화 필요성에 대해 지속적으로 논의되고 있습니다. 특히 원/달러 환율 상승 지속, 기존 외환 규제 우회 가능성, 민간 시장 보호(결제사, 은행, 투자자, 알트코인 발행사 등), 국채 수요 창출 등을 위해 규제 프레임워크 수립이 시급하다는 의견이 많습니다. 
+In South Korea, there is ongoing discussion about the need to institutionalize a Korean-style stablecoin. There are many opinions that establishing a regulatory framework is urgent, especially to address the continued rise in the KRW/USD exchange rate, the possibility of bypassing existing foreign exchange regulations, the protection of the private market (payment companies, banks, investors, altcoin issuers, etc.), and the creation of demand for government bonds.
 
-하지만 한국형 원화 스테이블코인은 시장에서 살아남기 쉽지는 않아보입니다. 먼저 대한민국은 이미 핀테크 인프라가 매우 고도화로 발전되어 있기 때문에, 단순히 개방성과 신뢰를 전제로 시장에서 전통 금융 시스템과 비교하여 높은 경쟁력을 갖기 어렵습니다. 이를 극복하기 위해, 한국은 금 기반 RWA 및 외화 운용 능력을 결합한 '혼합형 스테이블코인 모델'이 유망할 것으로 전망됩니다. 
+However, it does not seem easy for a Korean-style KRW stablecoin to survive in the market. First, South Korea's fintech infrastructure is already highly advanced, making it difficult for a stablecoin to have a high competitive edge over the traditional financial system in the market, based simply on openness and trust. To overcome this, a 'hybrid stablecoin model' that combines gold-based RWA and foreign currency management capabilities is seen as promising for Korea.
 
-이미 디지털시장의 금이라고 불리는 비트코인과 스테이블코인의 관계는 어떻게 될까요? 일부 보고서에서는 스테이블코인이 활성화되면 단기적으로 비트코인의 수요에도 영향이 있을거라고 판단합니다. 하지만 장기적으로는 비트코인이 스테이블코인 체계 내에서 '전략적 헷지 및 구조적 보완 자산'으로서의 가치를 강화할 것으로 예상됩니다. 이러한 움직임은 스테이블코인만이 아닌 가상자산 시장에서도 현재 활용되고 있는 방법이라 현실성있는 방법으로 보입니다.
+What will be the relationship between Bitcoin, already called digital gold, and stablecoins? Some reports judge that if stablecoins become active, it will also affect the demand for Bitcoin in the short term. However, in the long term, Bitcoin is expected to strengthen its value as a 'strategic hedge and structural complementary asset' within the stablecoin system. This movement is a method already being used not only in the stablecoin market but also in the virtual asset market, so it seems like a realistic approach.
