@@ -35,9 +35,6 @@ schema:
 
 > 참고로 이 유튜버의 [영상](https://youtu.be/-Zk-WyCoIbU?si=2XPvY2ygu3_S7oGi)을 재미있게 보고나서, 좋은 핸드폰이 필요없다고 아이폰 13 미니의 배터리를 교체하려던 아내가 17 프로를 구매해버렸다.
 
-
-![image](https://i.namu.wiki/i/6sQwLV8r1RxNIhUMPuxHg9iA3B42_2QQbA43Fheemfpy-Cgmz2OHFgDqDHyBBBtwafzmrD6e6Lzcy1H4u7MR4by2edThhgozVKCsLyEQnh78qbrwr2is3aseVAi9dlWTXH8H6Z1mdW-CqYCp3iF6ZQ.webp)
-
 원래 이번 추석에는 책과 강의를 열심히 들으면서 나의 실력을 마음껏 향상시키는 상상을 하고 있었는데, 연휴에 마냥 재미없게 보내는것도 잘못된 생각인것만 같아 거금을 주고 게임을 구매했다. 사람들이 여주 얼굴이 못생겨서 게임하기 싫다고하는데, 나는 그냥 괜찮게 생겼다고 생각한다. 
 
 길게 말할 필요 없이, 약 4-5일가량을 하루에 7시간 가까이 게임에 빠져버렸다. 심지어 이 게임은 본 스토리만 있는게 아니라 주변에 발생하는 여러 서브스토리들이 많은데, 추석 연휴기간동안 본편 스토리를 포함해서 대략 60%에 달하는 이야기를 완주해버렸다.

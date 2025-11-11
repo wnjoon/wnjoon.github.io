@@ -1,5 +1,429 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-11T16:53:38+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">회고록:10월</title><link href="http://localhost:4000/2025/10/29/retrospect/" rel="alternate" type="text/html" title="회고록:10월" /><published>2025-10-29T00:00:00+09:00</published><updated>2025-10-29T00:00:00+09:00</updated><id>http://localhost:4000/2025/10/29/retrospect</id><content type="html" xml:base="http://localhost:4000/2025/10/29/retrospect/"><![CDATA[<h2 id="추석">추석</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-12T07:36:00+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">Go HTTP 라이브러리 비교: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib/" rel="alternate" type="text/html" title="Go HTTP 라이브러리 비교: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib/"><![CDATA[<p>Go 언어로 웹서버를 구축할 때, 기본적으로 제공하는 라이브러리인 net/http를 외에도 다양한 서버 프레임워크들을 사용할 수 있습니다. 가장 유명한 3개의 프레임워크인 Gin, Fiber, Echo가 있는데요, 각 프레임워크들이 사용하는 내부 라이브러리들은 아래와 같습니다.</p>
+<ul>
+  <li><a href="https://github.com/gin-gonic/gin">Gin</a>, <a href="https://github.com/labstack/echo">Echo</a>: net/http</li>
+  <li><a href="https://github.com/gofiber/fiber">Fiber</a>: fasthttp</li>
+</ul>
+
+<p>결국 개발자는 net/http, <a href="https://github.com/valyala/fasthttp">fasthttp</a>중 하나의 라이브러리를 선택하게 되는데요, fasthttp는 압도적인 성능을 제공하고 net/http는 범용성과 안정성을 제공합니다. 이번 포스팅에서는 두 라이브러리의 근본적인 차이점을 비교 분석하려고 합니다. 더 나아가 fasthttp가 왜 HTTP/2를 지원하지 않는지, 성능 차이는 어디에서 오는지, 그리고 각 라이브러리의 구체적인 사용 사례와 코드 레벨의 차이점까지 작성해보려고 합니다.</p>
+
+<h2 id="fasthttp와-http2-지원되지-않는-이유">fasthttp와 HTTP/2: 지원되지 않는 이유</h2>
+
+<p>fasthttp가 HTTP/2를 지원하지 않는 이유는 단순한 기능 누락이 아니라, 라이브러리의 핵심 철학 및 아키텍처와 HTTP/2의 구조가 근본적으로 충돌하기 때문입니다.</p>
+
+<p>fasthttp의 HTTP/2를 지원 가능에 대한 이슈는 2016년부터 이어진 주제입니서. <a href="https://github.com/valyala/fasthttp">공식 github 리포지토리</a>의 이슈에서 가져온 아래 그림을 보면, 그 당시부터 http2는 fasthttp의 TODO 리스트에 존재했습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/dbe0c31b-09d7-4956-8d75-a8d9b28c718d/image.png" alt="" /></p>
+
+<p>최근에는 <a href="https://github.com/fasthttp/http2">fasthttp/http2</a>에서 HTTP/2를 지원하는 라이브러리를 개발하고 있습니다. 아직은 Under construction 단계로, 정식 버전이 개발되진 않았습니다.</p>
+
+<p>fasthttp는 “HTTP/1.1 환경에서 극한의 성능과 낮은 메모리 사용량”을 목표로 할때 net/http를 대신하여 사용하기 좋은 라이브러리입니다. HTTP/2 지원은 이 목표와 상충될 뿐만 아니라 net/http라는 훌륭한 대안이 존재하기 때문에, fasthttp는 자신의 영역(HTTP/1.1 고성능)에 집중하고 있습니다. 좀더 자세히 살펴보면 아래의 3가지 원인이 있습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
+
+<h3 id="1-아키텍처의-근본적인-불일치">1. 아키텍처의 근본적인 불일치</h3>
+
+<p>fasthttp는 HTTP/1.1 프로토콜에 극단적으로 최적화되어 있습니다.</p>
+
+<ul>
+  <li>fasthttp (HTTP/1.1 기반)
+    <ul>
+      <li>‘하나의 연결 = 하나의 요청’ (Keep-alive 제외)이라는 단순한 모델을 전제로 합니다. 즉, 요청과 응답이 순차적으로 처리되는 간단한 구조입니다.</li>
+      <li><code class="language-plaintext highlighter-rouge">RequestCtx</code> 객체를 재사용하여 GC(가비지 컬렉션) 오버헤드를 최소화하는 메모리 재사용에 중점을 둡니다.</li>
+    </ul>
+  </li>
+  <li>HTTP/2
+    <ul>
+      <li>‘하나의 연결 = 다중 스트림(Streams)’ (Multiplexing)을 사용합니다.</li>
+      <li>하나의 TCP 연결을 통해 여러 요청과 응답이 동시에, 순서에 상관없이 오고 갈 수 있으며, 스트림별 흐름 제어(Flow Control), 우선순위 지정(Prioritization) 등 복잡한 상태 관리가 필요합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>fasthttp의 단순한 메모리 재사용 아키텍처로는 HTTP/2의 복잡한 다중 스트림과 상태를 관리하기가 사실상 불가능합니다. HTTP/2를 지원하려면 라이브러리의 핵심 로직을 완전히 새로 작성해야하는데, 이는 fasthttp가 추구하는 장점을 바꿔버리는 수준의 완전히 새로운 라이브러리가 됩니다.</p>
+
+<h3 id="2-구현의-복잡성">2. 구현의 복잡성</h3>
+
+<p>fasthttp의 메인 개발자(<a href="https://github.com/valyala">valyala</a>)는 HTTP/2를 구현하는 것이 “기존 라이브러리 유지보수와 맞먹는, 혹은 그 이상의 노력이 드는 거대한 작업”이라고 여러 차례 언급했습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/58194363-af18-48bc-84cd-14b4333b9ff6/image.png" alt="" /></p>
+
+<p>HTTP/2는 바이너리(Binary) 프로토콜이며, 헤더 압축을 위한 HPACK, 서버 푸시(Server Push), 스트림 제어 등 매우 복잡한 스펙을 정확히 구현해야 합니다. 이는 사실상 fasthttp 내부에 완전히 새로운 HTTP/2 라이브러리를 하나 더 만드는 것과 같은 업무량입니다.</p>
+
+<h3 id="3-표준-라이브러리의-존재-nethttp">3. 표준 라이브러리의 존재 (net/http)</h3>
+
+<p>Go 언어는 이미 표준 라이브러리인 net/http에서 매우 훌륭하고 안정적인 HTTP/2를 지원합니다. net/http는 Go 1.6(2016년)부터 별도 설정 없이도 자동으로 HTTP/2를 지원하며, fasthttp 개발팀의 공식 입장도 “HTTP/2가 필요하다면 표준 라이브러리 net/http를 사용하라”는 것입니다. 심지어 ‘For most cases net/http is much better as it’s easier to use and can handle more cases’ 라고 언급하면서, fasthttp가 꼭 필요한 고성능의 환경이 필요하지 않은 대부분의 환경에서는 net/http가 더 좋은 선택이라고 말합니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
+
+<p>또한 fasthttp와 net/http 사이에 일치하는 API도 없는데요. <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#switching-from-nethttp-to-fasthttp">공식 문서</a>에 따르면, net/http -&gt; fasthttp로 변형해주는 컨버터가 존재하지만, fasthttp를 적용하고 싶다면 차라리 처음부터 다시 적용하는 것이 훨씬 좋을 것이라고 권장하고 있습니다.</p>
+
+<blockquote>
+  <p>Unfortunately, fasthttp doesn’t provide API identical to net/http. See the FAQ for details. There is net/http -&gt; fasthttp handler converter, but it is better to write fasthttp request handlers by hand in order to use all of the fasthttp advantages.</p>
+</blockquote>
+
+<h2 id="그렇다면-fasthttp는-왜-더-빠른가">그렇다면 fasthttp는 왜 더 빠른가?</h2>
+
+<p><a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#http-server-performance-comparison-with-nethttp">fasthttp에서 제공하는 벤치마크</a>에 따르면, fasthttp는 net/http보다 6배 더 빠른 성능을 보여줍니다.</p>
+
+<ul>
+  <li>메모리 할당 최소화 (Zero Allocation):
+    <ul>
+      <li>net/http는 모든 요청마다 http.Request와 http.ResponseWriter 객체를 새로 생성하여 GC에 부담을 줍니다.</li>
+      <li>fasthttp는 sync.Pool을 적극적으로 사용하여 fasthttp.RequestCtx라는 단일 구조체를 재사용합니다. 요청이 끝나면 객체를 풀(Pool)에 반환하여 GC 발생을 최소화하고 시스템 전체의 지연 시간을 줄입니다.</li>
+    </ul>
+  </li>
+  <li>바이트 슬라이스([]byte) 중심 설계:
+    <ul>
+      <li>net/http는 헤더 키, URL 파라미터 등을 문자열(string)로 변환하여 사용 편의성을 높입니다.</li>
+      <li>fasthttp는 대부분의 데이터를 []byte로 직접 처리하여, 문자열로의 불필요한 변환 및 메모리 복사/할당을 줄입니다.</li>
+      <li>성능 향상이 제일 중요한 경우, []byte와 string을 변환할때 Go에서 기본적으로 제공하는 방식을 사용하는 것보다 <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#unsafe-zero-allocation-conversions">fasthttp에서 제공하는 unsafe, zero-allocation</a>을 사용할 것을 권장합니다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="속도와-트레이드오프">속도와 트레이드오프</h2>
+
+<p>fasthttp는 빠른 속도를 제공하지만, 아래와 같은 단점 또한 존재합니다.</p>
+
+<ul>
+  <li>API 호환성: net/http는 http.Handler라는 표준 인터페이스를 따릅니다. 반면 fasthttp는 <code class="language-plaintext highlighter-rouge">RequestHandler</code>라는 비표준 인터페이스를 사용합니다.</li>
+  <li>미들웨어 생태계: net/http는 Gin, Chi, Echo 등 거의 모든 Go 미들웨어 및 라우터와 호환됩니다. fasthttp는 전용 미들웨어만 사용 가능하여 생태계가 매우 제한적입니다. (유일하게 Fiber 프레임워크가 fasthttp를 기반으로 만들어졌습니다)</li>
+  <li>프로토콜 지원: net/http는 HTTP/2와 HTTP/3를 완벽하게 자동 지원합니다. fasthttp는 미지원입니다.</li>
+  <li>메모리 관리: net/http는 GC가 자동으로 처리합니다. fasthttp는 RequestCtx를 오래 잡고 있으면 안 되는 등 개발자의 수동 관리가 필요합니다.</li>
+  <li>사용 편의성: net/http는 직관적이고 안전합니다. fasthttp는 규칙을 어기면 메모리 누수나 버그가 발생하기 쉬워 사용 편의성이 낮습니다.</li>
+  <li>스트리밍: net/http는 대용량 스트리밍을 완벽 지원하지만, fasthttp는 제한적입니다.</li>
+</ul>
+
+<h2 id="구체적인-사용-사례">구체적인 사용 사례</h2>
+
+<h3 id="nethttp">net/http</h3>
+
+<ul>
+  <li>거의 모든 웹 애플리케이션 및 API 서버에서 사용 가능</li>
+  <li>프로젝트를 처음 시작할 때 (구체적인 요구사항이 정의되지 않았을 경우)</li>
+  <li>Gin, Chi 등 표준 미들웨어 생태계가 필요한 경우</li>
+  <li>HTTP/2 또는 HTTP/3 지원이 필수적인 클라이언트 대면 서비스</li>
+  <li>대용량 파일 업로드/다운로드 등 스트리밍 처리가 필요한 경우</li>
+  <li>개발 편의성, 안정성, 유지보수성이 성능보다 중요한 경우</li>
+</ul>
+
+<h3 id="fasthttp">fasthttp</h3>
+
+<ul>
+  <li>극단적인 초고성능(High-Throughput)이 요구되는 경우</li>
+  <li>초당 수십만 건 이상의 요청을 처리해야 하는 내부 마이크로서비스</li>
+  <li>광고 입찰(RTB), 대규모 프록시 서버, 하이 퍼포먼스 API 게이트웨이</li>
+  <li>net/http로 프로파일링 결과, HTTP 요청 처리 자체가 명백한 병목임이 입증된 경우</li>
+</ul>
+
+<h2 id="코드-레벨-비교">코드 레벨 비교</h2>
+
+<p>두 라이브러리의 가장 큰 코드 레벨 차이점은 net/http가 <code class="language-plaintext highlighter-rouge">http.ResponseWriter</code>와 <code class="language-plaintext highlighter-rouge">*http.Request</code> 인터페이스를 사용하는 반면, fasthttp는 모든 것을 <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> 단일 구조체로 처리한다는 것입니다.</p>
+
+<ul>
+  <li>시그니처: net/http는 (w, r), fasthttp는 (ctx).</li>
+  <li>데이터 접근: net/http는 string (<code class="language-plaintext highlighter-rouge">r.URL.Path</code>), fasthttp는 []byte (<code class="language-plaintext highlighter-rouge">ctx.Path()</code>).</li>
+  <li>객체 생명주기: net/http의 r과 w는 요청 처리 내내 유효합니다.</li>
+</ul>
+
+<p>중요한 점은, <strong>fasthttp의 ctx 객체는 핸들러 함수가 반환(return)되는 즉시 풀(Pool)로 돌아가 재사용</strong>됩니다. 만약 fasthttp 핸들러 내에서 고루틴(goroutine)을 실행하며 ctx를 전달하면, 고루틴이 실행될 시점에는 ctx가 이미 다른 요청을 처리하고 있을 수 있어 동시성 문제와 같은 심각한 문제가 발생할 수 있습니다.</p>
+
+<p>두 방식의 핸들러 예시를 통해 차이점을 살펴보겠습니다.</p>
+
+<h3 id="nethttp-1">net/http</h3>
+
+<p>net/http는 요청과 응답 객체가 별도로 핸들러 함수에 전달됩니다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"fmt"</span>
+	<span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="c">// 핸들러 시그니처: http.ResponseWriter, *http.Request</span>
+<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c">// 쿼리 파라미터 (string)</span>
+	<span class="n">name</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Query</span><span class="p">()</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
+	<span class="p">}</span>
+	<span class="c">// 응답 작성</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">helloHandler</span><span class="p">)</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"net/http server starting on :8080"</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span> <span class="no">nil</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위의 예시에서 볼 수 있듯이, 핸들러 시그니처가 <code class="language-plaintext highlighter-rouge">func(http.ResponseWriter, *http.Request)</code>이며, 요청(r)과 응답(w) 객체가 분리되어 직관적으로 이해할 수 있습니다.</p>
+
+<h3 id="fasthttp-1">fasthttp</h3>
+
+<p>fasthttp는 컨텍스트 객체 <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> 하나만 핸들러에 전달합니다.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"fmt"</span>
+	<span class="s">"github.com/valyala/fasthttp"</span>
+<span class="p">)</span>
+
+<span class="c">// 핸들러 시그니처: *fasthttp.RequestCtx</span>
+<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c">// 쿼리 파라미터 ([]byte)</span>
+	<span class="n">name</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">QueryArgs</span><span class="p">()</span><span class="o">.</span><span class="n">Peek</span><span class="p">(</span><span class="s">"name"</span><span class="p">))</span>
+	<span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
+	<span class="p">}</span>
+	<span class="c">// 응답 작성 (ctx에 직접)</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">requestHandler</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">switch</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">Path</span><span class="p">())</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="s">"/hello"</span><span class="o">:</span>
+			<span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+		<span class="k">default</span><span class="o">:</span>
+			<span class="n">ctx</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">"Unsupported path"</span><span class="p">,</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"fasthttp server starting on :8081"</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8081"</span><span class="p">,</span> <span class="n">requestHandler</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>net/http와 다르게, fasthttp에서는 <code class="language-plaintext highlighter-rouge">func(*fasthttp.RequestCtx)</code> 핸들러 시그니처를 사용하며, ctx 객체 하나로 요청 정보 접근과 응답 작성을 모두 처리합니다. 또한 데이터가 []byte로 처리됩니다.</p>
+
+<h2 id="결론">결론</h2>
+
+<p>예전에 제가 서버 API를 설계할 때를 돌아보면, ‘얼마나 빠르게 요청을 처리할 수 있는가’를 먼저 고민했던 것 같습니다. 그래서 대부분 fasthttp를 제공하는 fiber를 사용했었는데요. 하지만 서버가 어떤 데이터를 처리할지, 그리고 서버가 어떤 환경에서 동작해야하는지 등의 요구사항을 먼저 명확하게 정의했다면 성능이 아닌 다른 관점에서 net/http를 직접 사용하거나 혹은 이를 지원하는 프레임워크를 사용하지 않았을까 싶습니다.</p>
+
+<p>최근에 gophercon을 다녀왔는데요. <a href="https://gophercon.kr/program/sessions/session-3">발표자</a>분께서 ‘명확한 요구사항이 없는 일반적인 서버를 Go로 구현할 경우, net/http를 직접 사용하거나 Gin 프레임워크 사용을 가장 권장한다’고 말씀하셨습니다. 극도의 성능 개선이 요구되는 경우가 아니라면, 가장 범용적으로 설계하고 사용할 수 있는 프레임워크를 적용하거나, 혹은 Go에서 제공하는 순수 라이브러리를 적용하는 것이 향후 유지보수 측면에서도 더욱 좋은 선택이 될 수 있겠다고 생각할 수 있는 시간이었습니다.</p>
+
+<p>결론적으로, 높은 성능을 요구하는 서버에서 데이터 동시처리를 정확하게 제어할 수 있는 경우에 fasthttp를, 그 외에는 net/http를 사용하는 것이 좋은 선택이 되지 않을까 생각합니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go HTTP 라이브러리 비교: fasthttp vs net/http]]></summary></entry><entry xml:lang="en"><title type="html">Comparison of Go HTTP Libraries: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/" rel="alternate" type="text/html" title="Comparison of Go HTTP Libraries: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib-en</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/"><![CDATA[<p>When building a web server in Go, you can use various server frameworks in addition to the default library, net/http. The three most famous frameworks are Gin, Fiber, and Echo, and the internal libraries each framework uses are as follows:</p>
+<ul>
+  <li><a href="https://github.com/gin-gonic/gin">Gin</a>, <a href="https://github.com/labstack/echo">Echo</a>: net/http</li>
+  <li><a href="https://github.com/gofiber/fiber">Fiber</a>: fasthttp</li>
+</ul>
+
+<p>In the end, developers choose between net/http and <a href="https://github.com/valyala/fasthttp">fasthttp</a>. fasthttp offers overwhelming performance, while net/http provides versatility and stability. In this post, I intend to compare and analyze the fundamental differences between these two libraries. Furthermore, I will explore why fasthttp does not support HTTP/2, where the performance difference comes from, and even the specific use cases and code-level differences for each library.</p>
+
+<h2 id="fasthttp-and-http2-why-its-not-supported">fasthttp and HTTP/2: Why It’s Not Supported</h2>
+
+<p>The reason fasthttp does not support HTTP/2 is not a simple feature omission; it’s because the library’s core philosophy and architecture fundamentally conflict with the structure of HTTP/2.</p>
+
+<p>The issue of fasthttp’s potential support for HTTP/2 has been a topic since 2016. The image below, from an issue in the <a href="https://github.com/valyala/fasthttp">official github repository</a>, shows that http2 was on fasthttp’s TODO list even back then.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/dbe0c31b-09d7-4956-8d75-a8d9b28c718d/image.png" alt="" /></p>
+
+<p>Recently, a library supporting HTTP/2 is being developed at <a href="https://github.com/fasthttp/http2">fasthttp/http2</a>. It is still in the ‘Under construction’ phase, and an official version has not been developed.</p>
+
+<p>fasthttp is a good library to use instead of net/http when the goal is “extreme performance and low memory usage in an HTTP/1.1 environment.” HTTP/2 support not only conflicts with this goal, but a great alternative (net/http) already exists. Therefore, fasthttp focuses on its own domain (HTTP/1.1 high performance). Looking closer, there are three main reasons.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
+
+<h3 id="1-fundamental-architectural-mismatch">1. Fundamental Architectural Mismatch</h3>
+
+<p>fasthttp is extremely optimized for the HTTP/1.1 protocol.</p>
+
+<ul>
+  <li>fasthttp (HTTP/1.1 based)
+    <ul>
+      <li>‘One connection = One request’ (excluding Keep-alive) is its simple premise. In other words, it has a simple structure where requests and responses are processed sequentially.</li>
+      <li>It focuses on memory reuse by reusing the <code class="language-plaintext highlighter-rouge">RequestCtx</code> object to minimize GC (Garbage Collection) overhead.</li>
+    </ul>
+  </li>
+  <li>HTTP/2
+    <ul>
+      <li>It uses ‘One connection = Multiple Streams’ (Multiplexing).</li>
+      <li>Multiple requests and responses can come and go simultaneously and out of order over a single TCP connection, requiring complex state management like per-stream Flow Control and Prioritization.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>fasthttp’s simple memory reuse architecture makes it virtually impossible to manage HTTP/2’s complex multiple streams and states. Supporting HTTP/2 would require a complete rewrite of the library’s core logic, turning it into a completely new library that changes the very advantages fasthttp pursues.</p>
+
+<h3 id="2-implementation-complexity">2. Implementation Complexity</h3>
+
+<p>The main developer of fasthttp (<a href="https://github.com/valyala">valyala</a>) has repeatedly stated that implementing HTTP/2 is a “massive task that requires as much, or more, effort as maintaining the existing library.”</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/58194363-af18-48bc-84cd-14b4333b9ff6/image.png" alt="" /></p>
+
+<p>HTTP/2 is a binary protocol, and complex specs like HPACK for header compression, Server Push, and stream control must be implemented correctly. This is a workload equivalent to building an entirely new HTTP/2 library within fasthttp.</p>
+
+<h3 id="3-the-existence-of-the-standard-library-nethttp">3. The Existence of the Standard Library (net/http)</h3>
+
+<p>The Go language already provides excellent and stable HTTP/2 support in its standard library, net/http. Since Go 1.6 (2016), net/http has automatically supported HTTP/2 with no extra setup, and the official stance of the fasthttp development team is, “If you need HTTP/2, use the standard library net/http.” They even mention, ‘For most cases net/http is much better as it’s easier to use and can handle more cases,’ stating that net/http is a better choice for most environments that don’t require the high performance that fasthttp necessitates.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
+
+<p>Furthermore, there is no API compatibility between fasthttp and net/http. According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#switching-from-nethttp-to-fasthttp">official documentation</a>, a converter from net/http to fasthttp handlers exists, but they recommend that if you want to adopt fasthttp, it would be much better to re-implement it from scratch.</p>
+
+<blockquote>
+  <p>Unfortunately, fasthttp doesn’t provide an API identical to net/http. See the FAQ for details. There is a net/http -&gt; fasthttp handler converter, but it is better to write fasthttp request handlers by hand in order to use all of the fasthttp advantages.</p>
+</blockquote>
+
+<h2 id="so-why-is-fasthttp-faster">So Why Is fasthttp Faster?</h2>
+
+<p>According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#http-server-performance-comparison-with-nethttp">benchmarks provided by fasthttp</a>, fasthttp shows performance 6 times faster than net/http.</p>
+
+<ul>
+  <li>Minimized Memory Allocation (Zero Allocation):
+    <ul>
+      <li>net/http creates new http.Request and http.ResponseWriter objects for every request, putting a burden on the GC.</li>
+      <li>fasthttp aggressively uses sync.Pool to reuse a single struct, fasthttp.RequestCtx. When a request is finished, the object is returned to the pool, minimizing GC occurrences and reducing overall system latency.</li>
+    </ul>
+  </li>
+  <li>Byte Slice (<code class="language-plaintext highlighter-rouge">[]byte</code>) Centric Design:
+    <ul>
+      <li>net/http converts header keys, URL parameters, etc., to strings (string) to increase ease of use.</li>
+      <li>fasthttp processes most data directly as <code class="language-plaintext highlighter-rouge">[]byte</code>, reducing unnecessary conversions to strings and minimizing memory copies/allocations.</li>
+      <li>When performance improvement is paramount, it is recommended to use the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#unsafe-zero-allocation-conversions">unsafe, zero-allocation conversions provided by fasthttp</a> rather than the default Go methods for converting between <code class="language-plaintext highlighter-rouge">[]byte</code> and <code class="language-plaintext highlighter-rouge">string</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="speed-and-trade-offs">Speed and Trade-offs</h2>
+
+<p>fasthttp offers high speed, but it also has the following disadvantages:</p>
+
+<ul>
+  <li>API Compatibility: net/http follows the standard <code class="language-plaintext highlighter-rouge">http.Handler</code> interface. In contrast, fasthttp uses a non-standard interface called <code class="language-plaintext highlighter-rouge">RequestHandler</code>.</li>
+  <li>Middleware Ecosystem: net/http is compatible with almost all Go middleware and routers like Gin, Chi, and Echo. fasthttp can only use dedicated middleware, making its ecosystem very limited. (The Fiber framework is the only major one built on fasthttp).</li>
+  <li>Protocol Support: net/http perfectly and automatically supports HTTP/2 and HTTP/3. fasthttp does not.</li>
+  <li>Memory Management: In net/http, the GC handles it automatically. In fasthttp, manual developer management is required, such as not holding on to the <code class="language-plaintext highlighter-rouge">RequestCtx</code> for too long.</li>
+  <li>Ease of Use: net/http is intuitive and safe. fasthttp has low usability, as breaking its rules can easily lead to memory leaks or bugs.</li>
+  <li>Streaming: net/http fully supports large-volume streaming, whereas fasthttp’s support is limited.</li>
+</ul>
+
+<h2 id="specific-use-cases">Specific Use Cases</h2>
+
+<h3 id="nethttp">net/http</h3>
+
+<ul>
+  <li>For almost all web applications and API servers.</li>
+  <li>When starting a new project (if specific requirements are not yet defined).</li>
+  <li>When a standard middleware ecosystem (Gin, Chi, etc.) is needed.</li>
+  <li>For client-facing services where HTTP/2 or HTTP/3 support is essential.</li>
+  <li>When streaming processing, such as large file uploads/downloads, is required.</li>
+  <li>When development convenience, stability, and maintainability are more important than performance.</li>
+</ul>
+
+<h3 id="fasthttp">fasthttp</h3>
+
+<ul>
+  <li>When extreme high-throughput performance is required.</li>
+  <li>For internal microservices that must handle hundreds of thousands of requests per second.</li>
+  <li>For ad bidding (RTB), large-scale proxy servers, or high-performance API gateways.</li>
+  <li>When profiling has proven that HTTP request handling itself in net/http is the clear bottleneck.</li>
+</ul>
+
+<h2 id="code-level-comparison">Code-Level Comparison</h2>
+
+<p>The biggest code-level difference between the two libraries is that net/http uses the <code class="language-plaintext highlighter-rouge">http.ResponseWriter</code> and <code class="language-plaintext highlighter-rouge">*http.Request</code> interfaces, whereas fasthttp handles everything with a single <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> struct.</p>
+
+<ul>
+  <li>Signature: net/http is (w, r), fasthttp is (ctx).</li>
+  <li>Data Access: net/http uses string (<code class="language-plaintext highlighter-rouge">r.URL.Path</code>), fasthttp uses []byte (<code class="language-plaintext highlighter-rouge">ctx.Path()</code>).</li>
+  <li>Object Lifecycle: net/http’s r and w are valid for the entire duration of the request handling.</li>
+</ul>
+
+<p>The important point is that <strong>the fasthttp ctx object is immediately returned to the pool and reused as soon as the handler function returns</strong>. If you pass the ctx to a goroutine within a fasthttp handler, by the time the goroutine executes, the ctx may already be handling a different request, which can cause serious problems like concurrency issues.</p>
+
+<p>Let’s look at the differences through handler examples for both.</p>
+
+<h3 id="nethttp-1">net/http</h3>
+
+<p>In net/http, the request and response objects are passed to the handler function separately.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+  <span class="s">"fmt"</span>
+  <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="c">// Handler signature: http.ResponseWriter, *http.Request</span>
+<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c">// Query parameter (string)</span>
+  <span class="n">name</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Query</span><span class="p">()</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
+  <span class="p">}</span>
+  <span class="c">// Write response</span>
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">helloHandler</span><span class="p">)</span>
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"net/http server starting on :8080"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span> <span class="no">nil</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>As you can see in the example above, the handler signature is func(http.ResponseWriter, *http.Request), and the request (r) and response (w) objects are separate, making it intuitive to understand.</p>
+
+<h3 id="fasthttp-1">fasthttp</h3>
+
+<p>fasthttp passes only the context object *fasthttp.RequestCtx to the handler.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+  <span class="s">"fmt"</span>
+  <span class="s">"https://github.com/valyala/fasthttp"</span>
+<span class="p">)</span>
+
+<span class="c">// Handler signature: *fasthttp.RequestCtx</span>
+<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c">// Query parameter ([]byte)</span>
+  <span class="n">name</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">QueryArgs</span><span class="p">()</span><span class="o">.</span><span class="n">Peek</span><span class="p">(</span><span class="s">"name"</span><span class="p">))</span>
+  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
+  <span class="p">}</span>
+  <span class="c">// Write response (directly to ctx)</span>
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">requestHandler</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">Path</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s">"/hello"</span><span class="o">:</span>
+      <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="k">default</span><span class="o">:</span>
+      <span class="n">ctx</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">"Unsupported path"</span><span class="p">,</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"fasthttp server starting on :8081"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8081"</span><span class="p">,</span> <span class="n">requestHandler</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Unlike net/http, fasthttp uses the <code class="language-plaintext highlighter-rouge">func(*fasthttp.RequestCtx)</code> handler signature, and the single ctx object handles both accessing request information and writing the response. Also, data is processed as <code class="language-plaintext highlighter-rouge">[]byte</code>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Looking back on when I used to design server APIs, I think I used to first worry about ‘how fast can it process requests.’ That’s why I mostly used Fiber, which provides fasthttp. However, if I had first clearly defined the requirements, such as what data the server would process and in what environment it needed to operate, I wonder if I wouldn’t have used net/http directly or a framework that supports it from a different perspective than performance.</p>
+
+<p>I recently attended GopherCon. A presenter mentioned that ‘when implementing a general server in Go without clear requirements, using net/http directly or using the Gin framework is most recommended.’ Unless extreme performance improvements are required, applying the most versatile framework or using the pure library provided by Go could be a better choice for future maintainability. It was a time to think about that.</p>
+
+<p>In conclusion, I think it’s a good choice to use fasthttp when you can precisely control concurrent data processing on a server that requires high performance, and to use net/http otherwise.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Comparison of Go HTTP Libraries: fasthttp vs net/http]]></summary></entry><entry xml:lang="ko"><title type="html">회고록:10월</title><link href="http://localhost:4000/2025/10/29/retrospect/" rel="alternate" type="text/html" title="회고록:10월" /><published>2025-10-29T00:00:00+09:00</published><updated>2025-10-29T00:00:00+09:00</updated><id>http://localhost:4000/2025/10/29/retrospect</id><content type="html" xml:base="http://localhost:4000/2025/10/29/retrospect/"><![CDATA[<h2 id="추석">추석</h2>
 
 <p>10월에는 한국 고유의 명절 추석이 있었다. 올해 추석은 휴일을 포함해서 약 10일간 쉴 수 있는 시간이었는데, 마침 아내가 직장에서 대기발령을 하라는 요청을 받아서 부득이(?)하게 명절내내 본가에 내려가지 않았다.</p>
 
@@ -16,8 +440,6 @@
 <blockquote>
   <p>참고로 이 유튜버의 <a href="https://youtu.be/-Zk-WyCoIbU?si=2XPvY2ygu3_S7oGi">영상</a>을 재미있게 보고나서, 좋은 핸드폰이 필요없다고 아이폰 13 미니의 배터리를 교체하려던 아내가 17 프로를 구매해버렸다.</p>
 </blockquote>
-
-<p><img src="https://i.namu.wiki/i/6sQwLV8r1RxNIhUMPuxHg9iA3B42_2QQbA43Fheemfpy-Cgmz2OHFgDqDHyBBBtwafzmrD6e6Lzcy1H4u7MR4by2edThhgozVKCsLyEQnh78qbrwr2is3aseVAi9dlWTXH8H6Z1mdW-CqYCp3iF6ZQ.webp" alt="image" /></p>
 
 <p>원래 이번 추석에는 책과 강의를 열심히 들으면서 나의 실력을 마음껏 향상시키는 상상을 하고 있었는데, 연휴에 마냥 재미없게 보내는것도 잘못된 생각인것만 같아 거금을 주고 게임을 구매했다. 사람들이 여주 얼굴이 못생겨서 게임하기 싫다고하는데, 나는 그냥 괜찮게 생겼다고 생각한다.</p>
 
@@ -156,7 +578,7 @@
 
 <p>결국 어떤 방법이던지 루틴을 만드는 것이 굉장히 중요한데, 앞으로 해외에서 일하게 될 상황을 고려할때 이러한 습관을 만드는 연습은 꼭 필요하다고 생각했다. 몸이 편한 것에 안주하는 것이 아니라, 내가 사용할 수 있는 시간이 늘어났다는 것에 더 집중하는 태도가 필요한 것 같다.</p>
 
-<p>이제 2025년도 3분기가 지나고, 총 3개월만 남았다. 남은 시간도 더 많이 경험하고 성장하자!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다.]]></summary></entry><entry xml:lang="ko"><title type="html">Meetup에 푹 절여진(?) 한주</title><link href="http://localhost:4000/2025/09/21/meetup-addict/" rel="alternate" type="text/html" title="Meetup에 푹 절여진(?) 한주" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/meetup-addict</id><content type="html" xml:base="http://localhost:4000/2025/09/21/meetup-addict/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/26">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다.]]></summary></entry><entry xml:lang="en"><title type="html">Automatically Switch to English When Pressing ESC in Vim with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs-en/" rel="alternate" type="text/html" title="Automatically Switch to English When Pressing ESC in Vim with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs-en</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs-en/"><![CDATA[<h2 id="why-wasnt-the-mode-applying-properly">Why wasn’t the mode applying properly?</h2>
+<p>이제 2025년도 3분기가 지나고, 총 3개월만 남았다. 남은 시간도 더 많이 경험하고 성장하자!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다.]]></summary></entry><entry xml:lang="en"><title type="html">Automatically Switch to English When Pressing ESC in Vim with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs-en/" rel="alternate" type="text/html" title="Automatically Switch to English When Pressing ESC in Vim with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs-en</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs-en/"><![CDATA[<h2 id="why-wasnt-the-mode-applying-properly">Why wasn’t the mode applying properly?</h2>
 
 <p>It’s obviously good for developers to write comments in English, but for Koreans, there’s nothing as fast and convenient as writing comments in their native language. I also try to use English as much as possible, but when I’m writing a post like this one or writing notes or comments for my own quick understanding, I generally use Korean.</p>
 
@@ -281,7 +703,7 @@
   </li>
 </ol>
 
-<p>I hope this helps anyone who has been experiencing the same inconvenience as me.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[One of the common difficulties Koreans face when using Vim is that after writing comments in Korean, changing the mode leaves the input source as Korean, requiring an extra step to switch back to English. This causes a significant drop in productivity, and many are using Hammerspoon to solve it, so I'm sharing the method.]]></summary></entry><entry xml:lang="ko"><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
+<p>I hope this helps anyone who has been experiencing the same inconvenience as me.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[One of the common difficulties Koreans face when using Vim is that after writing comments in Korean, changing the mode leaves the input source as Korean, requiring an extra step to switch back to English. This causes a significant drop in productivity, and many are using Hammerspoon to solve it, so I'm sharing the method.]]></summary></entry><entry xml:lang="ko"><title type="html">Meetup에 푹 절여진(?) 한주</title><link href="http://localhost:4000/2025/09/21/meetup-addict/" rel="alternate" type="text/html" title="Meetup에 푹 절여진(?) 한주" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/meetup-addict</id><content type="html" xml:base="http://localhost:4000/2025/09/21/meetup-addict/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/26">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다.]]></summary></entry><entry xml:lang="ko"><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
 
 <p>개발자라면 영어를 사용해서 주석을 작성하는것이 당연히 좋겠지만, 사실 한국인의 경우에는 모국어로 주석을 다는것만큼 빠르고 편리한 것이 없죠. 저도 되도록이면 영어를 사용하려고 노력하지만, 지금같이 포스팅을 작성하거나 제가 빠르게 이해하기 위한 글이나 주석을 작성할 때에는 일반적으로 한국어를 사용하곤 합니다.</p>
 
@@ -406,127 +828,7 @@
   </li>
 </ol>
 
-<p>혹시나 저와 같이 이러한 불편을 겪고계신 분들이 있다면 도움이 되었길 바랍니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[한국인들이 vim을 사용할때 자주 겪는 어려움 중 하나는 한글로 주석을 작성하다가 mode를 바꾸면 한글이 계속 인식되어 있어서 한영전환을 한번 더 해줘야 한다는 것이다. 이게 생각보다 생산성을 엄청나게 저하시키는데, 많은 곳에서 hammerspoon을 사용해서 이를 해결하고 있어서 이를 공유한다.]]></summary></entry><entry xml:lang="en"><title type="html">Creating a Vim Cheatsheet VSCode Extension Using Claude Code</title><link href="http://localhost:4000/2025/09/17/vim-vscode-extenstion-en/" rel="alternate" type="text/html" title="Creating a Vim Cheatsheet VSCode Extension Using Claude Code" /><published>2025-09-17T00:00:00+09:00</published><updated>2025-09-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/17/vim-vscode-extenstion-en</id><content type="html" xml:base="http://localhost:4000/2025/09/17/vim-vscode-extenstion-en/"><![CDATA[<h2 id="it-all-started-when-i-bought-an-hhkb-layout-keyboard">It All Started When I Bought an HHKB Layout Keyboard</h2>
-
-<p>There’s something people close to me, including my wife, always say: that I don’t have much material desire. For a developer, I’m not very interested in or greedy about peripherals; I tend to just use whatever is given. However, like any other day, I was just coding when I suddenly felt bored with the situation. Maybe I just wanted to try a cool, clicky keyboard like other people. And I also don’t really like things that are just ordinary.</p>
-
-<p>Actually, Vim is a tool I’ve used since my college days, especially a lot during my time as an embedded developer working in the US. That doesn’t mean I used it well. I just used it because I had to, and I stopped using it once I found out how to port and use C in Xcode. As I mentioned earlier, I get very interested in things that are not ordinary. I’m not sure why the video “A ‘real developer’ must use Vim” was so appealing to me at the time, but just like that, I bought an HHKB layout keyboard thinking, “If I’m a developer worth my salt, I should at least try a keyboard that’s good for Vim.”</p>
-
-<p>Originally, I wanted to buy a Happy Hacking keyboard, but not wanting the ordinary option even here, I bought the <a href="https://keychron.kr/q60max/">Q60 Pro Max</a> made by Keychron with an HHKB layout. I plan to write a blog post about my experience with the keyboard later.</p>
-
-<p><br /></p>
-
-<p><img src="https://tbnws.hgodo.com/wordpress/keychorn/products/q60max/products_thumb_q60max_2.jpg" alt="" /></p>
-
-<p><br /></p>
-
-<p>In the end, after buying a keyboard with an unconventional key layout, I became ambitious, wanting to properly learn Vim and become a developer who looks different from the rest. So, I immediately installed the Vim extension, and less than a week later, I ended up disabling the feature again. I couldn’t remember the shortcuts I learned today by tomorrow, and the unfamiliar structure made it difficult to get used to, which gradually slowed down my work progress, so I had no choice.</p>
-
-<p>A while later, I got ambitious again and installed the Vim extension, but this process just kept repeating like a Dormammu loop.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/5bcb4010-a9a1-4641-a9e4-7323deafdd0d/image.gif" alt="" /></p>
-
-<h2 id="is-there-a-way-to-check-shortcuts-instantly">Is There a Way to Check Shortcuts Instantly?</h2>
-
-<p>I had a clear motivation to master Vim. The problem was that there was no good method to help me see this motivation through to the end. I tried displaying Vim shortcuts on the screen, and I also tried printing them out and placing them next to my monitor, but ultimately, the process of ‘finding the shortcut I wanted’ in the middle of development was very inconvenient.</p>
-
-<p>Lately, I’ve been very enthusiastic about developing various things using AI agents, subscribing to Claude Code, and buying books. I wanted to try what’s called ‘vibe coding’ (a term I don’t particularly like), but I was struggling because I didn’t really have a program I wanted to develop. They say that ‘vibe coding’ starts with developing what you feel you need the most. That’s when it hit me.</p>
-
-<p>“Ah! If I make the Vim shortcuts into a VSCode extension, I can use it too!”</p>
-
-<h2 id="creating-an-extension-that-provides-vim-shortcuts-in-various-languages">Creating an Extension That Provides Vim Shortcuts in Various Languages</h2>
-
-<p><a href="https://vim.rtorr.com/">vim.rtorr.com</a> is a site that provides Vim shortcuts in various languages. This site offered shortcuts in about 37 languages and was based on an MIT license, so I was able to gather the data needed for the extension by referencing it.</p>
-
-<p>At first, I intended to create an extension that provided all 37 languages, but in the end, I built the extension based on the 8 most commonly used languages.</p>
-
-<ol>
-  <li>English</li>
-  <li>Korean</li>
-  <li>Simplified Chinese</li>
-  <li>Japanese</li>
-  <li>Spanish</li>
-  <li>German</li>
-  <li>French</li>
-  <li>Portuguese</li>
-</ol>
-
-<h2 id="setting-up-claudemd">Setting Up CLAUDE.md</h2>
-
-<p>This is the recommended sequence for vibe coding these days:</p>
-
-<ol>
-  <li>Have Gemini review the overall flow and idea, and create a document (CLAUDE.md) that can be passed to Claude Code.</li>
-  <li>Request Claude Code to develop based on the CLAUDE.md file.</li>
-  <li>Appreciate the finished program.</li>
-</ol>
-
-<p>So, I did the same and first told Gemini about my idea for the program and the development direction.</p>
-
-<p><em>“I bought an expensive HHKB (Happy Hacking layout) keyboard and I’m trying to code using Vim, but I can’t seem to get the hang of it even after several attempts… Maybe it’s because my usual coding habits are so ingrained. So, I tried keeping Vim shortcuts open in a separate window, but my productivity dropped too much. Are there any extensions or features in VSCode that let you check shortcuts instantly while using Vim? If not, would it be difficult to create such a feature and make it into an extension?”</em></p>
-
-<p>Gemini understood my heartfelt plea and drafted a splendid CLAUDE.md file so that Claude Code could understand and develop it well. Of course, I refined the final version as shown below while resolving issues and concerns that came up during our chat.</p>
-
-<ul>
-  <li>The CLAUDE.md file I used can be found <a href="https://github.com/wnjoon/vscode-vm-cheet-sheet/blob/main/CLAUDE.md">here</a>.</li>
-</ul>
-
-<h2 id="requesting-claude-code-to-develop-based-on-claudemd">Requesting Claude Code to Develop Based on CLAUDE.md</h2>
-
-<p>Now, I put the CLAUDE.md file into the development directory and called Claude. Before starting development using CLAUDE.md right away, I looked at the overall table of contents and asked if there were any deficiencies or items that needed to be addressed first. After resolving the unclear parts with Claude, I proceeded with the tasks one by one.</p>
-
-<p>To briefly summarize the overall steps taken:</p>
-
-<ol>
-  <li>
-    <p>First, I created a feature to scrape Vim shortcuts for each language from vim.rtorr.com. Then, I collected data for Korean and English, which I had initially planned.</p>
-  </li>
-  <li>
-    <p>At first, I only planned to support Korean and English, but I thought I might as well add a few more while I was at it, so I discussed with Claude which languages would be good to add. Claude suggested limiting it to about 8 languages because adding all 37 could make the data size larger than the deployable extension limit, and I accepted that opinion. I was impressed by Claude’s efficiency in cutting down the work. Since the scraping function was already built, collecting the remaining languages was quick.</p>
-  </li>
-  <li>
-    <p>I thought someone might already be using the default shortcut (Cmd+K+V). So, I suggested providing a feature in the extension to change the shortcut, saving users the trouble of going into the settings menu. Claude strongly agreed with this part.</p>
-  </li>
-</ol>
-
-<h2 id="deploying-the-extension">Deploying the Extension</h2>
-
-<p>This was my first time doing this, so I proceeded using the method Claude taught me + Googling (<a href="https://velog.io/@bo-like-chicken/%EC%9E%91%EA%B3%A0-%EC%86%8C%EC%A4%91%ED%95%9C-Viusal-Studio-Code-%ED%99%95%EC%9E%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0">Reference site</a>).</p>
-
-<ol>
-  <li>You need to create an account in Azure DevOps.</li>
-  <li>You need to register as a Publisher on the <a href="https://marketplace.visualstudio.com/">Marketplace</a>.</li>
-  <li>You need to issue a Personal Access Token.</li>
-  <li>In the terminal (local) where you want to deploy the extension, use the <code class="language-plaintext highlighter-rouge">vsce login</code> command to enter your publisher ID and Personal Access Token.</li>
-  <li>Use the <code class="language-plaintext highlighter-rouge">vsce package</code> command to package the extension.</li>
-  <li>Use the <code class="language-plaintext highlighter-rouge">vsce publish</code> command to deploy the extension.</li>
-</ol>
-
-<p>Additionally, the contents of the developed extension’s package.json must match the publisher information (ID) and the extension’s information. I’ll omit this part from this article, as you can easily find it by Googling or asking an AI.</p>
-
-<p>Also, when you use the vsce publish command, it checks if an extension with the same name already exists on the Marketplace. If a duplicate name exists, an ERROR will occur, so to prevent this, you must check in advance that the extension name you are thinking of is not already taken.</p>
-
-<h2 id="a-very-satisfying-result">A Very Satisfying Result</h2>
-
-<p>In total, the work took about 1 hour. Excluding the time I spent eating chocolate and drinking coffee, I think it could easily be done within 30 minutes.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/29b3be75-0fd2-48d8-9235-2aed02b1b619/image.png" alt="image" /></p>
-
-<ul>
-  <li>The deployed extension can be found <a href="https://marketplace.visualstudio.com/items?itemName=xonxoon.quick-vim-cheatsheet">here</a>.</li>
-  <li>If you can’t find it on the Marketplace, you can install it via the <a href="https://github.com/wnjoon/vscode-vm-cheet-sheet/releases/tag/v1.0.0">v1.0.0-release</a>.</li>
-  <li>You can check the written code through the <a href="https://github.com/wnjoon/vscode-vm-cheet-sheet">github</a> repository.</li>
-</ul>
-
-<h2 id="final-thoughts">Final Thoughts</h2>
-
-<p>I’ve briefly written about my thoughts on vibe coding in a previous post, but as AI continues to advance, I feel like developers like me have gained an ‘incredibly smart assistant.’ I use the term ‘assistant’ because, as I didn’t mention earlier, the user who ordered the development must review the intermediate results that the AI produces.</p>
-
-<p>What’s surprising is that the errors AI makes are decreasing compared to just a few months ago, or even a few weeks ago. In the case of a very simple program like the extension I built this time, it didn’t generate any errors at all. Instead, when I requested modifications or suggested better improvements during development, it reflected them very quickly without conflicting with other parts.</p>
-
-<p>I usually use the ‘tab launcher’ provided by windsurf and ask AI about things I don’t understand or tedious tasks that come up during development. However, after trying to develop from start to finish using Claude Code this time, I found it very convenient to get AI’s help for simple tasks. In the past, it took time to learn a new language or platform and become proficient with it. Now, it seems we are entering an era where there are no major constraints, even when using new languages or platforms, as long as you have the skill to understand the overall flow and read the code.</p>
-
-<p>Of course, I felt it this time too, but it seems difficult for AI to completely replace developers. First of all, I felt that in order to understand each development step well and make good requests, the requester will need basic knowledge, or even more, professional expertise. Rather, I hope that AI serves as an opportunity to make coding, which was once a skill only a select few could do, feel more familiar as a ‘language’ that humans can use.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[I bought an HHKB layout keyboard, but I kept installing and uninstalling Vim because it was so annoying to search the web every time I didn't know a shortcut. I thought it would be great if VSCode could just show me the shortcuts directly, so I'm sharing my experience of building a VSCode extension using Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code를 활용한 vim cheatsheet vscode extension 개발기</title><link href="http://localhost:4000/2025/09/17/vim-vscode-extenstion/" rel="alternate" type="text/html" title="Claude Code를 활용한 vim cheatsheet vscode extension 개발기" /><published>2025-09-17T00:00:00+09:00</published><updated>2025-09-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/17/vim-vscode-extenstion</id><content type="html" xml:base="http://localhost:4000/2025/09/17/vim-vscode-extenstion/"><![CDATA[<h2 id="hhkb-배열의-키보드를-구매한-것이-시작이었다">HHKB 배열의 키보드를 구매한 것이 시작이었다</h2>
+<p>혹시나 저와 같이 이러한 불편을 겪고계신 분들이 있다면 도움이 되었길 바랍니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[한국인들이 vim을 사용할때 자주 겪는 어려움 중 하나는 한글로 주석을 작성하다가 mode를 바꾸면 한글이 계속 인식되어 있어서 한영전환을 한번 더 해줘야 한다는 것이다. 이게 생각보다 생산성을 엄청나게 저하시키는데, 많은 곳에서 hammerspoon을 사용해서 이를 해결하고 있어서 이를 공유한다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code를 활용한 vim cheatsheet vscode extension 개발기</title><link href="http://localhost:4000/2025/09/17/vim-vscode-extenstion/" rel="alternate" type="text/html" title="Claude Code를 활용한 vim cheatsheet vscode extension 개발기" /><published>2025-09-17T00:00:00+09:00</published><updated>2025-09-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/17/vim-vscode-extenstion</id><content type="html" xml:base="http://localhost:4000/2025/09/17/vim-vscode-extenstion/"><![CDATA[<h2 id="hhkb-배열의-키보드를-구매한-것이-시작이었다">HHKB 배열의 키보드를 구매한 것이 시작이었다</h2>
 
 <p>제 아내를 포함해서 저와 가까운 사람들이 항상 하는 이야기가 있습니다. 제가 물욕이 없다는 것입니다. 저는 개발자치고는 주변기기에 관심도 욕심도 없어서 주는대로 사용하는 편인데요, 여느때처럼 그냥 개발을 하다가 문득 이 상황이 지루하다고 느껴진 때가 있었습니다. 남들처럼 달그락 소리가 나는 멋진 키보드가 한번 써보고 싶었달까요. 그리고 제가 또 평범한건 별로 안좋아합니다.</p>
 
@@ -647,272 +949,124 @@
 
 <p>저는 평소에는 windsurf에서 제공하는 탭발사대와 중간중간 개발하면서 이해가 안가거나 귀찮은 작업들을 AI에게 질문하곤 했습니다. 하지만 이번에 claude code를 사용해서 처음부터 끝까지 개발해보니 생각보다 간단한 작업들에 대해서 AI의 도움을 받으니 편리하다는 생각이 들었습니다. 예전에는 새로운 언어나 플랫폼을 학습하고 이를 익숙하게 사용하기까지 시간이 필요했다면, 이제는 전체적인 흐름과 코드를 읽을 줄 아는 기술만 있다면 새로운 언어나 플랫폼을 사용하더라도 크게 제약이 없는 시대가 오는 것 같았습니다.</p>
 
-<p>물론 이번에도 느꼈지만, 개발자를 완전히 대체하는 것은 어려워보입니다. 우선 개발 단계마다 요청자가 잘 이해하고 좋은 방향으로 요청하기 위해서는 기본적인 지식, 아니 그 이상의 전문적인 역량이 필요할 것이라는 생각이 들었습니다. 오히려 AI가 코딩이라는 분야를 선택적인 누군가만 할 수 있는 기술이라기 보다, 인간이 사용할 수 있는 하나의 언어로써 좀더 친숙하게 다가오게 만드는 계기가 되었으면 좋겠다는 생각도 들었습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[HHKB 배열의 키보드는 구매했는데, 모르는 단축어가 나올때마다 웹사이트를 찾는것이 너무 귀찮아서 vim을 설치했다 지웠다만 수없이 반복했습니다. 차라리 vscode에서 단축어를 바로바로 알려줄수만 있으면 좋겠다고 생각해서, claude code를 사용해서 vscode extension을 만들어본 경험을 공유합니다.]]></summary></entry><entry xml:lang="ko"><title type="html">바이브 코딩이란 단어는 적절하지 않다</title><link href="http://localhost:4000/2025/09/16/vibe-coding/" rel="alternate" type="text/html" title="바이브 코딩이란 단어는 적절하지 않다" /><published>2025-09-16T00:00:00+09:00</published><updated>2025-09-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/16/vibe-coding</id><content type="html" xml:base="http://localhost:4000/2025/09/16/vibe-coding/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/25">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[바이브 코딩이란 개발자가 생성형 인공지능의 도움을 받아 코드를 작성하는 행위를 일컫는 신조어로 프로그래밍을 할 때 사전에 엄밀한 논리나 설계를 바탕으로 하지 않고 직감과 느낌에 의존한다는 의미로 바이브 코딩이라는 이름이 붙었다. 바이브 코딩이라는 단어는 잘못되었다는 나의 생각을 공유하고싶다.]]></summary></entry><entry xml:lang="ko"><title type="html">백엔드 개발자의 AI로 아주 작은 dApp 만들기</title><link href="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai/" rel="alternate" type="text/html" title="백엔드 개발자의 AI로 아주 작은 dApp 만들기" /><published>2025-09-15T00:00:00+09:00</published><updated>2025-09-15T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/15/miniamm-dapp-with-ai</id><content type="html" xml:base="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai/"><![CDATA[<h2 id="hell-month">Hell-Month</h2>
+<p>물론 이번에도 느꼈지만, 개발자를 완전히 대체하는 것은 어려워보입니다. 우선 개발 단계마다 요청자가 잘 이해하고 좋은 방향으로 요청하기 위해서는 기본적인 지식, 아니 그 이상의 전문적인 역량이 필요할 것이라는 생각이 들었습니다. 오히려 AI가 코딩이라는 분야를 선택적인 누군가만 할 수 있는 기술이라기 보다, 인간이 사용할 수 있는 하나의 언어로써 좀더 친숙하게 다가오게 만드는 계기가 되었으면 좋겠다는 생각도 들었습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[HHKB 배열의 키보드는 구매했는데, 모르는 단축어가 나올때마다 웹사이트를 찾는것이 너무 귀찮아서 vim을 설치했다 지웠다만 수없이 반복했습니다. 차라리 vscode에서 단축어를 바로바로 알려줄수만 있으면 좋겠다고 생각해서, claude code를 사용해서 vscode extension을 만들어본 경험을 공유합니다.]]></summary></entry><entry xml:lang="en"><title type="html">Creating a Vim Cheatsheet VSCode Extension Using Claude Code</title><link href="http://localhost:4000/2025/09/17/vim-vscode-extenstion-en/" rel="alternate" type="text/html" title="Creating a Vim Cheatsheet VSCode Extension Using Claude Code" /><published>2025-09-17T00:00:00+09:00</published><updated>2025-09-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/17/vim-vscode-extenstion-en</id><content type="html" xml:base="http://localhost:4000/2025/09/17/vim-vscode-extenstion-en/"><![CDATA[<h2 id="it-all-started-when-i-bought-an-hhkb-layout-keyboard">It All Started When I Bought an HHKB Layout Keyboard</h2>
 
-<p>Hell-Month는 Web3 커뮤니티 빌더이자 개발자인 <a href="https://www.linkedin.com/posts/7oelm_%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%A1%B0%EC%97%98%EA%B3%BC-web3-%EC%82%BD%EC%A7%88-activity-7360115833097908225-HMuM?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAACX_74kB5FHdEvU5kLzcald4RDFZSjBrrKA">Joel Mun님이 4주 동안 진행한 강의</a> 입니다. Uniswap과 AMM(Autonomous Market Maker)에 대해 배우고 직접 개발까지 해볼 수 있는 소중한 기회였죠.</p>
+<p>There’s something people close to me, including my wife, always say: that I don’t have much material desire. For a developer, I’m not very interested in or greedy about peripherals; I tend to just use whatever is given. However, like any other day, I was just coding when I suddenly felt bored with the situation. Maybe I just wanted to try a cool, clicky keyboard like other people. And I also don’t really like things that are just ordinary.</p>
 
-<p>Uniswap이 무엇인지, AMM은 어떻게 동작하고 왜 필요한지 등 바쁜 와중에도 열정적으로 강의해주시고 직접 과제까지 만들어주셔서 정말 많은 것을 배울 수 있었습니다. 이 글을 쓰는 시점에도 아직 강의와 과제가 남아있지만, 가장 최근에 진행한 dApp 만들기 과제를 통해 느낀 점을 먼저 정리하고 싶었습니다.</p>
+<p>Actually, Vim is a tool I’ve used since my college days, especially a lot during my time as an embedded developer working in the US. That doesn’t mean I used it well. I just used it because I had to, and I stopped using it once I found out how to port and use C in Xcode. As I mentioned earlier, I get very interested in things that are not ordinary. I’m not sure why the video “A ‘real developer’ must use Vim” was so appealing to me at the time, but just like that, I bought an HHKB layout keyboard thinking, “If I’m a developer worth my salt, I should at least try a keyboard that’s good for Vim.”</p>
 
-<p>결과물은 <a href="https://github.com/wnjoon/cohort-1-assignments-public/tree/assignment-4/4">github</a>에 올려두었습니다.</p>
+<p>Originally, I wanted to buy a Happy Hacking keyboard, but not wanting the ordinary option even here, I bought the <a href="https://keychron.kr/q60max/">Q60 Pro Max</a> made by Keychron with an HHKB layout. I plan to write a blog post about my experience with the keyboard later.</p>
 
-<h2 id="넘지-못했던-벽-프론트엔드">넘지 못했던 벽, 프론트엔드</h2>
+<p><br /></p>
 
-<p>비개발자들은 ‘어차피 다 같은 개발 아니야?’라고 생각할지 모르지만, 프론트엔드와 백엔드는 정말 다른 세계입니다. 뛰어난 풀스택(Full Stack) 개발자가 되려면 두 배, 아니 그 이상의 노력이 필요하죠. 대부분의 직장인 개발자는 둘 중 하나의 영역에 속해있지만, 개인 서비스를 만들고 싶다면 두 분야를 모두 알아야만 합니다.</p>
+<p><img src="https://tbnws.hgodo.com/wordpress/keychorn/products/q60max/products_thumb_q60max_2.jpg" alt="" /></p>
 
-<p>저 역시 서비스 개발자가 되고 싶다는 생각에 여러 번 프론트엔드에 도전했습니다. 하지만 당장 업무에 쓰는 백엔드 기술 하나만 제대로 파고들기에도 벅찬 현실 속에서, 사용하지도 않는 프론트엔드를 개념부터 공부하기란 쉽지 않았습니다.</p>
+<p><br /></p>
 
-<p>과거 갑작스러운 프로젝트 투입으로 프론트엔드를 경험했던 후배가 혼자서 서비스를 뚝딱 만들어내는 모습을 보며 부러워했던 기억이 납니다. 당시에는 원치 않는 업무를 맡아 힘들어하는 후배가 안쓰럽기만 했는데, 돌이켜보면 역시 개발자는 직접 부딪쳐야 성장한다는 것을 그 친구를 통해 깨달을 수 있었습니다.</p>
+<p>In the end, after buying a keyboard with an unconventional key layout, I became ambitious, wanting to properly learn Vim and become a developer who looks different from the rest. So, I immediately installed the Vim extension, and less than a week later, I ended up disabling the feature again. I couldn’t remember the shortcuts I learned today by tomorrow, and the unfamiliar structure made it difficult to get used to, which gradually slowed down my work progress, so I had no choice.</p>
 
-<h2 id="ai로-프론트엔드를-띄워보다">AI로 프론트엔드를 띄워보다</h2>
+<p>A while later, I got ambitious again and installed the Vim extension, but this process just kept repeating like a Dormammu loop.</p>
 
-<p>개인적으로 프론트엔드 개발이 AI의 도움을 받기 좋은 이유는 다음과 같다고 생각합니다.</p>
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/5bcb4010-a9a1-4641-a9e4-7323deafdd0d/image.gif" alt="" /></p>
 
-<ul>
-  <li>정형화된 패턴: 사람들이 선호하는 웹사이트의 화면 구성과 기능은 대부분 비슷합니다.</li>
-  <li>풍부한 학습 데이터: AI는 수많은 웹사이트를 학습해 가장 보편적이고 효율적인 방법을 제안할 수 있습니다.</li>
-  <li>발전하는 개발 도구: 배포와 관리를 쉽게 해주는 도구들이 계속해서 등장하고 있습니다.</li>
-</ul>
+<h2 id="is-there-a-way-to-check-shortcuts-instantly">Is There a Way to Check Shortcuts Instantly?</h2>
 
-<p>결론적으로 AI를 이용하면 ‘남들이 만드는 것과 비슷한 웹사이트’는 충분히 만들 수 있다는 것이죠. 마침 이번 Hell-Month의 과제가 <strong>‘AI를 활용해 AMM 기반 dApp 개발하기’</strong>였기에, 제대로 AI를 이용해보기로 마음먹었습니다.</p>
+<p>I had a clear motivation to master Vim. The problem was that there was no good method to help me see this motivation through to the end. I tried displaying Vim shortcuts on the screen, and I also tried printing them out and placing them next to my monitor, but ultimately, the process of ‘finding the shortcut I wanted’ in the middle of development was very inconvenient.</p>
 
-<p>참고로 제가 사용하고 있는 AI 도구들을 나열해보면,</p>
+<p>Lately, I’ve been very enthusiastic about developing various things using AI agents, subscribing to Claude Code, and buying books. I wanted to try what’s called ‘vibe coding’ (a term I don’t particularly like), but I was struggling because I didn’t really have a program I wanted to develop. They say that ‘vibe coding’ starts with developing what you feel you need the most. That’s when it hit me.</p>
 
-<ul>
-  <li>windsurf: AI 기반 IDE 도구로, 많은 사람들이 cursor를 사용할때 가격이 저렴하다는 이유로 windsurf의 초기버전부터 사용했습니다. 덕분에 아직도 $10의 요금제를 사용하고 있습니다(얼리버드 사용자 특전).</li>
-  <li>gemini: 무료 크레딧을 얻게 되어 사용중입니다. 개인적으로 코딩에는 gpt보다 gemini가 더 정확하게 알려주는 것 같습니다. 대신 회화와 같이 실제 사람과의 interaction을 원한다면 gpt가 더 좋을 것 같습니다.</li>
-</ul>
+<p>“Ah! If I make the Vim shortcuts into a VSCode extension, I can use it too!”</p>
 
-<p>추가로 windsurf에서 코딩에 사용한 모델은 claude-sonnet-4입니다. 최근에 claude code를 결제해서 유료버전을 사용해볼까 굉장히 고민하고 있습니다. 아무래도 가격이 비싸고, 저는 실제로 코드를 하나씩 확인하면서 리팩토링하는 것을 주로 업무로 하다보니, 웹서비스를 하나부터 열까지 AI에게 맡길만한 일의 필요성을 느끼지 못하고 있었습니다. 하지만 이번에 진행한 과제에서는 ‘프론트엔드에 대해 전혀 모르는 백엔드 개발자가 미리 만들어놓은 솔리디티 컨트랙트만 가지고 컨텍스트 프로그래밍을 하는 것’이었기 때문에, claude-sonnet-4의 성능을 시험해보고 싶어서 사용했습니다. 물론 현재 시점으로 windsurf에서 claude-sonnet-4는 다른 모델들보다 토큰비용이 2배정도 들어갑니다.</p>
+<h2 id="creating-an-extension-that-provides-vim-shortcuts-in-various-languages">Creating an Extension That Provides Vim Shortcuts in Various Languages</h2>
 
-<blockquote>
-  <p>opus-4는 훨씬 많은 토큰비용 + 엔트로픽에서 API 키를 별도로 받은 후 비용을 충전해서 사용해야 했기 때문에, 이번 과제를 통해 일명 ‘바이브 코딩’을 테스트해보는 용도로는 적합하지 않다고 판단했습니다. 하지만 이에 대한 생각도 이후에 기술하겠습니다.</p>
-</blockquote>
+<p><a href="https://vim.rtorr.com/">vim.rtorr.com</a> is a site that provides Vim shortcuts in various languages. This site offered shortcuts in about 37 languages and was based on an MIT license, so I was able to gather the data needed for the extension by referencing it.</p>
 
-<h2 id="rule-만들기">rule 만들기</h2>
+<p>At first, I intended to create an extension that provided all 37 languages, but in the end, I built the extension based on the 8 most commonly used languages.</p>
 
-<p>수많은 영상에서 ‘AI 에이전트를 사용하기 전에 먼저 좋은 rule과 컨텍스트를 에이전트에게 주입’할 것을 추천합니다. 최근에 읽었던 책인 <a href="https://product.kyobobook.co.kr/detail/S000215838626">듀얼 브레인</a>에서도, AI에게 더 많이 설명할수록 그 내용을 기반으로 더 풍부한 답변을 줄 수 있다고 언급합니다. 사실 이건 너무 당연한 이야기입니다. AI가 우리의 생각을 읽고 답변할 수 없기 때문에, 우리는 원하는 답변을 얻기 위한 최대한의 정보를 AI에게 제공할 수 있어야 합니다. 그리고 우리가 원하는 방향으로 일이 진행되기 위한 가이드도 제공해야 합니다. 앞에서도 말했지만, AI는 우리의 생각을 읽을 수 없기 때문입니다. 물론 우리같은 사람도 다른 사람의 생각을 읽을 수 없죠.</p>
+<ol>
+  <li>English</li>
+  <li>Korean</li>
+  <li>Simplified Chinese</li>
+  <li>Japanese</li>
+  <li>Spanish</li>
+  <li>German</li>
+  <li>French</li>
+  <li>Portuguese</li>
+</ol>
 
-<p>사실 저는 지금까지 AI를 사용하면서 한번도 rule을 만들어본적은 없습니다. 문제가 있을법한 코드의 위치를 알려주고, 어느 부분에 문제가 있을것 같은지 제 생각을 정리하면서 대화형으로 문제를 해결해갔습니다. 하지만 이번 과제처럼 완전히 무에서 유를 창조하는 일을 AI에게 맡겨보는 것은 처음이었기 때문에, 제대로 rule을 만들어보자고 생각했습니다.</p>
+<h2 id="setting-up-claudemd">Setting Up CLAUDE.md</h2>
 
-<p>좋은 rule을 만드는 구조는 크게 아래와 같다고 합니다.</p>
+<p>This is the recommended sequence for vibe coding these days:</p>
 
-<ul>
-  <li>서비스 개발의 목적, 원하는 결과물에 대해서 최대한 구체적으로 설명할 수 있어야 한다.</li>
-  <li>사용하고자 하는 기술 스택에 대해서 명확하게 정의해야 한다.</li>
-  <li>단계별로 업무를 진행할 수 있도록 가이드 해야 한다. AI 또한 이를 명확히 해주지 않으면 여러개의 업무를 마구잡이로 실행할 가능성이 존재하기 때문이다. 그래서 체크박스 등을 통해 하나씩 업무를 해결하고 단계적으로 이를 확인받도록 해야 한다.</li>
-  <li>AI가 자동으로 코드를 수정하거나 다음 단계로 넘어갈 수도 있다. 이를 원치 않으면 명확하게 지시할 수 있어야 한다.</li>
-</ul>
+<ol>
+  <li>Have Gemini review the overall flow and idea, and create a document (CLAUDE.md) that can be passed to Claude Code.</li>
+  <li>Request Claude Code to develop based on the CLAUDE.md file.</li>
+  <li>Appreciate the finished program.</li>
+</ol>
 
-<p>이 외에도 여러가지가 있었지만, 우선 위의 4가지를 기준으로 아래와 같은 rule을 만들어보았습니다.</p>
+<p>So, I did the same and first told Gemini about my idea for the program and the development direction.</p>
 
-<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># MiniAMM DApp 개발 체크리스트</span>
+<p><em>“I bought an expensive HHKB (Happy Hacking layout) keyboard and I’m trying to code using Vim, but I can’t seem to get the hang of it even after several attempts… Maybe it’s because my usual coding habits are so ingrained. So, I tried keeping Vim shortcuts open in a separate window, but my productivity dropped too much. Are there any extensions or features in VSCode that let you check shortcuts instantly while using Vim? If not, would it be difficult to create such a feature and make it into an extension?”</em></p>
 
-<span class="gu">## 1단계: 프로젝트 초기 설정</span>
-<span class="p">-</span> [x] Next.js + Typescript 프로젝트 생성
-<span class="p">-</span> [x] Ethers.js, RainbowKit, Wagmi 등 필수 라이브러리 설치
-<span class="p">-</span> [x] TypeChain 설치 및 ABI로부터 타입스크립트 연동을 위한 설정
-<span class="p">-</span> [x] 각 컨트랙트 주소를 관리하기 위한 <span class="sb">`static`</span> 변수 또는 환경변수 파일 설정
-
-<span class="gu">## 2단계: 지갑 연결 및 기본 UI 구성</span>
-<span class="p">-</span> [x] RainbowKit을 사용한 지갑 연결 버튼 및 기능 구현
-<span class="p">-</span> [x] 지갑이 연결되지 않았을 때의 초기 화면 구성
-<span class="p">    -</span> [x] MiniAMM의 전체 유동성(TokenA, TokenB 수량) 표시
-<span class="p">-</span> [x] 지갑 연결 후 사용자 정보 표시 UI 추가
-<span class="p">    -</span> [x] 사용자의 TokenA, TokenB 보유량 표시
-<span class="p">    -</span> [x] 사용자의 LP 토큰 보유량 표시
-<span class="p">-</span> [x] 트랜잭션 오류 메시지를 보여줄 UI 공간 확보
-
-<span class="gu">## 3단계: Mock 토큰 발행 기능 구현</span>
-<span class="p">-</span> [x] TokenA, TokenB를 각각 발행할 수 있는 UI (입력창, 발행 버튼) 구현
-<span class="p">-</span> [x] '발행' 버튼 클릭 시 MockERC20 컨트랙트의 <span class="sb">`freeMintToSender`</span> 함수 호출 로직 구현
-<span class="p">-</span> [x] 토큰 발행 후 사용자의 토큰 보유량 실시간 업데이트
-<span class="p">-</span> [x] 발행 과정에서 발생하는 오류 처리 및 메시지 표시
-
-<span class="gu">## 4단계: 유동성 공급 기능 구현</span>
-<span class="p">-</span> [x] 공급할 TokenA, TokenB의 수량을 입력할 수 있는 UI 구현
-<span class="p">-</span> [x] '유동성 공급' 버튼 클릭 시 MiniAMM 컨트랙트의 <span class="sb">`addLiquidity`</span> 함수 호출 로직 구현
-<span class="p">-</span> [x] 유동성 공급 후 사용자의 LP 토큰 보유량 및 전체 유동성 ㅁ실시간 업데이트
-<span class="p">-</span> [x] 유동성 공급 과정에서 발생하는 오류(예: 보유량 부족) 처리 및 메시지 표시
-<span class="p">-</span> [x] 자동 approve 기능: 버튼 클릭 시 필요한 토큰 승인을 자동으로 처리
-<span class="p">-</span> [x] 잔액 검증: 트랜잭션 실행 전 사용자 토큰 보유량 확인 및 부족 시 오류 표시
-<span class="p">-</span> [x] 단계별 진행 상황 표시: approve → add liquidity 과정을 사용자에게 명확히 안내
-
-<span class="gu">## 5단계: 스왑 기능 구현</span>
-<span class="p">-</span> [x] 스왑할 토큰 종류(A→B, B→A) 선택 및 수량 입력 UI 구현
-<span class="p">-</span> [x] 입력된 수량에 따라 예상되는 스왑 결과 수량을 실시간으로 계산하여 표시
-<span class="p">-</span> [x] '스왑' 버튼 클릭 시 MiniAMM 컨트랙트의 <span class="sb">`swap`</span> 함수 호출 로직 구현
-<span class="p">-</span> [x] 트랜잭션 처리 중 '스왑' 버튼 비활성화 처리
-<span class="p">-</span> [x] 스왑 완료 후 사용자의 토큰 보유량 및 전체 유동성 실시간 업데이트
-<span class="p">-</span> [x] 스왑 과정에서 발생하는 오류 처리 및 메시지 표시
-
-<span class="gu">## 6단계: 유동성 해제 기능 구현</span>
-<span class="p">-</span> [x] 해제할 LP 토큰의 수량을 입력할 수 있는 UI 구현
-<span class="p">-</span> [x] '유동성 해제' 버튼 클릭 시 MiniAMM 컨트랙트의 <span class="sb">`removeLiquidity`</span> 함수 호출 로직 구현
-<span class="p">-</span> [x] 트랜잭션 처리 중 '해제' 버튼 비활성화 처리
-<span class="p">-</span> [x] 유동성 해제 완료 후 사용자의 토큰/LP 보유량 및 전체 유동성 실시간 업데이트
-<span class="p">-</span> [x] 유동성 해제 과정에서 발생하는 오류 처리 및 메시지 표시
-
-<span class="gu">## 7단계: 배포</span>
-<span class="p">-</span> [x] Cloudflare Pages를 통한 웹 애플리케이션 배포 준비
-<span class="p">-</span> [x] Next.js 정적 빌드 설정 (output: 'export')
-<span class="p">-</span> [x] TypeScript 오류 수정 (any → unknown 타입 변경)
-<span class="p">-</span> [x] Wrangler CLI 설치 및 Cloudflare 인증
-<span class="p">-</span> [x] Cloudflare Pages 프로젝트 생성 (miniamm-dapp)
-<span class="p">-</span> [x] 최종 테스트 및 배포 완료
-
-<span class="gs">**배포 결과:**</span>
-<span class="p">-</span> 메인 도메인: https://miniamm-dapp.pages.dev ✅ (정상 동작)
-<span class="p">-</span> 배포 URL: https://27e7e9a0.miniamm-dapp.pages.dev ⚠️ (SSL 오류 - 정상적인 현상)
-<span class="p">-</span> 업로드된 파일: 200개
-<span class="p">-</span> 배포 상태: 성공
-</code></pre></div></div>
-
-<p>위의 내용은 제가 최종적으로 개발을 마무리한 결과입니다. 총 7단계로 개발범위를 나누어보았고, 각 단계별로 소항목을 체크박스 형식으로 구성해서 하나씩 해결할때마다 체크박스에 표시하도록 했습니다.</p>
-
-<p>체크박스 형식을 사용하게 된 가장 큰 이유중 하나는, AI의 기억력에 한계가 있기 때문이었습니다. 자신이 이제까지 진행한 내용을 글로 남겨놓았기 때문에, 항상 이 파일을 기준으로 진행시켜서 이미 완료된 업무를 중복해서 진행함으로 토큰을 낭비하지 않게 했습니다. 추가로 각 단계별로 완료될때마다 저에게 최종적인 확인을 받도록 했는데요, 이렇게 했음에도 불구하고 중간에 자기 마음대로 다음 단계로 넘어가서 기능을 구현하는 경우도 있었습니다. 이부분을 막기 위한 더 좋은 컨텍스트 작성 방법이 있는지 확인해야겠다고 생각했습니다.</p>
-
-<p>또한 각 단계가 마무리될때마다 꼭 커밋을 해야겠더라구요. 간혹 AI가 이미 잘 작성되어서 확인이 끝난 기능임에도 불구하고, 다음 단계의 기능을 개발하면서 이전에 개발완료된 기능을 자기 마음대로 고치는 경우도 있었습니다. 코드의 갯수가 많아질수록 사용자가 예측하지 못한 변경이 발생해서 프로그램이 잘못되는 경우, 어디서 문제가 발생했는지 추적하는게 어려웠습니다. 가장 좋은 방식은 개발 단계마다 최대한 많은 횟수로 커밋을 하면 좋겠지만, 이러면 너무 많은 히스토리가 남아서 오히려 추적을 방해할 수도 있다 생각했습니다. 그래서 각 단계별로 완료될때마다 커밋을 직접 했습니다. 나중에 컨텍스트 작성 능력이 더 발전하면, AI가 직접 커밋을 하도록 하는것도 좋을것 같았습니다.</p>
-
-<h2 id="사용-후기">사용 후기</h2>
-
-<p>실제로 사용해본 결과 위의 단계 중 6단계까지는 거의 실수없이 개발을 완료했습니다. 단계별로 테스트하면서 제가 예상했던 것과 다른 결과가 나오는 경우, 에러 메시지와 함께 원하는 결과를 잘 설명해주면 거의 1-2번만에 에러를 해결해주는 모습도 보여줬습니다.</p>
-
-<p>하지만 배포처럼 외부 서비스를 이용하는 작업에는 약간의 가이드가 필요했습니다. 저는 Cloudflare Pages를 이용해 배포하려 했는데, 제 경험 부족도 있었지만 AI가 계속해서 ERR_SSL_VERSION_OR_CIPHER_MISMATCH 오류를 뿜어내며 해결하지 못해 한참 애를 먹었습니다. 나중에 알고 보니, 이 SSL 오류는 Cloudflare Pages 배포 시 일시적으로 발생할 수 있는 일반적인 현상이었습니다. 메인 도메인이 정상 작동하면 배포는 성공한 것이었죠.</p>
-
-<p>재미있는 것은, 위의 내용을 알려준것도 AI였다는 것입니다. 계속 오류가 해결되지 않아서 코드를 이전 단계를 완료한 버전으로 되돌리고, 새로운 AI 창을 열어서 다시 대화를 시도했습니다. 이전 단계까지 완료되었다는 체크박스를 확인해서 다시 배포를 시도해보도록 했습니다. AI가 자신이 진행했던 히스토리를 복기할 수 있도록 문서를 유지하는 것의 중요성을 다시 알 수 있었고, AI도 항상 동일한 결과를 만들어내지 못하기 때문에, 얼만큼 더 많은 정보를 제공하느냐가 확실히 중요한 부분이라는 것을 알았습니다.</p>
-
-<p>추가로 이번 과제를 통해 ‘일반 사용자들이 생각하고 구현하고자 하는 서비스는 거의 AI를 이용해서 만들어낼 수 있겠다’는 생각이 들었습니다. 복잡한 시스템인 경우에는 좀더 시도해봐야겠지만, 왠만한 기능 구현은 AI를 이용해서 할 수 있었습니다. 다만, 많은 사람들이 이야기하는 ‘바이브코딩에 대한 현실의 자각’은 필요한 것으로 보였습니다. IT에 대해 지식이 전혀 없거나, 혹은 지식이 부족한 사람들의 경우에는 아무리 AI가 서비스를 만들어준다 하더라도 이걸 확인하는 것이 어려울 것 같았습니다. 결국 ‘제대로 일하고 있는지 검토하는 능력’이 확실히 필요해보였습니다. 하나의 기술에 대한 깊은 이해도를 가진 사람이 되는것이 예전에는 중요했다면, 지금은 내가 개발하고자 하는 서비스에 필요한 기능을 빠르게 선택하고 새로운 기능을 빠르게 이해해서 AI에게 다양한 선택지와 정보를 풍부하게 제공할 수 있는 사람이 되는것이 중요한 시대가 되어가고 있다 생각했습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[프론트엔드에 대해 전혀 모르는 백엔드 개발자가 AI만 사용해서 매우 작은 AMM 기반 dApp을 개발해보는 과정을 정리했습니다. 이 모든 과정은 Hell-Month라고 하는 단기 프로젝트에서 진행하였습니다.]]></summary></entry><entry xml:lang="en"><title type="html">Building a Tiny dApp with AI</title><link href="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai-en/" rel="alternate" type="text/html" title="Building a Tiny dApp with AI" /><published>2025-09-15T00:00:00+09:00</published><updated>2025-09-15T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/15/miniamm-dapp-with-ai-en</id><content type="html" xml:base="http://localhost:4000/2025/09/15/miniamm-dapp-with-ai-en/"><![CDATA[<h2 id="hell-month">Hell-Month</h2>
-
-<p>Hell-Month is a <a href="https://www.linkedin.com/posts/7oelm_%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%A1%B0%EC%97%98%EA%B3%BC-web3-%EC%82%BD%EC%A7%88-activity-7360115833097908225-HMuM?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAACX_74kB5FHdEvU5kLzcald4RDFZSjBrrKA">4-week lecture conducted by Joel Mun</a>, a Web3 community builder and developer. It was a valuable opportunity to learn about Uniswap and AMM (Autonomous Market Maker) and even develop them ourselves.</p>
-
-<p>I was able to learn so much thanks to his passionate lectures and self-made assignments, covering what Uniswap is, how AMM works, and why it’s necessary, all despite his busy schedule. As of writing this, there are still lectures and assignments left, but I wanted to first organize my thoughts on the most recent dApp building assignment.</p>
-
-<p>The result has been uploaded to <a href="https://github.com/wnjoon/cohort-1-assignments-public/tree/assignment-4/4">github</a>.</p>
-
-<h2 id="the-wall-i-couldnt-overcome-frontend">The Wall I Couldn’t Overcome, Frontend</h2>
-
-<p>Non-developers might think, ‘Isn’t all development the same anyway?’, but frontend and backend are truly different worlds. To become an outstanding Full Stack developer, you need double, no, even more effort. Most developers with office jobs belong to one of these two areas, but if you want to build a personal service, you must know both fields.</p>
-
-<p>I, too, challenged myself with frontend multiple times with the thought of becoming a service developer. However, in the harsh reality of being swamped just trying to master the backend technologies I use for work, it wasn’t easy to study frontend, which I don’t even use, starting from the concepts.</p>
-
-<p>I remember feeling envious watching a junior colleague, who had frontend experience from being suddenly thrown into a project in the past, build a service all by himself. At that time, I just felt sorry for my junior colleague who was struggling with an unwanted task, but looking back, I was able to realize through him that developers truly grow by tackling things head-on.</p>
-
-<h2 id="launching-a-frontend-with-ai">Launching a Frontend with AI</h2>
-
-<p>Personally, I think the reasons why frontend development is well-suited for AI assistance are as follows:</p>
+<p>Gemini understood my heartfelt plea and drafted a splendid CLAUDE.md file so that Claude Code could understand and develop it well. Of course, I refined the final version as shown below while resolving issues and concerns that came up during our chat.</p>
 
 <ul>
-  <li>Standardized patterns: The screen composition and functions of websites that people prefer are mostly similar.</li>
-  <li>Abundant learning data: AI has learned from numerous websites and can propose the most common and efficient methods.</li>
-  <li>Advancing development tools: Tools that facilitate deployment and management are continuously emerging.</li>
+  <li>The CLAUDE.md file I used can be found <a href="https://github.com/wnjoon/vscode-vm-cheet-sheet/blob/main/CLAUDE.md">here</a>.</li>
 </ul>
 
-<p>In conclusion, it means that with AI, you can sufficiently build ‘a website similar to what others make’. Coincidentally, this Hell-Month’s assignment was <strong>‘To develop an AMM-based dApp utilizing AI’</strong>, so I decided to use AI properly.</p>
+<h2 id="requesting-claude-code-to-develop-based-on-claudemd">Requesting Claude Code to Develop Based on CLAUDE.md</h2>
 
-<p>For reference, the AI tools I am using are listed below:</p>
+<p>Now, I put the CLAUDE.md file into the development directory and called Claude. Before starting development using CLAUDE.md right away, I looked at the overall table of contents and asked if there were any deficiencies or items that needed to be addressed first. After resolving the unclear parts with Claude, I proceeded with the tasks one by one.</p>
+
+<p>To briefly summarize the overall steps taken:</p>
+
+<ol>
+  <li>
+    <p>First, I created a feature to scrape Vim shortcuts for each language from vim.rtorr.com. Then, I collected data for Korean and English, which I had initially planned.</p>
+  </li>
+  <li>
+    <p>At first, I only planned to support Korean and English, but I thought I might as well add a few more while I was at it, so I discussed with Claude which languages would be good to add. Claude suggested limiting it to about 8 languages because adding all 37 could make the data size larger than the deployable extension limit, and I accepted that opinion. I was impressed by Claude’s efficiency in cutting down the work. Since the scraping function was already built, collecting the remaining languages was quick.</p>
+  </li>
+  <li>
+    <p>I thought someone might already be using the default shortcut (Cmd+K+V). So, I suggested providing a feature in the extension to change the shortcut, saving users the trouble of going into the settings menu. Claude strongly agreed with this part.</p>
+  </li>
+</ol>
+
+<h2 id="deploying-the-extension">Deploying the Extension</h2>
+
+<p>This was my first time doing this, so I proceeded using the method Claude taught me + Googling (<a href="https://velog.io/@bo-like-chicken/%EC%9E%91%EA%B3%A0-%EC%86%8C%EC%A4%91%ED%95%9C-Viusal-Studio-Code-%ED%99%95%EC%9E%A5%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0">Reference site</a>).</p>
+
+<ol>
+  <li>You need to create an account in Azure DevOps.</li>
+  <li>You need to register as a Publisher on the <a href="https://marketplace.visualstudio.com/">Marketplace</a>.</li>
+  <li>You need to issue a Personal Access Token.</li>
+  <li>In the terminal (local) where you want to deploy the extension, use the <code class="language-plaintext highlighter-rouge">vsce login</code> command to enter your publisher ID and Personal Access Token.</li>
+  <li>Use the <code class="language-plaintext highlighter-rouge">vsce package</code> command to package the extension.</li>
+  <li>Use the <code class="language-plaintext highlighter-rouge">vsce publish</code> command to deploy the extension.</li>
+</ol>
+
+<p>Additionally, the contents of the developed extension’s package.json must match the publisher information (ID) and the extension’s information. I’ll omit this part from this article, as you can easily find it by Googling or asking an AI.</p>
+
+<p>Also, when you use the vsce publish command, it checks if an extension with the same name already exists on the Marketplace. If a duplicate name exists, an ERROR will occur, so to prevent this, you must check in advance that the extension name you are thinking of is not already taken.</p>
+
+<h2 id="a-very-satisfying-result">A Very Satisfying Result</h2>
+
+<p>In total, the work took about 1 hour. Excluding the time I spent eating chocolate and drinking coffee, I think it could easily be done within 30 minutes.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/29b3be75-0fd2-48d8-9235-2aed02b1b619/image.png" alt="image" /></p>
 
 <ul>
-  <li>windsurf: An AI-based IDE tool. When many people were using cursor, I used windsurf from its early versions because it was cheaper. Thanks to that, I am still using the $10 plan (early bird user privilege).</li>
-  <li>gemini: I am using it because I got free credits. Personally, I think gemini gives more accurate answers for coding than gpt. However, if you want interaction like a real conversation with a person, gpt seems better.</li>
+  <li>The deployed extension can be found <a href="https://marketplace.visualstudio.com/items?itemName=xonxoon.quick-vim-cheatsheet">here</a>.</li>
+  <li>If you can’t find it on the Marketplace, you can install it via the <a href="https://github.com/wnjoon/vscode-vm-cheet-sheet/releases/tag/v1.0.0">v1.0.0-release</a>.</li>
+  <li>You can check the written code through the <a href="https://github.com/wnjoon/vscode-vm-cheet-sheet">github</a> repository.</li>
 </ul>
 
-<p>Additionally, the model I used for coding in windsurf is claude-sonnet-4. I’ve been seriously considering paying for claude code recently to try the paid version. The price is high, and my main job is to check and refactor code one by one, so I hadn’t felt the need to entrust an AI with building a web service from scratch. However, since the assignment this time was ‘a backend developer with no frontend knowledge doing context programming with only pre-made solidity contracts’, I wanted to test the performance of claude-sonnet-4, so I used it. Of course, as of now, claude-sonnet-4 costs about twice as much in tokens as other models in windsurf.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
 
-<blockquote>
-  <p>opus-4 required significantly more token costs + I had to get a separate API key from Anthropic and charge the cost to use it, so I judged it was not suitable for testing so-called ‘vibe coding’ through this assignment. However, I will write about my thoughts on this later as well.</p>
-</blockquote>
+<p>I’ve briefly written about my thoughts on vibe coding in a previous post, but as AI continues to advance, I feel like developers like me have gained an ‘incredibly smart assistant.’ I use the term ‘assistant’ because, as I didn’t mention earlier, the user who ordered the development must review the intermediate results that the AI produces.</p>
 
-<h2 id="creating-rules">Creating Rules</h2>
+<p>What’s surprising is that the errors AI makes are decreasing compared to just a few months ago, or even a few weeks ago. In the case of a very simple program like the extension I built this time, it didn’t generate any errors at all. Instead, when I requested modifications or suggested better improvements during development, it reflected them very quickly without conflicting with other parts.</p>
 
-<p>Numerous videos recommend ‘injecting good rules and context into the AI agent before using it’. In a recently read book, <a href="https://product.kyobobook.co.kr/detail/S000215838626">Dual Brain</a>, it also mentions that the more you explain to the AI, the richer the answers it can provide based on that content. This is actually a very obvious story. Because AI cannot read our thoughts and answer, we must be able to provide the maximum information to the AI to get the answers we want. And we also need to provide a guide for the work to proceed in the direction we want. As I said before, this is because AI cannot read our thoughts. Of course, people like us can’t read other people’s thoughts either.</p>
+<p>I usually use the ‘tab launcher’ provided by windsurf and ask AI about things I don’t understand or tedious tasks that come up during development. However, after trying to develop from start to finish using Claude Code this time, I found it very convenient to get AI’s help for simple tasks. In the past, it took time to learn a new language or platform and become proficient with it. Now, it seems we are entering an era where there are no major constraints, even when using new languages or platforms, as long as you have the skill to understand the overall flow and read the code.</p>
 
-<p>Actually, I have never created a rule while using AI so far. I would tell it the location of the code that might have a problem and solve the problem in a conversational way, organizing my thoughts on which part seemed to be the problem. However, this was the first time I was entrusting the AI with a task of creating something from nothing, like this assignment, so I decided to try making a proper rule.</p>
-
-<p>They say the structure for making a good rule is broadly as follows:</p>
-
-<ul>
-  <li>You must be able to explain the purpose of the service development and the desired outcome as specifically as possible.</li>
-  <li>You must clearly define the technology stack you intend to use.</li>
-  <li>You must provide a guide so that the work can proceed step-by-step. If this is not clarified, the AI may also execute multiple tasks haphazardly. Therefore, you should have it solve tasks one by one using checkboxes and get confirmation at each stage.</li>
-  <li>The AI might automatically modify code or move to the next step. If you don’t want this, you must be able to instruct it clearly.</li>
-</ul>
-
-<p>There were several other things, but first, I created the following rule based on the four criteria above.</p>
-
-<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># MiniAMM DApp Development Checklist</span>
-
-<span class="gu">## Step 1: Initial Project Setup</span>
-<span class="p">-</span> [x] Create Next.js + Typescript project
-<span class="p">-</span> [x] Install essential libraries like Ethers.js, RainbowKit, Wagmi
-<span class="p">-</span> [x] Install TypeChain and configure for TypeScript integration from ABI
-<span class="p">-</span> [x] Set up <span class="sb">`static`</span> variables or environment variable file to manage each contract address
-
-<span class="gu">## Step 2: Wallet Connection and Basic UI Composition</span>
-<span class="p">-</span> [x] Implement wallet connection button and functionality using RainbowKit
-<span class="p">-</span> [x] Initial screen composition for when the wallet is not connected
-<span class="p">    -</span> [x] Display MiniAMM's total liquidity (TokenA, TokenB quantities)
-<span class="p">-</span> [x] Add UI to display user information after wallet connection
-<span class="p">    -</span> [x] Display user's TokenA, TokenB balance
-<span class="p">    -</span> [x] Display user's LP token balance
-<span class="p">-</span> [x] Secure UI space to show transaction error messages
-
-<span class="gu">## Step 3: Implement Mock Token Minting Function</span>
-<span class="p">-</span> [x] Implement UI (input field, mint button) to mint TokenA and TokenB respectively
-<span class="p">-</span> [x] Implement logic to call <span class="sb">`freeMintToSender`</span> function of MockERC20 contract when 'Mint' button is clicked
-<span class="p">-</span> [x] Real-time update of user's token balance after minting
-<span class="p">-</span> [x] Error handling and message display during the minting process
-
-<span class="gu">## Step 4: Implement Add Liquidity Function</span>
-<span class="p">-</span> [x] Implement UI to input quantities of TokenA and TokenB to supply
-<span class="p">-</span> [x] Implement logic to call <span class="sb">`addLiquidity`</span> function of MiniAMM contract when 'Add Liquidity' button is clicked
-<span class="p">-</span> [x] Real-time update of user's LP token balance and total liquidity after adding liquidity
-<span class="p">-</span> [x] Error handling (e.g., insufficient balance) and message display during the add liquidity process
-<span class="p">-</span> [x] Automatic approve feature: Automatically handle necessary token approvals on button click
-<span class="p">-</span> [x] Balance validation: Check user token balance before transaction execution and display error if insufficient
-<span class="p">-</span> [x] Step-by-step progress display: Clearly guide the user through the approve → add liquidity process
-
-<span class="gu">## Step 5: Implement Swap Function</span>
-<span class="p">-</span> [x] Implement UI for selecting swap token type (A→B, B→A) and inputting quantity
-<span class="p">-</span> [x] Calculate and display the estimated swap result quantity in real-time based on the input amount
-<span class="p">-</span> [x] Implement logic to call <span class="sb">`swap`</span> function of MiniAMM contract when 'Swap' button is clicked
-<span class="p">-</span> [x] Disable 'Swap' button while transaction is processing
-<span class="p">-</span> [x] Real-time update of user's token balance and total liquidity after swap completion
-<span class="p">-</span> [x] Error handling and message display during the swap process
-
-<span class="gu">## Step 6: Implement Remove Liquidity Function</span>
-<span class="p">-</span> [x] Implement UI to input the quantity of LP tokens to remove
-<span class="p">-</span> [x] Implement logic to call <span class="sb">`removeLiquidity`</span> function of MiniAMM contract when 'Remove Liquidity' button is clicked
-<span class="p">-</span> [x] Disable 'Remove' button while transaction is processing
-<span class="p">-</span> [x] Real-time update of user's token/LP balance and total liquidity after removing liquidity
-<span class="p">-</span> [x] Error handling and message display during the remove liquidity process
-
-<span class="gu">## Step 7: Deployment</span>
-<span class="p">-</span> [x] Prepare web application deployment via Cloudflare Pages
-<span class="p">-</span> [x] Configure Next.js static build (output: 'export')
-<span class="p">-</span> [x] Fix TypeScript errors (any → unknown type change)
-<span class="p">-</span> [x] Install Wrangler CLI and authenticate with Cloudflare
-<span class="p">-</span> [x] Create Cloudflare Pages project (miniamm-dapp)
-<span class="p">-</span> [x] Final testing and deployment completion
-
-<span class="gs">**Deployment Result:**</span>
-<span class="p">-</span> Main Domain: <span class="p">[</span><span class="nv">https://miniamm-dapp.pages.dev</span><span class="p">](</span><span class="sx">https://miniamm-dapp.pages.dev</span><span class="p">)</span> ✅ (Operating normally)
-<span class="p">-</span> Deployment URL: <span class="p">[</span><span class="nv">https://27e7e9a0.miniamm-dapp.pages.dev</span><span class="p">](</span><span class="sx">https://27e7e9a0.miniamm-dapp.pages.dev</span><span class="p">)</span> ⚠️ (SSL error - normal phenomenon)
-<span class="p">-</span> Uploaded Files: 200
-<span class="p">-</span> Deployment Status: Success
-</code></pre></div></div>
-
-<p>The above content is the result of my final development wrap-up. I divided the development scope into a total of 7 steps, and configured sub-items for each step in a checkbox format so I could mark them off as I solved each one.</p>
-
-<p>One of the biggest reasons for using the checkbox format was due to the limitations of the AI’s memory. Since it left a written record of the content it had processed so far, I always made it proceed based on this file to prevent it from wasting tokens by performing completed tasks redundantly. Additionally, I had it get final confirmation from me every time each step was completed, but even so, there were cases where it moved on to the next step and implemented features on its own. I thought I needed to check if there was a better context writing method to prevent this.</p>
-
-<p>Also, I realized I absolutely had to commit every time each step was finished. Occasionally, even for a feature that was already well-written and confirmed, the AI would modify the previously completed feature on its own while developing the feature for the next step. As the amount of code increased, it was difficult to track where the problem occurred when the program went wrong due to an unexpected change by the user. I thought the best way would be to commit as many times as possible during each development stage, but this would leave too much history and could actually hinder tracking. So, I made the commits myself every time each step was completed. Later, as my context writing skills improve, I thought it would be good to have the AI make the commits directly.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>After actually using it, I found that it completed the development up to step 6 of the above steps almost without errors. When I got a different result than I expected while testing step-by-step, if I explained the desired result well along with the error message, it also showed the ability to solve the error in almost 1-2 attempts.</p>
-
-<p>However, tasks using external services, like deployment, required a bit of guidance. I was trying to deploy using Cloudflare Pages, and partly due to my lack of experience, the AI kept throwing a ERR_SSL_VERSION_OR_CIPHER_MISMATCH error and couldn’t solve it, giving me a hard time. I found out later that this SSL error was a common phenomenon that could temporarily occur during Cloudflare Pages deployment. If the main domain was working properly, the deployment was successful.</p>
-
-<p>The interesting thing is, it was also AI that told me the above. Since the error wasn’t getting resolved, I reverted the code to the version where the previous step was completed, opened a new AI window, and tried the conversation again. I had it check the checkbox indicating the previous step was completed and try to deploy again. I was able to realize again the importance of maintaining a document so the AI can review its own progress history, and I also learned that how much more information you provide is definitely an important part, as AI doesn’t always produce the same result.</p>
-
-<p>Additionally, through this assignment, I came to think that ‘services that general users think of and want to implement can almost all be created using AI’. It would require more attempts for complex systems, but it seemed possible to implement most features using AI. However, it seemed that the ‘realization of the reality of vibe coding’ that many people talk about is necessary. For those with no IT knowledge at all, or those with insufficient knowledge, it seemed difficult to verify the service even if AI builds it for them. In the end, it seemed that the ‘ability to review whether the work is being done properly’ is definitely necessary. While it was important in the past to be a person with a deep understanding of one technology, I thought we are moving into an era where it’s important to be a person who can quickly select the features needed for the service I want to develop, quickly understand new features, and provide various options and abundant information to the AI.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[This is a summary of the process a backend developer, with no knowledge of frontend, used only AI to build a very small AMM-based dApp. This entire process took place during a short-term project called Hell-Month.]]></summary></entry></feed>
+<p>Of course, I felt it this time too, but it seems difficult for AI to completely replace developers. First of all, I felt that in order to understand each development step well and make good requests, the requester will need basic knowledge, or even more, professional expertise. Rather, I hope that AI serves as an opportunity to make coding, which was once a skill only a select few could do, feel more familiar as a ‘language’ that humans can use.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[I bought an HHKB layout keyboard, but I kept installing and uninstalling Vim because it was so annoying to search the web every time I didn't know a shortcut. I thought it would be great if VSCode could just show me the shortcuts directly, so I'm sharing my experience of building a VSCode extension using Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">바이브 코딩이란 단어는 적절하지 않다</title><link href="http://localhost:4000/2025/09/16/vibe-coding/" rel="alternate" type="text/html" title="바이브 코딩이란 단어는 적절하지 않다" /><published>2025-09-16T00:00:00+09:00</published><updated>2025-09-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/16/vibe-coding</id><content type="html" xml:base="http://localhost:4000/2025/09/16/vibe-coding/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/25">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[바이브 코딩이란 개발자가 생성형 인공지능의 도움을 받아 코드를 작성하는 행위를 일컫는 신조어로 프로그래밍을 할 때 사전에 엄밀한 논리나 설계를 바탕으로 하지 않고 직감과 느낌에 의존한다는 의미로 바이브 코딩이라는 이름이 붙었다. 바이브 코딩이라는 단어는 잘못되었다는 나의 생각을 공유하고싶다.]]></summary></entry></feed>
