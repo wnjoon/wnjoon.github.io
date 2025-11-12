@@ -152,6 +152,10 @@ One of the biggest reasons for using the checkbox format was due to the limitati
 
 Also, I realized I absolutely had to commit every time each step was finished. Occasionally, even for a feature that was already well-written and confirmed, the AI would modify the previously completed feature on its own while developing the feature for the next step. As the amount of code increased, it was difficult to track where the problem occurred when the program went wrong due to an unexpected change by the user. I thought the best way would be to commit as many times as possible during each development stage, but this would leave too much history and could actually hinder tracking. So, I made the commits myself every time each step was completed. Later, as my context writing skills improve, I thought it would be good to have the AI make the commits directly.
 
+## Result
+
+[This website](https://6b2d0ce4.miniamm-dapp.pages.dev/) is a simple website that implements Uniswap.
+
 ## Conclusion
 
 After actually using it, I found that it completed the development up to step 6 of the above steps almost without errors. When I got a different result than I expected while testing step-by-step, if I explained the desired result well along with the error message, it also showed the ability to solve the error in almost 1-2 attempts.
