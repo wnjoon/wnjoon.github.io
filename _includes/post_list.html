@@ -16,17 +16,17 @@
 {%- if filtered_posts.size > 0 -%}
   <ul>
     {%- for post in filtered_posts -%}
-        <li class="post-item" data-lang="{{ post.lang | default: 'ko' }}" data-index="{{ forloop.index }}">
-          <!-- <span>{{- post.date | date: site.theme_config.date_format -}}</span> -->
-          {%- if post.external_url -%}
-            <a href="{{ post.external_url }}" target="_blank">{{ post.title | downcase }}</a>
-          {%- else -%}
-            <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
-          {%- endif -%}
-        </li>
+      <li class="post-item" data-lang="{{ post.lang | default: 'ko' }}" data-index="{{ forloop.index }}">
+        <!-- <span>{{- post.date | date: site.theme_config.date_format -}}</span> -->
+        {%- if post.external_url -%}
+          <a href="{{ post.external_url }}" target="_blank">{{ post.title | downcase }}</a>
+        {%- else -%}
+          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
+        {%- endif -%}
+      </li>
     {%- endfor -%}
   </ul>
-  {%- if include.show_more and include.show_more_url -%}
+  {%- if include.show_more and include.show_more_url and limit_exceeded -%}
     <div class="show-more-container">
       <a href="{{ include.show_more_url }}" class="show-more-link">{{ include.show_more_text | default: "Show more..." }}</a>
     </div>

@@ -37,14 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let visibleCount = 0;
     const limit = 10; // Match the limit in menu.yml
     
+    // Check if we're on the archive page - don't apply limit there
+    const isArchivePage = window.location.pathname.includes('/archive');
+    
     postItems.forEach(item => {
       const postLang = item.getAttribute('data-lang');
       
       // Only show posts matching the selected language
       if (postLang === lang) {
         visibleCount++;
-        // Apply limit: show first 10, hide the rest
-        if (visibleCount <= limit) {
+        // Apply limit only on non-archive pages
+        if (isArchivePage || visibleCount <= limit) {
           item.style.display = '';
         } else {
           item.style.display = 'none';
