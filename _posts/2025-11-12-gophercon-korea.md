@@ -123,7 +123,6 @@ Effect-ive Go proposes the minimal idiomatic interface for delegating effects, s
 go test를 활용하여 프로덕션 코드를 모니터링 하는 방법
 - `*/10 * * * * go test -run ...`
 - 개발된 어플리케이션을 cronjob 등을 활용하여 주기적으로 테스트해볼 수 있습니다.
-- docs/prompts/TDD.md -> 확인 필요
 
 동시성 문제 테스트
 - `t.Parallel()`를 사용하면, 동시성 문제로 발생하는 수많은 버그들을 테스트 과정에서 발견할 수 있음
