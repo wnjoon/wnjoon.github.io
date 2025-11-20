@@ -1,18 +1,18 @@
 ---
 layout: post
 title:  "GopherCon Korea 2025 후기"                                                     
-description: "2025.11.09에 진행되었던 GopherCon Korea 2025에 참석한 후기와 소감을 적어본다."
+description: "2025.11.09에 진행되었던 GopherCon Korea (고퍼콘 코리아) 2025에 참석한 후기와 소감을 적어본다."
 categories: dev
 draft: false
 lang: ko
-keywords: "golang, gophercon, gophercon korea, golang conference, golang conference korea"
+tags: [golang, gophercon, gophercon korea, gophercon korea 2025, conference, backend, 고퍼콘, 고퍼콘 코리아, 고퍼콘 2025, 고퍼콘 코리아 2025]
 comments: true
 schema:
   "@context": "https://schema.org"
   "@type": "BlogPosting"
   "headline": "GopherCon Korea 2025 후기"
-  "description": "2025.11.09에 진행되었던 GopherCon Korea 2025에 참석한 후기와 소감을 적어본다."
-  "keywords": "golang, gophercon, gophercon korea, golang conference, golang conference korea"
+  "description": "2025.11.09에 진행되었던 GopherCon Korea (고퍼콘 코리아) 2025에 참석한 후기와 소감을 적어본다."
+  "keywords": "golang, gophercon, gophercon korea, gophercon korea 2025, golang conference, golang conference korea, golang conference korea 2025"
   "author":
     "@type": "Person"
     "name": "xonxoon"
