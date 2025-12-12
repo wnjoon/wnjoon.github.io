@@ -33,7 +33,7 @@ schema:
           "text": "Unlike traditional careers that value 'belonging' to a big company until retirement, developers prioritize personal competence and happiness. This drives them to constantly seek growth, explore new opportunities, and prove their skills through personal projects even outside of work hours."
 ---
 
-I once wrote a post in Korean recommending a book titled "The Battle Hardened Developer - Fiodar Sazanavets". While there were many excellent quotes, the one that resonated with me the most was this: "Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful."
+I once wrote a [post 'Habits and Mindsets for Sustainable Growth'](https://wnjoon.github.io/2025/09/15/tobe-good-developer-en/) recommending a book titled "The Battle Hardened Developer - Fiodar Sazanavets". While there were many excellent quotes, the one that resonated with me the most was this: "Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful."
 
 Through social media, we observe the "curated good lives" of others. I, too, have been traveling abroad for about two weeks now, and I am busy uploading photos to social media, driven by the desire to show this side of myself to the world. I don't post about the difficulties of travel, the moments I argued with my wife, the places that were less impressive than expected, or the food that tasted bad. I simply edit and publish the photos I like the best.
 
