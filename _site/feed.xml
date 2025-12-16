@@ -1,5 +1,131 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-16T10:06:15+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">14년간 구글에서 근무한 개발자의 조언</title><link href="http://localhost:4000/2025/12/16/21-lessons-for-engineer/" rel="alternate" type="text/html" title="14년간 구글에서 근무한 개발자의 조언" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/21-lessons-for-engineer</id><content type="html" xml:base="http://localhost:4000/2025/12/16/21-lessons-for-engineer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/29">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[14년간 구글에서 일한 개발자 Addy Osmani가 작성한 21개의 조언을 번역했습니다.]]></summary></entry><entry xml:lang="en"><title type="html">How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?</title><link href="http://localhost:4000/2025/12/12/sns-for-developer-en/" rel="alternate" type="text/html" title="How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?" /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer-en</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer-en/"><![CDATA[<p>I once wrote a <a href="https://wnjoon.github.io/2025/09/15/tobe-good-developer-en/">post ‘Habits and Mindsets for Sustainable Growth’</a> recommending a book titled “The Battle Hardened Developer - Fiodar Sazanavets”. While there were many excellent quotes, the one that resonated with me the most was this: “Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful.”</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-16T23:08:46+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">AI를 이용하여 하루만에 감사 일기 웹사이트 만들기</title><link href="http://localhost:4000/2025/12/16/gratitude-website/" rel="alternate" type="text/html" title="AI를 이용하여 하루만에 감사 일기 웹사이트 만들기" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/gratitude-website</id><content type="html" xml:base="http://localhost:4000/2025/12/16/gratitude-website/"><![CDATA[<h2 id="우리는-얼마나-주어진-삶에-감사하는가">우리는 얼마나 주어진 삶에 감사하는가?</h2>
+
+<p>저는 얼마전부터 뉴스를 보지 않습니다. 집에 TV가 있지만 1년에 사용하는 횟수가 손가락에 꼽을만큼 거의 켜지도 않습니다. 사실 유튜브처럼 굳이 TV가 없어도 다양한 소식을 접할 수 있는 방법이 있어서이기도 하지만, 가장 큰 이유는 불편하고 안좋은 소식을 더 많이 접하는게 싫어서이기도 합니다.</p>
+
+<p>사실 TV를 보지 않는다고 해서 원치않는 소식과 멀어지는건 아닙니다. 오히려 유튜브, 인스타그램 등 다양한 곳에서 훨씬 더 많은 자극적이고 불편한 소식들을 접하게 됩니다. 특히 SNS에서 말하는 내용들의 진위를 파악할 틈도 없이, 여러 갈등의 원인을 온몸으로 맞다보니 현재 살아가고 있는 삶에서 즐거움이 아닌 불안함과 걱정, 그리고 분노만 쌓여가는 것 같습니다.</p>
+
+<p>성경에는 “항상 기뻐하라 쉬지 말고 기도하라 범사에 감사하라”는 구절이 있습니다. 실제로 감사는 꽤 많은 이익을 가져다 준다고 합니다. 꽤 많은 성공한 사람들은 하루 일과의 마지막에 감사 일기를 작성하는 시간을 갖습니다. 일상 속 감사한 일들을 기록함으로써, 긍정적인 마음과 행복감을 증진시켜주고, 이를 꾸준히 할때 자존감이 향상되고 스트레스가 감소되는 등 삶에 좋은 변화들을 많이 가져올 수 있다고 합니다.</p>
+
+<p>하지만 저도 그럤듯이, 꾸준히 하는 것은 둘째 치고, 감사 일기를 한줄이라도 작성하는 것 조차 쉽지 않습니다. 오늘 하루 내가 무엇에 감사했는지 한참 생각해봐도 딱히 감사한 일이 떠오르지 않습니다. 감사 일기를 통해 나를 회복하는 시간을 가지려고 했지만, 정작 하루동안 감사한일이 없다는 생각에 우울해질 때도 있었습니다. 억지로 적어내려간 감사 내용도 항상 똑같았구요.</p>
+
+<p>게다가 요즘 너무 오랫동안 펜을 잡지 않아서일까요, 일기는 노트에 적는게 가장 좋다는 이야기를 많이 들어서 비싼 노트도 구매해서 도전해봤지만 반대로 노트를 열고 책상에 앉는 과정도 새로운 도전같이 느껴졌습니다. 그래서 일기장 앱을 설치해서 작성도 해봤는데, 핸드폰에서 일기 앱을 켜고 끝까지 집중해서 작성한 적도 손에 꼽더라구요.</p>
+
+<h2 id="내가-직접-만들어보자">내가 직접 만들어보자.</h2>
+
+<p>그래서 제가 한번 만들어보자는 생각이 들었습니다. 이전에 <a href="https://wnjoon.github.io/2025/09/15/miniamm-dapp-with-ai/">AI를 통해 허접하지만 프론트엔드 개발도 해봤던 터라</a>, 평소에 고민하고 있던 내용을 설계 문서로 정리해서 AI가 개발하도록 시켜보기로 했습니다.</p>
+
+<p>우선 앱이 아닌 반응형 웹사이트로 개발하기로 했습니다. 뭐 사실 이유는 간단합니다. 저는 앱개발은 해본적이 없거든요. 그리고 약간 핑계를 대자면, 핸드폰이 아닌 적어도 ‘컴퓨터(또는 노트북)’에서 작성하는 것이 훨씬 좋을 것 같다는 생각이 들었습니다. 적어도 제 기준에선 누워서 작성하지는 않을 것 같았거든요.</p>
+
+<p>그리고 가장 중요한 ‘모두가 자신이 적은 감사한 내용을 공유하는 웹사이트’를 만들고 싶었습니다. 익명으로 작성된 수많은 감사들을 보면서, 긍정적인 마음과 용기가 사용자들 사이에 전달되었으면 했습니다. 물론 절대 실명을 사용하지 않습니다. 실명을 사용하면 부끄럽잖아요.</p>
+
+<h2 id="계획서-만들기">계획서 만들기</h2>
+
+<h3 id="gemini와-함께-v1-계획서를-v2로-개선하기">Gemini와 함께 v1 계획서를 v2로 개선하기</h3>
+
+<p>그래서 먼저 <a href="https://github.com/wnjoon/gratitude-grove/blob/main/docs/PRD_v1.md">초기 개발 계획서</a>를 만들었습니다. Gemini가 계획서 하나는 기가막히게 만든다고 들어서, 제가 계획서를 약 80%정도 작성하고 이걸 Gemini에게 전달했습니다. 그리고 Claude Code에게 개발을 맡길건데, 그 전에 어떤 부분이 잘못된 것 같은지 혹은 미리 정의해야할 모호한 부분은 없는지 확인해서 알려달라고 부탁했습니다. <code class="language-plaintext highlighter-rouge">Gemini-3-pro</code>를 사용했는데, Gemini는 저의 계획서를 하나씩 읽어보면서 다양한 수정 방안을 제시했습니다. 특히 supabase 뿐만 아니라 react, tailwind 등 익숙하지 않은 도구들을 어떻게 선택하고 개발해야할지 도움을 많이 받았습니다.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">### AI(클로드)의 관점에서 본 분석 및 제안</span>
+
+AI는 이 문서를 보고 데이터 모델링과 컴포넌트 구조를 즉시 설계할 수 있습니다. 다만, 기술 스택과 관련하여 몇 가지 보완하면 좋은 점이 있습니다.
+<span class="p">
+-</span> DB 도구 관련: 1단계에서 Local MySQL을 쓰고 2단계에서 Supabase로 옮기겠다고 하셨는데, 처음부터 <span class="gs">**Supabase(PostgreSQL 기반)**</span>를 사용하는 것이 개발 속도와 설정 면에서 훨씬 효율적입니다. 클로드 코드가 Supabase 환경 설정을 한 번에 끝낼 수 있기 때문입니다.
+<span class="p">-</span> 배포 도구 추천: React + Tailwind + Supabase 조합이라면 Vercel이나 Netlify를 추천합니다. Cloudflare Pages도 훌륭하지만, React 프로젝트 배포와 관리가 초보자에게는 Vercel이 가장 직관적이고 강력합니다.
+<span class="p">-</span> 아이콘 라이브러리: 🌳 버튼이나 휴지통 버튼 등을 위해 lucide-react 같은 라이브러리를 추가하면 디자인 일관성을 높일 수 있습니다.
+</code></pre></div></div>
+
+<p>추가로 제가 작성한 계획서의 모호한 점을 확실하게 하기 위해 질문을 이어갔습니다.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>작업을 시작하기 전, 제가 궁금하거나 설계상 결정이 필요한 부분들입니다.
+
+Q1. 좋아요(나무 🌳) 버튼의 중복 방지 로직
+<span class="p">
+-</span> "사용자별 말풍선당 하나만" 제어하려면 별도의 likes 테이블이 필요합니다. (user_id, diary_id)를 유니크 키로 묶어 관리하면 되는데, 비로그인 사용자도 좋아요를 누를 수 있게 할까요? 아니면 로그인 사용자만 가능하게 할까요?
+<span class="p">-</span> 나의 답변: 비로그인 사용자는 좋아요를 누를 수 없게 하는게 좋을것 같아.
+
+Q2. 메인 화면의 레이아웃 (말풍선 배치)
+<span class="p">
+-</span> 가로 3개, 세로 7개의 고정 그리드(Grid) 형태를 원하시나요? 아니면 핀터레스트처럼 내용 길이에 따라 높낮이가 다른 메이슨리(Masonry) 레이아웃을 원하시나요? (설명하신 '말풍선 화살표' 디자인은 메이슨리 스타일일 때 더 자연스러울 수 있습니다.)
+<span class="p">-</span> 나의 답변: 메이슨리 레이아웃을 사용하게되면 말풍선 내부의 글을 어떻게 압축하면 좋을까? 각 감사 항목별로 몇글자 이상이 되면 ...을 붙이도록 하는건 어떨까?
+
+Q3. 감사일기 작성 제한
+<span class="p">
+-</span> "당일 일기만 작성 가능"하게 하려면 서버 시간(Supabase 시간)을 기준으로 할까요, 아니면 사용자의 로컬 브라우저 시간을 기준으로 할까요? (보통은 서버 시간을 권장합니다.)
+<span class="p">-</span> 나의 답변: 서버 시간으로 하자.
+
+Q4. 별명 중복 허용 여부
+<span class="p">
+-</span> 회원가입 시 별명은 중복이 불가능한 '유니크' 값으로 설정할까요?
+<span class="p">-</span> 나의 답변: 별명은 중복이 불가능해야해.
+</code></pre></div></div>
+
+<p>그리고 Database는 초기부터 Postgres를, 배포에는 Vercel을 사용하기로 했습니다. 아이콘 라이브러리도 개발 과정에 미리 등록해서 쉽게 사용할 수 있도록 하기로 했구요. 이후 말풍선(감사 일기 내용)을 클릭할 때 슬라이드업, 페이드인 중 하나의 애니메이션을 사용할 것을 권장하길래 각각이 무엇인지 질문했고, 최종적으로 말풍선을 클릭하면 가운데에서 팝업처럼 나타나고 뒤의 배경을 흐릿하게 만드는 방식을 사용하자고 말했습니다.</p>
+
+<h3 id="claude-code와-함께-v2-계획서를-v3로-개선하기">Claude Code와 함께 v2 계획서를 v3로 개선하기</h3>
+
+<p><a href="https://github.com/wnjoon/gratitude-grove/blob/main/docs/PRD_v2.md">Gemini를 통해 개선된 문서</a>를 Claude Code에게 전달하고, 이해가 가지 않거나 미리 논의해야할 부분을 확인해서 합의하자고 제안했습니다. 이 때 Claude Code는 <code class="language-plaintext highlighter-rouge">opus-4.5</code>를 사용했습니다. 확실하게 분석하기 위해, Max Plan의 비싼 값어치를 할 수 있도록 ultrathink를 뒤에 붙였습니다. 설계자(Gemini)를 통해 이미 어느정도 정리가 되었다고 생각했는데, 역시 실무자(Claude Code)는 또다른 관점에서 저에게 확인이 필요한 사항들을 말해주었습니다.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">### 확인이 필요한 사항들</span>
+<span class="p">
+1.</span> Supabase 프로젝트 설정
+<span class="p">
+  -</span> Supabase 프로젝트가 이미 생성되어 있나요? 아니면 새로 만들어야 하나요?
+<span class="p">  -</span> 생성되어 있다면 API URL과 Anon Key를 환경변수로 제공해주실 수 있나요?
+<span class="p">  -</span> 나의 답변: 해당하는 환경변수 값을 정리해서 알려주었음.
+<span class="p">
+2.</span> 별명(Nickname) 관련
+<span class="p">
+  -</span> PRD에서 "별명 변경 시 모든 글의 별명이 즉시 변경되어야 함"이라고 했는데, diaries 테이블에는 user_id만 저장하고 JOIN으로 별명을 가져오는 방식이 맞을까요? (이 방식이 자동 동기화에 유리합니다)
+<span class="p">  -</span> 나의 답변: diaries 테이블에 user_id만 저장하고 JOIN으로 별명 가져오자.
+<span class="p">
+3.</span> 일기 내용 저장 형식
+<span class="p">
+  -</span> PRD에 "구분자(예: <span class="err">*</span>) 혹은 JSON 배열"이라고 되어있는데, JSON 배열 (text[] 또는 jsonb) 방식을 권장드립니다. 파싱이 깔끔하고 각 항목을 독립적으로 다루기 좋습니다.
+<span class="p">  -</span> 나의 답변: 둘중에 뭐가 좋을지 잘 모르겠어서, text[], jsonb 중 더 효율적인 방법 선택해달라고 했고 text[] 방식으로 선택되었음.
+<span class="p">
+4.</span> 무한 스크롤 vs 페이지네이션
+<span class="p">
+  -</span> 메인 피드: 비로그인 시 21개 제한 후 차단, 로그인 시에는 무한 스크롤인가요?
+<span class="p">  -</span> 나의 일기: 9개씩 페이지네이션 (버튼 클릭 방식)이 맞나요?
+<span class="p">  -</span> 나의 답변: 비로그인, 로그인 관련 없이 메인에서는 21개만 보여주도록 함 (무한 스크롤을 적용하면 성능에 문제가 생길것으로 보임). 그리고 나의 일기는 9개씩 페이지네이션.
+<span class="p">
+5.</span> 좋아요 카운트 방식
+<span class="p">
+  -</span> PRD에 "역정규화 또는 count 쿼리 선택"이라고 되어있는데, 역정규화 방식 (diaries 테이블에 like_count 컬럼 + trigger로 자동 업데이트)을 권장드립니다. 피드 로딩 시 성능이 훨씬 좋습니다.
+<span class="p">  -</span> 나의 답변: 역정규화 방식 좋음.
+<span class="p">
+6.</span> 반응형 디자인
+<span class="p">
+  -</span> 모바일/태블릿/데스크탑 모두 지원해야 하나요? Masonry 레이아웃의 컬럼 수를 화면 크기에 따라 조정할까요?
+<span class="p">  -</span> 나의 답변: 모바일에서는 1개의 컬럼만 사용하고, 모두 아래로 나열하도록 설정.
+<span class="p">
+7.</span> 이메일 인증
+<span class="p">
+  -</span> Supabase Auth 사용 시 이메일 인증(confirmation)을 활성화할까요? 아니면 가입 즉시 로그인 가능하게 할까요?
+<span class="p">  -</span> 나의 답변: 가입 즉시 로그인. 이후 supabase auth에서 이메일 인증을 하라고 해서 이부분은 우선 제외해달라고 요청.
+</code></pre></div></div>
+
+<p>추가로 일기에 대한 수정, 삭제 기능이 누락되어 있다고 말해줘서 그 부분도 구현해달라고 요청했습니다. 그리고 해당 날짜의 감사 일기는 당일에만 작성할 수 있도록 제한했습니다. 지난 날의 감사가 아닌 오늘의 감사를 적는 것이 중요하다고 생각했습니다. 그리고 오늘이 지나면 내일은 그 감사의 마음이 온전히 담기지 않을 것이라고도 생각했거든요.</p>
+
+<h2 id="claude-code의-활약">Claude Code의 활약</h2>
+
+<p>사실 이 다음부터는 딱히 정리할게 없습니다. 제가 화면이 하나씩 만들어질때마다 꼭 저에게 보여주고 검토받은 후 다음 단계로 이동할 것을 요청했습니다. 기능적인 부분도 가끔 있었지만, 대부분은 화면상에 글자가 깨지거나 가독성이 떨어지는 부분 등 마이너한 수정을 요청한게 다였습니다. 물론 프로그램의 범위가 굉장히 간단하고 별로 복잡한 기능이 없어서 AI로 충분히 개발 가능할것이라 생각은 했지만, 이정도로 금방 개발할 수 있을 것이라고는 생각하지 못했습니다. 점점 발전해가는 AI의 속도도 무서웠지만, 이젠 아이디어만 있으면 무엇이든지 정말 만들 수 있겠구나라는 생각도 들었습니다. 배포도 Vercel을 이용하니 굉장히 빠르게 진행했습니다. 저는 그냥 회원가입만 했을 뿐입니다.</p>
+
+<h2 id="결과물-매일-감사-심기">결과물: 매일 감사 심기</h2>
+
+<p><a href="https://gratitude-grove.vercel.app/">매일 감사 심기</a>는 이메일 주소와 비밀번호, 그리고 별명만 입력하면 누구나 참여할 수 있는 감사를 공유하는 공간입니다. 실제로 서비스를 한다기보다는, 우선 저와 제 아내가 하루의 감사한 일들을 같이 적어보고 이를 공유해보고자 만들었습니다. 그리고 누군가의 글을 통해 그 감사함이 흘러서 다른 사람에게도 긍정적인 마음이 전해지고, 그 마음이 다른 사람들에게 계속 전해지길 바라는 마음으로 만들어보았습니다. 그래서 이 웹사이트의 메인화면에는 회원들이 작성한 모든 감사 일기가 공유됩니다. 현재는 최대 21개의 감사 일기가 메인화면에 보이도록 했습니다. 그리고 메인화면에 공유된 감사 일기를 보고 마음이 따뜻해졌다면 좋아요를 누를 수 있게 했습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/d97fa539-97e9-4bdf-ae00-e6017ab2ab17/image.png" alt="" /></p>
+
+<p>특히 개발자라는 것을 좀 티내보려고, 감사 일기를 작성할때마다 깃헙의 잔디 심기와 같이 초록색이 칠해지도록 했습니다. 그래서 이 웹사이트의 이름이 <strong>‘매일 감사 심기’</strong> 입니다. 꾸준하게 매일 심은 감사들이 우리의 삶을 초록색으로 물들일 수 있을 것이라 생각했습니다. 본인이 작성한 감사 일기는 언제든지 확인할 수 있고, 지난 날짜에 작성한 감사 일기도 필터를 통해 바로 확인할 수 있습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/f630bb68-27ac-4433-a40c-fc5f47c42d8e/image.png" alt="" /></p>
+
+<p>당연히 프로토타입이기 때문에 많은 부족한 부분이 있을겁니다. 그래도 하나씩 기능을 추가하거나 개선해가면서 저도 사이드 프로젝트의 즐거움을 좀 더 느껴보려고 합니다. 생각나신다면 <a href="mailto:wnjoon@gmail.com">이메일</a>로 언제든지 조언과 의견 부탁드립니다. 감사합니다.</p>
+
+<ul>
+  <li><a href="https://gratitude-grove.vercel.app/">매일 감사 심기: https://gratitude-grove.vercel.app/</a></li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[대혐오의 시대라고 불리죠. 우리는 세상에서 느끼는 불편함과 혐오 때문에 점점 감사하는 삶과 멀어지는 것 같습니다. 세상은 좀더 밝다는 것을 느끼고 싶어서 Claude Code를 이용하여 하루만에 매일 3개의 감사를 작성하고 이를 공유하는 웹사이트를 만들었습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">14년간 구글에서 근무한 개발자의 조언</title><link href="http://localhost:4000/2025/12/16/21-lessons-for-engineer/" rel="alternate" type="text/html" title="14년간 구글에서 근무한 개발자의 조언" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/21-lessons-for-engineer</id><content type="html" xml:base="http://localhost:4000/2025/12/16/21-lessons-for-engineer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/29">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[14년간 구글에서 일한 개발자 Addy Osmani가 작성한 21개의 조언을 번역했습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">소셜미디어. 그리고 개발자.</title><link href="http://localhost:4000/2025/12/12/sns-for-developer/" rel="alternate" type="text/html" title="소셜미디어. 그리고 개발자." /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/28">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[링크드인은 개발자에게 필수적인 커리어 브랜딩 도구이지만, 타인의 화려한 성과와 자신을 비교하게 만들어 번아웃을 유발하기도 합니다. SNS 속 '포장된 삶'과 현실을 구분하고, 건강하게 성장하기 위한 개발자의 마음가짐에 대해 이야기합니다.]]></summary></entry><entry xml:lang="en"><title type="html">How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?</title><link href="http://localhost:4000/2025/12/12/sns-for-developer-en/" rel="alternate" type="text/html" title="How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?" /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer-en</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer-en/"><![CDATA[<p>I once wrote a <a href="https://wnjoon.github.io/2025/09/15/tobe-good-developer-en/">post ‘Habits and Mindsets for Sustainable Growth’</a> recommending a book titled “The Battle Hardened Developer - Fiodar Sazanavets”. While there were many excellent quotes, the one that resonated with me the most was this: “Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful.”</p>
 
 <p>Through social media, we observe the “curated good lives” of others. I, too, have been traveling abroad for about two weeks now, and I am busy uploading photos to social media, driven by the desire to show this side of myself to the world. I don’t post about the difficulties of travel, the moments I argued with my wife, the places that were less impressive than expected, or the food that tasted bad. I simply edit and publish the photos I like the best.</p>
 
@@ -13,7 +139,7 @@
 
 <p>These days, there are channels on other social media platforms that curate “How to become a good developer.” I follow those channels and tend to read them one by one while lying in bed. As I enter my late 30s, I constantly worry about whether I am being refined into a “good developer.” There are parts where I feel relieved, thinking “thank goodness,” but there are also contents that make me break out in a cold sweat beyond mere embarrassment. Personally, I believe the profession of a developer has a different “standard of evaluation” compared to many traditional jobs. If the career path for most office workers was based on “where you belong”—joining a famous large corporation, receiving a high salary, working as a manager, and retiring at the standard age—then for developers, the criteria for a career path has become prioritizing personal competence and happiness. That is why, even when belonging to a sufficiently good company, they constantly wander looking for other places and want to create and share their own achievements even outside of work hours.</p>
 
-<p>In the end, it comes down to our mindset. If we start evaluating ourselves through comparison, looking at someone else’s achievements—big or small—will only make us anxious about our present. We need to have the leeway to think that there are countless teachers out there who give us insights through new content and teach us the parts we lack.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Social media is an essential tool for career branding, but it can also trigger burnout by compelling us to compare ourselves with the polished achievements of others. This post discusses how developers can separate 'curated lives' from reality and maintain a healthy mindset for growth.]]></summary></entry><entry xml:lang="ko"><title type="html">소셜미디어. 그리고 개발자.</title><link href="http://localhost:4000/2025/12/12/sns-for-developer/" rel="alternate" type="text/html" title="소셜미디어. 그리고 개발자." /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/28">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[링크드인은 개발자에게 필수적인 커리어 브랜딩 도구이지만, 타인의 화려한 성과와 자신을 비교하게 만들어 번아웃을 유발하기도 합니다. SNS 속 '포장된 삶'과 현실을 구분하고, 건강하게 성장하기 위한 개발자의 마음가짐에 대해 이야기합니다.]]></summary></entry><entry xml:lang="ko"><title type="html">GopherCon Korea 2025 후기</title><link href="http://localhost:4000/2025/11/12/gophercon-korea/" rel="alternate" type="text/html" title="GopherCon Korea 2025 후기" /><published>2025-11-12T00:00:00+09:00</published><updated>2025-11-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/12/gophercon-korea</id><content type="html" xml:base="http://localhost:4000/2025/11/12/gophercon-korea/"><![CDATA[<h2 id="나름-8년차-golang-개발자이지만-컨퍼런스는-처음">나름 8년차 Golang 개발자이지만, 컨퍼런스는 처음</h2>
+<p>In the end, it comes down to our mindset. If we start evaluating ourselves through comparison, looking at someone else’s achievements—big or small—will only make us anxious about our present. We need to have the leeway to think that there are countless teachers out there who give us insights through new content and teach us the parts we lack.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Social media is an essential tool for career branding, but it can also trigger burnout by compelling us to compare ourselves with the polished achievements of others. This post discusses how developers can separate 'curated lives' from reality and maintain a healthy mindset for growth.]]></summary></entry><entry xml:lang="ko"><title type="html">GopherCon Korea 2025 후기</title><link href="http://localhost:4000/2025/11/12/gophercon-korea/" rel="alternate" type="text/html" title="GopherCon Korea 2025 후기" /><published>2025-11-12T00:00:00+09:00</published><updated>2025-11-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/12/gophercon-korea</id><content type="html" xml:base="http://localhost:4000/2025/11/12/gophercon-korea/"><![CDATA[<h2 id="나름-8년차-golang-개발자이지만-컨퍼런스는-처음">나름 8년차 Golang 개발자이지만, 컨퍼런스는 처음</h2>
 
 <p>제가 처음으로 Go 언어를 경험한 것은 2018년 LG CNS에서 블록체인을 개발하는 프로젝트였습니다. 그전에도 Google에서 만든 언어라는 꽤 매력적인 타이틀 덕분에 관심을 갖고 있었지만, 다른 개발자들과 마찬가지로 업무와 관련없이 새로운 언어를 배우는 것이 쉽지 않았던 것 같습니다. 그러던 중 회사에서 사용하는 블록체인 플랫폼이 Go 언어를 사용하고 있었고, 지금은 Go 언어를 가장 많이 사용하는(거의 이것만 사용하는 것 같은) 개발자가 되어있네요.</p>
 
@@ -919,7 +1045,7 @@
 
 <p>결국 어떤 방법이던지 루틴을 만드는 것이 굉장히 중요한데, 앞으로 해외에서 일하게 될 상황을 고려할때 이러한 습관을 만드는 연습은 꼭 필요하다고 생각했다. 몸이 편한 것에 안주하는 것이 아니라, 내가 사용할 수 있는 시간이 늘어났다는 것에 더 집중하는 태도가 필요한 것 같다.</p>
 
-<p>이제 2025년도 3분기가 지나고, 총 3개월만 남았다. 남은 시간도 더 많이 경험하고 성장하자!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다.]]></summary></entry><entry xml:lang="ko"><title type="html">Meetup에 푹 절여진(?) 한주</title><link href="http://localhost:4000/2025/09/21/meetup-addict/" rel="alternate" type="text/html" title="Meetup에 푹 절여진(?) 한주" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/meetup-addict</id><content type="html" xml:base="http://localhost:4000/2025/09/21/meetup-addict/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/26">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[예전에는 밋업에 자주 참석했었는데, 회사 일도 그렇고 활동이 뜸하다 최근 배우고 싶은 분야들에 대한 밋업이 우후죽순 생겨나면서 여기저기 참석의사를 표현했다. 본의 아니게 이번주에는 3군데의 밋업 현장에 참여했는데, 그 과정에서의 경험을 공유한다.]]></summary></entry><entry xml:lang="ko"><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
+<p>이제 2025년도 3분기가 지나고, 총 3개월만 남았다. 남은 시간도 더 많이 경험하고 성장하자!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다.]]></summary></entry><entry xml:lang="ko"><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
 
 <p>개발자라면 영어를 사용해서 주석을 작성하는것이 당연히 좋겠지만, 사실 한국인의 경우에는 모국어로 주석을 다는것만큼 빠르고 편리한 것이 없죠. 저도 되도록이면 영어를 사용하려고 노력하지만, 지금같이 포스팅을 작성하거나 제가 빠르게 이해하기 위한 글이나 주석을 작성할 때에는 일반적으로 한국어를 사용하곤 합니다.</p>
 
