@@ -14,7 +14,31 @@
   function applyTheme(theme) {
     body.setAttribute('a', theme);
     localStorage.setItem('theme', theme);
+    currentTheme = theme;
     updateIcon(theme);
+    updateGiscusTheme(theme);
+  }
+
+  function updateGiscusTheme(theme) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+
+    var giscusTheme = theme === 'dark' ? 'dark' : 'light';
+
+    try {
+      iframe.contentWindow.postMessage(
+        {
+          giscus: {
+            setConfig: {
+              theme: giscusTheme
+            }
+          }
+        },
+        'https://giscus.app'
+      );
+    } catch (e) {
+      // noop
+    }
   }
 
   function updateIcon(theme) {
@@ -40,4 +64,26 @@
   
   body.setAttribute('a', currentTheme);
   updateIcon(currentTheme);
+
+  // giscus iframe is injected asynchronously; keep syncing until it appears.
+  (function retryGiscusThemeSync(remaining) {
+    updateGiscusTheme(currentTheme);
+    if (remaining <= 0) return;
+    if (document.querySelector('iframe.giscus-frame')) return;
+    setTimeout(function() { retryGiscusThemeSync(remaining - 1); }, 300);
+  })(40);
+
+  // Also observe DOM mutations so we can sync even if the iframe is injected late.
+  try {
+    var observer = new MutationObserver(function() {
+      var iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe) return;
+
+      var theme = body.getAttribute('a') === 'dark' ? 'dark' : 'light';
+      updateGiscusTheme(theme);
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  } catch (e) {
+    // noop
+  }
 })();

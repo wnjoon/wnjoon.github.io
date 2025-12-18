@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-18T23:07:21+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-18T23:51:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
 </subtitle><author><name>Wonjoon</name></author><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #1</title><link href="http://localhost:4000/2025/12/17/go-yfinance-0-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #1" /><published>2025-12-17T00:00:00+09:00</published><updated>2025-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/17/go-yfinance-0-en</id><content type="html" xml:base="http://localhost:4000/2025/12/17/go-yfinance-0-en/"><![CDATA[<h2 id="is-there-no-yahoo-finance-library-for-go">Is there no Yahoo Finance library for Go?</h2>
 
 <p>I recently became interested in building AI agents and have been diligently taking a <a href="https://nomadcoders.co/ai-agents-masterclass?gad_source=1&amp;gad_campaignid=18141167485&amp;gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&amp;gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB">course</a> on the subject. While the lectures are incredibly useful and fun, there is one downside. I primarily use the Go language (check out my <a href="https://wnjoon.github.io/2025/11/12/gophercon-korea/">GopherCon Korea review</a>), but most AI-related courses utilize Python to build agents. This is likely because most agents only support Python, or occasionally Javascript-based stacks.</p>
@@ -694,7 +694,86 @@ Q4. 별명 중복 허용 여부
 
 <ul>
   <li><a href="https://gratitude-grove.vercel.app/">매일 감사 심기: https://gratitude-grove.vercel.app/</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[대혐오의 시대라고 불리죠. 우리는 세상에서 느끼는 불편함과 혐오 때문에 점점 감사하는 삶과 멀어지는 것 같습니다. 세상은 좀더 밝다는 것을 느끼고 싶어서 Claude Code를 이용하여 하루만에 매일 3개의 감사를 작성하고 이를 공유하는 웹사이트를 만들었습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">14년간 구글에서 근무한 개발자의 조언</title><link href="http://localhost:4000/2025/12/16/21-lessons-for-engineer/" rel="alternate" type="text/html" title="14년간 구글에서 근무한 개발자의 조언" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/21-lessons-for-engineer</id><content type="html" xml:base="http://localhost:4000/2025/12/16/21-lessons-for-engineer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/29">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[14년간 구글에서 일한 개발자 Addy Osmani가 작성한 21개의 조언을 번역했습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">소셜미디어. 그리고 개발자.</title><link href="http://localhost:4000/2025/12/12/sns-for-developer/" rel="alternate" type="text/html" title="소셜미디어. 그리고 개발자." /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/28">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[링크드인은 개발자에게 필수적인 커리어 브랜딩 도구이지만, 타인의 화려한 성과와 자신을 비교하게 만들어 번아웃을 유발하기도 합니다. SNS 속 '포장된 삶'과 현실을 구분하고, 건강하게 성장하기 위한 개발자의 마음가짐에 대해 이야기합니다.]]></summary></entry><entry xml:lang="en"><title type="html">How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?</title><link href="http://localhost:4000/2025/12/12/sns-for-developer-en/" rel="alternate" type="text/html" title="How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?" /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer-en</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer-en/"><![CDATA[<p>I once wrote a <a href="https://wnjoon.github.io/2025/09/15/tobe-good-developer-en/">post ‘Habits and Mindsets for Sustainable Growth’</a> recommending a book titled “The Battle Hardened Developer - Fiodar Sazanavets”. While there were many excellent quotes, the one that resonated with me the most was this: “Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful.”</p>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[대혐오의 시대라고 불리죠. 우리는 세상에서 느끼는 불편함과 혐오 때문에 점점 감사하는 삶과 멀어지는 것 같습니다. 세상은 좀더 밝다는 것을 느끼고 싶어서 Claude Code를 이용하여 하루만에 매일 3개의 감사를 작성하고 이를 공유하는 웹사이트를 만들었습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">14년간 구글에서 근무한 개발자의 조언</title><link href="http://localhost:4000/2025/12/16/21-lessons-for-engineer/" rel="alternate" type="text/html" title="14년간 구글에서 근무한 개발자의 조언" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/21-lessons-for-engineer</id><content type="html" xml:base="http://localhost:4000/2025/12/16/21-lessons-for-engineer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/29">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[14년간 구글에서 일한 개발자 Addy Osmani가 작성한 21개의 조언을 번역했습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Giscus로 댓글 기능 추가하기</title><link href="http://localhost:4000/2025/12/15/how-to-add-giscus/" rel="alternate" type="text/html" title="Giscus로 댓글 기능 추가하기" /><published>2025-12-15T00:00:00+09:00</published><updated>2025-12-15T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/15/how-to-add-giscus</id><content type="html" xml:base="http://localhost:4000/2025/12/15/how-to-add-giscus/"><![CDATA[<h2 id="giscus로-댓글-기능-추가하기">Giscus로 댓글 기능 추가하기</h2>
+
+<p>Github Pages로 블로그를 운영하면 기본적으로 제공되지 않는 기능들이 많아서 이것저것 추가해야줘야 할 때가 많습니다. 댓글은 그중에 하나인데요, 사실 저는 포스팅에 댓글이 없는 스타일을 좋아합니다. 이더리움의 창시자인 비탈릭 부테린의 블로그 ‘<a href="https://vitalik.eth.limo/">Vitalik Buterin’s website</a>‘를 보면 포스팅에 댓글 기능이 없죠.</p>
+
+<p>제가 유명한 블로거도 아니고, 작성하는 글들이 대부분 제가 경험하고 생각한 것에 대한 기록이기 때문에 딱히 댓글이 필요한 상황은 아닙니다. 하지만 가끔 댓글로 의견을 물어보는 글도 생기지 않을까 하는 생각이 들더라구요. 그래서 방법을 알아보다 Giscus를 사용하여 댓글 기능을 추가해보기로 했습니다.</p>
+
+<h2 id="giscus-설치하기">Giscus 설치하기</h2>
+
+<p>설치에 앞서, Github Pages에서 댓글 기능을 적용할 수 있는 방법은 크게 3가지 정도 있습니다.</p>
+
+<ul>
+  <li>Giscus</li>
+  <li>Utterances</li>
+  <li>Disqus</li>
+</ul>
+
+<p>Giscus는 GitHub Discussions 기반이라 UI, 스팸, 관리 면에서 가장 무난합니다. 하지만 repo, category, mapping, repo id, category id 같은 값을 생성해서 블로그에 적용해줘야 합니다. 물론 리포지토리에서 세팅할 것도 있구요.</p>
+
+<p>Utterances는 Issues 기반으로 설정은 단순합니다. 다만 Issues가 댓글로 쌓이기 때문에, 개발자들의 성향에는 딱히 맞지 않아보였습니다.</p>
+
+<p>Disqus는 외부 서비스, 광고 및 트래킹 이슈 때문에 요즘은 별로 추천되지 않는다고 하더라구요. 그래서 저는 Giscus를 한번 사용해보기로 했습니다.</p>
+
+<h3 id="giscus-앱-설치하기">Giscus 앱 설치하기</h3>
+
+<p><a href="https://github.com/apps/giscus">Github에서 Giscus 앱을 설치</a>해야 합니다. 저는 블로그를 운영하는 리포지토리와 동일한 리포지토리에서 댓글을 관리할거라, 블로그 리포지토리에만 권한을 부여해서 설치했습니다.</p>
+
+<h3 id="리포지토리-discussion-활성화하기">리포지토리 Discussion 활성화하기</h3>
+
+<p>위에서 말씀드렸듯이, 저는 블로그 리포지토리에서 댓글을 관리할 것이기 때문에, 해당 리포지토리의 Discussion을 활성화 했습니다. Giscus는 댓글을 Discussion으로 관리하기 때문에, 필수로 이 기능이 활성화되어야 합니다.</p>
+
+<ol>
+  <li>저장소 메인 화면에서 Settings 클릭</li>
+  <li>General (기본 페이지) 아래에 있는 Features 섹션 찾기</li>
+  <li>Discussions 체크박스 활성화</li>
+  <li>(표시되면) Set up discussions 버튼을 눌러 사용하고자 하는 카테고리를 확인</li>
+</ol>
+
+<p>저는 이중 General 카테고리를 사용하기로 했습니다. 만약 다른 카테고리에서 댓글을 관리하고 싶다면, 새로운 카테고리를 만들어서 이를 Giscus에 적용하면 됩니다.</p>
+
+<h3 id="giscus-설정하기">Giscus 설정하기</h3>
+
+<p><a href="https://giscus.app/ko">giscus 웹사이트</a>에 들어가면 <strong>설정</strong>이 있습니다. 여기서 아래의 순서대로 진행하면 됩니다.</p>
+
+<ul>
+  <li><strong>언어</strong> : 저는 한국어를 설정했습니다.</li>
+  <li><strong>저장소</strong> : Repository에 Giscus 저장소로 사용하기 위해 Discussion을 활성화한 리포지토리를 입력합니다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">계정명/리포지토리 주소</code> (<code class="language-plaintext highlighter-rouge">wnjoon/wnjoon.github.io</code>)</li>
+    </ul>
+  </li>
+  <li><strong>페이지 ↔️ Discussions 연결</strong> : 대부분 기본값(pathname)을 권장하길래, 저도 기본값인 “Discussion 제목이 페이지 경로를 포함” 으로 설정했습니다.</li>
+  <li><strong>Discussion 카테고리</strong> : 사용하기로 한 카테고리를 선택합니다. 저는 General로 선택했습니다. 그리고 이 카테고리에서만 Discussion을 찾도록 했습니다. 아마 블로그라서 다른 곳에 Discussion이 작성될 것 같지 않았습니다.</li>
+  <li><strong>기능</strong> : 저는 메인포스트에 반응을 남기도록 설정했는데요, 일종의 <strong>좋아요</strong> 같은 기능입니다. 한번 관종이 되어보고 싶었습니다 😅 나머지 기능은 필요에 따라서 선택하시면 됩니다.</li>
+  <li><strong>테마</strong> : 이건 블로그의 성격과 기호에 맞게 선택하시면 됩니다.</li>
+  <li><strong>giscus 사용</strong> : 여기까지 하시면 스크립트 하나가 생성됩니다. 여기서 <code class="language-plaintext highlighter-rouge">data-repo-id</code>와 <code class="language-plaintext highlighter-rouge">data-category-id</code>를 복사해두면 됩니다.</li>
+</ul>
+
+<h2 id="giscus-적용하기">Giscus 적용하기</h2>
+
+<p>먼저 포스트 하단에 댓글이 추가될 수 있도록 설정해야 합니다. 저는 댓글을 달고 싶은 포스트의 front matter에 <code class="language-plaintext highlighter-rouge">comments: true</code>가 있는 경우에만 댓글을 달 수 있도록 설정했습니다. 이를 위해 <a href="https://github.com/wnjoon/wnjoon.github.io/blob/main/_layouts/post.html">_layouts/post.html</a> 파일을 수정했습니다. 글과 댓글이 딱 붙어있는게 싫어서 약간의 여백을 추가했습니다.</p>
+
+<p>그리고 <a href="https://github.com/wnjoon/wnjoon.github.io/blob/main/_includes/giscus.html">_includes/giscus.html</a> 파일을 생성했습니다. 여기는 giscus embed 템플릿이 작성되어 있는데, 아래와 같이 작성했습니다.</p>
+
+<p>마지막으로 <a href="https://github.com/wnjoon/wnjoon.github.io/blob/main/_config.yml">_config.yml</a>에서 아까 복사했던 <code class="language-plaintext highlighter-rouge">data-repo-id</code>와 <code class="language-plaintext highlighter-rouge">data-category-id</code>를 포함한 내용을 추가합니다.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">giscus</span><span class="pi">:</span>
+  <span class="na">repo</span><span class="pi">:</span> <span class="s2">"</span><span class="s">wnjoon/wnjoon.github.io"</span>
+  <span class="na">repo_id</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">data-repo-id</span><span class="pi">}</span>
+  <span class="na">category</span><span class="pi">:</span> <span class="s2">"</span><span class="s">General"</span>
+  <span class="na">category_id</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">data-category-id</span><span class="pi">}</span>
+  <span class="na">mapping</span><span class="pi">:</span> <span class="s2">"</span><span class="s">pathname"</span>
+  <span class="na">strict</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">reactions_enabled</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">emit_metadata</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="na">input_position</span><span class="pi">:</span> <span class="s2">"</span><span class="s">bottom"</span>
+  <span class="na">theme</span><span class="pi">:</span> <span class="s2">"</span><span class="s">preferred_color_scheme"</span>
+  <span class="na">lang</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ko"</span>
+</code></pre></div></div>
+
+<p>이렇게 하면 댓글창을 포스트 하단에 적용할 수 있게 됩니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Github Pages로 만든 블로그에서 Giscus를 이용하여 포스팅에 댓글을 달아봅니다.]]></summary></entry><entry xml:lang="en"><title type="html">How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?</title><link href="http://localhost:4000/2025/12/12/sns-for-developer-en/" rel="alternate" type="text/html" title="How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?" /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer-en</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer-en/"><![CDATA[<p>I once wrote a <a href="https://wnjoon.github.io/2025/09/15/tobe-good-developer-en/">post ‘Habits and Mindsets for Sustainable Growth’</a> recommending a book titled “The Battle Hardened Developer - Fiodar Sazanavets”. While there were many excellent quotes, the one that resonated with me the most was this: “Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful.”</p>
 
 <p>Through social media, we observe the “curated good lives” of others. I, too, have been traveling abroad for about two weeks now, and I am busy uploading photos to social media, driven by the desire to show this side of myself to the world. I don’t post about the difficulties of travel, the moments I argued with my wife, the places that were less impressive than expected, or the food that tasted bad. I simply edit and publish the photos I like the best.</p>
 
@@ -708,7 +787,7 @@ Q4. 별명 중복 허용 여부
 
 <p>These days, there are channels on other social media platforms that curate “How to become a good developer.” I follow those channels and tend to read them one by one while lying in bed. As I enter my late 30s, I constantly worry about whether I am being refined into a “good developer.” There are parts where I feel relieved, thinking “thank goodness,” but there are also contents that make me break out in a cold sweat beyond mere embarrassment. Personally, I believe the profession of a developer has a different “standard of evaluation” compared to many traditional jobs. If the career path for most office workers was based on “where you belong”—joining a famous large corporation, receiving a high salary, working as a manager, and retiring at the standard age—then for developers, the criteria for a career path has become prioritizing personal competence and happiness. That is why, even when belonging to a sufficiently good company, they constantly wander looking for other places and want to create and share their own achievements even outside of work hours.</p>
 
-<p>In the end, it comes down to our mindset. If we start evaluating ourselves through comparison, looking at someone else’s achievements—big or small—will only make us anxious about our present. We need to have the leeway to think that there are countless teachers out there who give us insights through new content and teach us the parts we lack.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Social media is an essential tool for career branding, but it can also trigger burnout by compelling us to compare ourselves with the polished achievements of others. This post discusses how developers can separate 'curated lives' from reality and maintain a healthy mindset for growth.]]></summary></entry><entry xml:lang="ko"><title type="html">GopherCon Korea 2025 후기</title><link href="http://localhost:4000/2025/11/12/gophercon-korea/" rel="alternate" type="text/html" title="GopherCon Korea 2025 후기" /><published>2025-11-12T00:00:00+09:00</published><updated>2025-11-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/12/gophercon-korea</id><content type="html" xml:base="http://localhost:4000/2025/11/12/gophercon-korea/"><![CDATA[<h2 id="나름-8년차-golang-개발자이지만-컨퍼런스는-처음">나름 8년차 Golang 개발자이지만, 컨퍼런스는 처음</h2>
+<p>In the end, it comes down to our mindset. If we start evaluating ourselves through comparison, looking at someone else’s achievements—big or small—will only make us anxious about our present. We need to have the leeway to think that there are countless teachers out there who give us insights through new content and teach us the parts we lack.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[Social media is an essential tool for career branding, but it can also trigger burnout by compelling us to compare ourselves with the polished achievements of others. This post discusses how developers can separate 'curated lives' from reality and maintain a healthy mindset for growth.]]></summary></entry><entry xml:lang="ko"><title type="html">소셜미디어. 그리고 개발자.</title><link href="http://localhost:4000/2025/12/12/sns-for-developer/" rel="alternate" type="text/html" title="소셜미디어. 그리고 개발자." /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/28">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[링크드인은 개발자에게 필수적인 커리어 브랜딩 도구이지만, 타인의 화려한 성과와 자신을 비교하게 만들어 번아웃을 유발하기도 합니다. SNS 속 '포장된 삶'과 현실을 구분하고, 건강하게 성장하기 위한 개발자의 마음가짐에 대해 이야기합니다.]]></summary></entry><entry xml:lang="ko"><title type="html">GopherCon Korea 2025 후기</title><link href="http://localhost:4000/2025/11/12/gophercon-korea/" rel="alternate" type="text/html" title="GopherCon Korea 2025 후기" /><published>2025-11-12T00:00:00+09:00</published><updated>2025-11-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/12/gophercon-korea</id><content type="html" xml:base="http://localhost:4000/2025/11/12/gophercon-korea/"><![CDATA[<h2 id="나름-8년차-golang-개발자이지만-컨퍼런스는-처음">나름 8년차 Golang 개발자이지만, 컨퍼런스는 처음</h2>
 
 <p>제가 처음으로 Go 언어를 경험한 것은 2018년 LG CNS에서 블록체인을 개발하는 프로젝트였습니다. 그전에도 Google에서 만든 언어라는 꽤 매력적인 타이틀 덕분에 관심을 갖고 있었지만, 다른 개발자들과 마찬가지로 업무와 관련없이 새로운 언어를 배우는 것이 쉽지 않았던 것 같습니다. 그러던 중 회사에서 사용하는 블록체인 플랫폼이 Go 언어를 사용하고 있었고, 지금은 Go 언어를 가장 많이 사용하는(거의 이것만 사용하는 것 같은) 개발자가 되어있네요.</p>
 
@@ -1035,219 +1114,7 @@ Q4. 별명 중복 허용 여부
 
 <p>한 발표자분께서 ‘Go언어를 사랑하는 사람들이 한자리에 모여서 관심사를 공유하고 이야기를 나눌 수 있어서 행복하다’고 하셨는데, 실제로 현장에 와보니 그런 분위기가 많이 느껴졌습니다.</p>
 
-<p>언어에 대해 크게 감수성이 있는 편은 아니지만, 적어도 내가 가장 많이 사용하고 있는 기술에 대해서 진지하게 고민하고 더 나은 방향을 찾아가면서 인사이트를 공유할 수 있는 행사에 참석할 수 있어서 정말 좋았습니다. 2026년에도 좋은 내용이 담긴 GopherCon이 이어지길 기대해봅니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="golang" /><category term="gophercon" /><category term="gophercon korea" /><category term="gophercon korea 2025" /><category term="conference" /><category term="backend" /><category term="고퍼콘" /><category term="고퍼콘 코리아" /><category term="고퍼콘 2025" /><category term="고퍼콘 코리아 2025" /><summary type="html"><![CDATA[2025.11.09에 진행되었던 GopherCon Korea (고퍼콘 코리아) 2025에 참석한 후기와 소감을 적어본다.]]></summary></entry><entry xml:lang="en"><title type="html">Comparison of Go HTTP Libraries: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/" rel="alternate" type="text/html" title="Comparison of Go HTTP Libraries: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib-en</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/"><![CDATA[<p>When building a web server in Go, you can use various server frameworks in addition to the default library, net/http. The three most famous frameworks are Gin, Fiber, and Echo, and the internal libraries each framework uses are as follows:</p>
-<ul>
-  <li><a href="https://github.com/gin-gonic/gin">Gin</a>, <a href="https://github.com/labstack/echo">Echo</a>: net/http</li>
-  <li><a href="https://github.com/gofiber/fiber">Fiber</a>: fasthttp</li>
-</ul>
-
-<p>In the end, developers choose between net/http and <a href="https://github.com/valyala/fasthttp">fasthttp</a>. fasthttp offers overwhelming performance, while net/http provides versatility and stability. In this post, I intend to compare and analyze the fundamental differences between these two libraries. Furthermore, I will explore why fasthttp does not support HTTP/2, where the performance difference comes from, and even the specific use cases and code-level differences for each library.</p>
-
-<h2 id="fasthttp-and-http2-why-its-not-supported">fasthttp and HTTP/2: Why It’s Not Supported</h2>
-
-<p>The reason fasthttp does not support HTTP/2 is not a simple feature omission; it’s because the library’s core philosophy and architecture fundamentally conflict with the structure of HTTP/2.</p>
-
-<p>The issue of fasthttp’s potential support for HTTP/2 has been a topic since 2016. The image below, from an issue in the <a href="https://github.com/valyala/fasthttp">official github repository</a>, shows that http2 was on fasthttp’s TODO list even back then.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/dbe0c31b-09d7-4956-8d75-a8d9b28c718d/image.png" alt="" /></p>
-
-<p>Recently, a library supporting HTTP/2 is being developed at <a href="https://github.com/fasthttp/http2">fasthttp/http2</a>. It is still in the ‘Under construction’ phase, and an official version has not been developed.</p>
-
-<p>fasthttp is a good library to use instead of net/http when the goal is “extreme performance and low memory usage in an HTTP/1.1 environment.” HTTP/2 support not only conflicts with this goal, but a great alternative (net/http) already exists. Therefore, fasthttp focuses on its own domain (HTTP/1.1 high performance). Looking closer, there are three main reasons.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
-
-<h3 id="1-fundamental-architectural-mismatch">1. Fundamental Architectural Mismatch</h3>
-
-<p>fasthttp is extremely optimized for the HTTP/1.1 protocol.</p>
-
-<ul>
-  <li>fasthttp (HTTP/1.1 based)
-    <ul>
-      <li>‘One connection = One request’ (excluding Keep-alive) is its simple premise. In other words, it has a simple structure where requests and responses are processed sequentially.</li>
-      <li>It focuses on memory reuse by reusing the <code class="language-plaintext highlighter-rouge">RequestCtx</code> object to minimize GC (Garbage Collection) overhead.</li>
-    </ul>
-  </li>
-  <li>HTTP/2
-    <ul>
-      <li>It uses ‘One connection = Multiple Streams’ (Multiplexing).</li>
-      <li>Multiple requests and responses can come and go simultaneously and out of order over a single TCP connection, requiring complex state management like per-stream Flow Control and Prioritization.</li>
-    </ul>
-  </li>
-</ul>
-
-<p>fasthttp’s simple memory reuse architecture makes it virtually impossible to manage HTTP/2’s complex multiple streams and states. Supporting HTTP/2 would require a complete rewrite of the library’s core logic, turning it into a completely new library that changes the very advantages fasthttp pursues.</p>
-
-<h3 id="2-implementation-complexity">2. Implementation Complexity</h3>
-
-<p>The main developer of fasthttp (<a href="https://github.com/valyala">valyala</a>) has repeatedly stated that implementing HTTP/2 is a “massive task that requires as much, or more, effort as maintaining the existing library.”</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/58194363-af18-48bc-84cd-14b4333b9ff6/image.png" alt="" /></p>
-
-<p>HTTP/2 is a binary protocol, and complex specs like HPACK for header compression, Server Push, and stream control must be implemented correctly. This is a workload equivalent to building an entirely new HTTP/2 library within fasthttp.</p>
-
-<h3 id="3-the-existence-of-the-standard-library-nethttp">3. The Existence of the Standard Library (net/http)</h3>
-
-<p>The Go language already provides excellent and stable HTTP/2 support in its standard library, net/http. Since Go 1.6 (2016), net/http has automatically supported HTTP/2 with no extra setup, and the official stance of the fasthttp development team is, “If you need HTTP/2, use the standard library net/http.” They even mention, ‘For most cases net/http is much better as it’s easier to use and can handle more cases,’ stating that net/http is a better choice for most environments that don’t require the high performance that fasthttp necessitates.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
-
-<p>Furthermore, there is no API compatibility between fasthttp and net/http. According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#switching-from-nethttp-to-fasthttp">official documentation</a>, a converter from net/http to fasthttp handlers exists, but they recommend that if you want to adopt fasthttp, it would be much better to re-implement it from scratch.</p>
-
-<blockquote>
-  <p>Unfortunately, fasthttp doesn’t provide an API identical to net/http. See the FAQ for details. There is a net/http -&gt; fasthttp handler converter, but it is better to write fasthttp request handlers by hand in order to use all of the fasthttp advantages.</p>
-</blockquote>
-
-<h2 id="so-why-is-fasthttp-faster">So Why Is fasthttp Faster?</h2>
-
-<p>According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#http-server-performance-comparison-with-nethttp">benchmarks provided by fasthttp</a>, fasthttp shows performance 6 times faster than net/http.</p>
-
-<ul>
-  <li>Minimized Memory Allocation (Zero Allocation):
-    <ul>
-      <li>net/http creates new http.Request and http.ResponseWriter objects for every request, putting a burden on the GC.</li>
-      <li>fasthttp aggressively uses sync.Pool to reuse a single struct, fasthttp.RequestCtx. When a request is finished, the object is returned to the pool, minimizing GC occurrences and reducing overall system latency.</li>
-    </ul>
-  </li>
-  <li>Byte Slice (<code class="language-plaintext highlighter-rouge">[]byte</code>) Centric Design:
-    <ul>
-      <li>net/http converts header keys, URL parameters, etc., to strings (string) to increase ease of use.</li>
-      <li>fasthttp processes most data directly as <code class="language-plaintext highlighter-rouge">[]byte</code>, reducing unnecessary conversions to strings and minimizing memory copies/allocations.</li>
-      <li>When performance improvement is paramount, it is recommended to use the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#unsafe-zero-allocation-conversions">unsafe, zero-allocation conversions provided by fasthttp</a> rather than the default Go methods for converting between <code class="language-plaintext highlighter-rouge">[]byte</code> and <code class="language-plaintext highlighter-rouge">string</code>.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="speed-and-trade-offs">Speed and Trade-offs</h2>
-
-<p>fasthttp offers high speed, but it also has the following disadvantages:</p>
-
-<ul>
-  <li>API Compatibility: net/http follows the standard <code class="language-plaintext highlighter-rouge">http.Handler</code> interface. In contrast, fasthttp uses a non-standard interface called <code class="language-plaintext highlighter-rouge">RequestHandler</code>.</li>
-  <li>Middleware Ecosystem: net/http is compatible with almost all Go middleware and routers like Gin, Chi, and Echo. fasthttp can only use dedicated middleware, making its ecosystem very limited. (The Fiber framework is the only major one built on fasthttp).</li>
-  <li>Protocol Support: net/http perfectly and automatically supports HTTP/2 and HTTP/3. fasthttp does not.</li>
-  <li>Memory Management: In net/http, the GC handles it automatically. In fasthttp, manual developer management is required, such as not holding on to the <code class="language-plaintext highlighter-rouge">RequestCtx</code> for too long.</li>
-  <li>Ease of Use: net/http is intuitive and safe. fasthttp has low usability, as breaking its rules can easily lead to memory leaks or bugs.</li>
-  <li>Streaming: net/http fully supports large-volume streaming, whereas fasthttp’s support is limited.</li>
-</ul>
-
-<h2 id="specific-use-cases">Specific Use Cases</h2>
-
-<h3 id="nethttp">net/http</h3>
-
-<ul>
-  <li>For almost all web applications and API servers.</li>
-  <li>When starting a new project (if specific requirements are not yet defined).</li>
-  <li>When a standard middleware ecosystem (Gin, Chi, etc.) is needed.</li>
-  <li>For client-facing services where HTTP/2 or HTTP/3 support is essential.</li>
-  <li>When streaming processing, such as large file uploads/downloads, is required.</li>
-  <li>When development convenience, stability, and maintainability are more important than performance.</li>
-</ul>
-
-<h3 id="fasthttp">fasthttp</h3>
-
-<ul>
-  <li>When extreme high-throughput performance is required.</li>
-  <li>For internal microservices that must handle hundreds of thousands of requests per second.</li>
-  <li>For ad bidding (RTB), large-scale proxy servers, or high-performance API gateways.</li>
-  <li>When profiling has proven that HTTP request handling itself in net/http is the clear bottleneck.</li>
-</ul>
-
-<h2 id="code-level-comparison">Code-Level Comparison</h2>
-
-<p>The biggest code-level difference between the two libraries is that net/http uses the <code class="language-plaintext highlighter-rouge">http.ResponseWriter</code> and <code class="language-plaintext highlighter-rouge">*http.Request</code> interfaces, whereas fasthttp handles everything with a single <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> struct.</p>
-
-<ul>
-  <li>Signature: net/http is (w, r), fasthttp is (ctx).</li>
-  <li>Data Access: net/http uses string (<code class="language-plaintext highlighter-rouge">r.URL.Path</code>), fasthttp uses []byte (<code class="language-plaintext highlighter-rouge">ctx.Path()</code>).</li>
-  <li>Object Lifecycle: net/http’s r and w are valid for the entire duration of the request handling.</li>
-</ul>
-
-<p>The important point is that <strong>the fasthttp ctx object is immediately returned to the pool and reused as soon as the handler function returns</strong>. If you pass the ctx to a goroutine within a fasthttp handler, by the time the goroutine executes, the ctx may already be handling a different request, which can cause serious problems like concurrency issues.</p>
-
-<p>Let’s look at the differences through handler examples for both.</p>
-
-<h3 id="nethttp-1">net/http</h3>
-
-<p>In net/http, the request and response objects are passed to the handler function separately.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-  <span class="s">"fmt"</span>
-  <span class="s">"net/http"</span>
-<span class="p">)</span>
-
-<span class="c">// Handler signature: http.ResponseWriter, *http.Request</span>
-<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c">// Query parameter (string)</span>
-  <span class="n">name</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Query</span><span class="p">()</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
-  <span class="p">}</span>
-  <span class="c">// Write response</span>
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">helloHandler</span><span class="p">)</span>
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"net/http server starting on :8080"</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span> <span class="no">nil</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
-    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>As you can see in the example above, the handler signature is func(http.ResponseWriter, *http.Request), and the request (r) and response (w) objects are separate, making it intuitive to understand.</p>
-
-<h3 id="fasthttp-1">fasthttp</h3>
-
-<p>fasthttp passes only the context object *fasthttp.RequestCtx to the handler.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-  <span class="s">"fmt"</span>
-  <span class="s">"https://github.com/valyala/fasthttp"</span>
-<span class="p">)</span>
-
-<span class="c">// Handler signature: *fasthttp.RequestCtx</span>
-<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c">// Query parameter ([]byte)</span>
-  <span class="n">name</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">QueryArgs</span><span class="p">()</span><span class="o">.</span><span class="n">Peek</span><span class="p">(</span><span class="s">"name"</span><span class="p">))</span>
-  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
-  <span class="p">}</span>
-  <span class="c">// Write response (directly to ctx)</span>
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">requestHandler</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">switch</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">Path</span><span class="p">())</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="s">"/hello"</span><span class="o">:</span>
-      <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-    <span class="k">default</span><span class="o">:</span>
-      <span class="n">ctx</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">"Unsupported path"</span><span class="p">,</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="p">)</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"fasthttp server starting on :8081"</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8081"</span><span class="p">,</span> <span class="n">requestHandler</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
-    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Unlike net/http, fasthttp uses the <code class="language-plaintext highlighter-rouge">func(*fasthttp.RequestCtx)</code> handler signature, and the single ctx object handles both accessing request information and writing the response. Also, data is processed as <code class="language-plaintext highlighter-rouge">[]byte</code>.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Looking back on when I used to design server APIs, I think I used to first worry about ‘how fast can it process requests.’ That’s why I mostly used Fiber, which provides fasthttp. However, if I had first clearly defined the requirements, such as what data the server would process and in what environment it needed to operate, I wonder if I wouldn’t have used net/http directly or a framework that supports it from a different perspective than performance.</p>
-
-<p>I recently attended GopherCon. A presenter mentioned that ‘when implementing a general server in Go without clear requirements, using net/http directly or using the Gin framework is most recommended.’ Unless extreme performance improvements are required, applying the most versatile framework or using the pure library provided by Go could be a better choice for future maintainability. It was a time to think about that.</p>
-
-<p>In conclusion, I think it’s a good choice to use fasthttp when you can precisely control concurrent data processing on a server that requires high performance, and to use net/http otherwise.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Comparison of Go HTTP Libraries: fasthttp vs net/http]]></summary></entry><entry xml:lang="ko"><title type="html">Go HTTP 라이브러리 비교: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib/" rel="alternate" type="text/html" title="Go HTTP 라이브러리 비교: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib/"><![CDATA[<p>Go 언어로 웹서버를 구축할 때, 기본적으로 제공하는 라이브러리인 net/http를 외에도 다양한 서버 프레임워크들을 사용할 수 있습니다. 가장 유명한 3개의 프레임워크인 Gin, Fiber, Echo가 있는데요, 각 프레임워크들이 사용하는 내부 라이브러리들은 아래와 같습니다.</p>
+<p>언어에 대해 크게 감수성이 있는 편은 아니지만, 적어도 내가 가장 많이 사용하고 있는 기술에 대해서 진지하게 고민하고 더 나은 방향을 찾아가면서 인사이트를 공유할 수 있는 행사에 참석할 수 있어서 정말 좋았습니다. 2026년에도 좋은 내용이 담긴 GopherCon이 이어지길 기대해봅니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="golang" /><category term="gophercon" /><category term="gophercon korea" /><category term="gophercon korea 2025" /><category term="conference" /><category term="backend" /><category term="고퍼콘" /><category term="고퍼콘 코리아" /><category term="고퍼콘 2025" /><category term="고퍼콘 코리아 2025" /><summary type="html"><![CDATA[2025.11.09에 진행되었던 GopherCon Korea (고퍼콘 코리아) 2025에 참석한 후기와 소감을 적어본다.]]></summary></entry><entry xml:lang="ko"><title type="html">Go HTTP 라이브러리 비교: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib/" rel="alternate" type="text/html" title="Go HTTP 라이브러리 비교: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib/"><![CDATA[<p>Go 언어로 웹서버를 구축할 때, 기본적으로 제공하는 라이브러리인 net/http를 외에도 다양한 서버 프레임워크들을 사용할 수 있습니다. 가장 유명한 3개의 프레임워크인 Gin, Fiber, Echo가 있는데요, 각 프레임워크들이 사용하는 내부 라이브러리들은 아래와 같습니다.</p>
 <ul>
   <li><a href="https://github.com/gin-gonic/gin">Gin</a>, <a href="https://github.com/labstack/echo">Echo</a>: net/http</li>
   <li><a href="https://github.com/gofiber/fiber">Fiber</a>: fasthttp</li>
@@ -1459,40 +1326,216 @@ Q4. 별명 중복 허용 여부
 
 <p>최근에 gophercon을 다녀왔는데요. <a href="https://gophercon.kr/program/sessions/session-3">발표자</a>분께서 ‘명확한 요구사항이 없는 일반적인 서버를 Go로 구현할 경우, net/http를 직접 사용하거나 Gin 프레임워크 사용을 가장 권장한다’고 말씀하셨습니다. 극도의 성능 개선이 요구되는 경우가 아니라면, 가장 범용적으로 설계하고 사용할 수 있는 프레임워크를 적용하거나, 혹은 Go에서 제공하는 순수 라이브러리를 적용하는 것이 향후 유지보수 측면에서도 더욱 좋은 선택이 될 수 있겠다고 생각할 수 있는 시간이었습니다.</p>
 
-<p>결론적으로, 높은 성능을 요구하는 서버에서 데이터 동시처리를 정확하게 제어할 수 있는 경우에 fasthttp를, 그 외에는 net/http를 사용하는 것이 좋은 선택이 되지 않을까 생각합니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go HTTP 라이브러리 비교: fasthttp vs net/http]]></summary></entry><entry xml:lang="ko"><title type="html">회고록:10월</title><link href="http://localhost:4000/2025/10/29/retrospect/" rel="alternate" type="text/html" title="회고록:10월" /><published>2025-10-29T00:00:00+09:00</published><updated>2025-10-29T00:00:00+09:00</updated><id>http://localhost:4000/2025/10/29/retrospect</id><content type="html" xml:base="http://localhost:4000/2025/10/29/retrospect/"><![CDATA[<h2 id="추석">추석</h2>
+<p>결론적으로, 높은 성능을 요구하는 서버에서 데이터 동시처리를 정확하게 제어할 수 있는 경우에 fasthttp를, 그 외에는 net/http를 사용하는 것이 좋은 선택이 되지 않을까 생각합니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go HTTP 라이브러리 비교: fasthttp vs net/http]]></summary></entry><entry xml:lang="en"><title type="html">Comparison of Go HTTP Libraries: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/" rel="alternate" type="text/html" title="Comparison of Go HTTP Libraries: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib-en</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/"><![CDATA[<p>When building a web server in Go, you can use various server frameworks in addition to the default library, net/http. The three most famous frameworks are Gin, Fiber, and Echo, and the internal libraries each framework uses are as follows:</p>
+<ul>
+  <li><a href="https://github.com/gin-gonic/gin">Gin</a>, <a href="https://github.com/labstack/echo">Echo</a>: net/http</li>
+  <li><a href="https://github.com/gofiber/fiber">Fiber</a>: fasthttp</li>
+</ul>
 
-<p>10월에는 한국 고유의 명절 추석이 있었다. 올해 추석은 휴일을 포함해서 약 10일간 쉴 수 있는 시간이었는데, 마침 아내가 직장에서 대기발령을 하라는 요청을 받아서 부득이(?)하게 명절내내 본가에 내려가지 않았다.</p>
+<p>In the end, developers choose between net/http and <a href="https://github.com/valyala/fasthttp">fasthttp</a>. fasthttp offers overwhelming performance, while net/http provides versatility and stability. In this post, I intend to compare and analyze the fundamental differences between these two libraries. Furthermore, I will explore why fasthttp does not support HTTP/2, where the performance difference comes from, and even the specific use cases and code-level differences for each library.</p>
 
-<p>사실 나는 ‘명절때 조부모댁에 가지 않고 집에 머무르는 것’을 엄청나게 하고싶어했다. 우리 집에서는 상상도 못할 일이었고, 내 기억에 고3 수험생 시절과 피치못한 사정이 아니고서는 항상 추석에는 조부모댁에 갔었다. 심지어 기억나는 ‘피치못할 사정’에는 해외에 있는 바람에 가지 못한 경우 뿐이었던 것 같다.</p>
+<h2 id="fasthttp-and-http2-why-its-not-supported">fasthttp and HTTP/2: Why It’s Not Supported</h2>
 
-<p>아내는, 사실 본인의 의지와 전혀 관련없는 대기발령이었지만, 나에게 굉장히 미안해했다. 혼자서라도 본가에 다녀오고싶으면 그렇게 하라고 했지만, 나는 단칼에 거절했다. 37년을 살면서 처음으로 아무런 문제 없이 추석에 집에만 있을 수 있는 시간인데, 부모님께는 조금 죄송하지만 정말 행복했다.</p>
+<p>The reason fasthttp does not support HTTP/2 is not a simple feature omission; it’s because the library’s core philosophy and architecture fundamentally conflict with the structure of HTTP/2.</p>
 
-<p>다행이 아내가 출근하는 상황은 아니었기 때문에, 원래는 날씨 좋은날에 등산도 가고 맛있는것도 먹으러 가려고 했다. 하지만 이것도 하늘의 장난인지, 이번 추석에는 비가 정말 많이 왔다. 날씨가 좋은적이 없었다. 덕분에 집에서 내내 쉬게 되었고, 이 때문에 <a href="#고스트-오브-요테이">절대 손을 대서는 안될 녀석</a>을 시작하고야 말았다.</p>
+<p>The issue of fasthttp’s potential support for HTTP/2 has been a topic since 2016. The image below, from an issue in the <a href="https://github.com/valyala/fasthttp">official github repository</a>, shows that http2 was on fasthttp’s TODO list even back then.</p>
 
-<h2 id="고스트-오브-요테이">고스트 오브 요테이</h2>
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/dbe0c31b-09d7-4956-8d75-a8d9b28c718d/image.png" alt="" /></p>
 
-<p>10월 2일. 내가 생각하기엔 매우 계획적인 날짜인 추석의 시작일에, 플레이스테이션 게임이 발매되었다. 꽤 많은 사람들이 역작이라고 표현하였고, 최근에 재미있게 보던 유투버가 이 게임을 리뷰하는것(<a href="https://youtu.be/UfHoEuXIiRU?si=QIzXEQgBsvvNiNvc">영상</a>)을 보게 되면서 ‘추석에 딱히 할것도 없는데 게임이나 해볼까?’ 하는 정말 발칙한 생각을 하게 되었다.</p>
+<p>Recently, a library supporting HTTP/2 is being developed at <a href="https://github.com/fasthttp/http2">fasthttp/http2</a>. It is still in the ‘Under construction’ phase, and an official version has not been developed.</p>
+
+<p>fasthttp is a good library to use instead of net/http when the goal is “extreme performance and low memory usage in an HTTP/1.1 environment.” HTTP/2 support not only conflicts with this goal, but a great alternative (net/http) already exists. Therefore, fasthttp focuses on its own domain (HTTP/1.1 high performance). Looking closer, there are three main reasons.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
+
+<h3 id="1-fundamental-architectural-mismatch">1. Fundamental Architectural Mismatch</h3>
+
+<p>fasthttp is extremely optimized for the HTTP/1.1 protocol.</p>
+
+<ul>
+  <li>fasthttp (HTTP/1.1 based)
+    <ul>
+      <li>‘One connection = One request’ (excluding Keep-alive) is its simple premise. In other words, it has a simple structure where requests and responses are processed sequentially.</li>
+      <li>It focuses on memory reuse by reusing the <code class="language-plaintext highlighter-rouge">RequestCtx</code> object to minimize GC (Garbage Collection) overhead.</li>
+    </ul>
+  </li>
+  <li>HTTP/2
+    <ul>
+      <li>It uses ‘One connection = Multiple Streams’ (Multiplexing).</li>
+      <li>Multiple requests and responses can come and go simultaneously and out of order over a single TCP connection, requiring complex state management like per-stream Flow Control and Prioritization.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>fasthttp’s simple memory reuse architecture makes it virtually impossible to manage HTTP/2’s complex multiple streams and states. Supporting HTTP/2 would require a complete rewrite of the library’s core logic, turning it into a completely new library that changes the very advantages fasthttp pursues.</p>
+
+<h3 id="2-implementation-complexity">2. Implementation Complexity</h3>
+
+<p>The main developer of fasthttp (<a href="https://github.com/valyala">valyala</a>) has repeatedly stated that implementing HTTP/2 is a “massive task that requires as much, or more, effort as maintaining the existing library.”</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/58194363-af18-48bc-84cd-14b4333b9ff6/image.png" alt="" /></p>
+
+<p>HTTP/2 is a binary protocol, and complex specs like HPACK for header compression, Server Push, and stream control must be implemented correctly. This is a workload equivalent to building an entirely new HTTP/2 library within fasthttp.</p>
+
+<h3 id="3-the-existence-of-the-standard-library-nethttp">3. The Existence of the Standard Library (net/http)</h3>
+
+<p>The Go language already provides excellent and stable HTTP/2 support in its standard library, net/http. Since Go 1.6 (2016), net/http has automatically supported HTTP/2 with no extra setup, and the official stance of the fasthttp development team is, “If you need HTTP/2, use the standard library net/http.” They even mention, ‘For most cases net/http is much better as it’s easier to use and can handle more cases,’ stating that net/http is a better choice for most environments that don’t require the high performance that fasthttp necessitates.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
+
+<p>Furthermore, there is no API compatibility between fasthttp and net/http. According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#switching-from-nethttp-to-fasthttp">official documentation</a>, a converter from net/http to fasthttp handlers exists, but they recommend that if you want to adopt fasthttp, it would be much better to re-implement it from scratch.</p>
 
 <blockquote>
-  <p>참고로 이 유튜버의 <a href="https://youtu.be/-Zk-WyCoIbU?si=2XPvY2ygu3_S7oGi">영상</a>을 재미있게 보고나서, 좋은 핸드폰이 필요없다고 아이폰 13 미니의 배터리를 교체하려던 아내가 17 프로를 구매해버렸다.</p>
+  <p>Unfortunately, fasthttp doesn’t provide an API identical to net/http. See the FAQ for details. There is a net/http -&gt; fasthttp handler converter, but it is better to write fasthttp request handlers by hand in order to use all of the fasthttp advantages.</p>
 </blockquote>
 
-<p>원래 이번 추석에는 책과 강의를 열심히 들으면서 나의 실력을 마음껏 향상시키는 상상을 하고 있었는데, 연휴에 마냥 재미없게 보내는것도 잘못된 생각인것만 같아 거금을 주고 게임을 구매했다. 사람들이 여주 얼굴이 못생겨서 게임하기 싫다고하는데, 나는 그냥 괜찮게 생겼다고 생각한다.</p>
+<h2 id="so-why-is-fasthttp-faster">So Why Is fasthttp Faster?</h2>
 
-<p>길게 말할 필요 없이, 약 4-5일가량을 하루에 7시간 가까이 게임에 빠져버렸다. 심지어 이 게임은 본 스토리만 있는게 아니라 주변에 발생하는 여러 서브스토리들이 많은데, 추석 연휴기간동안 본편 스토리를 포함해서 대략 60%에 달하는 이야기를 완주해버렸다.</p>
+<p>According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#http-server-performance-comparison-with-nethttp">benchmarks provided by fasthttp</a>, fasthttp shows performance 6 times faster than net/http.</p>
 
-<blockquote>
-  <p>현재는 대략 61시간의 게임 플레이와 85%의 트로피를 완료했다. 더이상은 하면 안될것 같다.</p>
-</blockquote>
+<ul>
+  <li>Minimized Memory Allocation (Zero Allocation):
+    <ul>
+      <li>net/http creates new http.Request and http.ResponseWriter objects for every request, putting a burden on the GC.</li>
+      <li>fasthttp aggressively uses sync.Pool to reuse a single struct, fasthttp.RequestCtx. When a request is finished, the object is returned to the pool, minimizing GC occurrences and reducing overall system latency.</li>
+    </ul>
+  </li>
+  <li>Byte Slice (<code class="language-plaintext highlighter-rouge">[]byte</code>) Centric Design:
+    <ul>
+      <li>net/http converts header keys, URL parameters, etc., to strings (string) to increase ease of use.</li>
+      <li>fasthttp processes most data directly as <code class="language-plaintext highlighter-rouge">[]byte</code>, reducing unnecessary conversions to strings and minimizing memory copies/allocations.</li>
+      <li>When performance improvement is paramount, it is recommended to use the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#unsafe-zero-allocation-conversions">unsafe, zero-allocation conversions provided by fasthttp</a> rather than the default Go methods for converting between <code class="language-plaintext highlighter-rouge">[]byte</code> and <code class="language-plaintext highlighter-rouge">string</code>.</li>
+    </ul>
+  </li>
+</ul>
 
-<h2 id="공유-오피스">공유 오피스</h2>
+<h2 id="speed-and-trade-offs">Speed and Trade-offs</h2>
 
-<p>그래서였을까, 10월 중순이 넘어가면서 문득 이번달에 내가 뭘 했는지 도저히 생각이 나지 않았다. 아내에게 진지하게 고민을 털어놓으니, 우선 추석 연휴가 길어서 실제로 일한 시간이 적어서고, 두번째는 계속 재택을 하다보니 점점 집에서 일이 잘되는 시간보다 무기력하게 지내는 시간이 늘어나는 것 같다고 했다.</p>
+<p>fasthttp offers high speed, but it also has the following disadvantages:</p>
 
-<p>사실 재택을 하게되면 ‘내가 집중할 수 있는 시간을 최대한으로 사용할 수 있다’는 엄청난 장점이 있다. 물론 출퇴근에 낭비되는 시간과 체력도 없고, 그로인해 받는 스트레스도 현저히 적다. 하지만 이 장점 이면에는 내가 그만큼 집중하는 시간을 만들어서 효율적으로 사용해야 한다는 압박도 있다.</p>
+<ul>
+  <li>API Compatibility: net/http follows the standard <code class="language-plaintext highlighter-rouge">http.Handler</code> interface. In contrast, fasthttp uses a non-standard interface called <code class="language-plaintext highlighter-rouge">RequestHandler</code>.</li>
+  <li>Middleware Ecosystem: net/http is compatible with almost all Go middleware and routers like Gin, Chi, and Echo. fasthttp can only use dedicated middleware, making its ecosystem very limited. (The Fiber framework is the only major one built on fasthttp).</li>
+  <li>Protocol Support: net/http perfectly and automatically supports HTTP/2 and HTTP/3. fasthttp does not.</li>
+  <li>Memory Management: In net/http, the GC handles it automatically. In fasthttp, manual developer management is required, such as not holding on to the <code class="language-plaintext highlighter-rouge">RequestCtx</code> for too long.</li>
+  <li>Ease of Use: net/http is intuitive and safe. fasthttp has low usability, as breaking its rules can easily lead to memory leaks or bugs.</li>
+  <li>Streaming: net/http fully supports large-volume streaming, whereas fasthttp’s support is limited.</li>
+</ul>
 
-<p>이러면 안된다는 생각에 이것저것 알아보다가 <a href="https://fivespot.io/">파이브스팟</a>에서 운영하는 무제한 공유오피스 입장권을 구매했다. 이걸 사용하면 전국에 약 250개 가까이 되는 제휴 카페, 공유오피스, 그리고 패스트파이브에서 운영하는 파이브스팟 오피스를 마음껏 이용할 수 있다. 나는 집에서 대략 차로 10분정도 걸리는 고척점과 그나마 가까운 영등포점, 여의도점을 주로 이용하고 있다. 확실히 카페에서 하는것보다 훨씬 안정적이고 쾌적하다. 그리고 모두가 집중하고 있는 공간에서 같이 집중하다보니 일의 효율도 훨씬 높아졌다. 매달 들어가는 돈이 대략 15만원정도 되는데, 이 돈을 아까워하는 것보다 15만원어치의 효율과 더 많은 기회를 찾아보라는 아내의 현명한 대답이 기억난다. 역시 현명한 아내는 남편을 성장하게 한다.</p>
+<h2 id="specific-use-cases">Specific Use Cases</h2>
 
-<blockquote>
-  <p>참고로 추천인 코드를 입력하면 가입 시 할인받을 수 있다: <strong>S1VCY4</strong></p>
-</blockquote>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[10월에는 한국 고유의 명절 추석으로 인해 자그마치 10일간의 휴일이 있었다. 그래서 그런가, 10월은 너무 빠르게 지나갔다. 내가 무엇을 했는지 기억하지도 못할정도로.]]></summary></entry></feed>
+<h3 id="nethttp">net/http</h3>
+
+<ul>
+  <li>For almost all web applications and API servers.</li>
+  <li>When starting a new project (if specific requirements are not yet defined).</li>
+  <li>When a standard middleware ecosystem (Gin, Chi, etc.) is needed.</li>
+  <li>For client-facing services where HTTP/2 or HTTP/3 support is essential.</li>
+  <li>When streaming processing, such as large file uploads/downloads, is required.</li>
+  <li>When development convenience, stability, and maintainability are more important than performance.</li>
+</ul>
+
+<h3 id="fasthttp">fasthttp</h3>
+
+<ul>
+  <li>When extreme high-throughput performance is required.</li>
+  <li>For internal microservices that must handle hundreds of thousands of requests per second.</li>
+  <li>For ad bidding (RTB), large-scale proxy servers, or high-performance API gateways.</li>
+  <li>When profiling has proven that HTTP request handling itself in net/http is the clear bottleneck.</li>
+</ul>
+
+<h2 id="code-level-comparison">Code-Level Comparison</h2>
+
+<p>The biggest code-level difference between the two libraries is that net/http uses the <code class="language-plaintext highlighter-rouge">http.ResponseWriter</code> and <code class="language-plaintext highlighter-rouge">*http.Request</code> interfaces, whereas fasthttp handles everything with a single <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> struct.</p>
+
+<ul>
+  <li>Signature: net/http is (w, r), fasthttp is (ctx).</li>
+  <li>Data Access: net/http uses string (<code class="language-plaintext highlighter-rouge">r.URL.Path</code>), fasthttp uses []byte (<code class="language-plaintext highlighter-rouge">ctx.Path()</code>).</li>
+  <li>Object Lifecycle: net/http’s r and w are valid for the entire duration of the request handling.</li>
+</ul>
+
+<p>The important point is that <strong>the fasthttp ctx object is immediately returned to the pool and reused as soon as the handler function returns</strong>. If you pass the ctx to a goroutine within a fasthttp handler, by the time the goroutine executes, the ctx may already be handling a different request, which can cause serious problems like concurrency issues.</p>
+
+<p>Let’s look at the differences through handler examples for both.</p>
+
+<h3 id="nethttp-1">net/http</h3>
+
+<p>In net/http, the request and response objects are passed to the handler function separately.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+  <span class="s">"fmt"</span>
+  <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="c">// Handler signature: http.ResponseWriter, *http.Request</span>
+<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c">// Query parameter (string)</span>
+  <span class="n">name</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Query</span><span class="p">()</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
+  <span class="p">}</span>
+  <span class="c">// Write response</span>
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">helloHandler</span><span class="p">)</span>
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"net/http server starting on :8080"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span> <span class="no">nil</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>As you can see in the example above, the handler signature is func(http.ResponseWriter, *http.Request), and the request (r) and response (w) objects are separate, making it intuitive to understand.</p>
+
+<h3 id="fasthttp-1">fasthttp</h3>
+
+<p>fasthttp passes only the context object *fasthttp.RequestCtx to the handler.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+  <span class="s">"fmt"</span>
+  <span class="s">"https://github.com/valyala/fasthttp"</span>
+<span class="p">)</span>
+
+<span class="c">// Handler signature: *fasthttp.RequestCtx</span>
+<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c">// Query parameter ([]byte)</span>
+  <span class="n">name</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">QueryArgs</span><span class="p">()</span><span class="o">.</span><span class="n">Peek</span><span class="p">(</span><span class="s">"name"</span><span class="p">))</span>
+  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
+  <span class="p">}</span>
+  <span class="c">// Write response (directly to ctx)</span>
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">requestHandler</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">Path</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s">"/hello"</span><span class="o">:</span>
+      <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="k">default</span><span class="o">:</span>
+      <span class="n">ctx</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">"Unsupported path"</span><span class="p">,</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"fasthttp server starting on :8081"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8081"</span><span class="p">,</span> <span class="n">requestHandler</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Unlike net/http, fasthttp uses the <code class="language-plaintext highlighter-rouge">func(*fasthttp.RequestCtx)</code> handler signature, and the single ctx object handles both accessing request information and writing the response. Also, data is processed as <code class="language-plaintext highlighter-rouge">[]byte</code>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Looking back on when I used to design server APIs, I think I used to first worry about ‘how fast can it process requests.’ That’s why I mostly used Fiber, which provides fasthttp. However, if I had first clearly defined the requirements, such as what data the server would process and in what environment it needed to operate, I wonder if I wouldn’t have used net/http directly or a framework that supports it from a different perspective than performance.</p>
+
+<p>I recently attended GopherCon. A presenter mentioned that ‘when implementing a general server in Go without clear requirements, using net/http directly or using the Gin framework is most recommended.’ Unless extreme performance improvements are required, applying the most versatile framework or using the pure library provided by Go could be a better choice for future maintainability. It was a time to think about that.</p>
+
+<p>In conclusion, I think it’s a good choice to use fasthttp when you can precisely control concurrent data processing on a server that requires high performance, and to use net/http otherwise.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Comparison of Go HTTP Libraries: fasthttp vs net/http]]></summary></entry></feed>

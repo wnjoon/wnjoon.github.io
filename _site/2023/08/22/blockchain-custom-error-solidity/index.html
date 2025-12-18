@@ -311,20 +311,29 @@ revert<span class="o">(</span>free_mem_ptr, 100<span class="o">)</span>
   <li>Reusable libraries and interfaces.</li>
 </ul>
 <div style="margin-top: 3rem;"><div class="giscus"></div>
-<script src="https://giscus.app/client.js"
-        data-repo="wnjoon/wnjoon.github.io"
-        data-repo-id="R_kgDOL9kFLg"
-        data-category="General"
-        data-category-id="DIC_kwDOL9kFLs4Cz92B"
-        data-mapping="pathname"
-        data-strict="1"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
+<script>
+  (function() {
+    var theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+
+    var s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+
+    s.setAttribute('data-repo', 'wnjoon/wnjoon.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOL9kFLg');
+    s.setAttribute('data-category', 'General');
+    s.setAttribute('data-category-id', 'DIC_kwDOL9kFLs4Cz92B');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-strict', '1');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', theme);
+    s.setAttribute('data-lang', 'en');
+
+    document.querySelector('.giscus').appendChild(s);
+  })();
 </script></div></article>
       </div>
     </main>
