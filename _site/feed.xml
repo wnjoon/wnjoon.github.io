@@ -1,5 +1,284 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-17T09:38:30+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">AI를 이용하여 하루만에 감사 일기 웹사이트 만들기</title><link href="http://localhost:4000/2025/12/16/gratitude-website/" rel="alternate" type="text/html" title="AI를 이용하여 하루만에 감사 일기 웹사이트 만들기" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/gratitude-website</id><content type="html" xml:base="http://localhost:4000/2025/12/16/gratitude-website/"><![CDATA[<h2 id="우리는-얼마나-주어진-삶에-감사하는가">우리는 얼마나 주어진 삶에 감사하는가?</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-18T18:51:46+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1</title><link href="http://localhost:4000/2025/12/17/go-yfinance-0/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1" /><published>2025-12-17T00:00:00+09:00</published><updated>2025-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/17/go-yfinance-0</id><content type="html" xml:base="http://localhost:4000/2025/12/17/go-yfinance-0/"><![CDATA[<h2 id="go-언어로-된-yahoo-finance-라이브러리가-없나">Go 언어로 된 Yahoo Finance 라이브러리가 없나?</h2>
+
+<p>얼마전부터 AI agent를 만드는 일에 흥미가 생겨서 열심히 <a href="https://nomadcoders.co/ai-agents-masterclass?gad_source=1&amp;gad_campaignid=18141167485&amp;gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&amp;gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB">강의</a>를 듣고 있습니다. 강의가 정말 유익하고 재미있지만, 한가지 아쉬운 점이 있습니다. 저는 주로 Go 언어를 사용하고 있는데(<a href="https://wnjoon.github.io/2025/11/12/gophercon-korea/">gophercon 참석 후기</a>), 대부분의 AI 관련 강의들은 Python을 활용해서 AI agent를 만들더라구요. 아마 대부분의 agent가 Python만 지원하거나, 가끔 Javascript 계열만 지원해서 그런건지도 모르겠습니다.</p>
+
+<p>Go를 공식적으로 지원하는 가장 대표적인 프레임워크는 Google ADK, 그리고 Genkit이 있습니다. 제가 듣고있는 강의에서는 Crew AI 부터 Langraph까지 다양한 AI agent를 사용해서 프로젝트를 만들어보고 있는데요, 마침 Google ADK도 그중에 포함되어 있었습니다. 마침 잘되었다 싶어서 Google ADK를 강의하는 부분에서는 제공되는 프롬프트와 개념을 바탕으로 Go를 이용해서 Google ADK를 호출해보기로 했습니다.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/837169e2-2211-4efc-b944-8f82dcc51568/image.png" alt="image" /></p>
+
+<p><em><a href="https://discord.com/channels/1250370848343195669/1250370848859230301/1439830901805682779">Golang Korea에 작성한 댓글</a>에도 보이듯이, 개인적으로 저는 AI agent의 개발이 아직도 Python을 메인으로 이루어지고 있다는 것에 아쉽다는 생각입니다. 프롬프트를 읽는 것부터 LLM 데이터를 처리해서 결과를 만드는 것 까지, 시간이 갈수록 점점 작업량이 무거워질 것이 당연한 AI agent 개발에서 Go는 훨씬 좋은 성능 뿐만 아니라 컴파일 언어라는 안정성까지 제공할 것이라고 생각하거든요.</em></p>
+
+<p><br /></p>
+
+<p>그래서 Google ADk를 사용한 첫번째 AI agent인 ‘투자 전략 에이전트’를 Go로 개발하기 시작했습니다…만 시작부터 아주 제대로 난관에 봉착했습니다. 바로 이 프로젝트에서 가장 중요한 ‘Yahoo Finance 라이브러리’가 Go로 작성되어 있지 않았습니다. 사실 사용되는 Python 라이브러리(<a href="https://github.com/ranaroussi/yfinance">yfinance</a>)도 Yahoo Finance에서 공식적으로 지원하는게 아니었죠.</p>
+
+<p>Curl이나 Websocket으로 제공하는 호출 방식이 있었다면 좋았겠지만, 그런 방법도 없다는 것에 조금 당황했습니다. 간혹 개인이 개발하던 Go 라이브러리들(<a href="https://github.com/joetats/goFinance">joetats/goFinance</a>, <a href="https://github.com/svarlamov/goyhfin">svarlamov/goyhfin</a>, <a href="https://github.com/oscarli916/yahoo-finance-api">oscarli916/yahoo-finance-api</a>)이 있었지만, 개발된 범위도 Python 기반의 라이브러리에 비하면 현저히 부족했고 심지어 최소 몇개월 이상 어떠한 업데이트도 이루어지고 있지 않았습니다.</p>
+
+<h2 id="python의-yfinance를-그대로-go로-컨버팅할-수-있을까">Python의 yfinance를 그대로 go로 컨버팅할 수 있을까?</h2>
+
+<p>그래서 발칙한 생각을 좀 해봤습니다. <strong>‘이미 매우 잘 구현되어 있는 yfinance의 기능을 그대로 go로 컨버팅한 라이브러리를 만들 수 있으면 좋겠다.’</strong> 라고 말이죠. 그런데 정말 가능할지 모르겠어서, Claude Code에게 yfinance 리포지토리 전체를 분석해서 Go로 컨버팅이 가능한지 질문했습니다.</p>
+
+<p>모델은 <code class="language-plaintext highlighter-rouge">opus-4.5</code>를 사용했습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/e64c717c-fa23-498f-9743-af84ac0268d3/image.png" alt="image" /></p>
+
+<p>한참을 조사해서 꽤나 길고 정교한 결과를 알려줬는데요, 간략하게 표로 요약된 결과는 아래와 같았습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>질문</th>
+      <th>답변</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Go 컨버팅 가능한가?</td>
+      <td>✅ 가능</td>
+    </tr>
+    <tr>
+      <td>Claude Code로 무난히 가능한가?</td>
+      <td>⚠️ TLS 위장 부분 제외하면 가능</td>
+    </tr>
+    <tr>
+      <td>전체 작업 난이도</td>
+      <td>중상 (Medium-High)</td>
+    </tr>
+    <tr>
+      <td>핵심 기술적 위험</td>
+      <td>TLS fingerprint 위장</td>
+    </tr>
+    <tr>
+      <td>권장 사항</td>
+      <td>PoC로 TLS 위장 검증 후 진행</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="yahoo-finance의-인증-방식">Yahoo Finance의 인증 방식</h3>
+
+<p>Claude Code가 분석한 Yahoo Finance의 Cookie/Crumb 인증 시스템은 아래와 같습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cookie/Crumb 인증 시스템                      
+
+[전략 1: Basic] 
+  1. GET https://fc.yahoo.com → A3 쿠키 획득                    
+  2. GET https://query1.finance.yahoo.com/v1/test/getcrumb      
+    → crumb 토큰 획득                                          
+  3. 모든 요청에 ?crumb={crumb} 파라미터 추가                   
+                                                                
+[전략 2: CSRF] (Basic 실패 시 폴백)
+  1. GET https://guce.yahoo.com/consent → CSRF 토큰 추출        
+  2. POST https://consent.yahoo.com/v2/collectConsent          
+  3. GET https://guce.yahoo.com/copyConsent                     
+  4. GET https://query2.finance.yahoo.com/v1/test/getcrumb                                                       
+</code></pre></div></div>
+
+<p>Yahoo Finance는 이 인증 과정에서 일반적인 HTTP 클라이언트로부터 접속을 차단합니다. 그래서 yfinance는 이를 우회하기 위해 Chrome 브라우저로 위장된 요청을 보내는데요, Python에서 <a href="https://github.com/lexiforest/curl_cffi">curl_cffi</a> 라이브러리를 사용하면 TLS fingerprint까지 Chrome 방식으로 변경해줄 수 있습니다.</p>
+
+<p>그래서 이러한 동작을 수행할 수 있는 Go의 라이브러리로 <a href="https://github.com/Danny-Dasilva/CycleTLS">CycleTLS</a>를 사용하기로 했습니다. 다른 비슷한 라이브러리로 <a href="https://github.com/refraction-networking/utls">utls</a>가 있는데요, 일반적으로 utls를 많이 사용하지만 상대적으로 설정이 간단하고 JA3 fingerprint를 직접 지정할 수 있다는 점에서 유지보수나 구현이 편리할 것으로 생각되는 CycleTLS를 사용해보기로 했습니다.</p>
+
+<h2 id="전체적인-분석-및-작업-계획-세우기">전체적인 분석 및 작업 계획 세우기</h2>
+
+<p>그래서 Yahoo Finance와의 연결 및 인증과 같은 기초 구성부터 기본 동작, 그리고 최종적으로 yfinance에서 제공하는 부가적인 기능들까지 단계별로 Phase를 구성하고 이를 문서화해달라고 요청했습니다. 세션 간에 작업 진행 내용을 공유하기 위해서이기도 했고, 전체적으로 어떻게 진행할 것인지에 대한 계획서를 제가 다시한번 확인하고 싶기도 했습니다.</p>
+
+<p>Claude Code가 작성해준 <a href="https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md">DESIGN.md</a> 문서를 간단히 요약하면 아래의 내용을 포함하고 있습니다.</p>
+<ul>
+  <li>yfinance 라이브러리 분석 결과
+    <ul>
+      <li>제공하는 API Endpoint 목록</li>
+      <li>인증 방식 (Cookie/Crumb)</li>
+    </ul>
+  </li>
+  <li>Go 프로젝트 구조</li>
+  <li>디자인 원칙</li>
+  <li>개발 단계(로드맵)
+    <ul>
+      <li>총 9단계로 진행</li>
+    </ul>
+  </li>
+</ul>
+
+<p>특히 개발단계에서는 각 단계별로 중요도가 어떻게 되는지, 그리고 각 단계별로 예상되는 코드량까지 대략적으로 파악해서 알려주었습니다. 각 단계별로 자세한 내용은 <a href="https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md">DESIGN.md</a> 파일에 작성되어 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Phase</th>
+      <th>이름</th>
+      <th>우선순위</th>
+      <th>예상 코드량</th>
+      <th>누적</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Foundation</td>
+      <td>🔴 필수</td>
+      <td>~500줄</td>
+      <td>500줄</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Core Data</td>
+      <td>🔴 필수</td>
+      <td>~600줄</td>
+      <td>1,100줄</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Options</td>
+      <td>🟡 권장</td>
+      <td>~300줄</td>
+      <td>1,400줄</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Financials</td>
+      <td>🟡 권장</td>
+      <td>~500줄</td>
+      <td>1,900줄</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Analysis</td>
+      <td>🟡 권장</td>
+      <td>~400줄</td>
+      <td>2,300줄</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Holdings</td>
+      <td>🟢 선택</td>
+      <td>~500줄</td>
+      <td>2,800줄</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Search</td>
+      <td>🟢 선택</td>
+      <td>~400줄</td>
+      <td>3,200줄</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Multi-ticker</td>
+      <td>🟢 선택</td>
+      <td>~300줄</td>
+      <td>3,500줄</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Real-time</td>
+      <td>🔵 고급</td>
+      <td>~400줄</td>
+      <td>3,900줄</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Advanced</td>
+      <td>🔵 고급</td>
+      <td>~600줄</td>
+      <td>4,500줄</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이를 기준으로 크게 3개의 Phase로 묶어서 개발을 진행할 것을 권장했습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MVP (최소 실행 가능 제품)
+- Phase 0 + Phase 1 = ~1,100줄
+- 기본적인 가격 조회 가능
+
+실용적 수준
+- Phase 0~4 = ~2,300줄
+- 대부분의 투자 분석 가능
+
+Python yfinance 동등
+- Phase 0~7 = ~3,500줄
+- 거의 모든 기능 사용 가능
+</code></pre></div></div>
+
+<h2 id="단계별-기능별로-항상-브랜치를-구분할-것">단계별, 기능별로 항상 브랜치를 구분할 것</h2>
+
+<p>예전에 Claude Code에게 개발 작업을 위임했을때, 같이 개발 계획을 세우고 제가 HITL(Human In The Loop: 옆에서 같이 확인하고 결과를 검증하는 단계)를 진행했지만 한가지 놓치고 있던게 있었습니다. 바로 Claude Code가 기본적으로 브랜치를 구성하면서 개발하지 않더라구요. 처음부터 요구사항을 정의하거나 개발 정책을 수립할때 명시했어야 했는데, 이전에는 그걸 제대로 생각하지 못해서 모든 개발을 진행하고 한번에 main에 올린다거나 커밋을 분리하더라도 main에서 모두 진행해서 향후에 리포지토리를 되돌려야 하거나 특정 시점으로 소스를 버저닝할 때 꽤 어려운 부분이 있었습니다.</p>
+
+<p>그래서 이번에는 개발 과정마다 꼭 브랜치를 구성하고, 기능별로 세부 브랜치를 나눠서 과정마다 커밋하면서 완성되는 단계마다 상위 브랜치로 머지할 것을 <strong>‘다행이도 개발 시작 전에 생각하고’</strong> 요청했습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/c81cfba0-0538-46ce-a017-76c15fb59263/image.png" alt="image" /></p>
+
+<h2 id="현재까지의-진행-결과">현재까지의 진행 결과</h2>
+
+<p><strong>👉 Repository: <a href="https://github.com/wnjoon/go-yfinance">wnjoon/go-yfinance</a></strong></p>
+
+<p>이 글을 작성하는 시점까지 Phase0, Phase1 개발을 완료했습니다. <a href="https://github.com/wnjoon/go-yfinance/blob/main/README.md">README.md</a>에 실제로 테스트해볼 수 있는 예제도 포함되어 있는데요, <a href="https://github.com/wnjoon/go-yfinance/blob/main/cmd/example/main.go">cmd/example/main.go</a>를 실행하시면 아래와 같은 결과를 확인할 수 있습니다. 출력되지 않는 일부 내용에 대해서는 향후에 추가 기능을 개발하면서 업데이트 될 예정입니다.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">===</span> go-yfinance Example: AAPL <span class="o">===</span>
+
+1. Current Quote
+<span class="nt">----------------</span>
+Symbol: AAPL <span class="o">(</span>Apple Inc.<span class="o">)</span>
+Price: <span class="nv">$271</span>.84
+Change: <span class="nt">-2</span>.77 <span class="o">(</span><span class="nt">-1</span>.01%<span class="o">)</span>
+Day Range: <span class="nv">$271</span>.69 - <span class="nv">$276</span>.16
+52 Week Range: <span class="nv">$169</span>.21 - <span class="nv">$288</span>.62
+Volume: 49406521
+Market Cap: <span class="nv">$4034211348480</span>
+PE Ratio: 36.49
+Market State: PREPRE
+
+2. Historical Data <span class="o">(</span>Last 10 Days<span class="o">)</span>
+<span class="nt">----------------------------------</span>
+Date               Open       High        Low      Close       Volume
+2025-12-04       284.10     284.73     278.59     280.70     43989100
+2025-12-05       280.54     281.14     278.05     278.78     47265800
+2025-12-08       278.13     279.67     276.15     277.89     38211800
+2025-12-09       278.16     280.03     276.92     277.18     32193300
+2025-12-10       277.75     279.75     276.44     278.78     33038300
+2025-12-11       279.10     279.59     273.81     278.03     33248000
+2025-12-12       277.90     279.22     276.82     278.28     39532900
+2025-12-15       280.15     280.15     272.84     274.11     50409100
+2025-12-16       272.82     275.50     271.79     274.61     37648600
+2025-12-17       275.01     276.16     271.64     271.84     50100600
+
+3. Company Info
+<span class="nt">---------------</span>
+Name: Apple Inc.
+Sector: Technology
+Industry: Consumer Electronics
+Country: United States
+Employees: 166000
+Website: https://www.apple.com
+
+Key Statistics:
+  Market Cap: <span class="nv">$4034211348480</span>
+  Enterprise Value: <span class="nv">$4074483744768</span>
+  Trailing PE: 36.49
+  Forward PE: 29.80
+  PEG Ratio: 0.00
+  Price to Book: 54.47
+  Revenue: <span class="nv">$416161005568</span>
+  Profit Margins: 26.92%
+  Recommendation: buy <span class="o">(</span>2.00<span class="o">)</span>
+
+4. Recent Dividends
+<span class="nt">-------------------</span>
+No dividend <span class="nb">history
+
+</span>5. Stock Splits
+<span class="nt">---------------</span>
+No <span class="nb">split history</span>
+
+<span class="o">===</span> Example Complete <span class="o">===</span>
+</code></pre></div></div>
+
+<h2 id="여담">여담</h2>
+
+<p>AI Agent 개발 강의 듣다가 갑자기 새로운 라이브러리를 만들다니.. 다른길로 완전히 세어버렸네요 😅</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 첫번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">14년간 구글에서 근무한 개발자의 조언</title><link href="http://localhost:4000/2025/12/16/21-lessons-for-engineer/" rel="alternate" type="text/html" title="14년간 구글에서 근무한 개발자의 조언" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/21-lessons-for-engineer</id><content type="html" xml:base="http://localhost:4000/2025/12/16/21-lessons-for-engineer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/29">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[14년간 구글에서 일한 개발자 Addy Osmani가 작성한 21개의 조언을 번역했습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">AI를 이용하여 하루만에 감사 일기 웹사이트 만들기</title><link href="http://localhost:4000/2025/12/16/gratitude-website/" rel="alternate" type="text/html" title="AI를 이용하여 하루만에 감사 일기 웹사이트 만들기" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/gratitude-website</id><content type="html" xml:base="http://localhost:4000/2025/12/16/gratitude-website/"><![CDATA[<h2 id="우리는-얼마나-주어진-삶에-감사하는가">우리는 얼마나 주어진 삶에 감사하는가?</h2>
 
 <p>저는 얼마전부터 뉴스를 보지 않습니다. 집에 TV가 있지만 1년에 사용하는 횟수가 손가락에 꼽을만큼 거의 켜지도 않습니다. 사실 유튜브처럼 굳이 TV가 없어도 다양한 소식을 접할 수 있는 방법이 있어서이기도 하지만, 가장 큰 이유는 불편하고 안좋은 소식을 더 많이 접하는게 싫어서이기도 합니다.</p>
 
@@ -131,11 +410,11 @@ Q4. 별명 중복 허용 여부
 
 <p>특히 개발자라는 것을 좀 티내보려고, 감사 일기를 작성할때마다 깃헙의 잔디 심기와 같이 초록색이 칠해지도록 했습니다. 그래서 이 웹사이트의 이름이 <strong>‘매일 감사 심기’</strong> 입니다. 꾸준하게 매일 심은 감사들이 우리의 삶을 초록색으로 물들일 수 있을 것이라 생각했습니다. 본인이 작성한 감사 일기는 언제든지 확인할 수 있고, 지난 날짜에 작성한 감사 일기도 필터를 통해 바로 확인할 수 있습니다.</p>
 
-<p>앞으로 시간이 날때마다 하나씩 기능을 추가하거나 개선해가면서 저도 사이드 프로젝트의 즐거움을 좀 더 느껴보려고 합니다. 부족한 부분에 대한 조언이나 의견이 생각나시면 <a href="mailto:wnjoon@gmail.com">이메일</a>로 언제든지 메일 부탁드립니다. 감사합니다.</p>
+<p>앞으로 시간이 날때마다 하나씩 기능을 추가하거나 개선해보려고 합니다. 부족한 부분에 대한 조언이나 의견이 생각나시면 <a href="mailto:wnjoon@gmail.com">이메일</a>로 언제든지 메일 부탁드립니다. 감사합니다.</p>
 
 <ul>
   <li><a href="https://gratitude-grove.vercel.app/">매일 감사 심기: https://gratitude-grove.vercel.app/</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[대혐오의 시대라고 불리죠. 우리는 세상에서 느끼는 불편함과 혐오 때문에 점점 감사하는 삶과 멀어지는 것 같습니다. 세상은 좀더 밝다는 것을 느끼고 싶어서 Claude Code를 이용하여 하루만에 매일 3개의 감사를 작성하고 이를 공유하는 웹사이트를 만들었습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">14년간 구글에서 근무한 개발자의 조언</title><link href="http://localhost:4000/2025/12/16/21-lessons-for-engineer/" rel="alternate" type="text/html" title="14년간 구글에서 근무한 개발자의 조언" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/21-lessons-for-engineer</id><content type="html" xml:base="http://localhost:4000/2025/12/16/21-lessons-for-engineer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/29">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[14년간 구글에서 일한 개발자 Addy Osmani가 작성한 21개의 조언을 번역했습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">소셜미디어. 그리고 개발자.</title><link href="http://localhost:4000/2025/12/12/sns-for-developer/" rel="alternate" type="text/html" title="소셜미디어. 그리고 개발자." /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/28">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[링크드인은 개발자에게 필수적인 커리어 브랜딩 도구이지만, 타인의 화려한 성과와 자신을 비교하게 만들어 번아웃을 유발하기도 합니다. SNS 속 '포장된 삶'과 현실을 구분하고, 건강하게 성장하기 위한 개발자의 마음가짐에 대해 이야기합니다.]]></summary></entry><entry xml:lang="en"><title type="html">How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?</title><link href="http://localhost:4000/2025/12/12/sns-for-developer-en/" rel="alternate" type="text/html" title="How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?" /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer-en</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer-en/"><![CDATA[<p>I once wrote a <a href="https://wnjoon.github.io/2025/09/15/tobe-good-developer-en/">post ‘Habits and Mindsets for Sustainable Growth’</a> recommending a book titled “The Battle Hardened Developer - Fiodar Sazanavets”. While there were many excellent quotes, the one that resonated with me the most was this: “Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful.”</p>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[대혐오의 시대라고 불리죠. 우리는 세상에서 느끼는 불편함과 혐오 때문에 점점 감사하는 삶과 멀어지는 것 같습니다. 세상은 좀더 밝다는 것을 느끼고 싶어서 Claude Code를 이용하여 하루만에 매일 3개의 감사를 작성하고 이를 공유하는 웹사이트를 만들었습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">소셜미디어. 그리고 개발자.</title><link href="http://localhost:4000/2025/12/12/sns-for-developer/" rel="alternate" type="text/html" title="소셜미디어. 그리고 개발자." /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer/"><![CDATA[<p>이 포스트의 전체 내용은 <a href="https://brunch.co.kr/@wallee/28">외부 링크</a>에서 확인하실 수 있습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[링크드인은 개발자에게 필수적인 커리어 브랜딩 도구이지만, 타인의 화려한 성과와 자신을 비교하게 만들어 번아웃을 유발하기도 합니다. SNS 속 '포장된 삶'과 현실을 구분하고, 건강하게 성장하기 위한 개발자의 마음가짐에 대해 이야기합니다.]]></summary></entry><entry xml:lang="en"><title type="html">How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?</title><link href="http://localhost:4000/2025/12/12/sns-for-developer-en/" rel="alternate" type="text/html" title="How Developers Should Use Social Media: A Tool for Growth or a Cause of Burnout?" /><published>2025-12-12T00:00:00+09:00</published><updated>2025-12-12T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/12/sns-for-developer-en</id><content type="html" xml:base="http://localhost:4000/2025/12/12/sns-for-developer-en/"><![CDATA[<p>I once wrote a <a href="https://wnjoon.github.io/2025/09/15/tobe-good-developer-en/">post ‘Habits and Mindsets for Sustainable Growth’</a> recommending a book titled “The Battle Hardened Developer - Fiodar Sazanavets”. While there were many excellent quotes, the one that resonated with me the most was this: “Modern people must distance themselves from social media for their mental health. Developers, in particular, need to be even more careful.”</p>
 
 <p>Through social media, we observe the “curated good lives” of others. I, too, have been traveling abroad for about two weeks now, and I am busy uploading photos to social media, driven by the desire to show this side of myself to the world. I don’t post about the difficulties of travel, the moments I argued with my wife, the places that were less impressive than expected, or the food that tasted bad. I simply edit and publish the photos I like the best.</p>
 
@@ -1055,129 +1334,4 @@ Q4. 별명 중복 허용 여부
 
 <p>결국 어떤 방법이던지 루틴을 만드는 것이 굉장히 중요한데, 앞으로 해외에서 일하게 될 상황을 고려할때 이러한 습관을 만드는 연습은 꼭 필요하다고 생각했다. 몸이 편한 것에 안주하는 것이 아니라, 내가 사용할 수 있는 시간이 늘어났다는 것에 더 집중하는 태도가 필요한 것 같다.</p>
 
-<p>이제 2025년도 3분기가 지나고, 총 3개월만 남았다. 남은 시간도 더 많이 경험하고 성장하자!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다.]]></summary></entry><entry xml:lang="ko"><title type="html">vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon</title><link href="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/" rel="alternate" type="text/html" title="vim에서 esc를 누르면 자동으로 영문으로 바꿔주기 with Hammerspoon" /><published>2025-09-21T00:00:00+09:00</published><updated>2025-09-21T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs</id><content type="html" xml:base="http://localhost:4000/2025/09/21/auto-lang-updated-when-esc-using-hs/"><![CDATA[<h2 id="왜-계속-mode-적용이-안됐지">왜 계속 mode 적용이 안됐지?</h2>
-
-<p>개발자라면 영어를 사용해서 주석을 작성하는것이 당연히 좋겠지만, 사실 한국인의 경우에는 모국어로 주석을 다는것만큼 빠르고 편리한 것이 없죠. 저도 되도록이면 영어를 사용하려고 노력하지만, 지금같이 포스팅을 작성하거나 제가 빠르게 이해하기 위한 글이나 주석을 작성할 때에는 일반적으로 한국어를 사용하곤 합니다.</p>
-
-<p>지난번 포스팅 <a href="https://wnjoon.github.io/2025/09/17/vim-vscode-extenstion/">Claude Code를 활용한 vim cheatsheet vscode extension 개발기</a>에서 말했듯이, 저는 항상 vim을 사용해서 멋지게(?) 개발하고싶은 욕심이 있습니다. 단축키가 잘 외워지지 않아 오히려 생산성을 떨어트리는 것 같아서 이를 도와줄 수 있는 <a href="https://marketplace.visualstudio.com/items?itemName=xonxoon.quick-vim-cheatsheet">vscode 기반 extension</a>을 만들기도 했죠.</p>
-
-<p>하지만 vim을 사용하기 어렵게 만드는 또 다른 이유가 있었는데 바로 ‘한/영 전환’입니다. vim은 normal/insert/visual 모드를 지원하고 있고, 명령어들은 normal, visual 모드에서 동작합니다. 명령어를 입력하기 위한 상태로 가려면 insert -&gt; normal/visual 모드로 전환해야 하는데 이때 vim은 영문 단어를 이해합니다.</p>
-
-<p>그러다보니 한글로 열심히 글을 적다가 모드를 바꾸게 되면 한글이 계속 인식되어서 한영전환을 한번 더 해줘야 하는데 이는 굉장히 번거롭고 생산성을 저하시킵니다. 이 문제를 해결할 수 있는 방법을 찾다가 <a href="https://www.hammerspoon.org/">hammerspoon</a>을 사용해서 해결할 수 있다는 것을 발견하여 공유합니다.</p>
-
-<h2 id="hammerspoon">Hammerspoon</h2>
-
-<p>Hammerspoon은 Lua라는 스크립트를 사용해서 MacOS의 일부 기능을 제어할 수 있도록 하는 도구입니다. 사용자는 스크립트 작성을 하고 이를 적용해서 OS와 어플리케이션 간에 발생하는 동작 사이에 Hook을 넣거나, 지금처럼 특정 버튼이 눌렸을때 원하는 커스텀 동작이 수행되도록 할 수 있습니다.</p>
-
-<p>설치는 <a href="https://github.com/Hammerspoon/hammerspoon/releases/tag/1.0.0">이곳</a>에서 할 수 있습니다.</p>
-
-<h2 id="스크립트-작성-및-적용-방법">스크립트 작성 및 적용 방법</h2>
-
-<p>Hammerspoon을 설치하면 메뉴바에 망치모양의 아이콘이 표시됩니다.</p>
-
-<ul>
-  <li>Open Config: Hammerspoon은 기본적으로 <code class="language-plaintext highlighter-rouge">~/Users/&lt;YOUR_USERNAME&gt;/.hammerspoon/init.lua</code> 파일을 통해 스크립트를 설정할 수 있습니다. 해당 메뉴는 이 설정 파일을 불러옵니다.</li>
-  <li>Reload Config: <code class="language-plaintext highlighter-rouge">~/Users/&lt;YOUR_USERNAME&gt;/.hammerspoon/init.lua</code> 파일에 작성된 설정값으로 Hammerspoon을 재시작합니다. 변경된 스크립트를 즉시 적용할 때 사용합니다.</li>
-  <li>Console: Hammerspoon의 콘솔을 열어 스크립트를 실행하거나 디버깅할 때 사용합니다.</li>
-</ul>
-
-<p>이 외에도 몇가지 메뉴들이 있지만, 일반적인 다른 앱들과 동일한 성격을 가집니다.</p>
-
-<h2 id="스크립트-적용하기">스크립트 적용하기</h2>
-
-<p><strong>1. 특정 앱에서만 동작할 것</strong></p>
-
-<p>제가 목표하는 것은 ‘vscode에서 vim 작업을 하기 위해 esc 키를 눌렀을때 자동으로 영문으로 전환되도록 하는 것’입니다. 기존에는 karabiner를 이용해서 esc를 눌렀을때 무조건 한/영 전환이 되도록 설정했었는데요, 이렇게 하니 vscode와 무관하게 실제로는 한/영 전환이 필요하지 않은 어플리케이션에서도 한/영 전환이 되어버렸습니다.</p>
-
-<p>hammerspoon에서는 스크립트를 이용하여 이러한 부분을 세밀하게 조정할 수 있었기 때문에, <code class="language-plaintext highlighter-rouge">targetAppBundleID</code>를 이용하여 vscode에서 esc 키를 눌렀을때만 영문으로 전환되도록 설정할 수 있습니다.</p>
-
-<p>원하는 어플리케이션의 bundle ID를 확인하는 방법은 여러가지가 있는데요, 저는 hammerspoon의 console을 이용해보기로 했습니다. 아래의 코드를 콘솔에 넣으면 5초 후에 가장 앞에있는(활성화 되어있는) 앱의 bundle ID를 출력해줍니다.</p>
-
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- print the bundle ID of the frontmost application after 5 seconds</span>
-<span class="n">hs</span><span class="p">.</span><span class="n">timer</span><span class="p">.</span><span class="n">doAfter</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span>
-  <span class="kd">local</span> <span class="n">app</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">application</span><span class="p">.</span><span class="n">frontmostApplication</span><span class="p">()</span>
-  <span class="k">if</span> <span class="n">app</span> <span class="k">then</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Bundle ID of frontmost application: "</span> <span class="o">..</span> <span class="n">app</span><span class="p">:</span><span class="n">bundleID</span><span class="p">())</span>
-    <span class="n">hs</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s2">"Bundle ID: "</span> <span class="o">..</span> <span class="n">app</span><span class="p">:</span><span class="n">bundleID</span><span class="p">())</span>
-  <span class="k">else</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Could not find the frontmost application."</span><span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>처음에는 5초 후에 실행하는 조건을 넣지 않았었는데, 이렇게하니 console창의 bundle ID, 즉 hammerspoon의 bundle ID가 출력되었습니다. 그래서 console에 명령어를 넣고 원하는 앱을 누를 수 있을 정도의 여유로운 시간(사실 5초는 좀 길긴 합니다)을 설정해주었습니다.</p>
-
-<p>저는 실제로 Windsurf를 사용하기 때문에, <code class="language-plaintext highlighter-rouge">com.exafunction.windsurf</code>가 출력되는 것을 확인할 수 있었습니다.</p>
-
-<p><strong>2. 스크립트 적용하기</strong></p>
-
-<p>위에서 얻은 bundle ID를 이용하여 스크립트를 작성했습니다.</p>
-
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- ID of the target application.</span>
-<span class="kd">local</span> <span class="n">targetAppBundleID</span> <span class="o">=</span> <span class="s2">"com.exafunction.windsurf"</span>
-
-<span class="c1">-- If a listener already exists upon reloading the config, stop it to prevent conflicts.</span>
-<span class="k">if</span> <span class="n">escape_keyevent</span> <span class="k">then</span>
-    <span class="n">escape_keyevent</span><span class="p">:</span><span class="n">stop</span><span class="p">()</span>
-<span class="k">end</span>
-
-<span class="c1">-- Create a new event tap listener for key down events.</span>
-<span class="n">escape_keyevent</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">eventtap</span><span class="p">.</span><span class="n">new</span><span class="p">({</span><span class="n">hs</span><span class="p">.</span><span class="n">eventtap</span><span class="p">.</span><span class="n">event</span><span class="p">.</span><span class="n">types</span><span class="p">.</span><span class="n">keyDown</span><span class="p">},</span> <span class="k">function</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">event</span><span class="p">:</span><span class="n">getFlags</span><span class="p">()</span>
-    <span class="kd">local</span> <span class="n">keycode</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">map</span><span class="p">[</span><span class="n">event</span><span class="p">:</span><span class="n">getKeyCode</span><span class="p">()]</span>
-    <span class="kd">local</span> <span class="n">frontApp</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">application</span><span class="p">.</span><span class="n">frontmostApplication</span><span class="p">()</span>
-
-    <span class="c1">-- 1. First, check if a key was pressed within the target application.</span>
-    <span class="k">if</span> <span class="n">frontApp</span> <span class="ow">and</span> <span class="n">frontApp</span><span class="p">:</span><span class="n">bundleID</span><span class="p">()</span> <span class="o">==</span> <span class="n">targetAppBundleID</span> <span class="k">then</span>
-
-        <span class="c1">-- 2. Check if the pressed key is ESC or the Ctrl+C combination.</span>
-        <span class="k">if</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">'escape'</span> <span class="ow">or</span> <span class="p">(</span><span class="n">keycode</span> <span class="o">==</span> <span class="s1">'c'</span> <span class="ow">and</span> <span class="n">flags</span><span class="p">.</span><span class="n">ctrl</span><span class="p">)</span> <span class="k">then</span>
-
-            <span class="c1">-- Add a 0.05-second delay to resolve timing issues.</span>
-            <span class="n">hs</span><span class="p">.</span><span class="n">timer</span><span class="p">.</span><span class="n">doAfter</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">03</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span>
-                <span class="kd">local</span> <span class="n">input_english</span> <span class="o">=</span> <span class="s2">"com.apple.keylayout.ABC"</span>
-                <span class="kd">local</span> <span class="n">current_source</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">currentSourceID</span><span class="p">()</span>
-
-                <span class="c1">-- [CASE 1] If the ESC key was pressed (original logic).</span>
-                <span class="k">if</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">'escape'</span> <span class="k">then</span>
-                    <span class="k">if</span> <span class="n">current_source</span> <span class="o">~=</span> <span class="n">input_english</span> <span class="k">then</span>
-                        <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">currentSourceID</span><span class="p">(</span><span class="n">input_english</span><span class="p">)</span>
-                        <span class="c1">-- print("ESC pressed: Switched to English.")</span>
-                    <span class="k">end</span>
-                
-                <span class="c1">-- [CASE 2] If the Ctrl+C key combination was pressed (new logic).</span>
-                <span class="k">elseif</span> <span class="n">keycode</span> <span class="o">==</span> <span class="s1">'c'</span> <span class="ow">and</span> <span class="n">flags</span><span class="p">.</span><span class="n">ctrl</span> <span class="k">then</span>
-                    <span class="c1">-- Perform this special action only if the current input source is not English.</span>
-                    <span class="k">if</span> <span class="n">current_source</span> <span class="o">~=</span> <span class="n">input_english</span> <span class="k">then</span>
-                        <span class="c1">-- print("Ctrl+C (in non-English): Intercepted.")</span>
-                        <span class="c1">-- a. Change the input source to English.</span>
-                        <span class="n">hs</span><span class="p">.</span><span class="n">keycodes</span><span class="p">.</span><span class="n">currentSourceID</span><span class="p">(</span><span class="n">input_english</span><span class="p">)</span>
-                        <span class="c1">-- b. Simulate an ESC key press.</span>
-                        <span class="n">hs</span><span class="p">.</span><span class="n">eventtap</span><span class="p">.</span><span class="n">keyStroke</span><span class="p">({},</span> <span class="s1">'escape'</span><span class="p">)</span>
-                        <span class="c1">-- print("--&gt; Switched to English and sent ESC.")</span>
-                        <span class="c1">-- c. Block the original Ctrl+C event from being processed. (Crucial)</span>
-                        <span class="k">return</span> <span class="kc">true</span>
-                    <span class="k">end</span>
-                <span class="k">end</span>
-            <span class="k">end</span><span class="p">)</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-
-    <span class="c1">-- Allow all other key events to pass through.</span>
-    <span class="k">return</span> <span class="kc">false</span>
-<span class="k">end</span><span class="p">)</span>
-
-<span class="c1">-- Start the listener.</span>
-<span class="n">escape_keyevent</span><span class="p">:</span><span class="n">start</span><span class="p">()</span>
-</code></pre></div></div>
-
-<ol>
-  <li>
-    <p>중간에 보면 0.03s의 delay를 주는 부분이 있는데요, 이는 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문입니다. 이 부분이 없는 상태에서 작성했더니, 어느 시점에서는 아무리 esc 키를 눌러도 영문으로 전환되지 않았습니다. 확인해보니 실제로 esc가 동작하지 않더라구요. 정확한 원인을 파악하지는 못했지만, 아마 esc 키를 눌렀을때 앱이 포커스를 받는 시간이 필요하기 때문이라고 생각했고 해당 부분을 적용한 뒤에는 문제가 없었습니다.</p>
-  </li>
-  <li>
-    <p>vim에서는 ctrl+c가 esc와 동일한 역할을 하는데요, 그래서 대부분 esc를 누르지 않고 ctrl+c를 사용합니다. 문제는 한글로 입력할 경우 ctrl+ㅊ으로 입력이 되어서 esc가 정상적으로 동작하지 않았습니다. 이를 해결하기 위해서 별도의 조건을 추가하였습니다.</p>
-  </li>
-</ol>
-
-<p>혹시나 저와 같이 이러한 불편을 겪고계신 분들이 있다면 도움이 되었길 바랍니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[한국인들이 vim을 사용할때 자주 겪는 어려움 중 하나는 한글로 주석을 작성하다가 mode를 바꾸면 한글이 계속 인식되어 있어서 한영전환을 한번 더 해줘야 한다는 것이다. 이게 생각보다 생산성을 엄청나게 저하시키는데, 많은 곳에서 hammerspoon을 사용해서 이를 해결하고 있어서 이를 공유한다.]]></summary></entry></feed>
+<p>이제 2025년도 3분기가 지나고, 총 3개월만 남았다. 남은 시간도 더 많이 경험하고 성장하자!</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다.]]></summary></entry></feed>
