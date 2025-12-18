@@ -86,7 +86,7 @@ Claude Code가 작성해준 [DESIGN.md](https://github.com/wnjoon/go-yfinance/bl
 - Go 프로젝트 구조
 - 디자인 원칙
 - 개발 단계(로드맵)
-  - 총 9단계로 진행
+  - 총 10단계로 진행
 
 특히 개발단계에서는 각 단계별로 중요도가 어떻게 되는지, 그리고 각 단계별로 예상되는 코드량까지 대략적으로 파악해서 알려주었습니다. 각 단계별로 자세한 내용은 [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md) 파일에 작성되어 있습니다.
 
