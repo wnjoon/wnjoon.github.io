@@ -35,3 +35,16 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+
+giscus:
+  repo: "wnjoon/wnjoon.github.io"
+  repo_id: "R_kgDOL9kFLg"
+  category: "General"
+  category_id: "DIC_kwDOL9kFLs4Cz92B"
+  mapping: "pathname"
+  strict: 1
+  reactions_enabled: 1
+  emit_metadata: 0
+  input_position: "bottom"
+  theme: "preferred_color_scheme"
+  lang: "ko"
