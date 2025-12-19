@@ -1,5 +1,1802 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-18T23:51:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #1</title><link href="http://localhost:4000/2025/12/17/go-yfinance-0-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #1" /><published>2025-12-17T00:00:00+09:00</published><updated>2025-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/17/go-yfinance-0-en</id><content type="html" xml:base="http://localhost:4000/2025/12/17/go-yfinance-0-en/"><![CDATA[<h2 id="is-there-no-yahoo-finance-library-for-go">Is there no Yahoo Finance library for Go?</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-19T14:43:00+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #2</title><link href="http://localhost:4000/2025/12/19/go-yfinance-1/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #2" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-1</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-1/"><![CDATA[<h2 id="실용적-수준을-구현하기-전에-cycletls를-이용한-인증-우회-테스트를-해보자">실용적 수준을 구현하기 전에, CycleTLS를 이용한 인증 우회 테스트를 해보자.</h2>
+
+<p><a href="https://wnjoon.github.io/2025/12/17/go-yfinance-0/">이전 포스팅 ‘Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1’</a>에서 작성했던 것 처럼, Claude Code가 제시한 Go 기반의 yfinance 라이브러리는 크게 3단계의 Phase로 구성되어 있습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MVP (최소 실행 가능 제품)
+- Phase 0 + Phase 1 = ~1,100줄
+- 기본적인 가격 조회 가능
+
+실용적 수준
+- Phase 0~4 = ~2,300줄
+- 대부분의 투자 분석 가능
+
+Python yfinance 동등
+- Phase 0~7 = ~3,500줄
+- 거의 모든 기능 사용 가능
+</code></pre></div></div>
+
+<p>지난번에 MVP 단계를 구현했기 때문에, 이제는 실용적 단계의 구현을 요청하려고 했는데요. 그전에 과연 CycleTLS를 사용해서 Yahoo Finance 인증과정에서의 우회가 정상적으로 일어나고 있는지 먼저 확인해야할 것 같았습니다. Phase1에서 구현해준 샘플 코드에서는 애플(AAPL)이라는 단기 종목에 대한 조회만 하고 있었는데, 그것보다는 더 많은 양을 조회해봐야 할 것 같더라구요.</p>
+
+<p>그래서 Gemini에게 아래와 같이 질문했습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: CycleTLS를 사용해서 Yahoo Finance로의 호출이 정상적으로 우회되는지 확인하려면 최소 몇회 정도의 종목 조회를 동시에 호출해보면 좋을까?</em></p>
+
+<p><em>🤖: … 동시 요청(Concurrency) 10개, 총 50개 조회로 시작해보세요. 모두 성공한다면 동시 요청을 20개, 30개로 늘리면서 429 에러가 뜨는 임계점을 찾으시면 됩니다.</em></p>
+
+<p><br /></p>
+
+<p>Gemini는 Yahoo Finance 입장에서 DDoS 공격이나 비정상적인 트래픽으로 간주할 수 있는 상황을 피하기 위해 동시 요청되는 갯수를 조절하라고 제안했습니다. 아마 작성하고 있는 코드가 하나의 어플리케이션이라고 인식하는 것 같았습니다.</p>
+
+<p>저의 목적은 Go로 Yahoo Finance를 호출할 수 있는 라이브러리를 구현하는 것이기 때문에, 도구 자체로의 기능만 제대로 구현하면 된다고 생각했습니다. 즉 Yahoo Finance에서 오류를 받지 않도록 하는 것은 이 라이브러리를 사용해서 어플리케이션을 구현하는 곳에서 제어할 문제고, 저는 단순히 호출하는 방식만 제대로 구현하면 되는 것이었습니다. 다만 CycleTLS를 사용해서 Yahoo Finance로의 호출을 우회해주는 기능만 추가하면 된다고 생각했죠.</p>
+
+<p>그래서 Gemini가 열심히 작성해준 답변을 살짝 무시하고, 최대 110개의 종목을 goroutine으로 동시에 호출해보았습니다. 이정도면 무리되지 않는 선에서 동시요청을 통한 정상적인 우회가 이루어지는지 확인할 수 있다고 생각했습니다. 결과는 아래와 같았습니다. 오류도 나지 않았고, 그렇게 좋지 않는 로컬의 성능(M3 Air, 16GB RAM)에서도 꽤나 준수한 속도로 동작한 것 같습니다.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Parallel] Batch call completed <span class="k">in </span>3.332168875s <span class="k">for </span>110 symbols <span class="o">(</span>avg: 30.292444ms per symbol<span class="o">)</span>
+</code></pre></div></div>
+
+<p>위에서도 적었듯이, 몇개의 요청에 대해서 Yahoo Finance가 429 에러를 반환하는지를 확인하는 것은 저의 범위가 아니라고 생각했습니다. 그래서 더이상 테스트는 하지 않았는데요, 향후에는 110개의 종목을 짧은 시간차를 두고 여러번 호출하는 방식으로 확인해보는 것도 나쁘지 않을 것 같았습니다.</p>
+
+<h2 id="구현-계획-세우기">구현 계획 세우기</h2>
+
+<p>실용적 수준 카테고리는 세부적으로 3개의 단계로 구성됩니다.</p>
+
+<p><strong>Phase 2: Options (옵션 데이터)</strong></p>
+
+<ul>
+  <li>API 엔드포인트: query2.finance.yahoo.com/v7/finance/options/{symbol}</li>
+  <li>구현 항목
+    <ul>
+      <li>Options(): 옵션 체인 조회 (콜/풋)</li>
+      <li>ExpirationDates(): 만기일 목록</li>
+      <li>옵션 모델 구조체: Call, Put, OptionChain</li>
+    </ul>
+  </li>
+  <li>예상 메서드
+    <ul>
+      <li>t.Options(): 모든 옵션 체인</li>
+      <li>t.OptionsAtExpiry(date): 특정 만기일 옵션</li>
+      <li>t.ExpirationDates(): 만기일 목록</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Phase 3: Financials (재무제표)</strong></p>
+
+<ul>
+  <li>API 엔드포인트: query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}</li>
+  <li>구현 항목
+    <ul>
+      <li>IncomeStatement(): 손익계산서</li>
+      <li>BalanceSheet(): 재무상태표</li>
+      <li>CashFlow(): 현금흐름표</li>
+      <li>Annual / Quarterly 지원</li>
+    </ul>
+  </li>
+  <li>예상 메서드
+    <ul>
+      <li>t.IncomeStatement(annual bool): 손익계산서</li>
+      <li>t.BalanceSheet(annual bool): 재무상태표</li>
+      <li>t.CashFlow(annual bool): 현금흐름표</li>
+      <li>t.Financials(): 전체 재무제표</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Phase 4: Analysis (분석 데이터)</strong></p>
+
+<ul>
+  <li>API 엔드포인트: QuoteSummary API의 분석 모듈 사용
+    <ul>
+      <li>recommendationTrend, earningsTrend, earningsHistory 등</li>
+    </ul>
+  </li>
+  <li>구현 항목
+    <ul>
+      <li>Recommendations(): 애널리스트 추천</li>
+      <li>PriceTargets(): 목표가</li>
+      <li>EarningsEstimate(): 실적 예상</li>
+      <li>RevenueEstimate(): 매출 예상</li>
+      <li>GrowthEstimates(): 성장률 예상</li>
+    </ul>
+  </li>
+  <li>예상 메서드
+    <ul>
+      <li>t.Recommendations(): 매수/매도/보유 추천</li>
+      <li>t.PriceTargets(): 목표가 (현재/평균/고/저)</li>
+      <li>t.EarningsEstimate(): EPS 예상</li>
+      <li>t.RevenueEstimate(): 매출 예상</li>
+      <li>t.EarningsDates(): 실적 발표일</li>
+    </ul>
+  </li>
+</ul>
+
+<p>각각이 종속관계를 갖지 않는 내용이었기 때문에, 순서대로 개발해달라고 요청했습니다. 각 단계별로 세부적인 내용은 아래와 같습니다.</p>
+
+<ol>
+  <li>Phase 2 (Options): 단일 API 엔드포인트로 비교적 간단</li>
+  <li>Phase 3 (Financials): Timeseries API 파싱이 복잡하지만 핵심 기능</li>
+  <li>Phase 4 (Analysis): QuoteSummary 모듈 확장으로 Info 코드 재사용 가능</li>
+</ol>
+
+<p>그리고 지난번 포스팅에서 MVP 수준으로 개발을 요청할때에는, 제가 테스트 요구사항을 정확하게 명시하지 않았더라구요. 그러다보니 Claude Code가 제가 생각했던 것보단 간단한 수준의 테스트만 작성하고 넘어갔습니다. 그래서 이번에는 좀더 테스트를 꼼꼼하게 하고, 정확하게 구현되는지 하나씩 꼭 확인해달라고 요청했습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: … STATUS.md에 진행과정 정확하게 표시해주고, 각 기능별로 테스트 꼼꼼하게 해서 정확하게 구현이 완료되는지 확인하면서 진행해줘.</em></p>
+
+<p><br /></p>
+
+<h2 id="todo-목록">TODO 목록</h2>
+
+<p>Claude Code에게 각 Phase별로 구현해야 할 목록을 꼼꼼하게 파악하고, 각 기능을 주제별로 묶어서 미리 TODO에 작성해서 단계별로 처리하고 검사하도록 요청했습니다. 아래는 각 Phase별로 Claude Code가 작성하고 관리한 TODO 목록입니다.</p>
+
+<p><strong>Phase 2: Options</strong></p>
+
+<ul>
+  <li>Create phase2/options branch from main</li>
+  <li>Implement Option models (option.go)</li>
+  <li>Implement Options methods in ticker package</li>
+  <li>Write unit tests for Options</li>
+  <li>Test with live API data</li>
+  <li>Merge to main and update STATUS.md</li>
+</ul>
+
+<p><strong>Phase 3: Financials</strong></p>
+
+<ul>
+  <li>Create phase3/financials branch from main</li>
+  <li>Research Yahoo Finance Financials API structure</li>
+  <li>Implement Financial models</li>
+  <li>Implement Financials methods in ticker package</li>
+  <li>Write unit tests for Financials</li>
+  <li>Test with live API data</li>
+  <li>Merge to main and update STATUS.md</li>
+</ul>
+
+<h2 id="구현-결과">구현 결과</h2>
+
+<h3 id="phase-2-options">Phase 2: Options</h3>
+
+<p><strong>구현 내용</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>파일</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Option 모델</td>
+      <td><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code></td>
+      <td>Option, OptionQuote, OptionChain 구조체</td>
+    </tr>
+    <tr>
+      <td>Options 메서드</td>
+      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code></td>
+      <td>Options(), OptionChain(), Strikes() 등</td>
+    </tr>
+    <tr>
+      <td>유닛 테스트</td>
+      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options_test.go</code></td>
+      <td>캐시 및 구조체 테스트</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>사용 예시</strong></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"AAPL"</span><span class="p">)</span>
+<span class="k">defer</span> <span class="n">t</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+<span class="c">// 만기일 목록</span>
+<span class="n">expirations</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
+
+<span class="c">// 옵션 체인 (가장 가까운 만기)</span>
+<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+
+<span class="c">// 특정 만기일 옵션 체인</span>
+<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">"2025-12-26"</span><span class="p">)</span>
+
+<span class="c">// 행사가 목록</span>
+<span class="n">strikes</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Strikes</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>이슈 사항</strong></p>
+
+<p>개발 중간에 아래와 같은 이슈사항이 발생했습니다.</p>
+
+<p><em><code class="language-plaintext highlighter-rouge">options.go</code>에서 Underlying이 이제 <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code> 타입이어야 합니다. 코드를 확인해보니 이미 <code class="language-plaintext highlighter-rouge">&amp;result.Quote</code>를 사용하고 있는데, <code class="language-plaintext highlighter-rouge">Quote</code> 타입이 <code class="language-plaintext highlighter-rouge">OptionQuote</code>로 변경되었으므로 자동으로 호환됩니다. 테스트 파일도 업데이트하고 <code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code>도 수정해야 합니다.</em></p>
+
+<p>기능을 추가하면서, 새로운 타입을 기존 코드에서 사용하던 타입에 적용해야 하는 부분이 생겼습니다. 이 부분도 Claude Code가 정확히 판단하고 수정했습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code> - OptionQuote 타입 추가 완료
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">OptionChain.Underlying</code>이 <code class="language-plaintext highlighter-rouge">*OptionQuote</code> 타입으로 변경됨</li>
+      <li><code class="language-plaintext highlighter-rouge">OptionChainResponse.Quote</code>도 <code class="language-plaintext highlighter-rouge">OptionQuote</code> 타입으로 변경됨</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code> - 자동 호환
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&amp;result.Quote</code>가 <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code>를 반환하므로 수정 불필요</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code> - 테스트 후 임시 파일이라 삭제됨</li>
+</ul>
+
+<p><strong>라이브 테스트 결과</strong></p>
+
+<ul>
+  <li>Underlying Price: $271.84</li>
+  <li>Calls: 99</li>
+  <li>Puts: 91</li>
+</ul>
+
+<h3 id="phase-3-financials">Phase 3: Financials</h3>
+
+<p><strong>새로 추가된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/models/financials.go</code>: 재무제표 데이터 모델</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials.go</code>: 재무제표 API 메서드</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials_test.go</code>: 유닛 테스트</li>
+</ul>
+
+<p><strong>수정된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">internal/endpoints/endpoints.go</code>: 재무제표 키 상수 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: financialsCache 필드 추가</li>
+</ul>
+
+<p><strong>구현된 API 메서드</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>메서드</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">IncomeStatement(freq)</code></td>
+      <td>손익계산서 (annual/quarterly)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BalanceSheet(freq)</code></td>
+      <td>대차대조표 (annual/quarterly)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CashFlow(freq)</code></td>
+      <td>현금흐름표 (annual/quarterly)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">FinancialsJSON()</code></td>
+      <td>디버깅용 Raw JSON</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>라이브 테스트 결과 (AAPL)</strong></p>
+
+<ul>
+  <li>Income Statement: 5 periods, 26 fields</li>
+  <li>Total Revenue: $416.16B</li>
+  <li>Net Income: $112.01B</li>
+  <li>Diluted EPS: $7.46</li>
+  <li>Balance Sheet: 4 periods, 34 fields</li>
+  <li>Total Assets: $359.24B</li>
+  <li>Total Debt: $98.66B</li>
+  <li>Cash Flow: 5 periods, 38 fields</li>
+  <li>Operating Cash Flow: $111.48B</li>
+  <li>Free Cash Flow: $98.77B</li>
+</ul>
+
+<h3 id="phase-4-analysis">Phase 4: Analysis</h3>
+
+<p><strong>새로 추가된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/models/analysis.go</code>: 분석 데이터 모델 (116 lines)</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis.go</code>: 분석 API 메서드 (664 lines)</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis_test.go</code>: 유닛 테스트 (196 lines)</li>
+</ul>
+
+<p><strong>수정된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: analysisCache 필드 추가</li>
+</ul>
+
+<p><strong>구현된 API 메서드</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>메서드</th>
+      <th>설명</th>
+      <th>소스 모듈</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
+      <td>애널리스트 추천</td>
+      <td>recommendationTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
+      <td>목표가</td>
+      <td>financialData</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
+      <td>실적 예상</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
+      <td>매출 예상</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
+      <td>EPS 추이</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
+      <td>EPS 수정</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
+      <td>실적 이력</td>
+      <td>earningsHistory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
+      <td>성장 예상</td>
+      <td>industryTrend, sectorTrend, indexTrend</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>라이브 테스트 결과 (AAPL)</strong></p>
+
+<ul>
+  <li>Recommendations: 4 periods (StrongBuy=5, Buy=24, Hold=15, Sell=1, StrongSell=3)</li>
+  <li>Price Targets: Current=$272.19, Mean=$287.71, High=$350, Low=$215</li>
+  <li>Earnings Estimates: 4 periods (0q, +1q, 0y, +1y)</li>
+  <li>Revenue Estimates: 4 periods with growth rates</li>
+  <li>Earnings History: 4 quarters with surprise %</li>
+</ul>
+
+<p><strong>계획 대비 변경사항</strong></p>
+
+<p>원래 계획</p>
+
+<ul>
+  <li>Analyst Recommendations ✅</li>
+  <li>Price Targets ✅</li>
+  <li>Earnings Estimates ✅</li>
+  <li>Revenue Estimates ✅</li>
+  <li>EPS Trend/Revisions ✅</li>
+  <li>Growth Estimates ✅</li>
+</ul>
+
+<p>추가 구현</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">EarningsHistory()</code>: 과거 실적 대비 실제 결과 (surprise %) 제공</li>
+  <li>캐싱 시스템: earningsTrend 데이터를 한 번만 fetch하여 여러 메서드에서 재사용</li>
+</ul>
+
+<p>구조적 변경</p>
+
+<ul>
+  <li>초기 계획은 별도의 API 엔드포인트를 사용할 것으로 예상했으나, 실제로는 <code class="language-plaintext highlighter-rouge">quoteSummary</code> API의 여러 모듈을 조합하여 구현</li>
+  <li><code class="language-plaintext highlighter-rouge">getFloat</code> → <code class="language-plaintext highlighter-rouge">getFloat64</code> 함수명 통일 (<code class="language-plaintext highlighter-rouge">info.go</code>와 충돌 방지)</li>
+</ul>
+
+<h2 id="yfinance와의-중간-검증">yfinance와의 중간 검증</h2>
+
+<p>지금까지 개발된 내용이 yfinance에서 제공하는 기능 및 방법과 동일하게 구현되어 있는지 Claude Code에게 확인해보았습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: 지금까지 구현된 모든 Phase들이 기존에 Python 기반의 yfinance에서 제공하는 모든 기능들을 정확하게 구현하고 있는지 다시한번 꼼꼼하게 확인해줘. ultrathink. 테스트가 필요하다면 진행해도 좋아.</em></p>
+
+<p><br /></p>
+
+<h3 id="검증-계획">검증 계획</h3>
+
+<p>Claude Code가 세운 TODO 목록입니다. 각 Phase별로 테스트를 진행하고, 최종적으로 Go Test를 진행한 후 차이점이 존재하는지 분석하는 순으로 진행합니다.</p>
+
+<ul>
+  <li>Compare Phase 0 (Foundation): HTTP Client, Auth, Errors, Config</li>
+  <li>Compare Phase 1 (Core Data): Quote, History, Info</li>
+  <li>Compare Phase 2 (Options): Options chain and expiration</li>
+  <li>Compare Phase 3 (Financials): Income, Balance, CashFlow</li>
+  <li>Compare Phase 4 (Analysis): Recommendations, Price Targets, Estimates</li>
+  <li>Run Go tests to verify all implementations</li>
+  <li>Report findings and identify any gaps</li>
+</ul>
+
+<h3 id="검증-결과">검증 결과</h3>
+
+<p><strong>Phase 0: Foundation</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python yfinance</th>
+      <th>Go 구현</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>curl_cffi TLS fingerprint</td>
+      <td>CycleTLS (Chrome JA3)</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Cookie/Crumb auth</td>
+      <td>AuthManager (Basic + CSRF)</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Proxy 설정</td>
+      <td>Config.SetProxy()</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Timeout 설정</td>
+      <td>Config.SetTimeout()</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Error 처리</td>
+      <td>YFError with codes</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Phase 1: Core Data</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.info</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Info()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.fast_info</code></td>
+      <td><code class="language-plaintext highlighter-rouge">FastInfo()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.history()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">History()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.dividends</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Dividends()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.splits</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Splits()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.actions</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Actions()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Quote data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Quote()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">History metadata</code></td>
+      <td><code class="language-plaintext highlighter-rouge">GetHistoryMetadata()</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Phase 2: Options</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.options</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Options()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.option_chain()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">OptionChain()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Expiration dates</td>
+      <td><code class="language-plaintext highlighter-rouge">OptionChainAtExpiry()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Strike prices</td>
+      <td><code class="language-plaintext highlighter-rouge">Strikes()</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Phase 3: Financials</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.income_stmt</code></td>
+      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("annual")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_income_stmt</code></td>
+      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("quarterly")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.balance_sheet</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("annual")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_balance_sheet</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("quarterly")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.cash_flow</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CashFlow("annual")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_cash_flow</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CashFlow("quarterly")</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>참고: Python의 <code class="language-plaintext highlighter-rouge">ttm_income_stmt</code>, <code class="language-plaintext highlighter-rouge">ttm_cash_flow</code> (trailing 12 months)는 Go에서 <code class="language-plaintext highlighter-rouge">freq="trailing"</code> 파라미터로 지원</li>
+</ul>
+
+<p><strong>Phase 4: Analysis</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.recommendations</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.analyst_price_targets</code></td>
+      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_estimate</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.revenue_estimate</code></td>
+      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.eps_trend</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.eps_revisions</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_history</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.growth_estimates</code></td>
+      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>미구현 기능 (Phase 5 이후 예정)</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 기능</th>
+      <th>Phase</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>major_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>institutional_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>mutualfund_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>insider_transactions</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>insider_purchases</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>insider_roster_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>calendar</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>sustainability</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>isin</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>news</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>earnings_dates</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>upgrades_downgrades</td>
+      <td>Phase 4 확장 가능</td>
+    </tr>
+    <tr>
+      <td>sec_filings</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>shares / shares_full</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>capital_gains</td>
+      <td>Phase 1 확장 가능</td>
+    </tr>
+    <tr>
+      <td>funds_data</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>live() WebSocket</td>
+      <td>Phase 8</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="평가">평가</h3>
+
+<ul>
+  <li>모든 핵심 기능(Quote, History, Options, Financials, Analysis) 완벽 구현</li>
+  <li>Python과 동일한 API 엔드포인트 사용</li>
+  <li>캐싱 전략 일관성 있게 적용</li>
+  <li>적절한 에러 처리 및 타입 안전성</li>
+  <li>38개 단위 테스트 모두 통과</li>
+</ul>
+
+<h3 id="개선-가능-사항">개선 가능 사항</h3>
+
+<ul>
+  <li>upgrades_downgrades: Python에서 <code class="language-plaintext highlighter-rouge">quote.py</code>의 <code class="language-plaintext highlighter-rouge">_quote</code> 데이터에서 가져옴 → Phase 4에 추가 가능</li>
+  <li>capital_gains: History API에서 이미 데이터 수신 중, 별도 메서드 추가 가능</li>
+  <li>TTM(Trailing Twelve Months) 재무제표: 현재 <code class="language-plaintext highlighter-rouge">freq="trailing</code> 지원됨</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 두번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #2</title><link href="http://localhost:4000/2025/12/19/go-yfinance-1-en/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #2" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-1-en</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-1-en/"><![CDATA[<h2 id="실용적-수준을-구현하기-전에-cycletls를-이용한-인증-우회-테스트를-해보자">실용적 수준을 구현하기 전에, CycleTLS를 이용한 인증 우회 테스트를 해보자.</h2>
+
+<p><a href="https://wnjoon.github.io/2025/12/17/go-yfinance-0/">이전 포스팅 ‘Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1’</a>에서 작성했던 것 처럼, Claude Code가 제시한 Go 기반의 yfinance 라이브러리는 크게 3단계의 Phase로 구성되어 있습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MVP (최소 실행 가능 제품)
+- Phase 0 + Phase 1 = ~1,100줄
+- 기본적인 가격 조회 가능
+
+실용적 수준
+- Phase 0~4 = ~2,300줄
+- 대부분의 투자 분석 가능
+
+Python yfinance 동등
+- Phase 0~7 = ~3,500줄
+- 거의 모든 기능 사용 가능
+</code></pre></div></div>
+
+<p>지난번에 MVP 단계를 구현했기 때문에, 이제는 실용적 단계의 구현을 요청하려고 했는데요. 그전에 과연 CycleTLS를 사용해서 Yahoo Finance 인증과정에서의 우회가 정상적으로 일어나고 있는지 먼저 확인해야할 것 같았습니다. Phase1에서 구현해준 샘플 코드에서는 애플(AAPL)이라는 단기 종목에 대한 조회만 하고 있었는데, 그것보다는 더 많은 양을 조회해봐야 할 것 같더라구요.</p>
+
+<p>그래서 Gemini에게 아래와 같이 질문했습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: CycleTLS를 사용해서 Yahoo Finance로의 호출이 정상적으로 우회되는지 확인하려면 최소 몇회 정도의 종목 조회를 동시에 호출해보면 좋을까?</em></p>
+
+<p><em>🤖: … 동시 요청(Concurrency) 10개, 총 50개 조회로 시작해보세요. 모두 성공한다면 동시 요청을 20개, 30개로 늘리면서 429 에러가 뜨는 임계점을 찾으시면 됩니다.</em></p>
+
+<p><br /></p>
+
+<p>Gemini는 Yahoo Finance 입장에서 DDoS 공격이나 비정상적인 트래픽으로 간주할 수 있는 상황을 피하기 위해 동시 요청되는 갯수를 조절하라고 제안했습니다. 아마 작성하고 있는 코드가 하나의 어플리케이션이라고 인식하는 것 같았습니다.</p>
+
+<p>저의 목적은 Go로 Yahoo Finance를 호출할 수 있는 라이브러리를 구현하는 것이기 때문에, 도구 자체로의 기능만 제대로 구현하면 된다고 생각했습니다. 즉 Yahoo Finance에서 오류를 받지 않도록 하는 것은 이 라이브러리를 사용해서 어플리케이션을 구현하는 곳에서 제어할 문제고, 저는 단순히 호출하는 방식만 제대로 구현하면 되는 것이었습니다. 다만 CycleTLS를 사용해서 Yahoo Finance로의 호출을 우회해주는 기능만 추가하면 된다고 생각했죠.</p>
+
+<p>그래서 Gemini가 열심히 작성해준 답변을 살짝 무시하고, 최대 110개의 종목을 goroutine으로 동시에 호출해보았습니다. 이정도면 무리되지 않는 선에서 동시요청을 통한 정상적인 우회가 이루어지는지 확인할 수 있다고 생각했습니다. 결과는 아래와 같았습니다. 오류도 나지 않았고, 그렇게 좋지 않는 로컬의 성능(M3 Air, 16GB RAM)에서도 꽤나 준수한 속도로 동작한 것 같습니다.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Parallel] Batch call completed <span class="k">in </span>3.332168875s <span class="k">for </span>110 symbols <span class="o">(</span>avg: 30.292444ms per symbol<span class="o">)</span>
+</code></pre></div></div>
+
+<p>위에서도 적었듯이, 몇개의 요청에 대해서 Yahoo Finance가 429 에러를 반환하는지를 확인하는 것은 저의 범위가 아니라고 생각했습니다. 그래서 더이상 테스트는 하지 않았는데요, 향후에는 110개의 종목을 짧은 시간차를 두고 여러번 호출하는 방식으로 확인해보는 것도 나쁘지 않을 것 같았습니다.</p>
+
+<h2 id="구현-계획-세우기">구현 계획 세우기</h2>
+
+<p>실용적 수준 카테고리는 세부적으로 3개의 단계로 구성됩니다.</p>
+
+<p><strong>Phase 2: Options (옵션 데이터)</strong></p>
+
+<ul>
+  <li>API 엔드포인트: query2.finance.yahoo.com/v7/finance/options/{symbol}</li>
+  <li>구현 항목
+    <ul>
+      <li>Options(): 옵션 체인 조회 (콜/풋)</li>
+      <li>ExpirationDates(): 만기일 목록</li>
+      <li>옵션 모델 구조체: Call, Put, OptionChain</li>
+    </ul>
+  </li>
+  <li>예상 메서드
+    <ul>
+      <li>t.Options(): 모든 옵션 체인</li>
+      <li>t.OptionsAtExpiry(date): 특정 만기일 옵션</li>
+      <li>t.ExpirationDates(): 만기일 목록</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Phase 3: Financials (재무제표)</strong></p>
+
+<ul>
+  <li>API 엔드포인트: query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}</li>
+  <li>구현 항목
+    <ul>
+      <li>IncomeStatement(): 손익계산서</li>
+      <li>BalanceSheet(): 재무상태표</li>
+      <li>CashFlow(): 현금흐름표</li>
+      <li>Annual / Quarterly 지원</li>
+    </ul>
+  </li>
+  <li>예상 메서드
+    <ul>
+      <li>t.IncomeStatement(annual bool): 손익계산서</li>
+      <li>t.BalanceSheet(annual bool): 재무상태표</li>
+      <li>t.CashFlow(annual bool): 현금흐름표</li>
+      <li>t.Financials(): 전체 재무제표</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Phase 4: Analysis (분석 데이터)</strong></p>
+
+<ul>
+  <li>API 엔드포인트: QuoteSummary API의 분석 모듈 사용
+    <ul>
+      <li>recommendationTrend, earningsTrend, earningsHistory 등</li>
+    </ul>
+  </li>
+  <li>구현 항목
+    <ul>
+      <li>Recommendations(): 애널리스트 추천</li>
+      <li>PriceTargets(): 목표가</li>
+      <li>EarningsEstimate(): 실적 예상</li>
+      <li>RevenueEstimate(): 매출 예상</li>
+      <li>GrowthEstimates(): 성장률 예상</li>
+    </ul>
+  </li>
+  <li>예상 메서드
+    <ul>
+      <li>t.Recommendations(): 매수/매도/보유 추천</li>
+      <li>t.PriceTargets(): 목표가 (현재/평균/고/저)</li>
+      <li>t.EarningsEstimate(): EPS 예상</li>
+      <li>t.RevenueEstimate(): 매출 예상</li>
+      <li>t.EarningsDates(): 실적 발표일</li>
+    </ul>
+  </li>
+</ul>
+
+<p>각각이 종속관계를 갖지 않는 내용이었기 때문에, 순서대로 개발해달라고 요청했습니다. 각 단계별로 세부적인 내용은 아래와 같습니다.</p>
+
+<ol>
+  <li>Phase 2 (Options): 단일 API 엔드포인트로 비교적 간단</li>
+  <li>Phase 3 (Financials): Timeseries API 파싱이 복잡하지만 핵심 기능</li>
+  <li>Phase 4 (Analysis): QuoteSummary 모듈 확장으로 Info 코드 재사용 가능</li>
+</ol>
+
+<p>그리고 지난번 포스팅에서 MVP 수준으로 개발을 요청할때에는, 제가 테스트 요구사항을 정확하게 명시하지 않았더라구요. 그러다보니 Claude Code가 제가 생각했던 것보단 간단한 수준의 테스트만 작성하고 넘어갔습니다. 그래서 이번에는 좀더 테스트를 꼼꼼하게 하고, 정확하게 구현되는지 하나씩 꼭 확인해달라고 요청했습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: … STATUS.md에 진행과정 정확하게 표시해주고, 각 기능별로 테스트 꼼꼼하게 해서 정확하게 구현이 완료되는지 확인하면서 진행해줘.</em></p>
+
+<p><br /></p>
+
+<h2 id="todo-목록">TODO 목록</h2>
+
+<p>Claude Code에게 각 Phase별로 구현해야 할 목록을 꼼꼼하게 파악하고, 각 기능을 주제별로 묶어서 미리 TODO에 작성해서 단계별로 처리하고 검사하도록 요청했습니다. 아래는 각 Phase별로 Claude Code가 작성하고 관리한 TODO 목록입니다.</p>
+
+<p><strong>Phase 2: Options</strong></p>
+
+<ul>
+  <li>Create phase2/options branch from main</li>
+  <li>Implement Option models (option.go)</li>
+  <li>Implement Options methods in ticker package</li>
+  <li>Write unit tests for Options</li>
+  <li>Test with live API data</li>
+  <li>Merge to main and update STATUS.md</li>
+</ul>
+
+<p><strong>Phase 3: Financials</strong></p>
+
+<ul>
+  <li>Create phase3/financials branch from main</li>
+  <li>Research Yahoo Finance Financials API structure</li>
+  <li>Implement Financial models</li>
+  <li>Implement Financials methods in ticker package</li>
+  <li>Write unit tests for Financials</li>
+  <li>Test with live API data</li>
+  <li>Merge to main and update STATUS.md</li>
+</ul>
+
+<h2 id="구현-결과">구현 결과</h2>
+
+<h3 id="phase-2-options">Phase 2: Options</h3>
+
+<p><strong>구현 내용</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>파일</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Option 모델</td>
+      <td><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code></td>
+      <td>Option, OptionQuote, OptionChain 구조체</td>
+    </tr>
+    <tr>
+      <td>Options 메서드</td>
+      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code></td>
+      <td>Options(), OptionChain(), Strikes() 등</td>
+    </tr>
+    <tr>
+      <td>유닛 테스트</td>
+      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options_test.go</code></td>
+      <td>캐시 및 구조체 테스트</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>사용 예시</strong></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"AAPL"</span><span class="p">)</span>
+<span class="k">defer</span> <span class="n">t</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+<span class="c">// 만기일 목록</span>
+<span class="n">expirations</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
+
+<span class="c">// 옵션 체인 (가장 가까운 만기)</span>
+<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+
+<span class="c">// 특정 만기일 옵션 체인</span>
+<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">"2025-12-26"</span><span class="p">)</span>
+
+<span class="c">// 행사가 목록</span>
+<span class="n">strikes</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Strikes</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>이슈 사항</strong></p>
+
+<p>개발 중간에 아래와 같은 이슈사항이 발생했습니다.</p>
+
+<p><em><code class="language-plaintext highlighter-rouge">options.go</code>에서 Underlying이 이제 <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code> 타입이어야 합니다. 코드를 확인해보니 이미 <code class="language-plaintext highlighter-rouge">&amp;result.Quote</code>를 사용하고 있는데, <code class="language-plaintext highlighter-rouge">Quote</code> 타입이 <code class="language-plaintext highlighter-rouge">OptionQuote</code>로 변경되었으므로 자동으로 호환됩니다. 테스트 파일도 업데이트하고 <code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code>도 수정해야 합니다.</em></p>
+
+<p>기능을 추가하면서, 새로운 타입을 기존 코드에서 사용하던 타입에 적용해야 하는 부분이 생겼습니다. 이 부분도 Claude Code가 정확히 판단하고 수정했습니다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code> - OptionQuote 타입 추가 완료
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">OptionChain.Underlying</code>이 <code class="language-plaintext highlighter-rouge">*OptionQuote</code> 타입으로 변경됨</li>
+      <li><code class="language-plaintext highlighter-rouge">OptionChainResponse.Quote</code>도 <code class="language-plaintext highlighter-rouge">OptionQuote</code> 타입으로 변경됨</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code> - 자동 호환
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&amp;result.Quote</code>가 <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code>를 반환하므로 수정 불필요</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code> - 테스트 후 임시 파일이라 삭제됨</li>
+</ul>
+
+<p><strong>라이브 테스트 결과</strong></p>
+
+<ul>
+  <li>Underlying Price: $271.84</li>
+  <li>Calls: 99</li>
+  <li>Puts: 91</li>
+</ul>
+
+<h3 id="phase-3-financials">Phase 3: Financials</h3>
+
+<p><strong>새로 추가된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/models/financials.go</code>: 재무제표 데이터 모델</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials.go</code>: 재무제표 API 메서드</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials_test.go</code>: 유닛 테스트</li>
+</ul>
+
+<p><strong>수정된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">internal/endpoints/endpoints.go</code>: 재무제표 키 상수 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: financialsCache 필드 추가</li>
+</ul>
+
+<p><strong>구현된 API 메서드</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>메서드</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">IncomeStatement(freq)</code></td>
+      <td>손익계산서 (annual/quarterly)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BalanceSheet(freq)</code></td>
+      <td>대차대조표 (annual/quarterly)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CashFlow(freq)</code></td>
+      <td>현금흐름표 (annual/quarterly)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">FinancialsJSON()</code></td>
+      <td>디버깅용 Raw JSON</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>라이브 테스트 결과 (AAPL)</strong></p>
+
+<ul>
+  <li>Income Statement: 5 periods, 26 fields</li>
+  <li>Total Revenue: $416.16B</li>
+  <li>Net Income: $112.01B</li>
+  <li>Diluted EPS: $7.46</li>
+  <li>Balance Sheet: 4 periods, 34 fields</li>
+  <li>Total Assets: $359.24B</li>
+  <li>Total Debt: $98.66B</li>
+  <li>Cash Flow: 5 periods, 38 fields</li>
+  <li>Operating Cash Flow: $111.48B</li>
+  <li>Free Cash Flow: $98.77B</li>
+</ul>
+
+<h3 id="phase-4-analysis">Phase 4: Analysis</h3>
+
+<p><strong>새로 추가된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/models/analysis.go</code>: 분석 데이터 모델 (116 lines)</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis.go</code>: 분석 API 메서드 (664 lines)</li>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis_test.go</code>: 유닛 테스트 (196 lines)</li>
+</ul>
+
+<p><strong>수정된 파일</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: analysisCache 필드 추가</li>
+</ul>
+
+<p><strong>구현된 API 메서드</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>메서드</th>
+      <th>설명</th>
+      <th>소스 모듈</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
+      <td>애널리스트 추천</td>
+      <td>recommendationTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
+      <td>목표가</td>
+      <td>financialData</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
+      <td>실적 예상</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
+      <td>매출 예상</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
+      <td>EPS 추이</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
+      <td>EPS 수정</td>
+      <td>earningsTrend</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
+      <td>실적 이력</td>
+      <td>earningsHistory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
+      <td>성장 예상</td>
+      <td>industryTrend, sectorTrend, indexTrend</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>라이브 테스트 결과 (AAPL)</strong></p>
+
+<ul>
+  <li>Recommendations: 4 periods (StrongBuy=5, Buy=24, Hold=15, Sell=1, StrongSell=3)</li>
+  <li>Price Targets: Current=$272.19, Mean=$287.71, High=$350, Low=$215</li>
+  <li>Earnings Estimates: 4 periods (0q, +1q, 0y, +1y)</li>
+  <li>Revenue Estimates: 4 periods with growth rates</li>
+  <li>Earnings History: 4 quarters with surprise %</li>
+</ul>
+
+<p><strong>계획 대비 변경사항</strong></p>
+
+<p>원래 계획</p>
+
+<ul>
+  <li>Analyst Recommendations ✅</li>
+  <li>Price Targets ✅</li>
+  <li>Earnings Estimates ✅</li>
+  <li>Revenue Estimates ✅</li>
+  <li>EPS Trend/Revisions ✅</li>
+  <li>Growth Estimates ✅</li>
+</ul>
+
+<p>추가 구현</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">EarningsHistory()</code>: 과거 실적 대비 실제 결과 (surprise %) 제공</li>
+  <li>캐싱 시스템: earningsTrend 데이터를 한 번만 fetch하여 여러 메서드에서 재사용</li>
+</ul>
+
+<p>구조적 변경</p>
+
+<ul>
+  <li>초기 계획은 별도의 API 엔드포인트를 사용할 것으로 예상했으나, 실제로는 <code class="language-plaintext highlighter-rouge">quoteSummary</code> API의 여러 모듈을 조합하여 구현</li>
+  <li><code class="language-plaintext highlighter-rouge">getFloat</code> → <code class="language-plaintext highlighter-rouge">getFloat64</code> 함수명 통일 (<code class="language-plaintext highlighter-rouge">info.go</code>와 충돌 방지)</li>
+</ul>
+
+<h2 id="yfinance와의-중간-검증">yfinance와의 중간 검증</h2>
+
+<p>지금까지 개발된 내용이 yfinance에서 제공하는 기능 및 방법과 동일하게 구현되어 있는지 Claude Code에게 확인해보았습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: 지금까지 구현된 모든 Phase들이 기존에 Python 기반의 yfinance에서 제공하는 모든 기능들을 정확하게 구현하고 있는지 다시한번 꼼꼼하게 확인해줘. ultrathink. 테스트가 필요하다면 진행해도 좋아.</em></p>
+
+<p><br /></p>
+
+<h3 id="검증-계획">검증 계획</h3>
+
+<p>Claude Code가 세운 TODO 목록입니다. 각 Phase별로 테스트를 진행하고, 최종적으로 Go Test를 진행한 후 차이점이 존재하는지 분석하는 순으로 진행합니다.</p>
+
+<ul>
+  <li>Compare Phase 0 (Foundation): HTTP Client, Auth, Errors, Config</li>
+  <li>Compare Phase 1 (Core Data): Quote, History, Info</li>
+  <li>Compare Phase 2 (Options): Options chain and expiration</li>
+  <li>Compare Phase 3 (Financials): Income, Balance, CashFlow</li>
+  <li>Compare Phase 4 (Analysis): Recommendations, Price Targets, Estimates</li>
+  <li>Run Go tests to verify all implementations</li>
+  <li>Report findings and identify any gaps</li>
+</ul>
+
+<h3 id="검증-결과">검증 결과</h3>
+
+<p><strong>Phase 0: Foundation</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python yfinance</th>
+      <th>Go 구현</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>curl_cffi TLS fingerprint</td>
+      <td>CycleTLS (Chrome JA3)</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Cookie/Crumb auth</td>
+      <td>AuthManager (Basic + CSRF)</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Proxy 설정</td>
+      <td>Config.SetProxy()</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Timeout 설정</td>
+      <td>Config.SetTimeout()</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Error 처리</td>
+      <td>YFError with codes</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Phase 1: Core Data</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.info</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Info()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.fast_info</code></td>
+      <td><code class="language-plaintext highlighter-rouge">FastInfo()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.history()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">History()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.dividends</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Dividends()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.splits</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Splits()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.actions</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Actions()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Quote data</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Quote()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">History metadata</code></td>
+      <td><code class="language-plaintext highlighter-rouge">GetHistoryMetadata()</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Phase 2: Options</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.options</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Options()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.option_chain()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">OptionChain()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Expiration dates</td>
+      <td><code class="language-plaintext highlighter-rouge">OptionChainAtExpiry()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Strike prices</td>
+      <td><code class="language-plaintext highlighter-rouge">Strikes()</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Phase 3: Financials</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.income_stmt</code></td>
+      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("annual")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_income_stmt</code></td>
+      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("quarterly")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.balance_sheet</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("annual")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_balance_sheet</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("quarterly")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.cash_flow</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CashFlow("annual")</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_cash_flow</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CashFlow("quarterly")</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>참고: Python의 <code class="language-plaintext highlighter-rouge">ttm_income_stmt</code>, <code class="language-plaintext highlighter-rouge">ttm_cash_flow</code> (trailing 12 months)는 Go에서 <code class="language-plaintext highlighter-rouge">freq="trailing"</code> 파라미터로 지원</li>
+</ul>
+
+<p><strong>Phase 4: Analysis</strong> (구현 완료)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 메서드</th>
+      <th>Go 메서드</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.recommendations</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.analyst_price_targets</code></td>
+      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_estimate</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.revenue_estimate</code></td>
+      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.eps_trend</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.eps_revisions</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_history</code></td>
+      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ticker.growth_estimates</code></td>
+      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>미구현 기능 (Phase 5 이후 예정)</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Python 기능</th>
+      <th>Phase</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>major_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>institutional_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>mutualfund_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>insider_transactions</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>insider_purchases</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>insider_roster_holders</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>calendar</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>sustainability</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>isin</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>news</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>earnings_dates</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>upgrades_downgrades</td>
+      <td>Phase 4 확장 가능</td>
+    </tr>
+    <tr>
+      <td>sec_filings</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>shares / shares_full</td>
+      <td>Phase 5</td>
+    </tr>
+    <tr>
+      <td>capital_gains</td>
+      <td>Phase 1 확장 가능</td>
+    </tr>
+    <tr>
+      <td>funds_data</td>
+      <td>Phase 9</td>
+    </tr>
+    <tr>
+      <td>live() WebSocket</td>
+      <td>Phase 8</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="평가">평가</h3>
+
+<ul>
+  <li>모든 핵심 기능(Quote, History, Options, Financials, Analysis) 완벽 구현</li>
+  <li>Python과 동일한 API 엔드포인트 사용</li>
+  <li>캐싱 전략 일관성 있게 적용</li>
+  <li>적절한 에러 처리 및 타입 안전성</li>
+  <li>38개 단위 테스트 모두 통과</li>
+</ul>
+
+<h3 id="개선-가능-사항">개선 가능 사항</h3>
+
+<ul>
+  <li>upgrades_downgrades: Python에서 <code class="language-plaintext highlighter-rouge">quote.py</code>의 <code class="language-plaintext highlighter-rouge">_quote</code> 데이터에서 가져옴 → Phase 4에 추가 가능</li>
+  <li>capital_gains: History API에서 이미 데이터 수신 중, 별도 메서드 추가 가능</li>
+  <li>TTM(Trailing Twelve Months) 재무제표: 현재 <code class="language-plaintext highlighter-rouge">freq="trailing</code> 지원됨</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 두번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1</title><link href="http://localhost:4000/2025/12/17/go-yfinance-0/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1" /><published>2025-12-17T00:00:00+09:00</published><updated>2025-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/17/go-yfinance-0</id><content type="html" xml:base="http://localhost:4000/2025/12/17/go-yfinance-0/"><![CDATA[<h2 id="go-언어로-된-yahoo-finance-라이브러리가-없나">Go 언어로 된 Yahoo Finance 라이브러리가 없나?</h2>
+
+<p>얼마전부터 AI agent를 만드는 일에 흥미가 생겨서 열심히 <a href="https://nomadcoders.co/ai-agents-masterclass?gad_source=1&amp;gad_campaignid=18141167485&amp;gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&amp;gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB">강의</a>를 듣고 있습니다. 강의가 정말 유익하고 재미있지만, 한가지 아쉬운 점이 있습니다. 저는 주로 Go 언어를 사용하고 있는데(<a href="https://wnjoon.github.io/2025/11/12/gophercon-korea/">gophercon 참석 후기</a>), 대부분의 AI 관련 강의들은 Python을 활용해서 AI agent를 만들더라구요. 아마 대부분의 agent가 Python만 지원하거나, 가끔 Javascript 계열만 지원해서 그런건지도 모르겠습니다.</p>
+
+<p>Go를 공식적으로 지원하는 가장 대표적인 프레임워크는 Google ADK, 그리고 Genkit이 있습니다. 제가 듣고있는 강의에서는 Crew AI 부터 Langraph까지 다양한 AI agent를 사용해서 프로젝트를 만들어보고 있는데요, 마침 Google ADK도 그중에 포함되어 있었습니다. 마침 잘되었다 싶어서 Google ADK를 강의하는 부분에서는 제공되는 프롬프트와 개념을 바탕으로 Go를 이용해서 Google ADK를 호출해보기로 했습니다.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/837169e2-2211-4efc-b944-8f82dcc51568/image.png" alt="image" /></p>
+
+<p><em><a href="https://discord.com/channels/1250370848343195669/1250370848859230301/1439830901805682779">Golang Korea에 작성한 댓글</a>에도 보이듯이, 개인적으로 저는 AI agent의 개발이 아직도 Python을 메인으로 이루어지고 있다는 것에 아쉽다는 생각입니다. 프롬프트를 읽는 것부터 LLM 데이터를 처리해서 결과를 만드는 것 까지, 시간이 갈수록 점점 작업량이 무거워질 것이 당연한 AI agent 개발에서 Go는 훨씬 좋은 성능 뿐만 아니라 컴파일 언어라는 안정성까지 제공할 것이라고 생각하거든요.</em></p>
+
+<p><br /></p>
+
+<p>그래서 Google ADk를 사용한 첫번째 AI agent인 ‘투자 전략 에이전트’를 Go로 개발하기 시작했습니다…만 시작부터 아주 제대로 난관에 봉착했습니다. 바로 이 프로젝트에서 가장 중요한 ‘Yahoo Finance 라이브러리’가 Go로 작성되어 있지 않았습니다. 사실 사용되는 Python 라이브러리(<a href="https://github.com/ranaroussi/yfinance">yfinance</a>)도 Yahoo Finance에서 공식적으로 지원하는게 아니었죠.</p>
+
+<p>Curl이나 Websocket으로 제공하는 호출 방식이 있었다면 좋았겠지만, 그런 방법도 없다는 것에 조금 당황했습니다. 간혹 개인이 개발하던 Go 라이브러리들(<a href="https://github.com/joetats/goFinance">joetats/goFinance</a>, <a href="https://github.com/svarlamov/goyhfin">svarlamov/goyhfin</a>, <a href="https://github.com/oscarli916/yahoo-finance-api">oscarli916/yahoo-finance-api</a>)이 있었지만, 개발된 범위도 Python 기반의 라이브러리에 비하면 현저히 부족했고 심지어 최소 몇개월 이상 어떠한 업데이트도 이루어지고 있지 않았습니다.</p>
+
+<h2 id="python의-yfinance를-그대로-go로-컨버팅할-수-있을까">Python의 yfinance를 그대로 go로 컨버팅할 수 있을까?</h2>
+
+<p>그래서 발칙한 생각을 좀 해봤습니다. <strong>‘이미 매우 잘 구현되어 있는 yfinance의 기능을 그대로 go로 컨버팅한 라이브러리를 만들 수 있으면 좋겠다.’</strong> 라고 말이죠. 그런데 정말 가능할지 모르겠어서, Claude Code에게 yfinance 리포지토리 전체를 분석해서 Go로 컨버팅이 가능한지 질문했습니다.</p>
+
+<p>모델은 <code class="language-plaintext highlighter-rouge">opus-4.5</code>를 사용했습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/e64c717c-fa23-498f-9743-af84ac0268d3/image.png" alt="image" /></p>
+
+<p>한참을 조사해서 꽤나 길고 정교한 결과를 알려줬는데요, 간략하게 표로 요약된 결과는 아래와 같았습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>질문</th>
+      <th>답변</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Go 컨버팅 가능한가?</td>
+      <td>✅ 가능</td>
+    </tr>
+    <tr>
+      <td>Claude Code로 무난히 가능한가?</td>
+      <td>⚠️ TLS 위장 부분 제외하면 가능</td>
+    </tr>
+    <tr>
+      <td>전체 작업 난이도</td>
+      <td>중상 (Medium-High)</td>
+    </tr>
+    <tr>
+      <td>핵심 기술적 위험</td>
+      <td>TLS fingerprint 위장</td>
+    </tr>
+    <tr>
+      <td>권장 사항</td>
+      <td>PoC로 TLS 위장 검증 후 진행</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="yahoo-finance의-인증-방식">Yahoo Finance의 인증 방식</h3>
+
+<p>Claude Code가 분석한 Yahoo Finance의 Cookie/Crumb 인증 시스템은 아래와 같습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cookie/Crumb 인증 시스템                      
+
+[전략 1: Basic] 
+  1. GET https://fc.yahoo.com → A3 쿠키 획득                    
+  2. GET https://query1.finance.yahoo.com/v1/test/getcrumb      
+    → crumb 토큰 획득                                          
+  3. 모든 요청에 ?crumb={crumb} 파라미터 추가                   
+                                                                
+[전략 2: CSRF] (Basic 실패 시 폴백)
+  1. GET https://guce.yahoo.com/consent → CSRF 토큰 추출        
+  2. POST https://consent.yahoo.com/v2/collectConsent          
+  3. GET https://guce.yahoo.com/copyConsent                     
+  4. GET https://query2.finance.yahoo.com/v1/test/getcrumb                                                       
+</code></pre></div></div>
+
+<p>Yahoo Finance는 이 인증 과정에서 일반적인 HTTP 클라이언트로부터 접속을 차단합니다. 그래서 yfinance는 이를 우회하기 위해 Chrome 브라우저로 위장된 요청을 보내는데요, Python에서 <a href="https://github.com/lexiforest/curl_cffi">curl_cffi</a> 라이브러리를 사용하면 TLS fingerprint까지 Chrome 방식으로 변경해줄 수 있습니다.</p>
+
+<p>그래서 이러한 동작을 수행할 수 있는 Go의 라이브러리로 <a href="https://github.com/Danny-Dasilva/CycleTLS">CycleTLS</a>를 사용하기로 했습니다. 다른 비슷한 라이브러리로 <a href="https://github.com/refraction-networking/utls">utls</a>가 있는데요, 일반적으로 utls를 많이 사용하지만 상대적으로 설정이 간단하고 JA3 fingerprint를 직접 지정할 수 있다는 점에서 유지보수나 구현이 편리할 것으로 생각되는 CycleTLS를 사용해보기로 했습니다.</p>
+
+<h2 id="전체적인-분석-및-작업-계획-세우기">전체적인 분석 및 작업 계획 세우기</h2>
+
+<p>그래서 Yahoo Finance와의 연결 및 인증과 같은 기초 구성부터 기본 동작, 그리고 최종적으로 yfinance에서 제공하는 부가적인 기능들까지 단계별로 Phase를 구성하고 이를 문서화해달라고 요청했습니다. 세션 간에 작업 진행 내용을 공유하기 위해서이기도 했고, 전체적으로 어떻게 진행할 것인지에 대한 계획서를 제가 다시한번 확인하고 싶기도 했습니다.</p>
+
+<p>Claude Code가 작성해준 <a href="https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md">DESIGN.md</a> 문서를 간단히 요약하면 아래의 내용을 포함하고 있습니다.</p>
+<ul>
+  <li>yfinance 라이브러리 분석 결과
+    <ul>
+      <li>제공하는 API Endpoint 목록</li>
+      <li>인증 방식 (Cookie/Crumb)</li>
+    </ul>
+  </li>
+  <li>Go 프로젝트 구조</li>
+  <li>디자인 원칙</li>
+  <li>개발 단계(로드맵)
+    <ul>
+      <li>총 10단계로 진행</li>
+    </ul>
+  </li>
+</ul>
+
+<p>특히 개발단계에서는 각 단계별로 중요도가 어떻게 되는지, 그리고 각 단계별로 예상되는 코드량까지 대략적으로 파악해서 알려주었습니다. 각 단계별로 자세한 내용은 <a href="https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md">DESIGN.md</a> 파일에 작성되어 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Phase</th>
+      <th>이름</th>
+      <th>우선순위</th>
+      <th>예상 코드량</th>
+      <th>누적</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Foundation</td>
+      <td>🔴 필수</td>
+      <td>~500줄</td>
+      <td>500줄</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Core Data</td>
+      <td>🔴 필수</td>
+      <td>~600줄</td>
+      <td>1,100줄</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Options</td>
+      <td>🟡 권장</td>
+      <td>~300줄</td>
+      <td>1,400줄</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Financials</td>
+      <td>🟡 권장</td>
+      <td>~500줄</td>
+      <td>1,900줄</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Analysis</td>
+      <td>🟡 권장</td>
+      <td>~400줄</td>
+      <td>2,300줄</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Holdings</td>
+      <td>🟢 선택</td>
+      <td>~500줄</td>
+      <td>2,800줄</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Search</td>
+      <td>🟢 선택</td>
+      <td>~400줄</td>
+      <td>3,200줄</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Multi-ticker</td>
+      <td>🟢 선택</td>
+      <td>~300줄</td>
+      <td>3,500줄</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Real-time</td>
+      <td>🔵 고급</td>
+      <td>~400줄</td>
+      <td>3,900줄</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Advanced</td>
+      <td>🔵 고급</td>
+      <td>~600줄</td>
+      <td>4,500줄</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이를 기준으로 크게 3개의 Phase로 묶어서 개발을 진행할 것을 권장했습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MVP (최소 실행 가능 제품)
+- Phase 0 + Phase 1 = ~1,100줄
+- 기본적인 가격 조회 가능
+
+실용적 수준
+- Phase 0~4 = ~2,300줄
+- 대부분의 투자 분석 가능
+
+Python yfinance 동등
+- Phase 0~7 = ~3,500줄
+- 거의 모든 기능 사용 가능
+</code></pre></div></div>
+
+<h2 id="단계별-기능별로-항상-브랜치를-구분할-것">단계별, 기능별로 항상 브랜치를 구분할 것</h2>
+
+<p>예전에 Claude Code에게 개발 작업을 위임했을때, 같이 개발 계획을 세우고 제가 HITL(Human In The Loop: 옆에서 같이 확인하고 결과를 검증하는 단계)를 진행했지만 한가지 놓치고 있던게 있었습니다. 바로 Claude Code가 기본적으로 브랜치를 구성하면서 개발하지 않더라구요. 처음부터 요구사항을 정의하거나 개발 정책을 수립할때 명시했어야 했는데, 이전에는 그걸 제대로 생각하지 못해서 모든 개발을 진행하고 한번에 main에 올린다거나 커밋을 분리하더라도 main에서 모두 진행해서 향후에 리포지토리를 되돌려야 하거나 특정 시점으로 소스를 버저닝할 때 꽤 어려운 부분이 있었습니다.</p>
+
+<p>그래서 이번에는 개발 과정마다 꼭 브랜치를 구성하고, 기능별로 세부 브랜치를 나눠서 과정마다 커밋하면서 완성되는 단계마다 상위 브랜치로 머지할 것을 <strong>‘다행이도 개발 시작 전에 생각하고’</strong> 요청했습니다.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/c81cfba0-0538-46ce-a017-76c15fb59263/image.png" alt="image" /></p>
+
+<h2 id="현재까지의-진행-결과">현재까지의 진행 결과</h2>
+
+<p><strong>👉 Repository: <a href="https://github.com/wnjoon/go-yfinance">wnjoon/go-yfinance</a></strong></p>
+
+<p>이 글을 작성하는 시점까지 Phase0, Phase1 개발을 완료했습니다. <a href="https://github.com/wnjoon/go-yfinance/blob/main/README.md">README.md</a>에 실제로 테스트해볼 수 있는 예제도 포함되어 있는데요, <a href="https://github.com/wnjoon/go-yfinance/blob/main/cmd/example/main.go">cmd/example/main.go</a>를 실행하시면 아래와 같은 결과를 확인할 수 있습니다. 출력되지 않는 일부 내용에 대해서는 향후에 추가 기능을 개발하면서 업데이트 될 예정입니다.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">===</span> go-yfinance Example: AAPL <span class="o">===</span>
+
+1. Current Quote
+<span class="nt">----------------</span>
+Symbol: AAPL <span class="o">(</span>Apple Inc.<span class="o">)</span>
+Price: <span class="nv">$271</span>.84
+Change: <span class="nt">-2</span>.77 <span class="o">(</span><span class="nt">-1</span>.01%<span class="o">)</span>
+Day Range: <span class="nv">$271</span>.69 - <span class="nv">$276</span>.16
+52 Week Range: <span class="nv">$169</span>.21 - <span class="nv">$288</span>.62
+Volume: 49406521
+Market Cap: <span class="nv">$4034211348480</span>
+PE Ratio: 36.49
+Market State: PREPRE
+
+2. Historical Data <span class="o">(</span>Last 10 Days<span class="o">)</span>
+<span class="nt">----------------------------------</span>
+Date               Open       High        Low      Close       Volume
+2025-12-04       284.10     284.73     278.59     280.70     43989100
+2025-12-05       280.54     281.14     278.05     278.78     47265800
+2025-12-08       278.13     279.67     276.15     277.89     38211800
+2025-12-09       278.16     280.03     276.92     277.18     32193300
+2025-12-10       277.75     279.75     276.44     278.78     33038300
+2025-12-11       279.10     279.59     273.81     278.03     33248000
+2025-12-12       277.90     279.22     276.82     278.28     39532900
+2025-12-15       280.15     280.15     272.84     274.11     50409100
+2025-12-16       272.82     275.50     271.79     274.61     37648600
+2025-12-17       275.01     276.16     271.64     271.84     50100600
+
+3. Company Info
+<span class="nt">---------------</span>
+Name: Apple Inc.
+Sector: Technology
+Industry: Consumer Electronics
+Country: United States
+Employees: 166000
+Website: https://www.apple.com
+
+Key Statistics:
+  Market Cap: <span class="nv">$4034211348480</span>
+  Enterprise Value: <span class="nv">$4074483744768</span>
+  Trailing PE: 36.49
+  Forward PE: 29.80
+  PEG Ratio: 0.00
+  Price to Book: 54.47
+  Revenue: <span class="nv">$416161005568</span>
+  Profit Margins: 26.92%
+  Recommendation: buy <span class="o">(</span>2.00<span class="o">)</span>
+
+4. Recent Dividends
+<span class="nt">-------------------</span>
+No dividend <span class="nb">history
+
+</span>5. Stock Splits
+<span class="nt">---------------</span>
+No <span class="nb">split history</span>
+
+<span class="o">===</span> Example Complete <span class="o">===</span>
+</code></pre></div></div>
+
+<h2 id="여담">여담</h2>
+
+<p>AI Agent 개발 강의 듣다가 갑자기 새로운 라이브러리를 만들다니.. 다른길로 완전히 세어버렸네요 😅</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 첫번째 포스팅입니다.]]></summary></entry><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #1</title><link href="http://localhost:4000/2025/12/17/go-yfinance-0-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #1" /><published>2025-12-17T00:00:00+09:00</published><updated>2025-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/17/go-yfinance-0-en</id><content type="html" xml:base="http://localhost:4000/2025/12/17/go-yfinance-0-en/"><![CDATA[<h2 id="is-there-no-yahoo-finance-library-for-go">Is there no Yahoo Finance library for Go?</h2>
 
 <p>I recently became interested in building AI agents and have been diligently taking a <a href="https://nomadcoders.co/ai-agents-masterclass?gad_source=1&amp;gad_campaignid=18141167485&amp;gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&amp;gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB">course</a> on the subject. While the lectures are incredibly useful and fun, there is one downside. I primarily use the Go language (check out my <a href="https://wnjoon.github.io/2025/11/12/gophercon-korea/">GopherCon Korea review</a>), but most AI-related courses utilize Python to build agents. This is likely because most agents only support Python, or occasionally Javascript-based stacks.</p>
 
@@ -279,286 +2076,7 @@ No <span class="nb">split history</span>
 
 <h2 id="side-note">Side Note</h2>
 
-<p>I started out taking a course on developing AI Agents, and suddenly I’m building a new library… I’ve gone completely off on a tangent 😅</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[The first post in a series about building a Go version of the Yahoo Finance library based on Python's yfinance, utilizing Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1</title><link href="http://localhost:4000/2025/12/17/go-yfinance-0/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1" /><published>2025-12-17T00:00:00+09:00</published><updated>2025-12-17T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/17/go-yfinance-0</id><content type="html" xml:base="http://localhost:4000/2025/12/17/go-yfinance-0/"><![CDATA[<h2 id="go-언어로-된-yahoo-finance-라이브러리가-없나">Go 언어로 된 Yahoo Finance 라이브러리가 없나?</h2>
-
-<p>얼마전부터 AI agent를 만드는 일에 흥미가 생겨서 열심히 <a href="https://nomadcoders.co/ai-agents-masterclass?gad_source=1&amp;gad_campaignid=18141167485&amp;gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&amp;gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB">강의</a>를 듣고 있습니다. 강의가 정말 유익하고 재미있지만, 한가지 아쉬운 점이 있습니다. 저는 주로 Go 언어를 사용하고 있는데(<a href="https://wnjoon.github.io/2025/11/12/gophercon-korea/">gophercon 참석 후기</a>), 대부분의 AI 관련 강의들은 Python을 활용해서 AI agent를 만들더라구요. 아마 대부분의 agent가 Python만 지원하거나, 가끔 Javascript 계열만 지원해서 그런건지도 모르겠습니다.</p>
-
-<p>Go를 공식적으로 지원하는 가장 대표적인 프레임워크는 Google ADK, 그리고 Genkit이 있습니다. 제가 듣고있는 강의에서는 Crew AI 부터 Langraph까지 다양한 AI agent를 사용해서 프로젝트를 만들어보고 있는데요, 마침 Google ADK도 그중에 포함되어 있었습니다. 마침 잘되었다 싶어서 Google ADK를 강의하는 부분에서는 제공되는 프롬프트와 개념을 바탕으로 Go를 이용해서 Google ADK를 호출해보기로 했습니다.</p>
-
-<p><br /></p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/837169e2-2211-4efc-b944-8f82dcc51568/image.png" alt="image" /></p>
-
-<p><em><a href="https://discord.com/channels/1250370848343195669/1250370848859230301/1439830901805682779">Golang Korea에 작성한 댓글</a>에도 보이듯이, 개인적으로 저는 AI agent의 개발이 아직도 Python을 메인으로 이루어지고 있다는 것에 아쉽다는 생각입니다. 프롬프트를 읽는 것부터 LLM 데이터를 처리해서 결과를 만드는 것 까지, 시간이 갈수록 점점 작업량이 무거워질 것이 당연한 AI agent 개발에서 Go는 훨씬 좋은 성능 뿐만 아니라 컴파일 언어라는 안정성까지 제공할 것이라고 생각하거든요.</em></p>
-
-<p><br /></p>
-
-<p>그래서 Google ADk를 사용한 첫번째 AI agent인 ‘투자 전략 에이전트’를 Go로 개발하기 시작했습니다…만 시작부터 아주 제대로 난관에 봉착했습니다. 바로 이 프로젝트에서 가장 중요한 ‘Yahoo Finance 라이브러리’가 Go로 작성되어 있지 않았습니다. 사실 사용되는 Python 라이브러리(<a href="https://github.com/ranaroussi/yfinance">yfinance</a>)도 Yahoo Finance에서 공식적으로 지원하는게 아니었죠.</p>
-
-<p>Curl이나 Websocket으로 제공하는 호출 방식이 있었다면 좋았겠지만, 그런 방법도 없다는 것에 조금 당황했습니다. 간혹 개인이 개발하던 Go 라이브러리들(<a href="https://github.com/joetats/goFinance">joetats/goFinance</a>, <a href="https://github.com/svarlamov/goyhfin">svarlamov/goyhfin</a>, <a href="https://github.com/oscarli916/yahoo-finance-api">oscarli916/yahoo-finance-api</a>)이 있었지만, 개발된 범위도 Python 기반의 라이브러리에 비하면 현저히 부족했고 심지어 최소 몇개월 이상 어떠한 업데이트도 이루어지고 있지 않았습니다.</p>
-
-<h2 id="python의-yfinance를-그대로-go로-컨버팅할-수-있을까">Python의 yfinance를 그대로 go로 컨버팅할 수 있을까?</h2>
-
-<p>그래서 발칙한 생각을 좀 해봤습니다. <strong>‘이미 매우 잘 구현되어 있는 yfinance의 기능을 그대로 go로 컨버팅한 라이브러리를 만들 수 있으면 좋겠다.’</strong> 라고 말이죠. 그런데 정말 가능할지 모르겠어서, Claude Code에게 yfinance 리포지토리 전체를 분석해서 Go로 컨버팅이 가능한지 질문했습니다.</p>
-
-<p>모델은 <code class="language-plaintext highlighter-rouge">opus-4.5</code>를 사용했습니다.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/e64c717c-fa23-498f-9743-af84ac0268d3/image.png" alt="image" /></p>
-
-<p>한참을 조사해서 꽤나 길고 정교한 결과를 알려줬는데요, 간략하게 표로 요약된 결과는 아래와 같았습니다.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>질문</th>
-      <th>답변</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Go 컨버팅 가능한가?</td>
-      <td>✅ 가능</td>
-    </tr>
-    <tr>
-      <td>Claude Code로 무난히 가능한가?</td>
-      <td>⚠️ TLS 위장 부분 제외하면 가능</td>
-    </tr>
-    <tr>
-      <td>전체 작업 난이도</td>
-      <td>중상 (Medium-High)</td>
-    </tr>
-    <tr>
-      <td>핵심 기술적 위험</td>
-      <td>TLS fingerprint 위장</td>
-    </tr>
-    <tr>
-      <td>권장 사항</td>
-      <td>PoC로 TLS 위장 검증 후 진행</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="yahoo-finance의-인증-방식">Yahoo Finance의 인증 방식</h3>
-
-<p>Claude Code가 분석한 Yahoo Finance의 Cookie/Crumb 인증 시스템은 아래와 같습니다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cookie/Crumb 인증 시스템                      
-
-[전략 1: Basic] 
-  1. GET https://fc.yahoo.com → A3 쿠키 획득                    
-  2. GET https://query1.finance.yahoo.com/v1/test/getcrumb      
-    → crumb 토큰 획득                                          
-  3. 모든 요청에 ?crumb={crumb} 파라미터 추가                   
-                                                                
-[전략 2: CSRF] (Basic 실패 시 폴백)
-  1. GET https://guce.yahoo.com/consent → CSRF 토큰 추출        
-  2. POST https://consent.yahoo.com/v2/collectConsent          
-  3. GET https://guce.yahoo.com/copyConsent                     
-  4. GET https://query2.finance.yahoo.com/v1/test/getcrumb                                                       
-</code></pre></div></div>
-
-<p>Yahoo Finance는 이 인증 과정에서 일반적인 HTTP 클라이언트로부터 접속을 차단합니다. 그래서 yfinance는 이를 우회하기 위해 Chrome 브라우저로 위장된 요청을 보내는데요, Python에서 <a href="https://github.com/lexiforest/curl_cffi">curl_cffi</a> 라이브러리를 사용하면 TLS fingerprint까지 Chrome 방식으로 변경해줄 수 있습니다.</p>
-
-<p>그래서 이러한 동작을 수행할 수 있는 Go의 라이브러리로 <a href="https://github.com/Danny-Dasilva/CycleTLS">CycleTLS</a>를 사용하기로 했습니다. 다른 비슷한 라이브러리로 <a href="https://github.com/refraction-networking/utls">utls</a>가 있는데요, 일반적으로 utls를 많이 사용하지만 상대적으로 설정이 간단하고 JA3 fingerprint를 직접 지정할 수 있다는 점에서 유지보수나 구현이 편리할 것으로 생각되는 CycleTLS를 사용해보기로 했습니다.</p>
-
-<h2 id="전체적인-분석-및-작업-계획-세우기">전체적인 분석 및 작업 계획 세우기</h2>
-
-<p>그래서 Yahoo Finance와의 연결 및 인증과 같은 기초 구성부터 기본 동작, 그리고 최종적으로 yfinance에서 제공하는 부가적인 기능들까지 단계별로 Phase를 구성하고 이를 문서화해달라고 요청했습니다. 세션 간에 작업 진행 내용을 공유하기 위해서이기도 했고, 전체적으로 어떻게 진행할 것인지에 대한 계획서를 제가 다시한번 확인하고 싶기도 했습니다.</p>
-
-<p>Claude Code가 작성해준 <a href="https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md">DESIGN.md</a> 문서를 간단히 요약하면 아래의 내용을 포함하고 있습니다.</p>
-<ul>
-  <li>yfinance 라이브러리 분석 결과
-    <ul>
-      <li>제공하는 API Endpoint 목록</li>
-      <li>인증 방식 (Cookie/Crumb)</li>
-    </ul>
-  </li>
-  <li>Go 프로젝트 구조</li>
-  <li>디자인 원칙</li>
-  <li>개발 단계(로드맵)
-    <ul>
-      <li>총 10단계로 진행</li>
-    </ul>
-  </li>
-</ul>
-
-<p>특히 개발단계에서는 각 단계별로 중요도가 어떻게 되는지, 그리고 각 단계별로 예상되는 코드량까지 대략적으로 파악해서 알려주었습니다. 각 단계별로 자세한 내용은 <a href="https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md">DESIGN.md</a> 파일에 작성되어 있습니다.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Phase</th>
-      <th>이름</th>
-      <th>우선순위</th>
-      <th>예상 코드량</th>
-      <th>누적</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>Foundation</td>
-      <td>🔴 필수</td>
-      <td>~500줄</td>
-      <td>500줄</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Core Data</td>
-      <td>🔴 필수</td>
-      <td>~600줄</td>
-      <td>1,100줄</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Options</td>
-      <td>🟡 권장</td>
-      <td>~300줄</td>
-      <td>1,400줄</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Financials</td>
-      <td>🟡 권장</td>
-      <td>~500줄</td>
-      <td>1,900줄</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Analysis</td>
-      <td>🟡 권장</td>
-      <td>~400줄</td>
-      <td>2,300줄</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Holdings</td>
-      <td>🟢 선택</td>
-      <td>~500줄</td>
-      <td>2,800줄</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Search</td>
-      <td>🟢 선택</td>
-      <td>~400줄</td>
-      <td>3,200줄</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Multi-ticker</td>
-      <td>🟢 선택</td>
-      <td>~300줄</td>
-      <td>3,500줄</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Real-time</td>
-      <td>🔵 고급</td>
-      <td>~400줄</td>
-      <td>3,900줄</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Advanced</td>
-      <td>🔵 고급</td>
-      <td>~600줄</td>
-      <td>4,500줄</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>이를 기준으로 크게 3개의 Phase로 묶어서 개발을 진행할 것을 권장했습니다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MVP (최소 실행 가능 제품)
-- Phase 0 + Phase 1 = ~1,100줄
-- 기본적인 가격 조회 가능
-
-실용적 수준
-- Phase 0~4 = ~2,300줄
-- 대부분의 투자 분석 가능
-
-Python yfinance 동등
-- Phase 0~7 = ~3,500줄
-- 거의 모든 기능 사용 가능
-</code></pre></div></div>
-
-<h2 id="단계별-기능별로-항상-브랜치를-구분할-것">단계별, 기능별로 항상 브랜치를 구분할 것</h2>
-
-<p>예전에 Claude Code에게 개발 작업을 위임했을때, 같이 개발 계획을 세우고 제가 HITL(Human In The Loop: 옆에서 같이 확인하고 결과를 검증하는 단계)를 진행했지만 한가지 놓치고 있던게 있었습니다. 바로 Claude Code가 기본적으로 브랜치를 구성하면서 개발하지 않더라구요. 처음부터 요구사항을 정의하거나 개발 정책을 수립할때 명시했어야 했는데, 이전에는 그걸 제대로 생각하지 못해서 모든 개발을 진행하고 한번에 main에 올린다거나 커밋을 분리하더라도 main에서 모두 진행해서 향후에 리포지토리를 되돌려야 하거나 특정 시점으로 소스를 버저닝할 때 꽤 어려운 부분이 있었습니다.</p>
-
-<p>그래서 이번에는 개발 과정마다 꼭 브랜치를 구성하고, 기능별로 세부 브랜치를 나눠서 과정마다 커밋하면서 완성되는 단계마다 상위 브랜치로 머지할 것을 <strong>‘다행이도 개발 시작 전에 생각하고’</strong> 요청했습니다.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/c81cfba0-0538-46ce-a017-76c15fb59263/image.png" alt="image" /></p>
-
-<h2 id="현재까지의-진행-결과">현재까지의 진행 결과</h2>
-
-<p><strong>👉 Repository: <a href="https://github.com/wnjoon/go-yfinance">wnjoon/go-yfinance</a></strong></p>
-
-<p>이 글을 작성하는 시점까지 Phase0, Phase1 개발을 완료했습니다. <a href="https://github.com/wnjoon/go-yfinance/blob/main/README.md">README.md</a>에 실제로 테스트해볼 수 있는 예제도 포함되어 있는데요, <a href="https://github.com/wnjoon/go-yfinance/blob/main/cmd/example/main.go">cmd/example/main.go</a>를 실행하시면 아래와 같은 결과를 확인할 수 있습니다. 출력되지 않는 일부 내용에 대해서는 향후에 추가 기능을 개발하면서 업데이트 될 예정입니다.</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">===</span> go-yfinance Example: AAPL <span class="o">===</span>
-
-1. Current Quote
-<span class="nt">----------------</span>
-Symbol: AAPL <span class="o">(</span>Apple Inc.<span class="o">)</span>
-Price: <span class="nv">$271</span>.84
-Change: <span class="nt">-2</span>.77 <span class="o">(</span><span class="nt">-1</span>.01%<span class="o">)</span>
-Day Range: <span class="nv">$271</span>.69 - <span class="nv">$276</span>.16
-52 Week Range: <span class="nv">$169</span>.21 - <span class="nv">$288</span>.62
-Volume: 49406521
-Market Cap: <span class="nv">$4034211348480</span>
-PE Ratio: 36.49
-Market State: PREPRE
-
-2. Historical Data <span class="o">(</span>Last 10 Days<span class="o">)</span>
-<span class="nt">----------------------------------</span>
-Date               Open       High        Low      Close       Volume
-2025-12-04       284.10     284.73     278.59     280.70     43989100
-2025-12-05       280.54     281.14     278.05     278.78     47265800
-2025-12-08       278.13     279.67     276.15     277.89     38211800
-2025-12-09       278.16     280.03     276.92     277.18     32193300
-2025-12-10       277.75     279.75     276.44     278.78     33038300
-2025-12-11       279.10     279.59     273.81     278.03     33248000
-2025-12-12       277.90     279.22     276.82     278.28     39532900
-2025-12-15       280.15     280.15     272.84     274.11     50409100
-2025-12-16       272.82     275.50     271.79     274.61     37648600
-2025-12-17       275.01     276.16     271.64     271.84     50100600
-
-3. Company Info
-<span class="nt">---------------</span>
-Name: Apple Inc.
-Sector: Technology
-Industry: Consumer Electronics
-Country: United States
-Employees: 166000
-Website: https://www.apple.com
-
-Key Statistics:
-  Market Cap: <span class="nv">$4034211348480</span>
-  Enterprise Value: <span class="nv">$4074483744768</span>
-  Trailing PE: 36.49
-  Forward PE: 29.80
-  PEG Ratio: 0.00
-  Price to Book: 54.47
-  Revenue: <span class="nv">$416161005568</span>
-  Profit Margins: 26.92%
-  Recommendation: buy <span class="o">(</span>2.00<span class="o">)</span>
-
-4. Recent Dividends
-<span class="nt">-------------------</span>
-No dividend <span class="nb">history
-
-</span>5. Stock Splits
-<span class="nt">---------------</span>
-No <span class="nb">split history</span>
-
-<span class="o">===</span> Example Complete <span class="o">===</span>
-</code></pre></div></div>
-
-<h2 id="여담">여담</h2>
-
-<p>AI Agent 개발 강의 듣다가 갑자기 새로운 라이브러리를 만들다니.. 다른길로 완전히 세어버렸네요 😅</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 첫번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">AI를 이용하여 하루만에 감사 일기 웹사이트 만들기</title><link href="http://localhost:4000/2025/12/16/gratitude-website/" rel="alternate" type="text/html" title="AI를 이용하여 하루만에 감사 일기 웹사이트 만들기" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/gratitude-website</id><content type="html" xml:base="http://localhost:4000/2025/12/16/gratitude-website/"><![CDATA[<h2 id="우리는-얼마나-주어진-삶에-감사하는가">우리는 얼마나 주어진 삶에 감사하는가?</h2>
+<p>I started out taking a course on developing AI Agents, and suddenly I’m building a new library… I’ve gone completely off on a tangent 😅</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[The first post in a series about building a Go version of the Yahoo Finance library based on Python's yfinance, utilizing Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">AI를 이용하여 하루만에 감사 일기 웹사이트 만들기</title><link href="http://localhost:4000/2025/12/16/gratitude-website/" rel="alternate" type="text/html" title="AI를 이용하여 하루만에 감사 일기 웹사이트 만들기" /><published>2025-12-16T00:00:00+09:00</published><updated>2025-12-16T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/16/gratitude-website</id><content type="html" xml:base="http://localhost:4000/2025/12/16/gratitude-website/"><![CDATA[<h2 id="우리는-얼마나-주어진-삶에-감사하는가">우리는 얼마나 주어진 삶에 감사하는가?</h2>
 
 <p>저는 얼마전부터 뉴스를 보지 않습니다. 집에 TV가 있지만 1년에 사용하는 횟수가 손가락에 꼽을만큼 거의 켜지도 않습니다. 사실 유튜브처럼 굳이 TV가 없어도 다양한 소식을 접할 수 있는 방법이 있어서이기도 하지만, 가장 큰 이유는 불편하고 안좋은 소식을 더 많이 접하는게 싫어서이기도 합니다.</p>
 
@@ -1114,428 +2632,4 @@ Q4. 별명 중복 허용 여부
 
 <p>한 발표자분께서 ‘Go언어를 사랑하는 사람들이 한자리에 모여서 관심사를 공유하고 이야기를 나눌 수 있어서 행복하다’고 하셨는데, 실제로 현장에 와보니 그런 분위기가 많이 느껴졌습니다.</p>
 
-<p>언어에 대해 크게 감수성이 있는 편은 아니지만, 적어도 내가 가장 많이 사용하고 있는 기술에 대해서 진지하게 고민하고 더 나은 방향을 찾아가면서 인사이트를 공유할 수 있는 행사에 참석할 수 있어서 정말 좋았습니다. 2026년에도 좋은 내용이 담긴 GopherCon이 이어지길 기대해봅니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="golang" /><category term="gophercon" /><category term="gophercon korea" /><category term="gophercon korea 2025" /><category term="conference" /><category term="backend" /><category term="고퍼콘" /><category term="고퍼콘 코리아" /><category term="고퍼콘 2025" /><category term="고퍼콘 코리아 2025" /><summary type="html"><![CDATA[2025.11.09에 진행되었던 GopherCon Korea (고퍼콘 코리아) 2025에 참석한 후기와 소감을 적어본다.]]></summary></entry><entry xml:lang="ko"><title type="html">Go HTTP 라이브러리 비교: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib/" rel="alternate" type="text/html" title="Go HTTP 라이브러리 비교: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib/"><![CDATA[<p>Go 언어로 웹서버를 구축할 때, 기본적으로 제공하는 라이브러리인 net/http를 외에도 다양한 서버 프레임워크들을 사용할 수 있습니다. 가장 유명한 3개의 프레임워크인 Gin, Fiber, Echo가 있는데요, 각 프레임워크들이 사용하는 내부 라이브러리들은 아래와 같습니다.</p>
-<ul>
-  <li><a href="https://github.com/gin-gonic/gin">Gin</a>, <a href="https://github.com/labstack/echo">Echo</a>: net/http</li>
-  <li><a href="https://github.com/gofiber/fiber">Fiber</a>: fasthttp</li>
-</ul>
-
-<p>결국 개발자는 net/http, <a href="https://github.com/valyala/fasthttp">fasthttp</a>중 하나의 라이브러리를 선택하게 되는데요, fasthttp는 압도적인 성능을 제공하고 net/http는 범용성과 안정성을 제공합니다. 이번 포스팅에서는 두 라이브러리의 근본적인 차이점을 비교 분석하려고 합니다. 더 나아가 fasthttp가 왜 HTTP/2를 지원하지 않는지, 성능 차이는 어디에서 오는지, 그리고 각 라이브러리의 구체적인 사용 사례와 코드 레벨의 차이점까지 작성해보려고 합니다.</p>
-
-<h2 id="fasthttp와-http2-지원되지-않는-이유">fasthttp와 HTTP/2: 지원되지 않는 이유</h2>
-
-<p>fasthttp가 HTTP/2를 지원하지 않는 이유는 단순한 기능 누락이 아니라, 라이브러리의 핵심 철학 및 아키텍처와 HTTP/2의 구조가 근본적으로 충돌하기 때문입니다.</p>
-
-<p>fasthttp의 HTTP/2를 지원 가능에 대한 이슈는 2016년부터 이어진 주제입니서. <a href="https://github.com/valyala/fasthttp">공식 github 리포지토리</a>의 이슈에서 가져온 아래 그림을 보면, 그 당시부터 http2는 fasthttp의 TODO 리스트에 존재했습니다.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/dbe0c31b-09d7-4956-8d75-a8d9b28c718d/image.png" alt="" /></p>
-
-<p>최근에는 <a href="https://github.com/fasthttp/http2">fasthttp/http2</a>에서 HTTP/2를 지원하는 라이브러리를 개발하고 있습니다. 아직은 Under construction 단계로, 정식 버전이 개발되진 않았습니다.</p>
-
-<p>fasthttp는 “HTTP/1.1 환경에서 극한의 성능과 낮은 메모리 사용량”을 목표로 할때 net/http를 대신하여 사용하기 좋은 라이브러리입니다. HTTP/2 지원은 이 목표와 상충될 뿐만 아니라 net/http라는 훌륭한 대안이 존재하기 때문에, fasthttp는 자신의 영역(HTTP/1.1 고성능)에 집중하고 있습니다. 좀더 자세히 살펴보면 아래의 3가지 원인이 있습니다.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
-
-<h3 id="1-아키텍처의-근본적인-불일치">1. 아키텍처의 근본적인 불일치</h3>
-
-<p>fasthttp는 HTTP/1.1 프로토콜에 극단적으로 최적화되어 있습니다.</p>
-
-<ul>
-  <li>fasthttp (HTTP/1.1 기반)
-    <ul>
-      <li>‘하나의 연결 = 하나의 요청’ (Keep-alive 제외)이라는 단순한 모델을 전제로 합니다. 즉, 요청과 응답이 순차적으로 처리되는 간단한 구조입니다.</li>
-      <li><code class="language-plaintext highlighter-rouge">RequestCtx</code> 객체를 재사용하여 GC(가비지 컬렉션) 오버헤드를 최소화하는 메모리 재사용에 중점을 둡니다.</li>
-    </ul>
-  </li>
-  <li>HTTP/2
-    <ul>
-      <li>‘하나의 연결 = 다중 스트림(Streams)’ (Multiplexing)을 사용합니다.</li>
-      <li>하나의 TCP 연결을 통해 여러 요청과 응답이 동시에, 순서에 상관없이 오고 갈 수 있으며, 스트림별 흐름 제어(Flow Control), 우선순위 지정(Prioritization) 등 복잡한 상태 관리가 필요합니다.</li>
-    </ul>
-  </li>
-</ul>
-
-<p>fasthttp의 단순한 메모리 재사용 아키텍처로는 HTTP/2의 복잡한 다중 스트림과 상태를 관리하기가 사실상 불가능합니다. HTTP/2를 지원하려면 라이브러리의 핵심 로직을 완전히 새로 작성해야하는데, 이는 fasthttp가 추구하는 장점을 바꿔버리는 수준의 완전히 새로운 라이브러리가 됩니다.</p>
-
-<h3 id="2-구현의-복잡성">2. 구현의 복잡성</h3>
-
-<p>fasthttp의 메인 개발자(<a href="https://github.com/valyala">valyala</a>)는 HTTP/2를 구현하는 것이 “기존 라이브러리 유지보수와 맞먹는, 혹은 그 이상의 노력이 드는 거대한 작업”이라고 여러 차례 언급했습니다.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/58194363-af18-48bc-84cd-14b4333b9ff6/image.png" alt="" /></p>
-
-<p>HTTP/2는 바이너리(Binary) 프로토콜이며, 헤더 압축을 위한 HPACK, 서버 푸시(Server Push), 스트림 제어 등 매우 복잡한 스펙을 정확히 구현해야 합니다. 이는 사실상 fasthttp 내부에 완전히 새로운 HTTP/2 라이브러리를 하나 더 만드는 것과 같은 업무량입니다.</p>
-
-<h3 id="3-표준-라이브러리의-존재-nethttp">3. 표준 라이브러리의 존재 (net/http)</h3>
-
-<p>Go 언어는 이미 표준 라이브러리인 net/http에서 매우 훌륭하고 안정적인 HTTP/2를 지원합니다. net/http는 Go 1.6(2016년)부터 별도 설정 없이도 자동으로 HTTP/2를 지원하며, fasthttp 개발팀의 공식 입장도 “HTTP/2가 필요하다면 표준 라이브러리 net/http를 사용하라”는 것입니다. 심지어 ‘For most cases net/http is much better as it’s easier to use and can handle more cases’ 라고 언급하면서, fasthttp가 꼭 필요한 고성능의 환경이 필요하지 않은 대부분의 환경에서는 net/http가 더 좋은 선택이라고 말합니다.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
-
-<p>또한 fasthttp와 net/http 사이에 일치하는 API도 없는데요. <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#switching-from-nethttp-to-fasthttp">공식 문서</a>에 따르면, net/http -&gt; fasthttp로 변형해주는 컨버터가 존재하지만, fasthttp를 적용하고 싶다면 차라리 처음부터 다시 적용하는 것이 훨씬 좋을 것이라고 권장하고 있습니다.</p>
-
-<blockquote>
-  <p>Unfortunately, fasthttp doesn’t provide API identical to net/http. See the FAQ for details. There is net/http -&gt; fasthttp handler converter, but it is better to write fasthttp request handlers by hand in order to use all of the fasthttp advantages.</p>
-</blockquote>
-
-<h2 id="그렇다면-fasthttp는-왜-더-빠른가">그렇다면 fasthttp는 왜 더 빠른가?</h2>
-
-<p><a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#http-server-performance-comparison-with-nethttp">fasthttp에서 제공하는 벤치마크</a>에 따르면, fasthttp는 net/http보다 6배 더 빠른 성능을 보여줍니다.</p>
-
-<ul>
-  <li>메모리 할당 최소화 (Zero Allocation):
-    <ul>
-      <li>net/http는 모든 요청마다 http.Request와 http.ResponseWriter 객체를 새로 생성하여 GC에 부담을 줍니다.</li>
-      <li>fasthttp는 sync.Pool을 적극적으로 사용하여 fasthttp.RequestCtx라는 단일 구조체를 재사용합니다. 요청이 끝나면 객체를 풀(Pool)에 반환하여 GC 발생을 최소화하고 시스템 전체의 지연 시간을 줄입니다.</li>
-    </ul>
-  </li>
-  <li>바이트 슬라이스([]byte) 중심 설계:
-    <ul>
-      <li>net/http는 헤더 키, URL 파라미터 등을 문자열(string)로 변환하여 사용 편의성을 높입니다.</li>
-      <li>fasthttp는 대부분의 데이터를 []byte로 직접 처리하여, 문자열로의 불필요한 변환 및 메모리 복사/할당을 줄입니다.</li>
-      <li>성능 향상이 제일 중요한 경우, []byte와 string을 변환할때 Go에서 기본적으로 제공하는 방식을 사용하는 것보다 <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#unsafe-zero-allocation-conversions">fasthttp에서 제공하는 unsafe, zero-allocation</a>을 사용할 것을 권장합니다.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="속도와-트레이드오프">속도와 트레이드오프</h2>
-
-<p>fasthttp는 빠른 속도를 제공하지만, 아래와 같은 단점 또한 존재합니다.</p>
-
-<ul>
-  <li>API 호환성: net/http는 http.Handler라는 표준 인터페이스를 따릅니다. 반면 fasthttp는 <code class="language-plaintext highlighter-rouge">RequestHandler</code>라는 비표준 인터페이스를 사용합니다.</li>
-  <li>미들웨어 생태계: net/http는 Gin, Chi, Echo 등 거의 모든 Go 미들웨어 및 라우터와 호환됩니다. fasthttp는 전용 미들웨어만 사용 가능하여 생태계가 매우 제한적입니다. (유일하게 Fiber 프레임워크가 fasthttp를 기반으로 만들어졌습니다)</li>
-  <li>프로토콜 지원: net/http는 HTTP/2와 HTTP/3를 완벽하게 자동 지원합니다. fasthttp는 미지원입니다.</li>
-  <li>메모리 관리: net/http는 GC가 자동으로 처리합니다. fasthttp는 RequestCtx를 오래 잡고 있으면 안 되는 등 개발자의 수동 관리가 필요합니다.</li>
-  <li>사용 편의성: net/http는 직관적이고 안전합니다. fasthttp는 규칙을 어기면 메모리 누수나 버그가 발생하기 쉬워 사용 편의성이 낮습니다.</li>
-  <li>스트리밍: net/http는 대용량 스트리밍을 완벽 지원하지만, fasthttp는 제한적입니다.</li>
-</ul>
-
-<h2 id="구체적인-사용-사례">구체적인 사용 사례</h2>
-
-<h3 id="nethttp">net/http</h3>
-
-<ul>
-  <li>거의 모든 웹 애플리케이션 및 API 서버에서 사용 가능</li>
-  <li>프로젝트를 처음 시작할 때 (구체적인 요구사항이 정의되지 않았을 경우)</li>
-  <li>Gin, Chi 등 표준 미들웨어 생태계가 필요한 경우</li>
-  <li>HTTP/2 또는 HTTP/3 지원이 필수적인 클라이언트 대면 서비스</li>
-  <li>대용량 파일 업로드/다운로드 등 스트리밍 처리가 필요한 경우</li>
-  <li>개발 편의성, 안정성, 유지보수성이 성능보다 중요한 경우</li>
-</ul>
-
-<h3 id="fasthttp">fasthttp</h3>
-
-<ul>
-  <li>극단적인 초고성능(High-Throughput)이 요구되는 경우</li>
-  <li>초당 수십만 건 이상의 요청을 처리해야 하는 내부 마이크로서비스</li>
-  <li>광고 입찰(RTB), 대규모 프록시 서버, 하이 퍼포먼스 API 게이트웨이</li>
-  <li>net/http로 프로파일링 결과, HTTP 요청 처리 자체가 명백한 병목임이 입증된 경우</li>
-</ul>
-
-<h2 id="코드-레벨-비교">코드 레벨 비교</h2>
-
-<p>두 라이브러리의 가장 큰 코드 레벨 차이점은 net/http가 <code class="language-plaintext highlighter-rouge">http.ResponseWriter</code>와 <code class="language-plaintext highlighter-rouge">*http.Request</code> 인터페이스를 사용하는 반면, fasthttp는 모든 것을 <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> 단일 구조체로 처리한다는 것입니다.</p>
-
-<ul>
-  <li>시그니처: net/http는 (w, r), fasthttp는 (ctx).</li>
-  <li>데이터 접근: net/http는 string (<code class="language-plaintext highlighter-rouge">r.URL.Path</code>), fasthttp는 []byte (<code class="language-plaintext highlighter-rouge">ctx.Path()</code>).</li>
-  <li>객체 생명주기: net/http의 r과 w는 요청 처리 내내 유효합니다.</li>
-</ul>
-
-<p>중요한 점은, <strong>fasthttp의 ctx 객체는 핸들러 함수가 반환(return)되는 즉시 풀(Pool)로 돌아가 재사용</strong>됩니다. 만약 fasthttp 핸들러 내에서 고루틴(goroutine)을 실행하며 ctx를 전달하면, 고루틴이 실행될 시점에는 ctx가 이미 다른 요청을 처리하고 있을 수 있어 동시성 문제와 같은 심각한 문제가 발생할 수 있습니다.</p>
-
-<p>두 방식의 핸들러 예시를 통해 차이점을 살펴보겠습니다.</p>
-
-<h3 id="nethttp-1">net/http</h3>
-
-<p>net/http는 요청과 응답 객체가 별도로 핸들러 함수에 전달됩니다.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-	<span class="s">"fmt"</span>
-	<span class="s">"net/http"</span>
-<span class="p">)</span>
-
-<span class="c">// 핸들러 시그니처: http.ResponseWriter, *http.Request</span>
-<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
-	<span class="c">// 쿼리 파라미터 (string)</span>
-	<span class="n">name</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Query</span><span class="p">()</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
-	<span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
-		<span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
-	<span class="p">}</span>
-	<span class="c">// 응답 작성</span>
-	<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">helloHandler</span><span class="p">)</span>
-	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"net/http server starting on :8080"</span><span class="p">)</span>
-	<span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span> <span class="no">nil</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>위의 예시에서 볼 수 있듯이, 핸들러 시그니처가 <code class="language-plaintext highlighter-rouge">func(http.ResponseWriter, *http.Request)</code>이며, 요청(r)과 응답(w) 객체가 분리되어 직관적으로 이해할 수 있습니다.</p>
-
-<h3 id="fasthttp-1">fasthttp</h3>
-
-<p>fasthttp는 컨텍스트 객체 <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> 하나만 핸들러에 전달합니다.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-	<span class="s">"fmt"</span>
-	<span class="s">"github.com/valyala/fasthttp"</span>
-<span class="p">)</span>
-
-<span class="c">// 핸들러 시그니처: *fasthttp.RequestCtx</span>
-<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
-	<span class="c">// 쿼리 파라미터 ([]byte)</span>
-	<span class="n">name</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">QueryArgs</span><span class="p">()</span><span class="o">.</span><span class="n">Peek</span><span class="p">(</span><span class="s">"name"</span><span class="p">))</span>
-	<span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
-		<span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
-	<span class="p">}</span>
-	<span class="c">// 응답 작성 (ctx에 직접)</span>
-	<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="n">requestHandler</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">switch</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">Path</span><span class="p">())</span> <span class="p">{</span>
-		<span class="k">case</span> <span class="s">"/hello"</span><span class="o">:</span>
-			<span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-		<span class="k">default</span><span class="o">:</span>
-			<span class="n">ctx</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">"Unsupported path"</span><span class="p">,</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-
-	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"fasthttp server starting on :8081"</span><span class="p">)</span>
-	<span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8081"</span><span class="p">,</span> <span class="n">requestHandler</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>net/http와 다르게, fasthttp에서는 <code class="language-plaintext highlighter-rouge">func(*fasthttp.RequestCtx)</code> 핸들러 시그니처를 사용하며, ctx 객체 하나로 요청 정보 접근과 응답 작성을 모두 처리합니다. 또한 데이터가 []byte로 처리됩니다.</p>
-
-<h2 id="결론">결론</h2>
-
-<p>예전에 제가 서버 API를 설계할 때를 돌아보면, ‘얼마나 빠르게 요청을 처리할 수 있는가’를 먼저 고민했던 것 같습니다. 그래서 대부분 fasthttp를 제공하는 fiber를 사용했었는데요. 하지만 서버가 어떤 데이터를 처리할지, 그리고 서버가 어떤 환경에서 동작해야하는지 등의 요구사항을 먼저 명확하게 정의했다면 성능이 아닌 다른 관점에서 net/http를 직접 사용하거나 혹은 이를 지원하는 프레임워크를 사용하지 않았을까 싶습니다.</p>
-
-<p>최근에 gophercon을 다녀왔는데요. <a href="https://gophercon.kr/program/sessions/session-3">발표자</a>분께서 ‘명확한 요구사항이 없는 일반적인 서버를 Go로 구현할 경우, net/http를 직접 사용하거나 Gin 프레임워크 사용을 가장 권장한다’고 말씀하셨습니다. 극도의 성능 개선이 요구되는 경우가 아니라면, 가장 범용적으로 설계하고 사용할 수 있는 프레임워크를 적용하거나, 혹은 Go에서 제공하는 순수 라이브러리를 적용하는 것이 향후 유지보수 측면에서도 더욱 좋은 선택이 될 수 있겠다고 생각할 수 있는 시간이었습니다.</p>
-
-<p>결론적으로, 높은 성능을 요구하는 서버에서 데이터 동시처리를 정확하게 제어할 수 있는 경우에 fasthttp를, 그 외에는 net/http를 사용하는 것이 좋은 선택이 되지 않을까 생각합니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Go HTTP 라이브러리 비교: fasthttp vs net/http]]></summary></entry><entry xml:lang="en"><title type="html">Comparison of Go HTTP Libraries: fasthttp vs net/http</title><link href="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/" rel="alternate" type="text/html" title="Comparison of Go HTTP Libraries: fasthttp vs net/http" /><published>2025-11-11T00:00:00+09:00</published><updated>2025-11-11T00:00:00+09:00</updated><id>http://localhost:4000/2025/11/11/comparison-go-http-lib-en</id><content type="html" xml:base="http://localhost:4000/2025/11/11/comparison-go-http-lib-en/"><![CDATA[<p>When building a web server in Go, you can use various server frameworks in addition to the default library, net/http. The three most famous frameworks are Gin, Fiber, and Echo, and the internal libraries each framework uses are as follows:</p>
-<ul>
-  <li><a href="https://github.com/gin-gonic/gin">Gin</a>, <a href="https://github.com/labstack/echo">Echo</a>: net/http</li>
-  <li><a href="https://github.com/gofiber/fiber">Fiber</a>: fasthttp</li>
-</ul>
-
-<p>In the end, developers choose between net/http and <a href="https://github.com/valyala/fasthttp">fasthttp</a>. fasthttp offers overwhelming performance, while net/http provides versatility and stability. In this post, I intend to compare and analyze the fundamental differences between these two libraries. Furthermore, I will explore why fasthttp does not support HTTP/2, where the performance difference comes from, and even the specific use cases and code-level differences for each library.</p>
-
-<h2 id="fasthttp-and-http2-why-its-not-supported">fasthttp and HTTP/2: Why It’s Not Supported</h2>
-
-<p>The reason fasthttp does not support HTTP/2 is not a simple feature omission; it’s because the library’s core philosophy and architecture fundamentally conflict with the structure of HTTP/2.</p>
-
-<p>The issue of fasthttp’s potential support for HTTP/2 has been a topic since 2016. The image below, from an issue in the <a href="https://github.com/valyala/fasthttp">official github repository</a>, shows that http2 was on fasthttp’s TODO list even back then.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/dbe0c31b-09d7-4956-8d75-a8d9b28c718d/image.png" alt="" /></p>
-
-<p>Recently, a library supporting HTTP/2 is being developed at <a href="https://github.com/fasthttp/http2">fasthttp/http2</a>. It is still in the ‘Under construction’ phase, and an official version has not been developed.</p>
-
-<p>fasthttp is a good library to use instead of net/http when the goal is “extreme performance and low memory usage in an HTTP/1.1 environment.” HTTP/2 support not only conflicts with this goal, but a great alternative (net/http) already exists. Therefore, fasthttp focuses on its own domain (HTTP/1.1 high performance). Looking closer, there are three main reasons.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
-
-<h3 id="1-fundamental-architectural-mismatch">1. Fundamental Architectural Mismatch</h3>
-
-<p>fasthttp is extremely optimized for the HTTP/1.1 protocol.</p>
-
-<ul>
-  <li>fasthttp (HTTP/1.1 based)
-    <ul>
-      <li>‘One connection = One request’ (excluding Keep-alive) is its simple premise. In other words, it has a simple structure where requests and responses are processed sequentially.</li>
-      <li>It focuses on memory reuse by reusing the <code class="language-plaintext highlighter-rouge">RequestCtx</code> object to minimize GC (Garbage Collection) overhead.</li>
-    </ul>
-  </li>
-  <li>HTTP/2
-    <ul>
-      <li>It uses ‘One connection = Multiple Streams’ (Multiplexing).</li>
-      <li>Multiple requests and responses can come and go simultaneously and out of order over a single TCP connection, requiring complex state management like per-stream Flow Control and Prioritization.</li>
-    </ul>
-  </li>
-</ul>
-
-<p>fasthttp’s simple memory reuse architecture makes it virtually impossible to manage HTTP/2’s complex multiple streams and states. Supporting HTTP/2 would require a complete rewrite of the library’s core logic, turning it into a completely new library that changes the very advantages fasthttp pursues.</p>
-
-<h3 id="2-implementation-complexity">2. Implementation Complexity</h3>
-
-<p>The main developer of fasthttp (<a href="https://github.com/valyala">valyala</a>) has repeatedly stated that implementing HTTP/2 is a “massive task that requires as much, or more, effort as maintaining the existing library.”</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/58194363-af18-48bc-84cd-14b4333b9ff6/image.png" alt="" /></p>
-
-<p>HTTP/2 is a binary protocol, and complex specs like HPACK for header compression, Server Push, and stream control must be implemented correctly. This is a workload equivalent to building an entirely new HTTP/2 library within fasthttp.</p>
-
-<h3 id="3-the-existence-of-the-standard-library-nethttp">3. The Existence of the Standard Library (net/http)</h3>
-
-<p>The Go language already provides excellent and stable HTTP/2 support in its standard library, net/http. Since Go 1.6 (2016), net/http has automatically supported HTTP/2 with no extra setup, and the official stance of the fasthttp development team is, “If you need HTTP/2, use the standard library net/http.” They even mention, ‘For most cases net/http is much better as it’s easier to use and can handle more cases,’ stating that net/http is a better choice for most environments that don’t require the high performance that fasthttp necessitates.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/8434c87c-8a19-46f8-90fd-6ffc82073a97/image.png" alt="" /></p>
-
-<p>Furthermore, there is no API compatibility between fasthttp and net/http. According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#switching-from-nethttp-to-fasthttp">official documentation</a>, a converter from net/http to fasthttp handlers exists, but they recommend that if you want to adopt fasthttp, it would be much better to re-implement it from scratch.</p>
-
-<blockquote>
-  <p>Unfortunately, fasthttp doesn’t provide an API identical to net/http. See the FAQ for details. There is a net/http -&gt; fasthttp handler converter, but it is better to write fasthttp request handlers by hand in order to use all of the fasthttp advantages.</p>
-</blockquote>
-
-<h2 id="so-why-is-fasthttp-faster">So Why Is fasthttp Faster?</h2>
-
-<p>According to the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#http-server-performance-comparison-with-nethttp">benchmarks provided by fasthttp</a>, fasthttp shows performance 6 times faster than net/http.</p>
-
-<ul>
-  <li>Minimized Memory Allocation (Zero Allocation):
-    <ul>
-      <li>net/http creates new http.Request and http.ResponseWriter objects for every request, putting a burden on the GC.</li>
-      <li>fasthttp aggressively uses sync.Pool to reuse a single struct, fasthttp.RequestCtx. When a request is finished, the object is returned to the pool, minimizing GC occurrences and reducing overall system latency.</li>
-    </ul>
-  </li>
-  <li>Byte Slice (<code class="language-plaintext highlighter-rouge">[]byte</code>) Centric Design:
-    <ul>
-      <li>net/http converts header keys, URL parameters, etc., to strings (string) to increase ease of use.</li>
-      <li>fasthttp processes most data directly as <code class="language-plaintext highlighter-rouge">[]byte</code>, reducing unnecessary conversions to strings and minimizing memory copies/allocations.</li>
-      <li>When performance improvement is paramount, it is recommended to use the <a href="https://github.com/valyala/fasthttp?tab=readme-ov-file#unsafe-zero-allocation-conversions">unsafe, zero-allocation conversions provided by fasthttp</a> rather than the default Go methods for converting between <code class="language-plaintext highlighter-rouge">[]byte</code> and <code class="language-plaintext highlighter-rouge">string</code>.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="speed-and-trade-offs">Speed and Trade-offs</h2>
-
-<p>fasthttp offers high speed, but it also has the following disadvantages:</p>
-
-<ul>
-  <li>API Compatibility: net/http follows the standard <code class="language-plaintext highlighter-rouge">http.Handler</code> interface. In contrast, fasthttp uses a non-standard interface called <code class="language-plaintext highlighter-rouge">RequestHandler</code>.</li>
-  <li>Middleware Ecosystem: net/http is compatible with almost all Go middleware and routers like Gin, Chi, and Echo. fasthttp can only use dedicated middleware, making its ecosystem very limited. (The Fiber framework is the only major one built on fasthttp).</li>
-  <li>Protocol Support: net/http perfectly and automatically supports HTTP/2 and HTTP/3. fasthttp does not.</li>
-  <li>Memory Management: In net/http, the GC handles it automatically. In fasthttp, manual developer management is required, such as not holding on to the <code class="language-plaintext highlighter-rouge">RequestCtx</code> for too long.</li>
-  <li>Ease of Use: net/http is intuitive and safe. fasthttp has low usability, as breaking its rules can easily lead to memory leaks or bugs.</li>
-  <li>Streaming: net/http fully supports large-volume streaming, whereas fasthttp’s support is limited.</li>
-</ul>
-
-<h2 id="specific-use-cases">Specific Use Cases</h2>
-
-<h3 id="nethttp">net/http</h3>
-
-<ul>
-  <li>For almost all web applications and API servers.</li>
-  <li>When starting a new project (if specific requirements are not yet defined).</li>
-  <li>When a standard middleware ecosystem (Gin, Chi, etc.) is needed.</li>
-  <li>For client-facing services where HTTP/2 or HTTP/3 support is essential.</li>
-  <li>When streaming processing, such as large file uploads/downloads, is required.</li>
-  <li>When development convenience, stability, and maintainability are more important than performance.</li>
-</ul>
-
-<h3 id="fasthttp">fasthttp</h3>
-
-<ul>
-  <li>When extreme high-throughput performance is required.</li>
-  <li>For internal microservices that must handle hundreds of thousands of requests per second.</li>
-  <li>For ad bidding (RTB), large-scale proxy servers, or high-performance API gateways.</li>
-  <li>When profiling has proven that HTTP request handling itself in net/http is the clear bottleneck.</li>
-</ul>
-
-<h2 id="code-level-comparison">Code-Level Comparison</h2>
-
-<p>The biggest code-level difference between the two libraries is that net/http uses the <code class="language-plaintext highlighter-rouge">http.ResponseWriter</code> and <code class="language-plaintext highlighter-rouge">*http.Request</code> interfaces, whereas fasthttp handles everything with a single <code class="language-plaintext highlighter-rouge">*fasthttp.RequestCtx</code> struct.</p>
-
-<ul>
-  <li>Signature: net/http is (w, r), fasthttp is (ctx).</li>
-  <li>Data Access: net/http uses string (<code class="language-plaintext highlighter-rouge">r.URL.Path</code>), fasthttp uses []byte (<code class="language-plaintext highlighter-rouge">ctx.Path()</code>).</li>
-  <li>Object Lifecycle: net/http’s r and w are valid for the entire duration of the request handling.</li>
-</ul>
-
-<p>The important point is that <strong>the fasthttp ctx object is immediately returned to the pool and reused as soon as the handler function returns</strong>. If you pass the ctx to a goroutine within a fasthttp handler, by the time the goroutine executes, the ctx may already be handling a different request, which can cause serious problems like concurrency issues.</p>
-
-<p>Let’s look at the differences through handler examples for both.</p>
-
-<h3 id="nethttp-1">net/http</h3>
-
-<p>In net/http, the request and response objects are passed to the handler function separately.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-  <span class="s">"fmt"</span>
-  <span class="s">"net/http"</span>
-<span class="p">)</span>
-
-<span class="c">// Handler signature: http.ResponseWriter, *http.Request</span>
-<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c">// Query parameter (string)</span>
-  <span class="n">name</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">URL</span><span class="o">.</span><span class="n">Query</span><span class="p">()</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
-  <span class="p">}</span>
-  <span class="c">// Write response</span>
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/hello"</span><span class="p">,</span> <span class="n">helloHandler</span><span class="p">)</span>
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"net/http server starting on :8080"</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8080"</span><span class="p">,</span> <span class="no">nil</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
-    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>As you can see in the example above, the handler signature is func(http.ResponseWriter, *http.Request), and the request (r) and response (w) objects are separate, making it intuitive to understand.</p>
-
-<h3 id="fasthttp-1">fasthttp</h3>
-
-<p>fasthttp passes only the context object *fasthttp.RequestCtx to the handler.</p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
-
-<span class="k">import</span> <span class="p">(</span>
-  <span class="s">"fmt"</span>
-  <span class="s">"https://github.com/valyala/fasthttp"</span>
-<span class="p">)</span>
-
-<span class="c">// Handler signature: *fasthttp.RequestCtx</span>
-<span class="k">func</span> <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c">// Query parameter ([]byte)</span>
-  <span class="n">name</span> <span class="o">:=</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">QueryArgs</span><span class="p">()</span><span class="o">.</span><span class="n">Peek</span><span class="p">(</span><span class="s">"name"</span><span class="p">))</span>
-  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">"World"</span>
-  <span class="p">}</span>
-  <span class="c">// Write response (directly to ctx)</span>
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">"Hello, %s!"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">requestHandler</span> <span class="o">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">ctx</span> <span class="o">*</span><span class="n">fasthttp</span><span class="o">.</span><span class="n">RequestCtx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">switch</span> <span class="kt">string</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">Path</span><span class="p">())</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="s">"/hello"</span><span class="o">:</span>
-      <span class="n">helloHandler</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-    <span class="k">default</span><span class="o">:</span>
-      <span class="n">ctx</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">"Unsupported path"</span><span class="p">,</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">StatusNotFound</span><span class="p">)</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"fasthttp server starting on :8081"</span><span class="p">)</span>
-  <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">fasthttp</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">":8081"</span><span class="p">,</span> <span class="n">requestHandler</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
-    <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Unlike net/http, fasthttp uses the <code class="language-plaintext highlighter-rouge">func(*fasthttp.RequestCtx)</code> handler signature, and the single ctx object handles both accessing request information and writing the response. Also, data is processed as <code class="language-plaintext highlighter-rouge">[]byte</code>.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Looking back on when I used to design server APIs, I think I used to first worry about ‘how fast can it process requests.’ That’s why I mostly used Fiber, which provides fasthttp. However, if I had first clearly defined the requirements, such as what data the server would process and in what environment it needed to operate, I wonder if I wouldn’t have used net/http directly or a framework that supports it from a different perspective than performance.</p>
-
-<p>I recently attended GopherCon. A presenter mentioned that ‘when implementing a general server in Go without clear requirements, using net/http directly or using the Gin framework is most recommended.’ Unless extreme performance improvements are required, applying the most versatile framework or using the pure library provided by Go could be a better choice for future maintainability. It was a time to think about that.</p>
-
-<p>In conclusion, I think it’s a good choice to use fasthttp when you can precisely control concurrent data processing on a server that requires high performance, and to use net/http otherwise.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><summary type="html"><![CDATA[Comparison of Go HTTP Libraries: fasthttp vs net/http]]></summary></entry></feed>
+<p>언어에 대해 크게 감수성이 있는 편은 아니지만, 적어도 내가 가장 많이 사용하고 있는 기술에 대해서 진지하게 고민하고 더 나은 방향을 찾아가면서 인사이트를 공유할 수 있는 행사에 참석할 수 있어서 정말 좋았습니다. 2026년에도 좋은 내용이 담긴 GopherCon이 이어지길 기대해봅니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="golang" /><category term="gophercon" /><category term="gophercon korea" /><category term="gophercon korea 2025" /><category term="conference" /><category term="backend" /><category term="고퍼콘" /><category term="고퍼콘 코리아" /><category term="고퍼콘 2025" /><category term="고퍼콘 코리아 2025" /><summary type="html"><![CDATA[2025.11.09에 진행되었던 GopherCon Korea (고퍼콘 코리아) 2025에 참석한 후기와 소감을 적어본다.]]></summary></entry></feed>
