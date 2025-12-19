@@ -10,7 +10,7 @@ comments: true
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
-  "headline": "Claude Code를 활용해서 go 버전의 yahoo finance 라이브러리 만들기 #1"
+  "headline": "Claude Code를 활용해서 go 버전의 yahoo finance 라이브러리 만들기 #2"
   "description": "Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 두번째 포스팅입니다."
   "keywords": "AI, Claude Code, python, yfinance, go, yahoo finance"
 ---
