@@ -35,7 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
   function filterPosts(lang) {
     const postItems = document.querySelectorAll('.post-item');
     let visibleCount = 0;
-    const limit = 10; // Match the limit in menu.yml
+    const postListEl = document.querySelector('ul[data-post-limit]');
+    const limitAttr = postListEl ? postListEl.getAttribute('data-post-limit') : null;
+    const parsedLimit = limitAttr ? parseInt(limitAttr, 10) : NaN;
+    const limit = Number.isFinite(parsedLimit) ? parsedLimit : 10;
     
     // Check if we're on the archive page - don't apply limit there
     const isArchivePage = window.location.pathname.includes('/archive');

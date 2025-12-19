@@ -14,7 +14,7 @@
 {%-endif-%}
 
 {%- if filtered_posts.size > 0 -%}
-  <ul>
+  <ul data-post-limit="{{ include.limit | default: '' }}">
     {%- for post in filtered_posts -%}
       <li class="post-item" data-lang="{{ post.lang | default: 'ko' }}" data-index="{{ forloop.index }}">
         <!-- <span>{{- post.date | date: site.theme_config.date_format -}}</span> -->
