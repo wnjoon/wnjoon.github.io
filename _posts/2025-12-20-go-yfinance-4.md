@@ -69,7 +69,7 @@ Go의 goroutine을 활용한 병렬 처리가 필요한 부분입니다.
 
 ## Holdings & Actions 구현하기
 
-아래와 같이 구현 계획을 수립하고, 이전까지와 동일한 방식으로 작업을 요청했습니다.
+아래와 같이 구현 계획을 수립하고, 이전까지와 동일한 방식으로 Phase 5 개발 작업을 요청했습니다.
 
 - Create phase5/holdings branch from main
 - Implement holder models (pkg/models/holders.go)
