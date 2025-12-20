@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const postListEl = document.querySelector('ul[data-post-limit]');
     const limitAttr = postListEl ? postListEl.getAttribute('data-post-limit') : null;
     const parsedLimit = limitAttr ? parseInt(limitAttr, 10) : NaN;
-    const limit = Number.isFinite(parsedLimit) ? parsedLimit : 10;
+    const limit = Number.isFinite(parsedLimit) ? parsedLimit : Infinity;
     
     // Check if we're on the archive page - don't apply limit there
     const isArchivePage = window.location.pathname.includes('/archive');
