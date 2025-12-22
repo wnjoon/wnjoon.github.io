@@ -308,7 +308,7 @@ In this way, I analyzed `yfinance` and asked Claude Code to create a Go library 
 
 Initially, I started this side project because there was no `yfinance` library in Go while building an **Investment Strategy Agent** in a [course](https://nomadcoders.co/ai-agents-masterclass?gad_source=1&gad_campaignid=18141167485&gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB). I could have just followed the course using Python, thinking of it as studying Python, but since Google ADK supports Go, I thought, "Is there any reason not to try using Go?" and that led me here.
 
-Although I borrowed the ideas and logic from open source, I left an inquiry in the Discussion section of `ranaroussi/yfinance` just in case.
+Although I borrowed the ideas and logic from open source, I left an inquiry in the [Discussion section of `ranaroussi/yfinance`](https://github.com/ranaroussi/yfinance/discussions/2647#discussioncomment-15310537) just in case.
 
 <br>
 

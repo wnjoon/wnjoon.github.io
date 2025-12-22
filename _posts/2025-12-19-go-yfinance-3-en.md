@@ -17,7 +17,7 @@ schema:
 
 ## The Need for Documentation
 
-After [verifying the consistency between yfinance and go-yfinance](https://wnjoon.github.io/2025/12/19/go-yfinance-2/), it suddenly occurred to me that the library I'm developing needs documentation. Initially, I planned to write the documentation after the library development was finished. However, since the library has now surpassed the MVP stage and reached a level where it's practically usable, I thought it would be good to start documenting it now.
+After [verifying the consistency between yfinance and go-yfinance](https://wnjoon.github.io/2025/12/19/go-yfinance-2-en/), it suddenly occurred to me that the library I'm developing needs documentation. Initially, I planned to write the documentation after the library development was finished. However, since the library has now surpassed the MVP stage and reached a level where it's practically usable, I thought it would be good to start documenting it now.
 
 If this were an API, I would have naturally thought of Swagger, but nothing immediately came to mind for a Go library. I could use the documentation automatically generated when uploading a Go library to `pkg.go.dev`, but just as yfinance operates a [separate documentation webpage](https://ranaroussi.github.io/yfinance/), I felt I should have a separate user manual as well.
 

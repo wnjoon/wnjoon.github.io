@@ -304,9 +304,9 @@ ws.Listen(handler)
 
 이렇게 yfinance를 분석해서 Claude Code에게 동일한 기능을 갖는 Go 라이브러리 제작을 요청해보았습니다. 기간으로 보면 약 3일정도 걸렸는데, 실제로 작업한 시간으로 보면 대략 6-7시간 정도 걸렸습니다. 아마 CLAUDE.md를 더욱 꼼꼼하게 작성했거나, 중복된 검증을 계속해서 요청하지 않았더라면 훨씬 빠르게 작업할 수 있었을 것 같습니다.
 
-처음에는 [강의]([강의](https://nomadcoders.co/ai-agents-masterclass?gad_source=1&gad_campaignid=18141167485&gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB)에서 진행하는 **투자 전략 에이전트**를 만들다가 Go로 된 yfinance 라이브러리가 없어서 시작한 사이드 프로젝트였습니다. 그냥 Python 공부한다고 생각하고 강의를 그대로 따라갔어도 되었을텐데, Google ADK에서 Go를 지원하는데 굳이 Go를 사용해보지 않을 이유가 있나 하고 생각하고 시작한게 여기까지 왔네요.
+처음에는 [강의](https://nomadcoders.co/ai-agents-masterclass?gad_source=1&gad_campaignid=18141167485&gbraid=0AAAAACQEcGgB28vYn3MvB7rhLJ-guDeaI&gclid=Cj0KCQiA6Y7KBhCkARIsAOxhqtM01uDU_sqgVSqN3XMhxFpk9dDyzL1A6kZ0a1GY_Y7gsTcbOAwz8gIaAtf1EALw_wcB)에서 진행하는 **투자 전략 에이전트**를 만들다가 Go로 된 yfinance 라이브러리가 없어서 시작한 사이드 프로젝트였습니다. 그냥 Python 공부한다고 생각하고 강의를 그대로 따라갔어도 되었을텐데, Google ADK에서 Go를 지원하는데 굳이 Go를 사용해보지 않을 이유가 있나 하고 생각하고 시작한게 여기까지 왔네요.
 
-물론 오픈소스의 아이디어와 로직을 차용했지만, 혹시 몰라 ranaroussi/yfinance의 Discussion란에 아래와 같이 문의를 남겨놓았습니다.
+물론 오픈소스의 아이디어와 로직을 차용했지만, 혹시 몰라 [ranaroussi/yfinance의 Discussion](https://github.com/ranaroussi/yfinance/discussions/2647#discussioncomment-15310537)란에 아래와 같이 문의를 남겨놓았습니다.
 
 <br>
 

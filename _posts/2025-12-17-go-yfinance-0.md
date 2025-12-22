@@ -79,7 +79,7 @@ Yahoo Finance는 이 인증 과정에서 일반적인 HTTP 클라이언트로부
 
 그래서 Yahoo Finance와의 연결 및 인증과 같은 기초 구성부터 기본 동작, 그리고 최종적으로 yfinance에서 제공하는 부가적인 기능들까지 단계별로 Phase를 구성하고 이를 문서화해달라고 요청했습니다. 세션 간에 작업 진행 내용을 공유하기 위해서이기도 했고, 전체적으로 어떻게 진행할 것인지에 대한 계획서를 제가 다시한번 확인하고 싶기도 했습니다.
 
-Claude Code가 작성해준 [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md) 문서를 간단히 요약하면 아래의 내용을 포함하고 있습니다.
+Claude Code가 작성해준 [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/backup/claude-docs/DESIGN.md) 문서를 간단히 요약하면 아래의 내용을 포함하고 있습니다.
 - yfinance 라이브러리 분석 결과
   - 제공하는 API Endpoint 목록
   - 인증 방식 (Cookie/Crumb)
@@ -88,7 +88,7 @@ Claude Code가 작성해준 [DESIGN.md](https://github.com/wnjoon/go-yfinance/bl
 - 개발 단계(로드맵)
   - 총 10단계로 진행
 
-특히 개발단계에서는 각 단계별로 중요도가 어떻게 되는지, 그리고 각 단계별로 예상되는 코드량까지 대략적으로 파악해서 알려주었습니다. 각 단계별로 자세한 내용은 [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md) 파일에 작성되어 있습니다.
+특히 개발단계에서는 각 단계별로 중요도가 어떻게 되는지, 그리고 각 단계별로 예상되는 코드량까지 대략적으로 파악해서 알려주었습니다. 각 단계별로 자세한 내용은 [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/backup/claude-docs/DESIGN.md) 파일에 작성되어 있습니다.
 
 | Phase | 이름 | 우선순위 | 예상 코드량 | 누적 |
 | --- | --- | --- | --- | --- |

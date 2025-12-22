@@ -17,7 +17,7 @@ schema:
 
 ## Before implementing the practical level, let's test authentication bypass using CycleTLS.
 
-As written in the [previous post 'Building a Go Yahoo Finance Library with Claude Code #1'](https://wnjoon.github.io/2025/12/17/go-yfinance-0/), the Go-based yfinance library proposed by Claude Code consists of three major phases.
+As written in the [previous post 'Building a Go Yahoo Finance Library with Claude Code #1'](https://wnjoon.github.io/2025/12/17/go-yfinance-0-en/), the Go-based yfinance library proposed by Claude Code consists of three major phases.
 
 ```text
 MVP (Minimum Viable Product)

@@ -90,7 +90,7 @@ Everything went well, but there was one log in the middle that made me feel unea
 
 ## Inconsistencies with yfinance Still Exist
 
-The comment about the documentation generation issue made me wonder if there were other incorrect parts that Claude Code hadn't mentioned. The biggest concern was the inconsistency with the yfinance library's methods. I had already checked this in the [previous post](https://wnjoon.github.io/2025/12/19/go-yfinance-2/), but I couldn't guarantee that this issue wouldn't occur again in future tasks.
+The comment about the documentation generation issue made me wonder if there were other incorrect parts that Claude Code hadn't mentioned. The biggest concern was the inconsistency with the yfinance library's methods. I had already checked this in the [previous post](https://wnjoon.github.io/2025/12/19/go-yfinance-3-en/), but I couldn't guarantee that this issue wouldn't occur again in future tasks.
 
 In fact, such common development requirements should be written in a separate document and configured to be referenced at every development stage. I was working continuously in a single session, and I was curious about how much context Claude Code would retain. Honestly speaking, it was partly my fault for just letting it develop out of laziness 😅.
 

@@ -80,7 +80,7 @@ For Go, I decided to use [CycleTLS](https://github.com/Danny-Dasilva/CycleTLS) t
 
 I requested Claude to structure the project into phases—starting from basic configuration like connection and authentication with Yahoo Finance, to basic operations, and finally to the advanced features provided by `yfinance`—and to document them. This was intended both to share progress between sessions and to allow me to double-check the overall plan.
 
-The [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md) document written by Claude Code can be summarized as follows:
+The [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/backup/claude-docs/DESIGN.md) document written by Claude Code can be summarized as follows:
 
 - **yfinance Library Analysis Results**
   - List of provided API Endpoints
@@ -90,7 +90,7 @@ The [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md) docum
 - **Development Roadmap**
   - Divided into a total of 10 phases
 
-For the roadmap, it provided the priority for each phase and an estimated amount of code. Detailed information for each phase is available in the [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/main/DESIGN.md) file.
+For the roadmap, it provided the priority for each phase and an estimated amount of code. Detailed information for each phase is available in the [DESIGN.md](https://github.com/wnjoon/go-yfinance/blob/backup/claude-docs/DESIGN.md) file.
 
 | Phase | Name | Priority | Est. Code Size | Cumulative |
 | --- | --- | --- | --- | --- |
