@@ -1,0 +1,28 @@
+---
+layout: default
+title: "Posts in 'go-yfinance' category"
+---
+
+<header>
+  <h1>Posts in 'go-yfinance' category</h1>
+</header>
+
+{%- assign category_posts = site.categories['go-yfinance'] -%}
+{%- assign filtered_posts = category_posts | where_exp: "post", "post.draft != true" -%}
+
+<p><strong>{{ filtered_posts.size }} posts</strong> in go-yfinance category</p>
+
+{%- if filtered_posts.size > 0 -%}
+  <ul>
+    {%- for post in filtered_posts -%}
+      <li class="post-item" data-lang="{{ post.lang | default: 'ko' }}">
+        <span>{{ post.date | date: "%Y-%m" }}</span>&nbsp;
+        {%- if post.external_url -%}<a href="{{ post.external_url }}" target="_blank">{{ post.title | downcase }}</a>{%- else -%}<a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- else -%}
+  <p>No posts found in the 'go-yfinance' category.</p>
+{%- endif -%}
+
+<p><a href="{{ '/' | relative_url }}">← back to home</a></p>

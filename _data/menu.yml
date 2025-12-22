@@ -20,6 +20,8 @@ entries:
         url: /categories/crypto/
       - title: dev
         url: /categories/dev/
+      - title: go-yfinance
+        url: /categories/go-yfinance/
       - title: essay
         url: /categories/essay/
       - title: investment

@@ -2,7 +2,7 @@
 layout: post
 title: "Building a Go Yahoo Finance Library with Claude Code #2"
 description: "The second post covering the story of building a Go version of the yahoo finance library based on the Python yfinance library using Claude Code."
-categories: dev
+categories: [dev, go-yfinance]
 draft: false
 lang: en
 keywords: "AI, Claude Code, python, yfinance, go, yahoo finance"

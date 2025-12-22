@@ -2,7 +2,7 @@
 layout: post
 title: "Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #4"
 description: "Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 네번째 포스팅입니다."
-categories: dev
+categories: [dev, go-yfinance]
 draft: false
 lang: ko
 keywords: "AI, Claude Code, python, yfinance, go, yahoo finance"
