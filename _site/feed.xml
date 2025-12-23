@@ -1,5 +1,1154 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-22T14:48:45+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7</title><link href="http://localhost:4000/2025/12/20/go-yfinance-6/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7" /><published>2025-12-20T00:00:00+09:00</published><updated>2025-12-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/20/go-yfinance-6</id><content type="html" xml:base="http://localhost:4000/2025/12/20/go-yfinance-6/"><![CDATA[<h2 id="메인테이너와의-대화">메인테이너와의 대화</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-23T21:42:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">go-yfinance v1.0.0 업데이트</title><link href="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note/" rel="alternate" type="text/html" title="go-yfinance v1.0.0 업데이트" /><published>2025-12-23T00:00:00+09:00</published><updated>2025-12-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/23/go-yfinance-v1-release-note</id><content type="html" xml:base="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note/"><![CDATA[<h2 id="ranaroussiyfinance-v100-업데이트">ranaroussi/yfinance v1.0.0 업데이트</h2>
+
+<p>한국시간 12/23일, <a href="https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432">ranaroussi/yfinance가 v1.0.0으로 업데이트</a> 되었습니다. 시장 전체 이벤트를 조회할 수 있는 신규 기능 <code class="language-plaintext highlighter-rouge">Calendars</code>와 티커 검색 기능을 확장한 <code class="language-plaintext highlighter-rouge">Lookup</code>이 추가되었습니다. 또한 <code class="language-plaintext highlighter-rouge">Sector</code>, <code class="language-plaintext highlighter-rouge">Industry</code>, <code class="language-plaintext highlighter-rouge">Market</code> 기능이 추가되어 섹터, 산업, 시장별 분석이 가능해졌습니다.</p>
+
+<h2 id="v100-주요-변경사항">v1.0.0 주요 변경사항</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>변경사항</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Calendars 모듈 (신규)</td>
+      <td>시장 전체 캘린더 이벤트 조회</td>
+    </tr>
+    <tr>
+      <td>Config 모듈 (신규)</td>
+      <td>전역 설정 관리 (yf.config)</td>
+    </tr>
+    <tr>
+      <td>Network Retry</td>
+      <td>네트워크 에러 시 자동 재시도</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="기존-go-yfinance와-ranaroussiyfinance-v100-기능-전체-비교표">기존 go-yfinance와 ranaroussi/yfinance v1.0.0 기능 전체 비교표</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>기능</th>
+      <th>Python v1.0.0</th>
+      <th>Go</th>
+      <th>비고</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ticker 기본</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>History (가격 데이터)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Info (기업 정보)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Financials (재무제표)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Options (옵션)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Holders (주주 정보)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Analysis (애널리스트)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Calendar (Ticker별)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>News (뉴스)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>WebSocket (실시간)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Search (검색)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Screener (스크리너)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Multi/Download</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>Lookup</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>미구현</td>
+    </tr>
+    <tr>
+      <td>Sector/Industry/Market</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>미구현</td>
+    </tr>
+    <tr>
+      <td>Calendars (전역)</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>v1.0.0 신규</td>
+    </tr>
+    <tr>
+      <td>Config (전역)</td>
+      <td>✅</td>
+      <td>🔶</td>
+      <td>일부 구현</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>구현되어 있는 기능들은 모두 동일하며, v1.0.0의 기능 중 4개가 go-yfinance에서 미구현되었습니다.</li>
+</ul>
+
+<h2 id="미구현-모듈별-분석">미구현 모듈별 분석</h2>
+
+<h3 id="lookup">Lookup</h3>
+
+<p><strong>API 분석</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>엔드포인트</td>
+      <td>GET /v1/finance/lookup</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>LookupURL 이미 정의됨 ✅</td>
+    </tr>
+    <tr>
+      <td>Python 구현</td>
+      <td>yfinance/lookup.py (221줄)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>호출 방법 (python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Lookup</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s">"AAPL"</span><span class="p">)</span>  <span class="c1"># ISIN, CUSIP 등으로 티커 검색
+</span></code></pre></div></div>
+
+<p><strong>요청 파라미터</strong></p>
+
+<ul>
+  <li>query: 검색어 (필수)</li>
+  <li>type: all, equity, mutualfund, etf, index, future, currency, cryptocurrency</li>
+  <li>count: 결과 개수 (기본 25)</li>
+  <li>start: 페이지네이션</li>
+  <li>formatted: false</li>
+  <li>fetchPricingData: true</li>
+  <li>lang: en-US</li>
+  <li>region: US</li>
+</ul>
+
+<p><strong>응답 구조</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "finance": {
+    "result": [{
+      "documents": [
+        {"symbol": "AAPL", "name": "Apple Inc.", "exchange": "NMS", ...}
+      ]
+    }]
+  }
+}
+</code></pre></div></div>
+
+<p><strong>구현 계획</strong></p>
+
+<ul>
+  <li>모델 정의: pkg/models/lookup.go</li>
+  <li>구현: pkg/lookup/lookup.go</li>
+  <li>테스트: pkg/lookup/lookup_test.go</li>
+  <li>예상 작업량: ~300 lines</li>
+</ul>
+
+<h3 id="calendars">Calendars</h3>
+
+<p><strong>API 분석</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>엔드포인트</td>
+      <td>POST /v1/finance/visualization</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>정의 필요 ❌</td>
+    </tr>
+    <tr>
+      <td>Python 구현</td>
+      <td>yfinance/calendars.py (547줄)</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>go-yfinance의 <code class="language-plaintext highlighter-rouge">Calendar()</code>는 개별 Ticker의 캘린더만 지원</li>
+  <li>Python의 <code class="language-plaintext highlighter-rouge">Calendars</code>는 시장 전체의 캘린더 이벤트 조회</li>
+</ul>
+
+<p><strong>호출 방법 (python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">calendars</span> <span class="o">=</span> <span class="n">yf</span><span class="p">.</span><span class="n">Calendars</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">"2025-01-01"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">"2025-01-07"</span><span class="p">)</span>
+<span class="n">calendars</span><span class="p">.</span><span class="n">get_earnings_calendar</span><span class="p">()</span>      <span class="c1"># 실적 발표 일정
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_ipo_info_calendar</span><span class="p">()</span>      <span class="c1"># IPO 일정
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_economic_events_calendar</span><span class="p">()</span> <span class="c1"># 경제 이벤트
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_splits_calendar</span><span class="p">()</span>        <span class="c1"># 주식 분할 일정
+</span></code></pre></div></div>
+
+<p><strong>요청 구조 (POST Body)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "sortType": "DESC",
+  "entityIdType": "sp_earnings|ipo_info|economic_event|splits",
+  "sortField": "intradaymarketcap|startdatetime",
+  "includeFields": ["ticker", "companyshortname", ...],
+  "size": 100,
+  "offset": 0,
+  "query": {
+    "operator": "AND",
+    "operands": [
+      {"operator": "eq", "operands": ["region", "us"]},
+      {"operator": "gte", "operands": ["startdatetime", "2025-01-01"]}
+    ]
+  }
+}
+</code></pre></div></div>
+
+<p><strong>지원 캘린더 타입</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>타입</th>
+      <th>설명</th>
+      <th>필드</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sp_earnings</td>
+      <td>실적 발표</td>
+      <td>ticker, companyshortname, epsestimate, epsactual, …</td>
+    </tr>
+    <tr>
+      <td>ipo_info</td>
+      <td>IPO 일정</td>
+      <td>ticker, filingdate, pricefrom, priceto, shares, …</td>
+    </tr>
+    <tr>
+      <td>economic_event</td>
+      <td>경제 이벤트</td>
+      <td>econ_release, country_code, consensus_estimate, …</td>
+    </tr>
+    <tr>
+      <td>splits</td>
+      <td>주식 분할</td>
+      <td>ticker, startdatetime, old_share_worth, share_worth</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>구현 계획</strong></p>
+
+<ul>
+  <li>모델 정의: pkg/models/calendar_market.go</li>
+  <li>Query 빌더: pkg/calendars/query.go</li>
+  <li>구현: pkg/calendars/calendars.go</li>
+  <li>테스트: pkg/calendars/calendars_test.go</li>
+  <li>예상 작업량: ~700 lines</li>
+</ul>
+
+<h3 id="domain-sectorindustrymarket">Domain (Sector/Industry/Market)</h3>
+
+<p><strong>호출 방법(python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Sector</span><span class="p">(</span><span class="s">"technology"</span><span class="p">)</span>   <span class="c1"># 섹터별 정보
+</span><span class="n">yf</span><span class="p">.</span><span class="n">Industry</span><span class="p">(</span><span class="s">"software"</span><span class="p">)</span>   <span class="c1"># 산업별 정보
+</span><span class="n">yf</span><span class="p">.</span><span class="n">Market</span><span class="p">(</span><span class="s">"us_market"</span><span class="p">)</span>    <span class="c1"># 시장별 정보
+</span></code></pre></div></div>
+
+<p><strong>Sector</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>엔드포인트</td>
+      <td>GET /v1/finance/sectors/{key}</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>정의 필요 ❌</td>
+    </tr>
+    <tr>
+      <td>Python 구현</td>
+      <td>yfinance/domain/sector.py (153줄)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>제공 데이터:</p>
+
+<ul>
+  <li>name, symbol, overview (시가총액, 기업수, 산업수 등)</li>
+  <li>top_companies (상위 기업)</li>
+  <li>top_etfs, top_mutual_funds (관련 ETF/펀드)</li>
+  <li>industries (포함 산업 목록)</li>
+  <li>research_reports (리서치 보고서)</li>
+</ul>
+
+<p><strong>Industry</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>엔드포인트</td>
+      <td>GET /v1/finance/industries/{key}</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>정의 필요 ❌</td>
+    </tr>
+    <tr>
+      <td>Python 구현</td>
+      <td>yfinance/domain/industry.py (154줄)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>제공 데이터:</p>
+
+<ul>
+  <li>name, symbol, overview</li>
+  <li>sector_key, sector_name (소속 섹터)</li>
+  <li>top_companies, top_performing_companies, top_growth_companies</li>
+  <li>research_reports</li>
+</ul>
+
+<p><strong>Market</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>엔드포인트</td>
+      <td>GET /v6/finance/quote/marketSummary, GET /v6/finance/markettime</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>MarketSummaryURL 정의됨 ✅</td>
+    </tr>
+    <tr>
+      <td>Python 구현</td>
+      <td>yfinance/domain/market.py (108줄)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>제공 데이터:</p>
+
+<ul>
+  <li>status (시장 상태, 개장/폐장 시간, 타임존)</li>
+  <li>summary (주요 지수별 가격, 변동률)</li>
+</ul>
+
+<p><strong>구현 계획</strong></p>
+
+<ul>
+  <li>모델: pkg/models/domain.go</li>
+  <li>공통 인터페이스: pkg/domain/domain.go</li>
+  <li>Sector: pkg/domain/sector.go</li>
+  <li>Industry: pkg/domain/industry.go</li>
+  <li>Market: pkg/domain/market.go</li>
+  <li>테스트: pkg/domain/*_test.go</li>
+  <li>예상 작업량: ~920 lines</li>
+</ul>
+
+<h3 id="config">Config</h3>
+
+<p>go-yfinance가 이미 Python v1.0.0보다 더 풍부한 Config를 구현하고 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>설정</th>
+      <th>Python v1.0.0</th>
+      <th>go-yfinance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Proxy</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Retries</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Debug/Logging</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Timeout</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>UserAgent</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>JA3 Fingerprint</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Retry Delay</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Max Concurrent</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Cache TTL</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>다만 언어적 특성에 따라, Python에서는 nested 스타일(config.network.proxy)을 사용하고 Go에서는 메서드 체인 스타일(SetProxy())을 API에서 사용합니다. 하지만 Config의 경우 애플리케이션 시작 시점에 한번만 설정되고 이후에는 읽기만 하기 때문에, 실질적인 성능차이가 없으므로 변경이 필요하지 않다고 판단했습니다.</p>
+
+<p><strong>성능 비교</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>Nested Style</th>
+      <th>Method Chain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>메모리</td>
+      <td>약간 더 사용</td>
+      <td>효율적</td>
+    </tr>
+    <tr>
+      <td>런타임 오버헤드</td>
+      <td>동적 조회</td>
+      <td>직접 호출</td>
+    </tr>
+    <tr>
+      <td>컴파일 타임 체크</td>
+      <td>❌ 불가능</td>
+      <td>✅ 가능</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="이슈-정리">이슈 정리</h2>
+
+<p><strong>Calendars Earnings API 500 에러</strong></p>
+
+<ul>
+  <li>원인: 쿼리 구조 문제 - 날짜 쿼리가 중첩 AND로 감싸짐</li>
+  <li>해결: buildDateQueries() 추가하여 GTE/LTE를 개별 operands로 전달</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Before (에러)</span>
+<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"AND"</span><span class="p">,</span> <span class="n">Operands</span><span class="o">:</span> <span class="p">[</span><span class="n">GTE</span><span class="p">,</span> <span class="n">LTE</span><span class="p">]},</span>  <span class="c">// 중첩 AND</span>
+<span class="p">}</span>
+
+<span class="c">// After (정상)</span>
+<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
+    <span class="n">gteQuery</span><span class="p">,</span>  <span class="c">// 직접 포함</span>
+    <span class="n">lteQuery</span><span class="p">,</span>  <span class="c">// 직접 포함</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>SplitEvent 타입 충돌</strong></p>
+
+<ul>
+  <li>원인: <code class="language-plaintext highlighter-rouge">pkg/models/response.go</code>에 이미 <code class="language-plaintext highlighter-rouge">SplitEvent</code> 정의됨</li>
+  <li>해결: <code class="language-plaintext highlighter-rouge">CalendarSplitEvent</code>로 이름 변경</li>
+</ul>
+
+<p><strong>Post 메서드 시그니처 불일치</strong></p>
+
+<ul>
+  <li>원인: <code class="language-plaintext highlighter-rouge">client.Post</code>는 <code class="language-plaintext highlighter-rouge">map[string]string</code>, 캘린더는 <code class="language-plaintext highlighter-rouge">map[string]interface{}</code> 필요</li>
+  <li>해결: <code class="language-plaintext highlighter-rouge">client.PostJSON</code> 사용 + <code class="language-plaintext highlighter-rouge">json.Marshal</code>로 바디 직렬화</li>
+</ul>
+
+<h2 id="결과">결과</h2>
+
+<p><a href="https://github.com/wnjoon/go-yfinance/releases/tag/v1.0.0">go-yfinance v1.0.0 Release Note</a></p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[go-yfinance v1.0.0을 출시했습니다. Claude Code를 이용해서 ranaroussi/yfinance v1.0.0을 분석하고, 달라진 점을 파악하고 개발 가능성과 범위, 시간, 그리고 구현 방식을 검토했습니다. 이를 기반으로 go-yfinance v1.0.0을 구현했습니다.]]></summary></entry><entry xml:lang="en"><title type="html">go-yfinance v1.0.0 Update</title><link href="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en/" rel="alternate" type="text/html" title="go-yfinance v1.0.0 Update" /><published>2025-12-23T00:00:00+09:00</published><updated>2025-12-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en</id><content type="html" xml:base="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en/"><![CDATA[<h2 id="ranaroussiyfinance-v100-update">ranaroussi/yfinance v1.0.0 Update</h2>
+
+<p>On December 23rd (KST), <a href="https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432">ranaroussi/yfinance was updated to v1.0.0</a>. The update introduces <code class="language-plaintext highlighter-rouge">Calendars</code>, a new feature for querying market-wide events, and <code class="language-plaintext highlighter-rouge">Lookup</code>, which expands ticker search capabilities. Additionally, <code class="language-plaintext highlighter-rouge">Sector</code>, <code class="language-plaintext highlighter-rouge">Industry</code>, and <code class="language-plaintext highlighter-rouge">Market</code> features have been added, enabling analysis by sector, industry, and market.</p>
+
+<h2 id="v100-major-changes">v1.0.0 Major Changes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Change</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Calendars Module (New)</td>
+      <td>Query market-wide calendar events</td>
+    </tr>
+    <tr>
+      <td>Config Module (New)</td>
+      <td>Global configuration management (yf.config)</td>
+    </tr>
+    <tr>
+      <td>Network Retry</td>
+      <td>Automatic retry on network errors</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="feature-comparison-go-yfinance-vs-ranaroussiyfinance-v100">Feature Comparison: go-yfinance vs. ranaroussi/yfinance v1.0.0</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Python v1.0.0</th>
+      <th>Go</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ticker (Basic)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>History (Price Data)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Info (Company Info)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Financials</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Options</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Holders</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Analysis</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Calendar (Per Ticker)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>News</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>WebSocket (Real-time)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Search</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Screener</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Multi/Download</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Lookup</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>Not Implemented</td>
+    </tr>
+    <tr>
+      <td>Sector/Industry/Market</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>Not Implemented</td>
+    </tr>
+    <tr>
+      <td>Calendars (Global)</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>New in v1.0.0</td>
+    </tr>
+    <tr>
+      <td>Config (Global)</td>
+      <td>✅</td>
+      <td>🔶</td>
+      <td>Partially Implemented</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>All existing features are identical; however, four features from v1.0.0 were missing in <code class="language-plaintext highlighter-rouge">go-yfinance</code>.</li>
+</ul>
+
+<h2 id="analysis-of-unimplemented-modules">Analysis of Unimplemented Modules</h2>
+
+<h3 id="lookup">Lookup</h3>
+
+<p><strong>API Analysis</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v1/finance/lookup</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>LookupURL already defined ✅</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/lookup.py (221 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Usage (Python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Lookup</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s">"AAPL"</span><span class="p">)</span>  <span class="c1"># Search ticker by ISIN, CUSIP, etc.
+</span></code></pre></div></div>
+
+<p><strong>Request Parameters</strong></p>
+
+<ul>
+  <li>query: Search term (Required)</li>
+  <li>type: all, equity, mutualfund, etf, index, future, currency, cryptocurrency</li>
+  <li>count: Number of results (Default 25)</li>
+  <li>start: Pagination</li>
+  <li>formatted: false</li>
+  <li>fetchPricingData: true</li>
+  <li>lang: en-US</li>
+  <li>region: US</li>
+</ul>
+
+<p><strong>Response Structure</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "finance": {
+    "result": [{
+      "documents": [
+        {"symbol": "AAPL", "name": "Apple Inc.", "exchange": "NMS", ...}
+      ]
+    }]
+  }
+}
+</code></pre></div></div>
+
+<p><strong>Implementation Plan</strong></p>
+
+<ul>
+  <li>Model Definition: <code class="language-plaintext highlighter-rouge">pkg/models/lookup.go</code></li>
+  <li>Implementation: <code class="language-plaintext highlighter-rouge">pkg/lookup/lookup.go</code></li>
+  <li>Testing: <code class="language-plaintext highlighter-rouge">pkg/lookup/lookup_test.go</code></li>
+  <li>Estimated Workload: ~300 lines</li>
+</ul>
+
+<h3 id="calendars">Calendars</h3>
+
+<p><strong>API Analysis</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>POST /v1/finance/visualization</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>Definition Needed ❌</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/calendars.py (547 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">go-yfinance</code>’s <code class="language-plaintext highlighter-rouge">Calendar()</code> only supports calendars for individual Tickers.</li>
+  <li>Python’s <code class="language-plaintext highlighter-rouge">Calendars</code> supports querying market-wide calendar events.</li>
+</ul>
+
+<p><strong>Usage (Python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">calendars</span> <span class="o">=</span> <span class="n">yf</span><span class="p">.</span><span class="n">Calendars</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">"2025-01-01"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">"2025-01-07"</span><span class="p">)</span>
+<span class="n">calendars</span><span class="p">.</span><span class="n">get_earnings_calendar</span><span class="p">()</span>        <span class="c1"># Earnings schedule
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_ipo_info_calendar</span><span class="p">()</span>        <span class="c1"># IPO schedule
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_economic_events_calendar</span><span class="p">()</span> <span class="c1"># Economic events
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_splits_calendar</span><span class="p">()</span>          <span class="c1"># Stock splits schedule
+</span></code></pre></div></div>
+
+<p><strong>Request Structure (POST Body)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "sortType": "DESC",
+  "entityIdType": "sp_earnings|ipo_info|economic_event|splits",
+  "sortField": "intradaymarketcap|startdatetime",
+  "includeFields": ["ticker", "companyshortname", ...],
+  "size": 100,
+  "offset": 0,
+  "query": {
+    "operator": "AND",
+    "operands": [
+      {"operator": "eq", "operands": ["region", "us"]},
+      {"operator": "gte", "operands": ["startdatetime", "2025-01-01"]}
+    ]
+  }
+}
+</code></pre></div></div>
+
+<p><strong>Supported Calendar Types</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Fields</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sp_earnings</td>
+      <td>Earnings</td>
+      <td>ticker, companyshortname, epsestimate, epsactual, …</td>
+    </tr>
+    <tr>
+      <td>ipo_info</td>
+      <td>IPO Info</td>
+      <td>ticker, filingdate, pricefrom, priceto, shares, …</td>
+    </tr>
+    <tr>
+      <td>economic_event</td>
+      <td>Economic Events</td>
+      <td>econ_release, country_code, consensus_estimate, …</td>
+    </tr>
+    <tr>
+      <td>splits</td>
+      <td>Splits</td>
+      <td>ticker, startdatetime, old_share_worth, share_worth</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Implementation Plan</strong></p>
+
+<ul>
+  <li>Model Definition: <code class="language-plaintext highlighter-rouge">pkg/models/calendar_market.go</code></li>
+  <li>Query Builder: <code class="language-plaintext highlighter-rouge">pkg/calendars/query.go</code></li>
+  <li>Implementation: <code class="language-plaintext highlighter-rouge">pkg/calendars/calendars.go</code></li>
+  <li>Testing: <code class="language-plaintext highlighter-rouge">pkg/calendars/calendars_test.go</code></li>
+  <li>Estimated Workload: ~700 lines</li>
+</ul>
+
+<h3 id="domain-sectorindustrymarket">Domain (Sector/Industry/Market)</h3>
+
+<p><strong>Usage (Python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Sector</span><span class="p">(</span><span class="s">"technology"</span><span class="p">)</span>   <span class="c1"># Sector info
+</span><span class="n">yf</span><span class="p">.</span><span class="n">Industry</span><span class="p">(</span><span class="s">"software"</span><span class="p">)</span>   <span class="c1"># Industry info
+</span><span class="n">yf</span><span class="p">.</span><span class="n">Market</span><span class="p">(</span><span class="s">"us_market"</span><span class="p">)</span>    <span class="c1"># Market info
+</span></code></pre></div></div>
+
+<p><strong>Sector</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v1/finance/sectors/{key}</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>Definition Needed ❌</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/domain/sector.py (153 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provided Data:</p>
+<ul>
+  <li>name, symbol, overview (market cap, company count, industry count, etc.)</li>
+  <li>top_companies</li>
+  <li>top_etfs, top_mutual_funds</li>
+  <li>industries (list of included industries)</li>
+  <li>research_reports</li>
+</ul>
+
+<p><strong>Industry</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v1/finance/industries/{key}</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>Definition Needed ❌</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/domain/industry.py (154 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provided Data:</p>
+<ul>
+  <li>name, symbol, overview</li>
+  <li>sector_key, sector_name (Parent Sector)</li>
+  <li>top_companies, top_performing_companies, top_growth_companies</li>
+  <li>research_reports</li>
+</ul>
+
+<p><strong>Market</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v6/finance/quote/marketSummary, GET /v6/finance/markettime</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>MarketSummaryURL defined ✅</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/domain/market.py (108 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provided Data:</p>
+<ul>
+  <li>status (market state, open/close times, timezone)</li>
+  <li>summary (price and change rate by major index)</li>
+</ul>
+
+<p><strong>Implementation Plan</strong></p>
+
+<ul>
+  <li>Models: pkg/models/domain.go</li>
+  <li>Common Interface: pkg/domain/domain.go</li>
+  <li>Sector: pkg/domain/sector.go</li>
+  <li>Industry: pkg/domain/industry.go</li>
+  <li>Market: pkg/domain/market.go</li>
+  <li>Testing: pkg/domain/*_test.go</li>
+  <li>Estimated Workload: ~920 lines</li>
+</ul>
+
+<h3 id="config">Config</h3>
+
+<p><code class="language-plaintext highlighter-rouge">go-yfinance</code> already implements a richer Config than Python v1.0.0.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Setting</th>
+      <th>Python v1.0.0</th>
+      <th>go-yfinance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Proxy</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Retries</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Debug/Logging</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Timeout</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>UserAgent</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>JA3 Fingerprint</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Retry Delay</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Max Concurrent</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Cache TTL</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Due to language characteristics, Python uses a nested style (<code class="language-plaintext highlighter-rouge">config.network.proxy</code>), while Go uses a method chain style (<code class="language-plaintext highlighter-rouge">SetProxy()</code>) in its API. However, since Config is set once at application startup and only read thereafter, I determined that there is no practical performance difference, so no changes are necessary.</p>
+
+<p><strong>Performance Comparison</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Nested Style</th>
+      <th>Method Chain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Memory</td>
+      <td>Slightly more</td>
+      <td>Efficient</td>
+    </tr>
+    <tr>
+      <td>Runtime Overhead</td>
+      <td>Dynamic lookup</td>
+      <td>Direct call</td>
+    </tr>
+    <tr>
+      <td>Compile-time Check</td>
+      <td>❌ Impossible</td>
+      <td>✅ Possible</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="issues-resolved">Issues Resolved</h2>
+
+<p><strong>Calendars Earnings API 500 Error</strong></p>
+
+<ul>
+  <li>Cause: Query structure issue - date queries were wrapped in a nested AND.</li>
+  <li>Resolution: Added <code class="language-plaintext highlighter-rouge">buildDateQueries()</code> to pass GTE/LTE as individual operands.</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Before (Error)</span>
+<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"AND"</span><span class="p">,</span> <span class="n">Operands</span><span class="o">:</span> <span class="p">[</span><span class="n">GTE</span><span class="p">,</span> <span class="n">LTE</span><span class="p">]},</span>  <span class="c">// Nested AND</span>
+<span class="p">}</span>
+
+<span class="c">// After (Success)</span>
+<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
+    <span class="n">gteQuery</span><span class="p">,</span>  <span class="c">// Included directly</span>
+    <span class="n">lteQuery</span><span class="p">,</span>  <span class="c">// Included directly</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>SplitEvent Type Conflict</strong></p>
+
+<ul>
+  <li>Cause: <code class="language-plaintext highlighter-rouge">SplitEvent</code> was already defined in <code class="language-plaintext highlighter-rouge">pkg/models/response.go</code>.</li>
+  <li>Resolution: Renamed to <code class="language-plaintext highlighter-rouge">CalendarSplitEvent</code>.</li>
+</ul>
+
+<p><strong>Post Method Signature Mismatch</strong></p>
+
+<ul>
+  <li>Cause: <code class="language-plaintext highlighter-rouge">client.Post</code> accepted <code class="language-plaintext highlighter-rouge">map[string]string</code>, but Calendars required <code class="language-plaintext highlighter-rouge">map[string]interface{}</code>.</li>
+  <li>Resolution: Used <code class="language-plaintext highlighter-rouge">client.PostJSON</code> + <code class="language-plaintext highlighter-rouge">json.Marshal</code> for body serialization.</li>
+</ul>
+
+<h2 id="result">Result</h2>
+
+<p><a href="https://github.com/wnjoon/go-yfinance/releases/tag/v1.0.0">go-yfinance v1.0.0 Release Note</a></p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Released go-yfinance v1.0.0. I used Claude Code to analyze ranaroussi/yfinance v1.0.0, identified the changes, and reviewed the development feasibility, scope, timeline, and implementation approach. Based on this, I implemented go-yfinance v1.0.0.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7</title><link href="http://localhost:4000/2025/12/22/go-yfinance-6/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7" /><published>2025-12-22T00:00:00+09:00</published><updated>2025-12-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/22/go-yfinance-6</id><content type="html" xml:base="http://localhost:4000/2025/12/22/go-yfinance-6/"><![CDATA[<h2 id="메인테이너와의-대화">메인테이너와의 대화</h2>
 
 <p>저는 이 사이드 프로젝트를 시작하면서부터 Python yfinance의 Discussion에 해당 리포지토리를 참고하여 Go 기반의 yfinance를 구현하고 있다고 말했습니다. 그중 한 메인테이너가 저의 질문에 답하면서 여러가지 내용들이 오갔습니다.</p>
 
@@ -143,7 +1292,151 @@ This project is a Go implementation based on the logic of <span class="p">[</spa
 
 <p>이제 겨우 1년이 지났는데, Claude Code를 활용한 개발은 정말 놀라울 정도입니다. 단순 노동과 같은 개발은 말할 것도 없고, 복잡한 업무의 경우 처음에는 명확한 이해와 설계가 필요한 시간이 존재하지만, 이마저도 굉장히 빠르게 이해하고 제가 예상한 것보다 훨씬 빠르고 정확하게 개발하는 것을 볼 수 있었습니다. 어떻게보면 지시하는 사람의 역량에 따라 사람이 이해하는 것보다 훨씬 빠르고 정확하게 이해할 수도 있겠다는 생각이 들었습니다.</p>
 
-<p>얼마전 미국에서 일하고 계신 한분이 “샌프란시스코에 가면 구인구직하는 전광판이 굉장히 많은데, AI 에이전트 또는 Web3 관련 개발자를 엄청나게 구하고 있더라”는 말을 했습니다. 저는 앞으로 모든 개발자들은 AI 에이전트 개발자가 되어야 한다고 생각합니다. 마치 Java, Python, Go와 같은 언어가 덧셈과 뺄셈이라면, AI 에이전트 개발자는 계산기를 사용하는 것처럼 표준화된 기술이 될 것이라고 생각합니다. ChatGPT, Gemini, Perplexity와 같은 AI 도구에게 질문을 잘 하는 것을 넘어서, 이제는 LLM을 활용해서 내가 가치를 창출하는 프로그램을 개발하는 것에 집중해야겠다고 느끼게 된 시간이었습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 일곱번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #6</title><link href="http://localhost:4000/2025/12/20/go-yfinance-5/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #6" /><published>2025-12-20T00:00:00+09:00</published><updated>2025-12-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/20/go-yfinance-5</id><content type="html" xml:base="http://localhost:4000/2025/12/20/go-yfinance-5/"><![CDATA[<h2 id="claudemd-만들기-이제서야">CLAUDE.md 만들기 (이제서야)</h2>
+<p>얼마전 미국에서 일하고 계신 한분이 “샌프란시스코에 가면 구인구직하는 전광판이 굉장히 많은데, AI 에이전트 또는 Web3 관련 개발자를 엄청나게 구하고 있더라”는 말을 했습니다. 저는 앞으로 모든 개발자들은 AI 에이전트 개발자가 되어야 한다고 생각합니다. 마치 Java, Python, Go와 같은 언어가 덧셈과 뺄셈이라면, AI 에이전트 개발자는 계산기를 사용하는 것처럼 표준화된 기술이 될 것이라고 생각합니다. ChatGPT, Gemini, Perplexity와 같은 AI 도구에게 질문을 잘 하는 것을 넘어서, 이제는 LLM을 활용해서 내가 가치를 창출하는 프로그램을 개발하는 것에 집중해야겠다고 느끼게 된 시간이었습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 일곱번째 포스팅입니다.]]></summary></entry><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #7</title><link href="http://localhost:4000/2025/12/22/go-yfinance-6-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #7" /><published>2025-12-22T00:00:00+09:00</published><updated>2025-12-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/22/go-yfinance-6-en</id><content type="html" xml:base="http://localhost:4000/2025/12/22/go-yfinance-6-en/"><![CDATA[<h2 id="conversation-with-the-maintainer">Conversation with the Maintainer</h2>
+
+<p>From the very beginning of this side project, I mentioned in the Discussions tab of the Python yfinance repository that I was implementing a Go-based yfinance by referencing their repository. One of the maintainers responded to my inquiry, leading to an exchange of ideas.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/20569d0b-92cd-44b5-9d6f-83817238fdcf/image.png" alt="image" /></p>
+
+<p><br /></p>
+
+<p>Honestly, since they are using the APACHE 2.0 license, referencing the logic or implementation methods used in that repository isn’t an issue. However, I believed it was proper etiquette to inform the original author that I was developing a new program based on their work.</p>
+
+<p>The first question the maintainer asked was why I needed to develop it in a new language when the well-written Python version already exists. They suggested that it might be easier to just develop a wrapper that receives the Pandas DataFrame returned by Python and converts it into a Go-based structure.</p>
+
+<p>In fact, many developers use it this way. However, to do this, despite it being a Go program, one would need to set up a Python environment and build a separate server to call the library. I thought there would definitely be overhead associated with this, and although I didn’t write it in my reply, I believed I could solve this more easily than expected using Claude Code.</p>
+
+<p>Transforming Python yfinance into Go was naturally a process of a “Rewrite,” not a direct copy-paste “Port.” While I referenced the URLs, parameters, and crumb handling logic, I completely changed the code structure to follow the Go style.</p>
+
+<p>I replied with this content in the Discussion and included additional information expressing gratitude to the original author in the <a href="https://github.com/wnjoon/go-yfinance/blob/main/README.md#legal--license">README.md</a>.</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">## Legal &amp; License</span>
+
+<span class="gs">**go-yfinance**</span> is distributed under the <span class="gs">**Apache Software License 2.0**</span>. See the <span class="sb">`LICENSE`</span> file in the repository for details.
+
+<span class="gu">### Disclaimer</span>
+<span class="gt">
+&gt; **Please read this carefully before using this library.**</span>
+<span class="p">
+1.</span>  <span class="gs">**Unofficial API**</span>: This library is <span class="gs">**not affiliated with, endorsed by, or connected to Yahoo! Finance**</span>. It wraps unofficial API endpoints intended for web browser consumption.
+<span class="p">
+2.</span>  <span class="gs">**Research &amp; Educational Use**</span>: This library is intended for <span class="gs">**research and educational purposes**</span>.
+<span class="p">
+3.</span>  <span class="gs">**Terms of Service**</span>: Use of this library must comply with <span class="p">[</span><span class="nv">Yahoo!'s Terms of Service</span><span class="p">](</span><span class="sx">https://policies.yahoo.com/us/en/yahoo/terms/index.htm</span><span class="p">)</span>. Users are solely responsible for ensuring their usage is compliant.
+<span class="p">
+4.</span>  <span class="gs">**Risk of Blocking**</span>: Since this library relies on unofficial methods, Yahoo! Finance may change their API structure or block IP addresses making excessive requests at any time without notice.
+<span class="p">
+5.</span>  <span class="gs">**No Warranty**</span>: This software is provided "as is", without warranty of any kind, express or implied. The authors shall not be held liable for any damages or legal issues arising from the use of this software.
+
+<span class="gu">### Credits</span>
+
+This project is a Go implementation based on the logic of <span class="p">[</span><span class="nv">yfinance</span><span class="p">](</span><span class="sx">https://github.com/ranaroussi/yfinance</span><span class="p">)</span>. Special thanks to <span class="gs">**Ran Aroussi**</span> and all contributors of the original project for their excellent work.
+</code></pre></div></div>
+
+<h2 id="registering-additional-information">Registering Additional Information</h2>
+
+<p>First, I added badges providing additional information about the current repository at the top of the <a href="https://github.com/wnjoon/go-yfinance/blob/main/README.md#legal--license">README.md</a>.</p>
+
+<ul>
+  <li><strong>Go Reference:</strong> Links directly to the <code class="language-plaintext highlighter-rouge">pkg.go.dev</code> documentation.</li>
+  <li><strong>Go Report Card:</strong> Shows code quality score.</li>
+  <li><strong>License:</strong> Indicates that it uses the Apache 2.0 license.</li>
+</ul>
+
+<h3 id="go-report-card">Go Report Card</h3>
+
+<p>Go Report Card is a feature that displays the compliance percentage for the current repository regarding checks like <code class="language-plaintext highlighter-rouge">go_vet</code>, <code class="language-plaintext highlighter-rouge">gofmt</code>, <code class="language-plaintext highlighter-rouge">gocyclo</code>, <code class="language-plaintext highlighter-rouge">ineffassign</code>, <code class="language-plaintext highlighter-rouge">license</code>, and <code class="language-plaintext highlighter-rouge">misspell</code>.</p>
+
+<p>Basically, I use <code class="language-plaintext highlighter-rouge">golangci-lint</code> to always check code quality. However, while writing the final Phases, some checks were missed, so I initially received a score of 80%. I asked Claude Code to check the linting again, reflected all the changes, and merged them into main.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/8b7aa1bd-b4c1-4bbf-be68-800d11ff877b/image.png" alt="image" /></p>
+
+<p><br /></p>
+
+<p>In the case of <code class="language-plaintext highlighter-rouge">gocyclo</code>, the score is currently at 92%, with most issues stemming from function complexity.</p>
+
+<p>About 8 functions exceeded the complexity threshold (15). These functions contain logic for parsing external data (JSON, Protobuf), so they inevitably include numerous <code class="language-plaintext highlighter-rouge">if</code> or <code class="language-plaintext highlighter-rouge">switch</code> statements to extract fields. Forcing this logic to be broken down into numerous helper functions seemed likely to increase the probability of introducing bugs and, moreover, appeared to require a significant amount of time to resolve.</p>
+
+<p>Since there were no functional issues other than the score, I planned to improve this part incrementally in the future.</p>
+
+<h2 id="generating-static-documentation-using-mkdocs">Generating Static Documentation Using MkDocs</h2>
+
+<p>In the <a href="https://wnjoon.github.io/2025/12/19/go-yfinance-2/">previous post</a>, I mentioned that I planned to create documentation for each method and convert it into a static page. So, I used MkDocs to convert the <a href="https://github.com/wnjoon/go-yfinance/blob/main/docs/API.md">API documentation</a> into a static page.</p>
+
+<p>To do this, I first created a <a href="https://github.com/wnjoon/go-yfinance/blob/main/mkdocs.yml">mkdocs.yml</a> file in the same path as <code class="language-plaintext highlighter-rouge">go.mod</code>. At the very top, I wrote the repository URL and the URL where the static page would be displayed. When using GitHub Pages, the static page URL typically takes the form <code class="language-plaintext highlighter-rouge">https://&lt;username&gt;.github.io/&lt;repository&gt;</code>.</p>
+
+<p>I configured the theme to support both light and dark modes. You can change the theme by clicking the gear icon next to the Search bar at the top.</p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/1fd2c953-d6e6-4025-8947-ee4d6055f79b/image.png" alt="image" /></p>
+
+<p>I also added commands to the <a href="https://github.com/wnjoon/go-yfinance/blob/main/Makefile">Makefile</a> to test and build the static webpage based on the documentation files.</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">$(MKDOCS)</span><span class="o">:</span>
+  <span class="err">python3</span> <span class="err">-m</span> <span class="err">venv</span> <span class="err">$(VENV)</span>
+  <span class="err">$(PIP)</span> <span class="err">install</span> <span class="err">--upgrade</span> <span class="err">pip</span>
+  <span class="err">$(PIP)</span> <span class="err">install</span> <span class="err">mkdocs-material</span>
+
+<span class="c"># Serve documentation locally (http://localhost:8000)
+</span><span class="nl">docs-serve</span><span class="o">:</span> <span class="nf">$(MKDOCS)</span>
+  <span class="err">$(MKDOCS)</span> <span class="err">serve</span>
+
+<span class="c"># Build documentation site
+</span><span class="nl">docs-build</span><span class="o">:</span> <span class="nf">$(MKDOCS)</span>
+  <span class="err">$(MKDOCS)</span> <span class="err">build</span>
+</code></pre></div></div>
+
+<p>Finally, I modified the <a href="https://github.com/wnjoon/go-yfinance/blob/main/.github/workflows/docs.yml">docs.yml</a> file so that when the repository is merged into main, GitHub Actions automatically builds and deploys the latest version of the website.</p>
+
+<p>The currently deployed static webpage can be found at <strong><a href="https://wnjoon.github.io/go-yfinance/">https://wnjoon.github.io/go-yfinance/</a></strong>.</p>
+
+<h2 id="deploying-to-pkggodev">Deploying to pkg.go.dev</h2>
+
+<p>Deploying the generated library to pkg.go.dev is incredibly easy. You only need to go through three steps:</p>
+
+<ol>
+  <li>Record changes in <code class="language-plaintext highlighter-rouge">README.md</code>.</li>
+  <li>Tag a new version and push it.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">git tag v0.1.0</code></li>
+      <li><code class="language-plaintext highlighter-rouge">git push origin v0.1.0</code></li>
+    </ul>
+  </li>
+  <li>Access “https://pkg.go.dev/github.com/wnjoon/go-yfinance@v0.1.0” in a web browser and click the <strong>Request</strong> button.</li>
+</ol>
+
+<p>It seems to have been registered on pkg.go.dev within about 5 minutes.</p>
+
+<h2 id="future-development-plans">Future Development Plans</h2>
+
+<p>With development wrapped up, I organized the overall directory structure.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yfinance-main
+ㄴ python-yfinance (ranaroussi/yfinance)
+ㄴ go-yfinance
+ㄴ .claude
+ㄴ ...
+</code></pre></div></div>
+
+<p>I plan to proceed with development in the following stages:</p>
+
+<ul>
+  <li>When a new release comes out in <code class="language-plaintext highlighter-rouge">python-yfinance</code>, analyze it using Claude Code.</li>
+  <li>Identify what is different compared to the current version of <code class="language-plaintext highlighter-rouge">go-yfinance</code>.</li>
+  <li>Check where the changes occurred and if functional updates are needed.</li>
+  <li>Update the relevant parts and deploy a new release.</li>
+</ul>
+
+<h2 id="reflections">Reflections</h2>
+
+<p>Actually, while developing <code class="language-plaintext highlighter-rouge">go-yfinance</code>, I thought a lot about what capabilities developers like myself need to cultivate in the future. Last year, when I was doing a side job, I received a lot of help from ChatGPT and Windsurf when applying Kubernetes, which I had never used in practice. Even though it wasn’t a very complex task and was mostly infrastructure work with defined rules, I sometimes struggled quite a bit because the AI provided off-the-mark answers and solutions.</p>
+
+<p>It has barely been a year since then, but development using Claude Code is truly amazing. Not only for rote coding tasks, but even for complex tasks that initially require time for clear understanding and design, I could see it understanding incredibly quickly and developing much faster and more accurately than I expected. In a way, I thought that depending on the capability of the person giving instructions, the AI might understand much faster and more accurately than a human could.</p>
+
+<p>Recently, someone working in the US mentioned, “When you go to San Francisco, there are so many job boards, and they are hiring AI Agent or Web3 related developers aggressively.” I believe that in the future, all developers must become AI Agent developers. Just as languages like Java, Python, and Go are like addition and subtraction, I think AI Agent development will become a standardized skill, like using a calculator. Beyond just being good at asking questions to AI tools like ChatGPT, Gemini, and Perplexity, this was a time where I felt I must now focus on developing programs that create value by utilizing LLMs.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[The seventh post covering the story of building a Go version of the yahoo finance library based on the Python yfinance library using Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #6</title><link href="http://localhost:4000/2025/12/20/go-yfinance-5/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #6" /><published>2025-12-20T00:00:00+09:00</published><updated>2025-12-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/20/go-yfinance-5</id><content type="html" xml:base="http://localhost:4000/2025/12/20/go-yfinance-5/"><![CDATA[<h2 id="claudemd-만들기-이제서야">CLAUDE.md 만들기 (이제서야)</h2>
 
 <p>남은 Phase들을 개발해달라고 요청했는데, Claude Code가 예상하지 못한 작업을 진행했습니다. 현재 작업 리포지토리는 아래와 같이 구성되어 있습니다.</p>
 
@@ -809,151 +2102,7 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
 4.</span> <span class="gs">**No Warranty**</span>: This software is provided "as is", without warranty of any kind, express or implied. The authors shall not be held liable for any damages or legal issues arising from the use of this software.
 </code></pre></div></div>
 
-<p>이제 다음에는 실제로 go 라이브러리에 등록해보려고 합니다. 이부분도 한번 Claude Code에게 맡겨볼 생각입니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 여섯번째 포스팅입니다.]]></summary></entry><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #7</title><link href="http://localhost:4000/2025/12/20/go-yfinance-6-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #7" /><published>2025-12-20T00:00:00+09:00</published><updated>2025-12-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/20/go-yfinance-6-en</id><content type="html" xml:base="http://localhost:4000/2025/12/20/go-yfinance-6-en/"><![CDATA[<h2 id="conversation-with-the-maintainer">Conversation with the Maintainer</h2>
-
-<p>From the very beginning of this side project, I mentioned in the Discussions tab of the Python yfinance repository that I was implementing a Go-based yfinance by referencing their repository. One of the maintainers responded to my inquiry, leading to an exchange of ideas.</p>
-
-<p><br /></p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/20569d0b-92cd-44b5-9d6f-83817238fdcf/image.png" alt="image" /></p>
-
-<p><br /></p>
-
-<p>Honestly, since they are using the APACHE 2.0 license, referencing the logic or implementation methods used in that repository isn’t an issue. However, I believed it was proper etiquette to inform the original author that I was developing a new program based on their work.</p>
-
-<p>The first question the maintainer asked was why I needed to develop it in a new language when the well-written Python version already exists. They suggested that it might be easier to just develop a wrapper that receives the Pandas DataFrame returned by Python and converts it into a Go-based structure.</p>
-
-<p>In fact, many developers use it this way. However, to do this, despite it being a Go program, one would need to set up a Python environment and build a separate server to call the library. I thought there would definitely be overhead associated with this, and although I didn’t write it in my reply, I believed I could solve this more easily than expected using Claude Code.</p>
-
-<p>Transforming Python yfinance into Go was naturally a process of a “Rewrite,” not a direct copy-paste “Port.” While I referenced the URLs, parameters, and crumb handling logic, I completely changed the code structure to follow the Go style.</p>
-
-<p>I replied with this content in the Discussion and included additional information expressing gratitude to the original author in the <a href="https://github.com/wnjoon/go-yfinance/blob/main/README.md#legal--license">README.md</a>.</p>
-
-<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">## Legal &amp; License</span>
-
-<span class="gs">**go-yfinance**</span> is distributed under the <span class="gs">**Apache Software License 2.0**</span>. See the <span class="sb">`LICENSE`</span> file in the repository for details.
-
-<span class="gu">### Disclaimer</span>
-<span class="gt">
-&gt; **Please read this carefully before using this library.**</span>
-<span class="p">
-1.</span>  <span class="gs">**Unofficial API**</span>: This library is <span class="gs">**not affiliated with, endorsed by, or connected to Yahoo! Finance**</span>. It wraps unofficial API endpoints intended for web browser consumption.
-<span class="p">
-2.</span>  <span class="gs">**Research &amp; Educational Use**</span>: This library is intended for <span class="gs">**research and educational purposes**</span>.
-<span class="p">
-3.</span>  <span class="gs">**Terms of Service**</span>: Use of this library must comply with <span class="p">[</span><span class="nv">Yahoo!'s Terms of Service</span><span class="p">](</span><span class="sx">https://policies.yahoo.com/us/en/yahoo/terms/index.htm</span><span class="p">)</span>. Users are solely responsible for ensuring their usage is compliant.
-<span class="p">
-4.</span>  <span class="gs">**Risk of Blocking**</span>: Since this library relies on unofficial methods, Yahoo! Finance may change their API structure or block IP addresses making excessive requests at any time without notice.
-<span class="p">
-5.</span>  <span class="gs">**No Warranty**</span>: This software is provided "as is", without warranty of any kind, express or implied. The authors shall not be held liable for any damages or legal issues arising from the use of this software.
-
-<span class="gu">### Credits</span>
-
-This project is a Go implementation based on the logic of <span class="p">[</span><span class="nv">yfinance</span><span class="p">](</span><span class="sx">https://github.com/ranaroussi/yfinance</span><span class="p">)</span>. Special thanks to <span class="gs">**Ran Aroussi**</span> and all contributors of the original project for their excellent work.
-</code></pre></div></div>
-
-<h2 id="registering-additional-information">Registering Additional Information</h2>
-
-<p>First, I added badges providing additional information about the current repository at the top of the <a href="https://github.com/wnjoon/go-yfinance/blob/main/README.md#legal--license">README.md</a>.</p>
-
-<ul>
-  <li><strong>Go Reference:</strong> Links directly to the <code class="language-plaintext highlighter-rouge">pkg.go.dev</code> documentation.</li>
-  <li><strong>Go Report Card:</strong> Shows code quality score.</li>
-  <li><strong>License:</strong> Indicates that it uses the Apache 2.0 license.</li>
-</ul>
-
-<h3 id="go-report-card">Go Report Card</h3>
-
-<p>Go Report Card is a feature that displays the compliance percentage for the current repository regarding checks like <code class="language-plaintext highlighter-rouge">go_vet</code>, <code class="language-plaintext highlighter-rouge">gofmt</code>, <code class="language-plaintext highlighter-rouge">gocyclo</code>, <code class="language-plaintext highlighter-rouge">ineffassign</code>, <code class="language-plaintext highlighter-rouge">license</code>, and <code class="language-plaintext highlighter-rouge">misspell</code>.</p>
-
-<p>Basically, I use <code class="language-plaintext highlighter-rouge">golangci-lint</code> to always check code quality. However, while writing the final Phases, some checks were missed, so I initially received a score of 80%. I asked Claude Code to check the linting again, reflected all the changes, and merged them into main.</p>
-
-<p><br /></p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/8b7aa1bd-b4c1-4bbf-be68-800d11ff877b/image.png" alt="image" /></p>
-
-<p><br /></p>
-
-<p>In the case of <code class="language-plaintext highlighter-rouge">gocyclo</code>, the score is currently at 92%, with most issues stemming from function complexity.</p>
-
-<p>About 8 functions exceeded the complexity threshold (15). These functions contain logic for parsing external data (JSON, Protobuf), so they inevitably include numerous <code class="language-plaintext highlighter-rouge">if</code> or <code class="language-plaintext highlighter-rouge">switch</code> statements to extract fields. Forcing this logic to be broken down into numerous helper functions seemed likely to increase the probability of introducing bugs and, moreover, appeared to require a significant amount of time to resolve.</p>
-
-<p>Since there were no functional issues other than the score, I planned to improve this part incrementally in the future.</p>
-
-<h2 id="generating-static-documentation-using-mkdocs">Generating Static Documentation Using MkDocs</h2>
-
-<p>In the <a href="https://wnjoon.github.io/2025/12/19/go-yfinance-2/">previous post</a>, I mentioned that I planned to create documentation for each method and convert it into a static page. So, I used MkDocs to convert the <a href="https://github.com/wnjoon/go-yfinance/blob/main/docs/API.md">API documentation</a> into a static page.</p>
-
-<p>To do this, I first created a <a href="https://github.com/wnjoon/go-yfinance/blob/main/mkdocs.yml">mkdocs.yml</a> file in the same path as <code class="language-plaintext highlighter-rouge">go.mod</code>. At the very top, I wrote the repository URL and the URL where the static page would be displayed. When using GitHub Pages, the static page URL typically takes the form <code class="language-plaintext highlighter-rouge">https://&lt;username&gt;.github.io/&lt;repository&gt;</code>.</p>
-
-<p>I configured the theme to support both light and dark modes. You can change the theme by clicking the gear icon next to the Search bar at the top.</p>
-
-<p><img src="https://velog.velcdn.com/images/wnjoon/post/1fd2c953-d6e6-4025-8947-ee4d6055f79b/image.png" alt="image" /></p>
-
-<p>I also added commands to the <a href="https://github.com/wnjoon/go-yfinance/blob/main/Makefile">Makefile</a> to test and build the static webpage based on the documentation files.</p>
-
-<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">$(MKDOCS)</span><span class="o">:</span>
-  <span class="err">python3</span> <span class="err">-m</span> <span class="err">venv</span> <span class="err">$(VENV)</span>
-  <span class="err">$(PIP)</span> <span class="err">install</span> <span class="err">--upgrade</span> <span class="err">pip</span>
-  <span class="err">$(PIP)</span> <span class="err">install</span> <span class="err">mkdocs-material</span>
-
-<span class="c"># Serve documentation locally (http://localhost:8000)
-</span><span class="nl">docs-serve</span><span class="o">:</span> <span class="nf">$(MKDOCS)</span>
-  <span class="err">$(MKDOCS)</span> <span class="err">serve</span>
-
-<span class="c"># Build documentation site
-</span><span class="nl">docs-build</span><span class="o">:</span> <span class="nf">$(MKDOCS)</span>
-  <span class="err">$(MKDOCS)</span> <span class="err">build</span>
-</code></pre></div></div>
-
-<p>Finally, I modified the <a href="https://github.com/wnjoon/go-yfinance/blob/main/.github/workflows/docs.yml">docs.yml</a> file so that when the repository is merged into main, GitHub Actions automatically builds and deploys the latest version of the website.</p>
-
-<p>The currently deployed static webpage can be found at <strong><a href="https://wnjoon.github.io/go-yfinance/">https://wnjoon.github.io/go-yfinance/</a></strong>.</p>
-
-<h2 id="deploying-to-pkggodev">Deploying to pkg.go.dev</h2>
-
-<p>Deploying the generated library to pkg.go.dev is incredibly easy. You only need to go through three steps:</p>
-
-<ol>
-  <li>Record changes in <code class="language-plaintext highlighter-rouge">README.md</code>.</li>
-  <li>Tag a new version and push it.
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">git tag v0.1.0</code></li>
-      <li><code class="language-plaintext highlighter-rouge">git push origin v0.1.0</code></li>
-    </ul>
-  </li>
-  <li>Access “https://pkg.go.dev/github.com/wnjoon/go-yfinance@v0.1.0” in a web browser and click the <strong>Request</strong> button.</li>
-</ol>
-
-<p>It seems to have been registered on pkg.go.dev within about 5 minutes.</p>
-
-<h2 id="future-development-plans">Future Development Plans</h2>
-
-<p>With development wrapped up, I organized the overall directory structure.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yfinance-main
-ㄴ python-yfinance (ranaroussi/yfinance)
-ㄴ go-yfinance
-ㄴ .claude
-ㄴ ...
-</code></pre></div></div>
-
-<p>I plan to proceed with development in the following stages:</p>
-
-<ul>
-  <li>When a new release comes out in <code class="language-plaintext highlighter-rouge">python-yfinance</code>, analyze it using Claude Code.</li>
-  <li>Identify what is different compared to the current version of <code class="language-plaintext highlighter-rouge">go-yfinance</code>.</li>
-  <li>Check where the changes occurred and if functional updates are needed.</li>
-  <li>Update the relevant parts and deploy a new release.</li>
-</ul>
-
-<h2 id="reflections">Reflections</h2>
-
-<p>Actually, while developing <code class="language-plaintext highlighter-rouge">go-yfinance</code>, I thought a lot about what capabilities developers like myself need to cultivate in the future. Last year, when I was doing a side job, I received a lot of help from ChatGPT and Windsurf when applying Kubernetes, which I had never used in practice. Even though it wasn’t a very complex task and was mostly infrastructure work with defined rules, I sometimes struggled quite a bit because the AI provided off-the-mark answers and solutions.</p>
-
-<p>It has barely been a year since then, but development using Claude Code is truly amazing. Not only for rote coding tasks, but even for complex tasks that initially require time for clear understanding and design, I could see it understanding incredibly quickly and developing much faster and more accurately than I expected. In a way, I thought that depending on the capability of the person giving instructions, the AI might understand much faster and more accurately than a human could.</p>
-
-<p>Recently, someone working in the US mentioned, “When you go to San Francisco, there are so many job boards, and they are hiring AI Agent or Web3 related developers aggressively.” I believe that in the future, all developers must become AI Agent developers. Just as languages like Java, Python, and Go are like addition and subtraction, I think AI Agent development will become a standardized skill, like using a calculator. Beyond just being good at asking questions to AI tools like ChatGPT, Gemini, and Perplexity, this was a time where I felt I must now focus on developing programs that create value by utilizing LLMs.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[The seventh post covering the story of building a Go version of the yahoo finance library based on the Python yfinance library using Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #5</title><link href="http://localhost:4000/2025/12/20/go-yfinance-4/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #5" /><published>2025-12-20T00:00:00+09:00</published><updated>2025-12-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/20/go-yfinance-4</id><content type="html" xml:base="http://localhost:4000/2025/12/20/go-yfinance-4/"><![CDATA[<h2 id="남은-개발-범위-확인하기">남은 개발 범위 확인하기</h2>
+<p>이제 다음에는 실제로 go 라이브러리에 등록해보려고 합니다. 이부분도 한번 Claude Code에게 맡겨볼 생각입니다.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 여섯번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #5</title><link href="http://localhost:4000/2025/12/20/go-yfinance-4/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #5" /><published>2025-12-20T00:00:00+09:00</published><updated>2025-12-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/20/go-yfinance-4</id><content type="html" xml:base="http://localhost:4000/2025/12/20/go-yfinance-4/"><![CDATA[<h2 id="남은-개발-범위-확인하기">남은 개발 범위 확인하기</h2>
 
 <p>Claude Code와 Gemini를 이용한 분석에 의하면, 현재까지 진행된 범위(~Phase 4)까지면 실용적으로 사용 가능한 기능은 모두 구현되어있는 상태입니다. 이제 남은 부분은 yfinance가 제공하고 있는 남은 기능들을 구현하는 일입니다.</p>
 
@@ -2081,75 +3230,273 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
 4.</span> <span class="gs">**No Warranty**</span>: This software is provided "as is", without warranty of any kind, express or implied. The authors shall not be held liable for any damages or legal issues arising from the use of this software.
 </code></pre></div></div>
 
-<p>Next time, I plan to actually register it as a Go library. I’m thinking of letting Claude Code handle this part as well.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[The sixth post in the story of creating a Go version of the yahoo finance library based on the Python yfinance library using Claude Code.]]></summary></entry><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #3</title><link href="http://localhost:4000/2025/12/19/go-yfinance-2-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #3" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-2-en</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-2-en/"><![CDATA[<h2 id="does-it-match-yfinance">Does it match yfinance?</h2>
+<p>Next time, I plan to actually register it as a Go library. I’m thinking of letting Claude Code handle this part as well.</p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[The sixth post in the story of creating a Go version of the yahoo finance library based on the Python yfinance library using Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #4</title><link href="http://localhost:4000/2025/12/19/go-yfinance-3/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #4" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-3</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-3/"><![CDATA[<h2 id="문서의-필요성">문서의 필요성</h2>
 
-<p>The reason I’m implementing go-yfinance is simply that there isn’t a Yahoo Finance library written in Go. It might seem primitive, but until recently, there were cases where a server was implemented using the Python yfinance library just to receive results via API calls. Of course, even back then, it would have been possible to create a library converted to Go. However, analyzing and implementing it one by one would have taken quite a long time.</p>
+<p><a href="https://wnjoon.github.io/2025/12/19/go-yfinance-2/">yfinance와 go-yfinance의 일치성을 확인</a>하고 나니, 문득 현재 개발중인 라이브러리의 문서가 필요하다는 생각이 들었습니다. 처음에는 라이브러리 개발이 끝난 다음에 문서를 작성할 계획이었습니다. 하지만 현재 라이브러리가 MVP 기능을 넘어서 실용적으로 사용 가능한 수준까지 개발된 상태에서, 문서를 미리 작성하기 시작하는 것도 좋을 것 같다는 생각이 들었습니다.</p>
 
-<p>Now, with AI, work that would have taken months can be done in days. The go-yfinance project I’m currently working on is no exception. I’m training Claude Code with the already excellent yfinance library, checking if it can be converted to Go, and proceeding step by step.</p>
+<p>API인 경우 일반적으로 사용되는 Swagger를 자연스럽게 떠올렸을텐데, Go 라이브러리는 마땅히 생각나는것이 없었습니다. Go 라이브러리를 <code class="language-plaintext highlighter-rouge">pkg.go.dev</code>에 올리면 자동으로 만들어지는 문서를 사용할 수도 있지만, yfinance 또한 <a href="https://ranaroussi.github.io/yfinance/">별도의 문서 웹페이지</a>를 운영하는 것 처럼, 저도 별도의 사용 설명서만큼은 있어야겠다고 생각했습니다.</p>
 
-<p>Today, I guided it to implement ‘up to a practical level (~Phase 4)’ and wrote a <a href="https://wnjoon.github.io/2025/12/19/go-yfinance-1-en/">blog post</a> about it. But suddenly, a question arose.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: Do the methods, parameters, and return values provided by go-yfinance match those supported by yfinance?</em></p>
+<p>저는 주로 <code class="language-plaintext highlighter-rouge">go doc</code>을 사용했는데요, 사실 알고 있는게 별로 없어서 그렇지 별로 만족스럽지는 못했습니다. 만들어지는 웹페이지 형식의 문서는 정말 형편없었거든요. 그래서 다른 방식을 좀 찾아봐야겠다고 생각했습니다.</p>
 
 <p><br /></p>
 
-<p>This was actually a quite crucial part. My goal is <strong>to allow developers familiar with yfinance to use functions in the same way even when using Go</strong>. I believed there should be no hassle of having to relearn what methods exist, how to call them, or what the results would look like when calling a method.</p>
-
-<p>So, before implementing the remaining Phases, I asked Claude Code.</p>
+<p><em>👨🏻‍💻: 현재까지 개발된 go-yfinance에 gomarkdoc을 적용하는것에 대해 어떻게 생각해? 혹은 사용자 문서를 만들 수 있는 다른 좋은 방식이 있다면 알려줘.</em></p>
 
 <p><br /></p>
 
-<p><em>👨🏻‍💻: Please verify if the structure of methods, parameters, and result values provided by the currently written go-yfinance is identical to those provided by python’s yfinance. To minimize user confusion, everything should be the same except for the language difference. Please review if everything is identical, excluding only case sensitivity due to Public/Private method differences which are characteristics of the language. ultrathink.</em></p>
+<h2 id="다양한-문서-작성-도구들">다양한 문서 작성 도구들</h2>
+
+<p>위의 질문을 Claude Code와 Gemini 모두에게 물어봤는데요, 두 AI에게서 받은 답변을 정리하면 다음과 같습니다. 이중에서 저는 <strong><a href="https://github.com/princjef/gomarkdoc">gomarkdoc</a></strong>을 사용하기로 했습니다.</p>
+
+<p><strong>gomarkdoc</strong></p>
+
+<ul>
+  <li>장점
+    <ul>
+      <li>Markdown 형식으로 출력 → GitHub/GitLab에서 바로 렌더링</li>
+      <li>기존 README.md와 쉽게 통합</li>
+      <li>CI/CD에서 자동 생성 가능</li>
+      <li>커스터마이징 가능한 템플릿</li>
+    </ul>
+  </li>
+  <li>단점
+    <ul>
+      <li>외부 도구 설치 필요 (<code class="language-plaintext highlighter-rouge">go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest</code>)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>godoc</strong></p>
+
+<ul>
+  <li>장점:
+    <ul>
+      <li>Go 공식 도구, 별도 설치 불필요</li>
+      <li>pkg.go.dev와 동일한 형식</li>
+      <li>라이브러리 공개 시 자동으로 pkg.go.dev에 문서 생성</li>
+    </ul>
+  </li>
+  <li>단점:
+    <ul>
+      <li>HTML 서버로만 제공 (<code class="language-plaintext highlighter-rouge">godoc -http=:6060</code>)</li>
+      <li>정적 파일 생성이 어려움</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>pkgsite</strong></p>
+
+<ul>
+  <li>장점:
+    <ul>
+      <li>pkg.go.dev와 완전히 동일한 UI (pkg.go.dev 로컬 버전)</li>
+      <li>최신 Go 문서 표준</li>
+    </ul>
+  </li>
+  <li>단점:
+    <ul>
+      <li>정적 export 어려움</li>
+    </ul>
+  </li>
+</ul>
+
+<p>나중에 라이브러리가 커져서 단순 API 명세 뿐만 아니라 튜토리얼, 가이드 등을 포함한 웹사이트를 만들고자 할 경우 <a href="https://www.mkdocs.org/">MkDocs</a>, <a href="https://docusaurus.io/">Docusaurus</a> 등을 사용한다고 합니다. 이 때 gomarkdoc을 사용해서 만든 마크다운 문서를 MkDocs나 Docusaurus에서 바로 사용해서 웹사이트를 만들 수 있다고 하네요. 이부분은 나중에 한번 시도해보고 포스팅하겠습니다.</p>
+
+<h2 id="github-actions-자동화-설정하기">GitHub Actions 자동화 설정하기</h2>
+
+<p>이번에 알게된 사실입니다만, 새로운 기능이 개발되어 리포지토리에 push되는 시점에 Github Action을 이용해서 자동으로 문서를 업데이트 할 수 있습니다. 저는 특정 단계의 개발이 완료되고 main에 push되는 시점에 문서를 업데이트하기로 결정했습니다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">.github/workflows/docs.yml</code> 파일에 아래와 같이 작성하면 됩니다.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Generate Documentation</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">main</span>  <span class="c1"># main 브랜치에 push 될 때 동작</span>
+    <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">pkg/**'</span> <span class="c1"># pkg 폴더 내의 코드가 변경될 때만 동작</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">docs</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-go@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">go-version</span><span class="pi">:</span> <span class="m">1.23</span> <span class="c1"># 사용 중인 Go 버전</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install gomarkdoc</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Generate API Documentation</span>
+        <span class="c1"># pkg 폴더 하위를 스캔해서 API.md 파일을 다시 만듭니다.</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">gomarkdoc --output API.md ./pkg/...</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Commit and Push changes</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">stefanzweifel/git-auto-commit-action@v4</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">commit_message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">docs:</span><span class="nv"> </span><span class="s">update</span><span class="nv"> </span><span class="s">API</span><span class="nv"> </span><span class="s">documentation</span><span class="nv"> </span><span class="s">via</span><span class="nv"> </span><span class="s">gomarkdoc"</span>
+          <span class="na">file_pattern</span><span class="pi">:</span> <span class="s">API.md</span>
+</code></pre></div></div>
+
+<p>순서는 다음과 같습니다.</p>
+
+<ol>
+  <li>코드를 수정해서 GitHub에 올립니다.</li>
+  <li>Action이 돌면서 변경된 코드에 맞춰 <code class="language-plaintext highlighter-rouge">API.md</code>를 수정합니다.</li>
+  <li>봇이 자동으로 “docs: update…“라는 커밋을 남깁니다.</li>
+</ol>
+
+<h2 id="문서-작성-요청">문서 작성 요청</h2>
+
+<p>Claude Code에게 현재까지 개발된 내용을 토대로 문서를 작성해달라고 요청했습니다.</p>
 
 <p><br /></p>
 
-<h2 id="analysis-results-python-yfinance-vs-go-go-yfinance">Analysis Results: Python yfinance vs. Go go-yfinance</h2>
+<p><em>👨🏻‍💻: gomarkdoc을 사용해서 현재까지 개발된 내용에 대한 문서를 작성해줘. 각 메소드, 파라미터, 결과값을 표준에 맞게 잘 작성해줘. 혹시 지금 주석이 제대로 달려있지 않은건 없는지, gomarkdoc 방식에 비해 부족하게 작성되거나 작성되지 않은건 없는지 꼼꼼하게 확인하면서 진행해줘. 그리고 main으로 push할때마다 자동으로 이 문서가 업데이트되도록 ci/cd도 설정해줘.</em></p>
 
-<p>Fortunately, most parts were confirmed to match, but there were some discrepancies.</p>
+<p><br /></p>
 
-<h3 id="method-name-mismatches">Method Name Mismatches</h3>
+<h2 id="문서-작성-결과">문서 작성 결과</h2>
+
+<p><strong>추가된 파일</strong></p>
 
 <table>
   <thead>
     <tr>
-      <th>Feature</th>
+      <th>파일</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.github/workflows/docs.yml</code></td>
+      <td>main push 시 자동 문서 생성</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.github/workflows/test.yml</code></td>
+      <td>테스트 및 lint CI</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">docs/API.md</code></td>
+      <td>생성된 API 문서 (2790줄)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pkg/client/doc.go</code></td>
+      <td>client 패키지 문서</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/doc.go</code></td>
+      <td>ticker 패키지 문서</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pkg/models/doc.go</code></td>
+      <td>models 패키지 문서</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pkg/config/doc.go</code></td>
+      <td>config 패키지 문서</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">internal/endpoints/doc.go</code></td>
+      <td>endpoints 패키지 문서</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>개선된 메서드 문서</strong></p>
+
+<ul>
+  <li>History() - 파라미터 및 예제 추가</li>
+  <li>HistoryPeriod() - valid periods 설명 추가</li>
+  <li>HistoryRange() - 파라미터 설명 추가</li>
+  <li>Dividends(), Splits(), Actions() - 반환값 설명 추가</li>
+  <li>IncomeStatement(), BalanceSheet(), CashFlow() - 예제 및 필드 설명 추가</li>
+</ul>
+
+<p><strong>CI/CD 동작 방식</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">docs.yml</code>: pkg/<em>*/</em>.go 또는 internal/<em>*/</em>.go 변경 시 → gomarkdoc 실행 → docs/API.md 자동 업데이트 및 커밋</li>
+  <li><code class="language-plaintext highlighter-rouge">test.yml</code>: PR/push 시 → 테스트 실행, 커버리지 업로드, golangci-lint 실행</li>
+</ul>
+
+<p><strong>문서 확인 방법</strong></p>
+
+<ul>
+  <li><a href="https://github.com/wnjoon/go-yfinance/blob/main/docs/API.md">API.md</a></li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 네번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #3</title><link href="http://localhost:4000/2025/12/19/go-yfinance-2/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #3" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-2</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-2/"><![CDATA[<h2 id="yfinance와-일치하고-있을까">yfinance와 일치하고 있을까?</h2>
+
+<p>제가 go-yfinance를 구현하는 목적은 Go로 작성된 Yahoo Finance 라이브러리가 없기 때문입니다. 무식해 보일수도 있지만, 불과 얼마전까지만 해도 Python으로 구현된 yfinance를 서버로 구현해서 API 호출을 통해 결과를 받는 경우도 있었습니다. 물론 그 당시에도 Go로 컨버팅된 라이브러리를 만들 수 있었을겁니다. 다만 하나씩 분석하고 구현하는데 꽤 오랜 시간이 걸렸을테죠.</p>
+
+<p>지금은 AI를 가지고 몇달이 걸릴 일을 몇일만에 해낼 수 있게 되었습니다. 지금 제가 진행하고 있는 go-yfinance도 마찬가지입니다. 이미 너무나 잘 구현되어 있는 yfinance 라이브러리를 Claude Code에게 학습시키고, Go로 컨버팅 가능한지 확인한 후 단계별로 작업을 진행하고 있습니다.</p>
+
+<p>오늘도 ‘실용적인 수준으로 사용 가능한 범위(~Phase 4)’를 구현하도록 가이드했고, <a href="https://wnjoon.github.io/2025/12/19/go-yfinance-1/">블로그 글</a>도 작성했습니다. 그런데 문득 이런 궁금증이 생겼습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: go-yfinance에서 제공하는 메소드, 파라미터, 그리고 결과값이 yfinance와 동일하게 지원되고 있을까?</em></p>
+
+<p><br /></p>
+
+<p>사실 꽤 중요한 부분이었습니다. 왜냐하면 제 목적은 <strong>yfinance를 익숙하게 사용하던 개발자들이, Go를 사용하더라도 동일한 방식으로 함수를 사용할 수 있도록 하는 것</strong>이기 때문입니다. 어떠한 메소드가 있는지, 그리고 어떻게 호출해야 하는지 다시 학습해야 한다거나, 메소드를 호출했을 때의 결과가 어떻게 나올지 다시 알아야 하는 등의 수고로움이 없어야 한다고 생각했습니다.</p>
+
+<p>그래서 나머지 Phase를 구현하기 전에, Claude Code에게 질문했습니다.</p>
+
+<p><br /></p>
+
+<p><em>👨🏻‍💻: 지금까지 작성된 go-yfinance에서 제공하는 메소드, 파라미터, 그리고 결과값의 구조가 python의 yfinance에서 제공하는것과 동일한지 확인해줘. 사용자의 혼란을 줄이기 위해서는 사용되는 언어만 다르고 나머지는 모두 동일해야 할 것 같거든? 언어의 특성상 Public/Private 메소드의 차이로 인한 대소문자 구분 정도만 제외하고 나머지가 모두 동일한지 한번 검토해줘. ultrathink.</em></p>
+
+<p><br /></p>
+
+<h2 id="python-yfinance와-go-go-yfinance-분석-결과">Python yfinance와 Go go-yfinance 분석 결과</h2>
+
+<p>다행이도 대부분이 일치하는 상태로 확인되었지만, 일부 달라진 부분이 있었습니다.</p>
+
+<h3 id="메서드-이름-불일치">메서드 이름 불일치</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>기능</th>
       <th>Python yfinance</th>
       <th>Go go-yfinance</th>
-      <th>Recommended Fix</th>
+      <th>권장 수정</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>History</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.history(...)</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.History(params)</code></td>
-      <td>✅ OK (Case difference only)</td>
+      <td>ticker.History(params)</td>
+      <td>✅ OK (대소문자만 다름)</td>
     </tr>
     <tr>
       <td>Financials (income)</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.income_stmt / get_income_stmt(freq="quarterly")</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.IncomeStatement(freq)</code></td>
-      <td>⚠️ Python uses income_stmt</td>
+      <td>⚠️ Python은 income_stmt</td>
     </tr>
     <tr>
       <td>Financials (balance)</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.balance_sheet / get_balance_sheet()</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.BalanceSheet(freq)</code></td>
-      <td>⚠️ Python uses balance_sheet</td>
+      <td>⚠️ Python은 balance_sheet</td>
     </tr>
     <tr>
       <td>Financials (cashflow)</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.cash_flow / get_cash_flow()</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.CashFlow(freq)</code></td>
-      <td>⚠️ Python uses cash_flow</td>
+      <td>⚠️ Python은 cash_flow</td>
     </tr>
     <tr>
       <td>Options list</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.options (property, tuple)</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.Options() (method, []time.Time)</code></td>
-      <td>⚠️ Python uses property</td>
+      <td>⚠️ Python은 property</td>
     </tr>
     <tr>
       <td>Option chain</td>
@@ -2161,7 +3508,7 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
       <td>Price target</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.analyst_price_targets</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.PriceTarget()</code></td>
-      <td>⚠️ Name mismatch</td>
+      <td>⚠️ 이름 불일치</td>
     </tr>
     <tr>
       <td>Recommendations</td>
@@ -2173,25 +3520,25 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
       <td>EPS Trend</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.eps_trend</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.EPSTrend()</code></td>
-      <td>⚠️ Underscore vs CamelCase</td>
+      <td>⚠️ 언더스코어 vs CamelCase</td>
     </tr>
     <tr>
       <td>EPS Revisions</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.eps_revisions</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.EPSRevisions()</code></td>
-      <td>⚠️ Underscore vs CamelCase</td>
+      <td>⚠️ 언더스코어 vs CamelCase</td>
     </tr>
     <tr>
       <td>Earnings Estimate</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.earnings_estimate</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.EarningsEstimates()</code></td>
-      <td>⚠️ Singular vs Plural</td>
+      <td>⚠️ 단수 vs 복수</td>
     </tr>
     <tr>
       <td>Revenue Estimate</td>
       <td><code class="language-plaintext highlighter-rouge">ticker.revenue_estimate</code></td>
       <td><code class="language-plaintext highlighter-rouge">ticker.RevenueEstimates()</code></td>
-      <td>⚠️ Singular vs Plural</td>
+      <td>⚠️ 단수 vs 복수</td>
     </tr>
     <tr>
       <td>Earnings History</td>
@@ -2208,16 +3555,16 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
   </tbody>
 </table>
 
-<h3 id="parameter-name-mismatches">Parameter Name Mismatches</h3>
+<h3 id="파라미터-이름-불일치">파라미터 이름 불일치</h3>
 
-<p><strong>History Method</strong></p>
+<p><strong>History 메서드</strong></p>
 
 <table>
   <thead>
     <tr>
-      <th>Python Parameter</th>
-      <th>Go Parameter</th>
-      <th>Mismatch</th>
+      <th>Python 파라미터</th>
+      <th>Go 파라미터</th>
+      <th>불일치</th>
     </tr>
   </thead>
   <tbody>
@@ -2264,39 +3611,39 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
     <tr>
       <td>keepna</td>
       <td>KeepNA</td>
-      <td>⚠️ Python: keepna (lowercase)</td>
+      <td>⚠️ Python: keepna (소문자)</td>
     </tr>
     <tr>
       <td>back_adjust</td>
-      <td>❌ None</td>
-      <td>⚠️ Missing in Go</td>
+      <td>❌ 없음</td>
+      <td>⚠️ Go에 없음</td>
     </tr>
     <tr>
       <td>rounding</td>
-      <td>❌ None</td>
-      <td>⚠️ Missing in Go</td>
+      <td>❌ 없음</td>
+      <td>⚠️ Go에 없음</td>
     </tr>
     <tr>
       <td>timeout</td>
-      <td>❌ None</td>
-      <td>⚠️ Missing in Go (Set via Config)</td>
+      <td>❌ 없음</td>
+      <td>⚠️ Go에 없음 (Config에서 설정)</td>
     </tr>
     <tr>
       <td>raise_errors</td>
-      <td>❌ None</td>
-      <td>⚠️ Go uses error return</td>
+      <td>❌ 없음</td>
+      <td>⚠️ Go는 error 반환 방식 사용</td>
     </tr>
   </tbody>
 </table>
 
-<p><strong>Financials Method</strong></p>
+<p><strong>Financials 메서드</strong></p>
 
 <table>
   <thead>
     <tr>
-      <th>Python Parameter</th>
-      <th>Go Parameter</th>
-      <th>Mismatch</th>
+      <th>Python 파라미터</th>
+      <th>Go 파라미터</th>
+      <th>불일치</th>
     </tr>
   </thead>
   <tbody>
@@ -2317,27 +3664,27 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
     </tr>
     <tr>
       <td>pretty=True</td>
-      <td>❌ None</td>
-      <td>⚠️ Missing in Go</td>
+      <td>❌ 없음</td>
+      <td>⚠️ Go에 없음</td>
     </tr>
     <tr>
       <td>as_dict=False</td>
-      <td>❌ None</td>
-      <td>⚠️ Go returns struct</td>
+      <td>❌ 없음</td>
+      <td>⚠️ Go는 struct 반환</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="return-value-structure-mismatches">Return Value Structure Mismatches</h3>
+<h3 id="반환값-구조-불일치">반환값 구조 불일치</h3>
 
-<p><strong>History Return Value</strong></p>
+<p><strong>History 반환값</strong></p>
 
 <table>
   <thead>
     <tr>
       <th>Python</th>
       <th>Go</th>
-      <th>Mismatch</th>
+      <th>불일치</th>
     </tr>
   </thead>
   <tbody>
@@ -2347,31 +3694,31 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
       <td>⚠️ DataFrame vs Slice</td>
     </tr>
     <tr>
-      <td>Columns: Open, High, Low, Close, Adj Close, Volume</td>
-      <td>Fields: Open, High, Low, Close, AdjClose, Volume</td>
+      <td>컬럼: Open, High, Low, Close, Adj Close, Volume</td>
+      <td>필드: Open, High, Low, Close, AdjClose, Volume</td>
       <td>⚠️ Adj Close vs AdjClose</td>
     </tr>
     <tr>
-      <td>Columns: Dividends, Stock Splits</td>
-      <td>Fields: Dividends, Splits</td>
+      <td>컬럼: Dividends, Stock Splits</td>
+      <td>필드: Dividends, Splits</td>
       <td>⚠️ Stock Splits vs Splits</td>
     </tr>
     <tr>
       <td>Index: DatetimeIndex</td>
-      <td>Field: Date time.Time</td>
-      <td>⚠️ Index vs Field</td>
+      <td>필드: Date time.Time</td>
+      <td>⚠️ Index vs 필드</td>
     </tr>
   </tbody>
 </table>
 
-<p><strong>Options Return Value</strong></p>
+<p><strong>Options 반환값</strong></p>
 
 <table>
   <thead>
     <tr>
       <th>Python</th>
       <th>Go</th>
-      <th>Mismatch</th>
+      <th>불일치</th>
     </tr>
   </thead>
   <tbody>
@@ -2388,21 +3735,21 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
   </tbody>
 </table>
 
-<p><strong>Financials Return Value</strong></p>
+<p><strong>Financials 반환값</strong></p>
 
 <table>
   <thead>
     <tr>
       <th>Python</th>
       <th>Go</th>
-      <th>Mismatch</th>
+      <th>불일치</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>pd.DataFrame (rows=fields, cols=dates)</td>
       <td>FinancialStatement (map[field][]items)</td>
-      <td>⚠️ Different structure</td>
+      <td>⚠️ 구조 다름</td>
     </tr>
     <tr>
       <td>Index: camelCase field names</td>
@@ -2412,19 +3759,19 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
     <tr>
       <td>Columns: pd.DatetimeIndex</td>
       <td>Dates []time.Time</td>
-      <td>⚠️ Different access method</td>
+      <td>⚠️ 접근 방식 다름</td>
     </tr>
   </tbody>
 </table>
 
-<p><strong>FastInfo Return Value</strong></p>
+<p><strong>FastInfo 반환값</strong></p>
 
 <table>
   <thead>
     <tr>
-      <th>Python Key</th>
-      <th>Go Field</th>
-      <th>Mismatch</th>
+      <th>Python 키</th>
+      <th>Go 필드</th>
+      <th>불일치</th>
     </tr>
   </thead>
   <tbody>
@@ -2496,1868 +3843,144 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
   </tbody>
 </table>
 
-<h2 id="planning-corrections-for-mismatches">Planning Corrections for Mismatches</h2>
+<h2 id="불일치하는-부분-수정할-계획-세우기">불일치하는 부분 수정할 계획 세우기</h2>
 
-<p>Claude Code prioritized the mismatched parts and listed them in order of importance.</p>
+<p>Claude Code는 불일치한 부분들을 정리해서, 중요도 순으로 나열해주었습니다.</p>
 
-<p><strong>High Priority (API Compatibility)</strong></p>
+<p><strong>높은 우선순위 (API 호환성)</strong></p>
 
 <ul>
-  <li>Financials <code class="language-plaintext highlighter-rouge">freq</code> parameter: Need to unify “yearly” → “annual”
+  <li>Financials freq 파라미터: “yearly” → “annual” 통일 필요
     <ul>
-      <li>Python: <code class="language-plaintext highlighter-rouge">get_income_stmt(freq="yearly")</code> is the default</li>
-      <li>Go: Currently uses “annual”</li>
-      <li>Recommendation: Map “yearly” to “annual” in Go as well</li>
+      <li>Python: <code class="language-plaintext highlighter-rouge">get_income_stmt(freq="yearly")</code> 가 기본값</li>
+      <li>Go: “annual” 사용 중</li>
+      <li>권장: Go에서 “yearly”도 “annual”로 매핑하도록 수정</li>
     </ul>
   </li>
-  <li>Method Name Consistency
+  <li>메서드 이름 일관성
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">PriceTarget()</code> → <code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code> (Matches Python)</li>
-      <li><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code> → <code class="language-plaintext highlighter-rouge">EarningsEstimate()</code> (Singular)</li>
-      <li><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code> → <code class="language-plaintext highlighter-rouge">RevenueEstimate()</code> (Singular)</li>
+      <li><code class="language-plaintext highlighter-rouge">PriceTarget()</code> → <code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code> (Python과 일치)</li>
+      <li><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code> → <code class="language-plaintext highlighter-rouge">EarningsEstimate()</code> (단수형)</li>
+      <li><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code> → <code class="language-plaintext highlighter-rouge">RevenueEstimate()</code> (단수형)</li>
     </ul>
   </li>
 </ul>
 
-<p><strong>Medium Priority (Convenience)</strong></p>
+<p><strong>중간 우선순위 (편의성)</strong></p>
 
 <ul>
-  <li>Add History Parameters
+  <li>History 파라미터 추가
     <ul>
-      <li>Add <code class="language-plaintext highlighter-rouge">BackAdjust bool</code></li>
-      <li>Add <code class="language-plaintext highlighter-rouge">Rounding bool</code></li>
+      <li><code class="language-plaintext highlighter-rouge">BackAdjust bool</code> 추가</li>
+      <li><code class="language-plaintext highlighter-rouge">Rounding bool</code> 추가</li>
     </ul>
   </li>
-  <li>Bar Field Names
+  <li>Bar 필드 이름
     <ul>
-      <li>Consider adding <code class="language-plaintext highlighter-rouge">adj_close</code> or <code class="language-plaintext highlighter-rouge">adjclose</code> to JSON tags for <code class="language-plaintext highlighter-rouge">AdjClose</code></li>
-      <li>Consider adding <code class="language-plaintext highlighter-rouge">StockSplits</code> (alias) for <code class="language-plaintext highlighter-rouge">Splits</code></li>
+      <li><code class="language-plaintext highlighter-rouge">AdjClose</code> → JSON tag에 <code class="language-plaintext highlighter-rouge">adj_close</code> 또는 <code class="language-plaintext highlighter-rouge">adjclose</code> 추가 고려</li>
+      <li><code class="language-plaintext highlighter-rouge">Splits</code> → <code class="language-plaintext highlighter-rouge">StockSplits</code> 추가 고려 (alias)</li>
     </ul>
   </li>
 </ul>
 
-<p><strong>Low Priority (Language Conventions)</strong></p>
+<p><strong>낮은 우선순위 (언어 관례)</strong></p>
 
 <ul>
-  <li>Maintain Go Language Conventions
+  <li>Go 언어 관례 유지
     <ul>
-      <li>Keep CamelCase method names (Go Standard)</li>
-      <li>Keep using Methods instead of Properties (Go Standard)</li>
-      <li>Keep returning structs (Go has no DataFrame)</li>
+      <li>CamelCase 메서드명 유지 (Go 표준)</li>
+      <li>Property 대신 Method 사용 유지 (Go 표준)</li>
+      <li>struct 반환 유지 (Go는 DataFrame 없음)</li>
     </ul>
   </li>
 </ul>
 
-<p>I confirmed that while core features mostly match, parameter values (freq=”yearly” vs “annual”) and some method names were inconsistent. Also, since the DataFrame structure provided by Python cannot be used in Go, I had to use Struct/Slice structures instead.</p>
+<p>핵심기능은 대부분 일치하나, 파라미터 값(freq=”yearly” vs “annual”)이 다른 점과 일부 메소드 이름이 일치하지 않다는 것을 확인했습니다. 그리고 Python에서 제공하는 DataFrame 구조를 Go에서 사용할 수 없기 때문에, 대신 Struct/Slice 구조를 사용할 수 밖에 없었습니다.</p>
 
 <table>
   <thead>
     <tr>
-      <th>Category</th>
-      <th>Match</th>
-      <th>Mismatch</th>
-      <th>Needs Fix</th>
+      <th>카테고리</th>
+      <th>일치</th>
+      <th>불일치</th>
+      <th>수정 필요</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Method Names</td>
+      <td>메서드 이름</td>
       <td>8</td>
       <td>6</td>
-      <td>3 Recommended</td>
+      <td>3개 권장</td>
     </tr>
     <tr>
-      <td>Parameter Names</td>
+      <td>파라미터 이름</td>
       <td>6</td>
       <td>6</td>
-      <td>1 Mandatory</td>
+      <td>1개 필수</td>
     </tr>
     <tr>
-      <td>Return Value Structure</td>
+      <td>반환값 구조</td>
       <td>-</td>
-      <td>4 types different</td>
-      <td>Inevitable due to Go characteristics</td>
+      <td>4개 타입 다름</td>
+      <td>Go 언어 특성상 불가피</td>
     </tr>
     <tr>
-      <td>Field Names</td>
-      <td>Mostly match</td>
-      <td>2-3</td>
-      <td>Optional</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="implementation-results">Implementation Results</h2>
-
-<h3 id="summary-of-changes">Summary of Changes</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Change</th>
-      <th>File</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Support <code class="language-plaintext highlighter-rouge">freq="yearly"</code></td>
-      <td>financials.go</td>
-      <td>Maps “yearly” to “annual” to match Python yfinance</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code></td>
-      <td>analysis.go</td>
-      <td>Matches Python’s <code class="language-plaintext highlighter-rouge">analyst_price_targets</code></td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EarningsEstimate()</code></td>
-      <td>analysis.go</td>
-      <td>Matches Python’s <code class="language-plaintext highlighter-rouge">earnings_estimate</code> (Singular)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">RevenueEstimate()</code></td>
-      <td>analysis.go</td>
-      <td>Matches Python’s <code class="language-plaintext highlighter-rouge">revenue_estimate</code> (Singular)</td>
-    </tr>
-    <tr>
-      <td>Add Tests</td>
-      <td>financials_test.go</td>
-      <td>Added <code class="language-plaintext highlighter-rouge">TestNormalizeFrequency</code></td>
+      <td>필드 이름</td>
+      <td>대부분 일치</td>
+      <td>2-3개</td>
+      <td>선택적</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="backward-compatibility">Backward Compatibility</h3>
+<h2 id="작업-결과">작업 결과</h2>
 
-<p>Existing methods were kept as deprecated aliases to ensure they continue to work.</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">PriceTarget()</code> → Calls <code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code></li>
-  <li><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code> → Calls <code class="language-plaintext highlighter-rouge">EarningsEstimate()</code></li>
-  <li><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code> → Calls <code class="language-plaintext highlighter-rouge">RevenueEstimate()</code></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[The third post covering the story of building a Go version of the yahoo finance library based on the Python yfinance library using Claude Code.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #2</title><link href="http://localhost:4000/2025/12/19/go-yfinance-1/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #2" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-1</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-1/"><![CDATA[<h2 id="실용적-수준을-구현하기-전에-cycletls를-이용한-인증-우회-테스트를-해보자">실용적 수준을 구현하기 전에, CycleTLS를 이용한 인증 우회 테스트를 해보자.</h2>
-
-<p><a href="https://wnjoon.github.io/2025/12/17/go-yfinance-0/">이전 포스팅 ‘Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #1’</a>에서 작성했던 것 처럼, Claude Code가 제시한 Go 기반의 yfinance 라이브러리는 크게 3단계의 Phase로 구성되어 있습니다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MVP (최소 실행 가능 제품)
-- Phase 0 + Phase 1 = ~1,100줄
-- 기본적인 가격 조회 가능
-
-실용적 수준
-- Phase 0~4 = ~2,300줄
-- 대부분의 투자 분석 가능
-
-Python yfinance 동등
-- Phase 0~7 = ~3,500줄
-- 거의 모든 기능 사용 가능
-</code></pre></div></div>
-
-<p>지난번에 MVP 단계를 구현했기 때문에, 이제는 실용적 단계의 구현을 요청하려고 했는데요. 그전에 과연 CycleTLS를 사용해서 Yahoo Finance 인증과정에서의 우회가 정상적으로 일어나고 있는지 먼저 확인해야할 것 같았습니다. Phase1에서 구현해준 샘플 코드에서는 애플(AAPL)이라는 단기 종목에 대한 조회만 하고 있었는데, 그것보다는 더 많은 양을 조회해봐야 할 것 같더라구요.</p>
-
-<p>그래서 Gemini에게 아래와 같이 질문했습니다.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: CycleTLS를 사용해서 Yahoo Finance로의 호출이 정상적으로 우회되는지 확인하려면 최소 몇회 정도의 종목 조회를 동시에 호출해보면 좋을까?</em></p>
-
-<p><em>🤖: … 동시 요청(Concurrency) 10개, 총 50개 조회로 시작해보세요. 모두 성공한다면 동시 요청을 20개, 30개로 늘리면서 429 에러가 뜨는 임계점을 찾으시면 됩니다.</em></p>
-
-<p><br /></p>
-
-<p>Gemini는 Yahoo Finance 입장에서 DDoS 공격이나 비정상적인 트래픽으로 간주할 수 있는 상황을 피하기 위해 동시 요청되는 갯수를 조절하라고 제안했습니다. 아마 작성하고 있는 코드가 하나의 어플리케이션이라고 인식하는 것 같았습니다.</p>
-
-<p>저의 목적은 Go로 Yahoo Finance를 호출할 수 있는 라이브러리를 구현하는 것이기 때문에, 도구 자체로의 기능만 제대로 구현하면 된다고 생각했습니다. 즉 Yahoo Finance에서 오류를 받지 않도록 하는 것은 이 라이브러리를 사용해서 어플리케이션을 구현하는 곳에서 제어할 문제고, 저는 단순히 호출하는 방식만 제대로 구현하면 되는 것이었습니다. 다만 CycleTLS를 사용해서 Yahoo Finance로의 호출을 우회해주는 기능만 추가하면 된다고 생각했죠.</p>
-
-<p>그래서 Gemini가 열심히 작성해준 답변을 살짝 무시하고, 최대 110개의 종목을 goroutine으로 동시에 호출해보았습니다. 이정도면 무리되지 않는 선에서 동시요청을 통한 정상적인 우회가 이루어지는지 확인할 수 있다고 생각했습니다. 결과는 아래와 같았습니다. 오류도 나지 않았고, 그렇게 좋지 않는 로컬의 성능(M3 Air, 16GB RAM)에서도 꽤나 준수한 속도로 동작한 것 같습니다.</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Parallel] Batch call completed <span class="k">in </span>3.332168875s <span class="k">for </span>110 symbols <span class="o">(</span>avg: 30.292444ms per symbol<span class="o">)</span>
-</code></pre></div></div>
-
-<p>위에서도 적었듯이, 몇개의 요청에 대해서 Yahoo Finance가 429 에러를 반환하는지를 확인하는 것은 저의 범위가 아니라고 생각했습니다. 그래서 더이상 테스트는 하지 않았는데요, 향후에는 110개의 종목을 짧은 시간차를 두고 여러번 호출하는 방식으로 확인해보는 것도 나쁘지 않을 것 같았습니다.</p>
-
-<h2 id="구현-계획-세우기">구현 계획 세우기</h2>
-
-<p>실용적 수준 카테고리는 세부적으로 3개의 단계로 구성됩니다.</p>
-
-<p><strong>Phase 2: Options (옵션 데이터)</strong></p>
-
-<ul>
-  <li>API 엔드포인트: query2.finance.yahoo.com/v7/finance/options/{symbol}</li>
-  <li>구현 항목
-    <ul>
-      <li>Options(): 옵션 체인 조회 (콜/풋)</li>
-      <li>ExpirationDates(): 만기일 목록</li>
-      <li>옵션 모델 구조체: Call, Put, OptionChain</li>
-    </ul>
-  </li>
-  <li>예상 메서드
-    <ul>
-      <li>t.Options(): 모든 옵션 체인</li>
-      <li>t.OptionsAtExpiry(date): 특정 만기일 옵션</li>
-      <li>t.ExpirationDates(): 만기일 목록</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>Phase 3: Financials (재무제표)</strong></p>
-
-<ul>
-  <li>API 엔드포인트: query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}</li>
-  <li>구현 항목
-    <ul>
-      <li>IncomeStatement(): 손익계산서</li>
-      <li>BalanceSheet(): 재무상태표</li>
-      <li>CashFlow(): 현금흐름표</li>
-      <li>Annual / Quarterly 지원</li>
-    </ul>
-  </li>
-  <li>예상 메서드
-    <ul>
-      <li>t.IncomeStatement(annual bool): 손익계산서</li>
-      <li>t.BalanceSheet(annual bool): 재무상태표</li>
-      <li>t.CashFlow(annual bool): 현금흐름표</li>
-      <li>t.Financials(): 전체 재무제표</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>Phase 4: Analysis (분석 데이터)</strong></p>
-
-<ul>
-  <li>API 엔드포인트: QuoteSummary API의 분석 모듈 사용
-    <ul>
-      <li>recommendationTrend, earningsTrend, earningsHistory 등</li>
-    </ul>
-  </li>
-  <li>구현 항목
-    <ul>
-      <li>Recommendations(): 애널리스트 추천</li>
-      <li>PriceTargets(): 목표가</li>
-      <li>EarningsEstimate(): 실적 예상</li>
-      <li>RevenueEstimate(): 매출 예상</li>
-      <li>GrowthEstimates(): 성장률 예상</li>
-    </ul>
-  </li>
-  <li>예상 메서드
-    <ul>
-      <li>t.Recommendations(): 매수/매도/보유 추천</li>
-      <li>t.PriceTargets(): 목표가 (현재/평균/고/저)</li>
-      <li>t.EarningsEstimate(): EPS 예상</li>
-      <li>t.RevenueEstimate(): 매출 예상</li>
-      <li>t.EarningsDates(): 실적 발표일</li>
-    </ul>
-  </li>
-</ul>
-
-<p>각각이 종속관계를 갖지 않는 내용이었기 때문에, 순서대로 개발해달라고 요청했습니다. 각 단계별로 세부적인 내용은 아래와 같습니다.</p>
-
-<ol>
-  <li>Phase 2 (Options): 단일 API 엔드포인트로 비교적 간단</li>
-  <li>Phase 3 (Financials): Timeseries API 파싱이 복잡하지만 핵심 기능</li>
-  <li>Phase 4 (Analysis): QuoteSummary 모듈 확장으로 Info 코드 재사용 가능</li>
-</ol>
-
-<p>그리고 지난번 포스팅에서 MVP 수준으로 개발을 요청할때에는, 제가 테스트 요구사항을 정확하게 명시하지 않았더라구요. 그러다보니 Claude Code가 제가 생각했던 것보단 간단한 수준의 테스트만 작성하고 넘어갔습니다. 그래서 이번에는 좀더 테스트를 꼼꼼하게 하고, 정확하게 구현되는지 하나씩 꼭 확인해달라고 요청했습니다.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: … STATUS.md에 진행과정 정확하게 표시해주고, 각 기능별로 테스트 꼼꼼하게 해서 정확하게 구현이 완료되는지 확인하면서 진행해줘.</em></p>
-
-<p><br /></p>
-
-<h2 id="todo-목록">TODO 목록</h2>
-
-<p>Claude Code에게 각 Phase별로 구현해야 할 목록을 꼼꼼하게 파악하고, 각 기능을 주제별로 묶어서 미리 TODO에 작성해서 단계별로 처리하고 검사하도록 요청했습니다. 아래는 각 Phase별로 Claude Code가 작성하고 관리한 TODO 목록입니다.</p>
-
-<p><strong>Phase 2: Options</strong></p>
-
-<ul>
-  <li>Create phase2/options branch from main</li>
-  <li>Implement Option models (option.go)</li>
-  <li>Implement Options methods in ticker package</li>
-  <li>Write unit tests for Options</li>
-  <li>Test with live API data</li>
-  <li>Merge to main and update STATUS.md</li>
-</ul>
-
-<p><strong>Phase 3: Financials</strong></p>
-
-<ul>
-  <li>Create phase3/financials branch from main</li>
-  <li>Research Yahoo Finance Financials API structure</li>
-  <li>Implement Financial models</li>
-  <li>Implement Financials methods in ticker package</li>
-  <li>Write unit tests for Financials</li>
-  <li>Test with live API data</li>
-  <li>Merge to main and update STATUS.md</li>
-</ul>
-
-<h2 id="구현-결과">구현 결과</h2>
-
-<h3 id="phase-2-options">Phase 2: Options</h3>
-
-<p><strong>구현 내용</strong></p>
+<h3 id="변경-사항-요약">변경 사항 요약</h3>
 
 <table>
   <thead>
     <tr>
-      <th>항목</th>
+      <th>변경 내용</th>
       <th>파일</th>
       <th>설명</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Option 모델</td>
-      <td><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code></td>
-      <td>Option, OptionQuote, OptionChain 구조체</td>
+      <td><code class="language-plaintext highlighter-rouge">freq="yearly"</code> 지원</td>
+      <td>financials.go</td>
+      <td>Python yfinance와 동일하게 “yearly”를 “annual”로 매핑</td>
     </tr>
     <tr>
-      <td>Options 메서드</td>
-      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code></td>
-      <td>Options(), OptionChain(), Strikes() 등</td>
+      <td><code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code></td>
+      <td>analysis.go</td>
+      <td>Python의 <code class="language-plaintext highlighter-rouge">analyst_price_targets</code>와 일치</td>
     </tr>
     <tr>
-      <td>유닛 테스트</td>
-      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options_test.go</code></td>
-      <td>캐시 및 구조체 테스트</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>사용 예시</strong></p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"AAPL"</span><span class="p">)</span>
-<span class="k">defer</span> <span class="n">t</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
-
-<span class="c">// 만기일 목록</span>
-<span class="n">expirations</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
-
-<span class="c">// 옵션 체인 (가장 가까운 만기)</span>
-<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
-
-<span class="c">// 특정 만기일 옵션 체인</span>
-<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">"2025-12-26"</span><span class="p">)</span>
-
-<span class="c">// 행사가 목록</span>
-<span class="n">strikes</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Strikes</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><strong>이슈 사항</strong></p>
-
-<p>개발 중간에 아래와 같은 이슈사항이 발생했습니다.</p>
-
-<p><br /></p>
-
-<p><em>🤖: <code class="language-plaintext highlighter-rouge">options.go</code>에서 Underlying이 이제 <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code> 타입이어야 합니다. 코드를 확인해보니 이미 <code class="language-plaintext highlighter-rouge">&amp;result.Quote</code>를 사용하고 있는데, <code class="language-plaintext highlighter-rouge">Quote</code> 타입이 <code class="language-plaintext highlighter-rouge">OptionQuote</code>로 변경되었으므로 자동으로 호환됩니다. 테스트 파일도 업데이트하고 <code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code>도 수정해야 합니다.</em></p>
-
-<p><br /></p>
-
-<p>기능을 추가하면서, 새로운 타입을 기존 코드에서 사용하던 타입에 적용해야 하는 부분이 생겼습니다. 이 부분도 Claude Code가 정확히 판단하고 수정했습니다.</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code> - OptionQuote 타입 추가 완료
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">OptionChain.Underlying</code>이 <code class="language-plaintext highlighter-rouge">*OptionQuote</code> 타입으로 변경됨</li>
-      <li><code class="language-plaintext highlighter-rouge">OptionChainResponse.Quote</code>도 <code class="language-plaintext highlighter-rouge">OptionQuote</code> 타입으로 변경됨</li>
-    </ul>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code> - 자동 호환
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">&amp;result.Quote</code>가 <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code>를 반환하므로 수정 불필요</li>
-    </ul>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code> - 테스트 후 임시 파일이라 삭제됨</li>
-</ul>
-
-<p><strong>라이브 테스트 결과</strong></p>
-
-<ul>
-  <li>Underlying Price: $271.84</li>
-  <li>Calls: 99</li>
-  <li>Puts: 91</li>
-</ul>
-
-<h3 id="phase-3-financials">Phase 3: Financials</h3>
-
-<p><strong>새로 추가된 파일</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/models/financials.go</code>: 재무제표 데이터 모델</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials.go</code>: 재무제표 API 메서드</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials_test.go</code>: 유닛 테스트</li>
-</ul>
-
-<p><strong>수정된 파일</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">internal/endpoints/endpoints.go</code>: 재무제표 키 상수 추가</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: financialsCache 필드 추가</li>
-</ul>
-
-<p><strong>구현된 API 메서드</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>메서드</th>
-      <th>설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">IncomeStatement(freq)</code></td>
-      <td>손익계산서 (annual/quarterly)</td>
+      <td><code class="language-plaintext highlighter-rouge">EarningsEstimate()</code></td>
+      <td>analysis.go</td>
+      <td>Python의 <code class="language-plaintext highlighter-rouge">earnings_estimate</code>와 일치 (단수형)</td>
     </tr>
     <tr>
-      <td><code class="language-plaintext highlighter-rouge">BalanceSheet(freq)</code></td>
-      <td>대차대조표 (annual/quarterly)</td>
+      <td><code class="language-plaintext highlighter-rouge">RevenueEstimate()</code></td>
+      <td>analysis.go</td>
+      <td>Python의 <code class="language-plaintext highlighter-rouge">revenue_estimate</code>와 일치 (단수형)</td>
     </tr>
     <tr>
-      <td><code class="language-plaintext highlighter-rouge">CashFlow(freq)</code></td>
-      <td>현금흐름표 (annual/quarterly)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">FinancialsJSON()</code></td>
-      <td>디버깅용 Raw JSON</td>
+      <td>테스트 추가</td>
+      <td>financials_test.go</td>
+      <td><code class="language-plaintext highlighter-rouge">TestNormalizeFrequency</code> 추가</td>
     </tr>
   </tbody>
 </table>
 
-<p><strong>라이브 테스트 결과 (AAPL)</strong></p>
+<h3 id="하위-호환성">하위 호환성</h3>
+
+<p>기존 메서드도 deprecated alias로 계속 동작하도록 유지했습니다.</p>
 
 <ul>
-  <li>Income Statement: 5 periods, 26 fields</li>
-  <li>Total Revenue: $416.16B</li>
-  <li>Net Income: $112.01B</li>
-  <li>Diluted EPS: $7.46</li>
-  <li>Balance Sheet: 4 periods, 34 fields</li>
-  <li>Total Assets: $359.24B</li>
-  <li>Total Debt: $98.66B</li>
-  <li>Cash Flow: 5 periods, 38 fields</li>
-  <li>Operating Cash Flow: $111.48B</li>
-  <li>Free Cash Flow: $98.77B</li>
-</ul>
-
-<h3 id="phase-4-analysis">Phase 4: Analysis</h3>
-
-<p><strong>새로 추가된 파일</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/models/analysis.go</code>: 분석 데이터 모델 (116 lines)</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis.go</code>: 분석 API 메서드 (664 lines)</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis_test.go</code>: 유닛 테스트 (196 lines)</li>
-</ul>
-
-<p><strong>수정된 파일</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: analysisCache 필드 추가</li>
-</ul>
-
-<p><strong>구현된 API 메서드</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>메서드</th>
-      <th>설명</th>
-      <th>소스 모듈</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
-      <td>애널리스트 추천</td>
-      <td>recommendationTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
-      <td>목표가</td>
-      <td>financialData</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
-      <td>실적 예상</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
-      <td>매출 예상</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
-      <td>EPS 추이</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
-      <td>EPS 수정</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
-      <td>실적 이력</td>
-      <td>earningsHistory</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
-      <td>성장 예상</td>
-      <td>industryTrend, sectorTrend, indexTrend</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>라이브 테스트 결과 (AAPL)</strong></p>
-
-<ul>
-  <li>Recommendations: 4 periods (StrongBuy=5, Buy=24, Hold=15, Sell=1, StrongSell=3)</li>
-  <li>Price Targets: Current=$272.19, Mean=$287.71, High=$350, Low=$215</li>
-  <li>Earnings Estimates: 4 periods (0q, +1q, 0y, +1y)</li>
-  <li>Revenue Estimates: 4 periods with growth rates</li>
-  <li>Earnings History: 4 quarters with surprise %</li>
-</ul>
-
-<p><strong>계획 대비 변경사항</strong></p>
-
-<p>원래 계획</p>
-
-<ul>
-  <li>Analyst Recommendations ✅</li>
-  <li>Price Targets ✅</li>
-  <li>Earnings Estimates ✅</li>
-  <li>Revenue Estimates ✅</li>
-  <li>EPS Trend/Revisions ✅</li>
-  <li>Growth Estimates ✅</li>
-</ul>
-
-<p>추가 구현</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">EarningsHistory()</code>: 과거 실적 대비 실제 결과 (surprise %) 제공</li>
-  <li>캐싱 시스템: earningsTrend 데이터를 한 번만 fetch하여 여러 메서드에서 재사용</li>
-</ul>
-
-<p>구조적 변경</p>
-
-<ul>
-  <li>초기 계획은 별도의 API 엔드포인트를 사용할 것으로 예상했으나, 실제로는 <code class="language-plaintext highlighter-rouge">quoteSummary</code> API의 여러 모듈을 조합하여 구현</li>
-  <li><code class="language-plaintext highlighter-rouge">getFloat</code> → <code class="language-plaintext highlighter-rouge">getFloat64</code> 함수명 통일 (<code class="language-plaintext highlighter-rouge">info.go</code>와 충돌 방지)</li>
-</ul>
-
-<h2 id="yfinance와의-중간-검증">yfinance와의 중간 검증</h2>
-
-<p>지금까지 개발된 내용이 yfinance에서 제공하는 기능 및 방법과 동일하게 구현되어 있는지 Claude Code에게 확인해보았습니다.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: 지금까지 구현된 모든 Phase들이 기존에 Python 기반의 yfinance에서 제공하는 모든 기능들을 정확하게 구현하고 있는지 다시한번 꼼꼼하게 확인해줘. ultrathink. 테스트가 필요하다면 진행해도 좋아.</em></p>
-
-<p><br /></p>
-
-<h3 id="검증-계획">검증 계획</h3>
-
-<p>Claude Code가 세운 TODO 목록입니다. 각 Phase별로 테스트를 진행하고, 최종적으로 Go Test를 진행한 후 차이점이 존재하는지 분석하는 순으로 진행합니다.</p>
-
-<ul>
-  <li>Compare Phase 0 (Foundation): HTTP Client, Auth, Errors, Config</li>
-  <li>Compare Phase 1 (Core Data): Quote, History, Info</li>
-  <li>Compare Phase 2 (Options): Options chain and expiration</li>
-  <li>Compare Phase 3 (Financials): Income, Balance, CashFlow</li>
-  <li>Compare Phase 4 (Analysis): Recommendations, Price Targets, Estimates</li>
-  <li>Run Go tests to verify all implementations</li>
-  <li>Report findings and identify any gaps</li>
-</ul>
-
-<h3 id="검증-결과">검증 결과</h3>
-
-<p><strong>Phase 0: Foundation</strong> (구현 완료)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python yfinance</th>
-      <th>Go 구현</th>
-      <th>상태</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>curl_cffi TLS fingerprint</td>
-      <td>CycleTLS (Chrome JA3)</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Cookie/Crumb auth</td>
-      <td>AuthManager (Basic + CSRF)</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Proxy 설정</td>
-      <td>Config.SetProxy()</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Timeout 설정</td>
-      <td>Config.SetTimeout()</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Error 처리</td>
-      <td>YFError with codes</td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Phase 1: Core Data</strong> (구현 완료)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 메서드</th>
-      <th>Go 메서드</th>
-      <th>상태</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.info</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Info()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.fast_info</code></td>
-      <td><code class="language-plaintext highlighter-rouge">FastInfo()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.history()</code></td>
-      <td><code class="language-plaintext highlighter-rouge">History()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.dividends</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Dividends()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.splits</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Splits()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.actions</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Actions()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Quote data</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Quote()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">History metadata</code></td>
-      <td><code class="language-plaintext highlighter-rouge">GetHistoryMetadata()</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Phase 2: Options</strong> (구현 완료)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 메서드</th>
-      <th>Go 메서드</th>
-      <th>상태</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.options</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Options()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.option_chain()</code></td>
-      <td><code class="language-plaintext highlighter-rouge">OptionChain()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Expiration dates</td>
-      <td><code class="language-plaintext highlighter-rouge">OptionChainAtExpiry()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Strike prices</td>
-      <td><code class="language-plaintext highlighter-rouge">Strikes()</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Phase 3: Financials</strong> (구현 완료)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 메서드</th>
-      <th>Go 메서드</th>
-      <th>상태</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.income_stmt</code></td>
-      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("annual")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_income_stmt</code></td>
-      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("quarterly")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.balance_sheet</code></td>
-      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("annual")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_balance_sheet</code></td>
-      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("quarterly")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.cash_flow</code></td>
-      <td><code class="language-plaintext highlighter-rouge">CashFlow("annual")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_cash_flow</code></td>
-      <td><code class="language-plaintext highlighter-rouge">CashFlow("quarterly")</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li>참고: Python의 <code class="language-plaintext highlighter-rouge">ttm_income_stmt</code>, <code class="language-plaintext highlighter-rouge">ttm_cash_flow</code> (trailing 12 months)는 Go에서 <code class="language-plaintext highlighter-rouge">freq="trailing"</code> 파라미터로 지원</li>
-</ul>
-
-<p><strong>Phase 4: Analysis</strong> (구현 완료)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 메서드</th>
-      <th>Go 메서드</th>
-      <th>상태</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.recommendations</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.analyst_price_targets</code></td>
-      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_estimate</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.revenue_estimate</code></td>
-      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.eps_trend</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.eps_revisions</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_history</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.growth_estimates</code></td>
-      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>미구현 기능 (Phase 5 이후 예정)</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 기능</th>
-      <th>Phase</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>major_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>institutional_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>mutualfund_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>insider_transactions</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>insider_purchases</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>insider_roster_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>calendar</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>sustainability</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>isin</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>news</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>earnings_dates</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>upgrades_downgrades</td>
-      <td>Phase 4 확장 가능</td>
-    </tr>
-    <tr>
-      <td>sec_filings</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>shares / shares_full</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>capital_gains</td>
-      <td>Phase 1 확장 가능</td>
-    </tr>
-    <tr>
-      <td>funds_data</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>live() WebSocket</td>
-      <td>Phase 8</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="평가">평가</h3>
-
-<ul>
-  <li>모든 핵심 기능(Quote, History, Options, Financials, Analysis) 완벽 구현</li>
-  <li>Python과 동일한 API 엔드포인트 사용</li>
-  <li>캐싱 전략 일관성 있게 적용</li>
-  <li>적절한 에러 처리 및 타입 안전성</li>
-  <li>38개 단위 테스트 모두 통과</li>
-</ul>
-
-<h3 id="개선-가능-사항">개선 가능 사항</h3>
-
-<ul>
-  <li>upgrades_downgrades: Python에서 <code class="language-plaintext highlighter-rouge">quote.py</code>의 <code class="language-plaintext highlighter-rouge">_quote</code> 데이터에서 가져옴 → Phase 4에 추가 가능</li>
-  <li>capital_gains: History API에서 이미 데이터 수신 중, 별도 메서드 추가 가능</li>
-  <li>TTM(Trailing Twelve Months) 재무제표: 현재 <code class="language-plaintext highlighter-rouge">freq="trailing</code> 지원됨</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 두번째 포스팅입니다.]]></summary></entry><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #2</title><link href="http://localhost:4000/2025/12/19/go-yfinance-1-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #2" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-1-en</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-1-en/"><![CDATA[<h2 id="before-implementing-the-practical-level-lets-test-authentication-bypass-using-cycletls">Before implementing the practical level, let’s test authentication bypass using CycleTLS.</h2>
-
-<p>As written in the <a href="https://wnjoon.github.io/2025/12/17/go-yfinance-0-en/">previous post ‘Building a Go Yahoo Finance Library with Claude Code #1’</a>, the Go-based yfinance library proposed by Claude Code consists of three major phases.</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MVP (Minimum Viable Product)
-- Phase 0 + Phase 1 = ~1,100 lines
-- Basic price lookup available
-
-Practical Level
-- Phase 0~4 = ~2,300 lines
-- Most investment analysis available
-
-Python yfinance Parity
-- Phase 0~7 = ~3,500 lines
-- Almost all features available
-</code></pre></div></div>
-
-<p>Since we implemented the MVP stage last time, I intended to request the implementation of the practical stage now. However, before that, I needed to confirm whether the bypass process in Yahoo Finance authentication using CycleTLS was working correctly. The sample code implemented in Phase 1 only queried a single ticker, Apple (AAPL). I felt it was necessary to test querying a larger volume to ensure stability.</p>
-
-<p>So, I asked Gemini the following:</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: To verify if calls to Yahoo Finance using CycleTLS are being successfully bypassed, what would be the minimum number of simultaneous ticker queries I should try?</em></p>
-
-<p><em>🤖: … Start with 10 concurrent requests and a total of 50 queries. If all succeed, increase the concurrency to 20 or 30 to find the threshold where 429 errors occur.</em></p>
-
-<p><br /></p>
-
-<p>Gemini suggested adjusting the number of concurrent requests to avoid situations where Yahoo Finance might consider the traffic as a DDoS attack or abnormal activity. It seemed to perceive the code I was writing as a single application.</p>
-
-<p>Since my goal is to implement a library that can call Yahoo Finance in Go, I believed I only needed to implement the function of the tool itself correctly. In other words, avoiding errors from Yahoo Finance is a control issue for the application that uses this library, and I simply needed to implement the calling method correctly. I just needed to add the function to bypass calls to Yahoo Finance using CycleTLS.</p>
-
-<p>So, I decided to slightly disregard Gemini’s well-crafted advice and tried calling up to 110 tickers simultaneously using goroutines. I thought this would be enough to verify if the bypass was working normally through concurrent requests without overloading the system. The results were as follows. No errors occurred, and it operated at a fairly decent speed even on a local environment with modest performance (M3 Air, 16GB RAM).</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Parallel] Batch call completed <span class="k">in </span>3.332168875s <span class="k">for </span>110 symbols <span class="o">(</span>avg: 30.292444ms per symbol<span class="o">)</span>
-</code></pre></div></div>
-
-<p>As mentioned above, verifying how many requests trigger a 429 error from Yahoo Finance was not within my scope. Therefore, I did not perform further testing. However, in the future, it might not be a bad idea to verify this by calling 110 tickers multiple times with short time intervals.</p>
-
-<h2 id="establishing-the-implementation-plan">Establishing the Implementation Plan</h2>
-
-<p>The “Practical Level” category is detailed into three specific phases.</p>
-
-<p><strong>Phase 2: Options (Option Data)</strong></p>
-
-<ul>
-  <li>API Endpoint: <code class="language-plaintext highlighter-rouge">query2.finance.yahoo.com/v7/finance/options/{symbol}</code></li>
-  <li>Implementation Items
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">Options()</code>: Option chain lookup (Call/Put)</li>
-      <li><code class="language-plaintext highlighter-rouge">ExpirationDates()</code>: List of expiration dates</li>
-      <li>Option Model Structs: Call, Put, OptionChain</li>
-    </ul>
-  </li>
-  <li>Expected Methods
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">t.Options()</code>: All option chains</li>
-      <li><code class="language-plaintext highlighter-rouge">t.OptionsAtExpiry(date)</code>: Option chain for a specific expiration date</li>
-      <li><code class="language-plaintext highlighter-rouge">t.ExpirationDates()</code>: List of expiration dates</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>Phase 3: Financials (Financial Statements)</strong></p>
-
-<ul>
-  <li>API Endpoint: <code class="language-plaintext highlighter-rouge">query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/{symbol}</code></li>
-  <li>Implementation Items
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">IncomeStatement()</code>: Income Statement</li>
-      <li><code class="language-plaintext highlighter-rouge">BalanceSheet()</code>: Balance Sheet</li>
-      <li><code class="language-plaintext highlighter-rouge">CashFlow()</code>: Cash Flow Statement</li>
-      <li>Annual / Quarterly support</li>
-    </ul>
-  </li>
-  <li>Expected Methods
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">t.IncomeStatement(annual bool)</code></li>
-      <li><code class="language-plaintext highlighter-rouge">t.BalanceSheet(annual bool)</code></li>
-      <li><code class="language-plaintext highlighter-rouge">t.CashFlow(annual bool)</code></li>
-      <li><code class="language-plaintext highlighter-rouge">t.Financials()</code>: All financial statements</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>Phase 4: Analysis (Analysis Data)</strong></p>
-
-<ul>
-  <li>API Endpoint: Uses analysis modules from QuoteSummary API
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">recommendationTrend</code>, <code class="language-plaintext highlighter-rouge">earningsTrend</code>, <code class="language-plaintext highlighter-rouge">earningsHistory</code>, etc.</li>
-    </ul>
-  </li>
-  <li>Implementation Items
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">Recommendations()</code>: Analyst recommendations</li>
-      <li><code class="language-plaintext highlighter-rouge">PriceTargets()</code>: Price targets</li>
-      <li><code class="language-plaintext highlighter-rouge">EarningsEstimate()</code>: Earnings estimates</li>
-      <li><code class="language-plaintext highlighter-rouge">RevenueEstimate()</code>: Revenue estimates</li>
-      <li><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code>: Growth rate estimates</li>
-    </ul>
-  </li>
-  <li>Expected Methods
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">t.Recommendations()</code>: Buy/Sell/Hold recommendations</li>
-      <li><code class="language-plaintext highlighter-rouge">t.PriceTargets()</code>: Price targets (Current/Mean/High/Low)</li>
-      <li><code class="language-plaintext highlighter-rouge">t.EarningsEstimate()</code>: EPS estimates</li>
-      <li><code class="language-plaintext highlighter-rouge">t.RevenueEstimate()</code>: Revenue estimates</li>
-      <li><code class="language-plaintext highlighter-rouge">t.EarningsDates()</code>: Earnings announcement dates</li>
-    </ul>
-  </li>
-</ul>
-
-<p>Since these phases do not have dependencies on each other, I requested development in sequential order.</p>
-
-<ol>
-  <li><strong>Phase 2 (Options):</strong> Relatively simple with a single API endpoint.</li>
-  <li><strong>Phase 3 (Financials):</strong> Parsing the Timeseries API is complex but it’s a core feature.</li>
-  <li><strong>Phase 4 (Analysis):</strong> Reusing Info code by extending the QuoteSummary module.</li>
-</ol>
-
-<p>Also, when I requested the MVP development in the last post, I hadn’t explicitly specified testing requirements. Consequently, Claude Code only wrote simple tests. This time, I requested thorough testing to ensure each function is implemented correctly.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: … Please explicitly mark the progress in STATUS.md, and for each function, perform thorough testing to ensure the implementation is complete and accurate as you proceed.</em></p>
-
-<p><br /></p>
-
-<h2 id="todo-list">TODO List</h2>
-
-<p>I asked Claude Code to carefully identify the list of items to implement for each Phase, group the functions by topic, write them in the TODO list in advance, and process/check them step by step. Below is the TODO list drafted and managed by Claude Code for each Phase.</p>
-
-<p><strong>Phase 2: Options</strong></p>
-
-<ul>
-  <li>Create phase2/options branch from main</li>
-  <li>Implement Option models (option.go)</li>
-  <li>Implement Options methods in ticker package</li>
-  <li>Write unit tests for Options</li>
-  <li>Test with live API data</li>
-  <li>Merge to main and update STATUS.md</li>
-</ul>
-
-<p><strong>Phase 3: Financials</strong></p>
-
-<ul>
-  <li>Create phase3/financials branch from main</li>
-  <li>Research Yahoo Finance Financials API structure</li>
-  <li>Implement Financial models</li>
-  <li>Implement Financials methods in ticker package</li>
-  <li>Write unit tests for Financials</li>
-  <li>Test with live API data</li>
-  <li>Merge to main and update STATUS.md</li>
-</ul>
-
-<h2 id="implementation-results">Implementation Results</h2>
-
-<h3 id="phase-2-options">Phase 2: Options</h3>
-
-<p><strong>Implementation Details</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>File</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Option Models</td>
-      <td><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code></td>
-      <td>Option, OptionQuote, OptionChain structs</td>
-    </tr>
-    <tr>
-      <td>Options Methods</td>
-      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code></td>
-      <td>Options(), OptionChain(), Strikes(), etc.</td>
-    </tr>
-    <tr>
-      <td>Unit Tests</td>
-      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/options_test.go</code></td>
-      <td>Cache and struct tests</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Usage Example</strong></p>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"AAPL"</span><span class="p">)</span>
-<span class="k">defer</span> <span class="n">t</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
-
-<span class="c">// List of expiration dates</span>
-<span class="n">expirations</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
-
-<span class="c">// Option chain (nearest expiration)</span>
-<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
-
-<span class="c">// Option chain for a specific date</span>
-<span class="n">chain</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">OptionChain</span><span class="p">(</span><span class="s">"2025-12-26"</span><span class="p">)</span>
-
-<span class="c">// List of strike prices</span>
-<span class="n">strikes</span><span class="p">,</span> <span class="n">_</span> <span class="o">:=</span> <span class="n">t</span><span class="o">.</span><span class="n">Strikes</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><strong>Issues Encountered</strong></p>
-
-<p>During development, the following issue occurred:</p>
-
-<p><br /></p>
-
-<p><em>🤖: The Underlying in <code class="language-plaintext highlighter-rouge">options.go</code> must now be of type <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code>. Checking the code, it is already using <code class="language-plaintext highlighter-rouge">&amp;result.Quote</code>, and since the <code class="language-plaintext highlighter-rouge">Quote</code> type has been changed to <code class="language-plaintext highlighter-rouge">OptionQuote</code>, it is automatically compatible. I need to update the test file and modify <code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code> as well.</em></p>
-
-<p><br /></p>
-
-<p>As features were added, a new type needed to be applied to parts where an existing type was used. Claude Code correctly identified this and made the necessary modifications.</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/models/option.go</code>: Added OptionQuote type
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">OptionChain.Underlying</code> changed to <code class="language-plaintext highlighter-rouge">*OptionQuote</code> type</li>
-      <li><code class="language-plaintext highlighter-rouge">OptionChainResponse.Quote</code> also changed to <code class="language-plaintext highlighter-rouge">OptionQuote</code> type</li>
-    </ul>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/options.go</code>: Automatic compatibility
-    <ul>
-      <li>No changes needed as <code class="language-plaintext highlighter-rouge">&amp;result.Quote</code> returns <code class="language-plaintext highlighter-rouge">*models.OptionQuote</code></li>
-    </ul>
-  </li>
-  <li><code class="language-plaintext highlighter-rouge">cmd/test_options/main.go</code>: Deleted as it was a temporary file after testing</li>
-</ul>
-
-<p><strong>Live Test Results</strong></p>
-
-<ul>
-  <li>Underlying Price: $271.84</li>
-  <li>Calls: 99</li>
-  <li>Puts: 91</li>
-</ul>
-
-<h3 id="phase-3-financials">Phase 3: Financials</h3>
-
-<p><strong>Newly Added Files</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/models/financials.go</code>: Financials data models</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials.go</code>: Financials API methods</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/financials_test.go</code>: Unit tests</li>
-</ul>
-
-<p><strong>Modified Files</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">internal/endpoints/endpoints.go</code>: Added Financials key constants</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: Added financialsCache field</li>
-</ul>
-
-<p><strong>Implemented API Methods</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">IncomeStatement(freq)</code></td>
-      <td>Income Statement (annual/quarterly)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">BalanceSheet(freq)</code></td>
-      <td>Balance Sheet (annual/quarterly)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">CashFlow(freq)</code></td>
-      <td>Cash Flow (annual/quarterly)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">FinancialsJSON()</code></td>
-      <td>Raw JSON for debugging</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Live Test Results (AAPL)</strong></p>
-
-<ul>
-  <li>Income Statement: 5 periods, 26 fields</li>
-  <li>Total Revenue: $416.16B</li>
-  <li>Net Income: $112.01B</li>
-  <li>Diluted EPS: $7.46</li>
-  <li>Balance Sheet: 4 periods, 34 fields</li>
-  <li>Total Assets: $359.24B</li>
-  <li>Total Debt: $98.66B</li>
-  <li>Cash Flow: 5 periods, 38 fields</li>
-  <li>Operating Cash Flow: $111.48B</li>
-  <li>Free Cash Flow: $98.77B</li>
-</ul>
-
-<h3 id="phase-4-analysis">Phase 4: Analysis</h3>
-
-<p><strong>Newly Added Files</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/models/analysis.go</code>: Analysis data models (116 lines)</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis.go</code>: Analysis API methods (664 lines)</li>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/analysis_test.go</code>: Unit tests (196 lines)</li>
-</ul>
-
-<p><strong>Modified Files</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">pkg/ticker/ticker.go</code>: Added analysisCache field</li>
-</ul>
-
-<p><strong>Implemented API Methods</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Description</th>
-      <th>Source Module</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
-      <td>Analyst recommendations</td>
-      <td>recommendationTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
-      <td>Price targets</td>
-      <td>financialData</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
-      <td>Earnings estimates</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
-      <td>Revenue estimates</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
-      <td>EPS trend</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
-      <td>EPS revisions</td>
-      <td>earningsTrend</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
-      <td>Earnings history</td>
-      <td>earningsHistory</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
-      <td>Growth estimates</td>
-      <td>industryTrend, sectorTrend, indexTrend</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Live Test Results (AAPL)</strong></p>
-
-<ul>
-  <li>Recommendations: 4 periods (StrongBuy=5, Buy=24, Hold=15, Sell=1, StrongSell=3)</li>
-  <li>Price Targets: Current=$272.19, Mean=$287.71, High=$350, Low=$215</li>
-  <li>Earnings Estimates: 4 periods (0q, +1q, 0y, +1y)</li>
-  <li>Revenue Estimates: 4 periods with growth rates</li>
-  <li>Earnings History: 4 quarters with surprise %</li>
-</ul>
-
-<p><strong>Changes vs Plan</strong></p>
-
-<p>Original Plan</p>
-
-<ul>
-  <li>Analyst Recommendations ✅</li>
-  <li>Price Targets ✅</li>
-  <li>Earnings Estimates ✅</li>
-  <li>Revenue Estimates ✅</li>
-  <li>EPS Trend/Revisions ✅</li>
-  <li>Growth Estimates ✅</li>
-</ul>
-
-<p>Additional Implementations</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">EarningsHistory()</code>: Provides actual results vs past estimates (surprise %)</li>
-  <li>Caching System: Fetches <code class="language-plaintext highlighter-rouge">earningsTrend</code> data once and reuses it across multiple methods</li>
-</ul>
-
-<p>Structural Changes</p>
-
-<ul>
-  <li>Initially expected to use separate API endpoints, but implemented by combining multiple modules of the <code class="language-plaintext highlighter-rouge">quoteSummary</code> API.</li>
-  <li>Unified function name <code class="language-plaintext highlighter-rouge">getFloat</code> → <code class="language-plaintext highlighter-rouge">getFloat64</code> (to avoid conflict with <code class="language-plaintext highlighter-rouge">info.go</code>).</li>
-</ul>
-
-<h2 id="intermediate-verification-with-yfinance">Intermediate Verification with yfinance</h2>
-
-<p>I asked Claude Code to verify if all the phases developed so far are implemented identically to the features and methods provided by the existing Python-based yfinance.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: Please double-check thoroughly that all Phases implemented so far accurately replicate all features provided by the existing Python-based yfinance. ultrathink. You may proceed with tests if necessary.</em></p>
-
-<p><br /></p>
-
-<h3 id="verification-plan">Verification Plan</h3>
-
-<p>This is the TODO list set up by Claude Code. It plans to test each Phase, run Go Tests, and finally analyze any discrepancies.</p>
-
-<ul>
-  <li>Compare Phase 0 (Foundation): HTTP Client, Auth, Errors, Config</li>
-  <li>Compare Phase 1 (Core Data): Quote, History, Info</li>
-  <li>Compare Phase 2 (Options): Options chain and expiration</li>
-  <li>Compare Phase 3 (Financials): Income, Balance, CashFlow</li>
-  <li>Compare Phase 4 (Analysis): Recommendations, Price Targets, Estimates</li>
-  <li>Run Go tests to verify all implementations</li>
-  <li>Report findings and identify any gaps</li>
-</ul>
-
-<h3 id="verification-results">Verification Results</h3>
-
-<p><strong>Phase 0: Foundation</strong> (Completed)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python yfinance</th>
-      <th>Go Implementation</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>curl_cffi TLS fingerprint</td>
-      <td>CycleTLS (Chrome JA3)</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Cookie/Crumb auth</td>
-      <td>AuthManager (Basic + CSRF)</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Proxy settings</td>
-      <td>Config.SetProxy()</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Timeout settings</td>
-      <td>Config.SetTimeout()</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Error handling</td>
-      <td>YFError with codes</td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Phase 1: Core Data</strong> (Completed)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python Method</th>
-      <th>Go Method</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.info</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Info()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.fast_info</code></td>
-      <td><code class="language-plaintext highlighter-rouge">FastInfo()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.history()</code></td>
-      <td><code class="language-plaintext highlighter-rouge">History()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.dividends</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Dividends()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.splits</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Splits()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.actions</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Actions()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">Quote data</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Quote()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">History metadata</code></td>
-      <td><code class="language-plaintext highlighter-rouge">GetHistoryMetadata()</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Phase 2: Options</strong> (Completed)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python Method</th>
-      <th>Go Method</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.options</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Options()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.option_chain()</code></td>
-      <td><code class="language-plaintext highlighter-rouge">OptionChain()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Expiration dates</td>
-      <td><code class="language-plaintext highlighter-rouge">OptionChainAtExpiry()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Strike prices</td>
-      <td><code class="language-plaintext highlighter-rouge">Strikes()</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Phase 3: Financials</strong> (Completed)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python Method</th>
-      <th>Go Method</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.income_stmt</code></td>
-      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("annual")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_income_stmt</code></td>
-      <td><code class="language-plaintext highlighter-rouge">IncomeStatement("quarterly")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.balance_sheet</code></td>
-      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("annual")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_balance_sheet</code></td>
-      <td><code class="language-plaintext highlighter-rouge">BalanceSheet("quarterly")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.cash_flow</code></td>
-      <td><code class="language-plaintext highlighter-rouge">CashFlow("annual")</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.quarterly_cash_flow</code></td>
-      <td><code class="language-plaintext highlighter-rouge">CashFlow("quarterly")</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li>Note: Python’s <code class="language-plaintext highlighter-rouge">ttm_income_stmt</code> and <code class="language-plaintext highlighter-rouge">ttm_cash_flow</code> (trailing 12 months) are supported in Go via the <code class="language-plaintext highlighter-rouge">freq="trailing"</code> parameter.</li>
-</ul>
-
-<p><strong>Phase 4: Analysis</strong> (Completed)</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python Method</th>
-      <th>Go Method</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.recommendations</code></td>
-      <td><code class="language-plaintext highlighter-rouge">Recommendations()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.analyst_price_targets</code></td>
-      <td><code class="language-plaintext highlighter-rouge">PriceTarget()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_estimate</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.revenue_estimate</code></td>
-      <td><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.eps_trend</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EPSTrend()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.eps_revisions</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EPSRevisions()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_history</code></td>
-      <td><code class="language-plaintext highlighter-rouge">EarningsHistory()</code></td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">ticker.growth_estimates</code></td>
-      <td><code class="language-plaintext highlighter-rouge">GrowthEstimates()</code></td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Unimplemented Features (Scheduled for Phase 5 and beyond)</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python Feature</th>
-      <th>Phase</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>major_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>institutional_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>mutualfund_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>insider_transactions</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>insider_purchases</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>insider_roster_holders</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>calendar</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>sustainability</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>isin</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>news</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>earnings_dates</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>upgrades_downgrades</td>
-      <td>Expandable in Phase 4</td>
-    </tr>
-    <tr>
-      <td>sec_filings</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>shares / shares_full</td>
-      <td>Phase 5</td>
-    </tr>
-    <tr>
-      <td>capital_gains</td>
-      <td>Expandable in Phase 1</td>
-    </tr>
-    <tr>
-      <td>funds_data</td>
-      <td>Phase 9</td>
-    </tr>
-    <tr>
-      <td>live() WebSocket</td>
-      <td>Phase 8</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="evaluation">Evaluation</h3>
-
-<ul>
-  <li>All core features (Quote, History, Options, Financials, Analysis) are perfectly implemented.</li>
-  <li>Uses the same API endpoints as Python.</li>
-  <li>Caching strategy applied consistently.</li>
-  <li>Appropriate error handling and type safety.</li>
-  <li>All 38 unit tests passed.</li>
-</ul>
-
-<h3 id="areas-for-improvement">Areas for Improvement</h3>
-
-<ul>
-  <li><strong>upgrades_downgrades:</strong> Fetched from <code class="language-plaintext highlighter-rouge">_quote</code> data in Python’s <code class="language-plaintext highlighter-rouge">quote.py</code> → Can be added to Phase 4.</li>
-  <li><strong>capital_gains:</strong> Data already being received in History API, can add a separate method.</li>
-  <li><strong>TTM (Trailing Twelve Months) Financials:</strong> Currently supported via <code class="language-plaintext highlighter-rouge">freq="trailing"</code>.</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[The second post covering the story of building a Go version of the yahoo finance library based on the Python yfinance library using Claude Code.]]></summary></entry><entry xml:lang="en"><title type="html">Building a Go Yahoo Finance Library with Claude Code #4</title><link href="http://localhost:4000/2025/12/19/go-yfinance-3-en/" rel="alternate" type="text/html" title="Building a Go Yahoo Finance Library with Claude Code #4" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-3-en</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-3-en/"><![CDATA[<h2 id="the-need-for-documentation">The Need for Documentation</h2>
-
-<p>After <a href="https://wnjoon.github.io/2025/12/19/go-yfinance-2-en/">verifying the consistency between yfinance and go-yfinance</a>, it suddenly occurred to me that the library I’m developing needs documentation. Initially, I planned to write the documentation after the library development was finished. However, since the library has now surpassed the MVP stage and reached a level where it’s practically usable, I thought it would be good to start documenting it now.</p>
-
-<p>If this were an API, I would have naturally thought of Swagger, but nothing immediately came to mind for a Go library. I could use the documentation automatically generated when uploading a Go library to <code class="language-plaintext highlighter-rouge">pkg.go.dev</code>, but just as yfinance operates a <a href="https://ranaroussi.github.io/yfinance/">separate documentation webpage</a>, I felt I should have a separate user manual as well.</p>
-
-<p>I mainly used <code class="language-plaintext highlighter-rouge">go doc</code>, but honestly, perhaps because I didn’t know much about it, I wasn’t very satisfied. The web-formatted documentation it generated was quite poor. So, I decided to look for other methods.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: What do you think about applying gomarkdoc to the currently developed go-yfinance? Or please let me know if there are other good ways to create user documentation.</em></p>
-
-<p><br /></p>
-
-<h2 id="various-documentation-tools">Various Documentation Tools</h2>
-
-<p>I asked the question above to both Claude Code and Gemini. Here is a summary of the answers I received from both AIs. Among them, I decided to use <strong><a href="https://github.com/princjef/gomarkdoc">gomarkdoc</a></strong>.</p>
-
-<p><strong>gomarkdoc</strong></p>
-
-<ul>
-  <li>Pros:
-    <ul>
-      <li>Outputs in Markdown format → Renders directly on GitHub/GitLab</li>
-      <li>Easy integration with existing README.md</li>
-      <li>Can be automatically generated in CI/CD</li>
-      <li>Customizable templates</li>
-    </ul>
-  </li>
-  <li>Cons:
-    <ul>
-      <li>Requires external tool installation (<code class="language-plaintext highlighter-rouge">go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest</code>)</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>godoc</strong></p>
-
-<ul>
-  <li>Pros:
-    <ul>
-      <li>Official Go tool, no separate installation required</li>
-      <li>Same format as pkg.go.dev</li>
-      <li>Automatically generates documentation on pkg.go.dev when the library is published</li>
-    </ul>
-  </li>
-  <li>Cons:
-    <ul>
-      <li>Provided only as an HTML server (<code class="language-plaintext highlighter-rouge">godoc -http=:6060</code>)</li>
-      <li>Difficult to generate static files</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>pkgsite</strong></p>
-
-<ul>
-  <li>Pros:
-    <ul>
-      <li>UI identical to pkg.go.dev (Local version of pkg.go.dev)</li>
-      <li>Latest Go documentation standard</li>
-    </ul>
-  </li>
-  <li>Cons:
-    <ul>
-      <li>Difficult to export statically</li>
-    </ul>
-  </li>
-</ul>
-
-<p>If the library grows later and I want to create a website including not just simple API specifications but also tutorials and guides, I can use <a href="https://www.mkdocs.org/">MkDocs</a> or <a href="https://docusaurus.io/">Docusaurus</a>. I was told that Markdown documents created using gomarkdoc can be directly used in MkDocs or Docusaurus to build a website. I plan to try this later and write a post about it.</p>
-
-<h2 id="setting-up-github-actions-automation">Setting up GitHub Actions Automation</h2>
-
-<p>I learned this time that you can use GitHub Actions to automatically update documentation whenever a new feature is developed and pushed to the repository. I decided to update the documentation whenever a specific stage of development is completed and pushed to <code class="language-plaintext highlighter-rouge">main</code>.</p>
-
-<p>You can write the following in the <code class="language-plaintext highlighter-rouge">.github/workflows/docs.yml</code> file:</p>
-
-<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Generate Documentation</span>
-
-<span class="na">on</span><span class="pi">:</span>
-  <span class="na">push</span><span class="pi">:</span>
-    <span class="na">branches</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">main</span>  <span class="c1"># Triggers when pushed to the main branch</span>
-    <span class="na">paths</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s1">'</span><span class="s">pkg/**'</span> <span class="c1"># Triggers only when code inside the pkg folder changes</span>
-
-<span class="na">jobs</span><span class="pi">:</span>
-  <span class="na">docs</span><span class="pi">:</span>
-    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
-    <span class="na">steps</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
-
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Go</span>
-        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-go@v3</span>
-        <span class="na">with</span><span class="pi">:</span>
-          <span class="na">go-version</span><span class="pi">:</span> <span class="m">1.23</span> <span class="c1"># Go version in use</span>
-
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install gomarkdoc</span>
-        <span class="na">run</span><span class="pi">:</span> <span class="s">go install [github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest](https://github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest)</span>
-
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Generate API Documentation</span>
-        <span class="c1"># Scans the pkg folder recursively and regenerates the API.md file</span>
-        <span class="na">run</span><span class="pi">:</span> <span class="s">gomarkdoc --output API.md ./pkg/...</span>
-
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Commit and Push changes</span>
-        <span class="na">uses</span><span class="pi">:</span> <span class="s">stefanzweifel/git-auto-commit-action@v4</span>
-        <span class="na">with</span><span class="pi">:</span>
-          <span class="na">commit_message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">docs:</span><span class="nv"> </span><span class="s">update</span><span class="nv"> </span><span class="s">API</span><span class="nv"> </span><span class="s">documentation</span><span class="nv"> </span><span class="s">via</span><span class="nv"> </span><span class="s">gomarkdoc"</span>
-          <span class="na">file_pattern</span><span class="pi">:</span> <span class="s">API.md</span>
-</code></pre></div></div>
-
-<p>The sequence is as follows:</p>
-
-<ol>
-  <li>Modify the code and upload it to GitHub.</li>
-  <li>The Action runs and modifies API.md according to the changed code.</li>
-  <li>The bot automatically leaves a commit saying “docs: update…”.</li>
-</ol>
-
-<h2 id="requesting-documentation-generation">Requesting Documentation Generation</h2>
-
-<p>I asked Claude Code to write documentation based on the development progress so far.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: Please write documentation for the content developed so far using gomarkdoc. Write each method, parameter, and result value according to standards. Please proceed while carefully checking if there are any missing comments or if anything is written insufficiently or missing compared to the gomarkdoc method. Also, set up CI/CD so that this document is automatically updated whenever I push to main.</em></p>
-
-<p><br /></p>
-
-<h2 id="documentation-results">Documentation Results</h2>
-
-<p><strong>Added Files</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>File</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">.github/workflows/docs.yml</code></td>
-      <td>Automatic documentation generation on main push</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">.github/workflows/test.yml</code></td>
-      <td>Test and lint CI</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">docs/API.md</code></td>
-      <td>Generated API documentation (2,790 lines)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">pkg/client/doc.go</code></td>
-      <td>client package documentation</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">pkg/ticker/doc.go</code></td>
-      <td>ticker package documentation</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">pkg/models/doc.go</code></td>
-      <td>models package documentation</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">pkg/config/doc.go</code></td>
-      <td>config package documentation</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">internal/endpoints/doc.go</code></td>
-      <td>endpoints package documentation</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Improved Method Documentation</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">History()</code> - Added parameters and examples</li>
-  <li><code class="language-plaintext highlighter-rouge">HistoryPeriod()</code> - Added description of valid periods</li>
-  <li><code class="language-plaintext highlighter-rouge">HistoryRange()</code> - Added parameter description</li>
-  <li><code class="language-plaintext highlighter-rouge">Dividends()</code>, <code class="language-plaintext highlighter-rouge">Splits()</code>, <code class="language-plaintext highlighter-rouge">Actions()</code> - Added return value description</li>
-  <li><code class="language-plaintext highlighter-rouge">IncomeStatement()</code>, <code class="language-plaintext highlighter-rouge">BalanceSheet()</code>, <code class="language-plaintext highlighter-rouge">CashFlow()</code> - Added examples and field descriptions</li>
-</ul>
-
-<p><strong>CI/CD Behavior</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">docs.yml</code>: When <code class="language-plaintext highlighter-rouge">pkg/**/*.go</code> or <code class="language-plaintext highlighter-rouge">internal/**/*.go</code> changes → Runs <code class="language-plaintext highlighter-rouge">gomarkdoc</code> → Automatically updates and commits <code class="language-plaintext highlighter-rouge">docs/API.md</code></li>
-  <li><code class="language-plaintext highlighter-rouge">test.yml</code>: On PR/push → Runs tests, uploads coverage, runs <code class="language-plaintext highlighter-rouge">golangci-lint</code></li>
-</ul>
-
-<p><strong>How to View the Documentation</strong></p>
-
-<ul>
-  <li><a href="https://github.com/wnjoon/go-yfinance/blob/main/docs/API.md">API.md</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[The fourth post covering the story of building a Go version of the yahoo finance library based on the Python yfinance library using Claude Code.]]></summary></entry></feed>
+  <li><code class="language-plaintext highlighter-rouge">PriceTarget()</code> → <code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code> 호출</li>
+  <li><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code> → <code class="language-plaintext highlighter-rouge">EarningsEstimate()</code> 호출</li>
+  <li><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code> → <code class="language-plaintext highlighter-rouge">RevenueEstimate()</code> 호출</li>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 세번째 포스팅입니다.]]></summary></entry></feed>
