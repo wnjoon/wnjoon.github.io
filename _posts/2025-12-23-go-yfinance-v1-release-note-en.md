@@ -17,7 +17,15 @@ schema:
 
 ## ranaroussi/yfinance v1.0.0 Update
 
-On December 23rd (KST), [ranaroussi/yfinance was updated to v1.0.0](https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432). The update introduces `Calendars`, a new feature for querying market-wide events, and `Lookup`, which expands ticker search capabilities. Additionally, `Sector`, `Industry`, and `Market` features have been added, enabling analysis by sector, industry, and market.
+On December 23rd (KST), [ranaroussi/yfinance was updated to v1.0.0](https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432). 
+
+<br>
+
+![image](https://velog.velcdn.com/images/wnjoon/post/7f6ccf6f-966c-48b9-94cc-ad3e9f4fa190/image.png)
+
+<br>
+
+The update introduces `Calendars`, a new feature for querying market-wide events, and `Lookup`, which expands ticker search capabilities. Additionally, `Sector`, `Industry`, and `Market` features have been added, enabling analysis by sector, industry, and market.
 
 ## v1.0.0 Major Changes
 

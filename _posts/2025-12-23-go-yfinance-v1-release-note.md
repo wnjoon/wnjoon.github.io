@@ -17,7 +17,15 @@ schema:
 
 ## ranaroussi/yfinance v1.0.0 업데이트 
 
-한국시간 12/23일, [ranaroussi/yfinance가 v1.0.0으로 업데이트](https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432) 되었습니다. 시장 전체 이벤트를 조회할 수 있는 신규 기능 `Calendars`와 티커 검색 기능을 확장한 `Lookup`이 추가되었습니다. 또한 `Sector`, `Industry`, `Market` 기능이 추가되어 섹터, 산업, 시장별 분석이 가능해졌습니다.
+한국시간 12/23일, [ranaroussi/yfinance가 v1.0.0으로 업데이트](https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432) 되었습니다. 
+
+<br>
+
+![image](https://velog.velcdn.com/images/wnjoon/post/7f6ccf6f-966c-48b9-94cc-ad3e9f4fa190/image.png)
+
+<br>
+
+시장 전체 이벤트를 조회할 수 있는 신규 기능 `Calendars`와 티커 검색 기능을 확장한 `Lookup`이 추가되었습니다. 또한 `Sector`, `Industry`, `Market` 기능이 추가되어 섹터, 산업, 시장별 분석이 가능해졌습니다.
 
 ## v1.0.0 주요 변경사항
 
