@@ -2,7 +2,7 @@
 layout: post
 title: "14년간 구글에서 근무한 개발자의 조언"
 description: "14년간 구글에서 일한 개발자 Addy Osmani가 작성한 21개의 조언을 번역했습니다."
-categories: essay
+categories: insights
 draft: false
 lang: ko
 keywords: "개발자, 커리어, 성장, 구글, Addy Osmani"
