@@ -1,7 +1,656 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-23T21:42:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
-</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">go-yfinance v1.0.0 업데이트</title><link href="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note/" rel="alternate" type="text/html" title="go-yfinance v1.0.0 업데이트" /><published>2025-12-23T00:00:00+09:00</published><updated>2025-12-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/23/go-yfinance-v1-release-note</id><content type="html" xml:base="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note/"><![CDATA[<h2 id="ranaroussiyfinance-v100-업데이트">ranaroussi/yfinance v1.0.0 업데이트</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-01-23T21:33:14+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blog.wonjoon</title><subtitle>A blog about software engineering, blockchain, and other development topics.
+</subtitle><author><name>Wonjoon</name></author><entry xml:lang="ko"><title type="html">회고록:12월</title><link href="http://localhost:4000/2025/12/31/retrospect/" rel="alternate" type="text/html" title="회고록:12월" /><published>2025-12-31T00:00:00+09:00</published><updated>2025-12-31T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/31/retrospect</id><content type="html" xml:base="http://localhost:4000/2025/12/31/retrospect/"><![CDATA[<h2 id="정신없는-와중에-여유를-찾았던-2025년">정신없는 와중에 여유를 찾았던 2025년</h2>
 
-<p>한국시간 12/23일, <a href="https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432">ranaroussi/yfinance가 v1.0.0으로 업데이트</a> 되었습니다. 시장 전체 이벤트를 조회할 수 있는 신규 기능 <code class="language-plaintext highlighter-rouge">Calendars</code>와 티커 검색 기능을 확장한 <code class="language-plaintext highlighter-rouge">Lookup</code>이 추가되었습니다. 또한 <code class="language-plaintext highlighter-rouge">Sector</code>, <code class="language-plaintext highlighter-rouge">Industry</code>, <code class="language-plaintext highlighter-rouge">Market</code> 기능이 추가되어 섹터, 산업, 시장별 분석이 가능해졌습니다.</p>
+<p>2025년의 시작은 꽤 바쁘고 힘들었습니다. 새로운 회사에서 처음으로 프로젝트를 맡게 되었고, 한번도 해보지 않은 업무와 방식에 대해 배우고 적응하는데 시간을 썻습니다. 새벽 2-3시에 잠에 드는건 기본이었고, 주말에도 노트북을 가지고 다니며 틈나는대로 일에 몰두했습니다.</p>
+
+<p>스트레스는 쌓여가는데 잠시 쉬어갈 수 있는 틈이 없다보니, 오히려 명상에 관심이 생겼습니다. 그래서 <a href="https://www.mabopractice.com/">마보</a>를 결제하고 매일 출근할때마다 10분정도 명상의 시간을 가졌습니다. 구글의 경우 명상을 굉장히 중요한 업무 중 하나로 여긴다고 하는데요, 명상을 꾸준히 했을때 찾아오는 마음의 정돈됨과 생각의 정리를 경험하고나니 왜 구글에서 <strong>직원들에게 명상을 위한 시간을 내는 것을 적극 권장</strong>하는지 알 수 있었습니다.</p>
+
+<p>최근에 <a href="https://product.kyobobook.co.kr/detail/S000214350901">슬로우 워크</a>라는 책을 읽었습니다. 덜 일함으로써 더 많은 가치를 창출해내는게 가능할지 궁금한 마음에 책을 구매했는데요, 결국 <strong>최소한의 시간에 최대한의 집중을 통해 성과를 극대화</strong>하는 것이 가장 중요하다는 것을 느꼈습니다. 물론 이렇게 집중하는것도 어렵지만, 문제는 집중에 성공했을 때 생겨난 남은 시간을 어떻게 사용하냐는 것입니다.</p>
+
+<p>중요한 점은 일에 몰입하고 집중하는것과 끊임없이 일을 생각하는 것은 다른 부분이라고 느꼈습니다. 책에서 언급한 많은 사람들은 대부분 행동으로 일을 처리하는 것에는 시간을 적게 사용했지만, 이렇게 행동하기 위해 준비하고 생각하는 시간은 굉장히 많이 가졌습니다. 오히려 저는 이 내용을 읽으면서, 현대 사회의 문제 중 하나인 쇼츠, 도파민 중독이 정말 위험한 이유는 사람을 불필요한 일에 중독시키는 것이 아니라 더 나은 생각을 할 수 있는 시간을 방해하기 때문이라고 느꼈습니다.</p>
+
+<p>그렇다면 하루종일 업무에 대해 고민했을때 오는 성과가 있었느냐는 질문엔 정확히 답변하기 어렵습니다. 마치 수돗물을 가장 약하게 틀어놓고 대야에 물이 차기를 기다리는 느낌이었습니다. 대신 생각하는데 들어가는 스트레스는 굉장히 줄어들었습니다. 어떤 유튜브에서는 자기 직전에 업무에 대해 고민하게 되면, 수면 상태에서 뇌가 병렬로 그 업무에 대해 고민하기 때문에 훨씬 해결 속도가 빨라진다고 했는데요. 정말 그런지 시도해봤는데, 반대로 잠에 들지 못해 고생만 했던 것 같습니다. 오히려 하루 일과중에 도저히 풀리지 않을 때 잠시 밖에 나와 산책을 하거나, 간단하게 샤워를 했을때 다양한 방향으로 생각이 정리되는 것은 느낄 수 있었습니다.</p>
+
+<p>아쉽게도 저를 바쁘게 했던 회사와는 현재 작별한 상태지만, 그 회사에서 경험한 바쁨과 정신없음이 제가 어떤 사람인지를 돌아보는 데에 큰 영향을 미쳤다고 생각합니다. 누군가는 하루 24시간을 3개로 쪼개서 사용할 정도로 바쁘게 지내야 성공한다고 하지만, 적어도 저는 생각을 몰아쳐야 하거나 정해진 시간에 업무를 과중하게 처리하는 것 보다 하나를 깊이있게 생각하고 좋은 해결방안을 고민하는게 훨씬 더 좋은 능률을 보여줬던 것 같습니다.</p>
+
+<h2 id="세상에-정해진-결론은-없다">세상에 정해진 결론은 없다</h2>
+
+<p>변하지 않는 진실이 얼마나 있을까요? 특히 요즘같은 시대에 회사, 직업, 사회적인 위치는 언제라도 바뀔 수 있는 요소들이라고 생각합니다. 경제가 어려울때에는 철밥통이라고 불리는 공무원, 공기업이 가장 좋다는 평가를 받고, 대기업에 들어가는건 성공의 지름길이라고 여겨집니다.</p>
+
+<p>오히려 저는 요즘같은 시대야말로 <strong>미래를 예측하기가 가장 어려운 시대</strong>라고 느껴집니다. 특히 AI가 실생활에 들어오면서, 기존에 우리가 살아온 방식과 생각들은 모두 바뀌는 것 같습니다. 미국이라는 나라가 생겨난지 300년이 되지 않았음에도 세계에서 가장 강국이 된 것 처럼, 실생활에서 누구나 AI를 사용하게 된지 이제 겨우 2년이 채 되지 않았는데도 불구하고 AI는 우리의 삶에서 너무 많은 부분을 차지하는 것 같습니다.</p>
+
+<p>그런 점에서 미래에 대한 정답을 정해놓고 살아가는 것은 매우 위험하다고 생각합니다. 인간은 본래 변화에 적응하도록 만들어졌는데, 고정관념처럼 존재하는 것들이 이를 방해하는 것은 아닐까 싶습니다. 그래서 저는 매순간 나는 틀렸다라는 생각을 가지려고 노력합니다. 그리고 유튜브나 블로그 같은 곳에서 사람들이 말하는 것들을 그냥 받아들이기보다는, 항상 질문해보려고 합니다. 그 가운데에서 제가 생각하고 결정할 수 있는 기본적인 자산들이 쌓여갈 수 있을 것이라고 생각합니다.</p>
+
+<h2 id="해외로의-이주를-위한-준비">해외로의 이주를 위한 준비</h2>
+
+<p>저희 부부는 빠르면 내년, 늦어도 내후년에 이민을 계획하고 있습니다. 감사하게도 아내가 미국에 취업을 하게되었고, 현재 영주권 발급을 앞두고 있습니다. 사실 몇년전에 이민을 결정하기 전까지만 해도, 굉장히 고민이 많았습니다. 안정된 직장에서 부족하지 않은 삶을 살고 있었고, 가족을 포함해서 많은 것을 두고 해외에 가는 것이 마음에 들지 않았습니다.</p>
+
+<p>하지만 요즘 저의 인생관이 달라지면서, 미국으로의 이민은 굉장히 기대되는 도전이 되었습니다. 누군가에게는 너무나 어렵다는 기회를 아내 덕분에 받게 되었다는 점도 있지만, 요즘들어 미래만 중요하게 생각해서 다양하게 살아갈 수 있는 삶을 제한하는것은 옳지 않다는 생각이 들었기 때문입니다.</p>
+
+<p>앞으로의 인생이 어떤 방향으로 흘러갈지는 모르지만, 미래를 너무 앞서서 걱정하기보다는 앞으로 어떻게 찾아올지 모르는 미래를 기대해보려고 합니다. 그래서 내년에는 올해보다 훨씬 더 영어를 가까이해야겠습니다.</p>
+
+<p>몇일전 한 모임에서 해외에 취업한 한 분의 이야기가 좀 인상깊었습니다. 대부분의 개발자들이 해외에 취업할때 영어가 그렇게 중요하지 않다고 말하지만, 그 회사에 가기 위한 면접 과정에서 영어를 못하게 되면 그사람의 실력과 무관하게 좋은 인상을 주기 어려울 것 같다는 말이었습니다.</p>
+
+<p>생각해보면 우리는 말을 잘하는 사람에게서 신뢰를 얻습니다. 그리고 자신의 생각을 잘 정리할수록 말을 잘하게 됩니다. 언어를 잘 한다는 것은 단순히 대화를 잘한다는 것을 넘어서, 본인의 생각을 잘 전달할 수 있다는 의미가 되겠죠. 그런 점에서 아무리 개발자라 하더라도, 영어는 굉장히 중요한 필수 능력이 될 것이라고 생각합니다.</p>
+
+<h2 id="어떤-개발자가-되어야-하는가">어떤 개발자가 되어야 하는가</h2>
+
+<p>수많은 매체에서 어떤 직업이 앞으로 AI에게 빠르게 대체될것인가를 질문합니다. 화이트칼라, 즉 컴퓨터와 가까운 직종이 빠르게 대체될 것이고 블루칼라 순으로 대체될 것이라는 이야기가 많죠.</p>
+
+<p>개발자인 제 입장에서, AI가 정말 빠르게 발전하고 있다는 것은 온몸으로 느껴지는 부분입니다. 지금도 제가 개발해야할 부분을 AI에게 맡기고 이 블로그를 작성하고 있으니까요. 솔직히 왠만한 사람보다 훨씬 잘합니다. 코드를 작성하고 이를 최적화하는 작업은 왠만한 시니어급이 하는 것 처럼 행동합니다. 원하는 품질과 기능을 이야기하면, 계획부터 구현까지 해냅니다. 중간에 오류가 발생하면 끝까지 파고들어서 해결해냅니다.</p>
+
+<p>AI가 많은 일을 처리하다보니, 개발자로서의 역할이 줄어드는게 사실입니다. 사실 개발이라는건 어찌보면 퍼즐을 풀어가는 과정같습니다. 만들어진 결과를 수없이 고쳐가고, 문제가 생길때마다 이를 효율적으로 대응해가는 과정입니다. 그런데 이젠 이런 업무들이 AI에게 대체되고 있습니다.</p>
+
+<p>하지만 이러한 일은 비단 개발자와 AI 사이에서만 일어난 것은 아닙니다. 그리고 최근들어 기술의 발전으로 인해 생겨난 상황들도 아닙니다. 사람이 하나씩 조각하고 조립하던 가구들은 공장에서 기계가 대체합니다. 어렸을적 온가족이 모여서 배추에 양념을 뭍혀가며 하던 김장 대신 이제는 공장에서 만들어준 김치를 사먹는 일이 더 많아집니다. 주산기를 사용하던 은행원이 계산기를, 그리고 컴퓨터를 사용하는 과정은 말할 필요도 없죠.</p>
+
+<p>내가 나무를 깎으면서 느꼈던 행복, 배추에 양념을 뭍혀가며 느끼던 손맛을 느끼지 못한다고 해서 무언가를 만드는 일이 달라지는 것이라고 생각하진 않습니다. 항상 기술은 발전해왔고, 그 속에서 인간은 기존에 하던 일을 기계에게 맡겨왔습니다. 인간이 최종적으로 결과에 관여해야 할 범위가 점점 줄어들었을 뿐입니다.</p>
+
+<p>개발자라는건 무엇일까요. 저는 이제 Software Engineer가 아니라 Product Maker가 되는 과정이라고 생각합니다. 컴퓨터를 이용해서, 코드를 사용해서 새로운 것을 만드는 사람들이 되어야 합니다. AI가 내 일자리를 뻇어갈까봐 걱정하는게 아니라, AI를 사용해서 어떠한 새로운 가치가 창출될 수 있는지 고민하고 그 흐름에 얼른 몸을 맡겨야합니다.</p>
+
+<p>저는 조만간 회사에서 팀에 속한 개발자들은 사라질 것이라고 생각합니다. 모두가 AI라는 팀원을 둔 팀장이 되어야 할 것이고, 결국 개인이 하나의 팀만큼의 성과를 만들 수 있어야 하는 시대가 올 것입니다. 손종원 쉐프의 말을 인용하면, ‘좋은 회사에 속하면 능력이 뛰어난 개발자’라는 공식은 이제 점점 사라질 것입니다.</p>
+
+<h2 id="2026년에는-3번-더-생각하고-말하자">2026년에는 3번 더 생각하고 말하자</h2>
+
+<p>재택근무를 계속 하게되면서, 아내 외에는 누군가하고 대화할 일이 사라졌습니다. 그러다보니 아내에게 가끔 말실수를 하는 경우가 잦아졌습니다. 하루에 있었던 일들, 혹은 개인적으로 생각하고 있던 것들을 아내에게 필터링하지 못한채로 이야기해서 아내에게 상처를 주는 일이 많아졌습니다.</p>
+
+<p>한 영상에서 김종원 작가님은 “누군가에게 해야할 말이 꼭 있는게 아니라면 말을 하지 않는 것이 좋다”고 하셨습니다. 그래서 2026년에는 3번씩 생각하고 말하는 습관을 꼭 가지려고 합니다. 말실수를 줄이기 위함도 있지만, 말의 무게를 기르고 생각을 더 깊게 해보려는 노력을 하기 위해서이기도 합니다. 나이가 먹어갈수록 사색을 더 많이하고 내면을 단단하게 하기 위해 노력해야겠습니다.</p>
+
+<h2 id="자기전엔-핸드폰이-아닌-책을-가까이하자">자기전엔 핸드폰이 아닌 책을 가까이하자</h2>
+
+<p>마지막으로 항상 자기전에 핸드폰을 보다가 1시간 가까이 잠을 설칠떄가 잦았습니다. 그래서 얼마전에 <a href="https://product.kyobobook.co.kr/detail/S000000620313">괴테와의 대화</a>라는 책을 구매했습니다. 박종원 작가님이 추천해주신 책이었는데, 굉장히 두꺼운 고전 문학이라 읽기도 까다롭고 잠도 잘옵니다.</p>
+
+<p>박종원 작가님은 책을 다 읽는게 중요한것이 아니라, 그 책에서 나의 눈길을 사로잡은 하나의 문장을 찾는게 중요하다고 하셨습니다. 이 책은 정말 읽기 난해한데, 그 난해한 문장을 몇번 읽다보면 그게 울림을 주는 경우가 많았습니다. 1년에 몇독을 하느냐가 아니라, 1년에 몇개의 좋은 문장을 만날 수 있었는지를 확인해보는 한해가 되었으면 좋겠습니다.</p>]]></content><author><name>Wonjoon</name></author><category term="essay" /><summary type="html"><![CDATA[2025년도 이제 다 지나갔습니다. 12월의 회고록은 결국 올 한해의 회고록이죠.]]></summary></entry><entry xml:lang="en"><title type="html">go-yfinance v1.0.0 Update</title><link href="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en/" rel="alternate" type="text/html" title="go-yfinance v1.0.0 Update" /><published>2025-12-23T00:00:00+09:00</published><updated>2025-12-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en</id><content type="html" xml:base="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en/"><![CDATA[<h2 id="ranaroussiyfinance-v100-update">ranaroussi/yfinance v1.0.0 Update</h2>
+
+<p>On December 23rd (KST), <a href="https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432">ranaroussi/yfinance was updated to v1.0.0</a>.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/7f6ccf6f-966c-48b9-94cc-ad3e9f4fa190/image.png" alt="image" /></p>
+
+<p><br /></p>
+
+<p>The update introduces <code class="language-plaintext highlighter-rouge">Calendars</code>, a new feature for querying market-wide events, and <code class="language-plaintext highlighter-rouge">Lookup</code>, which expands ticker search capabilities. Additionally, <code class="language-plaintext highlighter-rouge">Sector</code>, <code class="language-plaintext highlighter-rouge">Industry</code>, and <code class="language-plaintext highlighter-rouge">Market</code> features have been added, enabling analysis by sector, industry, and market.</p>
+
+<h2 id="v100-major-changes">v1.0.0 Major Changes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Change</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Calendars Module (New)</td>
+      <td>Query market-wide calendar events</td>
+    </tr>
+    <tr>
+      <td>Config Module (New)</td>
+      <td>Global configuration management (yf.config)</td>
+    </tr>
+    <tr>
+      <td>Network Retry</td>
+      <td>Automatic retry on network errors</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="feature-comparison-go-yfinance-vs-ranaroussiyfinance-v100">Feature Comparison: go-yfinance vs. ranaroussi/yfinance v1.0.0</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Python v1.0.0</th>
+      <th>Go</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ticker (Basic)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>History (Price Data)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Info (Company Info)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Financials</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Options</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Holders</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Analysis</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Calendar (Per Ticker)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>News</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>WebSocket (Real-time)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Search</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Screener</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Multi/Download</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>Identical</td>
+    </tr>
+    <tr>
+      <td>Lookup</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>Not Implemented</td>
+    </tr>
+    <tr>
+      <td>Sector/Industry/Market</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>Not Implemented</td>
+    </tr>
+    <tr>
+      <td>Calendars (Global)</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>New in v1.0.0</td>
+    </tr>
+    <tr>
+      <td>Config (Global)</td>
+      <td>✅</td>
+      <td>🔶</td>
+      <td>Partially Implemented</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>All existing features are identical; however, four features from v1.0.0 were missing in <code class="language-plaintext highlighter-rouge">go-yfinance</code>.</li>
+</ul>
+
+<h2 id="analysis-of-unimplemented-modules">Analysis of Unimplemented Modules</h2>
+
+<h3 id="lookup">Lookup</h3>
+
+<p><strong>API Analysis</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v1/finance/lookup</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>LookupURL already defined ✅</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/lookup.py (221 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Usage (Python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Lookup</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s">"AAPL"</span><span class="p">)</span>  <span class="c1"># Search ticker by ISIN, CUSIP, etc.
+</span></code></pre></div></div>
+
+<p><strong>Request Parameters</strong></p>
+
+<ul>
+  <li>query: Search term (Required)</li>
+  <li>type: all, equity, mutualfund, etf, index, future, currency, cryptocurrency</li>
+  <li>count: Number of results (Default 25)</li>
+  <li>start: Pagination</li>
+  <li>formatted: false</li>
+  <li>fetchPricingData: true</li>
+  <li>lang: en-US</li>
+  <li>region: US</li>
+</ul>
+
+<p><strong>Response Structure</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "finance": {
+    "result": [{
+      "documents": [
+        {"symbol": "AAPL", "name": "Apple Inc.", "exchange": "NMS", ...}
+      ]
+    }]
+  }
+}
+</code></pre></div></div>
+
+<p><strong>Implementation Plan</strong></p>
+
+<ul>
+  <li>Model Definition: <code class="language-plaintext highlighter-rouge">pkg/models/lookup.go</code></li>
+  <li>Implementation: <code class="language-plaintext highlighter-rouge">pkg/lookup/lookup.go</code></li>
+  <li>Testing: <code class="language-plaintext highlighter-rouge">pkg/lookup/lookup_test.go</code></li>
+  <li>Estimated Workload: ~300 lines</li>
+</ul>
+
+<h3 id="calendars">Calendars</h3>
+
+<p><strong>API Analysis</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>POST /v1/finance/visualization</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>Definition Needed ❌</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/calendars.py (547 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">go-yfinance</code>’s <code class="language-plaintext highlighter-rouge">Calendar()</code> only supports calendars for individual Tickers.</li>
+  <li>Python’s <code class="language-plaintext highlighter-rouge">Calendars</code> supports querying market-wide calendar events.</li>
+</ul>
+
+<p><strong>Usage (Python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">calendars</span> <span class="o">=</span> <span class="n">yf</span><span class="p">.</span><span class="n">Calendars</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">"2025-01-01"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">"2025-01-07"</span><span class="p">)</span>
+<span class="n">calendars</span><span class="p">.</span><span class="n">get_earnings_calendar</span><span class="p">()</span>        <span class="c1"># Earnings schedule
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_ipo_info_calendar</span><span class="p">()</span>        <span class="c1"># IPO schedule
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_economic_events_calendar</span><span class="p">()</span> <span class="c1"># Economic events
+</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_splits_calendar</span><span class="p">()</span>          <span class="c1"># Stock splits schedule
+</span></code></pre></div></div>
+
+<p><strong>Request Structure (POST Body)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "sortType": "DESC",
+  "entityIdType": "sp_earnings|ipo_info|economic_event|splits",
+  "sortField": "intradaymarketcap|startdatetime",
+  "includeFields": ["ticker", "companyshortname", ...],
+  "size": 100,
+  "offset": 0,
+  "query": {
+    "operator": "AND",
+    "operands": [
+      {"operator": "eq", "operands": ["region", "us"]},
+      {"operator": "gte", "operands": ["startdatetime", "2025-01-01"]}
+    ]
+  }
+}
+</code></pre></div></div>
+
+<p><strong>Supported Calendar Types</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Fields</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sp_earnings</td>
+      <td>Earnings</td>
+      <td>ticker, companyshortname, epsestimate, epsactual, …</td>
+    </tr>
+    <tr>
+      <td>ipo_info</td>
+      <td>IPO Info</td>
+      <td>ticker, filingdate, pricefrom, priceto, shares, …</td>
+    </tr>
+    <tr>
+      <td>economic_event</td>
+      <td>Economic Events</td>
+      <td>econ_release, country_code, consensus_estimate, …</td>
+    </tr>
+    <tr>
+      <td>splits</td>
+      <td>Splits</td>
+      <td>ticker, startdatetime, old_share_worth, share_worth</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Implementation Plan</strong></p>
+
+<ul>
+  <li>Model Definition: <code class="language-plaintext highlighter-rouge">pkg/models/calendar_market.go</code></li>
+  <li>Query Builder: <code class="language-plaintext highlighter-rouge">pkg/calendars/query.go</code></li>
+  <li>Implementation: <code class="language-plaintext highlighter-rouge">pkg/calendars/calendars.go</code></li>
+  <li>Testing: <code class="language-plaintext highlighter-rouge">pkg/calendars/calendars_test.go</code></li>
+  <li>Estimated Workload: ~700 lines</li>
+</ul>
+
+<h3 id="domain-sectorindustrymarket">Domain (Sector/Industry/Market)</h3>
+
+<p><strong>Usage (Python)</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Sector</span><span class="p">(</span><span class="s">"technology"</span><span class="p">)</span>   <span class="c1"># Sector info
+</span><span class="n">yf</span><span class="p">.</span><span class="n">Industry</span><span class="p">(</span><span class="s">"software"</span><span class="p">)</span>   <span class="c1"># Industry info
+</span><span class="n">yf</span><span class="p">.</span><span class="n">Market</span><span class="p">(</span><span class="s">"us_market"</span><span class="p">)</span>    <span class="c1"># Market info
+</span></code></pre></div></div>
+
+<p><strong>Sector</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v1/finance/sectors/{key}</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>Definition Needed ❌</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/domain/sector.py (153 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provided Data:</p>
+<ul>
+  <li>name, symbol, overview (market cap, company count, industry count, etc.)</li>
+  <li>top_companies</li>
+  <li>top_etfs, top_mutual_funds</li>
+  <li>industries (list of included industries)</li>
+  <li>research_reports</li>
+</ul>
+
+<p><strong>Industry</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v1/finance/industries/{key}</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>Definition Needed ❌</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/domain/industry.py (154 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provided Data:</p>
+<ul>
+  <li>name, symbol, overview</li>
+  <li>sector_key, sector_name (Parent Sector)</li>
+  <li>top_companies, top_performing_companies, top_growth_companies</li>
+  <li>research_reports</li>
+</ul>
+
+<p><strong>Market</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Endpoint</td>
+      <td>GET /v6/finance/quote/marketSummary, GET /v6/finance/markettime</td>
+    </tr>
+    <tr>
+      <td>go-yfinance</td>
+      <td>MarketSummaryURL defined ✅</td>
+    </tr>
+    <tr>
+      <td>Python Impl</td>
+      <td>yfinance/domain/market.py (108 lines)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Provided Data:</p>
+<ul>
+  <li>status (market state, open/close times, timezone)</li>
+  <li>summary (price and change rate by major index)</li>
+</ul>
+
+<p><strong>Implementation Plan</strong></p>
+
+<ul>
+  <li>Models: pkg/models/domain.go</li>
+  <li>Common Interface: pkg/domain/domain.go</li>
+  <li>Sector: pkg/domain/sector.go</li>
+  <li>Industry: pkg/domain/industry.go</li>
+  <li>Market: pkg/domain/market.go</li>
+  <li>Testing: pkg/domain/*_test.go</li>
+  <li>Estimated Workload: ~920 lines</li>
+</ul>
+
+<h3 id="config">Config</h3>
+
+<p><code class="language-plaintext highlighter-rouge">go-yfinance</code> already implements a richer Config than Python v1.0.0.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Setting</th>
+      <th>Python v1.0.0</th>
+      <th>go-yfinance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Proxy</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Retries</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Debug/Logging</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Timeout</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>UserAgent</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>JA3 Fingerprint</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Retry Delay</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Max Concurrent</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Cache TTL</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Due to language characteristics, Python uses a nested style (<code class="language-plaintext highlighter-rouge">config.network.proxy</code>), while Go uses a method chain style (<code class="language-plaintext highlighter-rouge">SetProxy()</code>) in its API. However, since Config is set once at application startup and only read thereafter, I determined that there is no practical performance difference, so no changes are necessary.</p>
+
+<p><strong>Performance Comparison</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Nested Style</th>
+      <th>Method Chain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Memory</td>
+      <td>Slightly more</td>
+      <td>Efficient</td>
+    </tr>
+    <tr>
+      <td>Runtime Overhead</td>
+      <td>Dynamic lookup</td>
+      <td>Direct call</td>
+    </tr>
+    <tr>
+      <td>Compile-time Check</td>
+      <td>❌ Impossible</td>
+      <td>✅ Possible</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="issues-resolved">Issues Resolved</h2>
+
+<p><strong>Calendars Earnings API 500 Error</strong></p>
+
+<ul>
+  <li>Cause: Query structure issue - date queries were wrapped in a nested AND.</li>
+  <li>Resolution: Added <code class="language-plaintext highlighter-rouge">buildDateQueries()</code> to pass GTE/LTE as individual operands.</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Before (Error)</span>
+<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"AND"</span><span class="p">,</span> <span class="n">Operands</span><span class="o">:</span> <span class="p">[</span><span class="n">GTE</span><span class="p">,</span> <span class="n">LTE</span><span class="p">]},</span>  <span class="c">// Nested AND</span>
+<span class="p">}</span>
+
+<span class="c">// After (Success)</span>
+<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
+    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
+    <span class="n">gteQuery</span><span class="p">,</span>  <span class="c">// Included directly</span>
+    <span class="n">lteQuery</span><span class="p">,</span>  <span class="c">// Included directly</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>SplitEvent Type Conflict</strong></p>
+
+<ul>
+  <li>Cause: <code class="language-plaintext highlighter-rouge">SplitEvent</code> was already defined in <code class="language-plaintext highlighter-rouge">pkg/models/response.go</code>.</li>
+  <li>Resolution: Renamed to <code class="language-plaintext highlighter-rouge">CalendarSplitEvent</code>.</li>
+</ul>
+
+<p><strong>Post Method Signature Mismatch</strong></p>
+
+<ul>
+  <li>Cause: <code class="language-plaintext highlighter-rouge">client.Post</code> accepted <code class="language-plaintext highlighter-rouge">map[string]string</code>, but Calendars required <code class="language-plaintext highlighter-rouge">map[string]interface{}</code>.</li>
+  <li>Resolution: Used <code class="language-plaintext highlighter-rouge">client.PostJSON</code> + <code class="language-plaintext highlighter-rouge">json.Marshal</code> for body serialization.</li>
+</ul>
+
+<h2 id="result">Result</h2>
+
+<p><a href="https://github.com/wnjoon/go-yfinance/releases/tag/v1.0.0">go-yfinance v1.0.0 Release Note</a></p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Released go-yfinance v1.0.0. I used Claude Code to analyze ranaroussi/yfinance v1.0.0, identified the changes, and reviewed the development feasibility, scope, timeline, and implementation approach. Based on this, I implemented go-yfinance v1.0.0.]]></summary></entry><entry xml:lang="ko"><title type="html">go-yfinance v1.0.0 업데이트</title><link href="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note/" rel="alternate" type="text/html" title="go-yfinance v1.0.0 업데이트" /><published>2025-12-23T00:00:00+09:00</published><updated>2025-12-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/23/go-yfinance-v1-release-note</id><content type="html" xml:base="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note/"><![CDATA[<h2 id="ranaroussiyfinance-v100-업데이트">ranaroussi/yfinance v1.0.0 업데이트</h2>
+
+<p>한국시간 12/23일, <a href="https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432">ranaroussi/yfinance가 v1.0.0으로 업데이트</a> 되었습니다.</p>
+
+<p><br /></p>
+
+<p><img src="https://velog.velcdn.com/images/wnjoon/post/7f6ccf6f-966c-48b9-94cc-ad3e9f4fa190/image.png" alt="image" /></p>
+
+<p><br /></p>
+
+<p>시장 전체 이벤트를 조회할 수 있는 신규 기능 <code class="language-plaintext highlighter-rouge">Calendars</code>와 티커 검색 기능을 확장한 <code class="language-plaintext highlighter-rouge">Lookup</code>이 추가되었습니다. 또한 <code class="language-plaintext highlighter-rouge">Sector</code>, <code class="language-plaintext highlighter-rouge">Industry</code>, <code class="language-plaintext highlighter-rouge">Market</code> 기능이 추가되어 섹터, 산업, 시장별 분석이 가능해졌습니다.</p>
 
 <h2 id="v100-주요-변경사항">v1.0.0 주요 변경사항</h2>
 
@@ -575,580 +1224,7 @@
 
 <h2 id="결과">결과</h2>
 
-<p><a href="https://github.com/wnjoon/go-yfinance/releases/tag/v1.0.0">go-yfinance v1.0.0 Release Note</a></p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[go-yfinance v1.0.0을 출시했습니다. Claude Code를 이용해서 ranaroussi/yfinance v1.0.0을 분석하고, 달라진 점을 파악하고 개발 가능성과 범위, 시간, 그리고 구현 방식을 검토했습니다. 이를 기반으로 go-yfinance v1.0.0을 구현했습니다.]]></summary></entry><entry xml:lang="en"><title type="html">go-yfinance v1.0.0 Update</title><link href="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en/" rel="alternate" type="text/html" title="go-yfinance v1.0.0 Update" /><published>2025-12-23T00:00:00+09:00</published><updated>2025-12-23T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en</id><content type="html" xml:base="http://localhost:4000/2025/12/23/go-yfinance-v1-release-note-en/"><![CDATA[<h2 id="ranaroussiyfinance-v100-update">ranaroussi/yfinance v1.0.0 Update</h2>
-
-<p>On December 23rd (KST), <a href="https://github.com/ranaroussi/yfinance/commit/d12c4b3c8c114f3547d284b868fc374ca181b432">ranaroussi/yfinance was updated to v1.0.0</a>. The update introduces <code class="language-plaintext highlighter-rouge">Calendars</code>, a new feature for querying market-wide events, and <code class="language-plaintext highlighter-rouge">Lookup</code>, which expands ticker search capabilities. Additionally, <code class="language-plaintext highlighter-rouge">Sector</code>, <code class="language-plaintext highlighter-rouge">Industry</code>, and <code class="language-plaintext highlighter-rouge">Market</code> features have been added, enabling analysis by sector, industry, and market.</p>
-
-<h2 id="v100-major-changes">v1.0.0 Major Changes</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Change</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Calendars Module (New)</td>
-      <td>Query market-wide calendar events</td>
-    </tr>
-    <tr>
-      <td>Config Module (New)</td>
-      <td>Global configuration management (yf.config)</td>
-    </tr>
-    <tr>
-      <td>Network Retry</td>
-      <td>Automatic retry on network errors</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="feature-comparison-go-yfinance-vs-ranaroussiyfinance-v100">Feature Comparison: go-yfinance vs. ranaroussi/yfinance v1.0.0</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Feature</th>
-      <th>Python v1.0.0</th>
-      <th>Go</th>
-      <th>Note</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Ticker (Basic)</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>History (Price Data)</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Info (Company Info)</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Financials</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Options</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Holders</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Analysis</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Calendar (Per Ticker)</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>News</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>WebSocket (Real-time)</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Search</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Screener</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Multi/Download</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td>Identical</td>
-    </tr>
-    <tr>
-      <td>Lookup</td>
-      <td>✅</td>
-      <td>❌</td>
-      <td>Not Implemented</td>
-    </tr>
-    <tr>
-      <td>Sector/Industry/Market</td>
-      <td>✅</td>
-      <td>❌</td>
-      <td>Not Implemented</td>
-    </tr>
-    <tr>
-      <td>Calendars (Global)</td>
-      <td>✅</td>
-      <td>❌</td>
-      <td>New in v1.0.0</td>
-    </tr>
-    <tr>
-      <td>Config (Global)</td>
-      <td>✅</td>
-      <td>🔶</td>
-      <td>Partially Implemented</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li>All existing features are identical; however, four features from v1.0.0 were missing in <code class="language-plaintext highlighter-rouge">go-yfinance</code>.</li>
-</ul>
-
-<h2 id="analysis-of-unimplemented-modules">Analysis of Unimplemented Modules</h2>
-
-<h3 id="lookup">Lookup</h3>
-
-<p><strong>API Analysis</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Endpoint</td>
-      <td>GET /v1/finance/lookup</td>
-    </tr>
-    <tr>
-      <td>go-yfinance</td>
-      <td>LookupURL already defined ✅</td>
-    </tr>
-    <tr>
-      <td>Python Impl</td>
-      <td>yfinance/lookup.py (221 lines)</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Usage (Python)</strong></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Lookup</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s">"AAPL"</span><span class="p">)</span>  <span class="c1"># Search ticker by ISIN, CUSIP, etc.
-</span></code></pre></div></div>
-
-<p><strong>Request Parameters</strong></p>
-
-<ul>
-  <li>query: Search term (Required)</li>
-  <li>type: all, equity, mutualfund, etf, index, future, currency, cryptocurrency</li>
-  <li>count: Number of results (Default 25)</li>
-  <li>start: Pagination</li>
-  <li>formatted: false</li>
-  <li>fetchPricingData: true</li>
-  <li>lang: en-US</li>
-  <li>region: US</li>
-</ul>
-
-<p><strong>Response Structure</strong></p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
-  "finance": {
-    "result": [{
-      "documents": [
-        {"symbol": "AAPL", "name": "Apple Inc.", "exchange": "NMS", ...}
-      ]
-    }]
-  }
-}
-</code></pre></div></div>
-
-<p><strong>Implementation Plan</strong></p>
-
-<ul>
-  <li>Model Definition: <code class="language-plaintext highlighter-rouge">pkg/models/lookup.go</code></li>
-  <li>Implementation: <code class="language-plaintext highlighter-rouge">pkg/lookup/lookup.go</code></li>
-  <li>Testing: <code class="language-plaintext highlighter-rouge">pkg/lookup/lookup_test.go</code></li>
-  <li>Estimated Workload: ~300 lines</li>
-</ul>
-
-<h3 id="calendars">Calendars</h3>
-
-<p><strong>API Analysis</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Endpoint</td>
-      <td>POST /v1/finance/visualization</td>
-    </tr>
-    <tr>
-      <td>go-yfinance</td>
-      <td>Definition Needed ❌</td>
-    </tr>
-    <tr>
-      <td>Python Impl</td>
-      <td>yfinance/calendars.py (547 lines)</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">go-yfinance</code>’s <code class="language-plaintext highlighter-rouge">Calendar()</code> only supports calendars for individual Tickers.</li>
-  <li>Python’s <code class="language-plaintext highlighter-rouge">Calendars</code> supports querying market-wide calendar events.</li>
-</ul>
-
-<p><strong>Usage (Python)</strong></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">calendars</span> <span class="o">=</span> <span class="n">yf</span><span class="p">.</span><span class="n">Calendars</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">"2025-01-01"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">"2025-01-07"</span><span class="p">)</span>
-<span class="n">calendars</span><span class="p">.</span><span class="n">get_earnings_calendar</span><span class="p">()</span>        <span class="c1"># Earnings schedule
-</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_ipo_info_calendar</span><span class="p">()</span>        <span class="c1"># IPO schedule
-</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_economic_events_calendar</span><span class="p">()</span> <span class="c1"># Economic events
-</span><span class="n">calendars</span><span class="p">.</span><span class="n">get_splits_calendar</span><span class="p">()</span>          <span class="c1"># Stock splits schedule
-</span></code></pre></div></div>
-
-<p><strong>Request Structure (POST Body)</strong></p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
-  "sortType": "DESC",
-  "entityIdType": "sp_earnings|ipo_info|economic_event|splits",
-  "sortField": "intradaymarketcap|startdatetime",
-  "includeFields": ["ticker", "companyshortname", ...],
-  "size": 100,
-  "offset": 0,
-  "query": {
-    "operator": "AND",
-    "operands": [
-      {"operator": "eq", "operands": ["region", "us"]},
-      {"operator": "gte", "operands": ["startdatetime", "2025-01-01"]}
-    ]
-  }
-}
-</code></pre></div></div>
-
-<p><strong>Supported Calendar Types</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Fields</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>sp_earnings</td>
-      <td>Earnings</td>
-      <td>ticker, companyshortname, epsestimate, epsactual, …</td>
-    </tr>
-    <tr>
-      <td>ipo_info</td>
-      <td>IPO Info</td>
-      <td>ticker, filingdate, pricefrom, priceto, shares, …</td>
-    </tr>
-    <tr>
-      <td>economic_event</td>
-      <td>Economic Events</td>
-      <td>econ_release, country_code, consensus_estimate, …</td>
-    </tr>
-    <tr>
-      <td>splits</td>
-      <td>Splits</td>
-      <td>ticker, startdatetime, old_share_worth, share_worth</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Implementation Plan</strong></p>
-
-<ul>
-  <li>Model Definition: <code class="language-plaintext highlighter-rouge">pkg/models/calendar_market.go</code></li>
-  <li>Query Builder: <code class="language-plaintext highlighter-rouge">pkg/calendars/query.go</code></li>
-  <li>Implementation: <code class="language-plaintext highlighter-rouge">pkg/calendars/calendars.go</code></li>
-  <li>Testing: <code class="language-plaintext highlighter-rouge">pkg/calendars/calendars_test.go</code></li>
-  <li>Estimated Workload: ~700 lines</li>
-</ul>
-
-<h3 id="domain-sectorindustrymarket">Domain (Sector/Industry/Market)</h3>
-
-<p><strong>Usage (Python)</strong></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yf</span><span class="p">.</span><span class="n">Sector</span><span class="p">(</span><span class="s">"technology"</span><span class="p">)</span>   <span class="c1"># Sector info
-</span><span class="n">yf</span><span class="p">.</span><span class="n">Industry</span><span class="p">(</span><span class="s">"software"</span><span class="p">)</span>   <span class="c1"># Industry info
-</span><span class="n">yf</span><span class="p">.</span><span class="n">Market</span><span class="p">(</span><span class="s">"us_market"</span><span class="p">)</span>    <span class="c1"># Market info
-</span></code></pre></div></div>
-
-<p><strong>Sector</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Endpoint</td>
-      <td>GET /v1/finance/sectors/{key}</td>
-    </tr>
-    <tr>
-      <td>go-yfinance</td>
-      <td>Definition Needed ❌</td>
-    </tr>
-    <tr>
-      <td>Python Impl</td>
-      <td>yfinance/domain/sector.py (153 lines)</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Provided Data:</p>
-<ul>
-  <li>name, symbol, overview (market cap, company count, industry count, etc.)</li>
-  <li>top_companies</li>
-  <li>top_etfs, top_mutual_funds</li>
-  <li>industries (list of included industries)</li>
-  <li>research_reports</li>
-</ul>
-
-<p><strong>Industry</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Endpoint</td>
-      <td>GET /v1/finance/industries/{key}</td>
-    </tr>
-    <tr>
-      <td>go-yfinance</td>
-      <td>Definition Needed ❌</td>
-    </tr>
-    <tr>
-      <td>Python Impl</td>
-      <td>yfinance/domain/industry.py (154 lines)</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Provided Data:</p>
-<ul>
-  <li>name, symbol, overview</li>
-  <li>sector_key, sector_name (Parent Sector)</li>
-  <li>top_companies, top_performing_companies, top_growth_companies</li>
-  <li>research_reports</li>
-</ul>
-
-<p><strong>Market</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Endpoint</td>
-      <td>GET /v6/finance/quote/marketSummary, GET /v6/finance/markettime</td>
-    </tr>
-    <tr>
-      <td>go-yfinance</td>
-      <td>MarketSummaryURL defined ✅</td>
-    </tr>
-    <tr>
-      <td>Python Impl</td>
-      <td>yfinance/domain/market.py (108 lines)</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Provided Data:</p>
-<ul>
-  <li>status (market state, open/close times, timezone)</li>
-  <li>summary (price and change rate by major index)</li>
-</ul>
-
-<p><strong>Implementation Plan</strong></p>
-
-<ul>
-  <li>Models: pkg/models/domain.go</li>
-  <li>Common Interface: pkg/domain/domain.go</li>
-  <li>Sector: pkg/domain/sector.go</li>
-  <li>Industry: pkg/domain/industry.go</li>
-  <li>Market: pkg/domain/market.go</li>
-  <li>Testing: pkg/domain/*_test.go</li>
-  <li>Estimated Workload: ~920 lines</li>
-</ul>
-
-<h3 id="config">Config</h3>
-
-<p><code class="language-plaintext highlighter-rouge">go-yfinance</code> already implements a richer Config than Python v1.0.0.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Setting</th>
-      <th>Python v1.0.0</th>
-      <th>go-yfinance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Proxy</td>
-      <td>✅</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Retries</td>
-      <td>✅</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Debug/Logging</td>
-      <td>✅</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Timeout</td>
-      <td>❌</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>UserAgent</td>
-      <td>❌</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>JA3 Fingerprint</td>
-      <td>❌</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Retry Delay</td>
-      <td>❌</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Max Concurrent</td>
-      <td>❌</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Cache TTL</td>
-      <td>❌</td>
-      <td>✅</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Due to language characteristics, Python uses a nested style (<code class="language-plaintext highlighter-rouge">config.network.proxy</code>), while Go uses a method chain style (<code class="language-plaintext highlighter-rouge">SetProxy()</code>) in its API. However, since Config is set once at application startup and only read thereafter, I determined that there is no practical performance difference, so no changes are necessary.</p>
-
-<p><strong>Performance Comparison</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Nested Style</th>
-      <th>Method Chain</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Memory</td>
-      <td>Slightly more</td>
-      <td>Efficient</td>
-    </tr>
-    <tr>
-      <td>Runtime Overhead</td>
-      <td>Dynamic lookup</td>
-      <td>Direct call</td>
-    </tr>
-    <tr>
-      <td>Compile-time Check</td>
-      <td>❌ Impossible</td>
-      <td>✅ Possible</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="issues-resolved">Issues Resolved</h2>
-
-<p><strong>Calendars Earnings API 500 Error</strong></p>
-
-<ul>
-  <li>Cause: Query structure issue - date queries were wrapped in a nested AND.</li>
-  <li>Resolution: Added <code class="language-plaintext highlighter-rouge">buildDateQueries()</code> to pass GTE/LTE as individual operands.</li>
-</ul>
-
-<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Before (Error)</span>
-<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
-    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
-    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"AND"</span><span class="p">,</span> <span class="n">Operands</span><span class="o">:</span> <span class="p">[</span><span class="n">GTE</span><span class="p">,</span> <span class="n">LTE</span><span class="p">]},</span>  <span class="c">// Nested AND</span>
-<span class="p">}</span>
-
-<span class="c">// After (Success)</span>
-<span class="n">Operands</span><span class="o">:</span> <span class="p">[]</span><span class="k">interface</span><span class="p">{}{</span>
-    <span class="n">query</span><span class="p">{</span><span class="n">Operator</span><span class="o">:</span> <span class="s">"EQ"</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
-    <span class="n">gteQuery</span><span class="p">,</span>  <span class="c">// Included directly</span>
-    <span class="n">lteQuery</span><span class="p">,</span>  <span class="c">// Included directly</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p><strong>SplitEvent Type Conflict</strong></p>
-
-<ul>
-  <li>Cause: <code class="language-plaintext highlighter-rouge">SplitEvent</code> was already defined in <code class="language-plaintext highlighter-rouge">pkg/models/response.go</code>.</li>
-  <li>Resolution: Renamed to <code class="language-plaintext highlighter-rouge">CalendarSplitEvent</code>.</li>
-</ul>
-
-<p><strong>Post Method Signature Mismatch</strong></p>
-
-<ul>
-  <li>Cause: <code class="language-plaintext highlighter-rouge">client.Post</code> accepted <code class="language-plaintext highlighter-rouge">map[string]string</code>, but Calendars required <code class="language-plaintext highlighter-rouge">map[string]interface{}</code>.</li>
-  <li>Resolution: Used <code class="language-plaintext highlighter-rouge">client.PostJSON</code> + <code class="language-plaintext highlighter-rouge">json.Marshal</code> for body serialization.</li>
-</ul>
-
-<h2 id="result">Result</h2>
-
-<p><a href="https://github.com/wnjoon/go-yfinance/releases/tag/v1.0.0">go-yfinance v1.0.0 Release Note</a></p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Released go-yfinance v1.0.0. I used Claude Code to analyze ranaroussi/yfinance v1.0.0, identified the changes, and reviewed the development feasibility, scope, timeline, and implementation approach. Based on this, I implemented go-yfinance v1.0.0.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7</title><link href="http://localhost:4000/2025/12/22/go-yfinance-6/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7" /><published>2025-12-22T00:00:00+09:00</published><updated>2025-12-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/22/go-yfinance-6</id><content type="html" xml:base="http://localhost:4000/2025/12/22/go-yfinance-6/"><![CDATA[<h2 id="메인테이너와의-대화">메인테이너와의 대화</h2>
+<p><a href="https://github.com/wnjoon/go-yfinance/releases/tag/v1.0.0">go-yfinance v1.0.0 Release Note</a></p>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[go-yfinance v1.0.0을 출시했습니다. Claude Code를 이용해서 ranaroussi/yfinance v1.0.0을 분석하고, 달라진 점을 파악하고 개발 가능성과 범위, 시간, 그리고 구현 방식을 검토했습니다. 이를 기반으로 go-yfinance v1.0.0을 구현했습니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7</title><link href="http://localhost:4000/2025/12/22/go-yfinance-6/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #7" /><published>2025-12-22T00:00:00+09:00</published><updated>2025-12-22T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/22/go-yfinance-6</id><content type="html" xml:base="http://localhost:4000/2025/12/22/go-yfinance-6/"><![CDATA[<h2 id="메인테이너와의-대화">메인테이너와의 대화</h2>
 
 <p>저는 이 사이드 프로젝트를 시작하면서부터 Python yfinance의 Discussion에 해당 리포지토리를 참고하여 Go 기반의 yfinance를 구현하고 있다고 말했습니다. 그중 한 메인테이너가 저의 질문에 답하면서 여러가지 내용들이 오갔습니다.</p>
 
@@ -3428,559 +3504,4 @@ Special thanks to <span class="p">[</span><span class="nv">Ran Aroussi</span><sp
 
 <ul>
   <li><a href="https://github.com/wnjoon/go-yfinance/blob/main/docs/API.md">API.md</a></li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 네번째 포스팅입니다.]]></summary></entry><entry xml:lang="ko"><title type="html">Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #3</title><link href="http://localhost:4000/2025/12/19/go-yfinance-2/" rel="alternate" type="text/html" title="Claude Code로 Go의 Yahoo Finance 라이브러리 만들기 #3" /><published>2025-12-19T00:00:00+09:00</published><updated>2025-12-19T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/19/go-yfinance-2</id><content type="html" xml:base="http://localhost:4000/2025/12/19/go-yfinance-2/"><![CDATA[<h2 id="yfinance와-일치하고-있을까">yfinance와 일치하고 있을까?</h2>
-
-<p>제가 go-yfinance를 구현하는 목적은 Go로 작성된 Yahoo Finance 라이브러리가 없기 때문입니다. 무식해 보일수도 있지만, 불과 얼마전까지만 해도 Python으로 구현된 yfinance를 서버로 구현해서 API 호출을 통해 결과를 받는 경우도 있었습니다. 물론 그 당시에도 Go로 컨버팅된 라이브러리를 만들 수 있었을겁니다. 다만 하나씩 분석하고 구현하는데 꽤 오랜 시간이 걸렸을테죠.</p>
-
-<p>지금은 AI를 가지고 몇달이 걸릴 일을 몇일만에 해낼 수 있게 되었습니다. 지금 제가 진행하고 있는 go-yfinance도 마찬가지입니다. 이미 너무나 잘 구현되어 있는 yfinance 라이브러리를 Claude Code에게 학습시키고, Go로 컨버팅 가능한지 확인한 후 단계별로 작업을 진행하고 있습니다.</p>
-
-<p>오늘도 ‘실용적인 수준으로 사용 가능한 범위(~Phase 4)’를 구현하도록 가이드했고, <a href="https://wnjoon.github.io/2025/12/19/go-yfinance-1/">블로그 글</a>도 작성했습니다. 그런데 문득 이런 궁금증이 생겼습니다.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: go-yfinance에서 제공하는 메소드, 파라미터, 그리고 결과값이 yfinance와 동일하게 지원되고 있을까?</em></p>
-
-<p><br /></p>
-
-<p>사실 꽤 중요한 부분이었습니다. 왜냐하면 제 목적은 <strong>yfinance를 익숙하게 사용하던 개발자들이, Go를 사용하더라도 동일한 방식으로 함수를 사용할 수 있도록 하는 것</strong>이기 때문입니다. 어떠한 메소드가 있는지, 그리고 어떻게 호출해야 하는지 다시 학습해야 한다거나, 메소드를 호출했을 때의 결과가 어떻게 나올지 다시 알아야 하는 등의 수고로움이 없어야 한다고 생각했습니다.</p>
-
-<p>그래서 나머지 Phase를 구현하기 전에, Claude Code에게 질문했습니다.</p>
-
-<p><br /></p>
-
-<p><em>👨🏻‍💻: 지금까지 작성된 go-yfinance에서 제공하는 메소드, 파라미터, 그리고 결과값의 구조가 python의 yfinance에서 제공하는것과 동일한지 확인해줘. 사용자의 혼란을 줄이기 위해서는 사용되는 언어만 다르고 나머지는 모두 동일해야 할 것 같거든? 언어의 특성상 Public/Private 메소드의 차이로 인한 대소문자 구분 정도만 제외하고 나머지가 모두 동일한지 한번 검토해줘. ultrathink.</em></p>
-
-<p><br /></p>
-
-<h2 id="python-yfinance와-go-go-yfinance-분석-결과">Python yfinance와 Go go-yfinance 분석 결과</h2>
-
-<p>다행이도 대부분이 일치하는 상태로 확인되었지만, 일부 달라진 부분이 있었습니다.</p>
-
-<h3 id="메서드-이름-불일치">메서드 이름 불일치</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>기능</th>
-      <th>Python yfinance</th>
-      <th>Go go-yfinance</th>
-      <th>권장 수정</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>History</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.history(...)</code></td>
-      <td>ticker.History(params)</td>
-      <td>✅ OK (대소문자만 다름)</td>
-    </tr>
-    <tr>
-      <td>Financials (income)</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.income_stmt / get_income_stmt(freq="quarterly")</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.IncomeStatement(freq)</code></td>
-      <td>⚠️ Python은 income_stmt</td>
-    </tr>
-    <tr>
-      <td>Financials (balance)</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.balance_sheet / get_balance_sheet()</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.BalanceSheet(freq)</code></td>
-      <td>⚠️ Python은 balance_sheet</td>
-    </tr>
-    <tr>
-      <td>Financials (cashflow)</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.cash_flow / get_cash_flow()</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.CashFlow(freq)</code></td>
-      <td>⚠️ Python은 cash_flow</td>
-    </tr>
-    <tr>
-      <td>Options list</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.options (property, tuple)</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.Options() (method, []time.Time)</code></td>
-      <td>⚠️ Python은 property</td>
-    </tr>
-    <tr>
-      <td>Option chain</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.option_chain(date)</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.OptionChain(date)</code></td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>Price target</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.analyst_price_targets</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.PriceTarget()</code></td>
-      <td>⚠️ 이름 불일치</td>
-    </tr>
-    <tr>
-      <td>Recommendations</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.recommendations</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.Recommendations()</code></td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>EPS Trend</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.eps_trend</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.EPSTrend()</code></td>
-      <td>⚠️ 언더스코어 vs CamelCase</td>
-    </tr>
-    <tr>
-      <td>EPS Revisions</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.eps_revisions</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.EPSRevisions()</code></td>
-      <td>⚠️ 언더스코어 vs CamelCase</td>
-    </tr>
-    <tr>
-      <td>Earnings Estimate</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_estimate</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.EarningsEstimates()</code></td>
-      <td>⚠️ 단수 vs 복수</td>
-    </tr>
-    <tr>
-      <td>Revenue Estimate</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.revenue_estimate</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.RevenueEstimates()</code></td>
-      <td>⚠️ 단수 vs 복수</td>
-    </tr>
-    <tr>
-      <td>Earnings History</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.earnings_history</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.EarningsHistory()</code></td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>Growth Estimates</td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.growth_estimates</code></td>
-      <td><code class="language-plaintext highlighter-rouge">ticker.GrowthEstimates()</code></td>
-      <td>✅ OK</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="파라미터-이름-불일치">파라미터 이름 불일치</h3>
-
-<p><strong>History 메서드</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 파라미터</th>
-      <th>Go 파라미터</th>
-      <th>불일치</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>period</td>
-      <td>Period</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>interval</td>
-      <td>Interval</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>start</td>
-      <td>Start</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>end</td>
-      <td>End</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>prepost</td>
-      <td>PrePost</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>auto_adjust</td>
-      <td>AutoAdjust</td>
-      <td>⚠️ Python: snake_case</td>
-    </tr>
-    <tr>
-      <td>actions</td>
-      <td>Actions</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>repair</td>
-      <td>Repair</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>keepna</td>
-      <td>KeepNA</td>
-      <td>⚠️ Python: keepna (소문자)</td>
-    </tr>
-    <tr>
-      <td>back_adjust</td>
-      <td>❌ 없음</td>
-      <td>⚠️ Go에 없음</td>
-    </tr>
-    <tr>
-      <td>rounding</td>
-      <td>❌ 없음</td>
-      <td>⚠️ Go에 없음</td>
-    </tr>
-    <tr>
-      <td>timeout</td>
-      <td>❌ 없음</td>
-      <td>⚠️ Go에 없음 (Config에서 설정)</td>
-    </tr>
-    <tr>
-      <td>raise_errors</td>
-      <td>❌ 없음</td>
-      <td>⚠️ Go는 error 반환 방식 사용</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Financials 메서드</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 파라미터</th>
-      <th>Go 파라미터</th>
-      <th>불일치</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>freq=”yearly”</td>
-      <td>freq=”annual”</td>
-      <td>⚠️ “yearly” vs “annual”</td>
-    </tr>
-    <tr>
-      <td>freq=”quarterly”</td>
-      <td>freq=”quarterly”</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>freq=”trailing”</td>
-      <td>freq=”trailing”</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>pretty=True</td>
-      <td>❌ 없음</td>
-      <td>⚠️ Go에 없음</td>
-    </tr>
-    <tr>
-      <td>as_dict=False</td>
-      <td>❌ 없음</td>
-      <td>⚠️ Go는 struct 반환</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="반환값-구조-불일치">반환값 구조 불일치</h3>
-
-<p><strong>History 반환값</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python</th>
-      <th>Go</th>
-      <th>불일치</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>pd.DataFrame</td>
-      <td>[]models.Bar</td>
-      <td>⚠️ DataFrame vs Slice</td>
-    </tr>
-    <tr>
-      <td>컬럼: Open, High, Low, Close, Adj Close, Volume</td>
-      <td>필드: Open, High, Low, Close, AdjClose, Volume</td>
-      <td>⚠️ Adj Close vs AdjClose</td>
-    </tr>
-    <tr>
-      <td>컬럼: Dividends, Stock Splits</td>
-      <td>필드: Dividends, Splits</td>
-      <td>⚠️ Stock Splits vs Splits</td>
-    </tr>
-    <tr>
-      <td>Index: DatetimeIndex</td>
-      <td>필드: Date time.Time</td>
-      <td>⚠️ Index vs 필드</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Options 반환값</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python</th>
-      <th>Go</th>
-      <th>불일치</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tuple of date strings</td>
-      <td>[]time.Time</td>
-      <td>⚠️ string vs time.Time</td>
-    </tr>
-    <tr>
-      <td>OptionChain.calls → pd.DataFrame</td>
-      <td>OptionChain.Calls → []Option</td>
-      <td>⚠️ DataFrame vs Slice</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Financials 반환값</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python</th>
-      <th>Go</th>
-      <th>불일치</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>pd.DataFrame (rows=fields, cols=dates)</td>
-      <td>FinancialStatement (map[field][]items)</td>
-      <td>⚠️ 구조 다름</td>
-    </tr>
-    <tr>
-      <td>Index: camelCase field names</td>
-      <td>Map keys: CamelCase</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>Columns: pd.DatetimeIndex</td>
-      <td>Dates []time.Time</td>
-      <td>⚠️ 접근 방식 다름</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>FastInfo 반환값</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Python 키</th>
-      <th>Go 필드</th>
-      <th>불일치</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>currency</td>
-      <td>Currency</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>quoteType</td>
-      <td>QuoteType</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>lastPrice</td>
-      <td>LastPrice</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>previousClose</td>
-      <td>PreviousClose</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>regularMarketPreviousClose</td>
-      <td>RegularMarketPreviousClose</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>fiftyDayAverage</td>
-      <td>FiftyDayAverage</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>twoHundredDayAverage</td>
-      <td>TwoHundredDayAverage</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>tenDayAverageVolume</td>
-      <td>TenDayAverageVolume</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>threeMonthAverageVolume</td>
-      <td>ThreeMonthAverageVolume</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>marketCap</td>
-      <td>MarketCap</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>yearHigh</td>
-      <td>YearHigh</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>yearLow</td>
-      <td>YearLow</td>
-      <td>✅ OK</td>
-    </tr>
-    <tr>
-      <td>yearChange</td>
-      <td>YearChange</td>
-      <td>✅ OK</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="불일치하는-부분-수정할-계획-세우기">불일치하는 부분 수정할 계획 세우기</h2>
-
-<p>Claude Code는 불일치한 부분들을 정리해서, 중요도 순으로 나열해주었습니다.</p>
-
-<p><strong>높은 우선순위 (API 호환성)</strong></p>
-
-<ul>
-  <li>Financials freq 파라미터: “yearly” → “annual” 통일 필요
-    <ul>
-      <li>Python: <code class="language-plaintext highlighter-rouge">get_income_stmt(freq="yearly")</code> 가 기본값</li>
-      <li>Go: “annual” 사용 중</li>
-      <li>권장: Go에서 “yearly”도 “annual”로 매핑하도록 수정</li>
-    </ul>
-  </li>
-  <li>메서드 이름 일관성
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">PriceTarget()</code> → <code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code> (Python과 일치)</li>
-      <li><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code> → <code class="language-plaintext highlighter-rouge">EarningsEstimate()</code> (단수형)</li>
-      <li><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code> → <code class="language-plaintext highlighter-rouge">RevenueEstimate()</code> (단수형)</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>중간 우선순위 (편의성)</strong></p>
-
-<ul>
-  <li>History 파라미터 추가
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">BackAdjust bool</code> 추가</li>
-      <li><code class="language-plaintext highlighter-rouge">Rounding bool</code> 추가</li>
-    </ul>
-  </li>
-  <li>Bar 필드 이름
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">AdjClose</code> → JSON tag에 <code class="language-plaintext highlighter-rouge">adj_close</code> 또는 <code class="language-plaintext highlighter-rouge">adjclose</code> 추가 고려</li>
-      <li><code class="language-plaintext highlighter-rouge">Splits</code> → <code class="language-plaintext highlighter-rouge">StockSplits</code> 추가 고려 (alias)</li>
-    </ul>
-  </li>
-</ul>
-
-<p><strong>낮은 우선순위 (언어 관례)</strong></p>
-
-<ul>
-  <li>Go 언어 관례 유지
-    <ul>
-      <li>CamelCase 메서드명 유지 (Go 표준)</li>
-      <li>Property 대신 Method 사용 유지 (Go 표준)</li>
-      <li>struct 반환 유지 (Go는 DataFrame 없음)</li>
-    </ul>
-  </li>
-</ul>
-
-<p>핵심기능은 대부분 일치하나, 파라미터 값(freq=”yearly” vs “annual”)이 다른 점과 일부 메소드 이름이 일치하지 않다는 것을 확인했습니다. 그리고 Python에서 제공하는 DataFrame 구조를 Go에서 사용할 수 없기 때문에, 대신 Struct/Slice 구조를 사용할 수 밖에 없었습니다.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>카테고리</th>
-      <th>일치</th>
-      <th>불일치</th>
-      <th>수정 필요</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>메서드 이름</td>
-      <td>8</td>
-      <td>6</td>
-      <td>3개 권장</td>
-    </tr>
-    <tr>
-      <td>파라미터 이름</td>
-      <td>6</td>
-      <td>6</td>
-      <td>1개 필수</td>
-    </tr>
-    <tr>
-      <td>반환값 구조</td>
-      <td>-</td>
-      <td>4개 타입 다름</td>
-      <td>Go 언어 특성상 불가피</td>
-    </tr>
-    <tr>
-      <td>필드 이름</td>
-      <td>대부분 일치</td>
-      <td>2-3개</td>
-      <td>선택적</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="작업-결과">작업 결과</h2>
-
-<h3 id="변경-사항-요약">변경 사항 요약</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>변경 내용</th>
-      <th>파일</th>
-      <th>설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">freq="yearly"</code> 지원</td>
-      <td>financials.go</td>
-      <td>Python yfinance와 동일하게 “yearly”를 “annual”로 매핑</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code></td>
-      <td>analysis.go</td>
-      <td>Python의 <code class="language-plaintext highlighter-rouge">analyst_price_targets</code>와 일치</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">EarningsEstimate()</code></td>
-      <td>analysis.go</td>
-      <td>Python의 <code class="language-plaintext highlighter-rouge">earnings_estimate</code>와 일치 (단수형)</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">RevenueEstimate()</code></td>
-      <td>analysis.go</td>
-      <td>Python의 <code class="language-plaintext highlighter-rouge">revenue_estimate</code>와 일치 (단수형)</td>
-    </tr>
-    <tr>
-      <td>테스트 추가</td>
-      <td>financials_test.go</td>
-      <td><code class="language-plaintext highlighter-rouge">TestNormalizeFrequency</code> 추가</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="하위-호환성">하위 호환성</h3>
-
-<p>기존 메서드도 deprecated alias로 계속 동작하도록 유지했습니다.</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">PriceTarget()</code> → <code class="language-plaintext highlighter-rouge">AnalystPriceTargets()</code> 호출</li>
-  <li><code class="language-plaintext highlighter-rouge">EarningsEstimates()</code> → <code class="language-plaintext highlighter-rouge">EarningsEstimate()</code> 호출</li>
-  <li><code class="language-plaintext highlighter-rouge">RevenueEstimates()</code> → <code class="language-plaintext highlighter-rouge">RevenueEstimate()</code> 호출</li>
-</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 세번째 포스팅입니다.]]></summary></entry></feed>
+</ul>]]></content><author><name>Wonjoon</name></author><category term="dev" /><category term="go-yfinance" /><summary type="html"><![CDATA[Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 네번째 포스팅입니다.]]></summary></entry></feed>

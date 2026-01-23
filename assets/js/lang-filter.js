@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function filterPosts(lang) {
     const postItems = document.querySelectorAll('.post-item');
+    if (postItems.length > 0) {
+      document.documentElement.setAttribute('lang', lang);
+    }
     let visibleCount = 0;
     const postListEl = document.querySelector('ul[data-post-limit]');
     const limitAttr = postListEl ? postListEl.getAttribute('data-post-limit') : null;
