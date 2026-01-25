@@ -1,0 +1,106 @@
+baseURL = 'https://wnjoon.github.io/'
+languageCode = 'en-us'
+defaultContentLanguage = 'en'
+title = 'WONJOON.LOG'
+theme = 'typo'
+
+# Google analytics code
+googleAnalytics = "G-xxxxxxxxx"
+
+[languages]
+[languages.ko]
+languageCode = 'ko-kr'
+languageName = '한국어'
+weight = 1
+
+[languages.en]
+languageCode = 'en-us'
+languageName = 'English'
+weight = 2
+
+[taxonomies]
+tag = 'tags'
+
+[params]
+# Meta description
+description = "Engineer, Writer, and Bassist. Playing life to my own rhythm. A personal archive of tech, deep contemplation, and warm moments with my family."
+
+# Appearance settings
+theme = 'auto'
+colorPalette = 'default'
+hideHeader = false
+
+# Intro on main page, content is markdown
+# homeIntroTitle = 'Welcome!'
+homeIntroContent = """
+Engineer, Writer, and Bassist. 
+Seeking my own path rather than following the crowd. 
+I value deep reflection, playing the bass, and the cozy life with my wife and Leo(🐶).
+"""
+
+# Collection to display on home
+homeCollectionTitle = 'Posts'
+homeCollection = 'posts'
+
+# Lists parameters
+paginationSize = 10
+listSummaries = true
+listDateFormat = '2 Jan 2006'
+
+# Breadcrumbs
+[params.breadcrumbs]
+enabled = true
+showCurrentPage = true
+home = "Home"
+
+# Social icons
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/user/"
+
+[[params.social]]
+# name = "medium"
+# url = "https://medium.com/@user"
+
+[[params.social]]
+name = "github"
+url = "https://github.com/user"
+
+
+# Main menu pages
+[[params.menu]]
+name = "home"
+url = "/"
+
+[[params.menu]]
+name = "posts"
+url = "/posts"
+
+[[params.menu]]
+name = "tags"
+url = "/tags"
+
+[[params.menu]]
+name = "about"
+url = "/about"
+
+# Syntax highlight on code blocks
+[markup]
+[markup.highlight]
+noClasses = false
+
+# Giscus comments
+[params.giscus]
+enable = true
+repo = "wnjoon/wnjoon.github.io"
+repoid = "R_kgDOL9kFLg"
+category = "General"
+categoryid = "DIC_kwDOL9kFLs4Cz92B"
+mapping = "pathname"
+theme = "preferred_color_scheme"
+
+[permalinks]
+posts = "/:slug/"
+
+[markup.goldmark.renderer]
+unsafe = true

@@ -1,0 +1,32 @@
+{{/* 1. 이미지 URL 계산 로직 (여기가 핵심!) */}}
+{{/* 일단 기본값(프로필 사진)을 설정합니다. 파일명은 본인 파일에 맞게 수정하세요 */}}
+{{ $imageURL := "avatar.jpeg" | absURL }}
+
+{{/* 만약 글에 images 설정이 있다면, 그 중 첫 번째 것을 덮어씁니다 */}}
+{{ if .Params.images }}
+  {{ $imageURL = index .Params.images 0 | absURL }}
+{{ end }}
+
+{{/* 2. 기본 뼈대 만들기 */}}
+{{ $baseSchema := dict 
+    "@context" "https://schema.org"
+    "@type" "BlogPosting" 
+    "headline" .Title
+    "description" (.Description | default .Summary)
+    "datePublished" (.Date.Format "2006-01-02")
+    "url" .Permalink
+    "author" (dict "@type" "Person" "name" (site.Params.author | default "Author"))
+    "image" $imageURL
+}}
+
+{{/* 3. 외부 링크(브런치 등) 처리 */}}
+{{ with .Params.external_url }}
+    {{ $baseSchema = merge $baseSchema (dict "sameAs" (slice .)) }}
+{{ end }}
+
+{{/* 4. 사용자 정의(Article, FAQ 등) 덮어쓰기 */}}
+{{ $finalSchema := merge $baseSchema (.Params.schema | default dict) }}
+
+<script type="application/ld+json">
+    {{ $finalSchema | jsonify }}
+</script>

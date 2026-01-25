@@ -1,0 +1,123 @@
+:root {
+  --font-body: "Literata", "Noto Serif KR", "Noto Sans KR", "Apple SD Gothic Neo",
+    "Malgun Gothic", "Noto Serif", Georgia, Cambria, ui-serif, serif;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lang-flag-toggle {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 18px;
+  padding: 0.2rem 0.25rem;
+  border-radius: 6px;
+}
+
+.lang-flag-toggle:hover {
+  color: var(--content-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.lang-flag-toggle:focus-visible {
+  outline: 2px solid var(--content-primary);
+  outline-offset: 2px;
+}
+
+.theme-toggle {
+  color: var(--content-secondary);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.2rem 0.25rem;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  color: var(--content-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--content-primary);
+  outline-offset: 2px;
+}
+
+.theme-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-icon svg {
+  display: block;
+}
+
+body.dark .theme-toggle-icon-sun {
+  display: inline-flex;
+}
+
+body.dark .theme-toggle-icon-moon {
+  display: none;
+}
+
+body.light .theme-toggle-icon-sun {
+  display: none;
+}
+
+body.light .theme-toggle-icon-moon {
+  display: inline-flex;
+}
+
+body:not(.light):not(.dark) .theme-toggle-icon-sun {
+  display: none;
+}
+
+body:not(.light):not(.dark) .theme-toggle-icon-moon {
+  display: inline-flex;
+}
+
+@media (max-width: 480px) {
+  .header-top {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .header-actions {
+    gap: 0.5rem;
+  }
+
+  .lang-flag-toggle {
+    font-size: 17px;
+    padding: 0.2rem 0.25rem;
+  }
+
+  .theme-toggle {
+    padding: 0.2rem 0.25rem;
+  }
+
+  .theme-toggle-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+}

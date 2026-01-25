@@ -1,0 +1,55 @@
+<script>
+(function () {
+  var toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  var body = document.body;
+  var serverThemeLocked = body.classList.contains('light') || body.classList.contains('dark');
+  if (serverThemeLocked) {
+    toggle.style.display = 'none';
+    return;
+  }
+
+  function getStoredTheme() {
+    try {
+      return localStorage.getItem('theme');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setStoredTheme(theme) {
+    try {
+      if (!theme) localStorage.removeItem('theme');
+      else localStorage.setItem('theme', theme);
+    } catch (e) {}
+  }
+
+  function setThemeClass(theme) {
+    body.classList.remove('light');
+    body.classList.remove('dark');
+
+    if (theme === 'light' || theme === 'dark') {
+      body.classList.add(theme);
+    }
+  }
+
+  function getCurrentTheme() {
+    if (body.classList.contains('dark')) return 'dark';
+    if (body.classList.contains('light')) return 'light';
+    return null;
+  }
+
+  var stored = getStoredTheme();
+  if (stored === 'light' || stored === 'dark') {
+    setThemeClass(stored);
+  }
+
+  toggle.addEventListener('click', function () {
+    var current = getCurrentTheme();
+    var next = current === 'dark' ? 'light' : 'dark';
+    setThemeClass(next);
+    setStoredTheme(next);
+  });
+})();
+</script>
