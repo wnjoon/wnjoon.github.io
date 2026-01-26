@@ -3,6 +3,16 @@
     "Malgun Gothic", "Noto Serif", Georgia, Cambria, ui-serif, serif;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+.table-outer,
+pre {
+  max-width: 100%;
+}
+
 .header-top {
   display: flex;
   align-items: center;

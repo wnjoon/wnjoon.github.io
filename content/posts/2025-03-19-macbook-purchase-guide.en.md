@@ -111,7 +111,7 @@ Windows on Mac? Not easy anymore.
 - Since Apple moved to their own chips, BootCamp is gone.
 - You’ll need virtualization software (like Parallels), and even that costs money -  plus a Windows license.
 
-## But What About Apple Ecosystem & Aesthetics?
+## But What About Apple Ecosystem and Aesthetics?
 
 Some say:
 
