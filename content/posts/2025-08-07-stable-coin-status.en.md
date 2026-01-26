@@ -9,7 +9,7 @@ description: "As of 2025, this post covers the definition of stablecoins, the ar
 toc: true
 readTime: true
 autonumber: false
-math: true
+math: false
 tags: ["essay", "blockchain", "cryptocurrency", "investment", "stablecoin", "2025"]
 keywords: ["stablecoin", "stablecoin market", "stablecoin analysis", "stablecoin future"]
 showTags: true
