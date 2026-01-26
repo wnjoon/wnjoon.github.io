@@ -3,6 +3,7 @@ languageCode = 'en-us'
 defaultContentLanguage = 'en'
 title = 'WONJOON.LOG'
 theme = 'typo'
+enableRobotsTXT = true
 
 # Google analytics code
 googleAnalytics = "G-xxxxxxxxx"
