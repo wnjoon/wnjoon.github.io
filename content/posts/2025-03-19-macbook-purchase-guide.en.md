@@ -96,6 +96,7 @@ If you’re used to Microsoft Office or specific Korean software, there might be
 And yes, macOS no longer struggles with Korean fonts or certificates. That ship has sailed.
 
 ![Image](https://github.com/user-attachments/assets/cd97cb20-e494-43cc-8167-484784e28a2b)
+
 @ [And Apple says you can easily switch from Windows to macOS :)](https://www.apple.com/kr/macbook-pro/mac-does-that/).
 
 ## The Hidden Costs: Accessories & Compatibility
