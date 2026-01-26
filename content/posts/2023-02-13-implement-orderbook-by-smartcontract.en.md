@@ -78,7 +78,7 @@ If implemented on Ethereum or blockchain, an additional utility token (typically
 - Tokenized stock must be tradable 1:1 with a stable utility token.
 - This enables decentralized and on-chain execution.
 
-### Challenges & Considerations
+### Challenges and Considerations
 
 **Maintaining Order in a Smart Contract**
 
@@ -86,7 +86,7 @@ If implemented on Ethereum or blockchain, an additional utility token (typically
 - Mapping does not guarantee order.
 - Custom list structures need to be implemented.
 
-**Gas Cost & Execution Risks**
+**Gas Cost and Execution Risks**
 
 - Ethereum charges gas fees per line of execution.
 - If gas limits are exceeded, the transaction fails.
@@ -95,12 +95,12 @@ If implemented on Ethereum or blockchain, an additional utility token (typically
 
 ## Advantages of Smart Contracts for Multi-Party Matching Trades
 
-### 1. Security & Immutability
+### 1. Security and Immutability
 
 - Smart contracts are tamper-proof and cannot be modified once deployed.
 - Reduces risk of fraudulent manipulation.
 
-### 2. Transparency & Fairness
+### 2. Transparency and Fairness
 
 - All trade orders are publicly recorded on the blockchain.
 - Ensures fair matching without manual intervention.

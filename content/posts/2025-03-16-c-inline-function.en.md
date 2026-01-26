@@ -112,7 +112,7 @@ int main() {
 
 If the compiler ignores inline, you can explicitly force inlining using compiler-specific attributes.
 
-### 1. GCC & Clang: __attribute__((always_inline))
+### 1. GCC and Clang
 
 ```c
 inline __attribute__((always_inline)) int add(int a, int b) {

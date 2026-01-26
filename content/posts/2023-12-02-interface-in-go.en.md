@@ -163,7 +163,7 @@ func main() {
 - Implementations can be easily replaced or modified without changing business logic.
 - Useful for mock testing and swapping different implementations.
 
-### Enhances Maintainability & Scalability
+### Enhances Maintainability and Scalability
 
 - Clear separation of concerns makes code easier to maintain.
 - New features can be added without modifying existing components.

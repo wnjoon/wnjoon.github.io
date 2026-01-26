@@ -55,7 +55,7 @@ Here is a summary of the sessions presented at the event, along with my personal
 
 ![image](https://velog.velcdn.com/images/wnjoon/post/b13300e8-276c-40a3-a6c6-947cfa43ab1d/image.png)
 
-### AI Stock Recommendation & Auto-trading System Built with Go
+### AI Stock Recommendation and Auto-trading System Built with Go
 
 I actually had a personal schedule around the time of the event, so I thought I might miss the first presentation starting at 10:30 AM. However, the moment I saw the topic, I rushed to the venue just to catch it.
 

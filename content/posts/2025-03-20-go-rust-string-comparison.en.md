@@ -29,7 +29,7 @@ schema:
 
 ## Strings in Rust
 
-### &str – String Slice
+### String Slice
 
 ```rust
 let s = "hello"; // &str

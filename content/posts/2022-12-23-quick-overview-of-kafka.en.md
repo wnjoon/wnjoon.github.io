@@ -126,7 +126,7 @@ When to Increase Partitions:
 - If consumer count increases, partition count should also increase.
 - More partitions -> More consumers -> Faster parallel processing.
 
-### 3. Partition Retention & Deletion
+### 3. Partition Retention and Deletion
 
 Messages are not immediately deleted after being read.
 Kafka retains messages for new consumers or in case of re-processing.

@@ -59,7 +59,7 @@ We have added a feature that maps **MIC (Market Identifier Code)**, the ISO 1038
 
 A new `pkg/stats` package has been created for data analysis. Essential statistical functions for financial data analysis, such as `Percentile`, `ZScore`, and `Moving Average`, are provided out of the box to boost development productivity.
 
-## Installation & Compatibility
+## Installation and Compatibility
 
 This version maintains full backward compatibility with v1.0.0. You can update immediately to utilize the new features without modifying your existing code.
 
