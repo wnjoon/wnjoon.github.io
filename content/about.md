@@ -2,9 +2,9 @@
 disableComment: true
 ---
 
-## Hello,
+### Hello
 
-### I'm Wonjoon.
+My name is **Wonjoon**.
 
 You can see my resume right **[here](https://wnjoon.github.io/resume)**.
 
