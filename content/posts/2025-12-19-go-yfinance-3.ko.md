@@ -4,7 +4,7 @@ author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
 date: "2025-12-19"
 slug: "go-yfinance-3"
-summary: "Claude Code를 이용해 Go의 Yahoo Finance 라이브러리를 구현하는 과정을 공유합니다."
+summary: "Python의 yfinance와 동일한 API 형태를 가지는지 확인해보았습니다."
 description: "Claude Code를 활용해서 python 버전의 yfinance 라이브러리를 기반으로 go 버전의 yahoo finance 라이브러리를 만들어가는 이야기를 담은 세번째 포스팅입니다."
 toc: true
 readTime: true
