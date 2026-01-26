@@ -10,8 +10,8 @@ toc: true
 readTime: true
 autonumber: false
 math: true
-tags: ["dev", "blockchain", "ethereum", "solidity", "smart contract", "2022"]
-keywords: ["blockchain", "ethereum", "smart contract", "solidity"]
+tags: ["dev", "blockchain", "ethereum", "solidity", "smartcontract", "2022"]
+keywords: ["blockchain", "ethereum", "smartcontract", "smart contract", "solidity"]
 showTags: true
 hideBackToTop: false
 aliases:
