@@ -8,6 +8,18 @@
   body {
     overflow-x: hidden;
   }
+
+  .single-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .single-content th,
+  .single-content td {
+    white-space: nowrap;
+  }
 }
 
 .table-outer {
