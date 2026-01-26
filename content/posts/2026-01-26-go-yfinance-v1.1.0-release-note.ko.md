@@ -3,7 +3,7 @@ title: "go-yfinance v1.1.0 업데이트"
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
 date: "2026-01-26"
-slug: "go-yfinance-v1-release-note"
+slug: "go-yfinance-v1-1-0-release-note"
 summary: "go-yfinance v1.1.0에 신뢰성 확보를 위한 데이터 보정 기능을 포함하여 전 세계 60여개 거래소를 지원하는 기능이 추가되었습니다."
 description: "go-yfinance v1.0.0을 출시했습니다. Python yfinance의 강력한 데이터 보정(Price Repair) 로직을 이식하여 데이터 신뢰성을 확보하고, 전 세계 60여 개 거래소(MIC) 지원을 통해 글로벌 확장성을 강화한 yfinance의 v1.1.0의 업데이트를 모두 반영하였습니다."
 toc: true

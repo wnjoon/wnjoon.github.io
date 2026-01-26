@@ -3,7 +3,7 @@ title: "go-yfinance v1.1.0 Update"
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
 date: "2026-01-26"
-slug: "go-yfinance-v1-release-note"
+slug: "go-yfinance-v1-1-0-release-note"
 summary: "go-yfinance v1.1.0 now supports comprehensive international exchanges via MIC code mapping and includes a Price Repair system for data reliability."
 description: "We have released go-yfinance v1.1.0. This update fully integrates the features of yfinance v1.1.0, including the powerful Price Repair logic from Python yfinance to ensure data integrity, and enhances global scalability by supporting over 60 international exchanges (MIC)."
 toc: true
