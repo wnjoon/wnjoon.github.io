@@ -29,7 +29,7 @@ schema:
   "keywords": ["github pages", "giscus", "comment", "comment system", "blog"]
 ---
 
-## Giscus로 댓글 기능 추가하기
+## 그래, 댓글있으면 좋지
 
 Github Pages로 블로그를 운영하면 기본적으로 제공되지 않는 기능들이 많아서 이것저것 추가해야줘야 할 때가 많습니다. 댓글은 그중에 하나인데요, 사실 저는 포스팅에 댓글이 없는 스타일을 좋아합니다. 이더리움의 창시자인 비탈릭 부테린의 블로그 '[Vitalik Buterin's website](https://vitalik.eth.limo/)'를 보면 포스팅에 댓글 기능이 없죠.
 
