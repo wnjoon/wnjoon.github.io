@@ -6,7 +6,7 @@ date: "2025-10-29"
 slug: "2025-10-retrospect"
 summary: "2025년 10월을 돌아봅니다."
 description: "10월에는 한국 고유의 명절 추석으로 인해 자그마치 10일간의 휴일이 있었다. 그래서 그런가, 10월은 너무 빠르게 지나갔다. 내가 무엇을 했는지 기억하지도 못할정도로."
-toc: false
+toc: true
 readTime: true
 autonumber: false
 math: true

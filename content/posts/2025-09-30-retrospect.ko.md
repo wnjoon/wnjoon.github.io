@@ -6,7 +6,7 @@ date: "2025-09-30"
 slug: "2025-09-retrospect"
 summary: "2025년 9월을 돌아봅니다."
 description: "2025년 9월도 순식간에 지나갔다. 이번 9월은 벌여놓은 일도 많았고, 실제로 해본일도 많은 좋은 시간이었다. 앞으로 나는 어떤 개발자가 되어야할까. 찾으면 찾을수록 맞는길인지 모르지만 적어도 확신이 조금씩 들어가는것 같다."
-toc: false
+toc: true
 readTime: true
 autonumber: false
 math: true
