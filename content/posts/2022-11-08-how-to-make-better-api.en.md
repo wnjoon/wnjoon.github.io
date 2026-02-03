@@ -10,7 +10,7 @@ toc: true
 readTime: true
 autonumber: false
 math: true
-tags: ["dev", "software engineering", "restapi", "2022"]
+tags: ["dev", "software engineering", "2022"]
 keywords: ["restapi", "web", "api design", "best practices"]
 showTags: true
 hideBackToTop: false
@@ -91,9 +91,6 @@ A well-designed REST API follows best practices such as:
 ## What is a REST API?
 
 REST (Representational State Transfer) is an architectural style that defines a standardized way of communication between web services. RESTful APIs follow a set of constraints that make them simple, scalable, and efficient for web-based applications.
-
-![rest-api](https://res.cloudinary.com/practicaldev/image/fetch/s--YTDTEgpk--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/ekawmj3rafdtn06hzj79.png)
-@ picture: from cloudinary
 
 ### Key Features of REST API
 

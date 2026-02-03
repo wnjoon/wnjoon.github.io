@@ -14,8 +14,6 @@ tags: ["essay", "retrospect", "2026"]
 keywords: ["retrospect"]
 showTags: true
 hideBackToTop: false
-aliases:
-  - /2025/12/31/retrospect/
 # fediverse: "@username@instance.url"
 ---
 
