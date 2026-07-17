@@ -2,7 +2,7 @@
 title: "Does Token Usage Always Scale with Productivity?"
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
-date: "2027-07-17"
+date: "2026-07-17"
 slug: "tokenmaxxing"
 summary: "It started with the idea that today's token price is the cheapest it will ever be. From there came tokenmaxxing — evaluating someone's work by how many tokens they burn. But does heavy token usage actually mean productivity? We should focus on cost per verified outcome, not cost per token — and think about where tokens are spent efficiently, and how to guide more of them toward the work that really matters."
 description: "It started with the idea that today's token price is the cheapest it will ever be. From there came tokenmaxxing — evaluating someone's work by how many tokens they burn. But does heavy token usage actually mean productivity? We should focus on cost per verified outcome, not cost per token — and think about where tokens are spent efficiently, and how to guide more of them toward the work that really matters."
