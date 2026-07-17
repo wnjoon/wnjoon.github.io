@@ -25,7 +25,7 @@ schema:
   }
 ---
 
-## The Age of Burning Tokens — tokenmaxxing
+## tokenmaxxing
 
 Sometime this year, a strange kind of bragging became popular among developers who use AI coding tools: "I burned 210 billion tokens this week." According to press reports, Meta ran an internal dashboard ranking the token usage of its roughly 85,000 employees, and the top spot went to an employee who burned 281 billion tokens in a single month. Some companies are even said to factor token usage into performance reviews. Those who celebrate spending **more and more** tokens — rather than saving them — call this token maximalism (tokenmaxxing).
 
@@ -118,7 +118,7 @@ Rework — fixing problems that weren't in the plan — accounted for 31% of cod
 
 On the flip side, clarification — asking again because the explanation wasn't sufficient — came out to only 7.8% of cost. Personally, I often found Claude Code's phrasing hard to follow and had to ask follow-up questions, which probably explains it. At the same time, it made me wonder whether my own numbers were demonstrating exactly what the anti-token-maximizing side means by "bad specs burn tokens" — a jab at the "ask first, fix later" way of working.
 
-### 3. 70% of the cost is "memory upkeep"
+### 3. 70% of the cost is used for upkeeping memory upkeep
 
 If you look at cost composition instead of token counts, the picture changes completely.
 
