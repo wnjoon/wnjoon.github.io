@@ -3,7 +3,7 @@ title: "How Can We Tell Whether Bitcoin Is Cheap or Expensive? Understanding MVR
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
 date: "2026-07-22"
-slug: "understanding-mvrv-en"
+slug: "understanding-mvrv"
 summary: "MVRV compares Bitcoin's current market value with the market's aggregate cost basis estimated from on-chain data. This post explains the difference between MVRV and the MVRV Z-Score, how they are calculated and interpreted, where to find them, and how to use them together with ETF fund flows."
 description: "MVRV compares Bitcoin's current market value with the market's aggregate cost basis estimated from on-chain data. This post explains the difference between MVRV and the MVRV Z-Score, how they are calculated and interpreted, where to find them, and how to use them together with ETF fund flows."
 toc: true

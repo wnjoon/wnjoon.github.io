@@ -3,7 +3,7 @@ title: "Tokenization Study in Major Financial Markets - Repo"
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
 date: "2026-07-18"
-slug: "Repo-onchain-en"
+slug: "Repo-onchain"
 summary: "On-chain infrastructure matters in short-term funding markets because it can make the movement of securities and cash easier to verify, reflect both sides of the transaction in shared records, and reduce the time before collateral can be reused."
 description: "On-chain infrastructure matters in short-term funding markets because it can make the movement of securities and cash easier to verify, reflect both sides of the transaction in shared records, and reduce the time before collateral can be reused."
 toc: true

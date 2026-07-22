@@ -3,7 +3,7 @@ title: "How DTCC's Tokenization Initiative Is Rewiring Financial Market Infrastr
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
 date: "2026-07-21"
-slug: "dtcc-tokenization-financial-plumbing-en"
+slug: "dtcc-tokenization-financial-plumbing"
 summary: "DTCC's securities tokenization initiative is not merely about trading stocks around the clock. It is an attempt to redesign the infrastructure through which securities, cash, and collateral move across U.S. capital markets. This post separates what DTCC has already implemented from what remains a longer-term scenario."
 description: "DTCC's securities tokenization initiative is not merely about trading stocks around the clock. It is an attempt to redesign the infrastructure through which securities, cash, and collateral move across U.S. capital markets. This post separates what DTCC has already implemented from what remains a longer-term scenario."
 toc: true
