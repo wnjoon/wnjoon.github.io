@@ -248,7 +248,7 @@ MVRV helps assess **whether the current price is historically cheap**. It does n
 
 Rather than making a large purchase based on MVRV alone, it is important to check whether **actual demand is returning**. One useful measure is the flow of funds into U.S. spot Bitcoin ETFs.
 
-### 1. Why Look at ETF Fund Flows Together with MVRV?
+Why Look at ETF Fund Flows Together with MVRV?
 
 - MVRV: checks whether Bitcoin is historically cheap
 - ETF net inflows: checks whether real investor capital is returning
