@@ -1,5 +1,5 @@
 ---
-title: "Making Another AI Review AI-Written Code to the End: Building sparring"
+title: "Making Another AI Review AI-Written Code Until It Converges: Building sparring"
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
 date: "2026-07-23"
@@ -17,7 +17,7 @@ hideBackToTop: false
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
-  "headline": "Making Another AI Review AI-Written Code to the End: Building sparring"
+  "headline": "Making Another AI Review AI-Written Code Until It Converges: Building sparring"
   "description": "An introduction to sparring: why I built it, the projects that inspired it, its design and implementation, current progress, benchmark results, and the roadmap for separating AI code authorship from completion judgment."
   "author": {
     "@type": "Person",
