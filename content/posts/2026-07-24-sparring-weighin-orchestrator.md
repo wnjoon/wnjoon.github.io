@@ -51,7 +51,7 @@ Phase 4 was about reducing both the loop's waste and its blind spots at the same
 
 ---
 
-## Phase 8 — `/spar-weighin`: Running a Plan Through the Review Loop (v0.4.0)
+## Phase 8 — /spar-weighin: Running a Plan Through the Review Loop (v0.4.0)
 
 The existing `/spar` is a single cycle: implement one task, then review until the reviewer declares convergence. But real work usually breaks into several steps. I kept stitching together the same sequence by hand — plan, isolate a workspace, implement step by step — and the final implementation step often ended as a **self-review**, where the model that wrote the code judged its own work. That is exactly the failure sparring was built to remove.
 
@@ -127,7 +127,7 @@ Since `/spar-weighin` is a new command, I bumped the minor version and released 
 
 ---
 
-## What's Next
+## What is Next
 
 By the [roadmap](https://github.com/wnjoon/sparring#roadmap), the remaining steps are:
 
