@@ -10,7 +10,7 @@ toc: true
 readTime: true
 autonumber: false
 math: false
-tags: ["dev", "AI", "Claude Code", "Codex", "ai-agent", "code-review", "orchestration", "2026"]
+tags: ["dev", "AI", "Claude Code", "Codex", "ai-agent", "code-review", "orchestration", "sparring", "2026"]
 keywords: ["AI", "Claude Code", "Codex", "AI agent", "code review", "review loop", "sparring", "orchestrator", "weighin"]
 showTags: true
 hideBackToTop: false
