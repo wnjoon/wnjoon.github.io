@@ -2,7 +2,7 @@
 title: "사람이 없어도 완료를 지어내지 않기: sparring v0.5.0"
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
-date: "2026-07-25"
+date: "2026-07-25T00:00:00+09:00"
 slug: "sparring-unattended-and-ready-fight"
 summary: "sparring v0.5.0에는 사람이 자리를 비운 동안에도 디자인 결정을 잃지 않고 정직하게 멈추는 unattended mode가 추가됐다. 계획과 실행을 /spar:ready와 /spar:fight로 분리한 이유, 크로스모델 리뷰가 지속형 큐에서 찾아낸 결함, 그리고 도구가 자기 회로차단기에 걸렸다가 재시도로 수렴한 과정도 함께 정리한다."
 description: "sparring v0.5.0의 unattended mode와 /spar:ready, /spar:fight 명령어 재정비, 크로스모델 리뷰를 통한 지속형 큐 하드닝 과정을 정리한다."

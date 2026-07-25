@@ -2,7 +2,7 @@
 title: "Stopping Honestly When No One Is Watching: sparring v0.5.0"
 author: "wonjoon"
 authorAvatarPath: "/avatar.jpeg"
-date: "2026-07-25"
+date: "2026-07-25T00:00:00+09:00"
 slug: "sparring-unattended-and-ready-fight"
 summary: "sparring v0.5.0 adds an unattended mode that preserves unresolved design decisions and stops honestly when the user is away. This post also covers why I split planning and execution into /spar:ready and /spar:fight, the defects cross-model review found in the persistent queue, and how the tool hit its own circuit breaker before converging on a retry."
 description: "A look at sparring v0.5.0: unattended mode, the new /spar:ready and /spar:fight commands, and the cross-model review process that hardened its persistent decision queue."
