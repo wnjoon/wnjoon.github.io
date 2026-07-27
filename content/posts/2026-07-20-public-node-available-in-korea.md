@@ -52,7 +52,7 @@ The amended Act is scheduled to take effect on **February 4, 2027**.
 
 ## Legislation Premised on the Existence of Nodes or Multiple Participants
 
-The amended Act defines a distributed ledger as **a ledger and management system in which “multiple participants” record information and jointly manage it**. [In its 2023 supplementary Q&A, the Financial Services Commission also described the characteristics of distributed-ledger-based security tokens as follows]((https://www.fsc.go.kr/po020201/79388?curPage=4&srchBeginDt=&srchCtgry=&srchEndDt=&srchKey=&srchText=)).
+The amended Act defines a distributed ledger as **a ledger and management system in which “multiple participants” record information and jointly manage it**. [In its 2023 supplementary Q&A, the Financial Services Commission also described the characteristics of distributed-ledger-based security tokens as follows](https://www.fsc.go.kr/po020201/79388?curPage=4&srchBeginDt=&srchCtgry=&srchEndDt=&srchKey=&srchText=).
 
 > Because multiple nodes participate in verifying records, ex-post manipulation and modification can be prevented.
 
@@ -169,7 +169,7 @@ The details therefore need to be distinguished as follows:
 
 ## 2026 Subordinate-Legislation Discussions and Calls to Permit Public Chains
 
-At the [second meeting of the public-private Security Token Consultative Body in May 2026]((https://www.fsc.go.kr/no010101/86906?curPage=5&srchBeginDt=&srchCtgry=&srchEndDt=&srchKey=&srchText=)), the Financial Services Commission discussed the following matters:
+At the [second meeting of the public-private Security Token Consultative Body in May 2026](https://www.fsc.go.kr/no010101/86906?curPage=5&srchBeginDt=&srchCtgry=&srchEndDt=&srchKey=&srchText=), the Financial Services Commission discussed the following matters:
 
 - Preparation to announce proposed amendments to subordinate regulations and guidelines in July 2026
 - Consideration of tokenizing standardized securities such as stocks, bonds, and money market funds (MMFs)
@@ -184,7 +184,7 @@ At a National Assembly seminar in June 2026, representatives from the financial 
 
 These demands should be understood as industry opinions rather than a final decision by financial regulators. Nevertheless, they provide evidence that the industry understood the domestic policy standards at the time as being centered on private chains or as effectively not permitting public chains.
 
-As of July 20, 2026, the research cutoff date, [publicly available materials from the Financial Services Commission]((https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04559206645484344)) do not indicate that subordinate regulations determining the final scope of permitted public-chain use have been finalized. It therefore appears necessary to continue monitoring forthcoming proposed enforcement decrees and guidelines.
+As of July 20, 2026, the research cutoff date, [publicly available materials from the Financial Services Commission](https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04559206645484344) do not indicate that subordinate regulations determining the final scope of permitted public-chain use have been finalized. It therefore appears necessary to continue monitoring forthcoming proposed enforcement decrees and guidelines.
 
 ---
 
