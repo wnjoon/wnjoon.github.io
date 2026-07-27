@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+<div class="list-container archive">
+
+    {{ partial "breadcrumbs.html" . }}
+
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+
+    {{ range .Pages.ByDate.Reverse.GroupByDate "2006" }}
+        <section class="archive-year">
+            <h2>{{ .Key }}</h2>
+
+            {{ range .Pages.GroupByDate "2006-01" }}
+                <section class="archive-month">
+                    {{ $firstPost := index .Pages 0 }}
+                    <h3>{{ $firstPost.Date | time.Format "January" }}</h3>
+
+                    {{ range .Pages }}
+                        <div class="post-line">
+                            <time class="line-date" datetime="{{ .Date.Format "2006-01-02" }}">
+                                {{ .Date | time.Format "2" }}
+                            </time>
+                            <p class="line-title">
+                                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                            </p>
+                        </div>
+                    {{ end }}
+                </section>
+            {{ end }}
+        </section>
+    {{ end }}
+
+</div>
+{{ end }}

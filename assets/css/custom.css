@@ -111,6 +111,28 @@ body:not(.light):not(.dark) .theme-toggle-icon-moon {
   display: inline-flex;
 }
 
+.archive-year {
+  margin-top: 2.5rem;
+}
+
+.archive-year > h2 {
+  margin-bottom: 1.25rem;
+}
+
+.archive-month {
+  margin-bottom: 1.75rem;
+}
+
+.archive-month > h3 {
+  margin-bottom: 0.6rem;
+  color: var(--content-secondary);
+}
+
+.archive-month .line-date {
+  min-width: 3rem;
+  max-width: 3rem;
+}
+
 @media (max-width: 480px) {
   .header-top {
     flex-wrap: wrap;
@@ -133,5 +155,15 @@ body:not(.light):not(.dark) .theme-toggle-icon-moon {
   .theme-toggle-icon svg {
     width: 16px;
     height: 16px;
+  }
+
+  .archive-year {
+    margin-top: 2rem;
+  }
+
+  .archive-month .line-date {
+    min-width: 2.5rem;
+    max-width: 2.5rem;
+    padding-right: 0.75rem;
   }
 }
