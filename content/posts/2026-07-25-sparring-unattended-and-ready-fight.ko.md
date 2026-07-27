@@ -14,6 +14,7 @@ tags: ["dev", "AI", "Claude Code", "Codex", "ai-agent", "code-review", "orchestr
 keywords: ["AI", "Claude Code", "Codex", "AI agent", "code review", "review loop", "sparring", "unattended", "ready", "fight"]
 showTags: true
 hideBackToTop: false
+draft: true
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
